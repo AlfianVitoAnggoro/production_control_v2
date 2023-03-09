@@ -46,7 +46,7 @@ class M_Data extends Model
 
     public function getListBreakdown()
     {
-        $query = $this->db->query('SELECT * FROM data_breakdown');
+        $query = $this->db->query('SELECT DISTINCT jenis_breakdown FROM data_breakdown');
 
         return $query->getResultArray();
     }
