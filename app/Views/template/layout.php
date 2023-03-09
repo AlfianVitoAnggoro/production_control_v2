@@ -176,6 +176,8 @@
 	</div>
 	<!-- Sidebar -->	
 	
+	<?= $this->renderSection('script') ?>
+	
 	<!-- Vendor JS -->
 	<script src="<?=base_url()?>assets/template/main/js/vendors.min.js"></script>
 	<script src="<?=base_url()?>assets/template/main/js/pages/chat-popup.js"></script>
@@ -195,6 +197,6 @@
 	<script src="<?=base_url()?>assets/template/main/js/pages/advanced-form-element.js"></script>
 
 
-	<?= $this->renderSection('script') ?>
+	
 </body>
 </html>

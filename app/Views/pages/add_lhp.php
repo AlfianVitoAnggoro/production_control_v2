@@ -17,13 +17,13 @@
 						</div>
 						<div class="box-body">
 							<div class="table-responsive">
-								<table id="" class="table table-striped mb-0" style="width:100%">
+								<table id="" class="table table-striped mb-0">
 									<thead>
 										<tr>
-											<th style="width:15%">Jam</th>
+											<th>Jam</th>
 											<th>Menit Tersedia</th>
 											<th>Menit Aktual</th>
-											<th style="width:35%">No WO</th>
+											<th>No WO</th>
 											<th>Type Battery</th>
 											<th>CT</th>
 											<th>Plan Cap</th>
@@ -36,6 +36,7 @@
 											<th>Breakdown Action</th>
 											<th>Reject QTY</th>
 											<th>Reject Jenis</th>
+											<th>Reject Remark</th>
 											<th>Reject Action</th>
 										</tr>
 									</thead>
@@ -48,11 +49,11 @@
 
 											for ($i=0; $i < count($jam); $i++) { ?>
 												<tr>
-													<td> <span class="text-wrap"><?=$jam[$i]?></span></td>
+													<td> <span style="display:block; width: 100px;"><?=$jam[$i]?></span></td>
 													<td><?=$menit_tersedia[$i]?></td>
 													<td><?=$menit_aktual[$i]?></td>
 													<td>
-														<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo_<?=$i?>" onchange="getPartNo(<?=$i?>)">
+														<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo_<?=$i?>" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
 															<option selected disabled>-- Pilih No WO --</option>
 															<?php
 																foreach ($data_wo as $dw) { ?>
@@ -63,23 +64,23 @@
 														</select>
 													</td>
 													<td>
-														<input type="text" name="part_number_<?=$i?>" id="part_number_<?=$i?>">
+														<input type="text" class="form-control" name="part_number_<?=$i?>" id="part_number_<?=$i?>" style="width: 250px">
 													</td>
 													<td>
-														<input type="text" size="4" name="ct_<?=$i?>" id="ct_<?=$i?>">
+														<input type="text" class="form-control" size="4" name="ct_<?=$i?>" id="ct_<?=$i?>" style="width: 75px">
 													</td>
 													<td>
-														<input type="number" name="plan_cap_<?=$i?>" id="plan_cap_<?=$i?>" style="width: 50px">
+														<input type="number" class="form-control" name="plan_cap_<?=$i?>" id="plan_cap_<?=$i?>" style="width: 75px">
 													</td>
 													<td>
-														<input type="number" name="actual_<?=$i?>" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" style="width: 50px">
+														<input type="number" class="form-control" name="actual_<?=$i?>" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" style="width: 75px">
 													</td>
 													<td>
-														<input type="text" size="4" name="act_vs_cap_<?=$i?>" id="act_vs_cap_<?=$i?>">
+														<input type="text" class="form-control" size="4" name="act_vs_cap_<?=$i?>" id="act_vs_cap_<?=$i?>" style="width: 75px">
 													</td>
 													<td>
 														<div id="jenis_breakdown_section">
-															<select class="form-control select2" id="jenis_breakdown_<?=$i?>" name="jenis_breakdown_<?=$i?>">
+															<select class="form-control select2 mb-1" id="jenis_breakdown_<?=$i?>" name="jenis_breakdown_<?=$i?>" style="width: 250px;">
 																<option selected disabled>-- Pilih Jenis Breakdown --</option>
 																<?php
 																	foreach ($data_breakdown as $d_breakdown) { ?>
@@ -92,19 +93,19 @@
 													</td>
 													<td>
 														<div id="proses_breakdown_section">
-															<select class="form-control select2" id="proses_breakdown_<?=$i?>" name="proses_breakdown_<?=$i?>">
+															<select class="form-control select2" id="proses_breakdown_<?=$i?>" name="proses_breakdown_<?=$i?>" style="width: 250px;">
 																<option selected disabled>-- Pilih Proses Breakdown --</option>
 															</select>
 														</div>
 													</td>
 													<td>
 														<div id="uraian_breakdown_section">
-															<textarea name="uraian_breakdown_<?=$i?>" id="" cols="20" rows="2"></textarea>
+															<textarea class="form-control" name="uraian_breakdown_<?=$i?>" id="" cols="20" rows="2" style="width: 200px;"></textarea>
 														</div>
 													</td>
 													<td>
 														<div id="breakdown_minute_section">
-															<input type="number" name="breakdown_minute_<?=$i?>" id="breakdown_minute_<?=$i?>" style="width: 50px">
+															<input type="number" class="form-control" name="breakdown_minute_<?=$i?>" id="breakdown_minute_<?=$i?>" style="width: 75px">
 														</div>
 													</td>
 													<td>
@@ -113,12 +114,12 @@
 													</td>
 													<td>
 														<div id="reject_qty_section">
-															<input type="number" name="reject_qty_<?=$i?>" id="reject_qty_<?=$i?>" style="width: 50px">
+															<input type="number" class="form-control" name="reject_qty_<?=$i?>" id="reject_qty_<?=$i?>" style="width: 75px">
 														</div>
 													</td>
 													<td>
 														<div id="jenis_reject_section">
-															<select class="form-control select2" id="jenis_reject_<?=$i?>" name="jenis_reject_<?=$i?>">
+															<select class="form-control select2" id="jenis_reject_<?=$i?>" name="jenis_reject_<?=$i?>" style="width: 200px;">
 																<option selected disabled>-- Pilih Jenis Reject --</option>
 																<option value="POLE PATAH">POLE PATAH</option>
 																<option value="FLASHING">FLASHING</option>
@@ -131,6 +132,11 @@
 																<option value="CACAT COVER">CACAT COVER</option>
 																<option value="CACAT CONTAINER">CACAT CONTAINER</option>
 															</select>
+														</div>
+													</td>
+													<td>
+														<div id="remark_reject_section">
+															<textarea class="form-control" name="remark_reject_<?=$i?>" id="" cols="20" rows="2" style="width: 200px;"></textarea>
 														</div>
 													</td>
 													<td>
@@ -189,32 +195,41 @@
 	}
 
 	function add_breakdown(i) {
+		var data_breakdown = <?php echo json_encode($data_breakdown); ?>;
+
 		$('#jenis_breakdown_section').append(`
-			<select class="form-control select2" id="jenis_breakdown_${i}" name="jenis_breakdown_${i}">
+			<select class="form-control select2" id="jenis_breakdown_${i}" name="jenis_breakdown_${i}" style="width: 250px;">
 				<option selected disabled>-- Pilih Jenis Breakdown --</option>
+				${data_breakdown.map((item) => `<option value="${item.jenis_breakdown}">${item.jenis_breakdown}</option>`)}
 			</select>
 		`);
+
 		$('#proses_breakdown_section').append(`
 			<select class="form-control select2" id="proses_breakdown_${i}" name="proses_breakdown_${i}">
 				<option selected disabled>-- Pilih Proses Breakdown --</option>
 			</select>
 		`);
 		$('#uraian_breakdown_section').append(`
-			<textarea name="uraian_breakdown_${i}" id="" cols="20" rows="2"></textarea>
+			<textarea class="form-control" name="uraian_breakdown_${i}" id="" cols="20" rows="2"></textarea>
 		`);
 		$('#breakdown_minute_section').append(`
-			<input type="number" name="breakdown_minute_${i}" id="breakdown_minute_${i}" style="width: 50px">
+			<input type="number" class="form-control" name="breakdown_minute_${i}" id="breakdown_minute_${i}" style="width: 75px">
 		`);
+
+		$('.select2').select2();
 	}
 
 	function add_reject(i) {
 		$('#reject_qty_section').append(`
-			<input type="number" name="reject_qty_${i}" id="reject_qty_${i}" style="width: 50px">
+			<input type="number" name="reject_qty_${i}" id="reject_qty_${i}" style="width: 75px">
 		`);
 		$('#jenis_reject_section').append(`
 			<select class="form-control select2" id="jenis_reject_${i}" name="jenis_reject_${i}">
 				<option selected disabled>-- Pilih Jenis Reject --</option>
 			</select>
+		`);
+		$('#remark_reject_section').append(`
+			<textarea name="remark_reject_${i}" id="" cols="20" rows="2"></textarea>
 		`);
 	}
 
