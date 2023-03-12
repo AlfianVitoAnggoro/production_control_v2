@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use CodeIgniter\Controller;
 use App\Models\M_Data;
 
@@ -9,6 +10,18 @@ class Home extends BaseController
     public function index()
     {
         return view('welcome_message');
+    }
+
+    public function fetch()
+    {
+        $model_data = model(M_Data::class);
+        $result = $model_data->findAll();
+        echo json_encode($result);
+    }
+
+    public function grid()
+    {
+        return view('pages/grid/grid_view');
     }
 
     public function lhp_view()
