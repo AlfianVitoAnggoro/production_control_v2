@@ -11,13 +11,13 @@
                     <div class="row">
                         <div class="col-12 col-xl-12">
                             <div class="box">
-                                <div class="box-header with-border">
+                                <div class=" d-flex justify-content-between">
                                     <h4 class="box-title">Laporan Harian Grid Casting PT CBI</h4>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-default">
+                                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-default">
                                         Tambah LHP
-                                    </button>
+                                    </button> -->
                                 </div>
-                                <div class="box-body">
+                                <!-- <div class="box-body">
                                     <div class="table-responsive">
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
@@ -64,6 +64,57 @@
                                                     <td>$433,060</td>
                                                 </tr>
                                         </table>
+                                    </div>
+                                </div> -->
+
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="box-header with-border">
+                                            <!-- <div class="text-center">
+                    <h2 align="center">FORM REPORTING PRODUCTION</h2>
+                    <h3 class="box-title">Form Pelaporan Produksi PT. Century Batteries Indonesia</h3>
+                </div> -->
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="notif"></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="box box-solid">
+                                                <form action="/form/post" method="post" id="SimpanData">
+                                                    <?= csrf_field(); ?>
+                                                    <div class="box-body">
+                                                        <!-- <blockquote>
+                                <p><b>Keterangan!!</b></p>
+                                <small><cite title="Source Title">Inputan Yang Ditanda Bintang Merah (<span style="color: red;">*</span>) Harus Di Isi !!</cite></small>
+                            </blockquote> -->
+                                                        <br>
+                                                        <table class="table table-bordered" id="tableLoop">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">#</th>
+                                                                    <th class="text-center">Tgl Produksi</th>
+                                                                    <th class="text-center">No Mesin</th>
+                                                                    <th class="text-center col-2">Nama Operator</th>
+                                                                    <th class="text-center col-2">Type Grid</th>
+                                                                    <th class="text-center">JKS</th>
+                                                                    <th class="text-center">Plan WO</th>
+                                                                    <th class="text-center">Aktual</th>
+                                                                    <th class="text-center">Section</th>
+                                                                    <th class="text-center"><button class="btn btn-success btn-block" id="BarisBaru"><i class="fa fa-plus"></i> Baris Baru</button></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="box-footer">
+                                                        <div class="form-group d-flex justify-content-end">
+                                                            <button type="submit" class="btn btn-primary    "><i class="fa fa-check"></i> Simpan</button>
+                                                            <button type="reset" class="btn btn-default">Batal</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
