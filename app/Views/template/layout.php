@@ -11,6 +11,19 @@
 	<link rel="stylesheet" href="<?= base_url() ?>assets/template/main/css/vendors_css.css">
 
 	<!-- Style-->
+	<style>
+		/* Works for Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		/* Works for Firefox */
+		input[type="number"] {
+			-moz-appearance: textfield;
+		}
+	</style>
 	<link rel="stylesheet" href="<?= base_url() ?>assets/template/main/css/style.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/template/main/css/skin_color.css">
 </head>
