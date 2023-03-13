@@ -34,6 +34,11 @@ $routes->get('/lhp', 'Home::lhp_view');
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
 $routes->post('/lhp/getCT', 'Home::getCT');
+$routes->post('/lhp/get_proses_breakdown', 'Home::get_proses_breakdown');
+$routes->post('/lhp/save_lhp', 'Home::save_lhp');
+$routes->get('/lhp/detail_lhp/(:num)', 'Home::detail_lhp/$1');
+
+$routes->post('/lhp/update_lhp', 'Home::update_lhp');
 
 /*
  * --------------------------------------------------------------------
