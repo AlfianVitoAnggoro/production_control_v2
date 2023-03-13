@@ -31,15 +31,16 @@
                                                         <table class="table table-bordered" id="tableLoop">
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="text-center">#</th>
+                                                                    <th class="text-center">Nomor Mesin</th>
                                                                     <!-- <th class="text-center">Tgl Produksi</th> -->
-                                                                    <th class="text-center">No Mesin</th>
+                                                                    <!-- <th class="text-center">No Mesin</th> -->
                                                                     <th class="text-center">Nama Operator</th>
-                                                                    <th class="text-center">Type Grid</th>
+                                                                    <th class="text-center">Type Mesin</th>
+                                                                    <th class="text-center">Type Mold</th>
                                                                     <th class="text-center">JKS</th>
-                                                                    <th class="text-center">Plan WO</th>
+                                                                    <!-- <th class="text-center">Plan WO</th> -->
                                                                     <th class="text-center">Aktual</th>
-                                                                    <th class="text-center">Section</th>
+                                                                    <!-- <th class="text-center">Section</th> -->
                                                                     <!-- <th class="text-center"><button class="btn btn-success btn-block" id="BarisBaru"><i class="fa fa-plus"></i> Baris Baru</button></th> -->
                                                                 </tr>
                                                             </thead>
@@ -94,14 +95,14 @@
         var Nomor = $("#tableLoop tbody tr").length + 1;
         var Baris = '<tr>';
 
-        Baris += '<td class="text-center">' + Nomor + '</td>';
+        Baris += '<td class="text-center">' + 'MC' + ' ' + Nomor + '</td>';
         // Baris += '<td>';
         // Baris += '<input type="date" name="date_production[]" class="form-control date_production"> ';
         // Baris += '</td>';
 
-        Baris += '<td>';
-        Baris += '<input type="text" name="no_machine[]" class="form-control no_machine" placeholder="No Machine..." required="">';
-        Baris += '</td>';
+        // Baris += '<td>';
+        // Baris += '<input type="text" name="no_machine[]" class="form-control no_machine" placeholder="No Machine..." required="">';
+        // Baris += '</td>';
 
         Baris += '<td>';
         Baris += '<input type="text" name="operator_name[]" class="form-control operator_name w-150" placeholder="Operator Name..." required="">';
@@ -112,6 +113,10 @@
         // Baris += '</td>';
 
         Baris += '<td>';
+        Baris += '<select class="form-control select2 type_mesin w-150" data-placeholder="Pilih Type Mesin" data-allow-clear="true" name="type_mesin[]" id="type_mesin' + Nomor + '"></select>';
+        Baris += '</td>';
+
+        Baris += '<td>';
         Baris += '<select class="form-control select2 type_grid w-150" data-placeholder="Pilih Type Grid/ Type Mold" data-allow-clear="true" name="type_grid[]" id="type_grid' + Nomor + '"></select>';
         Baris += '</td>';
 
@@ -119,17 +124,17 @@
         Baris += '<input type="number" step="any" min="0" name="jks[]" class="form-control jks" placeholder="JKS..." required="">';
         Baris += '</td>';
 
-        Baris += '<td>';
-        Baris += '<input type="number" step="any" min="0" name="plan_wo[]" class="form-control plan_wo" placeholder="Plan WO..." required="">';
-        Baris += '</td>';
+        // Baris += '<td>';
+        // Baris += '<input type="number" step="any" min="0" name="plan_wo[]" class="form-control plan_wo" placeholder="Plan WO..." required="">';
+        // Baris += '</td>';
 
         Baris += '<td>';
         Baris += '<input type="number" step="any" min="0" name="actual[]" class="form-control actual" placeholder="Actual..." required="">';
         Baris += '</td>';
 
-        Baris += '<td>';
-        Baris += '<input type="text" name="section[]" class="form-control section" placeholder="Section..." required="">';
-        Baris += '</td>';
+        // Baris += '<td>';
+        // Baris += '<input type="text" name="section[]" class="form-control section" placeholder="Section..." required="">';
+        // Baris += '</td>';
 
         // Baris += '<td class="text-center">';
         // Baris += '<a class="btn btn-sm btn-danger" title="Hapus Baris" id="HapusBaris"><i class="fa fa-times"></i></a>';
