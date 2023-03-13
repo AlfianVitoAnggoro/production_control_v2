@@ -14,46 +14,105 @@
                                 <div class=" d-flex justify-content-center mt-30">
                                     <h4 class="box-title">Laporan Harian Grid Casting PT CBI</h4>
                                 </div>
-
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="box-header with-border">
+                                <input type="hidden" name="id_lhp" id="id_lhp" value="">
+                                <div class="box">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-4 w-300">
+                                                <div class="form-group">
+                                                    <label class="form-label">Tanggal Produksi</label>
+                                                    <input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="Tanggal">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 w-400">
+                                                <div class="form-group">
+                                                    <label class="form-label">Line</label>
+                                                    <select class="form-control select2 line" data-placeholder="Pilih Line" data-allow-clear="true" name="" id="">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 w-400">
+                                                <div class="form-group">
+                                                    <label class="form-label">Shift</label>
+                                                    <select class="form-control select2 shift" data-placeholder="Pilih Shift" data-allow-clear="true" name="" id="">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div id="notif"></div>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Grup</label>
+                                                    <input type="text" class="form-control" id="grup" name="grup" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">MP</label>
+                                                    <input type="number" class="form-control" id="mp" name="mp" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Absen</label>
+                                                    <input type="number" class="form-control" id="absen" name="absen" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Cuti</label>
+                                                    <input type="number" class="form-control" id="cuti" name="cuti" value="">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="box box-solid">
-                                                <form action="" method="" id="SimpanData">
-                                                    <?= csrf_field(); ?>
-                                                    <div class="box-body">
-                                                        <br>
-                                                        <table class="table table-bordered" id="tableLoop">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="text-center">Nomor Mesin</th>
-                                                                    <!-- <th class="text-center">Tgl Produksi</th> -->
-                                                                    <!-- <th class="text-center">No Mesin</th> -->
-                                                                    <th class="text-center">Nama Operator</th>
-                                                                    <th class="text-center">Type Mesin</th>
-                                                                    <th class="text-center">Type Mold</th>
-                                                                    <th class="text-center">JKS</th>
-                                                                    <!-- <th class="text-center">Plan WO</th> -->
-                                                                    <th class="text-center">Aktual</th>
-                                                                    <!-- <th class="text-center">Section</th> -->
-                                                                    <!-- <th class="text-center"><button class="btn btn-success btn-block" id="BarisBaru"><i class="fa fa-plus"></i> Baris Baru</button></th> -->
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody></tbody>
-                                                        </table>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="box-header with-border">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div id="notif"></div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="box box-solid">
+                                                        <form action="" method="" id="SimpanData">
+                                                            <?= csrf_field(); ?>
+                                                            <div class="box-body">
+                                                                <br>
+                                                                <table class="table table-bordered" id="tableLoop">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center">Nomor Mesin</th>
+                                                                            <!-- <th class="text-center">Tgl Produksi</th> -->
+                                                                            <!-- <th class="text-center">No Mesin</th> -->
+                                                                            <th class="text-center">Nama Operator</th>
+                                                                            <th class="text-center">Type Mesin</th>
+                                                                            <th class="text-center">Type Mold</th>
+                                                                            <th class="text-center">JKS</th>
+                                                                            <!-- <th class="text-center">Plan WO</th> -->
+                                                                            <th class="text-center">Aktual</th>
+                                                                            <th class="text-center">Kode Rack</th>
+                                                                            <!-- <th class="text-center">Section</th> -->
+                                                                            <!-- <th class="text-center"><button class="btn btn-success btn-block" id="BarisBaru"><i class="fa fa-plus"></i> Baris Baru</button></th> -->
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="box-footer">
+                                                                <div class="form-group d-flex justify-content-end">
+                                                                    <button type="submit" class="btn btn-primary    "><i class="fa fa-check"></i> Simpan</button>
+                                                                    <button type="reset" class="btn btn-default">Batal</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    <div class="box-footer">
-                                                        <div class="form-group d-flex justify-content-end">
-                                                            <button type="submit" class="btn btn-primary    "><i class="fa fa-check"></i> Simpan</button>
-                                                            <button type="reset" class="btn btn-default">Batal</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +176,7 @@
         Baris += '</td>';
 
         Baris += '<td>';
-        Baris += '<select class="form-control select2 type_grid w-150" data-placeholder="Pilih Type Grid/ Type Mold" data-allow-clear="true" name="type_grid[]" id="type_grid' + Nomor + '"></select>';
+        Baris += '<select class="form-control select2 type_grid w-150" data-placeholder="Type Mold" data-allow-clear="true" name="type_grid[]" id="type_grid' + Nomor + '"></select>';
         Baris += '</td>';
 
         Baris += '<td>';
@@ -130,6 +189,10 @@
 
         Baris += '<td>';
         Baris += '<input type="number" step="any" min="0" name="actual[]" class="form-control actual" placeholder="Actual..." required="">';
+        Baris += '</td>';
+
+        Baris += '<td>';
+        Baris += '<input type="text" name="kode_rack[]" class="form-control kode_rack w-150" placeholder="Kode Rack..." required="">';
         Baris += '</td>';
 
         // Baris += '<td>';
