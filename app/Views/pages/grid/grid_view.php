@@ -75,12 +75,12 @@
                                             <div class="row">
                                                 <div class="box-header with-border">
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <div id="notif"></div>
+                                                <div class="col-md-12 w-50">
+                                                    <div id="notif" class="fixed-top mt-35"></div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="box box-solid">
-                                                        <form action="" method="" id="SimpanData">
+                                                        <form action="/grid/post" method="post" id="SimpanData">
                                                             <?= csrf_field(); ?>
                                                             <div class="box-body">
                                                                 <br>
@@ -96,7 +96,7 @@
                                                                             <th class="text-center">JKS</th>
                                                                             <!-- <th class="text-center">Plan WO</th> -->
                                                                             <th class="text-center">Aktual</th>
-                                                                            <th class="text-center">Kode Rack</th>
+                                                                            <th class="text-center">Kode rak</th>
                                                                             <!-- <th class="text-center">Section</th> -->
                                                                             <!-- <th class="text-center"><button class="btn btn-success btn-block" id="BarisBaru"><i class="fa fa-plus"></i> Baris Baru</button></th> -->
                                                                         </tr>
@@ -127,9 +127,13 @@
     </div>
 </div>
 <!-- /.content-wrapper -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+<?= $this->endSection(); ?>
+
+<?= $this->section('script'); ?>
 <script>
     $(document).ready(function() {
         $('#example5').DataTable();
@@ -154,17 +158,17 @@
         var Nomor = $("#tableLoop tbody tr").length + 1;
         var Baris = '<tr>';
 
-        Baris += '<td class="text-center">' + 'MC' + ' ' + Nomor + '</td>';
+        // Baris += '<td class="text-center">' + 'MC' + ' ' + Nomor + '</td>';
         // Baris += '<td>';
         // Baris += '<input type="date" name="date_production[]" class="form-control date_production"> ';
         // Baris += '</td>';
 
-        // Baris += '<td>';
-        // Baris += '<input type="text" name="no_machine[]" class="form-control no_machine" placeholder="No Machine..." required="">';
-        // Baris += '</td>';
+        Baris += '<td>';
+        Baris += '<input type="text" name="no_machine[]" value="MC ' + Nomor + '"  class="form-control no_machine" readonly >';
+        Baris += '</td>';
 
         Baris += '<td>';
-        Baris += '<input type="text" name="operator_name[]" class="form-control operator_name w-150" placeholder="Operator Name..." required="">';
+        Baris += '<input type="text" name="operator_name[]" class="form-control operator_name w-150" placeholder="Operator Name..." >';
         Baris += '</td>';
 
         // Baris += '<td>';
@@ -180,7 +184,7 @@
         Baris += '</td>';
 
         Baris += '<td>';
-        Baris += '<input type="number" step="any" min="0" name="jks[]" class="form-control jks" placeholder="JKS..." required="">';
+        Baris += '<input type="number" step="any" min="0" name="jks[]" class="form-control jks" placeholder="JKS..." >';
         Baris += '</td>';
 
         // Baris += '<td>';
@@ -188,11 +192,11 @@
         // Baris += '</td>';
 
         Baris += '<td>';
-        Baris += '<input type="number" step="any" min="0" name="actual[]" class="form-control actual" placeholder="Actual..." required="">';
+        Baris += '<input type="number" step="any" min="0" name="actual[]" class="form-control actual" placeholder="Actual..." >';
         Baris += '</td>';
 
         Baris += '<td>';
-        Baris += '<input type="text" name="kode_rack[]" class="form-control kode_rack w-150" placeholder="Kode Rack..." required="">';
+        Baris += '<input type="text" name="kode_rak[]" class="form-control kode_rak w-150" placeholder="Kode rak..." >';
         Baris += '</td>';
 
         // Baris += '<td>';
@@ -211,7 +215,8 @@
             $(this).find('td:nth-child(2) input').focus();
         });
 
-        FormSelect(Nomor);
+        FormSelectGrid(Nomor);
+        FormSelectJks(Nomor);
 
     }
 
@@ -234,6 +239,9 @@
     });
 
     function biodata() {
+        // var data = $("#SimpanData").serializeArray()
+        // console.log(JSON.stringify(data));
+
         $.ajax({
             url: $("#SimpanData").attr('action'),
             type: 'post',
@@ -241,46 +249,55 @@
             dataType: "json",
             data: $("#SimpanData").serialize(),
             success: function(data) {
+                console.log(data);
                 if (data.success == true) {
-                    $('.date_production').val('');
-                    $('.no_machine').val('');
+                    // $('.date_production').val('');
                     $('.operator_name').val('');
+                    $('.type_mesin').val('');
                     $('.type_grid').val('');
                     $('.jks').val('');
-                    $('.plan_wo').val('');
+                    // $('.plan_wo').val('');
                     $('.actual').val('');
-                    $('.section').val('');
+                    $('.kode_rak').val('');
+                    // $('.section').val('');
                     $('#notif').fadeIn(800, function() {
                         $("#notif").html(data.notif).fadeOut(5000).delay(800);
                     });
                 } else {
-                    $('#notif').html('<div class="alert alert-danger">Data Gagal Disimpan</div>')
+                    $('#notif').html('<div class="alert alert-danger sticky-top">Data Gagal Disimpan</div>')
                     console.log(data);
                 }
             },
-
             error: function(error) {
                 alert(error);
+                console.log(error);
+                console.table(error);
             }
 
         });
     }
 
 
-    function FormSelect(Nomor) {
+    function FormSelectGrid(Nomor) {
         var output = [];
         output.push('<option value="">-- Pilih --</option>');
-        $.getJSON('/form/fetch', function(data) {
+        $.getJSON('/fetch_grid', function(data) {
             $.each(data, function(key, val) {
                 output.push('<option value="' + val.id_grid + '">' + val.type_grid + '</option>');
             });
             $('#type_grid' + Nomor).html(output.join(''));
         });
     }
+
+    function FormSelectJks(Nomor) {
+        var output = [];
+        output.push('<option value="">-- Pilih --</option>');
+        $.getJSON('/fetch_jks', function(data) {
+            $.each(data, function(key, val) {
+                output.push('<option value="' + val.id + '">' + val.type_mesin + '</option>');
+            });
+            $('#type_mesin' + Nomor).html(output.join(''));
+        });
+    }
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<?= $this->endSection(); ?>
-
-<?= $this->section('script'); ?>
-
 <?= $this->endSection(); ?>

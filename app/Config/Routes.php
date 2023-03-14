@@ -30,9 +30,11 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/fetch', 'Home::fetch');
+$routes->get('/fetch_grid', 'Home::fetch_grid');
+$routes->get('/fetch_jks', 'Home::fetch_jks');
 $routes->get('/lhp', 'Home::lhp_view');
 $routes->get('/grid', 'Home::grid');
+$routes->post('/grid/post', 'Home::add_grid');
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
 $routes->post('/lhp/getCT', 'Home::getCT');

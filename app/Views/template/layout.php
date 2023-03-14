@@ -26,6 +26,11 @@
 	</style>
 	<link rel="stylesheet" href="<?= base_url() ?>assets/template/main/css/style.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/template/main/css/skin_color.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
@@ -210,6 +215,7 @@
 	<script src="<?= base_url() ?>assets/template/main/js/pages/calendar.js"></script>
 	<!-- <script src="<?= base_url() ?>assets/template/main/js/pages/data-table.js"></script> -->
 	<script src="<?= base_url() ?>assets/template/main/js/pages/advanced-form-element.js"></script>
+
 
 
 

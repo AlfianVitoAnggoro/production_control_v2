@@ -29,7 +29,7 @@ class Database extends Config
         'hostname' => 'localhost',
         'username' => 'prod',
         'password' => 'prod',
-        'database' => 'production_control_v2',
+        'database' => 'prod_control',
         'DBDriver' => 'sqlsrv',
         'DBPrefix' => '',
         'pConnect' => false,
