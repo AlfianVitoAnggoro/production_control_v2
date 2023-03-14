@@ -32,6 +32,7 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->get('/fetch_grid', 'Home::fetch_grid');
 $routes->get('/fetch_jks', 'Home::fetch_jks');
+$routes->get('/fetch_lhp_grid', 'Home::fetch_lhp_grid');
 $routes->get('/lhp', 'Home::lhp_view');
 $routes->get('/grid', 'Home::grid');
 $routes->post('/grid/post', 'Home::add_grid');

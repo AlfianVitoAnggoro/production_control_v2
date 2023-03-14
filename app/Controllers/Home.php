@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Jks;
+use App\Models\LhpGrid;
 use CodeIgniter\Controller;
 use App\Models\M_Data;
 use App\Models\ProductionReport;
@@ -27,6 +28,14 @@ class Home extends BaseController
     {
         $type_mesin = model(Jks::class);
         $result = $type_mesin->findAll();
+
+        return $this->response->setJSON($result);
+    }
+
+    public function fetch_lhp_grid()
+    {
+        $lhp_grid = model(LhpGrid::class);
+        $result = $lhp_grid->findAll();
 
         return $this->response->setJSON($result);
     }
