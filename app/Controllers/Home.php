@@ -40,6 +40,71 @@ class Home extends BaseController
         return $this->response->setJSON($result);
     }
 
+    public function add_lhp_grid()
+    {
+        $data_lhp_grid = model(LhpGrid::class);
+        $rules = [
+            'date_production' => 'required',
+            'line' => 'required',
+            'shift' => 'required',
+            'grup' => 'required',
+            'mp' => 'required',
+            'absen' => 'required',
+            'cuti' => 'required',
+        ];
+
+        if ($this->request->getMethod() === 'post' && $this->validate($rules)) {
+            $date_production = $this->request->getPost('date_production');
+            $line = $this->request->getPost('line');
+            $shift = $this->request->getPost('shift');
+            $grup = $this->request->getPost('grup');
+            $mp = $this->request->getPost('mp');
+            $absen = $this->request->getPost('absen');
+            $cuti = $this->request->getPost('cuti');
+
+            // $data_lhp_grid->insert([
+            //     'date_production' => $date_production,
+            //     'line' => $line,
+            //     'shift' => $shift,
+            //     'grup' => $grup,
+            //     'mp' => $mp,
+            //     'absen' => $absen,
+            //     'cuti' => $cuti,
+            // ]);
+            $data_lg = [
+                'date_production' => $date_production,
+                'line' => $line,
+                'shift' => $shift,
+                'grup' => $grup,
+                'mp' => $mp,
+                'absen' => $absen,
+                'cuti' => $cuti,
+            ];
+            $data_lhp_grid->insert($data_lg);
+
+            $message = [
+                'success' => true,
+                'notif' => '<div class="alert alert-success" role="alert">
+                <strong>Tanggal</strong> telah disimpan.
+                <button type="button" class="close mx-20" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>'
+            ];
+        } else {
+            $message = [
+                'success' => false,
+                'notif' => '<div class="alert alert-danger" role="alert">
+                <strong>Tanggal</strong> gagal disimpan.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>'
+            ];
+        }
+        return $this->response->setJSON($message);
+    }
+
     public function add_grid()
     {
         // var_dump($this->request->getPost());

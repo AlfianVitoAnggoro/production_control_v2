@@ -14,63 +14,79 @@
                                 <div class=" d-flex justify-content-center mt-30">
                                     <h4 class="box-title">Laporan Harian Grid Casting PT CBI</h4>
                                 </div>
-                                <input type="hidden" name="id_lhp" id="id_lhp" value="">
                                 <div class="box">
                                     <div class="box-body">
-                                        <div class="row">
-                                            <div class="col-4 w-300">
-                                                <div class="form-group">
-                                                    <label class="form-label">Tanggal Produksi</label>
-                                                    <input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="Tanggal">
-                                                </div>
-                                            </div>
-                                            <div class="col-4 w-400">
-                                                <div class="form-group">
-                                                    <label class="form-label">Line</label>
-                                                    <select class="form-control select2 line" data-placeholder="Pilih Line" data-allow-clear="true" name="" id="">
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 w-400">
-                                                <div class="form-group">
-                                                    <label class="form-label">Shift</label>
-                                                    <select class="form-control select2 shift" data-placeholder="Pilih Shift" data-allow-clear="true" name="" id="">
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                    </select>
-                                                </div>
+                                        <div class="box-header with-border">
+                                            <div class="col-md-12 w-50">
+                                                <div id="notif" class="fixed-top mt-35"></div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label class="form-label">Grup</label>
-                                                    <input type="text" class="form-control" id="grup" name="grup" value="">
+                                        <form action="/grid/post_lhp_grid" method="post" id="SimpanLhp">
+                                            <?= csrf_field(); ?>
+                                            <div class="row">
+                                                <div class="col-4 w-300">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Tanggal Produksi</label>
+                                                        <input type="date" class="form-control" id="tanggal_produksi" name="date_production">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 w-400">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Line</label>
+                                                        <select class="form-control select2 line" data-placeholder="Pilih Line" data-allow-clear="true" name="line" id="line">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 w-400">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Shift</label>
+                                                        <select class="form-control select2 shift" data-placeholder="Pilih Shift" data-allow-clear="true" name="shift" id="shift">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Grup</label>
+                                                        <input type="text" class="form-control" id="grup" name="grup">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label">MP</label>
+                                                        <input type="number" class="form-control" id="mp" name="mp">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Absen</label>
+                                                        <input type="number" class="form-control" id="absen" name="absen">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Cuti</label>
+                                                        <input type="number" class="form-control" id="cuti" name="cuti">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label class="form-label">MP</label>
-                                                    <input type="number" class="form-control" id="mp" name="mp" value="">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <!-- <div class="form-group"> -->
+                                                    <button type="submit" class="btn btn-primary w-150"><i class="fa fa-check"></i> Simpan</button>
+                                                    <!-- </div> -->
                                                 </div>
                                             </div>
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label class="form-label">Absen</label>
-                                                    <input type="number" class="form-control" id="absen" name="absen" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label class="form-label">Cuti</label>
-                                                    <input type="number" class="form-control" id="cuti" name="cuti" value="">
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </form>
+
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="box-header with-border">
@@ -106,7 +122,7 @@
                                                             </div>
                                                             <div class="box-footer">
                                                                 <div class="form-group d-flex justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary    "><i class="fa fa-check"></i> Simpan</button>
+                                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Simpan</button>
                                                                     <button type="reset" class="btn btn-default">Batal</button>
                                                                 </div>
                                                             </div>
@@ -143,10 +159,10 @@
         for (B = 1; B <= 24; B++) {
             Barisbaru();
         }
-        $('#BarisBaru').click(function(e) {
-            e.preventDefault();
-            Barisbaru();
-        });
+        // $('#BarisBaru').click(function(e) {
+        //     e.preventDefault();
+        //     Barisbaru();
+        // });
 
         $("tableLoop tbody").find('input[type=text]').filter(':visible:first').focus();
     });
@@ -232,14 +248,50 @@
     // });
 
     $(document).ready(function() {
+        $('#SimpanLhp').submit(function(e) {
+            e.preventDefault();
+            lhpgrid();
+        });
+    });
+
+    $(document).ready(function() {
         $('#SimpanData').submit(function(e) {
             e.preventDefault();
             biodata();
         });
     });
 
+    function lhpgrid() {
+        $.ajax({
+            url: $("#SimpanLhp").attr('action'),
+            type: 'post',
+            cache: false,
+            dataType: "json",
+            data: $("#SimpanLhp").serialize(),
+            success: function(data) {
+                if (data.success == true) {
+
+                    $('#SimpanLhp :input').prop('disabled', true);
+                    // $('#SimpanLhp')[0].reset();
+
+                    $('#notif').fadeIn(10000, function() {
+                        $("#notif").html(data.notif).fadeOut(10000).delay(8000);
+                    });
+                } else {
+                    $('#notif').html('<div class="alert alert-danger sticky-top">Tanggal Gagal Disimpan</div>')
+                    // alert(data);
+                }
+            },
+            error: function(error) {
+                // alert(error);
+                console.log(error);
+                console.table(error);
+            }
+        });
+    }
+
     function biodata() {
-        // var data = $("#SimpanData").serializeArray()
+        // var data = $Lhp").serializeArray()
         // console.log(JSON.stringify(data));
 
         $.ajax({
@@ -249,17 +301,10 @@
             dataType: "json",
             data: $("#SimpanData").serialize(),
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 if (data.success == true) {
-                    // $('.date_production').val('');
-                    $('.operator_name').val('');
-                    $('.type_mesin').val('');
-                    $('.type_grid').val('');
-                    $('.jks').val('');
-                    // $('.plan_wo').val('');
-                    $('.actual').val('');
-                    $('.kode_rak').val('');
-                    // $('.section').val('');
+
+                    $('#SimpanData :input').prop('disabled', true);
                     $('#notif').fadeIn(800, function() {
                         $("#notif").html(data.notif).fadeOut(5000).delay(800);
                     });
@@ -273,7 +318,6 @@
                 console.log(error);
                 console.table(error);
             }
-
         });
     }
 

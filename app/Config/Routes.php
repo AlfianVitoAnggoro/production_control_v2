@@ -35,6 +35,7 @@ $routes->get('/fetch_jks', 'Home::fetch_jks');
 $routes->get('/fetch_lhp_grid', 'Home::fetch_lhp_grid');
 $routes->get('/lhp', 'Home::lhp_view');
 $routes->get('/grid', 'Home::grid');
+$routes->post('/grid/post_lhp_grid', 'Home::add_lhp_grid');
 $routes->post('/grid/post', 'Home::add_grid');
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
