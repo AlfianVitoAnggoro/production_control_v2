@@ -538,8 +538,6 @@
 					$('#menit_breakdown_'+i).val('');
 				}
 			});
-
-
 		}
 	}
 
@@ -596,14 +594,20 @@
 
 		// Ambil total jumlah row untuk mengetahui row mana yang akan di tambahkan
 		var count_row = tbody.rows.length;
-		var j = (count_row - 7) + i;		
+		var jumlah_row;
+		if(<?=$shift?> == 1) {
+			jumlah_row = 7;
+		} else {
+			jumlah_row = 6;
+		}
+		// Jumlah row yang akan ditambahkan
+		var j = (count_row - jumlah_row) + i;		
 		var total_row = count_row + 1;
 
 		row = tbody.insertRow(j);
 		row.innerHTML = `
 			<tr>
-				<td></td>
-				<td></td>
+				<td><button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(${j})">Remove</button></td>
 				<td></td>
 				<td></td>
 				<!--
@@ -745,6 +749,11 @@
 		$('#stop_section_'+i).html(`
 			<input type="time" class="form-control" name="stop_${i}" id="stop_${i}" value="${currentTime}" style="width: 100px;">
 		`);
+	}
+
+	function delete_rows(i) {
+		var tbody = document.getElementById('tbody');
+		tbody.deleteRow(i);
 	}
 
 </script>
