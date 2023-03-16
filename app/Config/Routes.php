@@ -40,6 +40,11 @@ $routes->get('/lhp/detail_lhp/(:num)', 'Home::detail_lhp/$1');
 
 $routes->post('/lhp/update_lhp', 'Home::update_lhp');
 
+$routes->post('/lhp/get_data_andon', 'Home::get_data_andon');
+$routes->post('/lhp/pilih_andon', 'Home::pilih_andon');
+
+// $routes->get('/lhp/test', 'Home::test');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -84,6 +84,26 @@ class Database extends Config
         'port'     => 1521,
     ];
 
+    public array $prod_control = [
+        'DSN'      => '',
+        'hostname' => '10.19.16.19',
+        'username' => 'prod_control',
+        'password' => 'newpass001',
+        'database' => 'production_control',
+        'DBDriver' => 'mysqli',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => []
+        // 'port'     => 1521,
+    ];
+
     /**
      * This database connection is used when
      * running PHPUnit database tests.

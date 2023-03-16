@@ -32,7 +32,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <!-- Home tab content -->
-      <div class="tab-pane active" id="control-sidebar-home-tab">
+      <!-- <div class="tab-pane active" id="control-sidebar-home-tab">
           <div class="flexbox">
 			<a href="javascript:void(0)" class="text-grey">
 				<i class="ti-more"></i>
@@ -150,7 +150,7 @@
 			  
 		  </div>
 
-      </div>
+      </div> -->
       <!-- /.tab-pane -->
     </div>
   </aside>

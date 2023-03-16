@@ -68,25 +68,25 @@
 				<form action="<?=base_url()?>lhp/add_lhp" method="post">
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-4">
+							<div class="col-3">
 								<div class="form-group">
 									<label class="form-label">Tanggal Produksi</label>
 									<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi">
 								</div>
 							</div>
-							<div class="col-4">
+							<div class="col-3">
 								<div class="form-group">
 									<label class="form-label">Line</label>
 									<select class="form-select" id="line" name="line">
 										<option selected disabled>-- Pilih Data --</option>
-										<?php for($i=1;$i<=7;$i++){ ?>
-											<option value="<?=$i?>"><?=$i?></option>
-										<?php } ?>
+										<?php foreach($data_line as $line) : ?>
+											<option value="<?=$line['id_line']?>"><?=$line['nama_line']?></option>
+										<?php endforeach; ?>
 									</select>
 								</div>
 							</div>
-							<div class="col-4">
-							<div class="form-group">
+							<div class="col-3">
+								<div class="form-group">
 									<label class="form-label">Shift</label>
 									<select class="form-select" id="shift" name="shift">
 										<option selected disabled>-- Pilih Data --</option>
@@ -96,8 +96,19 @@
 									</select>
 								</div>
 							</div>
+							<div class="col-3">
+								<div class="form-group">
+									<label class="form-label">Grup</label>
+									<select class="form-control select2" id="grup" name="grup" style="width: 100%;">
+										<option selected disabled>-- Pilih Data --</option>
+										<?php foreach($data_grup as $grup) : ?>
+											<option value="<?=$grup['id_pic']?>"><?=$grup['nama_pic']?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
 						</div>
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-3">
 								<div class="form-group">
 									<label class="form-label">Grup</label>
@@ -122,7 +133,7 @@
 									<input type="number" class="form-control" id="cuti" name="cuti">
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="modal-footer" style="float: right;">
 						<!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
@@ -143,6 +154,9 @@
   <script>
 	$(document).ready(function() {
 		$('#data_lhp2').DataTable();
+		$('.modal .select2').select2({
+    dropdownParent: $('.modal')
+});
 	});
   </script>
   <?= $this->endSection(); ?>

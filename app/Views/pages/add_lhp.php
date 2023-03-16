@@ -3,7 +3,7 @@
 <?= $this->section('content'); ?>
 <!-- Content Wrapper. Contains page content -->
 <?php 
-// var_dump($data_breakdown[0]['jenis_breakdown']); die();
+// var_dump($tanggal_produksi); die();
 
 ?>
 <div class="content-wrapper">
@@ -17,26 +17,34 @@
 					</div>
 					<div class="box-body">
 						<div class="row">
-							<div class="col-4">
+							<div class="col-3">
 								<div class="form-group">
 									<label class="form-label">Tanggal Produksi</label>
 									<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="<?=$tanggal_produksi?>" readonly>
 								</div>
 							</div>
-							<div class="col-4">
+							<div class="col-3">
 								<div class="form-group">
 									<label class="form-label">Line</label>
 									<input type="text" class="form-control" name="line" id="line" value="<?=$line?>" readonly>
+									<input type="hidden" class="form-control" name="id_line" id="id_line" value="<?=$id_line?>">
 								</div>
 							</div>
-							<div class="col-4">
+							<div class="col-3">
 								<div class="form-group">
 									<label class="form-label">Shift</label>
 									<input type="text" class="form-control" name="shift" id="shift" value="<?=$shift?>" readonly>
 								</div>
 							</div>
+							<div class="col-3">
+								<div class="form-group">
+									<label class="form-label">Grup</label>
+									<input type="text" class="form-control" id="grup" name="grup" value="<?=$grup?>" readonly>
+									<input type="hidden" class="form-control" id="id_pic" name="id_pic" value="<?=$id_pic?>">
+								</div>
+							</div>
 						</div>
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-3">
 								<div class="form-group">
 									<label class="form-label">Grup</label>
@@ -61,7 +69,7 @@
 									<input type="number" class="form-control" id="cuti" name="cuti" value="<?=$cuti?>" readonly>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				
@@ -75,9 +83,9 @@
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Jam</th>
+												<!-- <th>Jam</th>
 												<th>Menit Tersedia</th>
-												<th>Menit Aktual</th>
+												<th>Menit Aktual</th> -->
 												<th>Jam Start</th>
 												<th>Jam End</th>
 												<th>Menit Terpakai</th>
@@ -88,12 +96,12 @@
 												<th>Actual</th>
 												<th>Act vs Plan (%)</th>
 												<th>Efficiency Time (menit)</th>
-												<th>Total Menit Breakdown</th>
-												<th>Breakdown Jenis</th>
-												<th>Breakdown Proses</th>
-												<th>Breakdown Uraian</th>
-												<th>Breakdown Minute</th>
-												<th>Breakdown Action</th>
+												<th>Total Menit Line Stop</th>
+												<th>Line Stop Jenis</th>
+												<th>Line Stop Proses</th>
+												<th>Line Stop Uraian</th>
+												<th>Line Stop Minute</th>
+												<th>Line Stop Action</th>
 												<th>Reject QTY</th>
 												<th>Reject Jenis</th>
 												<th>Reject Remark</th>
@@ -103,11 +111,13 @@
 										<tbody id="tbody">
 											<?php 
 												if ($shift == '1') {
-													$jam = ['07.30 - 08.50', '08.50 - 09.50', '09.50 - 11.00', '11.00 - 12.00', '12.00 - 14.00', '14.00 - 15.00', '15.00 - 16.15', '16.15 - 16.30'];
+													$jam_start = ['07.30', '08.50', '09.50', '11.00', '12.00', '14.00', '15.00', '16.15'];
+													$jam_end = ['08.50', '09.50', '11.00', '12.00', '14.00', '15.00', '16.15', '16.30'];
 													$menit_tersedia = ['80', '60', '70', '60', '120', '60', '75', '15'];
 													$menit_aktual = ['70', '60', '60', '60', '60', '60', '60', '10'];
 												} elseif ($shift == '2') {
-													$jam = ['16.30 - 17.50', '17.50 - 19.35', '19.35 - 20.35', '20.35 - 21.35', '21.35 - 22.45', '22.45 - 23.45', '23.45 - 00.30'];
+													$jam_start = ['16.30', '17.50', '19.35', '20.35', '21.35', '22.45', '23.45'];
+													$jam_end = ['17.50', '19.35', '20.35', '21.35', '22.45', '23.45', '00.30'];
 													$menit_tersedia = ['80', '105', '60', '60', '70', '60', '45'];
 													$menit_aktual = ['70', '60', '60', '60', '60', '60', '40'];
 												} elseif ($shift == '3') {
@@ -116,36 +126,30 @@
 													$menit_aktual = ['70', '60', '60', '60', '60', '60'];
 												}
 
-												for ($i=0; $i < count($jam); $i++) { ?>
+												for ($i=0; $i < count($jam_start); $i++) { ?>
 													<tr>
 														<td>
-															<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-default">
-																Add
-															</button> -->
 															<button type="button" class="btn btn-primary" onclick="add_rows_batch(<?=$i?>)">
 																Add
 															</button>
 														</td>
-														<td>
-															<span style="display:block; width: 100px;"><?=$jam[$i]?></span>
-															<!-- <br>
-															<button class="btn btn-primary">Add</button> -->
+														<!-- <td>
+															<span style="display:block; width: 100px;"><?=$jam_start[$i]?> - <?=$jam_end[$i]?></span>
 														</td>
 														<td><?=$menit_tersedia[$i]?></td>
-														<td><?=$menit_aktual[$i]?></td>
+														<td><?=$menit_aktual[$i]?></td> -->
 														<td>
 															<div id="start_section_<?=$i?>">
-																<!-- <button class="btn btn-success" onclick="time_start(<?=$i?>)">Start</button> -->
-																<input type="time" class="form-control" name="start[]" id="start_<?=$i?>" value="${currentTime}" style="width: 100px;">
+																<input type="time" class="form-control" name="start[]" id="start_<?=$i?>" value="<?=date('H:i', strtotime(str_replace('.',':',$jam_start[$i])))?>" style="width: 100px;">
 															</div>
 														</td>
 														<td>
 															<div id="stop_section_<?=$i?>">
-																<input type="time" class="form-control" name="stop[]" id="stop_<?=$i?>" value="${currentTime}" style="width: 100px;">
+																<input type="time" class="form-control" name="stop[]" id="stop_<?=$i?>" value="<?=date('H:i', strtotime(str_replace('.',':',$jam_end[$i])))?>" style="width: 100px;">
 															</div>
 														</td>
 														<td>
-															<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" style="width: 75px">
+															<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$menit_aktual[$i]?>" style="width: 75px">
 														</td>
 														<td>
 															<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
@@ -162,10 +166,10 @@
 															</select>
 														</td>
 														<td>
-															<input type="text" class="form-control" name="part_number[]" id="part_number_<?=$i?>" style="width: 250px">
+															<input type="text" class="form-control" name="part_number[]" id="part_number_<?=$i?>" style="width: 250px" readonly>
 														</td>
 														<td>
-															<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" style="width: 75px">
+															<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" style="width: 75px" readonly>
 														</td>
 														<td>
 															<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" style="width: 75px" readonly>
@@ -185,7 +189,8 @@
 														<td>
 															<div id="jenis_breakdown_section_<?=$i?>">
 																<select class="form-control select2 mb-1" id="jenis_breakdown_<?=$i?>" name="jenis_breakdown[<?=$i?>][]" onchange="get_proses_breakdown(<?=$i?>)" style="width: 250px;">
-																	<option selected disabled>-- Pilih Jenis Breakdown --</option>
+																	<option selected disabled>-- Pilih Jenis Line Stop --</option>
+																	<option value="ANDON">ANDON</option>
 																	<?php
 																		foreach ($data_breakdown as $d_breakdown) { ?>
 																			<option value="<?=$d_breakdown['jenis_breakdown']?>"><?=$d_breakdown['jenis_breakdown']?></option>
@@ -193,13 +198,13 @@
 																		}
 																	?>
 																</select>
-																<input type="text" name="index_jenis_breakdown[]" value="<?=$i?>">
+																<input type="hidden" name="index_jenis_breakdown[]" value="<?=$i?>">
 															</div>
 														</td>
 														<td>
 															<div id="proses_breakdown_section_<?=$i?>">
 																<select class="form-control select2" id="proses_breakdown_<?=$i?>" name="proses_breakdown[<?=$i?>][]" style="width: 250px;">
-																	<option selected disabled>-- Pilih Proses Breakdown --</option>
+																	<option selected disabled>-- Pilih Proses Line Stop --</option>
 																</select>
 															</div>
 														</td>
@@ -274,10 +279,10 @@
 													<th>Jam</th>
 													<th>No WO</th>
 													<th>Type Battery</th>
-													<th>Breakdown Jenis</th>
-													<th>Breakdown Proses</th>
-													<th>Breakdown Uraian</th>
-													<th>Breakdown Minute</th>
+													<th>Line Stop Jenis</th>
+													<th>Line Stop Proses</th>
+													<th>Line Stop Uraian</th>
+													<th>Line Stop Minute</th>
 												</tr>
 											</thead>
 											<tbody id="tbody_line_stop">
@@ -351,10 +356,51 @@
   </div>
   <!-- /.modal -->
 
+	<!-- Modal -->
+	<div class="modal fade" id="modal_data_andon" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog modal-lg" style="max-width: 1600px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLargeModalLabel">Data Andon</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="table-responsive">
+						<table id="data_andon" class="table table-bordered table-striped" style="width:100%">
+							<thead>
+								<tr>
+									<th>ID Ticket</th>
+									<th>Permasalahan</th>
+									<th>Shift</th>
+									<th>Line</th>
+									<th>Pelapor</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody id="tbody_andon">
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger text-start" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
   <?= $this->endSection(); ?>
 
 <?= $this->section('script'); ?>
 <script>
+	$(document).ready(function() {
+		$('#data_andon').DataTable();
+	});
+
 	function getPartNo(i) {
 		var no_wo = $('#no_wo_'+i).val();
 		$.ajax({
@@ -372,8 +418,8 @@
 					data: {part_number: data[0].MITM.trim()},
 					dataType: 'json',
 					success: function(data) {
-						$('#ct_'+i).val(data[0].ct);
-						console.log(data);
+						$('#ct_'+i).val(data[0].cycle_time);
+						// console.log(data);
 					}
 				});
 			}
@@ -413,14 +459,15 @@
 
 		$('#jenis_breakdown_section_'+i).append(`
 			<select class="form-control select2" id="jenis_breakdown_${b}" name="jenis_breakdown[${i}][]" onchange="get_proses_breakdown(${b})" style="width: 250px;">
-				<option selected disabled>-- Pilih Jenis Breakdown --</option>
+				<option selected disabled>-- Pilih Jenis Line Stop --</option>
+				<option value="ANDON">ANDON</option>
 				${data_breakdown.map((item) => `<option value="${item.jenis_breakdown}">${item.jenis_breakdown}</option>`)}
 			</select>
 		`);
 
 		$('#proses_breakdown_section_'+i).append(`
 			<select class="form-control select2" id="proses_breakdown_${b}" name="proses_breakdown[${i}][]">
-				<option selected disabled>-- Pilih Proses Breakdown --</option>
+				<option selected disabled>-- Pilih Proses Line Stop --</option>
 			</select>
 		`);
 		$('#uraian_breakdown_section_'+i).append(`
@@ -449,20 +496,73 @@
 
 	function get_proses_breakdown(i) {
 		var jenis_breakdown = $('#jenis_breakdown_'+i).val();
+
+		if (jenis_breakdown == 'ANDON') {
+			get_data_andon(i);
+		} else {
+			$.ajax({
+				url: '<?=base_url()?>lhp/get_proses_breakdown',
+				type: 'POST',
+				data: {jenis_breakdown: jenis_breakdown},
+				dataType: 'json',
+				success: function(data) {
+					$('#proses_breakdown_'+i).html(`
+						<option selected disabled>-- Pilih Proses Line Stop --</option>
+						${data.map((item) => `<option value="${item.proses_breakdown}">${item.proses_breakdown}</option>`)}
+					`);
+
+					$('#uraian_breakdown_'+i).val('');
+					$('#menit_breakdown_'+i).val('');
+				}
+			});
+
+
+		}
+	}
+
+	function get_data_andon(j) {
+		var tanggal_produksi = '<?=$tanggal_produksi?>';
+		var line = <?=$id_line?>;
 		$.ajax({
-			url: '<?=base_url()?>lhp/get_proses_breakdown',
+			url: '<?=base_url()?>lhp/get_data_andon',
 			type: 'POST',
-			data: {jenis_breakdown: jenis_breakdown},
+			data: {tanggal_produksi: tanggal_produksi, line: line},
 			dataType: 'json',
 			success: function(data) {
-				console.log(i);
-				console.log(data);
+				$('#tbody_andon').html('');
+				data.forEach((item, i) => {
+					$('#tbody_andon').append(`
+						<tr>
+							<td>${item.id_ticket}</td>
+							<td>${item.permasalahan}</td>
+							<td>${item.shift}</td>
+							<td>${item.id_line}</td>
+							<td>${item.pelapor}</td>
+							<td><button class="btn btn-primary btn-sm" onclick="pilih_andon(${item.id_ticket}, ${j})">Pilih</button></td>
+						</tr>
+					`);
+				});
+			}
+		})
+		$('#modal_data_andon').modal('show');
+	}
+
+	function pilih_andon(id_ticket, i) {
+		$.ajax({
+			url: '<?=base_url()?>lhp/pilih_andon',
+			type: 'POST',
+			data: {id_ticket: id_ticket},
+			dataType: 'json',
+			success: function(data) {
 				$('#proses_breakdown_'+i).html(`
-					<option selected disabled>-- Pilih Proses Breakdown --</option>
-					${data.map((item) => `<option value="${item.proses_breakdown}">${item.proses_breakdown}</option>`)}
+					${data.map((item) => `<option value="${item.id_ticket}-${item.tujuan}-${item.nama_mesin}" selected>${item.id_ticket}-${item.tujuan}-${item.nama_mesin}</option>`)}
 				`);
+
+				$('#uraian_breakdown_'+i).val(data[0].permasalahan);
+				$('#menit_breakdown_'+i).val(data[0].total_min_reduce);
 			}
 		});
+		$('#modal_data_andon').modal('hide');
 	}
 
 	function add_rows_batch(i) {
@@ -483,32 +583,26 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td>
-					<div id="start_section_${total_row}">
-						<!-- <button class="btn btn-success" onclick="time_start(${total_row})">Start</button> -->
-						<input type="time" class="form-control" name="start[]" id="start_${i}" style="width: 100px;">
-					</div>
-				</td>
-				<td>
-					<div id="stop_section_${total_row}">
-						<input type="time" class="form-control" name="stop[]" id="stop_${i}" style="width: 100px;">
-					</div>
-				</td>
-				<td>
-					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${total_row}" style="width: 75px">
-				</td>
+				<!--
+				
+				<td></td>
+				<td></td>
+				<td></td>
+				
+				
+				-->
 				<td>
 					<select class="form-control select2" id="no_wo_${total_row}" name="no_wo[]" onchange="getPartNo(${total_row})" style="width: 200px;">
 						<option selected disabled>-- Pilih No WO --</option>
 						${data_wo.map((item) => `<option value="${item.PDNO}">${item.PDNO}</option>`)}
 					</select>
-					<input type="text" name="batch[]" id="batch_${total_row}" value="${i+1}">
+					<input type="hidden" name="batch[]" id="batch_${total_row}" value="${i+1}">
 				</td>
 				<td>
-					<input type="text" class="form-control" name="part_number[]" id="part_number_${total_row}" style="width: 250px">
+					<input type="text" class="form-control" name="part_number[]" id="part_number_${total_row}" style="width: 250px" readonly>
 				</td>
 				<td>
-					<input type="text" class="form-control" size="4" name="ct[]" id="ct_${total_row}" style="width: 75px">
+					<input type="text" class="form-control" size="4" name="ct[]" id="ct_${total_row}" style="width: 75px" readonly>
 				</td>
 				<td>
 					<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_${total_row}" style="width: 75px" readonly>
@@ -528,16 +622,17 @@
 				<td>
 					<div id="jenis_breakdown_section_${total_row}">
 						<select class="form-control select2 mb-1" id="jenis_breakdown_${total_row}" name="jenis_breakdown[${total_row}][]" onchange="get_proses_breakdown(${total_row})" style="width: 250px;">
-							<option selected disabled>-- Pilih Jenis Breakdown --</option>
+							<option selected disabled>-- Pilih Jenis Line Stop --</option>
+							<option value="ANDON">ANDON</option>
 							${data_breakdown.map((item) => `<option value="${item.jenis_breakdown}">${item.jenis_breakdown}</option>`)}							
 						</select>
 					</div>
-					<input type="text" name="index_jenis_breakdown[]" value="${total_row}">
+					<input type="hidden" name="index_jenis_breakdown[]" value="${total_row}">
 				</td>
 				<td>
 					<div id="proses_breakdown_section_${total_row}">
 						<select class="form-control select2" id="proses_breakdown_${total_row}" name="proses_breakdown[${total_row}][]" style="width: 250px;">
-							<option selected disabled>-- Pilih Proses Breakdown --</option>
+							<option selected disabled>-- Pilih Proses Line Stop --</option>
 						</select>
 					</div>
 				</td>
@@ -588,6 +683,21 @@
 		`;
 
 		$('.select2').select2();
+
+		// <td>
+		// 			<div id="start_section_${total_row}">
+		// 				<!-- <button class="btn btn-success" onclick="time_start(${total_row})">Start</button> -->
+		// 				<input type="time" class="form-control" name="start[]" id="start_${i}" style="width: 100px;">
+		// 			</div>
+		// 		</td>
+		// 		<td>
+		// 			<div id="stop_section_${total_row}">
+		// 				<input type="time" class="form-control" name="stop[]" id="stop_${i}" style="width: 100px;">
+		// 			</div>
+		// 		</td>
+		// 		<td>
+		// 			<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${total_row}" style="width: 75px">
+		// 		</td>
 	}
 
 	function time_start(i) {
