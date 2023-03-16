@@ -129,7 +129,7 @@
 													<tr>
 														<?php if($data_detail_lhp[$i]['batch'] != $temp_batch){ ?>
 															<td>
-																<button type="button" class="btn btn-primary" onclick="add_rows_batch(<?=$i?>)">
+																<button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?=$i?>)">
 																	Add
 																</button>
 															</td>
@@ -148,18 +148,17 @@
 																	<input type="time" class="form-control" name="stop[]" id="stop_<?=$i?>" value="<?=date("H:i", strtotime($data_detail_lhp[$i]['jam_end']))?>" style="width: 100px;">
 																</div>
 															</td>
-															<td>
-																<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" style="width: 75px">
-															</td>
 														<?php
 														} else { ?>
-															<td></td>
 															<td></td>
 															<td></td>
 															<td></td>
 														<?php
 														}
 														?>
+														<td>
+															<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" style="width: 75px">
+														</td>
 														<td>
 															<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
 																<option selected disabled>-- Pilih No WO --</option>
@@ -557,7 +556,10 @@
 										</tbody>
 									</table>
 								</div>
-								<input type="submit" class="btn btn-primary mt-1" value="Save">
+								
+							</div>
+							<div class="box-footer">
+								<input type="submit" class="btn btn-success" value="Save">
 							</div>
 						</div>				
 					</div>

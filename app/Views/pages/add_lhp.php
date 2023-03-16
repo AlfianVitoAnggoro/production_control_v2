@@ -258,7 +258,7 @@
 										</tbody>
 									</table>
 								</div>
-								<input type="submit" class="btn btn-primary" value="Save">
+								<input type="submit" class="btn btn-success" value="Save">
 							</div>
 						</div>				
 					</div>

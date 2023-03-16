@@ -6,6 +6,15 @@ use App\Models\M_Data;
 
 class Home extends BaseController
 {
+    public function __construct()
+    {
+        $this->M_Data = new M_Data();
+        $this->session = \Config\Services::session();
+
+        if($this->session->get('is_login')){
+            return redirect()->to('login');
+        }
+    }
     public function test() {
         $model = new M_Data();
         $data = $model->test();
