@@ -150,6 +150,7 @@
 															</td>
 														<?php
 														} else { ?>
+															<td><button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(<?=$i?>)">Remove</button></td>
 															<td>
 																<div id="start_section_<?=$i?>">
 																	<input type="time" class="form-control" name="start[]" id="start_<?=$i?>" value="<?=date("H:i", strtotime($data_detail_lhp[$i]['jam_start']))?>" style="width: 100px;" hidden="true">
@@ -160,7 +161,6 @@
 																	<input type="time" class="form-control" name="stop[]" id="stop_<?=$i?>" value="<?=date("H:i", strtotime($data_detail_lhp[$i]['jam_end']))?>" style="width: 100px;" hidden="true">
 																</div>
 															</td>
-															<td></td>
 														<?php
 														}
 														?>
@@ -356,7 +356,7 @@
 																		<option value="CACAT COVER">CACAT COVER</option>
 																		<option value="CACAT CONTAINER">CACAT CONTAINER</option>
 																	</select>
-																	<input type="text" name="id_reject[<?=$i?>][]" id="id_reject_<?=$i?>" value="">
+																	<input type="hidden" name="id_reject[<?=$i?>][]" id="id_reject_<?=$i?>" value="">
 																</div>
 															</td>
 															<td>
@@ -399,7 +399,7 @@
 																			<option value="CACAT COVER" <?php if ($d_detail_reject['jenis_reject'] == 'CACAT COVER') { echo "selected"; } ?>>CACAT COVER</option>
 																			<option value="CACAT CONTAINER" <?php if ($d_detail_reject['jenis_reject'] == 'CACAT CONTAINER') { echo "selected"; } ?>>CACAT CONTAINER</option>
 																		</select>
-																		<input type="text" name="id_reject[<?=$i?>][]" id="id_reject_<?=$k.$i?>" value="<?=$d_detail_reject['id_reject']?>">
+																		<input type="hidden" name="id_reject[<?=$i?>][]" id="id_reject_<?=$k.$i?>" value="<?=$d_detail_reject['id_reject']?>">
 																	<?php
 																	$k++;
 																	}
@@ -868,7 +868,7 @@
 		row = tbody.insertRow(j);
 		row.innerHTML = `
 			<tr>
-				<td><button type="button" class="btn btn-sm btn-danger">Remove</button></td>
+				<td><button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(${j})">Remove</button></td>
 				<td></td>
 				<td></td>
 				<!--
@@ -991,6 +991,11 @@
 		// <td>
 		// 	<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" style="width: 75px">
 		// </td>
+	}
+
+	function delete_rows(i) {
+		var tbody = document.getElementById('tbody');
+		tbody.deleteRow(i);
 	}
 
 	function time_start(i) {
