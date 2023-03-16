@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\DataGrup;
 use App\Models\DetailLhpGrid;
 use App\Models\Jks;
 use App\Models\LhpGrid;
@@ -21,6 +22,15 @@ class Home extends BaseController
     {
         $type_grid = model(TypeGrid::class);
         $result = $type_grid->findAll();
+
+        return $this->response->setJSON($result);
+    }
+
+    public function fetch_grup()
+    {
+
+        $type_grup = model(DataGrup::class);
+        $result = $type_grup->findAll();
 
         return $this->response->setJSON($result);
     }
@@ -104,6 +114,7 @@ class Home extends BaseController
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>'
+
             ];
         } else {
             $message = [

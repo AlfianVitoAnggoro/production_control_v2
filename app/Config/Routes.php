@@ -31,6 +31,7 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/fetch_grid', 'Home::fetch_grid');
+$routes->get('/fetch_grup', 'Home::fetch_grup');
 $routes->get('/fetch_jks', 'Home::fetch_jks');
 $routes->get('/fetch_lhp_grid', 'Home::fetch_lhp_grid');
 $routes->get('/fetch_detail_grid', 'Home::fetch_detail_grid');
