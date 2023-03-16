@@ -68,8 +68,8 @@ class Home extends BaseController
         ];
 
         $model = new M_Data();
-        // $data['data_wo'] = $model->getDataWO($tanggal_produksi, $line);
-        $data['data_wo'] = [];
+        $data['data_wo'] = $model->getDataWO($tanggal_produksi, $line);
+        // $data['data_wo'] = [];
         $data['data_breakdown'] = $model->getListBreakdown();
         // var_dump($data['data_breakdown']); die;
 
@@ -157,9 +157,9 @@ class Home extends BaseController
 
                     if ($save_detail != '') {
                         $index_jenis_breakdown = $this->request->getPost('index_jenis_breakdown')[$i];
+
                         if ($this->request->getPost('jenis_breakdown') != null) {
                         $total_breakdown = count($this->request->getPost('jenis_breakdown')[$index_jenis_breakdown]);
-                        
                             for ($j = 0; $j < $total_breakdown; $j++) {
                                 if ($this->request->getPost('jenis_breakdown')[$index_jenis_breakdown][$j] != '') {
     
@@ -167,7 +167,7 @@ class Home extends BaseController
                                         $string_ticket = $this->request->getPost('proses_breakdown')[$index_jenis_breakdown][$j];
                                         $arr = explode("-", $string_ticket);
                                         $ticket = $arr[0];
-                                        $proses_breakdown = $arr[1].'-'.$arr[2];
+                                        $proses_breakdown = $string_ticket;
                                     } else {
                                         $ticket = '';
                                         $proses_breakdown = $this->request->getPost('proses_breakdown')[$index_jenis_breakdown][$j];
@@ -186,12 +186,35 @@ class Home extends BaseController
                                 }
                             }
                         }
+
+                        if (!empty($this->request->getPost('jenis_reject')[$index_jenis_breakdown])) {
+
+                            $total_rejection = count($this->request->getPost('jenis_reject')[$index_jenis_breakdown]);
+                        
+                            for ($j = 0; $j < $total_rejection; $j++) {
+                                // print_r($this->request->getPost('jenis_breakdown')[$index_jenis_breakdown][$j]);
+                                if ($this->request->getPost('jenis_reject')[$index_jenis_breakdown][$j] != '') {
+        
+                                    $id_reject = $this->request->getPost('id_reject')[$index_jenis_breakdown][$j];
+        
+                                    $data_reject = [
+                                        'id_detail_lhp' => $save_detail,
+                                        'no_wo' => $this->request->getPost('no_wo')[$i],
+                                        'qty_reject' => $this->request->getPost('reject_qty')[$index_jenis_breakdown][$j],
+                                        'jenis_reject' => $this->request->getPost('jenis_reject')[$index_jenis_breakdown][$j],
+                                        'remark_reject' => $this->request->getPost('remark_reject')[$index_jenis_breakdown][$j]
+                                    ];
+                                    // var_dump ($data_reject);
+                                    $model->save_detail_reject($data_reject);                                    
+                                }
+                            }
+                        }
                     }
                 }
             };
         }
 
-        return redirect()->to(base_url('lhp'));
+        return redirect()->to(base_url('lhp/detail_lhp/'.$save_data));
     }
 
     public function detail_lhp($id)
@@ -204,8 +227,8 @@ class Home extends BaseController
         $data['data_line'] = $model->get_data_line($data['data_lhp'][0]['line']);
         $data['data_grup'] = $model->get_data_grup_pic($data['data_lhp'][0]['grup']);
 
-        // $data['data_wo'] = $model->getDataWO($data['data_lhp'][0]['tanggal_produksi'], $data['data_lhp'][0]['line']);
-        $data['data_wo'] = [];
+        $data['data_wo'] = $model->getDataWO($data['data_lhp'][0]['tanggal_produksi'], $data['data_lhp'][0]['line']);
+        // $data['data_wo'] = [];
 
         $data['data_breakdown'] = $model->getListBreakdown();
 
@@ -248,7 +271,7 @@ class Home extends BaseController
                         'jam_start' => $this->request->getPost('start')[$i],
                         'jam_end' => $this->request->getPost('stop')[$i],
                         'menit_terpakai' => $this->request->getPost('menit_terpakai')[$i],
-                        // 'no_wo' => $this->request->getPost('no_wo')[$i],
+                        'no_wo' => $this->request->getPost('no_wo')[$i],
                         'type_battery' => $this->request->getPost('part_number')[$i],
                         'ct' => $this->request->getPost('ct')[$i],
                         'plan_cap' => $this->request->getPost('plan_cap')[$i],
@@ -286,7 +309,7 @@ class Home extends BaseController
     
                                 $data_breakdown = [
                                     'id_detail_lhp' => $update_detail,
-                                    // 'no_wo' => $this->request->getPost('no_wo')[$i],
+                                    'no_wo' => $this->request->getPost('no_wo')[$i],
                                     'jenis_breakdown' => $this->request->getPost('jenis_breakdown')[$index_jenis_breakdown][$j],
                                     'tiket_andon' => $ticket,
                                     'proses_breakdown' => $this->request->getPost('proses_breakdown')[$index_jenis_breakdown][$j],
@@ -316,7 +339,7 @@ class Home extends BaseController
     
                                 $data_reject = [
                                     'id_detail_lhp' => $update_detail,
-                                    // 'no_wo' => $this->request->getPost('no_wo')[$i],
+                                    'no_wo' => $this->request->getPost('no_wo')[$i],
                                     'qty_reject' => $this->request->getPost('reject_qty')[$index_jenis_breakdown][$j],
                                     'jenis_reject' => $this->request->getPost('jenis_reject')[$index_jenis_breakdown][$j],
                                     'remark_reject' => $this->request->getPost('remark_reject')[$index_jenis_breakdown][$j]

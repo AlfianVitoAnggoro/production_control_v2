@@ -150,12 +150,21 @@
 															</td>
 														<?php
 														} else { ?>
-															<td></td>
-															<td></td>
+															<td>
+																<div id="start_section_<?=$i?>">
+																	<input type="time" class="form-control" name="start[]" id="start_<?=$i?>" value="<?=date("H:i", strtotime($data_detail_lhp[$i]['jam_start']))?>" style="width: 100px;" hidden="true">
+																</div>
+															</td>
+															<td>
+																<div id="stop_section_<?=$i?>">
+																	<input type="time" class="form-control" name="stop[]" id="stop_<?=$i?>" value="<?=date("H:i", strtotime($data_detail_lhp[$i]['jam_end']))?>" style="width: 100px;" hidden="true">
+																</div>
+															</td>
 															<td></td>
 														<?php
 														}
 														?>
+														
 														<td>
 															<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" style="width: 75px">
 														</td>
@@ -347,11 +356,11 @@
 																		<option value="CACAT COVER">CACAT COVER</option>
 																		<option value="CACAT CONTAINER">CACAT CONTAINER</option>
 																	</select>
-																	<input type="hidden" name="id_reject[<?=$i?>][]" id="id_reject_<?=$i?>" value="">
+																	<input type="text" name="id_reject[<?=$i?>][]" id="id_reject_<?=$i?>" value="">
 																</div>
 															</td>
 															<td>
-																<div id="remark_reject_section">
+																<div id="remark_reject_section_<?=$i?>">
 																	<textarea class="form-control" name="remark_reject[<?=$i?>][]" id="remark_reject_<?=$i?>" cols="20" rows="1" style="width: 200px;"></textarea>
 																</div>
 															</td>
@@ -388,9 +397,9 @@
 																			<option value="BOCOR POLE" <?php if ($d_detail_reject['jenis_reject'] == 'BOCOR POLE') { echo "selected"; } ?>>BOCOR POLE</option>
 																			<option value="CACAT BAKAR" <?php if ($d_detail_reject['jenis_reject'] == 'CACAT BAKAR') { echo "selected"; } ?>>CACAT BAKAR</option>
 																			<option value="CACAT COVER" <?php if ($d_detail_reject['jenis_reject'] == 'CACAT COVER') { echo "selected"; } ?>>CACAT COVER</option>
-																			<option value="CACAT CONTAINER <?php if ($d_detail_reject['jenis_reject'] == 'CACAT CONTAINER') { echo "selected"; } ?>">CACAT CONTAINER</option>
+																			<option value="CACAT CONTAINER" <?php if ($d_detail_reject['jenis_reject'] == 'CACAT CONTAINER') { echo "selected"; } ?>>CACAT CONTAINER</option>
 																		</select>
-																		<input type="hidden" name="id_reject[<?=$i?>][]" id="id_reject_<?=$k.$i?>" value="<?=$d_detail_reject['id_reject']?>">
+																		<input type="text" name="id_reject[<?=$i?>][]" id="id_reject_<?=$k.$i?>" value="<?=$d_detail_reject['id_reject']?>">
 																	<?php
 																	$k++;
 																	}
@@ -398,7 +407,7 @@
 																</div>
 															</td>
 															<td>
-																<div id="remark_reject_section">
+																<div id="remark_reject_section_<?=$i?>">
 																	<?php
 																	$k = 1;
 																	foreach ($data_detail_reject as $d_detail_reject) { ?>
@@ -428,11 +437,11 @@
 																	Add
 																</button>
 															</td>
-															<td>
+															<!-- <td>
 																<span style="display:block; width: 100px;"><?=$jam_start[$j]?> - <?=$jam_end[$j]?></span>
 															</td>
 															<td><?=$menit_tersedia[$j]?></td>
-															<td><?=$menit_aktual[$j]?></td>
+															<td><?=$menit_aktual[$j]?></td> -->
 															<td>
 																<div id="start_section_<?=$i?>">
 																	<input type="time" class="form-control" name="start[]" id="start_<?=$i?>" value="<?=date('H:i', strtotime(str_replace('.',':',$jam_start[$j])))?>" style="width: 100px;">
@@ -670,7 +679,7 @@
 					data: {part_number: data[0].MITM.trim()},
 					dataType: 'json',
 					success: function(data) {
-						$('#ct_'+i).val(data[0].cycle_time);
+						$('#ct_'+i).val(data[0].first_cycle_time);
 						console.log(data);
 					}
 				});
@@ -749,20 +758,32 @@
 		$('#jenis_reject_section_'+i).append(`
 			<select class="form-control select2" id="jenis_reject[${i}][]" name="jenis_reject_${b}">
 				<option selected disabled>-- Pilih Jenis Reject --</option>
+				<option value="POLE PATAH">POLE PATAH</option>
+				<option value="FLASHING">FLASHING</option>
+				<option value="SHORT">SHORT</option>
+				<option value="BOCOR">BOCOR</option>
+				<option value="MELTING NG / GAP">MELTING NG / GAP</option>
+				<option value="POLE KETARIK">POLE KETARIK</option>
+				<option value="BOCOR POLE">BOCOR POLE</option>
+				<option value="CACAT BAKAR">CACAT BAKAR</option>
+				<option value="CACAT COVER">CACAT COVER</option>
+				<option value="CACAT CONTAINER">CACAT CONTAINER</option>
 			</select>
 			<input type="hidden" name="id_reject[${i}][]" id="id_reject_${b}" value="">
 		`);
 		$('#remark_reject_section_'+i).append(`
 			<textarea class="form-control" name="remark_reject[${i}][]" id="remark_reject_${b}" cols="20" rows="1"></textarea>
 		`);
+
+		$('.select2').select2();
 	}
 
 	function get_proses_breakdown(i) {
 		var jenis_breakdown = $('#jenis_breakdown_'+i).val();
 
-		if (i == 0) {
-			i = '00';
-		}
+		// if (i == 0) {
+		// 	i = '00';
+		// }
 
 		if (jenis_breakdown == 'ANDON') {
 			get_data_andon(i);
@@ -847,8 +868,7 @@
 		row = tbody.insertRow(j);
 		row.innerHTML = `
 			<tr>
-				<td></td>
-				<td></td>
+				<td><button type="button" class="btn btn-sm btn-danger">Remove</button></td>
 				<td></td>
 				<td></td>
 				<!--
@@ -859,6 +879,9 @@
 				
 				
 				-->
+				<td>
+					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" value="" style="width: 75px">
+				</td>
 				<td>
 					<select class="form-control select2" id="no_wo_${k}" name="no_wo[]" onchange="getPartNo(${k})" style="width: 200px;">
 						<option selected disabled>-- Pilih No WO --</option>
@@ -924,7 +947,7 @@
 					</div>
 				</td>
 				<td>
-					<div id="jenis_reject_section">
+					<div id="jenis_reject_section_${k}">
 						<select class="form-control select2" id="jenis_reject_${k}" name="jenis_reject[${k}][]" style="width: 200px;">
 							<option selected disabled>-- Pilih Jenis Reject --</option>
 							<option value="POLE PATAH">POLE PATAH</option>
@@ -942,7 +965,7 @@
 					</div>
 				</td>
 				<td>
-					<div id="remark_reject_section">
+					<div id="remark_reject_section_${k}">
 						<textarea class="form-control" name="remark_reject[${k}][]" id="remark_reject_${k}" cols="20" rows="1" style="width: 200px;"></textarea>
 					</div>
 				</td>

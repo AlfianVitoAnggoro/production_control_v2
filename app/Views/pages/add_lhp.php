@@ -190,7 +190,6 @@
 															<div id="jenis_breakdown_section_<?=$i?>">
 																<select class="form-control select2 mb-1" id="jenis_breakdown_<?=$i?>" name="jenis_breakdown[<?=$i?>][]" onchange="get_proses_breakdown(<?=$i?>)" style="width: 250px;">
 																	<option selected disabled>-- Pilih Jenis Line Stop --</option>
-																	<option value="ANDON">ANDON</option>
 																	<?php
 																		foreach ($data_breakdown as $d_breakdown) { ?>
 																			<option value="<?=$d_breakdown['jenis_breakdown']?>"><?=$d_breakdown['jenis_breakdown']?></option>
@@ -222,13 +221,13 @@
 															<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
 														</td>
 														<td>
-															<div id="reject_qty_section">
-																<input type="number" class="form-control" name="reject_qty_<?=$i?>" id="reject_qty_<?=$i?>" style="width: 75px">
+															<div id="reject_qty_section_<?=$i?>">
+																<input type="number" class="form-control" name="reject_qty[<?=$i?>][]" id="reject_qty_<?=$i?>" style="width: 75px">
 															</div>
 														</td>
 														<td>
-															<div id="jenis_reject_section">
-																<select class="form-control select2" id="jenis_reject_<?=$i?>" name="jenis_reject_<?=$i?>" style="width: 200px;">
+															<div id="jenis_reject_section_<?=$i?>">
+																<select class="form-control select2" id="jenis_reject_<?=$i?>" name="jenis_reject[<?=$i?>][]" style="width: 200px;">
 																	<option selected disabled>-- Pilih Jenis Reject --</option>
 																	<option value="POLE PATAH">POLE PATAH</option>
 																	<option value="FLASHING">FLASHING</option>
@@ -241,15 +240,16 @@
 																	<option value="CACAT COVER">CACAT COVER</option>
 																	<option value="CACAT CONTAINER">CACAT CONTAINER</option>
 																</select>
+																<input type="hidden" name="id_reject[<?=$i?>][]" id="id_reject_<?=$i?>" value="">
 															</div>
 														</td>
 														<td>
-															<div id="remark_reject_section">
-																<textarea class="form-control" name="remark_reject_<?=$i?>" id="" cols="20" rows="2" style="width: 200px;"></textarea>
+															<div id="remark_reject_section_<?=$i?>">
+																<textarea class="form-control" name="remark_reject[<?=$i?>][]" id="remark_reject_<?=$i?>" cols="20" rows="1" style="width: 200px;"></textarea>
 															</div>
 														</td>
 														<td>
-															<button class="btn btn-sm btn-primary" id="add_proses_reject" onclick="add_reject(<?=$i?>)">Add</button>
+															<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject" onclick="add_reject(<?=$i?>)">Add</button>
 														</td>
 													</tr>
 											<?php
@@ -419,7 +419,7 @@
 					data: {part_number: data[0].MITM.trim()},
 					dataType: 'json',
 					success: function(data) {
-						$('#ct_'+i).val(data[0].cycle_time);
+						$('#ct_'+i).val(data[0].first_cycle_time);
 						// console.log(data);
 					}
 				});
@@ -461,7 +461,6 @@
 		$('#jenis_breakdown_section_'+i).append(`
 			<select class="form-control select2" id="jenis_breakdown_${b}" name="jenis_breakdown[${i}][]" onchange="get_proses_breakdown(${b})" style="width: 250px;">
 				<option selected disabled>-- Pilih Jenis Line Stop --</option>
-				<option value="ANDON">ANDON</option>
 				${data_breakdown.map((item) => `<option value="${item.jenis_breakdown}">${item.jenis_breakdown}</option>`)}
 			</select>
 		`);
@@ -472,7 +471,7 @@
 			</select>
 		`);
 		$('#uraian_breakdown_section_'+i).append(`
-			<textarea class="form-control" name="uraian_breakdown[${i}][]" id="uraian_breakdown_${b}" cols="20" rows="2"></textarea>
+			<textarea class="form-control" name="uraian_breakdown[${i}][]" id="uraian_breakdown_${b}" cols="20" rows="1"></textarea>
 		`);
 		$('#menit_breakdown_section_'+i).append(`
 			<input type="number" class="form-control" name="menit_breakdown[${i}][]" id="menit_breakdown_${b}" style="width: 75px">
@@ -481,18 +480,41 @@
 		$('.select2').select2();
 	}
 
+	var temp_reject;
 	function add_reject(i) {
-		$('#reject_qty_section').append(`
-			<input type="number" name="reject_qty_${i}" id="reject_qty_${i}" style="width: 75px">
+		var a = 1;
+		if (temp_reject != i) {
+			temp_reject = i;
+			a = 1;
+		} else {
+			a += 1; 
+		}
+
+		var b = "" + a + i
+
+		$('#reject_qty_section_'+i).append(`
+			<input type="number" class="form-control" name="reject_qty[${i}][]" id="reject_qty_${b}" style="width: 75px">
 		`);
-		$('#jenis_reject_section').append(`
-			<select class="form-control select2" id="jenis_reject_${i}" name="jenis_reject_${i}">
+		$('#jenis_reject_section_'+i).append(`
+			<select class="form-control select2" id="jenis_reject[${i}][]" name="jenis_reject_${b}">
 				<option selected disabled>-- Pilih Jenis Reject --</option>
+				<option value="POLE PATAH">POLE PATAH</option>
+				<option value="FLASHING">FLASHING</option>
+				<option value="SHORT">SHORT</option>
+				<option value="BOCOR">BOCOR</option>
+				<option value="MELTING NG / GAP">MELTING NG / GAP</option>
+				<option value="POLE KETARIK">POLE KETARIK</option>
+				<option value="BOCOR POLE">BOCOR POLE</option>
+				<option value="CACAT BAKAR">CACAT BAKAR</option>
+				<option value="CACAT COVER">CACAT COVER</option>
+				<option value="CACAT CONTAINER">CACAT CONTAINER</option>
 			</select>
+			<input type="hidden" name="id_reject[${i}][]" id="id_reject_${b}" value="">
 		`);
-		$('#remark_reject_section').append(`
-			<textarea name="remark_reject_${i}" id="" cols="20" rows="2"></textarea>
+		$('#remark_reject_section_'+i).append(`
+			<textarea class="form-control" name="remark_reject[${i}][]" id="remark_reject_${b}" cols="20" rows="1"></textarea>
 		`);
+		$('.select2').select2();
 	}
 
 	function get_proses_breakdown(i) {
@@ -593,6 +615,9 @@
 				
 				-->
 				<td>
+					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${total_row}" value="" style="width: 75px">
+				</td>
+				<td>
 					<select class="form-control select2" id="no_wo_${total_row}" name="no_wo[]" onchange="getPartNo(${total_row})" style="width: 200px;">
 						<option selected disabled>-- Pilih No WO --</option>
 						${data_wo.map((item) => `<option value="${item.PDNO}">${item.PDNO}</option>`)}
@@ -639,7 +664,7 @@
 				</td>
 				<td>
 					<div id="uraian_breakdown_section_${total_row}">
-						<textarea class="form-control" name="uraian_breakdown[${total_row}][]" id="" cols="20" rows="2" style="width: 200px;"></textarea>
+						<textarea class="form-control" name="uraian_breakdown[${total_row}][]" id="" cols="20" rows="1" style="width: 200px;"></textarea>
 					</div>
 				</td>
 				<td>
@@ -651,13 +676,13 @@
 					<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(${total_row})">Add</button>
 				</td>
 				<td>
-					<div id="reject_qty_section">
-						<input type="number" class="form-control" name="reject_qty_${total_row}" id="reject_qty_${total_row}" style="width: 75px">
+					<div id="reject_qty_section_${total_row}">
+						<input type="number" class="form-control" name="reject_qty[${total_row}][]" id="reject_qty_${total_row}" style="width: 75px">
 					</div>
 				</td>
 				<td>
-					<div id="jenis_reject_section">
-						<select class="form-control select2" id="jenis_reject_${total_row}" name="jenis_reject_${total_row}" style="width: 200px;">
+					<div id="jenis_reject_section_${total_row}">
+						<select class="form-control select2" id="jenis_reject_${total_row}" name="jenis_reject[${total_row}][]" style="width: 200px;">
 							<option selected disabled>-- Pilih Jenis Reject --</option>
 							<option value="POLE PATAH">POLE PATAH</option>
 							<option value="FLASHING">FLASHING</option>
@@ -670,15 +695,16 @@
 							<option value="CACAT COVER">CACAT COVER</option>
 							<option value="CACAT CONTAINER">CACAT CONTAINER</option>
 						</select>
+						<input type="hidden" name="id_reject[${total_row}][] id="id_reject_${total_row}" value="">
 					</div>
 				</td>
 				<td>
-					<div id="remark_reject_section">
-						<textarea class="form-control" name="remark_reject_${total_row}" id="" cols="20" rows="2" style="width: 200px;"></textarea>
+					<div id="remark_reject_section_${total_row}">
+						<textarea class="form-control" name="remark_reject[${total_row}][]" id="remark_reject_${total_row}" cols="20" rows="1" style="width: 200px;"></textarea>
 					</div>
 				</td>
 				<td>
-					<button class="btn btn-sm btn-primary" id="add_jenis_reject" onclick="add_reject(${total_row})">Add</button>
+					<button type="button" class="btn btn-sm btn-primary" id="add_jenis_reject" onclick="add_reject(${total_row})">Add</button>
 				</td>
 			</tr>
 		`;
