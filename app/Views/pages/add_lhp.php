@@ -129,7 +129,7 @@
 												for ($i=0; $i < count($jam_start); $i++) { ?>
 													<tr>
 														<td>
-															<button type="button" class="btn btn-primary" onclick="add_rows_batch(<?=$i?>)">
+															<button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?=$i?>)">
 																Add
 															</button>
 														</td>
@@ -210,7 +210,7 @@
 														</td>
 														<td>
 															<div id="uraian_breakdown_section_<?=$i?>">
-																<textarea class="form-control" name="uraian_breakdown[<?=$i?>][]" id="uraian_breakdown_<?=$i?>" cols="20" rows="2" style="width: 200px;"></textarea>
+																<textarea class="form-control" name="uraian_breakdown[<?=$i?>][]" id="uraian_breakdown_<?=$i?>" cols="20" rows="1" style="width: 200px;"></textarea>
 															</div>
 														</td>
 														<td>
@@ -219,7 +219,7 @@
 															</div>
 														</td>
 														<td>
-															<button type="button"class="btn btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
+															<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
 														</td>
 														<td>
 															<div id="reject_qty_section">
@@ -249,7 +249,7 @@
 															</div>
 														</td>
 														<td>
-															<button class="btn btn-primary" id="add_proses_reject" onclick="add_reject(<?=$i?>)">Add</button>
+															<button class="btn btn-sm btn-primary" id="add_proses_reject" onclick="add_reject(<?=$i?>)">Add</button>
 														</td>
 													</tr>
 											<?php
@@ -258,6 +258,8 @@
 										</tbody>
 									</table>
 								</div>
+							</div>
+							<div class="box-footer" style="text-align: center;">
 								<input type="submit" class="btn btn-success" value="Save">
 							</div>
 						</div>				
@@ -345,7 +347,6 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
 				<input type="submit" class="btn btn-primary float-end" value="Tambah">
 			</div>
 		  </form>
@@ -647,7 +648,7 @@
 					</div>
 				</td>
 				<td>
-					<button type="button"class="btn btn-primary" id="add_proses_breakdown" onclick="add_breakdown(${total_row})">Add</button>
+					<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(${total_row})">Add</button>
 				</td>
 				<td>
 					<div id="reject_qty_section">
@@ -677,7 +678,7 @@
 					</div>
 				</td>
 				<td>
-					<button class="btn btn-primary" id="add_jenis_reject" onclick="add_reject(${total_row})">Add</button>
+					<button class="btn btn-sm btn-primary" id="add_jenis_reject" onclick="add_reject(${total_row})">Add</button>
 				</td>
 			</tr>
 		`;

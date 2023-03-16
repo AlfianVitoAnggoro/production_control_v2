@@ -234,7 +234,7 @@
 																	</div>
 																</td>
 																<td>
-																	<button type="button"class="btn btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
+																	<button type="button"class="btn btn-sm  btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
 																</td>
 														<?php
 															} else { ?>
@@ -318,7 +318,7 @@
 																	</div>
 																</td>
 																<td>
-																	<button type="button"class="btn btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
+																	<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
 																</td>
 														<?php
 															}
@@ -356,7 +356,7 @@
 																</div>
 															</td>
 															<td>
-																<button type="button" class="btn btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
+																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
 															</td>
 														<?php
 															} else { ?>
@@ -410,7 +410,7 @@
 																</div>
 															</td>
 															<td>
-																<button type="button" class="btn btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
+																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
 															</td>
 														<?php
 															}
@@ -424,7 +424,7 @@
 														$j = $i-1;?>
 														<tr>
 															<td>
-																<button type="button" class="btn btn-primary" onclick="add_rows_batch(<?=$i?>)">
+																<button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?=$i?>)">
 																	Add
 																</button>
 															</td>
@@ -515,7 +515,7 @@
 																</div>
 															</td>
 															<td>
-																<button type="button"class="btn btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
+																<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
 															</td>
 															<td>
 																<div id="reject_qty_section_<?=$i?>">
@@ -546,7 +546,7 @@
 																</div>
 															</td>
 															<td>
-																<button type="button" class="btn btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
+																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
 															</td>
 														</tr>
 												<?php
@@ -558,7 +558,7 @@
 								</div>
 								
 							</div>
-							<div class="box-footer">
+							<div class="box-footer" style="text-align: center;">
 								<input type="submit" class="btn btn-success" value="Save">
 							</div>
 						</div>				
@@ -916,7 +916,7 @@
 					</div>
 				</td>
 				<td>
-					<button type="button"class="btn btn-primary" id="add_proses_breakdown" onclick="add_breakdown(${k})">Add</button>
+					<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(${k})">Add</button>
 				</td>
 				<td>
 					<div id="reject_qty_section_${k}">
@@ -947,7 +947,7 @@
 					</div>
 				</td>
 				<td>
-					<button class="btn btn-primary" id="add_jenis_reject" onclick="add_reject(${k})">Add</button>
+					<button class="btn btn-sm btn-primary" id="add_jenis_reject" onclick="add_reject(${k})">Add</button>
 				</td>
 			</tr>
 		`;
