@@ -6,6 +6,6 @@ use CodeIgniter\Model;
 
 class LhpGrid extends Model
 {
-    protected $table            = 'lhp_grid_casting';
+    protected $table            = 'lhp_grid';
     protected $allowedFields    = ['date_production', 'line', 'shift', 'grup', 'mp', 'absen', 'cuti'];
 }

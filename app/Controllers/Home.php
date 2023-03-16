@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\DetailLhpGrid;
 use App\Models\Jks;
 use App\Models\LhpGrid;
 use CodeIgniter\Controller;
@@ -28,6 +29,14 @@ class Home extends BaseController
     {
         $type_mesin = model(Jks::class);
         $result = $type_mesin->findAll();
+
+        return $this->response->setJSON($result);
+    }
+
+    public function fetch_detail_grid()
+    {
+        $detail_lhp_grid = model(DetailLhpGrid::class);
+        $result = $detail_lhp_grid->findAll();
 
         return $this->response->setJSON($result);
     }
@@ -82,8 +91,13 @@ class Home extends BaseController
             ];
             $data_lhp_grid->insert($data_lg);
 
+            $id_lhp_grid =  $data_lhp_grid->getInsertID();
+
+
+
             $message = [
                 'success' => true,
+                'id_lhp_grid' => $id_lhp_grid,
                 'notif' => '<div class="alert alert-success" role="alert">
                 <strong>Tanggal</strong> telah disimpan.
                 <button type="button" class="close mx-20" data-dismiss="alert" aria-label="Close">
@@ -105,49 +119,35 @@ class Home extends BaseController
         return $this->response->setJSON($message);
     }
 
-    public function add_grid()
+    public function add_detail_grid()
     {
-        // var_dump($this->request->getPost());
-        // die;
-        $user  = model(ProductionReport::class);
+        $user  = model(DetailLhpGrid::class);
         $rules = [
+            'id_lhp_grid' => 'required',
             'no_machine' => 'required',
             'operator_name' => 'required',
-            'type_mesin' => 'required',
+            // 'type_mesin' => 'required',
             'type_grid' => 'required',
             'jks' => 'required',
             'actual' => 'required',
-            'kode_rak' => 'required',
+            // 'kode_rak' => 'required',
         ];
         if ($this->request->getMethod() === 'post' && $this->validate($rules)) {
+            $id_lhp_grid = $this->request->getPost('id_lhp_grid');
             $no_machine = $this->request->getPost('no_machine');
             $operator_name = $this->request->getPost('operator_name');
-            $type_mesin = $this->request->getPost('type_mesin');
+            // $type_mesin = $this->request->getPost('type_mesin');
             $type_grid = $this->request->getPost('type_grid');
             $jks = $this->request->getPost('jks');
             $actual = $this->request->getPost('actual');
             $kode_rak = $this->request->getPost('kode_rak');
-
-            // $i = 0;
-            // if (!empty($operator_name)) {
-            //     // foreach ($operator_name as $op) {
-            //         $data = [
-            //             'operator_name' => $op[$i],
-            //             'type_mesin' => $type_mesin[$i],
-            //             'type_grid' => $type_grid[$i],
-            //             'jks' => $jks[$i],
-            //             'actual' => $actual[$i],
-            //             'kode_rak' => $kode_rak[$i],
-            //         ];
-            //         $user->insert($data);
-            //     $i++;
-            // }
             for ($i = 0; $i < count($operator_name); $i++) {
                 if ($operator_name[$i] != '') {
                     $data = [
-                        'no_machine' => $no_machine[$i],
+                        'id_lhp_grid' => $id_lhp_grid[$i],
                         'operator_name' => $operator_name[$i],
-                        'type_mesin' => $type_mesin[$i],
+                        'no_machine' => $no_machine[$i],
+                        // 'type_mesin' => $type_mesin[$i],
                         'type_grid' => $type_grid[$i],
                         'jks' => $jks[$i],
                         'actual' => $actual[$i],
@@ -156,8 +156,6 @@ class Home extends BaseController
                     $user->insert($data);
                 }
             }
-
-            // }
 
             $message = [
                 'success' => true,

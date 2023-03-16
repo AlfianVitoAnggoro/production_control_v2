@@ -33,17 +33,19 @@
                                                 <div class="col-4 w-400">
                                                     <div class="form-group">
                                                         <label class="form-label">Line</label>
-                                                        <select class="form-control select2 line" data-placeholder="Pilih Line" data-allow-clear="true" name="line" id="line">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
+                                                        <select class="form-control select2 line" data-placeholder="-- Pilih Line --" data-allow-clear="true" name="line" id="line">
+                                                            <option disabled selected>-- Pilih Line --</option>
+                                                            <option value="Grid Casting">Grid Casting</option>
+                                                            <option value="Grid Punching">Grid Punching</option>
+                                                            <!-- <option value="3">3</option> -->
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-4 w-400">
                                                     <div class="form-group">
                                                         <label class="form-label">Shift</label>
-                                                        <select class="form-control select2 shift" data-placeholder="Pilih Shift" data-allow-clear="true" name="shift" id="shift">
+                                                        <select class="form-control select2 shift" data-placeholder="-- Pilih Shift --" data-allow-clear="true" name="shift" id="shift">
+                                                            <option disabled selected>-- Pilih Shift --</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -96,22 +98,22 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="box box-solid">
-                                                        <form action="/grid/post" method="post" id="SimpanData">
+                                                        <form action="/grid/post_detail_grid" method="post" id="SimpanData">
                                                             <?= csrf_field(); ?>
+                                                            <!-- <input type="text" id="id2" readonly> -->
                                                             <div class="box-body">
                                                                 <br>
                                                                 <table class="table table-bordered" id="tableLoop">
                                                                     <thead>
                                                                         <tr>
                                                                             <th class="text-center">Nomor Mesin</th>
-                                                                            <!-- <th class="text-center">Tgl Produksi</th> -->
-                                                                            <!-- <th class="text-center">No Mesin</th> -->
+                                                                            <th class="text-center">ID LHP GRID</th>
+                                                                            <!-- <th class="text-center">Type Mesin</th> -->
                                                                             <th class="text-center">Nama Operator</th>
-                                                                            <th class="text-center">Type Mesin</th>
-                                                                            <th class="text-center">Type Mold</th>
-                                                                            <th class="text-center">JKS</th>
+                                                                            <th class="text-center">Type Grid</th>
+                                                                            <th class="text-center">JKS (Panel)</th>
                                                                             <!-- <th class="text-center">Plan WO</th> -->
-                                                                            <th class="text-center">Aktual</th>
+                                                                            <th class="text-center">Aktual (Panel)</th>
                                                                             <th class="text-center">Kode rak</th>
                                                                             <!-- <th class="text-center">Section</th> -->
                                                                             <!-- <th class="text-center"><button class="btn btn-success btn-block" id="BarisBaru"><i class="fa fa-plus"></i> Baris Baru</button></th> -->
@@ -174,38 +176,25 @@
         var Nomor = $("#tableLoop tbody tr").length + 1;
         var Baris = '<tr>';
 
-        // Baris += '<td class="text-center">' + 'MC' + ' ' + Nomor + '</td>';
-        // Baris += '<td>';
-        // Baris += '<input type="date" name="date_production[]" class="form-control date_production"> ';
-        // Baris += '</td>';
+        Baris += '<td>';
+        Baris += '<input type="text" name="no_machine[]" value="MC ' + Nomor + '"  class="form-control no_machine text-center" readonly >';
+        Baris += '</td>';
 
         Baris += '<td>';
-        Baris += '<input type="text" name="no_machine[]" value="MC ' + Nomor + '"  class="form-control no_machine" readonly >';
+        Baris += '<input type="number" name="id_lhp_grid[]"  class="form-control id_lhp_grid text-center" readonly >';
         Baris += '</td>';
 
         Baris += '<td>';
         Baris += '<input type="text" name="operator_name[]" class="form-control operator_name w-150" placeholder="Operator Name..." >';
         Baris += '</td>';
 
-        // Baris += '<td>';
-        // Baris += '<input type="text" name="type_grid[]" class="form-control type_grid" placeholder="Type Grid..." required="">';
-        // Baris += '</td>';
-
         Baris += '<td>';
-        Baris += '<select class="form-control select2 type_mesin w-150" data-placeholder="Pilih Type Mesin" data-allow-clear="true" name="type_mesin[]" id="type_mesin' + Nomor + '"></select>';
-        Baris += '</td>';
-
-        Baris += '<td>';
-        Baris += '<select class="form-control select2 type_grid w-150" data-placeholder="Type Mold" data-allow-clear="true" name="type_grid[]" id="type_grid' + Nomor + '"></select>';
+        Baris += '<select class="form-control select2 type_grid w-150" data-placeholder="Type Grid" data-allow-clear="true" name="type_grid[]" id="type_grid' + Nomor + '"></select>';
         Baris += '</td>';
 
         Baris += '<td>';
         Baris += '<input type="number" step="any" min="0" name="jks[]" class="form-control jks" placeholder="JKS..." >';
         Baris += '</td>';
-
-        // Baris += '<td>';
-        // Baris += '<input type="number" step="any" min="0" name="plan_wo[]" class="form-control plan_wo" placeholder="Plan WO..." required="">';
-        // Baris += '</td>';
 
         Baris += '<td>';
         Baris += '<input type="number" step="any" min="0" name="actual[]" class="form-control actual" placeholder="Actual..." >';
@@ -214,14 +203,6 @@
         Baris += '<td>';
         Baris += '<input type="text" name="kode_rak[]" class="form-control kode_rak w-150" placeholder="Kode rak..." >';
         Baris += '</td>';
-
-        // Baris += '<td>';
-        // Baris += '<input type="text" name="section[]" class="form-control section" placeholder="Section..." required="">';
-        // Baris += '</td>';
-
-        // Baris += '<td class="text-center">';
-        // Baris += '<a class="btn btn-sm btn-danger" title="Hapus Baris" id="HapusBaris"><i class="fa fa-times"></i></a>';
-        // Baris += '</td>';
 
         Baris += '</tr>';
 
@@ -232,7 +213,7 @@
         });
 
         FormSelectGrid(Nomor);
-        FormSelectJks(Nomor);
+        // FormSelectJks(Nomor);
 
     }
 
@@ -254,13 +235,6 @@
         });
     });
 
-    $(document).ready(function() {
-        $('#SimpanData').submit(function(e) {
-            e.preventDefault();
-            biodata();
-        });
-    });
-
     function lhpgrid() {
         $.ajax({
             url: $("#SimpanLhp").attr('action'),
@@ -273,13 +247,16 @@
 
                     $('#SimpanLhp :input').prop('disabled', true);
                     // $('#SimpanLhp')[0].reset();
-
-                    $('#notif').fadeIn(10000, function() {
-                        $("#notif").html(data.notif).fadeOut(10000).delay(8000);
-                    });
+                    $('.id_lhp_grid').val(data.id_lhp_grid);
+                    // $('#notif').fadeIn(10000, function() {
+                    //     $("#notif").html(data.notif).fadeOut(10000).delay(8000);
+                    // });
+                    $('#notif').html(data.notif)
                 } else {
                     $('#notif').html('<div class="alert alert-danger sticky-top">Tanggal Gagal Disimpan</div>')
                     // alert(data);
+                    console.log(data);
+                    console.table(data);
                 }
             },
             error: function(error) {
@@ -290,10 +267,14 @@
         });
     }
 
-    function biodata() {
-        // var data = $Lhp").serializeArray()
-        // console.log(JSON.stringify(data));
+    $(document).ready(function() {
+        $('#SimpanData').submit(function(e) {
+            e.preventDefault();
+            biodata();
+        });
+    });
 
+    function biodata() {
         $.ajax({
             url: $("#SimpanData").attr('action'),
             type: 'post',
@@ -304,13 +285,20 @@
                 // console.log(data);
                 if (data.success == true) {
 
-                    $('#SimpanData :input').prop('disabled', true);
-                    $('#notif').fadeIn(800, function() {
-                        $("#notif").html(data.notif).fadeOut(5000).delay(800);
-                    });
+                    // $('#SimpanData :input').prop('disabled', true);
+                    // $('#id2').val(data.id2);
+
+                    // $('.id_lhp_grid').val(data.id_lhp_grid);
+                    $('#SimpanData')[0].reset();
+                    $('.type_grid').val(null).trigger('change');
+                    // $('#notif').fadeIn(10000, function() {
+                    //     $("#notif").html(data.notif).fadeOut(10000).delay(8000);
+                    // });
+                    $('#notif').html(data.notif)
                 } else {
                     $('#notif').html('<div class="alert alert-danger sticky-top">Data Gagal Disimpan</div>')
                     console.log(data);
+                    console.table(data);
                 }
             },
             error: function(error) {
