@@ -37,9 +37,10 @@
 													<td><?=$lhp['tanggal_produksi']?></td>
 													<td><?=$lhp['shift']?></td>
 													<td><?=$lhp['line']?></td>
-													<td><?=$lhp['grup']?></td>
+													<td><?=$lhp['nama_pic']?></td>
 													<td>
 														<a href="<?=base_url()?>lhp/detail_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-primary btn-sm">Detail</a>
+														<!-- <a href="<?=base_url()?>lhp/hapus_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-danger btn-sm">Hapus</a> -->
 													</td>
 												</tr>
 												<?php endforeach; ?>

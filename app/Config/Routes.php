@@ -39,6 +39,7 @@ $routes->get('/logout', 'Login::logout');
 //LHP
 $routes->get('/lhp', 'Home::lhp_view',['filter' => 'auth']);
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
+$routes->get('/lhp/delete_lhp/(:num)', 'Home::delete_lhp/$1');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
 $routes->post('/lhp/getCT', 'Home::getCT');
 $routes->post('/lhp/get_proses_breakdown', 'Home::get_proses_breakdown');

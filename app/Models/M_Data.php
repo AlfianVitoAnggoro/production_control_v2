@@ -21,11 +21,11 @@ class M_Data extends Model
 
     public function getDataWO($tanggal_produksi,$line)
     {
-        $tanggal = date('dmY', strtotime($tanggal_produksi));
+        $tanggal = date('mY', strtotime($tanggal_produksi));
         $query = $this->db3->query('
                                     SELECT t$prto as rfq,t$prdt as tgl_prod,t$pdno as pdno,t$mitm as mitm,t$cwar as cwar, t$qrdr as qty,t$prcd as line, t$osta as status 
                                     FROM baan.ttisfc001777 
-                                    WHERE t$prcd = '.$line.' and (to_number(to_char(t$prdt + (7/24),\'ddmmyyyy\'))) = '.$tanggal.' and (t$osta = 5 or t$osta = 7) order by t$pdno asc
+                                    WHERE (to_number(to_char(t$prdt + (7/24),\'mmyyyy\'))) = '.$tanggal.' and (t$osta = 5 or t$osta = 7) order by t$pdno asc
                                 ');
                                 // WHERE t$prcd = '.$line.' and (to_number(to_char(t$prdt + (7/24),\'ddmmyyyy\'))) = '.$tanggal.' and (t$osta = 5 or t$osta = 7) order by t$pdno asc
                                 // WHERE t$prcd = '.$line.' and (to_number(to_char(t$prdt + (7/24),\'ddmmyyyy\'))) = '.$tanggal.' order by t$pdno asc
@@ -116,7 +116,7 @@ class M_Data extends Model
 
     public function get_all_lhp()
     {
-        $query = $this->db->query('SELECT * FROM lhp_produksi2');
+        $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.line');
 
         return $query->getResultArray();
     }
@@ -234,5 +234,13 @@ class M_Data extends Model
 
         return $query->getResultArray();
     }
+
+    // public function delete_lhp($id) {
+    //     $this->db->query('DELETE FROM lhp_produksi2 WHERE id_lhp_2 = '.$id);
+    //     $this->db->query('DELETE FROM detail_lhp_produksi2 WHERE id_lhp_2 = '.$id); 
+
+
+    //     return $this->db->affectedRows();
+    // }
 }
 ?>

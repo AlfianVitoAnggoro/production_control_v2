@@ -90,15 +90,15 @@
 												<th>Act vs Plan (%)</th>
 												<th>Efficiency Time (menit)</th>
 												<th>Total Menit Line Stop</th>
+												<th>Line Stop Action</th>
 												<th>Line Stop Jenis</th>
 												<th>Line Stop Proses</th>
 												<th>Line Stop Uraian</th>
 												<th>Line Stop Minute</th>
-												<th>Line Stop Action</th>
+												<th>Reject Action</th>
 												<th>Reject QTY</th>
 												<th>Reject Jenis</th>
 												<th>Reject Remark</th>
-												<th>Reject Action</th>
 											</tr>
 										</thead>
 										<tbody id="tbody">
@@ -206,10 +206,14 @@
 														<td>
 															<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" value="<?=$data_detail_lhp[$i]['total_menit_breakdown']?>" style="width: 75px" readonly>
 														</td>
+														
 														<?php
 															$model = new App\Models\M_Data();
 															$data_detail_breakdown = $model->get_detail_breakdown_by_id($data_detail_lhp[$i]['id_detail_lhp']);
 															if ($data_detail_breakdown == null) { ?>
+																<td>
+																	<button type="button"class="btn btn-sm  btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
+																</td>
 																<td>
 																	<div id="jenis_breakdown_section_<?=$i?>">
 																		<select class="form-control select2 mb-1" id="jenis_breakdown_<?=$i?>" name="jenis_breakdown[<?=$i?>][]" onchange="get_proses_breakdown(<?=$i?>)" style="width: 250px;">
@@ -242,11 +246,11 @@
 																		<input type="number" class="form-control" name="menit_breakdown[<?=$i?>][]" id="menit_breakdown_<?=$i?>" style="width: 75px">
 																	</div>
 																</td>
-																<td>
-																	<button type="button"class="btn btn-sm  btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
-																</td>
 														<?php
 															} else { ?>
+																<td>
+																	<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
+																</td>
 																<td>
 																	<div id="jenis_breakdown_section_<?=$i?>">
 																		<?php
@@ -326,9 +330,6 @@
 																	?>
 																	</div>
 																</td>
-																<td>
-																	<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
-																</td>
 														<?php
 															}
 														?>
@@ -336,6 +337,10 @@
 														<?php 
 															$data_detail_reject = $model->get_detail_reject_by_id($data_detail_lhp[$i]['id_detail_lhp']);
 															if (empty($data_detail_reject)) { ?>
+															
+															<td>
+																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
+															</td>
 															<td>
 																<div id="reject_qty_section_<?=$i?>">
 																	<input type="number" class="form-control" name="reject_qty[<?=$i?>][]" id="reject_qty_<?=$i?>" style="width: 75px">
@@ -364,11 +369,12 @@
 																	<textarea class="form-control" name="remark_reject[<?=$i?>][]" id="remark_reject_<?=$i?>" cols="20" rows="1" style="width: 200px;"></textarea>
 																</div>
 															</td>
+														<?php
+															} else { ?>
+															
 															<td>
 																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
 															</td>
-														<?php
-															} else { ?>
 															<td>
 																<div id="reject_qty_section_<?=$i?>">
 																	<?php
@@ -417,9 +423,6 @@
 																	}
 																	?>
 																</div>
-															</td>
-															<td>
-																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
 															</td>
 														<?php
 															}
@@ -490,6 +493,9 @@
 																<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" style="width: 75px" readonly>
 															</td>
 															<td>
+																<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
+															</td>
+															<td>
 																<div id="jenis_breakdown_section_<?=$i?>">
 																	<select class="form-control select2 mb-1" id="jenis_breakdown_<?=$i?>" name="jenis_breakdown[<?=$i?>][]" onchange="get_proses_breakdown(<?=$i?>)" style="width: 250px;">
 																		<option selected disabled>-- Pilih Jenis Line Stop --</option>
@@ -524,7 +530,7 @@
 																</div>
 															</td>
 															<td>
-																<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
+																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
 															</td>
 															<td>
 																<div id="reject_qty_section_<?=$i?>">
@@ -553,9 +559,6 @@
 																<div id="remark_reject_section_<?=$i?>">
 																	<textarea class="form-control" name="remark_reject[<?=$i?>][]" id="remark_reject_<?=$i?>" cols="20" rows="1" style="width: 200px;"></textarea>
 																</div>
-															</td>
-															<td>
-																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
 															</td>
 														</tr>
 												<?php

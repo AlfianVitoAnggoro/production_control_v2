@@ -47,9 +47,9 @@ class Home extends BaseController
         $line = $this->request->getPost('line');
         $shift = $this->request->getPost('shift');
         $grup = $this->request->getPost('grup');
-        $mp = $this->request->getPost('mp');
-        $absen = $this->request->getPost('absen');
-        $cuti = $this->request->getPost('cuti');
+        // $mp = $this->request->getPost('mp');
+        // $absen = $this->request->getPost('absen');
+        // $cuti = $this->request->getPost('cuti');
 
         $model = new M_Data();
         $data_line = $model->get_data_line($line);
@@ -62,15 +62,21 @@ class Home extends BaseController
             'shift' => $shift,
             'id_pic' => $grup,
             'grup' => $data_grup[0]['nama_pic'],
-            'mp' => $mp,
-            'absen' => $absen,
-            'cuti' => $cuti
+            // 'mp' => $mp,
+            // 'absen' => $absen,
+            // 'cuti' => $cuti
         ];
 
-        $model = new M_Data();
-        $data['data_wo'] = $model->getDataWO($tanggal_produksi, $line);
+        $data_lhp = [
+            'tanggal_produksi' => $tanggal_produksi,
+            'line' => $line,
+            'shift' => $shift,
+            'grup' => $grup
+        ];
+
+        // $data['data_wo'] = $model->getDataWO($tanggal_produksi, $line);
         // $data['data_wo'] = [];
-        $data['data_breakdown'] = $model->getListBreakdown();
+        // $data['data_breakdown'] = $model->getListBreakdown();
         // var_dump($data['data_breakdown']); die;
 
         $cek = $model->cek_lhp($tanggal_produksi, $line, $shift, $grup);
@@ -78,7 +84,23 @@ class Home extends BaseController
             $id_lhp = $cek[0]['id_lhp_2'];
             return redirect()->to(base_url('lhp/detail_lhp/'.$id_lhp));
         } else {
-            return view('pages/add_lhp', $data);
+
+            $save_data = $model->save_lhp($data_lhp);
+            // var_dump($data); die;
+
+            return redirect()->to(base_url('lhp/detail_lhp/'.$save_data));
+        }
+    }
+
+    public function delete_lhp($id) {
+        $id = $this->request->getPost('id');
+
+        $model = new M_Data();
+
+        $delete = $model->delete_lhp($id);
+
+        if($delete > 0) {
+           $this->lhp_view();
         }
     }
 
