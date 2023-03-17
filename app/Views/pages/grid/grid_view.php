@@ -123,7 +123,10 @@
                                                                         <th class="text-center">JKS (Panel)</th>
                                                                         <!-- <th class="text-center">Plan WO</th> -->
                                                                         <th class="text-center">Aktual (Panel)</th>
-                                                                        <th class="text-center">Kode rak</th>
+                                                                        <!-- <th class="text-center">Kode rak</th> -->
+                                                                        <th class="text-center">Andon</th>
+                                                                        <th class="text-center">Problem</th>
+                                                                        <!-- <th class="text-center">Kode rak</th> -->
                                                                         <!-- <th class="text-center" style="display: none;">ID LHP GRID</th> -->
                                                                         <!-- <th class="text-center">Section</th> -->
                                                                         <!-- <th class="text-center"><button class="btn btn-success btn-block" id="BarisBaru"><i class="fa fa-plus"></i> Baris Baru</button></th> -->
@@ -202,9 +205,19 @@
         Baris += '<input type="number" step="any" min="0" name="actual[]" class="form-control actual" placeholder="Actual..." >';
         Baris += '</td>';
 
+        // Baris += '<td>';
+        // Baris += '<input type="text" name="kode_rak[]" class="form-control kode_rak w-full" placeholder="Kode rak..." >';
+        // Baris += '</td>';
+
         Baris += '<td>';
-        Baris += '<input type="text" name="kode_rak[]" class="form-control kode_rak w-full" placeholder="Kode rak..." >';
+        // Baris += '<input type="text" name="kode_rak[]" class="form-control kode_rak w-full" placeholder="Kode rak..." >';
         Baris += '</td>';
+
+        Baris += '<td>';
+        // Baris += '<input type="text" name="kode_rak[]" class="form-control kode_rak w-full" placeholder="Kode rak..." >';
+        Baris += '</td>';
+
+
 
         // Baris += '<td>';
         // Baris += '<input type="number" name="id_lhp_grid[]"  class="form-control id_lhp_grid text-center" hidden';
