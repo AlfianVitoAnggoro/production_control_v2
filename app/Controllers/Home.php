@@ -110,9 +110,7 @@ class Home extends BaseController
                 'id_lhp_grid' => $id_lhp_grid,
                 'notif' => '<div class="alert alert-success" role="alert">
                 <strong>Tanggal</strong> telah disimpan.
-                <button type="button" class="close mx-20" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close mx-20 button-danger" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">❌</span></button>
             </div>'
 
             ];
@@ -121,9 +119,7 @@ class Home extends BaseController
                 'success' => false,
                 'notif' => '<div class="alert alert-danger" role="alert">
                 <strong>Tanggal</strong> gagal disimpan.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close mx-20 button-danger" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">❌</span></button>
             </div>'
             ];
         }
@@ -172,9 +168,7 @@ class Home extends BaseController
                 'success' => true,
                 'notif' => '<div class="alert alert-success" role="alert">
                 <strong>Success!</strong> Data has been saved.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close mx-20 button-danger" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">❌</span></button>
             </div>'
             ];
         } else {
@@ -182,9 +176,7 @@ class Home extends BaseController
                 'success' => false,
                 'notif' => '<div class="alert alert-danger" role="alert">
                 <strong>Failed!</strong> Data failed to save.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close mx-20 button-danger" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">❌</span></button>
             </div>'
             ];
         }

@@ -116,15 +116,15 @@
 
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center">Nomor Mesin</th>
+                                                                        <th class="text-center w-150">Nomor Mesin</th>
                                                                         <!-- <th class="text-center">Type Mesin</th> -->
                                                                         <th class="text-center">Nama Operator</th>
-                                                                        <th class="text-center">Type Grid</th>
+                                                                        <th class="text-center w-150">Type Grid</th>
                                                                         <th class="text-center">JKS (Panel)</th>
                                                                         <!-- <th class="text-center">Plan WO</th> -->
                                                                         <th class="text-center">Aktual (Panel)</th>
                                                                         <th class="text-center">Kode rak</th>
-                                                                        <th class="text-center">ID LHP GRID</th>
+                                                                        <!-- <th class="text-center" style="display: none;">ID LHP GRID</th> -->
                                                                         <!-- <th class="text-center">Section</th> -->
                                                                         <!-- <th class="text-center"><button class="btn btn-success btn-block" id="BarisBaru"><i class="fa fa-plus"></i> Baris Baru</button></th> -->
                                                                     </tr>
@@ -183,15 +183,15 @@
         var Baris = '<tr>';
 
         Baris += '<td>';
-        Baris += '<input type="text" name="no_machine[]" value="MC ' + Nomor + '"  class="form-control no_machine text-center" readonly >';
+        Baris += '<input type="text" name="no_machine[]" value="MC ' + Nomor + '"  class="form-control no_machine text-center w-150" readonly ><input type="hidden" name="id_lhp_grid[]"  class="form-control id_lhp_grid text-center"';
         Baris += '</td>';
 
         Baris += '<td>';
-        Baris += '<input type="text" name="operator_name[]" class="form-control operator_name w-150" placeholder="Operator Name..." >';
+        Baris += '<input type="text" name="operator_name[]" class="form-control operator_name w-full" placeholder="Operator Name..." >';
         Baris += '</td>';
 
         Baris += '<td>';
-        Baris += '<select class="form-control select2 type_grid w-150" data-placeholder="Type Grid" data-allow-clear="true" name="type_grid[]" id="type_grid' + Nomor + '"></select>';
+        Baris += '<select class="form-control select2 type_grid w-150" data-placeholder="-- Pilih Grid --" data-allow-clear="true" name="type_grid[]" id="type_grid' + Nomor + '"></select>';
         Baris += '</td>';
 
         Baris += '<td>';
@@ -203,19 +203,19 @@
         Baris += '</td>';
 
         Baris += '<td>';
-        Baris += '<input type="text" name="kode_rak[]" class="form-control kode_rak w-150" placeholder="Kode rak..." >';
+        Baris += '<input type="text" name="kode_rak[]" class="form-control kode_rak w-full" placeholder="Kode rak..." >';
         Baris += '</td>';
 
-        Baris += '<td>';
-        Baris += '<input type="number" name="id_lhp_grid[]"  class="form-control id_lhp_grid text-center" readonly>';
-        Baris += '</td>';
+        // Baris += '<td>';
+        // Baris += '<input type="number" name="id_lhp_grid[]"  class="form-control id_lhp_grid text-center" hidden';
+        // Baris += '</td>';
 
         Baris += '</tr>';
 
         $("#tableLoop tbody").append(Baris);
 
         $("#tableLoop tbody tr").each(function() {
-            $(this).find('td:nth-child(2) input').focus();
+            $(this).find('td:nth-child(1) input').focus();
         });
 
         FormSelectGrid(Nomor);
@@ -259,7 +259,7 @@
                     // });
                     $('#notif').html(data.notif)
                 } else {
-                    $('#notif').html('<div class="alert alert-danger sticky-top">Tanggal Gagal Disimpan</div>')
+                    $('#notif').html('<div class="alert alert-danger sticky-top">Tanggal Gagal Disimpan<button type="button" class="close mx-20 button-danger" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">❌</span></button></div>')
                     // alert(data);
                     console.log(data);
                     console.table(data);
@@ -296,7 +296,7 @@
                     // $('.type_grid').val(null).trigger('change');
                     $('#notif').html(data.notif)
                 } else {
-                    $('#notif').html('<div class="alert alert-danger sticky-top">Data Gagal Disimpan</div>')
+                    $('#notif').html('<div class="alert alert-danger sticky-top">Data Gagal Disimpan<button type="button" class="close mx-20 button-danger" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">❌</span></button></div>')
                     console.log(data);
                     console.table(data);
                 }
