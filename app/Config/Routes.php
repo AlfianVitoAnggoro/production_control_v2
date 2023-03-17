@@ -34,9 +34,9 @@ $routes->get('/lhp', 'Home::lhp_view');
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
 $routes->post('/lhp/getCT', 'Home::getCT');
-$routes->get('/lhp/platecutting', 'PlateCutting::platecutting_view');
-$routes->get('/lhp/platecutting/add_platecutting', 'PlateCutting::add_platecutting');
-$routes->post('/lhp/platecutting/save', 'PlateCutting::save');
+$routes->get('/lhp/envelope', 'Envelope::envelope_view');
+$routes->get('/lhp/envelope/add_envelope', 'Envelope::add_envelope');
+$routes->post('/lhp/envelope/save', 'Envelope::save');
 
 /*
  * --------------------------------------------------------------------
