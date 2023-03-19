@@ -59,94 +59,94 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <div class="modal fade modal_tambah_lhp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<form action="<?=base_url()?>lhp/add_lhp" method="post">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-3">
-								<div class="form-group">
-									<label class="form-label">Tanggal Produksi</label>
-									<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi">
-								</div>
-							</div>
-							<div class="col-3">
-								<div class="form-group">
-									<label class="form-label">Line</label>
-									<select class="form-select" id="line" name="line">
-										<option selected disabled>-- Pilih Data --</option>
-										<?php foreach($data_line as $line) : ?>
-											<option value="<?=$line['id_line']?>"><?=$line['nama_line']?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div>
-							<div class="col-3">
-								<div class="form-group">
-									<label class="form-label">Shift</label>
-									<select class="form-select" id="shift" name="shift">
-										<option selected disabled>-- Pilih Data --</option>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-3">
-								<div class="form-group">
-									<label class="form-label">Grup</label>
-									<select class="form-control select2" id="grup" name="grup" style="width: 100%;">
-										<option selected disabled>-- Pilih Data --</option>
-										<?php foreach($data_grup as $grup) : ?>
-											<option value="<?=$grup['id_pic']?>"><?=$grup['nama_pic']?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
+<div class="modal fade modal_tambah_lhp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form action="<?=base_url()?>lhp/add_lhp" method="post">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Tanggal Produksi</label>
+								<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi">
 							</div>
 						</div>
-						<!-- <div class="row">
-							<div class="col-3">
-								<div class="form-group">
-									<label class="form-label">Grup</label>
-									<input type="text" class="form-control" id="grup" name="grup">
-								</div>
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Line</label>
+								<select class="form-select" id="line" name="line">
+									<option selected disabled>-- Pilih Data --</option>
+									<?php foreach($data_line as $line) : ?>
+										<option value="<?=$line['id_line']?>"><?=$line['nama_line']?></option>
+									<?php endforeach; ?>
+								</select>
 							</div>
-							<div class="col-3">
-								<div class="form-group">
-									<label class="form-label">MP</label>
-									<input type="number" class="form-control" id="mp" name="mp">
-								</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Shift</label>
+								<select class="form-select" id="shift" name="shift">
+									<option selected disabled>-- Pilih Data --</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+								</select>
 							</div>
-							<div class="col-3">
-								<div class="form-group">
-									<label class="form-label">Absen</label>
-									<input type="number" class="form-control" id="absen" name="absen">
-								</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Grup</label>
+								<select class="form-control select2" id="grup" name="grup" style="width: 100%;">
+									<option selected disabled>-- Pilih Data --</option>
+									<?php foreach($data_grup as $grup) : ?>
+										<option value="<?=$grup['id_pic']?>"><?=$grup['nama_pic']?></option>
+									<?php endforeach; ?>
+								</select>
 							</div>
-							<div class="col-3">
-								<div class="form-group">
-									<label class="form-label">Cuti</label>
-									<input type="number" class="form-control" id="cuti" name="cuti">
-								</div>
-							</div>
-						</div> -->
+						</div>
 					</div>
-					<div class="modal-footer" style="float: right;">
-						<!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
-						<input type="submit" class="btn btn-primary float-end" value="Tambah">
-					</div>
-				</form>
-			</div>
-			<!-- /.modal-content -->
+					<!-- <div class="row">
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Grup</label>
+								<input type="text" class="form-control" id="grup" name="grup">
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">MP</label>
+								<input type="number" class="form-control" id="mp" name="mp">
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Absen</label>
+								<input type="number" class="form-control" id="absen" name="absen">
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Cuti</label>
+								<input type="number" class="form-control" id="cuti" name="cuti">
+							</div>
+						</div>
+					</div> -->
+				</div>
+				<div class="modal-footer" style="float: right;">
+					<!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
+					<input type="submit" class="btn btn-primary float-end" value="Tambah">
+				</div>
+			</form>
 		</div>
-		<!-- /.modal-dialog -->
+		<!-- /.modal-content -->
 	</div>
-  <!-- /.modal -->
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
   <?= $this->endSection(); ?>

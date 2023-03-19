@@ -11,61 +11,61 @@
 		<!-- Main content -->
 		<section class="content">
 			<form action="<?=base_url()?>lhp/update_lhp" method="post">
-					<input type="hidden" name="id_lhp" id="id_lhp" value="<?=$id_lhp?>">
-					<div class="box">
-						<div class="box-header with-border">
-							<h4>Detail Laporan Harian Produksi</h4>
-						</div>
-						<div class="box-body">
-							<div class="row">
-								<div class="col-3">
-									<div class="form-group">
-										<label class="form-label">Tanggal Produksi</label>
-										<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="<?=$data_lhp[0]['tanggal_produksi']?>" readonly>
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="form-group">
-										<label class="form-label">Line</label>
-										<input type="hidden" class="form-control" name="line" id="line" value="<?=$data_lhp[0]['line']?>">
-										<input type="text" class="form-control" name="nama_line" id="nama_line" value="<?=$data_line[0]['nama_line']?>" readonly>
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="form-group">
-										<label class="form-label">Shift</label>
-										<input type="text" class="form-control" name="shift" id="shift" value="<?=$data_lhp[0]['shift']?>" readonly>
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="form-group">
-										<label class="form-label">Grup</label>
-										<input type="hidden" class="form-control" id="grup" name="grup" value="<?=$data_lhp[0]['grup']?>">
-										<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?=$data_grup[0]['nama_pic']?>" readonly>
-									</div>
+				<input type="hidden" name="id_lhp" id="id_lhp" value="<?=$id_lhp?>">
+				<div class="box">
+					<div class="box-header with-border">
+						<h4>Detail Laporan Harian Produksi</h4>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-3">
+								<div class="form-group">
+									<label class="form-label">Tanggal Produksi</label>
+									<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="<?=$data_lhp[0]['tanggal_produksi']?>" readonly>
 								</div>
 							</div>
-							<!-- <div class="row">
-								<div class="col-3">
-									<div class="form-group">
-										<label class="form-label">MP</label>
-										<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>">
-									</div>
+							<div class="col-3">
+								<div class="form-group">
+									<label class="form-label">Line</label>
+									<input type="hidden" class="form-control" name="line" id="line" value="<?=$data_lhp[0]['line']?>">
+									<input type="text" class="form-control" name="nama_line" id="nama_line" value="<?=$data_line[0]['nama_line']?>" readonly>
 								</div>
-								<div class="col-3">
-									<div class="form-group">
-										<label class="form-label">Absen</label>
-										<input type="number" class="form-control" id="absen" name="absen" value="<?=$data_lhp[0]['absen']?>">
-									</div>
+							</div>
+							<div class="col-3">
+								<div class="form-group">
+									<label class="form-label">Shift</label>
+									<input type="text" class="form-control" name="shift" id="shift" value="<?=$data_lhp[0]['shift']?>" readonly>
 								</div>
-								<div class="col-3">
-									<div class="form-group">
-										<label class="form-label">Cuti</label>
-										<input type="number" class="form-control" id="cuti" name="cuti" value="<?=$data_lhp[0]['cuti']?>">
-									</div>
+							</div>
+							<div class="col-3">
+								<div class="form-group">
+									<label class="form-label">Grup</label>
+									<input type="hidden" class="form-control" id="grup" name="grup" value="<?=$data_lhp[0]['grup']?>">
+									<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?=$data_grup[0]['nama_pic']?>" readonly>
 								</div>
-							</div> -->
+							</div>
 						</div>
+						<!-- <div class="row">
+							<div class="col-3">
+								<div class="form-group">
+									<label class="form-label">MP</label>
+									<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>">
+								</div>
+							</div>
+							<div class="col-3">
+								<div class="form-group">
+									<label class="form-label">Absen</label>
+									<input type="number" class="form-control" id="absen" name="absen" value="<?=$data_lhp[0]['absen']?>">
+								</div>
+							</div>
+							<div class="col-3">
+								<div class="form-group">
+									<label class="form-label">Cuti</label>
+									<input type="number" class="form-control" id="cuti" name="cuti" value="<?=$data_lhp[0]['cuti']?>">
+								</div>
+							</div>
+						</div> -->
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-xl-12 col-12">
@@ -90,15 +90,8 @@
 												<th>Act vs Plan (%)</th>
 												<th>Efficiency Time (menit)</th>
 												<th>Total Menit Line Stop</th>
-												<th>Line Stop Action</th>
-												<th>Line Stop Jenis</th>
-												<th>Line Stop Proses</th>
-												<th>Line Stop Uraian</th>
-												<th>Line Stop Minute</th>
-												<th>Reject Action</th>
-												<th>Reject QTY</th>
-												<th>Reject Jenis</th>
-												<th>Reject Remark</th>
+												<th>Line Stop</th>
+												<th>Reject</th>
 											</tr>
 										</thead>
 										<tbody id="tbody">
@@ -206,233 +199,18 @@
 														<td>
 															<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" value="<?=$data_detail_lhp[$i]['total_menit_breakdown']?>" style="width: 75px" readonly>
 														</td>
-														
-														<?php
-															$model = new App\Models\M_Data();
-															$data_detail_breakdown = $model->get_detail_breakdown_by_id($data_detail_lhp[$i]['id_detail_lhp']);
-															if ($data_detail_breakdown == null) { ?>
-																<td>
-																	<button type="button"class="btn btn-sm  btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
-																</td>
-																<td>
-																	<div id="jenis_breakdown_section_<?=$i?>">
-																		<select class="form-control select2 mb-1" id="jenis_breakdown_<?=$i?>" name="jenis_breakdown[<?=$i?>][]" onchange="get_proses_breakdown(<?=$i?>)" style="width: 250px;">
-																			<option selected disabled>-- Pilih Jenis Line Stop --</option>
-																			<?php
-																				foreach ($data_breakdown as $d_breakdown) { ?>
-																					<option value="<?=$d_breakdown['jenis_breakdown']?>"><?=$d_breakdown['jenis_breakdown']?></option>
-																			<?php 
-																				}
-																			?>
-																		</select>
-																		<input type="hidden" name="id_breakdown[<?=$i?>][]" id="id_breakdown_<?=$i?>" value="">
-																	</div>
-																	<input type="hidden" name="index_jenis_breakdown[]" value="<?=$i?>">
-																</td>
-																<td>
-																	<div id="proses_breakdown_section_<?=$i?>">
-																		<select class="form-control select2" id="proses_breakdown_<?=$i?>" name="proses_breakdown[<?=$i?>][]" style="width: 250px;">
-																			<option selected disabled>-- Pilih Proses Line Stop --</option>
-																		</select>
-																	</div>
-																</td>
-																<td>
-																	<div id="uraian_breakdown_section_<?=$i?>">
-																		<textarea class="form-control" name="uraian_breakdown[<?=$i?>][]" id="uraian_breakdown_<?=$i?>" cols="20" rows="1" style="width: 200px;"></textarea>
-																	</div>
-																</td>
-																<td>
-																	<div id="menit_breakdown_section_<?=$i?>">
-																		<input type="number" class="form-control" name="menit_breakdown[<?=$i?>][]" id="menit_breakdown_<?=$i?>" style="width: 75px">
-																	</div>
-																</td>
-														<?php
-															} else { ?>
-																<td>
-																	<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
-																</td>
-																<td>
-																	<div id="jenis_breakdown_section_<?=$i?>">
-																		<?php
-																			$k = 1;
-																			foreach ($data_detail_breakdown as $d_detail_breakdown) { ?>
-																				<select class="form-control select2 mb-1" id="jenis_breakdown_<?=$k.$i?>" name="jenis_breakdown[<?=$i?>][]" onchange="get_proses_breakdown(<?=$k.$i?>)" style="width: 250px;">
-																					<option selected disabled>-- Pilih Jenis Line Stop --</option>
-																					<?php
-																						foreach ($data_breakdown as $d_breakdown) { 
-																							$selected = ($d_breakdown['jenis_breakdown'] == $d_detail_breakdown['jenis_breakdown']) ? 'selected' : '' ;
-																							?>
-
-																							<option value="<?=$d_breakdown['jenis_breakdown']?>" <?=$selected?>><?=$d_breakdown['jenis_breakdown']?></option>
-																					<?php 
-																						}
-																					?>
-																				</select>
-																				<input type="hidden" name="id_breakdown[<?=$i?>][]" id="id_breakdown_<?=$k.$i?>" value="<?=$d_detail_breakdown['id_breakdown']?>">
-																		<?php
-																			$k++;
-																			}
-																		?>
-																	</div>
-																	<input type="hidden" name="index_jenis_breakdown[]" value="<?=$i?>">
-																</td>
-																<td>
-																	<div id="proses_breakdown_section_<?=$i?>">
-																		<?php
-																		$k = 1;
-																		foreach ($data_detail_breakdown as $d_detail_breakdown) { ?>
-																			<select class="form-control select2" id="proses_breakdown_<?=$k.$i?>" name="proses_breakdown[<?=$i?>][]" style="width: 250px;">
-																				<option selected disabled>-- Pilih Proses Line Stop --</option>
-																				<?php
-																				$data_proses_breakdown = $model->getProsesBreakdown($d_detail_breakdown['jenis_breakdown']);
-																				$andon_proses = true;
-																				foreach ($data_proses_breakdown as $d_proses_breakdown) {
-																					$selected = ($d_proses_breakdown['proses_breakdown'] == $d_detail_breakdown['proses_breakdown']) ? 'selected' : '' ;
-																					if ($selected != '') {
-																						$andon_proses = false;
-																					}
-																					?>
-																					<option value="<?=$d_proses_breakdown['proses_breakdown']?>" <?=$selected?>><?=$d_proses_breakdown['proses_breakdown']?></option>
-																				<?php
-																				}
-
-																				if ($andon_proses) { ?>
-																					<option value="<?=$d_detail_breakdown['proses_breakdown']?>" selected><?=$d_detail_breakdown['proses_breakdown']?></option>
-																				<?php 
-																				}
-																				?>
-																			</select>
-																	<?php
-																		$k++;
-																		}
-																	?>
-																	</div>
-																</td>
-																<td>
-																	<div id="uraian_breakdown_section_<?=$i?>">
-																		<?php
-																		foreach ($data_detail_breakdown as $d_detail_breakdown) { ?>
-																			<textarea class="form-control" name="uraian_breakdown[<?=$i?>][]" id="" cols="20" rows="1" style="width: 200px;"><?=$d_detail_breakdown['uraian_breakdown']?></textarea>
-																	<?php
-																		}
-																	?>
-																	</div>
-																</td>
-																<td>
-																	<div id="menit_breakdown_section_<?=$i?>">
-																		<?php
-																		$k = 1;
-																		foreach ($data_detail_breakdown as $d_detail_breakdown) { ?>
-																			<input type="number" class="form-control" name="menit_breakdown[<?=$i?>][]" id="menit_breakdown_<?=$k.$i?>" value="<?=$d_detail_breakdown['menit_breakdown']?>" style="width: 75px">
-																	<?php
-																		$k++;
-																		}	
-																	?>
-																	</div>
-																</td>
-														<?php
-															}
-														?>
-
-														<?php 
-															$data_detail_reject = $model->get_detail_reject_by_id($data_detail_lhp[$i]['id_detail_lhp']);
-															if (empty($data_detail_reject)) { ?>
-															
-															<td>
-																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
-															</td>
-															<td>
-																<div id="reject_qty_section_<?=$i?>">
-																	<input type="number" class="form-control" name="reject_qty[<?=$i?>][]" id="reject_qty_<?=$i?>" style="width: 75px">
-																</div>
-															</td>
-															<td>
-																<div id="jenis_reject_section_<?=$i?>">
-																	<select class="form-control select2" id="jenis_reject_<?=$i?>" name="jenis_reject[<?=$i?>][]" style="width: 200px;">
-																		<option selected disabled>-- Pilih Jenis Reject --</option>
-																		<option value="POLE PATAH">POLE PATAH</option>
-																		<option value="FLASHING">FLASHING</option>
-																		<option value="SHORT">SHORT</option>
-																		<option value="BOCOR">BOCOR</option>
-																		<option value="MELTING NG / GAP">MELTING NG / GAP</option>
-																		<option value="POLE KETARIK">POLE KETARIK</option>
-																		<option value="BOCOR POLE">BOCOR POLE</option>
-																		<option value="CACAT BAKAR">CACAT BAKAR</option>
-																		<option value="CACAT COVER">CACAT COVER</option>
-																		<option value="CACAT CONTAINER">CACAT CONTAINER</option>
-																	</select>
-																	<input type="hidden" name="id_reject[<?=$i?>][]" id="id_reject_<?=$i?>" value="">
-																</div>
-															</td>
-															<td>
-																<div id="remark_reject_section_<?=$i?>">
-																	<textarea class="form-control" name="remark_reject[<?=$i?>][]" id="remark_reject_<?=$i?>" cols="20" rows="1" style="width: 200px;"></textarea>
-																</div>
-															</td>
-														<?php
-															} else { ?>
-															
-															<td>
-																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
-															</td>
-															<td>
-																<div id="reject_qty_section_<?=$i?>">
-																	<?php
-																	$k = 1;
-																	foreach ($data_detail_reject as $d_detail_reject) { ?>
-																		<input type="number" class="form-control" name="reject_qty[<?=$i?>][]" id="reject_qty_<?=$k.$i?>" value="<?=$d_detail_reject['qty_reject']?>" style="width: 75px">
-																	<?php
-																	$k++;
-																	}
-																	?>
-																</div>
-															</td>
-															<td>
-																<div id="jenis_reject_section_<?=$i?>">
-																	<?php
-																	$k = 1;
-																	foreach ($data_detail_reject as $d_detail_reject) { ?>
-																		<select class="form-control select2" id="jenis_reject_<?=$k.$i?>" name="jenis_reject[<?=$i?>][]" style="width: 200px;">
-																			<option selected disabled>-- Pilih Jenis Reject --</option>
-																			<option value="POLE PATAH" <?php if ($d_detail_reject['jenis_reject'] == 'POLE PATAH') { echo "selected"; } ?>>POLE PATAH</option>
-																			<option value="FLASHING" <?php if ($d_detail_reject['jenis_reject'] == 'FLASHING') { echo "selected"; } ?>>FLASHING</option>
-																			<option value="SHORT" <?php if ($d_detail_reject['jenis_reject'] == 'SHORT') { echo "selected"; } ?>>SHORT</option>
-																			<option value="BOCOR" <?php if ($d_detail_reject['jenis_reject'] == 'BOCOR') { echo "selected"; } ?>>BOCOR</option>
-																			<option value="MELTING NG / GAP" <?php if ($d_detail_reject['jenis_reject'] == 'MELTING NG / GAP') { echo "selected"; } ?>>MELTING NG / GAP</option>
-																			<option value="POLE KETARIK" <?php if ($d_detail_reject['jenis_reject'] == 'POLE KETARIK') { echo "selected"; } ?>>POLE KETARIK</option>
-																			<option value="BOCOR POLE" <?php if ($d_detail_reject['jenis_reject'] == 'BOCOR POLE') { echo "selected"; } ?>>BOCOR POLE</option>
-																			<option value="CACAT BAKAR" <?php if ($d_detail_reject['jenis_reject'] == 'CACAT BAKAR') { echo "selected"; } ?>>CACAT BAKAR</option>
-																			<option value="CACAT COVER" <?php if ($d_detail_reject['jenis_reject'] == 'CACAT COVER') { echo "selected"; } ?>>CACAT COVER</option>
-																			<option value="CACAT CONTAINER" <?php if ($d_detail_reject['jenis_reject'] == 'CACAT CONTAINER') { echo "selected"; } ?>>CACAT CONTAINER</option>
-																		</select>
-																		<input type="hidden" name="id_reject[<?=$i?>][]" id="id_reject_<?=$k.$i?>" value="<?=$d_detail_reject['id_reject']?>">
-																	<?php
-																	$k++;
-																	}
-																	?>
-																</div>
-															</td>
-															<td>
-																<div id="remark_reject_section_<?=$i?>">
-																	<?php
-																	$k = 1;
-																	foreach ($data_detail_reject as $d_detail_reject) { ?>
-																		<textarea class="form-control" name="remark_reject[<?=$i?>][]" id="remark_reject_<?=$k.$i?>" cols="20" rows="1" style="width: 200px;"><?=$d_detail_reject['remark_reject']?></textarea>
-																	<?php
-																	$k++;
-																	}
-																	?>
-																</div>
-															</td>
-														<?php
-															}
-														?>
+														<td>
+															<button type="button"class="btn btn-sm btn-primary" id="add_breakdown_<?=$i?>" onclick="add_breakdown(<?=$i?>)">Add</button>
+														</td>
+														<td>
+															<button type="button"class="btn btn-sm btn-primary" id="add_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
+														</td>
 													</tr>
 												<?php
 												}
 
 												if (count($data_detail_lhp) < 8) {
-													for ($i=count($data_detail_lhp)+1; $i <= count($jam_start); $i++) { 
+													for ($i=count($data_detail_lhp)+1; $i <= count($jam_start); $i++) {
 														$j = $i-1;?>
 														<tr>
 															<td>
@@ -493,72 +271,10 @@
 																<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" style="width: 75px" readonly>
 															</td>
 															<td>
-																<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(<?=$i?>)">Add</button>
+																<button type="button"class="btn btn-sm btn-primary" id="add_breakdown" onclick="add_breakdown()">Add</button>
 															</td>
 															<td>
-																<div id="jenis_breakdown_section_<?=$i?>">
-																	<select class="form-control select2 mb-1" id="jenis_breakdown_<?=$i?>" name="jenis_breakdown[<?=$i?>][]" onchange="get_proses_breakdown(<?=$i?>)" style="width: 250px;">
-																		<option selected disabled>-- Pilih Jenis Line Stop --</option>
-																		<?php
-																			foreach ($data_breakdown as $d_breakdown) { ?>
-																				<option value="<?=$d_breakdown['jenis_breakdown']?>"><?=$d_breakdown['jenis_breakdown']?></option>
-																		<?php 
-																			}
-																		?>
-																	</select>
-																	
-																	<input type="hidden" name="id_breakdown[<?=$i?>][]" id="id_breakdown_<?=$i?>" value="">
-																</div>
-																<input type="hidden" name="index_jenis_breakdown[]" value="<?=$i?>">
-																
-															</td>
-															<td>
-																<div id="proses_breakdown_section_<?=$i?>">
-																	<select class="form-control select2" id="proses_breakdown_<?=$i?>" name="proses_breakdown[<?=$i?>][]" style="width: 250px;">
-																		<option selected disabled>-- Pilih Proses Line Stop --</option>
-																	</select>
-																</div>
-															</td>
-															<td>
-																<div id="uraian_breakdown_section_<?=$i?>">
-																	<textarea class="form-control" name="uraian_breakdown[<?=$i?>][]" id="uraian_breakdown_<?=$i?>" cols="20" rows="1" style="width: 200px;"></textarea>
-																</div>
-															</td>
-															<td>
-																<div id="menit_breakdown_section_<?=$i?>">
-																	<input type="number" class="form-control" name="menit_breakdown[<?=$i?>][]" id="menit_breakdown_<?=$i?>" style="width: 75px">
-																</div>
-															</td>
-															<td>
-																<button type="button" class="btn btn-sm btn-primary" id="add_proses_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
-															</td>
-															<td>
-																<div id="reject_qty_section_<?=$i?>">
-																	<input type="number" class="form-control" name="reject_qty[<?=$i?>][]" id="reject_qty_<?=$i?>" style="width: 75px">
-																</div>
-															</td>
-															<td>
-																<div id="jenis_reject_section_<?=$i?>">
-																	<select class="form-control select2" id="jenis_reject_<?=$i?>" name="jenis_reject[<?=$i?>][]" style="width: 200px;">
-																		<option selected disabled>-- Pilih Jenis Reject --</option>
-																		<option value="POLE PATAH">POLE PATAH</option>
-																		<option value="FLASHING">FLASHING</option>
-																		<option value="SHORT">SHORT</option>
-																		<option value="BOCOR">BOCOR</option>
-																		<option value="MELTING NG / GAP">MELTING NG / GAP</option>
-																		<option value="POLE KETARIK">POLE KETARIK</option>
-																		<option value="BOCOR POLE">BOCOR POLE</option>
-																		<option value="CACAT BAKAR">CACAT BAKAR</option>
-																		<option value="CACAT COVER">CACAT COVER</option>
-																		<option value="CACAT CONTAINER">CACAT CONTAINER</option>
-																	</select>
-																	<input type="hidden" name="id_reject[<?=$i?>][]" id="id_reject_<?=$i?>" value="">
-																</div>
-															</td>
-															<td>
-																<div id="remark_reject_section_<?=$i?>">
-																	<textarea class="form-control" name="remark_reject[<?=$i?>][]" id="remark_reject_<?=$i?>" cols="20" rows="1" style="width: 200px;"></textarea>
-																</div>
+																<button type="button"class="btn btn-sm btn-primary" id="add_reject" onclick="add_reject()">Add</button>
 															</td>
 														</tr>
 												<?php
@@ -576,84 +292,222 @@
 						</div>				
 					</div>
 				</div>
-				
-				<!-- <div class="row">
+			</form>
+
+			<form action="" method="post">				
+				<div class="row">
 					<div class="col-xl-12 col-12">
 						<div class="box">
 							<div class="box-header with-border">
 								<h4>Detail Line Stop</h4>
 							</div>
 							<div class="box-body">
-								<form action="" method="post">
-									<div class="table-responsive">
-										<table id="" class="table table-striped mb-0">
-											<thead>
-												<tr>
-													<th>Jam</th>
-													<th>No WO</th>
-													<th>Type Battery</th>
-													<th>Line Stop Jenis</th>
-													<th>Line Stop Proses</th>
-													<th>Line Stop Uraian</th>
-													<th>Line Stop Minute</th>
-												</tr>
-											</thead>
-											<tbody id="tbody_line_stop">
-												
-											</tbody>
-										</table>
-									</div>
-									<input type="submit" class="btn btn-primary" value="Save">
-								</form>
+								<div class="table-responsive">
+									<table id="" class="table table-striped mb-0">
+										<thead>
+											<tr>
+												<th>Jam Start</th>
+												<th>Jam Stop</th>
+												<th>No WO</th>
+												<th>Type Battery</th>
+												<th>Line Stop Jenis</th>
+												<th>Line Stop Proses</th>
+												<th>Line Stop Uraian</th>
+												<th>Line Stop Minute</th>
+											</tr>
+										</thead>
+										<tbody id="tbody_line_stop">
+											
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="box-footer" style="text-align: center;">
+								<input type="submit" class="btn btn-success" value="Save">
 							</div>
 						</div>				
 					</div>
-				</div> -->
+				</div>
 			</form>
+
+			<form action="" method="post">		
+				<div class="row">
+					<div class="col-xl-12 col-12">
+						<div class="box">
+							<div class="box-header with-border">
+								<h4>Detail Reject</h4>
+							</div>
+							<div class="box-body">
+								<div class="table-responsive">
+									<table id="" class="table table-striped mb-0">
+										<thead>
+											<tr>
+												<th>Jam Start</th>
+												<th>Jam Stop</th>
+												<th>No WO</th>
+												<th>Type Battery</th>
+												<th>Reject QTY</th>
+												<th>Reject Jenis</th>
+												<th>Reject Remark</th>
+											</tr>
+										</thead>
+										<tbody id="tbody_reject">
+											
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="box-footer" style="text-align: center;">
+								<input type="submit" class="btn btn-success" value="Save">
+							</div>
+						</div>				
+					</div>
+				</div>
+			</form>
+
 		</section>
 		<!-- /.content -->
 	  </div>
-  </div>
-  <!-- /.content-wrapper -->
+	</div>
+	<!-- /.content-wrapper -->
 
-  <!-- Modal -->
-	<div class="modal fade" id="modal_data_andon" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-		<div class="modal-dialog modal-lg" style="max-width: 1500px;">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myLargeModalLabel">Data Andon</h4>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div class="table-responsive">
-						<table id="data_andon" class="table table-bordered table-striped" style="width:100%">
-							<thead>
-								<tr>
-									<th>ID Ticket</th>
-									<th>Permasalahan</th>
-									<th>Shift</th>
-									<th>Line</th>
-									<th>Pelapor</th>
-									<th>Waktu</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody id="tbody_andon">
-
-							</tbody>
-						</table>
+<!-- Modal Data Breakdown -->
+<div class="modal fade modal_breakdown" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myLargeModalLabel">Detail Line Stop</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-3">
+						<div class="form-group">
+							<label class="form-label">Jenis Line Stop</label>
+							<select class="form-control select2 mb-1" id="jenis_breakdown" name="jenis_breakdown" onchange="get_proses_breakdown()" style="width: 250px;">
+								<option selected disabled>-- Pilih Jenis Line Stop --</option>
+								<?php
+									foreach ($data_breakdown as $d_breakdown) { ?>
+										<option value="<?=$d_breakdown['jenis_breakdown']?>"><?=$d_breakdown['jenis_breakdown']?></option>
+								<?php 
+									}
+								?>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger text-start" data-bs-dismiss="modal">Close</button>
+
+					<div class="col-3">
+						<select class="form-control select2" id="proses_breakdown" name="proses_breakdown" style="width: 250px;">
+							<option selected disabled>-- Pilih Proses Line Stop --</option>
+						</select>
+					</div>
+
+					<div class="col-3">
+						<textarea class="form-control" name="uraian_breakdown" id="uraian_breakdown" cols="20" rows="1" style="width: 200px;"></textarea>
+					</div>
+
+					<div class="col-3">
+						<input type="number" class="form-control" name="menit_breakdown" id="menit_breakdown" style="width: 75px">
+					</div>
+				</div>			
+			</div>
+			<div class="modal-footer" style="float: right;">
+				<input type="submit" class="btn btn-primary float-end" value="Tambah">
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal Data Reject -->
+<div class="modal fade modal_reject" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myLargeModalLabel">Detail Reject</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-4">
+						<input type="number" class="form-control" name="reject_qty" id="reject_qty" style="width: 75px">
+					</div>
+
+					<div class="col-4">
+						<div class="form-group">
+							<label class="form-label">Jenis Reject</label>
+							<select class="form-control select2" id="jenis_reject" name="jenis_reject" style="width: 200px;">
+								<option selected disabled>-- Pilih Jenis Reject --</option>
+								<option value="POLE PATAH">POLE PATAH</option>
+								<option value="FLASHING">FLASHING</option>
+								<option value="SHORT">SHORT</option>
+								<option value="BOCOR">BOCOR</option>
+								<option value="MELTING NG / GAP">MELTING NG / GAP</option>
+								<option value="POLE KETARIK">POLE KETARIK</option>
+								<option value="BOCOR POLE">BOCOR POLE</option>
+								<option value="CACAT BAKAR">CACAT BAKAR</option>
+								<option value="CACAT COVER">CACAT COVER</option>
+								<option value="CACAT CONTAINER">CACAT CONTAINER</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-4">
+						<textarea class="form-control" name="remark_reject" id="remark_reject" cols="20" rows="1" style="width: 200px;"></textarea>
+					</div>
+				</div>			
+			</div>
+			<div class="modal-footer" style="float: right;">
+				<input type="submit" class="btn btn-primary float-end" value="Tambah">
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal Data Andon-->
+<div class="modal fade" id="modal_data_andon" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-lg" style="max-width: 1500px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myLargeModalLabel">Data Andon</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table id="data_andon" class="table table-bordered table-striped" style="width:100%">
+						<thead>
+							<tr>
+								<th>ID Ticket</th>
+								<th>Permasalahan</th>
+								<th>Shift</th>
+								<th>Line</th>
+								<th>Pelapor</th>
+								<th>Waktu</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="tbody_andon">
+
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<!-- /.modal-content -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger text-start" data-bs-dismiss="modal">Close</button>
+			</div>
 		</div>
-		<!-- /.modal-dialog -->
+		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal -->
-  <?= $this->endSection(); ?>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<?= $this->endSection(); ?>
 
 <?= $this->section('script'); ?>
 <script>
@@ -706,45 +560,13 @@
 		$('#total_menit_breakdown_'+i).val(total_menit_breakdown);
 	}
 
-	var temp_i;
 	function add_breakdown(i) {
-		var a = 1;
-		if (temp_i != i) {
-			temp_i = i;
-			a = 1;
-		} else {
-			a += 1; 
-		}
 
-		var b = "" + a + i
-
-		var data_breakdown = <?php echo json_encode($data_breakdown); ?>;
-
-		$('#jenis_breakdown_section_'+i).append(`
-			<select class="form-control select2" id="jenis_breakdown_${b}" name="jenis_breakdown[${i}][]" onchange="get_proses_breakdown(${b})" style="width: 250px;">
-				<option selected disabled>-- Pilih Jenis Line Stop --</option>
-				${data_breakdown.map((item) => `<option value="${item.jenis_breakdown}">${item.jenis_breakdown}</option>`)}
-			</select>
-			
-			<input type="hidden" name="id_breakdown[${i}][]" id="id_breakdown_${b}" value="">
-		`);
-
-		$('#proses_breakdown_section_'+i).append(`
-			<select class="form-control select2" id="proses_breakdown_${b}" name="proses_breakdown[${i}][]">
-				<option selected disabled>-- Pilih Proses Line Stop --</option>
-			</select>
-		`);
-		$('#uraian_breakdown_section_'+i).append(`
-			<textarea class="form-control" name="uraian_breakdown[${i}][]" id="uraian_breakdown_${b}" cols="20" rows="1"></textarea>
-		`);
-		$('#menit_breakdown_section_'+i).append(`
-			<input type="number" class="form-control" name="menit_breakdown[${i}][]" id="menit_breakdown_${b}" style="width: 75px">
-		`);
+		
 
 		$('.select2').select2();
 	}
 
-	var temp_reject;
 	function add_reject(i) {
 		var a = 1;
 		if (temp_reject != i) {
@@ -914,86 +736,15 @@
 					<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_${k}" style="width: 75px" readonly>
 				</td>
 				<td>
-					<div id="jenis_breakdown_section_${k}">
-						<select class="form-control select2 mb-1" id="jenis_breakdown_${k}" name="jenis_breakdown[${k}][]" onchange="get_proses_breakdown(${k})" style="width: 250px;">
-							<option selected disabled>-- Pilih Jenis Line Stop --</option>
-							${data_breakdown.map((item) => `<option value="${item.jenis_breakdown}">${item.jenis_breakdown}</option>`)}							
-						</select>
-						<input type="hidden" name="id_breakdown[${k}][]" id="id_breakdown_${k}" value="">
-					</div>
-
-					<input type="hidden" name="index_jenis_breakdown[]" value="${k}">
+					<button type="button"class="btn btn-sm btn-primary" id="add_breakdown_${k}" onclick="add_breakdown(${k})">Add</button>
 				</td>
 				<td>
-					<div id="proses_breakdown_section_${k}">
-						<select class="form-control select2" id="proses_breakdown_${k}" name="proses_breakdown[${k}][]" style="width: 250px;">
-							<option selected disabled>-- Pilih Proses Line Stop --</option>
-						</select>
-					</div>
-				</td>
-				<td>
-					<div id="uraian_breakdown_section_${k}">
-						<textarea class="form-control" name="uraian_breakdown[${k}][]" id="uraian_breakdown_${k}" cols="20" rows="1" style="width: 200px;"></textarea>
-					</div>
-				</td>
-				<td>
-					<div id="menit_breakdown_section_${k}">
-						<input type="number" class="form-control" name="menit_breakdown[${k}][]" id="breakdown_minute_${k}" style="width: 75px">
-					</div>
-				</td>
-				<td>
-					<button type="button"class="btn btn-sm btn-primary" id="add_proses_breakdown" onclick="add_breakdown(${k})">Add</button>
-				</td>
-				<td>
-					<div id="reject_qty_section_${k}">
-						<input type="number" class="form-control" name="reject_qty[${k}][]" id="reject_qty_${k}" style="width: 75px">
-					</div>
-				</td>
-				<td>
-					<div id="jenis_reject_section_${k}">
-						<select class="form-control select2" id="jenis_reject_${k}" name="jenis_reject[${k}][]" style="width: 200px;">
-							<option selected disabled>-- Pilih Jenis Reject --</option>
-							<option value="POLE PATAH">POLE PATAH</option>
-							<option value="FLASHING">FLASHING</option>
-							<option value="SHORT">SHORT</option>
-							<option value="BOCOR">BOCOR</option>
-							<option value="MELTING NG / GAP">MELTING NG / GAP</option>
-							<option value="POLE KETARIK">POLE KETARIK</option>
-							<option value="BOCOR POLE">BOCOR POLE</option>
-							<option value="CACAT BAKAR">CACAT BAKAR</option>
-							<option value="CACAT COVER">CACAT COVER</option>
-							<option value="CACAT CONTAINER">CACAT CONTAINER</option>
-						</select>
-						<input type="hidden" name="id_reject[${k}][]" id="id_reject_${k}" value="">
-					</div>
-				</td>
-				<td>
-					<div id="remark_reject_section_${k}">
-						<textarea class="form-control" name="remark_reject[${k}][]" id="remark_reject_${k}" cols="20" rows="1" style="width: 200px;"></textarea>
-					</div>
-				</td>
-				<td>
-					<button class="btn btn-sm btn-primary" id="add_jenis_reject" onclick="add_reject(${k})">Add</button>
+					<button type="button"class="btn btn-sm btn-primary" id="add_reject_${k}" onclick="add_reject(${k})">Add</button>
 				</td>
 			</tr>
 		`;
 
 		$('.select2').select2();
-
-		// <td>
-		// 	<div id="start_section_${k}">
-		// 		<!-- <button class="btn btn-success" onclick="time_start(${k})">Start</button> -->
-		// 		<input type="time" class="form-control" name="start[]" id="start_${i}" style="width: 100px;">
-		// 	</div>
-		// </td>
-		// <td>
-		// 	<div id="stop_section_${k}">
-		// 		<input type="time" class="form-control" name="stop[]" id="stop_${i}" style="width: 100px;">
-		// 	</div>
-		// </td>
-		// <td>
-		// 	<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" style="width: 75px">
-		// </td>
 	}
 
 	function delete_rows(i) {

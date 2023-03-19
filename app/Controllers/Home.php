@@ -41,56 +41,56 @@ class Home extends BaseController
         return view('pages/add_lhp');
     }
 
-    public function add_lhp()
-    {
-        $tanggal_produksi = $this->request->getPost('tanggal_produksi');
-        $line = $this->request->getPost('line');
-        $shift = $this->request->getPost('shift');
-        $grup = $this->request->getPost('grup');
-        // $mp = $this->request->getPost('mp');
-        // $absen = $this->request->getPost('absen');
-        // $cuti = $this->request->getPost('cuti');
+    // public function add_lhp()
+    // {
+    //     $tanggal_produksi = $this->request->getPost('tanggal_produksi');
+    //     $line = $this->request->getPost('line');
+    //     $shift = $this->request->getPost('shift');
+    //     $grup = $this->request->getPost('grup');
+    //     // $mp = $this->request->getPost('mp');
+    //     // $absen = $this->request->getPost('absen');
+    //     // $cuti = $this->request->getPost('cuti');
 
-        $model = new M_Data();
-        $data_line = $model->get_data_line($line);
-        $data_grup = $model->get_data_grup_pic($grup);
+    //     $model = new M_Data();
+    //     $data_line = $model->get_data_line($line);
+    //     $data_grup = $model->get_data_grup_pic($grup);
 
-        $data = [
-            'tanggal_produksi' => $tanggal_produksi,
-            'id_line' => $line,
-            'line' => $data_line[0]['nama_line'],
-            'shift' => $shift,
-            'id_pic' => $grup,
-            'grup' => $data_grup[0]['nama_pic'],
-            // 'mp' => $mp,
-            // 'absen' => $absen,
-            // 'cuti' => $cuti
-        ];
+    //     $data = [
+    //         'tanggal_produksi' => $tanggal_produksi,
+    //         'id_line' => $line,
+    //         'line' => $data_line[0]['nama_line'],
+    //         'shift' => $shift,
+    //         'id_pic' => $grup,
+    //         'grup' => $data_grup[0]['nama_pic'],
+    //         // 'mp' => $mp,
+    //         // 'absen' => $absen,
+    //         // 'cuti' => $cuti
+    //     ];
 
-        $data_lhp = [
-            'tanggal_produksi' => $tanggal_produksi,
-            'line' => $line,
-            'shift' => $shift,
-            'grup' => $grup
-        ];
+    //     $data_lhp = [
+    //         'tanggal_produksi' => $tanggal_produksi,
+    //         'line' => $line,
+    //         'shift' => $shift,
+    //         'grup' => $grup
+    //     ];
 
-        // $data['data_wo'] = $model->getDataWO($tanggal_produksi, $line);
-        // $data['data_wo'] = [];
-        // $data['data_breakdown'] = $model->getListBreakdown();
-        // var_dump($data['data_breakdown']); die;
+    //     // $data['data_wo'] = $model->getDataWO($tanggal_produksi, $line);
+    //     // $data['data_wo'] = [];
+    //     // $data['data_breakdown'] = $model->getListBreakdown();
+    //     // var_dump($data['data_breakdown']); die;
 
-        $cek = $model->cek_lhp($tanggal_produksi, $line, $shift, $grup);
-        if (count($cek) > 0) {
-            $id_lhp = $cek[0]['id_lhp_2'];
-            return redirect()->to(base_url('lhp/detail_lhp/'.$id_lhp));
-        } else {
+    //     $cek = $model->cek_lhp($tanggal_produksi, $line, $shift, $grup);
+    //     if (count($cek) > 0) {
+    //         $id_lhp = $cek[0]['id_lhp_2'];
+    //         return redirect()->to(base_url('lhp/detail_lhp/'.$id_lhp));
+    //     } else {
 
-            $save_data = $model->save_lhp($data_lhp);
-            // var_dump($data); die;
+    //         $save_data = $model->save_lhp($data_lhp);
+    //         // var_dump($data); die;
 
-            return redirect()->to(base_url('lhp/detail_lhp/'.$save_data));
-        }
-    }
+    //         return redirect()->to(base_url('lhp/detail_lhp/'.$save_data));
+    //     }
+    // }
 
     public function delete_lhp($id) {
         $id = $this->request->getPost('id');
@@ -249,8 +249,8 @@ class Home extends BaseController
         $data['data_line'] = $model->get_data_line($data['data_lhp'][0]['line']);
         $data['data_grup'] = $model->get_data_grup_pic($data['data_lhp'][0]['grup']);
 
-        $data['data_wo'] = $model->getDataWO($data['data_lhp'][0]['tanggal_produksi'], $data['data_lhp'][0]['line']);
-        // $data['data_wo'] = [];
+        // $data['data_wo'] = $model->getDataWO($data['data_lhp'][0]['tanggal_produksi'], $data['data_lhp'][0]['line']);
+        $data['data_wo'] = [];
 
         $data['data_breakdown'] = $model->getListBreakdown();
 
