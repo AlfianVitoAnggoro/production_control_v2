@@ -52,6 +52,9 @@ $routes->post('/lhp/get_data_andon', 'Home::get_data_andon');
 $routes->post('/lhp/pilih_andon', 'Home::pilih_andon');
 
 // $routes->get('/lhp/test', 'Home::test');
+$routes->get('/lhp/platecutting', 'PlateCutting::platecutting_view');
+$routes->get('/lhp/platecutting/add_platecutting', 'PlateCutting::add_platecutting');
+$routes->post('/lhp/platecutting/save', 'PlateCutting::save');
 
 /*
  * --------------------------------------------------------------------
