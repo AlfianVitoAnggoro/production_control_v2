@@ -38,6 +38,16 @@ $routes->get('/logout', 'Login::logout');
 
 //LHP
 $routes->get('/lhp', 'Home::lhp_view',['filter' => 'auth']);
+$routes->get('/', 'Home::index');
+$routes->get('/fetch_grid', 'Home::fetch_grid');
+$routes->get('/fetch_grup', 'Home::fetch_grup');
+$routes->get('/fetch_jks', 'Home::fetch_jks');
+$routes->get('/fetch_lhp_grid', 'Home::fetch_lhp_grid');
+$routes->get('/fetch_detail_grid', 'Home::fetch_detail_grid');
+$routes->get('/lhp', 'Home::lhp_view');
+$routes->get('/grid', 'Home::grid');
+$routes->post('/grid/post_lhp_grid', 'Home::add_lhp_grid');
+$routes->post('/grid/post_detail_grid', 'Home::add_detail_grid');
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
 $routes->get('/lhp/delete_lhp/(:num)', 'Home::delete_lhp/$1');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');

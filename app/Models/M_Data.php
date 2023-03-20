@@ -243,4 +243,3 @@ class M_Data extends Model
     //     return $this->db->affectedRows();
     // }
 }
-?>
