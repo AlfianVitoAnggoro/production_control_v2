@@ -7,5 +7,5 @@ use CodeIgniter\Model;
 class M_PlateCutting extends Model
 {
     protected $table = 'platecutting';
-    protected $allowedFields = ['id', 'date', 'line', 'shift', 'id_plateinput'];
+    protected $allowedFields = ['id', 'date', 'line', 'shift', 'team', 'id_plateinput'];
 }
