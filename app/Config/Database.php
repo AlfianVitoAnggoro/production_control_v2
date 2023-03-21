@@ -26,7 +26,7 @@ class Database extends Config
      */
     public array $default = [
         'DSN'      => '',
-        'hostname' => '10.19.22.102',
+        'hostname' => 'localhost',
         'username' => 'sa',
         'password' => 'admin',
         'database' => 'production_control_v2',
@@ -82,6 +82,26 @@ class Database extends Config
         'strictOn' => false,
         'failover' => [],
         'port'     => 1521,
+    ];
+
+    public array $prod_control = [
+        'DSN'      => '',
+        'hostname' => '10.19.16.19',
+        'username' => 'prod_control',
+        'password' => 'newpass001',
+        'database' => 'production_control',
+        'DBDriver' => 'mysqli',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => []
+        // 'port'     => 1521,
     ];
 
     /**

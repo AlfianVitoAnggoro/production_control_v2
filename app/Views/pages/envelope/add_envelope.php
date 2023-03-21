@@ -32,12 +32,25 @@
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <label for="shif" class="form-label">Shift</label>
+                                        <label for="shift" class="form-label">Shift</label>
                                         <select class="form-control" id="shift_0" name="shift" required>
                                             <option selected value="" disabled>-- Pilih Shift --</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label for="team" class="form-label">Team</label>
+                                        <select class="form-control" id="team_0" name="team" required>
+                                            <option selected value="" disabled>-- Pilih Team --</option>
+                                            <?php
+                                            foreach ($team as $t) {
+                                            ?>
+                                                <option value="<?= trim($t['team']) ?>"><?= trim($t['team']) ?></option>
+                                            <?php
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>

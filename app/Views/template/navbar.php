@@ -24,8 +24,8 @@
 					</span>
 				  </a>
 				  <ul class="treeview-menu">
-					<li><a href="index.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid</a></li>
-					<li><a href="index.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Formation</a></li>
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid</a></li>
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Formation</a></li>
 				  </ul>
 				</li>
 				<li class="treeview">
@@ -37,8 +37,8 @@
 					</span>
 				  </a>
 				  <ul class="treeview-menu">
-					<li><a href="index.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>LHP</a></li>
-					<li><a href="index.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Plate Cutting</a></li>
+					<li><a href="<?=base_url()?>lhp"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>LHP</a></li>
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Plate Cutting</a></li>
 				  </ul>
 				</li>
 				<li class="treeview">
@@ -50,9 +50,9 @@
 					</span>
 				  </a>
 				  <ul class="treeview-menu">
-					<li><a href="index.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Breakdown</a></li>
-					<li><a href="index.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Rejection</a></li>
-					<li><a href="index.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Run Time</a></li>
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Line Stop</a></li>
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Rejection</a></li>
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Run Time</a></li>
 				  </ul>
 				</li>
 			  </ul>

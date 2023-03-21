@@ -32,7 +32,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <!-- Home tab content -->
-      <div class="tab-pane active" id="control-sidebar-home-tab">
+      <!-- <div class="tab-pane active" id="control-sidebar-home-tab">
           <div class="flexbox">
 			<a href="javascript:void(0)" class="text-grey">
 				<i class="ti-more"></i>
@@ -150,7 +150,7 @@
 			  
 		  </div>
 
-      </div>
+      </div> -->
       <!-- /.tab-pane -->
     </div>
   </aside>
@@ -176,7 +176,7 @@
 	</div>
 	<!-- Sidebar -->	
 	
-	<?= $this->renderSection('script') ?>
+	
 	
 	<!-- Vendor JS -->
 	<script src="<?=base_url()?>assets/template/main/js/vendors.min.js"></script>
@@ -196,6 +196,7 @@
 	<!-- <script src="<?=base_url()?>assets/template/main/js/pages/data-table.js"></script> -->
 	<script src="<?=base_url()?>assets/template/main/js/pages/advanced-form-element.js"></script>
 
+	<?= $this->renderSection('script') ?>
 
 	
 </body>

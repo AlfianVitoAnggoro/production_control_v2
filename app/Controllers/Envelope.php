@@ -6,6 +6,7 @@ use App\Models\M_Envelope;
 use App\Models\M_EnvelopeInput;
 use App\Models\M_Plate;
 use App\Models\M_Separator;
+use App\Models\M_Team;
 
 use function PHPUnit\Framework\countOf;
 
@@ -15,12 +16,14 @@ class Envelope extends BaseController
     protected $envelopeModel;
     protected $plateModel;
     protected $envelopeinputModel;
+    protected $teamModel;
     public function __construct()
     {
         $this->separatorModel = new M_Separator();
         $this->envelopeModel = new M_Envelope();
         $this->envelopeinputModel = new M_EnvelopeInput();
         $this->plateModel = new M_Plate();
+        $this->teamModel = new M_Team();
     }
     public function envelope_view()
     {
@@ -29,9 +32,11 @@ class Envelope extends BaseController
         $dates = array_column($envelope, "date");
         $lines = array_column($envelope, "line");
         array_multisort($lines, SORT_ASC, $dates, SORT_ASC, $envelope);
+        $session = 'atasan';
         $data = [
             'envelope' => $envelope,
             'envelopeinput' => $envelopeinput,
+            'session' => $session,
         ];
         return view('pages/envelope/envelope_view', $data);
     }
@@ -40,19 +45,22 @@ class Envelope extends BaseController
     {
         $plate = $this->plateModel->findAll();
         $separator = $this->separatorModel->findAll();
+        $team = $this->teamModel->findAll();
         $data = [
             'plate' => $plate,
-            'separator' => $separator
+            'separator' => $separator,
+            'team' => $team
         ];
         return view('pages/envelope/add_envelope', $data);
     }
 
     public function save()
     {
-        $envelope = $this->envelopeModel->findAll();
+        $envelopeinput = $this->envelopeinputModel->findAll();
         $date = $this->request->getVar('date');
         $line = $this->request->getVar('line');
         $shift = $this->request->getVar('shift');
+        $team = $this->request->getVar('team');
         $plate = $this->request->getVar('plate');
         $hasil_produksi = $this->request->getVar('hasil_produksi');
         $separator = $this->request->getVar('separator');
@@ -61,18 +69,21 @@ class Envelope extends BaseController
         $rontok = $this->request->getVar('rontok');
         $tersangkut = $this->request->getVar('tersangkut');
         $persentase_reject_akumulatif = $this->request->getVar('persentase_reject_akumulatif');
+        $envinput = count($envelopeinput) + 1;
         if ($line !== NULL || $plate !== NULL) {
-            $id = count($envelope) + 1;
+            $id = 'D' . $date . 'L' . $line . 'S' . $shift;
             $data_envelope[] = array(
                 'id' => $id,
                 'date' => $date,
                 'line' => $line,
                 'shift' => $shift,
-                'id_envelopeinput' => $id
+                'team' => $team,
+                'status' => 'pending'
             );
             for ($i = 0; $i < count($plate); $i++) {
+                $id_envelopeinput = $envinput + $i;
                 $data_envelopeinput[] = array(
-                    'id' => $id,
+                    'id' => $id_envelopeinput,
                     'id_envelope' => $id,
                     'plate' => $plate[$i],
                     'hasil_produksi' => $hasil_produksi[$i],
@@ -86,6 +97,73 @@ class Envelope extends BaseController
             }
             $this->envelopeModel->insertBatch($data_envelope);
             $this->envelopeinputModel->insertBatch($data_envelopeinput);
+        }
+        return redirect()->to('/lhp/envelope');
+    }
+
+    public function detail_envelope($id)
+    {
+        $plate = $this->plateModel->findAll();
+        $team = $this->teamModel->findAll();
+        $envelope = $this->envelopeModel->find($id);
+        $envelopeinput = $this->envelopeinputModel->where('id_envelope', $id)->findAll();
+        $separator = $this->separatorModel->findAll();
+
+        $data = [
+            'plate' => $plate,
+            'team' => $team,
+            'separator' => $separator,
+            'envelope' => $envelope,
+            'envelopeinput' => $envelopeinput,
+        ];
+
+        return view('pages/envelope/detail_envelope', $data);
+    }
+
+    public function edit()
+    {
+        $id = $this->request->getVar('id');
+        $id_envelope = $this->request->getVar('id_envelope');
+        $edit = $this->request->getVar('edit');
+        $reject = $this->request->getVar('rejected');
+        $approve = $this->request->getVar('approved');
+        $plate = $this->request->getVar('plate');
+        $hasil_produksi = $this->request->getVar('hasil_produksi');
+        $separator = $this->request->getVar('separator');
+        $melintir_bending = $this->request->getVar('melintir_bending');
+        $terpotong = $this->request->getVar('terpotong');
+        $rontok = $this->request->getVar('rontok');
+        $tersangkut = $this->request->getVar('tersangkut');
+        $persentase_reject_akumulatif = $this->request->getVar('persentase_reject_akumulatif');
+        if ($edit !== NULL) {
+            if ($plate !== NULL) {
+                for ($i = 0; $i < count($plate); $i++) {
+                    $data_envelopeinput[] = array(
+                        'id' => $id[$i],
+                        'plate' => $plate[$i],
+                        'hasil_produksi' => $hasil_produksi[$i],
+                        'separator' => $separator[$i],
+                        'melintir_bending' => $melintir_bending[$i] !== NULL ? $melintir_bending[$i] : 0,
+                        'terpotong' => $terpotong[$i] !== NULL ? $terpotong[$i] : 0,
+                        'rontok' => $rontok[$i] !== NULL ? $rontok[$i] : 0,
+                        'tersangkut' => $tersangkut[$i] !== NULL  ? $tersangkut[$i] : 0,
+                        'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
+                    );
+                    $this->envelopeinputModel->updateBatch($data_envelopeinput, 'id');
+                }
+            }
+        } else if ($reject !== NULL) {
+            $data_envelope[] = array(
+                'id' => $id_envelope,
+                'status' => $reject
+            );
+            $this->envelopeModel->updateBatch($data_envelope, 'id');
+        } else if ($approve !== NULL) {
+            $data_envelope[] = array(
+                'id' => $id_envelope,
+                'status' => $approve
+            );
+            $this->envelopeModel->updateBatch($data_envelope, 'id');
         }
         return redirect()->to('/lhp/envelope');
     }

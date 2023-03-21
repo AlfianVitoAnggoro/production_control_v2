@@ -38,6 +38,10 @@
                                                     <th>Rontok</th>
                                                     <th>Tersangkut</th>
                                                     <th>% Akumulatif</th>
+                                                    <th>Status</th>
+                                                    <?php if ($session === 'atasan') : ?>
+                                                        <th>Aksi</th>
+                                                    <?php endif ?>
                                                 </tr>
                                             </thead>
                                             <tbody id="table_envelope">
@@ -56,7 +60,7 @@
                                                         <td style="width: 125px;">
                                                             <div class="plate-section" style="width: 125px;">
                                                                 <?php foreach ($envelopeinput as $ei) : ?>
-                                                                    <?php if ($envl['id_envelopeinput'] === $ei['id']) : ?>
+                                                                    <?php if ($envl['id'] === $ei['id_envelope']) : ?>
                                                                         <?= $ei['plate'] ?>
                                                                         <br>
                                                                     <?php endif ?>
@@ -66,7 +70,7 @@
                                                         <td>
                                                             <div class="hasil_produksi_section">
                                                                 <?php foreach ($envelopeinput as $ei) : ?>
-                                                                    <?php if ($envl['id_envelopeinput'] === $ei['id']) : ?>
+                                                                    <?php if ($envl['id'] === $ei['id_envelope']) : ?>
                                                                         <?= $ei['hasil_produksi'] ?>
                                                                         <br>
                                                                     <?php endif ?>
@@ -76,7 +80,7 @@
                                                         <td>
                                                             <div class="separator_section">
                                                                 <?php foreach ($envelopeinput as $ei) : ?>
-                                                                    <?php if ($envl['id_envelopeinput'] === $ei['id']) : ?>
+                                                                    <?php if ($envl['id'] === $ei['id_envelope']) : ?>
                                                                         <?= $ei['separator'] ?>
                                                                         <br>
                                                                     <?php endif ?>
@@ -86,7 +90,7 @@
                                                         <td>
                                                             <div class="melintir_bending_section">
                                                                 <?php foreach ($envelopeinput as $ei) : ?>
-                                                                    <?php if ($envl['id_envelopeinput'] === $ei['id']) : ?>
+                                                                    <?php if ($envl['id'] === $ei['id_envelope']) : ?>
                                                                         <?= $ei['melintir_bending'] ?>
                                                                         <br>
                                                                     <?php endif ?>
@@ -96,7 +100,7 @@
                                                         <td>
                                                             <div class="terpotong_section">
                                                                 <?php foreach ($envelopeinput as $ei) : ?>
-                                                                    <?php if ($envl['id_envelopeinput'] === $ei['id']) : ?>
+                                                                    <?php if ($envl['id'] === $ei['id_envelope']) : ?>
                                                                         <?= $ei['terpotong'] ?>
                                                                         <br>
                                                                     <?php endif ?>
@@ -106,7 +110,7 @@
                                                         <td>
                                                             <div class="rontok_section">
                                                                 <?php foreach ($envelopeinput as $ei) : ?>
-                                                                    <?php if ($envl['id_envelopeinput'] === $ei['id']) : ?>
+                                                                    <?php if ($envl['id'] === $ei['id_envelope']) : ?>
                                                                         <?= $ei['rontok'] ?>
                                                                         <br>
                                                                     <?php endif ?>
@@ -116,7 +120,7 @@
                                                         <td>
                                                             <div class="tersangkut_section">
                                                                 <?php foreach ($envelopeinput as $ei) : ?>
-                                                                    <?php if ($envl['id_envelopeinput'] === $ei['id']) : ?>
+                                                                    <?php if ($envl['id'] === $ei['id_envelope']) : ?>
                                                                         <?= $ei['tersangkut'] ?>
                                                                         <br>
                                                                     <?php endif ?>
@@ -126,13 +130,41 @@
                                                         <td>
                                                             <div class="persentase_reject_akumulatif_section">
                                                                 <?php foreach ($envelopeinput as $ei) : ?>
-                                                                    <?php if ($envl['id_envelopeinput'] === $ei['id']) : ?>
+                                                                    <?php if ($envl['id'] === $ei['id_envelope']) : ?>
                                                                         <?= $ei['persentase_reject_akumulatif'] ?>
                                                                         <br>
                                                                     <?php endif ?>
                                                                 <?php endforeach ?>
                                                             </div>
                                                         </td>
+                                                        <td>
+                                                            <div>
+                                                                <?php
+                                                                if ($envl['id'] === $ei['id_envelope']) :
+                                                                    if (trim($envl['status']) === 'approved') :
+                                                                ?>
+                                                                        <span class="badge bg-success">Approved</span>
+                                                                    <?php elseif (trim($envl['status']) === 'pending') : ?>
+                                                                        <span class="badge bg-warning">Pending</span>
+                                                                    <?php elseif (trim($envl['status']) === 'rejected') : ?>
+                                                                        <span class="badge bg-danger">Rejected</span>
+                                                                    <?php endif ?>
+                                                                <?php endif ?>
+                                                            </div>
+                                                        </td>
+                                                        <?php if ($session === 'atasan') : ?>
+                                                            <td>
+                                                                <div>
+                                                                    <?php
+                                                                    if ($envl['id'] === $ei['id_envelope']) :
+                                                                        if (trim($envl['status']) === 'pending') :
+                                                                    ?>
+                                                                            <a href="/lhp/envelope/detail_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary">Detail</a>
+                                                                        <?php endif ?>
+                                                                    <?php endif ?>
+                                                                </div>
+                                                            </td>
+                                                        <?php endif ?>
                                                     </tr>
                                                 <?php endforeach ?>
                                             </tbody>
@@ -153,5 +185,8 @@
 
 <?= $this->section('script'); ?>
 <script>
+    $(document).ready(function() {
+        $('#example5').DataTable();
+    });
 </script>
 <?= $this->endSection(); ?>
