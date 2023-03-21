@@ -43,6 +43,7 @@ $routes->get('/lhp/delete_lhp/(:num)', 'Home::delete_lhp/$1');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
 $routes->post('/lhp/getCT', 'Home::getCT');
 $routes->post('/lhp/get_proses_breakdown', 'Home::get_proses_breakdown');
+$routes->post('/lhp/get_kategori_reject', 'Home::get_kategori_reject');
 $routes->post('/lhp/save_lhp', 'Home::save_lhp');
 $routes->get('/lhp/detail_lhp/(:num)', 'Home::detail_lhp/$1');
 

@@ -80,9 +80,23 @@ class M_Data extends Model
         return $query->getResultArray();
     }
 
+    public function getListReject()
+    {
+        $query = $this->db->query('SELECT DISTINCT jenis_reject FROM data_reject');
+
+        return $query->getResultArray();
+    }
+
     public function getProsesBreakdown($jenis_breakdown)
     {
         $query = $this->db->query('SELECT * FROM data_breakdown WHERE jenis_breakdown = \''.$jenis_breakdown.'\'');
+
+        return $query->getResultArray();
+    }
+
+    public function getKategoriReject($jenis_reject)
+    {
+        $query = $this->db->query('SELECT * FROM data_reject WHERE jenis_reject = \''.$jenis_reject.'\'');
 
         return $query->getResultArray();
     }
@@ -102,16 +116,32 @@ class M_Data extends Model
         return $this->db->insertID();
     }
 
-    public function save_detail_breakdown($data)
+    public function save_detail_breakdown($id, $data)
     {
         $builder = $this->db->table('detail_breakdown');
-        $builder->insert($data);
+
+        if ($id != '') {
+            $builder->where('id_breakdown', $id);
+            $builder->update($data);
+            return $id;
+        } else {
+            $builder->insert($data);
+            return $this->db->insertID();
+        }
     }
 
-    public function save_detail_reject($data)
+    public function save_detail_reject($id, $data)
     {
         $builder = $this->db->table('detail_reject');
-        $builder->insert($data);
+
+        if ($id != '') {
+            $builder->where('id_reject', $id);
+            $builder->update($data);
+            return $id;
+        } else {
+            $builder->insert($data);
+            return $this->db->insertID();
+        }
     }
 
     public function get_all_lhp()
@@ -159,16 +189,16 @@ class M_Data extends Model
         
     }
 
-    public function get_detail_breakdown_by_id($id_detail_lhp)
+    public function get_detail_breakdown_by_id($id_lhp)
     {
-        $query = $this->db->query('SELECT * FROM detail_breakdown WHERE id_detail_lhp = '.$id_detail_lhp);
+        $query = $this->db->query('SELECT * FROM detail_breakdown WHERE id_lhp = '.$id_lhp);
 
         return $query->getResultArray();
     }
 
-    public function get_detail_reject_by_id($id_detail_lhp)
+    public function get_detail_reject_by_id($id_lhp)
     {
-        $query = $this->db->query('SELECT * FROM detail_reject WHERE id_detail_lhp = '.$id_detail_lhp);
+        $query = $this->db->query('SELECT * FROM detail_reject WHERE id_lhp = '.$id_lhp);
 
         return $query->getResultArray();
     }
