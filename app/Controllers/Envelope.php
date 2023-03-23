@@ -105,6 +105,11 @@ class Envelope extends BaseController
 
     public function detail_envelope($id)
     {
+        $session = \Config\Services::session();
+        $status = $session->get('level');
+        if ($status !== 1) {
+            return redirect()->to('/lhp/envelope');
+        }
         $plate = $this->plateModel->findAll();
         $team = $this->teamModel->findAll();
         $envelope = $this->envelopeModel->find($id);
