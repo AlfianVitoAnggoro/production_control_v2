@@ -41,11 +41,11 @@ $routes->get('/lhp', 'Home::lhp_view', ['filter' => 'auth']);
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
 $routes->post('/lhp/getCT', 'Home::getCT');
-$routes->get('/lhp/envelope', 'Envelope::envelope_view');
-$routes->get('/lhp/envelope/add_envelope', 'Envelope::add_envelope');
-$routes->get('/lhp/envelope/detail_envelope', 'Envelope::detail_envelope');
+$routes->get('/lhp/envelope', 'Envelope::envelope_view', ['filter' => 'auth']);
+$routes->get('/lhp/envelope/add_envelope', 'Envelope::add_envelope', ['filter' => 'auth']);
+$routes->get('/lhp/envelope/detail_envelope', 'Envelope::detail_envelope', ['filter' => 'auth']);
 $routes->post('/lhp/envelope/save', 'Envelope::save');
-$routes->get('/lhp/envelope/detail_envelope/(:segment)', 'Envelope::detail_envelope/$1');
+$routes->get('/lhp/envelope/detail_envelope/(:segment)', 'Envelope::detail_envelope/$1', ['filter' => 'auth']);
 $routes->post('/lhp/envelope/detail_envelope/edit', 'Envelope::edit');
 
 /*

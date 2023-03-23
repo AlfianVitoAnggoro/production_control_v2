@@ -27,16 +27,18 @@ class Envelope extends BaseController
     }
     public function envelope_view()
     {
+        $session = \Config\Services::session();
         $envelope = $this->envelopeModel->findAll();
         $envelopeinput = $this->envelopeinputModel->findAll();
         $dates = array_column($envelope, "date");
         $lines = array_column($envelope, "line");
-        array_multisort($lines, SORT_ASC, $dates, SORT_ASC, $envelope);
-        $session = 'atasan';
+        $shift = array_column($envelope, "shift");
+        array_multisort($lines, SORT_ASC, $dates, SORT_ASC, $shift, SORT_ASC,  $envelope);
+        $status = $session->get();
         $data = [
             'envelope' => $envelope,
             'envelopeinput' => $envelopeinput,
-            'session' => $session,
+            'session' => $status,
         ];
         return view('pages/envelope/envelope_view', $data);
     }

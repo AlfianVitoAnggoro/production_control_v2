@@ -91,9 +91,13 @@
                                     </table>
                                 </div>
                                 <div class="text-center my-2 button">
-                                    <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button>
-                                    <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
-                                    <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>
+                                    <?php if ($envelope['status'] === 'edit') : ?>
+                                        <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button>
+                                        <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
+                                        <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>
+                                    <?php else : ?>
+                                        <a href="/lhp/envelope" class="btn btn-primary">Back</a>
+                                    <?php endif ?>
                                 </div>
                             </form>
                         </div>
