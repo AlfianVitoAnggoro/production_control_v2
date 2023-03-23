@@ -39,32 +39,38 @@
 							</div>
 							<div class="col-3">
 								<div class="form-group">
+									<label class="form-label">Kasubsie</label>
+									<input type="text" class="form-control" name="kasubsie" id="kasubsie" value="<?=$data_lhp[0]['kasubsie']?>" readonly>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-3">
+								<div class="form-group">
 									<label class="form-label">Grup</label>
 									<input type="hidden" class="form-control" id="grup" name="grup" value="<?=$data_lhp[0]['grup']?>">
 									<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?=$data_grup[0]['nama_pic']?>" readonly>
 								</div>
 							</div>
-						</div>
-						<!-- <div class="row">
 							<div class="col-3">
 								<div class="form-group">
 									<label class="form-label">MP</label>
-									<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>">
+									<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>" readonly>
 								</div>
 							</div>
 							<div class="col-3">
 								<div class="form-group">
 									<label class="form-label">Absen</label>
-									<input type="number" class="form-control" id="absen" name="absen" value="<?=$data_lhp[0]['absen']?>">
+									<input type="number" class="form-control" id="absen" name="absen" value="<?=$data_lhp[0]['absen']?>" readonly>
 								</div>
 							</div>
 							<div class="col-3">
 								<div class="form-group">
 									<label class="form-label">Cuti</label>
-									<input type="number" class="form-control" id="cuti" name="cuti" value="<?=$data_lhp[0]['cuti']?>">
+									<input type="number" class="form-control" id="cuti" name="cuti" value="<?=$data_lhp[0]['cuti']?>" readonly>
 								</div>
 							</div>
-						</div> -->
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -100,12 +106,22 @@
 													$jam_start = ['07.30', '08.50', '09.50', '11.00', '12.00 ', '14.00', '15.00', '16.15'];
 													$jam_end = ['08.50', '09.50', '11.00', '12.00', '14.00', '15.00', '16.15', '16.30'];
 													$menit_tersedia = ['80', '60', '70', '60', '120', '60', '75', '15'];
-													$menit_aktual = ['70', '60', '60', '60', '60', '60', '60', '10'];
+													$menit_aktual = [70, 60, 60, 60, 60, 60, 60, 10];
+
+													// $jam_start = ['07.30', '08.00', '09.00', '10.00', '11.00 ', '12.00', '13.00', '14.00', '15.00', '16.00'];
+													// $jam_end = ['08.00', '09.00', '10.00', '11.00 ', '12.00', '13.00', '14.00', '15.00', '16.00', '16.30'];
+													// // $menit_tersedia = ['80', '60', '70', '60', '120', '60', '75', '15'];
+													// $menit_aktual = ['20', '60', '60', '50', '60', '0', '60', '60', '45', '25'];
 												} elseif ($data_lhp[0]['shift'] == '2') {
 													$jam_start = ['16.30', '17.50', '19.35', '20.35', '21.35', '22.45', '23.45'];
 													$jam_end = ['17.50', '19.35', '20.35', '21.35', '22.45', '23.45', '00.30'];
 													$menit_tersedia = ['80', '105', '60', '60', '70', '60', '45'];
-													$menit_aktual = ['70', '60', '60', '60', '60', '60', '40'];
+													$menit_aktual = [70, 60, 60, 60, 60, 60, 40];
+
+													// $jam_start = ['16.30', '17.50', '19.35', '20.35', '21.35', '22.45', '23.45'];
+													// $jam_end = ['17.50', '19.35', '20.35', '21.35', '22.45', '23.45', '00.30'];
+													// $menit_tersedia = ['80', '105', '60', '60', '70', '60', '45'];
+													// $menit_aktual = ['70', '60', '60', '60', '60', '60', '40'];
 												} elseif ($data_lhp[0]['shift'] == '3') {
 													$jam = ['00.30 - 01.50', '01.50 - 02.50', '02.50 - 03.50', '03.50 - 05.20', '05.20 - 06.20', '06.20 - 07.30'];
 													$menit_tersedia = ['80', '60', '60', '90', '60', '70'];
@@ -278,10 +294,10 @@
 																<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" style="width: 75px" readonly>
 															</td>
 															<td>
-																<button type="button"class="btn btn-sm btn-primary" id="add_breakdown_<?=$i?>" onclick="add_breakdown(<?=$i?>)">Add</button>
+																<button type="button" class="btn btn-sm btn-primary" id="add_breakdown_<?=$i?>" onclick="add_breakdown(<?=$i?>)">Add</button>
 															</td>
 															<td>
-																<button type="button"class="btn btn-sm btn-primary" id="add_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
+																<button type="button" class="btn btn-sm btn-primary" id="add_reject_<?=$i?>" onclick="add_reject(<?=$i?>)">Add</button>
 															</td>
 														</tr>
 												<?php
@@ -293,14 +309,34 @@
 								</div>
 								
 							</div>
-							<div class="box-footer" style="text-align: center;">
+							<div class="box-footer">
 								<!-- <input type="submit" class="btn btn-success" value="Save"> -->
+								<table id="" class="table" style="width:300px; font-size: 18px;">
+									<thead>
+										<tr>
+											<th>MH</th>
+											<th>:</th>
+											<th><span id="mh"></span></th>
+										</tr>
+										<tr>
+											<th>Efficiency</th>
+											<th>:</th>
+											<th><?= $retVal = (!empty($data_lhp[0]['total_aktual']) && !empty($data_lhp[0]['total_plan'])) ? number_format((float) ($data_lhp[0]['total_aktual'] / $data_lhp[0]['total_plan']) * 100, 2, '.', '') : '' ; ?> %</th>
+										</tr>
+										<tr>
+											<th>Total Line Stop</th>
+											<th>:</th>
+											<th><?=$data_lhp[0]['total_line_stop']?> Menit</th>
+										</tr>
+									</thead>
+								</table>
 							</div>
 						</div>				
 					</div>
 				</div>
 
-				<div class="row">
+				<!-- Detail Line Stop -->
+				<div class="row" id="ls_section">
 					<div class="col-xl-12 col-12">
 						<div class="box">
 							<div class="box-header with-border">
@@ -335,14 +371,14 @@
 														<input type="time" class="form-control" name="stop_breakdown[]" id="stop_breakdown_<?=$index_breakdown?>" value="<?=date("H:i", strtotime($d_detail_breakdown['jam_end']))?>" style="width: 100px;">
 													</td>
 													<td>
-														<input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['no_wo']?>" style="width: 100px">
-														<input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['id_breakdown']?>" style="width: 100px">
+														<input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['no_wo']?>" style="width: 125px">
+														<input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['id_breakdown']?>" style="width: 250px">
 													</td>
 													<td>
-														<input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['type_battery']?>" style="width: 100px">
+														<input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['type_battery']?>" style="width: 225px">
 													</td>
 													<td>
-														<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_<?=$index_breakdown?>" onchange="get_proses_breakdown(<?=$index_breakdown?>)" style="width: 100px">
+														<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_<?=$index_breakdown?>" onchange="get_proses_breakdown(<?=$index_breakdown?>)" style="width: 200px">
 															<option value="">Pilih Jenis Line Stop</option>
 															<?php 
 																foreach ($data_breakdown as $d_jenis_breakdown) { ?>
@@ -379,7 +415,7 @@
 														<textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_<?=$index_breakdown?>" cols="20" rows="1" style="width: 200px;"><?=$d_detail_breakdown['uraian_breakdown']?></textarea>
 													</td>
 													<td>
-														<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['menit_breakdown']?>" style="width: 100px">
+														<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['menit_breakdown']?>" style="width: 75px">
 													</td>
 													<td>
 														<button type="button" class="btn btn-danger" onclick="delete_breakdown(<?=$index_breakdown?>)"><i class="fa fa-trash"></i></button>	
@@ -400,7 +436,9 @@
 						</div>				
 					</div>
 				</div>
-				<div class="row">
+
+				<!-- Detail Reject -->
+				<div class="row" id="reject_section">
 					<div class="col-xl-12 col-12">
 						<div class="box">
 							<div class="box-header with-border">
@@ -428,17 +466,17 @@
 												foreach ($data_detail_reject as $d_detail_reject) { ?>
 												<tr>
 													<td>
-														<input type="text" class="form-control" name="no_wo_reject[]" id="no_wo_reject_<?=$index_reject?>" value="<?=$d_detail_reject['no_wo']?>" style="width: 100px">
+														<input type="text" class="form-control" name="no_wo_reject[]" id="no_wo_reject_<?=$index_reject?>" value="<?=$d_detail_reject['no_wo']?>" style="width: 200px">
 														<input type="hidden" name="id_reject[]" id="id_reject_<?=$index_reject?>" value="<?=$d_detail_reject['id_reject']?>">
 													</td>
 													<td>
-														<input type="text" class="form-control" name="part_number_reject[]" id="part_number_reject_<?=$index_reject?>" value="<?=$d_detail_reject['type_battery']?>" style="width: 100px">
+														<input type="text" class="form-control" name="part_number_reject[]" id="part_number_reject_<?=$index_reject?>" value="<?=$d_detail_reject['type_battery']?>" style="width: 250px">
 													</td>
 													<td>
-														<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_<?=$index_reject?>" value="<?=$d_detail_reject['qty_reject']?>" style="width: 100px">
+														<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_<?=$index_reject?>" value="<?=$d_detail_reject['qty_reject']?>" style="width: 75px">
 													</td>
 													<td>
-														<select class="form-control select2" name="jenis_reject[]" id="jenis_reject_<?=$index_reject?>" onchange="get_kategori_reject(<?=$index_reject?>)" style="width: 100px">
+														<select class="form-control select2" name="jenis_reject[]" id="jenis_reject_<?=$index_reject?>" onchange="get_kategori_reject(<?=$index_reject?>)" style="width: 200px">
 															<option value="">Pilih Jenis Reject</option>
 															<?php 
 																foreach ($data_reject as $d_jenis_reject) { ?>
@@ -542,7 +580,19 @@
 		total_row = tbody.rows.length - 1;
 
 		$('#data_andon').DataTable();
+
+		hitung_mh();
 	});
+
+	function hitung_mh() {
+		var total_menit = <?= array_sum($menit_aktual) ?>;
+		var mp = <?= $data_lhp[0]['mp'] ?>;
+		var absen = <?= $data_lhp[0]['absen'] ?>;
+		var cuti = <?= $data_lhp[0]['cuti'] ?>;
+		var mh  = (total_menit * (mp-absen-cuti)) / 60;
+
+		$('#mh').text(mh.toFixed(2));
+	}
 
 	function getPartNo(i) {
 		var no_wo = $('#no_wo_'+i).val();
@@ -609,14 +659,14 @@
 					<input type="time" class="form-control" name="stop_breakdown[]" id="stop_breakdown_${j}" value="${stop_breakdown}" style="width: 100px;">
 				</td>
 				<td>
-					<input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_${j}" value="${no_wo_breakdown}" style="width: 100px">
+					<input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_${j}" value="${no_wo_breakdown}" style="width: 150px" readonly>
 					<input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_${j}" value="" style="width: 100px">
 				</td>
 				<td>
-					<input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_${j}" value="${part_number_breakdown}" style="width: 100px">
+					<input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_${j}" value="${part_number_breakdown}" style="width: 250px" readonly>
 				</td>
 				<td>
-					<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_${j}" onchange="get_proses_breakdown(${j})" style="width: 100px">
+					<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_${j}" onchange="get_proses_breakdown(${j})" style="width: 150px">
 						<option value="">Pilih Jenis Line Stop</option>
 						${data_breakdown.map((item) => {
 							return `<option value="${item.jenis_breakdown}">${item.jenis_breakdown}</option>`;
@@ -624,7 +674,7 @@
 					</select>
 				</td>
 				<td>
-					<select class="form-control select2" id="proses_breakdown_${j}" name="proses_breakdown[]" style="width: 250px;">
+					<select class="form-control select2" id="proses_breakdown_${j}" name="proses_breakdown[]" style="width: 150px;">
 						<option selected disabled>-- Pilih Proses Line Stop --</option>
 					</select>
 				</td>
@@ -632,7 +682,7 @@
 					<textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_${j}" cols="20" rows="1" style="width: 200px;"></textarea>
 				</td>
 				<td>
-					<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" style="width: 100px">
+					<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" style="width: 75px">
 				</td>
 				<td>
 					<button type="button" class="btn btn-danger" onclick="delete_breakdown(${j})"><i class="fa fa-trash"></i></button>	
@@ -641,6 +691,11 @@
 		`);
 
 		$('.select2').select2();
+
+		$('html, body').animate({
+			scrollTop: $('#ls_section').offset().top
+		}, 1000);
+	
 	}
 
 	function add_reject(i) {
@@ -659,11 +714,11 @@
 		$('#tbody_reject').append(`
 			<tr>
 				<td>
-					<input type="text" class="form-control" name="no_wo_reject[]" id="no_wo_reject_${j}" value="${no_wo_reject}" style="width: 100px">
+					<input type="text" class="form-control" name="no_wo_reject[]" id="no_wo_reject_${j}" value="${no_wo_reject}" style="width: 150px" readonly>
 					<input type="hidden" class="form-control" name="id_reject[]" id="id_reject_${j}" value="" style="width: 100px">
 				</td>
 				<td>
-					<input type="text" class="form-control" name="part_number_reject[]" id="part_number_reject_${j}" value="${part_number_reject}" style="width: 100px">
+					<input type="text" class="form-control" name="part_number_reject[]" id="part_number_reject_${j}" value="${part_number_reject}" style="width: 250px" readonly>
 				</td>
 				<td>
 					<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_${j}" style="width: 75px">
@@ -682,7 +737,7 @@
 					</select>
 				</td>
 				<td>
-					<textarea class="form-control" name="remark_reject[]" id="remark_reject_${j}" cols="20" rows="1" style="width: 200px;"></textarea>
+					<textarea class="form-control" name="remark_reject[]" id="remark_reject_${j}" cols="20" rows="1" style="width: 250px;"></textarea>
 				</td>
 				<td>
 					<button type="button" class="btn btn-danger" onclick="delete_reject(${j})"><i class="fa fa-trash"></i></button>
@@ -690,6 +745,10 @@
 			</tr>
 		`);
 		$('.select2').select2();
+
+		$('html, body').animate({
+			scrollTop: $('#reject_section').offset().top
+		}, 1000);
 
 		// <td>
 		// 	<input type="time" class="form-control" name="start_reject[]" id="start_reject_${j}" value="${start_reject}" style="width: 100px;">

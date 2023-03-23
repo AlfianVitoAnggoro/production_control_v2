@@ -37,20 +37,33 @@ $routes->post('/login/proses_login', 'Login::proses_login');
 $routes->get('/logout', 'Login::logout');
 
 //LHP
-$routes->get('/lhp', 'Home::lhp_view',['filter' => 'auth']);
-$routes->post('/lhp/add_lhp', 'Home::add_lhp');
-$routes->get('/lhp/delete_lhp/(:num)', 'Home::delete_lhp/$1');
-$routes->post('/lhp/getPartNo', 'Home::getPartNo');
-$routes->post('/lhp/getCT', 'Home::getCT');
-$routes->post('/lhp/get_proses_breakdown', 'Home::get_proses_breakdown');
-$routes->post('/lhp/get_kategori_reject', 'Home::get_kategori_reject');
-$routes->post('/lhp/save_lhp', 'Home::save_lhp');
-$routes->get('/lhp/detail_lhp/(:num)', 'Home::detail_lhp/$1');
 
-$routes->post('/lhp/update_lhp', 'Home::update_lhp');
+$routes->group('lhp', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Home::lhp_view');
+    $routes->post('add_lhp', 'Home::add_lhp');
+    $routes->get('delete_lhp/(:num)', 'Home::delete_lhp/$1');
+    $routes->post('getPartNo', 'Home::getPartNo');
+    $routes->post('getCT', 'Home::getCT');
+    $routes->post('get_proses_breakdown', 'Home::get_proses_breakdown');
+    $routes->post('get_kategori_reject', 'Home::get_kategori_reject');
+    $routes->post('save_lhp', 'Home::save_lhp');
+    $routes->get('detail_lhp/(:num)', 'Home::detail_lhp/$1');
+    $routes->post('update_lhp', 'Home::update_lhp');
+    $routes->post('get_data_andon', 'Home::get_data_andon');
+    $routes->post('pilih_andon', 'Home::pilih_andon');
+});
 
-$routes->post('/lhp/get_data_andon', 'Home::get_data_andon');
-$routes->post('/lhp/pilih_andon', 'Home::pilih_andon');
+
+//GRID
+$routes->group('grid', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Grid::index',['filter' => 'auth']);
+    $routes->get('detail_lhp/(:num)', 'Grid::detail_lhp/$1');
+    $routes->post('add_lhp', 'Grid::add_lhp');
+    $routes->post('get_jks', 'Grid::get_jks');
+    $routes->post('update_lhp', 'Grid::update_lhp');
+    $routes->post('get_data_andon', 'Grid::get_data_andon');
+});
+
 
 // $routes->get('/lhp/test', 'Home::test');
 

@@ -39,7 +39,12 @@ class Login extends BaseController
                 'is_login' => true
             ];
             $this->session->set($session_data);
-            return redirect()->to(base_url('lhp'));
+            if ($data['departemen'] == NULL OR $data['departemen'] == 'produksi2') {
+                return redirect()->to(base_url('lhp'));
+            } elseif ($data['departemen'] == 'produksi1') {
+                return redirect()->to(base_url('grid'));
+            }
+            
         } else {
             $this->session->setFlashdata('error', 'Username atau Password Salah');
             return redirect()->to(base_url('login'));
