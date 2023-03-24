@@ -7,6 +7,8 @@ use App\Models\M_EnvelopeInput;
 use App\Models\M_Plate;
 use App\Models\M_Separator;
 use App\Models\M_Team;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use function PHPUnit\Framework\countOf;
 
@@ -173,5 +175,41 @@ class Envelope extends BaseController
             $this->envelopeModel->updateBatch($data_envelope, 'id');
         }
         return redirect()->to('/lhp/envelope');
+    }
+
+    public function download()
+    {
+        $envelope = $this->envelopeModel->findAll();
+        $envelopeinput = $this->envelopeinputModel->findAll();
+        $dates = array_column($envelope, "date");
+        $lines = array_column($envelope, "line");
+        $shift = array_column($envelope, "shift");
+        array_multisort($lines, SORT_ASC, $dates, SORT_ASC, $shift, SORT_ASC,  $envelope);
+        // Membuat objek Spreadsheet baru
+        $spreadsheet = new Spreadsheet();
+
+        // Menambahkan data ke worksheet
+        $sheet = $spreadsheet->getActiveSheet();
+        $data = array(
+            array('Date', 'Line', 'Shift', 'Team', 'Hasil Produksi', 'Separator', 'Melintir Bending', 'Terpotong', 'Rontok', 'Tersangkut', 'Persentase Reject Akumulatif')
+        );
+        foreach ($envelope as $envl) {
+            foreach ($envelopeinput as $ei) {
+                $data[] = array($envl['date'], $envl['line'], $envl['shift'], $envl['team'], $ei['hasil_produksi'], $ei['separator'], $ei['melintir_bending'], $ei['terpotong'], $ei['rontok'], $ei['tersangkut'], $ei['persentase_reject_akumulatif']);
+            }
+        };
+
+        // Memasukkan data array ke dalam worksheet
+        $sheet->fromArray($data);
+
+
+        // Mengatur header respons HTTP
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="data.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // Membuat objek Writer untuk menulis spreadsheet ke output
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
     }
 }

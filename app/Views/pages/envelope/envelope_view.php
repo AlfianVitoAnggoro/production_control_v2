@@ -18,6 +18,7 @@
                                     </a>
                                 </div>
                                 <div class="box-body">
+                                    <a href="/lhp/envelope/download" class="btn btn-danger">Download</a>
                                     <div class="table-responsive">
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
@@ -53,9 +54,9 @@
                                                 ?>
                                                 <?php foreach ($envelope as $envl) : ?>
                                                     <?php
-                                                    $number++;
                                                     if (!array_key_exists($envl['id'], $isExist)) :
                                                         $isExist[$envl['id']] = $envl['id'];
+                                                        $number++;
                                                     ?>
                                                         <tr>
                                                             <th><?= $number ?></th>

@@ -47,6 +47,7 @@ $routes->get('/lhp/envelope/detail_envelope', 'Envelope::detail_envelope', ['fil
 $routes->post('/lhp/envelope/save', 'Envelope::save');
 $routes->get('/lhp/envelope/detail_envelope/(:segment)', 'Envelope::detail_envelope/$1', ['filter' => 'auth']);
 $routes->post('/lhp/envelope/detail_envelope/edit', 'Envelope::edit');
+$routes->get('/lhp/envelope/download', 'Envelope::download');
 
 /*
  * --------------------------------------------------------------------
