@@ -13,7 +13,7 @@
               <h4>Detail Plate Cutting</h4>
             </div>
             <div class="box-body">
-              <form action="/lhp/platecutting/detail_platecutting/edit" method="post">
+              <form action="/platecutting/detail_platecutting/edit" method="post">
                 <div class="row">
                   <input type="hidden" name="id_platecutting" value="<?= trim($platecutting['id']); ?>">
                   <div class="col">
@@ -168,9 +168,13 @@
                   </table>
                 </div>
                 <div class="text-center my-2 button">
-                  <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button>
-                  <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
-                  <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>
+                  <?php if ($platecutting['status'] === 'pending') : ?>
+                    <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button>
+                    <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
+                    <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>
+                  <?php else : ?>
+                    <a href="/platecutting" class="btn btn-primary">Back</a>
+                  <?php endif ?>
                 </div>
               </form>
             </div>

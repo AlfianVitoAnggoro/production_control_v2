@@ -34,11 +34,20 @@ $routes->get('/lhp', 'Home::lhp_view');
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
 $routes->post('/lhp/getCT', 'Home::getCT');
-$routes->get('/lhp/platecutting', 'PlateCutting::platecutting_view');
-$routes->get('/lhp/platecutting/add_platecutting', 'PlateCutting::add_platecutting');
-$routes->post('/lhp/platecutting/save', 'PlateCutting::save');
-$routes->get('/lhp/platecutting/detail_platecutting/(:segment)', 'PlateCutting::detail_platecutting/$1');
-$routes->post('/lhp/platecutting/detail_platecutting/edit', 'PlateCutting::edit');
+// $routes->get('/lhp/platecutting', 'PlateCutting::platecutting_view');
+// $routes->get('/lhp/platecutting/add_platecutting', 'PlateCutting::add_platecutting');
+// $routes->post('/lhp/platecutting/save', 'PlateCutting::save');
+// $routes->get('/lhp/platecutting/detail_platecutting/(:segment)', 'PlateCutting::detail_platecutting/$1');
+// $routes->post('/lhp/platecutting/detail_platecutting/edit', 'PlateCutting::edit');
+// $routes->get('/lhp/platecutting/download', 'PlateCutting::download');
+$routes->group('platecutting', function ($routes) {
+    $routes->get('/', 'PlateCutting::platecutting_view');
+    $routes->get('add_platecutting', 'PlateCutting::add_platecutting');
+    $routes->post('save', 'PlateCutting::save');
+    $routes->get('detail_platecutting/(:segment)', 'PlateCutting::detail_platecutting/$1');
+    $routes->post('detail_platecutting/edit', 'PlateCutting::edit');
+    $routes->get('download', 'PlateCutting::download');
+});
 
 /*
  * --------------------------------------------------------------------

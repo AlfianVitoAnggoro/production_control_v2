@@ -6,6 +6,8 @@ use App\Models\M_Plate;
 use App\Models\M_PlateCutting;
 use App\Models\M_PlateInput;
 use App\Models\M_Team;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use function PHPUnit\Framework\countOf;
 
@@ -30,7 +32,7 @@ class PlateCutting extends BaseController
         $shifts = array_column($platecutting, "shift");
         array_multisort($dates, SORT_ASC, $lines, SORT_ASC, $shifts, SORT_ASC, $platecutting);
         $plateInput = $this->plateInputModel->findAll();
-        $session = 'atasan';
+        $session['level'] = 1;
         $data = [
             'platecutting' => $platecutting,
             'plateinput' => $plateInput,
@@ -58,7 +60,6 @@ class PlateCutting extends BaseController
 
     public function save()
     {
-        // $platecutting_pos = $this->platecuttingModel->findAll();
         $date = $this->request->getVar('date');
         $line = $this->request->getVar('line');
         $shift = $this->request->getVar('shift');
@@ -197,7 +198,7 @@ class PlateCutting extends BaseController
             }
             $this->platecuttingModel->insertBatch($data_platecutting);
         }
-        return redirect()->to('/lhp/platecutting');
+        return redirect()->to('/platecutting');
     }
 
     public function detail_platecutting($id)
@@ -206,12 +207,13 @@ class PlateCutting extends BaseController
         $team = $this->teamModel->findAll();
         $platecutting = $this->platecuttingModel->find($id);
         $plateinput = $this->plateInputModel->where('id_platecutting', $id)->findAll();
-
+        $session['level'] = 1;
         $data = [
             'plate' => $plate,
             'team' => $team,
             'platecutting' => $platecutting,
             'plateinput' => $plateinput,
+            'session' => $session
         ];
 
         return view('pages/plate_cutting/detail_platecutting', $data);
@@ -354,6 +356,52 @@ class PlateCutting extends BaseController
             );
             $this->platecuttingModel->updateBatch($data_plateinput, 'id');
         }
-        return redirect()->to('/lhp/platecutting');
+        return redirect()->to('/platecutting');
+    }
+
+    public function download()
+    {
+        $platecutting = $this->platecuttingModel->findAll();
+        $plateinput = $this->plateInputModel->findAll();
+        $dates = array_column($platecutting, "date");
+        $lines = array_column($platecutting, "line");
+        $shift = array_column($platecutting, "shift");
+        array_multisort($lines, SORT_ASC, $dates, SORT_ASC, $shift, SORT_ASC,  $platecutting);
+        // Membuat objek Spreadsheet baru
+        $spreadsheet = new Spreadsheet();
+
+        // Menambahkan data ke worksheet
+        $sheet = $spreadsheet->getActiveSheet();
+        $data = array(
+            array('', '', '', '', '', '', 'Jumlah NG (Panel)', '', '', '', '', '', '', '', '', '', 'Jumlah NG (Kg)'),
+            array('', '', '', '', '', '', 'Internal', '', '', 'Eksternal', '', '', '', '', '', '', 'Internal', '', '', 'Eksternal'),
+            array('Date', 'Line', 'Shift', 'Team', 'Plate', 'Hasil Produksi', 'Terpotong Panel', 'Tersangkut Panel', 'Overbrush', 'Rontok Panel', 'Lug Patah Panel', 'Patah Kaki Panel', 'Patah Frame Panel', 'Bolong Panel', 'Bending Panel', 'Lengket Terpotong Panel', 'Terpotong Kg', 'Tersangkut Kg', 'Overbrush', 'Rontok Kg', 'Lug Patah Kg', 'Patah Kaki Kg', 'Patah Frame Kg', 'Bolong Kg', 'Bending Kg', 'Lengket Terpotong Kg', 'Persentase Reject Internal', 'Persentase Reject Eksternal', 'Persentase Reject Akumulatif'),
+        );
+        $isExist = [];
+        foreach ($platecutting as $pc) {
+            if ($pc['status'] === 'approved') {
+                if (!array_key_exists($pc['id'], $isExist)) {
+                    foreach ($plateinput as $pi) {
+                        if ($pc['id'] === $pi['id_platecutting']) {
+                            $isExist[$pc['id']] = $pc['id'];
+                            $data[] = array($pc['date'], $pc['line'], $pc['shift'], $pc['team'], $pi['plate'], $pi['hasil_produksi'], $pi['terpotong_panel'], $pi['tersangkut_panel'], $pi['overbrush_panel'], $pi['rontok_panel'], $pi['lug_patah_panel'], $pi['patah_kaki_panel'], $pi['patah_frame_panel'], $pi['bolong_panel'], $pi['bending_panel'], $pi['lengket_terpotong_panel'], $pi['terpotong_kg'], $pi['tersangkut_kg'], $pi['overbrush_kg'], $pi['rontok_kg'], $pi['lug_patah_kg'], $pi['patah_kaki_kg'], $pi['patah_frame_kg'], $pi['bolong_kg'], $pi['bending_kg'], $pi['lengket_terpotong_kg'], $pi['persentase_reject_internal'], $pi['persentase_reject_eksternal'], $pi['persentase_reject_akumulatif']);
+                        }
+                    }
+                }
+            }
+        };
+
+        // Memasukkan data array ke dalam worksheet
+        $sheet->fromArray($data);
+
+
+        // Mengatur header respons HTTP
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="data.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // Membuat objek Writer untuk menulis spreadsheet ke output
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
     }
 }

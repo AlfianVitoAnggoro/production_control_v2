@@ -13,7 +13,7 @@
                             <h4>Detail Rejection Plate Cutting</h4>
                         </div>
                         <div class="box-body">
-                            <form action="/lhp/platecutting/save" method="post">
+                            <form action="/platecutting/save" method="post">
                                 <div class="row">
                                     <div class="col">
                                         <label for="date" class="form-label">Tanggal</label>

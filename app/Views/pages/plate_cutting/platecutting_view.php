@@ -13,11 +13,12 @@
                             <div class="box">
                                 <div class="box-header with-border">
                                     <h4 class="box-title">Laporan Rejection Plate Cutting</h4>
-                                    <a href="platecutting/add_platecutting" class="btn btn-primary">
+                                    <a href="/platecutting/add_platecutting" class="btn btn-primary">
                                         Tambah Plate Cutting
                                     </a>
                                 </div>
                                 <div class="box-body">
+                                    <a href="/platecutting/download" class="btn btn-danger">Download</a>
                                     <div class="table-responsive">
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
@@ -59,7 +60,9 @@
                                                     <th>% Reject Eksternal</th>
                                                     <th>% Akumulatif</th>
                                                     <th>Status</th>
-                                                    <th>Aksi</th>
+                                                    <?php if ($session === 'atasan') : ?>
+                                                        <th>Aksi</th>
+                                                    <?php endif ?>
                                                 </tr>
                                             </thead>
                                             <tbody id="table_platecutting">
@@ -355,12 +358,10 @@
                                                                         <?php
                                                                         foreach ($plateinput as $pi) :
                                                                             if ($pc['id'] === $pi['id_platecutting']) :
-                                                                                if (trim($pc['status']) === 'pending') :
                                                                         ?>
-                                                                                    <a href="/lhp/platecutting/detail_platecutting/<?= trim($pc['id']) ?>" class="btn btn-primary">Detail</a>
-                                                                                <?php break;
-                                                                                endif ?>
-                                                                            <?php endif ?>
+                                                                                <a href="/platecutting/detail_platecutting/<?= trim($pc['id']) ?>" class="btn btn-primary">Detail</a>
+                                                                            <?php break;
+                                                                            endif ?>
                                                                         <?php endforeach ?>
                                                                     </div>
                                                                 </td>
