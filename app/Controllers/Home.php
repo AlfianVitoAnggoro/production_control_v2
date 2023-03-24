@@ -326,9 +326,12 @@ class Home extends BaseController
                         'total_menit_breakdown' => $this->request->getPost('total_menit_breakdown')[$i]
                     ];
 
-                    if ($this->request->getPost('actual')[$i] != null AND $this->request->getPost('total_menit_breakdown')[$i] != null) {
+                    if ($this->request->getPost('actual')[$i] != null) {
                         $total_plan += $this->request->getPost('plan_cap')[$i];
                         $total_actual += $this->request->getPost('actual')[$i];
+                    }
+
+                    if ($this->request->getPost('total_menit_breakdown')[$i] != null) {
                         $total_line_stop += $this->request->getPost('total_menit_breakdown')[$i];
                     }
 

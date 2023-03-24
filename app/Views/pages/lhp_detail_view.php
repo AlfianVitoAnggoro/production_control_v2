@@ -589,6 +589,12 @@
 		$('#data_andon').DataTable();
 
 		hitung_mh();
+
+		$('input[type="number"]').each(function() {
+			if ($(this).val() == 0) {
+			$(this).val('');
+			}
+		});
 	});
 
 	function hitung_mh() {
