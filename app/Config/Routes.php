@@ -41,13 +41,23 @@ $routes->get('/lhp', 'Home::lhp_view', ['filter' => 'auth']);
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
 $routes->post('/lhp/getCT', 'Home::getCT');
-$routes->get('/lhp/envelope', 'Envelope::envelope_view', ['filter' => 'auth']);
-$routes->get('/lhp/envelope/add_envelope', 'Envelope::add_envelope', ['filter' => 'auth']);
-$routes->get('/lhp/envelope/detail_envelope', 'Envelope::detail_envelope', ['filter' => 'auth']);
-$routes->post('/lhp/envelope/save', 'Envelope::save');
-$routes->get('/lhp/envelope/detail_envelope/(:segment)', 'Envelope::detail_envelope/$1', ['filter' => 'auth']);
-$routes->post('/lhp/envelope/detail_envelope/edit', 'Envelope::edit');
-$routes->get('/lhp/envelope/download', 'Envelope::download');
+$routes->group('platecutting', function ($routes) {
+    $routes->get('/', 'PlateCutting::platecutting_view');
+    $routes->get('add_platecutting', 'PlateCutting::add_platecutting');
+    $routes->post('save', 'PlateCutting::save');
+    $routes->get('detail_platecutting/(:segment)', 'PlateCutting::detail_platecutting/$1');
+    $routes->post('detail_platecutting/edit', 'PlateCutting::edit');
+    $routes->get('download', 'PlateCutting::download');
+});
+$routes->group('envelope', function ($routes) {
+    $routes->get('/', 'Envelope::envelope_view', ['filter' => 'auth']);
+    $routes->get('add_envelope', 'Envelope::add_envelope', ['filter' => 'auth']);
+    $routes->get('detail_envelope', 'Envelope::detail_envelope', ['filter' => 'auth']);
+    $routes->post('save', 'Envelope::save');
+    $routes->get('detail_envelope/(:segment)', 'Envelope::detail_envelope/$1', ['filter' => 'auth']);
+    $routes->post('detail_envelope/edit', 'Envelope::edit');
+    $routes->get('download', 'Envelope::download');
+});
 
 /*
  * --------------------------------------------------------------------

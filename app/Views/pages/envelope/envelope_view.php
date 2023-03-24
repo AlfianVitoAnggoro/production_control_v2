@@ -13,12 +13,12 @@
                             <div class="box">
                                 <div class="box-header with-border">
                                     <h4 class="box-title">Laporan Envelope</h4>
-                                    <a href="/lhp/envelope/add_envelope" class="btn btn-primary">
+                                    <a href="/envelope/add_envelope" class="btn btn-primary">
                                         Tambah Envelope
                                     </a>
                                 </div>
                                 <div class="box-body">
-                                    <a href="/lhp/envelope/download" class="btn btn-danger">Download</a>
+                                    <a href="/envelope/download" class="btn btn-danger">Download</a>
                                     <div class="table-responsive">
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
@@ -169,7 +169,7 @@
                                                                         <?php foreach ($envelopeinput as $ei) :
                                                                             if ($envl['id'] === $ei['id_envelope']) :
                                                                         ?>
-                                                                                <a href="/lhp/envelope/detail_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary">Detail</a>
+                                                                                <a href="/envelope/detail_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary">Detail</a>
                                                                             <?php break;
                                                                             endif ?>
                                                                         <?php endforeach ?>

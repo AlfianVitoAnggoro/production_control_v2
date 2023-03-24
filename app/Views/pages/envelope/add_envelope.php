@@ -13,7 +13,7 @@
                             <h4>Detail Envelope</h4>
                         </div>
                         <div class="box-body">
-                            <form action="/lhp/envelope/save" method="post">
+                            <form action="/envelope/save" method="post">
                                 <div class="row">
                                     <div class="col">
                                         <label for="date" class="form-label">Tanggal</label>
