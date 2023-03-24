@@ -91,7 +91,7 @@
                                     </table>
                                 </div>
                                 <div class="text-center my-2 button">
-                                    <?php if ($envelope['status'] === 'edit') : ?>
+                                    <?php if ($envelope['status'] === 'pending') : ?>
                                         <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button>
                                         <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
                                         <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>

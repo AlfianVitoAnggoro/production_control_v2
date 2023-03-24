@@ -193,9 +193,17 @@ class Envelope extends BaseController
         $data = array(
             array('Date', 'Line', 'Shift', 'Team', 'Hasil Produksi', 'Separator', 'Melintir Bending', 'Terpotong', 'Rontok', 'Tersangkut', 'Persentase Reject Akumulatif')
         );
+        $isExist = [];
         foreach ($envelope as $envl) {
-            foreach ($envelopeinput as $ei) {
-                $data[] = array($envl['date'], $envl['line'], $envl['shift'], $envl['team'], $ei['hasil_produksi'], $ei['separator'], $ei['melintir_bending'], $ei['terpotong'], $ei['rontok'], $ei['tersangkut'], $ei['persentase_reject_akumulatif']);
+            if ($envl['status'] === 'approved') {
+                if (!array_key_exists($envl['id'], $isExist)) {
+                    foreach ($envelopeinput as $ei) {
+                        if ($envl['id'] === $ei['id_envelope']) {
+                            $isExist[$envl['id']] = $envl['id'];
+                            $data[] = array($envl['date'], $envl['line'], $envl['shift'], $envl['team'], $ei['hasil_produksi'], $ei['separator'], $ei['melintir_bending'], $ei['terpotong'], $ei['rontok'], $ei['tersangkut'], $ei['persentase_reject_akumulatif']);
+                        }
+                    }
+                }
             }
         };
 
