@@ -102,15 +102,15 @@ class Envelope extends BaseController
             $this->envelopeModel->insertBatch($data_envelope);
             $this->envelopeinputModel->insertBatch($data_envelopeinput);
         }
-        return redirect()->to('/lhp/envelope');
+        return redirect()->to('/envelope');
     }
 
     public function detail_envelope($id)
     {
         $session = \Config\Services::session();
         $status = $session->get('level');
-        if ($status !== 1) {
-            return redirect()->to('/lhp/envelope');
+        if ($status !== 5) {
+            return redirect()->to('/envelope');
         }
         $plate = $this->plateModel->findAll();
         $team = $this->teamModel->findAll();
@@ -174,7 +174,7 @@ class Envelope extends BaseController
             );
             $this->envelopeModel->updateBatch($data_envelope, 'id');
         }
-        return redirect()->to('/lhp/envelope');
+        return redirect()->to('/envelope');
     }
 
     public function download()

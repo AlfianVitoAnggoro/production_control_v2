@@ -26,17 +26,18 @@ class PlateCutting extends BaseController
     }
     public function platecutting_view()
     {
+        $session = \Config\Services::session();
         $platecutting = $this->platecuttingModel->findAll();
         $dates = array_column($platecutting, "date");
         $lines = array_column($platecutting, "line");
         $shifts = array_column($platecutting, "shift");
         array_multisort($dates, SORT_ASC, $lines, SORT_ASC, $shifts, SORT_ASC, $platecutting);
         $plateInput = $this->plateInputModel->findAll();
-        $session['level'] = 1;
+        $status = $session->get();
         $data = [
             'platecutting' => $platecutting,
             'plateinput' => $plateInput,
-            'session' => $session
+            'session' => $status
         ];
         return view('pages/plate_cutting/platecutting_view', $data);
     }
@@ -203,17 +204,20 @@ class PlateCutting extends BaseController
 
     public function detail_platecutting($id)
     {
+        $session = \Config\Services::session();
+        $status = $session->get('level');
+        if ($status !== 5) {
+            return redirect()->to('/platecutting');
+        }
         $plate = $this->plateModel->findAll();
         $team = $this->teamModel->findAll();
         $platecutting = $this->platecuttingModel->find($id);
         $plateinput = $this->plateInputModel->where('id_platecutting', $id)->findAll();
-        $session['level'] = 1;
         $data = [
             'plate' => $plate,
             'team' => $team,
             'platecutting' => $platecutting,
-            'plateinput' => $plateinput,
-            'session' => $session
+            'plateinput' => $plateinput
         ];
 
         return view('pages/plate_cutting/detail_platecutting', $data);
@@ -313,7 +317,7 @@ class PlateCutting extends BaseController
             if ($plate_neg !== NULL) {
                 for ($i = 0; $i < count($plate_neg); $i++) {
                     $data_plate_neg[] = array(
-                        'id' => $id_plateinput[$i],
+                        'id' => $id_plateinput[$i + count($plate_pos)],
                         'plate' => $plate_neg[$i],
                         'hasil_produksi' => $hasil_produksi_neg[$i],
                         'terpotong_panel' => $terpotong_panel_neg[$i] !== NULL ? $terpotong_panel_neg[$i] : 0,
@@ -375,7 +379,7 @@ class PlateCutting extends BaseController
         $data = array(
             array('', '', '', '', '', '', 'Jumlah NG (Panel)', '', '', '', '', '', '', '', '', '', 'Jumlah NG (Kg)'),
             array('', '', '', '', '', '', 'Internal', '', '', 'Eksternal', '', '', '', '', '', '', 'Internal', '', '', 'Eksternal'),
-            array('Date', 'Line', 'Shift', 'Team', 'Plate', 'Hasil Produksi', 'Terpotong Panel', 'Tersangkut Panel', 'Overbrush', 'Rontok Panel', 'Lug Patah Panel', 'Patah Kaki Panel', 'Patah Frame Panel', 'Bolong Panel', 'Bending Panel', 'Lengket Terpotong Panel', 'Terpotong Kg', 'Tersangkut Kg', 'Overbrush', 'Rontok Kg', 'Lug Patah Kg', 'Patah Kaki Kg', 'Patah Frame Kg', 'Bolong Kg', 'Bending Kg', 'Lengket Terpotong Kg', 'Persentase Reject Internal', 'Persentase Reject Eksternal', 'Persentase Reject Akumulatif'),
+            array('Date', 'Line', 'Shift', 'Team', 'Plate', 'Hasil Produksi', 'Terpotong', 'Tersangkut', 'Overbrush', 'Rontok', 'Lug Patah', 'Patah Kaki', 'Patah Frame', 'Bolong', 'Bending', 'Lengket Terpotong', 'Terpotong', 'Tersangkut', 'Overbrush', 'Rontok', 'Lug Patah', 'Patah Kaki', 'Patah Frame', 'Bolong', 'Bending', 'Lengket Terpotong', 'Persentase Reject Internal', 'Persentase Reject Eksternal', 'Persentase Reject Akumulatif'),
         );
         $isExist = [];
         foreach ($platecutting as $pc) {

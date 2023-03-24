@@ -307,7 +307,7 @@
       baris = document.querySelectorAll('.form_pos').length;
       $('.form_platecutting_pos').append(`
 			<tr class="form_pos" id="form_${baris}_pos">
-          <input type="hidden" name="id_plateinput[]" value="<?= $pp['id']; ?>">
+          <input type="hidden" name="id_plateinput[]" value="<?= trim($pp['id']); ?>">
           <td>${baris + 1}</td>
           <td>
               <select class="form-control select2" id="plate_${baris}_pos" onchange="panel_pos(${baris})" name="plate_pos[]" style="width: 200px;" required disabled>
@@ -418,7 +418,7 @@
       baris = document.querySelectorAll('.form_neg').length;
       $('.form_platecutting_neg').append(`
 			<tr class="form_neg" id="form_${baris}_neg">
-          <input type="hidden" name="id_plateinput[]" value="<?= $pn['id']; ?>">
+          <input type="hidden" name="id_plateinput[]" value="<?= trim($pn['id']); ?>">
           <td>${baris + 1}</td>
           <td>
               <select class="form-control select2" id="plate_${baris}_neg" onchange="panel_neg(${baris})" name="plate_neg[]" style="width: 200px;" required disabled>

@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="col">
                                         <label for="team" class="form-label">Team</label>
-                                        <select class="form-control" id="team_0" name="team" required>
+                                        <select class="form-control select2" id="team_0" name="team" required>
                                             <option selected value="" disabled>-- Pilih Team --</option>
                                             <?php
                                             foreach ($team as $t) {

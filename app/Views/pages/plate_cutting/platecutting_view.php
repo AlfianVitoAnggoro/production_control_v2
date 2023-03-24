@@ -18,7 +18,7 @@
                                     </a>
                                 </div>
                                 <div class="box-body">
-                                    <a href="/platecutting/download" class="btn btn-danger">Download</a>
+                                    <a href="/platecutting/download" class="btn btn-danger mb-2">Download</a>
                                     <div class="table-responsive">
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
@@ -60,7 +60,7 @@
                                                     <th>% Reject Eksternal</th>
                                                     <th>% Akumulatif</th>
                                                     <th>Status</th>
-                                                    <?php if ($session === 'atasan') : ?>
+                                                    <?php if ($session['level'] === 5) : ?>
                                                         <th>Aksi</th>
                                                     <?php endif ?>
                                                 </tr>
@@ -352,7 +352,7 @@
                                                                     <?php endforeach ?>
                                                                 </div>
                                                             </td>
-                                                            <?php if ($session === 'atasan') : ?>
+                                                            <?php if ($session['level'] === 5) : ?>
                                                                 <td>
                                                                     <div>
                                                                         <?php

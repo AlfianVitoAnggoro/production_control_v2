@@ -41,7 +41,37 @@ $routes->get('/lhp', 'Home::lhp_view', ['filter' => 'auth']);
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
 $routes->post('/lhp/getCT', 'Home::getCT');
-$routes->group('platecutting', function ($routes) {
+
+$routes->group('lhp', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Home::lhp_view');
+    $routes->post('add_lhp', 'Home::add_lhp');
+    $routes->get('delete_lhp/(:num)', 'Home::delete_lhp/$1');
+    $routes->post('getPartNo', 'Home::getPartNo');
+    $routes->post('getCT', 'Home::getCT');
+    $routes->post('get_proses_breakdown', 'Home::get_proses_breakdown');
+    $routes->post('get_kategori_reject', 'Home::get_kategori_reject');
+    $routes->post('save_lhp', 'Home::save_lhp');
+    $routes->get('detail_lhp/(:num)', 'Home::detail_lhp/$1');
+    $routes->post('update_lhp', 'Home::update_lhp');
+    $routes->post('get_data_andon', 'Home::get_data_andon');
+    $routes->post('pilih_andon', 'Home::pilih_andon');
+    $routes->get('hapus_lhp/(:num)', 'Home::hapus_lhp/$1');
+});
+
+
+//GRID
+$routes->group('grid', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Grid::index', ['filter' => 'auth']);
+    $routes->get('detail_lhp/(:num)', 'Grid::detail_lhp/$1');
+    $routes->post('add_lhp', 'Grid::add_lhp');
+    $routes->post('get_jks', 'Grid::get_jks');
+    $routes->post('update_lhp', 'Grid::update_lhp');
+    $routes->post('get_data_andon', 'Grid::get_data_andon');
+    $routes->get('hapus_lhp/(:num)', 'Grid::hapus_lhp/$1');
+});
+
+//PLATECUTTING
+$routes->group('platecutting', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'PlateCutting::platecutting_view');
     $routes->get('add_platecutting', 'PlateCutting::add_platecutting');
     $routes->post('save', 'PlateCutting::save');
@@ -49,15 +79,19 @@ $routes->group('platecutting', function ($routes) {
     $routes->post('detail_platecutting/edit', 'PlateCutting::edit');
     $routes->get('download', 'PlateCutting::download');
 });
-$routes->group('envelope', function ($routes) {
-    $routes->get('/', 'Envelope::envelope_view', ['filter' => 'auth']);
-    $routes->get('add_envelope', 'Envelope::add_envelope', ['filter' => 'auth']);
-    $routes->get('detail_envelope', 'Envelope::detail_envelope', ['filter' => 'auth']);
+
+//ENVELOPE
+$routes->group('envelope', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Envelope::envelope_view');
+    $routes->get('add_envelope', 'Envelope::add_envelope');
+    $routes->get('detail_envelope', 'Envelope::detail_envelope');
     $routes->post('save', 'Envelope::save');
-    $routes->get('detail_envelope/(:segment)', 'Envelope::detail_envelope/$1', ['filter' => 'auth']);
+    $routes->get('detail_envelope/(:segment)', 'Envelope::detail_envelope/$1');
     $routes->post('detail_envelope/edit', 'Envelope::edit');
     $routes->get('download', 'Envelope::download');
 });
+
+// $routes->get('/lhp/test', 'Home::test');
 
 /*
  * --------------------------------------------------------------------
