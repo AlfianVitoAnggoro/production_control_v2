@@ -105,9 +105,14 @@ class Grid extends BaseController
                     'persentase' => $this->request->getPost('persentase')[$i],
                 ];
                 $save_data = $this->M_Grid->update_lhp($id_detail_lhp_grid, $data);
-
-                $total_jks += $this->request->getPost('jks')[$i];
-                $total_actual += $this->request->getPost('aktual')[$i];
+                
+                if (!empty($this->request->getPost('jks')[$i])) {
+                    $total_jks += $this->request->getPost('jks')[$i];
+                }
+                
+                if (!empty($this->request->getPost('aktual')[$i])) {
+                    $total_actual += $this->request->getPost('aktual')[$i];
+                }
             }
         }
 
