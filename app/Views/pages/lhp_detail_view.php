@@ -659,14 +659,14 @@
 					<input type="time" class="form-control" name="stop_breakdown[]" id="stop_breakdown_${j}" value="${stop_breakdown}" style="width: 100px;">
 				</td>
 				<td>
-					<input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_${j}" value="${no_wo_breakdown}" style="width: 150px" readonly>
+					<input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_${j}" value="${no_wo_breakdown}" style="width: 125px" readonly>
 					<input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_${j}" value="" style="width: 100px">
 				</td>
 				<td>
-					<input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_${j}" value="${part_number_breakdown}" style="width: 250px" readonly>
+					<input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_${j}" value="${part_number_breakdown}" style="width: 225px" readonly>
 				</td>
 				<td>
-					<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_${j}" onchange="get_proses_breakdown(${j})" style="width: 150px">
+					<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_${j}" onchange="get_proses_breakdown(${j})" style="width: 200px">
 						<option value="">Pilih Jenis Line Stop</option>
 						${data_breakdown.map((item) => {
 							return `<option value="${item.jenis_breakdown}">${item.jenis_breakdown}</option>`;
@@ -674,7 +674,7 @@
 					</select>
 				</td>
 				<td>
-					<select class="form-control select2" id="proses_breakdown_${j}" name="proses_breakdown[]" style="width: 150px;">
+					<select class="form-control select2" id="proses_breakdown_${j}" name="proses_breakdown[]" style="width: 200px;">
 						<option selected disabled>-- Pilih Proses Line Stop --</option>
 					</select>
 				</td>
@@ -694,7 +694,7 @@
 
 		$('html, body').animate({
 			scrollTop: $('#ls_section').offset().top
-		}, 1000);
+		}, 500);
 	
 	}
 
@@ -748,7 +748,7 @@
 
 		$('html, body').animate({
 			scrollTop: $('#reject_section').offset().top
-		}, 1000);
+		}, 500);
 
 		// <td>
 		// 	<input type="time" class="form-control" name="start_reject[]" id="start_reject_${j}" value="${start_reject}" style="width: 100px;">
