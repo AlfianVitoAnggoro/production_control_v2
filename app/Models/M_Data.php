@@ -265,12 +265,11 @@ class M_Data extends Model
         return $query->getResultArray();
     }
 
-    // public function delete_lhp($id) {
-    //     $this->db->query('DELETE FROM lhp_produksi2 WHERE id_lhp_2 = '.$id);
-    //     $this->db->query('DELETE FROM detail_lhp_produksi2 WHERE id_lhp_2 = '.$id); 
-
-
-    //     return $this->db->affectedRows();
-    // }
+    public function hapus_lhp($id) {
+        $this->db->query('DELETE FROM lhp_produksi2 WHERE id_lhp_2 = '.$id);
+        $this->db->query('DELETE FROM detail_lhp_produksi2 WHERE id_lhp_2 = '.$id); 
+        $this->db->query('DELETE FROM detail_breakdown WHERE id_lhp = '.$id);
+        $this->db->query('DELETE FROM detail_reject WHERE id_lhp = '.$id);
+    }
 }
 ?>

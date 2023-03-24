@@ -425,4 +425,12 @@ class Home extends BaseController
         $data = $model->pilih_andon($id_ticket);
         echo json_encode($data);
     }
+
+    public function hapus_lhp($id_lhp)
+    {
+        $model = new M_Data();
+        $model->hapus_lhp($id_lhp);
+
+        return redirect()->to(base_url('lhp'));
+    }
 }
