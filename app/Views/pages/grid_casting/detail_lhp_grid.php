@@ -194,7 +194,7 @@
                                                 <td colspan="3"><h3>Total</h3></td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?=$data_lhp[0]['total_jks']?>" readonly></td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=$data_lhp[0]['total_aktual']?>" readonly></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="" readonly></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?= $retVal = (!empty($data_lhp[0]['total_aktual'])) ? number_format(($data_lhp[0]['total_aktual']/$data_lhp[0]['total_jks'])*100 , 0) : 0 ;?>" readonly></td>
                                                 <td></td>
                                             </tr>
 									</table>
