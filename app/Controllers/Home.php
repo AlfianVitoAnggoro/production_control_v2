@@ -306,9 +306,9 @@ class Home extends BaseController
         $total_reject = 0;
 
         if ($update_data > 0) {
-            $total_data = count($this->request->getPost('part_number'));
+            $total_data = count($this->request->getPost('no_wo'));
             for ($i = 0; $i < $total_data; $i++) {
-                if ($this->request->getPost('part_number')[$i] != '') {
+                if ($this->request->getPost('no_wo')[$i] != '') {
                     $id_detail_lhp = $this->request->getPost('id_detail_lhp')[$i];
                     $data_detail_lhp = [
                         'id_lhp_2' => $id_lhp,
@@ -326,9 +326,11 @@ class Home extends BaseController
                         'total_menit_breakdown' => $this->request->getPost('total_menit_breakdown')[$i]
                     ];
 
-                    $total_plan += $this->request->getPost('plan_cap')[$i];
-                    $total_actual += $this->request->getPost('actual')[$i];
-                    $total_line_stop += $this->request->getPost('total_menit_breakdown')[$i];
+                    if ($this->request->getPost('actual')[$i] != null AND $this->request->getPost('total_menit_breakdown')[$i] != null) {
+                        $total_plan += $this->request->getPost('plan_cap')[$i];
+                        $total_actual += $this->request->getPost('actual')[$i];
+                        $total_line_stop += $this->request->getPost('total_menit_breakdown')[$i];
+                    }
 
                     $update_detail = $model->update_detail_lhp($id_detail_lhp, $data_detail_lhp);
                 }

@@ -18,47 +18,53 @@
 					</div>
 					<div class="box-body">
 						<div class="row">
-							<div class="col-3">
+							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">Tanggal Produksi</label>
 									<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="<?=$data_lhp[0]['tanggal_produksi']?>" readonly>
 								</div>
 							</div>
-							<div class="col-3">
+							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">Line</label>
 									<input type="hidden" class="form-control" name="line" id="line" value="<?=$data_lhp[0]['line']?>">
 									<input type="text" class="form-control" name="nama_line" id="nama_line" value="<?=$data_line[0]['nama_line']?>" readonly>
 								</div>
 							</div>
-							<div class="col-3">
+							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">Shift</label>
 									<input type="text" class="form-control" name="shift" id="shift" value="<?=$data_lhp[0]['shift']?>" readonly>
 								</div>
 							</div>
-							<div class="col-3">
+							<!-- <div class="col-3">
+								<div class="form-group">
+									<label class="form-label">Kasubsie</label>
+									<input type="text" class="form-control" name="kasubsie" id="kasubsie" value="<?=$data_lhp[0]['kasubsie']?>" readonly>
+								</div>
+							</div> -->
+						</div>
+						<div class="row">
+							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">Kasubsie</label>
 									<input type="text" class="form-control" name="kasubsie" id="kasubsie" value="<?=$data_lhp[0]['kasubsie']?>" readonly>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-3">
+							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">Grup</label>
 									<input type="hidden" class="form-control" id="grup" name="grup" value="<?=$data_lhp[0]['grup']?>">
 									<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?=$data_grup[0]['nama_pic']?>" readonly>
 								</div>
 							</div>
-							<div class="col-3">
+							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">MP</label>
 									<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>" readonly>
 								</div>
 							</div>
-							<div class="col-3">
+							<!-- <div class="col-3">
 								<div class="form-group">
 									<label class="form-label">Absen</label>
 									<input type="number" class="form-control" id="absen" name="absen" value="<?=$data_lhp[0]['absen']?>" readonly>
@@ -69,7 +75,7 @@
 									<label class="form-label">Cuti</label>
 									<input type="number" class="form-control" id="cuti" name="cuti" value="<?=$data_lhp[0]['cuti']?>" readonly>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -196,10 +202,10 @@
 																<?php
 																	}
 																?>
-																<input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$data_detail_lhp[$i]['batch']?>">
-																<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp<?=$i?>" value="<?=$data_detail_lhp[$i]['id_detail_lhp']?>">
-
+																<option value="-">-</option>
 															</select>
+															<input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$data_detail_lhp[$i]['batch']?>">
+															<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp<?=$i?>" value="<?=$data_detail_lhp[$i]['id_detail_lhp']?>">
 														</td>
 														<td>
 															<input type="text" class="form-control" name="part_number[]" id="part_number_<?=$i?>" value="<?=$data_detail_lhp[$i]['type_battery']?>" style="width: 250px" readonly>
@@ -233,8 +239,8 @@
 												}
 
 												if (count($data_detail_lhp) < 8) {
-													for ($i=count($data_detail_lhp)+1; $i <= count($jam_start); $i++) {
-														$j = $i-1;?>
+													for ($i=count($data_detail_lhp); $i < count($jam_start); $i++) {
+														$j = $i;?>
 														<tr>
 															<td>
 																<button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?=$i?>)">
@@ -268,9 +274,10 @@
 																	<?php
 																		}
 																	?>
-																	<input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$j+1?>">
-																	<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp<?=$i?>" value="">
+																	<option value="-">-</option>
 																</select>
+																<input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$j+1?>">
+																<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp<?=$i?>" value="">
 															</td>
 															<td>
 																<input type="text" class="form-control" name="part_number[]" id="part_number_<?=$i?>" style="width: 250px" readonly>
@@ -587,15 +594,17 @@
 	function hitung_mh() {
 		var total_menit = <?= array_sum($menit_aktual) ?>;
 		var mp = <?= $data_lhp[0]['mp'] ?>;
-		var absen = <?= $data_lhp[0]['absen'] ?>;
-		var cuti = <?= $data_lhp[0]['cuti'] ?>;
-		var mh  = (total_menit * (mp-absen-cuti)) / 60;
+		// var absen = <?= $data_lhp[0]['absen'] ?>;
+		// var cuti = <?= $data_lhp[0]['cuti'] ?>;
+		var mh  = (total_menit * mp) / 60;
+		// var mh  = (total_menit * (mp-absen-cuti)) / 60;
 
 		$('#mh').text(mh.toFixed(2));
 	}
 
 	function getPartNo(i) {
 		var no_wo = $('#no_wo_'+i).val();
+		$('#total_menit_breakdown_'+i).val($('#menit_terpakai_'+i).val());
 		$.ajax({
 			url: '<?=base_url()?>lhp/getPartNo',
 			type: 'POST',
@@ -855,7 +864,10 @@
 
 		var tbody = document.getElementById('tbody'), row, k;
 
-		var jam_start = $('#start_'+i).val();
+		// ambil jam trakhir di row selanjutnya
+		var k = i+1;
+
+		var jam_start = $('#start_'+k).val();
 		var jam_stop = $('#stop_'+i).val();
 
 		// Ambil total jumlah row untuk mengetahui row mana yang akan di tambahkan
@@ -870,7 +882,7 @@
 			<tr>
 				<td><button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(${j})">Remove</button></td>
 				<td><input type="time" class="form-control" name="start[]" id="start_(${j})" value="${jam_stop}" style="width: 100px;"></td>
-				<td><input type="time" class="form-control" name="stop[]" id="stop_(${j})" value="${jam_stop}" style="width: 100px;"></td>
+				<td><input type="time" class="form-control" name="stop[]" id="stop_(${j})" value="${jam_start}" style="width: 100px;"></td>
 				<!--
 				
 				<td></td>
@@ -886,6 +898,7 @@
 					<select class="form-control select2" id="no_wo_${k}" name="no_wo[]" onchange="getPartNo(${k})" style="width: 200px;">
 						<option selected disabled>-- Pilih No WO --</option>
 						${data_wo.map((item) => `<option value="${item.PDNO}">${item.PDNO}</option>`)}
+						<option value="-">-</option>
 					</select>
 					<input type="hidden" name="batch[]" id="batch_${k}" value="${i == 0 ? i+1 : i}">
 				</td>

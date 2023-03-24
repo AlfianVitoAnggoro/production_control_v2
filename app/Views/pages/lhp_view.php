@@ -22,10 +22,11 @@
 										<table id="data_lhp2" class="table table-bordered table-striped" style="width:100%">
 											<thead>
 												<tr>
-													<th>No Doc</th>
+													<!-- <th>No Doc</th> -->
 													<th>Tanggal</th>
 													<th>Shift</th>
 													<th>Line</th>
+													<th>Kasubsie</th>
 													<th>Grup</th>
 													<th>Action</th>
 												</tr>
@@ -33,10 +34,11 @@
 											<tbody>
 												<?php foreach($data_lhp as $lhp) : ?>
 												<tr>
-													<td><?=$lhp['no_doc']?></td>
+													<!-- <td><?=$lhp['no_doc']?></td> -->
 													<td><?=$lhp['tanggal_produksi']?></td>
 													<td><?=$lhp['shift']?></td>
 													<td><?=$lhp['line']?></td>
+													<td><?=$lhp['kasubsie']?></td>
 													<td><?=$lhp['nama_pic']?></td>
 													<td>
 														<a href="<?=base_url()?>lhp/detail_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-primary btn-sm">Detail</a>
@@ -69,13 +71,13 @@
 			<form action="<?=base_url()?>lhp/add_lhp" method="post">
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-3">
+						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Tanggal Produksi</label>
 								<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi">
 							</div>
 						</div>
-						<div class="col-3">
+						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Line</label>
 								<select class="form-select" id="line" name="line">
@@ -86,7 +88,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-3">
+						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Shift</label>
 								<select class="form-select" id="shift" name="shift">
@@ -97,7 +99,22 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-3">
+						<!-- <div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Kasubsie</label>
+								<select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;">
+									<option selected disabled>-- Pilih Data --</option>
+									<option value="Yusuf Slamet Pelita">Yusuf Slamet Pelita</option>
+									<option value="Edi Suwito">Edi Suwito</option>
+									<option value="Masruri">Masruri</option>
+									<option value="Parwadi">Parwadi</option>
+									<option value="Iim Arwisman">Iim Arwisman</option>
+								</select>
+							</div>
+						</div> -->
+					</div>
+					<div class="row">
+						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Kasubsie</label>
 								<select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;">
@@ -110,9 +127,7 @@
 								</select>
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-3">
+						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Grup</label>
 								<select class="form-control select2" id="grup" name="grup" style="width: 100%;">
@@ -123,13 +138,13 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-3">
+						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">MP</label>
 								<input type="number" class="form-control" id="mp" name="mp">
 							</div>
 						</div>
-						<div class="col-3">
+						<!-- <div class="col-3">
 							<div class="form-group">
 								<label class="form-label">Absen</label>
 								<input type="number" class="form-control" id="absen" name="absen">
@@ -140,7 +155,7 @@
 								<label class="form-label">Cuti</label>
 								<input type="number" class="form-control" id="cuti" name="cuti">
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="modal-footer" style="float: right;">

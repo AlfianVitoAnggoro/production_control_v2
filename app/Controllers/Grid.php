@@ -94,7 +94,7 @@ class Grid extends BaseController
         for ($i=0; $i < count($total_data); $i++) { 
             $id_detail_lhp_grid = $this->request->getPost('id_detail_lhp_grid')[$i];
 
-            if ($this->request->getPost('aktual')[$i] != null) {
+            if ($this->request->getPost('nama_operator')[$i] != null) {
                 $data = [
                     'id_lhp_grid' => $id_lhp,
                     'no_machine' => $this->request->getPost('no_machine')[$i],

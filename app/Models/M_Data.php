@@ -25,7 +25,7 @@ class M_Data extends Model
         $query = $this->db3->query('
                                     SELECT t$prto as rfq,t$prdt as tgl_prod,t$pdno as pdno,t$mitm as mitm,t$cwar as cwar, t$qrdr as qty,t$prcd as line, t$osta as status 
                                     FROM baan.ttisfc001777 
-                                    WHERE (to_number(to_char(t$prdt + (7/24),\'mmyyyy\'))) = '.$tanggal.' and (t$osta = 5 or t$osta = 7) order by t$pdno asc
+                                    WHERE (to_number(to_char(t$prdt + (7/24),\'mmyyyy\'))) = '.$tanggal.' order by t$pdno asc
                                 ');
                                 // WHERE t$prcd = '.$line.' and (to_number(to_char(t$prdt + (7/24),\'ddmmyyyy\'))) = '.$tanggal.' and (t$osta = 5 or t$osta = 7) order by t$pdno asc
                                 // WHERE t$prcd = '.$line.' and (to_number(to_char(t$prdt + (7/24),\'ddmmyyyy\'))) = '.$tanggal.' order by t$pdno asc
@@ -146,7 +146,7 @@ class M_Data extends Model
 
     public function get_all_lhp()
     {
-        $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.line');
+        $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup');
 
         return $query->getResultArray();
     }
