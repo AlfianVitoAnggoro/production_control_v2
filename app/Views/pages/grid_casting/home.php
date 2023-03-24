@@ -42,6 +42,7 @@
 													<td><?=$lhp['grup']?></td>
 													<td>
 														<a href="<?=base_url()?>grid/detail_lhp/<?=$lhp['id']?>" class="btn btn-primary btn-sm">Detail</a>
+														<a href="<?=base_url()?>grid/hapus_lhp/<?=$lhp['id']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
 													</td>
 												</tr>
 												<?php endforeach; ?>

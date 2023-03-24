@@ -141,4 +141,11 @@ class M_Grid extends Model
 
         return $query->getResultArray();
     }
+
+    function hapus_lhp($id_lhp) {
+        $this->db->query('DELETE FROM lhp_grid WHERE id = '.$id_lhp);
+        $this->db->query('DELETE FROM detail_lhp_grid WHERE id_lhp_grid = '.$id_lhp); 
+        $this->db->query('DELETE FROM detail_breakdown_andon_grid WHERE id_lhp_grid = '.$id_lhp);
+        $this->db->query('DELETE FROM detail_breakdown_grid WHERE id_lhp_grid = '.$id_lhp);
+    }
 }

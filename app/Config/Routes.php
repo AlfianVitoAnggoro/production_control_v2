@@ -63,6 +63,7 @@ $routes->group('grid', ['filter' => 'auth'], function($routes) {
     $routes->post('get_jks', 'Grid::get_jks');
     $routes->post('update_lhp', 'Grid::update_lhp');
     $routes->post('get_data_andon', 'Grid::get_data_andon');
+    $routes->get('hapus_lhp/(:num)', 'Grid::hapus_lhp/$1');
 });
 
 

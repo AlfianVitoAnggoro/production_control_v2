@@ -171,4 +171,10 @@ class Grid extends BaseController
         $query = $this->M_Grid->get_data_andon($shift, $tanggal);
         echo json_encode($query);
     }
+
+    public function hapus_lhp($id_lhp)
+    {
+        $this->M_Grid->hapus_lhp($id_lhp);
+        return redirect()->to(base_url('grid'));
+    }
 }
