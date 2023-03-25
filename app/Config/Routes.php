@@ -37,11 +37,6 @@ $routes->post('/login/proses_login', 'Login::proses_login');
 $routes->get('/logout', 'Login::logout');
 
 //LHP
-$routes->get('/lhp', 'Home::lhp_view', ['filter' => 'auth']);
-$routes->post('/lhp/add_lhp', 'Home::add_lhp');
-$routes->post('/lhp/getPartNo', 'Home::getPartNo');
-$routes->post('/lhp/getCT', 'Home::getCT');
-
 $routes->group('lhp', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Home::lhp_view');
     $routes->post('add_lhp', 'Home::add_lhp');
