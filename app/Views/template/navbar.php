@@ -24,8 +24,8 @@
 					</span>
 				  </a>
 				  <ul class="treeview-menu">
-				  		<li><a href="<?= base_url('/grid') ?>"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid</a></li>
-						<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Pasting</a></li>
+					<li><a href="<?=base_url()?>grid"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid</a></li>
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Pasting</a></li>
 				  </ul>
 				</li>
 				<li class="treeview">

@@ -37,34 +37,61 @@ $routes->post('/login/proses_login', 'Login::proses_login');
 $routes->get('/logout', 'Login::logout');
 
 //LHP
-$routes->get('/lhp', 'Home::lhp_view',['filter' => 'auth']);
-$routes->get('/', 'Home::index');
-$routes->get('/fetch_grid', 'Home::fetch_grid');
-$routes->get('/fetch_grup', 'Home::fetch_grup');
-$routes->get('/fetch_jks', 'Home::fetch_jks');
-$routes->get('/fetch_lhp_grid', 'Home::fetch_lhp_grid');
-$routes->get('/fetch_detail_grid', 'Home::fetch_detail_grid');
-$routes->get('/lhp', 'Home::lhp_view');
-$routes->get('/grid', 'Home::grid');
-$routes->post('/grid/post_lhp_grid', 'Home::add_lhp_grid');
-$routes->post('/grid/post_detail_grid', 'Home::add_detail_grid');
+$routes->get('/lhp', 'Home::lhp_view', ['filter' => 'auth']);
 $routes->post('/lhp/add_lhp', 'Home::add_lhp');
-$routes->get('/lhp/delete_lhp/(:num)', 'Home::delete_lhp/$1');
 $routes->post('/lhp/getPartNo', 'Home::getPartNo');
 $routes->post('/lhp/getCT', 'Home::getCT');
-$routes->post('/lhp/get_proses_breakdown', 'Home::get_proses_breakdown');
-$routes->post('/lhp/save_lhp', 'Home::save_lhp');
-$routes->get('/lhp/detail_lhp/(:num)', 'Home::detail_lhp/$1');
 
-$routes->post('/lhp/update_lhp', 'Home::update_lhp');
+$routes->group('lhp', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Home::lhp_view');
+    $routes->post('add_lhp', 'Home::add_lhp');
+    $routes->get('delete_lhp/(:num)', 'Home::delete_lhp/$1');
+    $routes->post('getPartNo', 'Home::getPartNo');
+    $routes->post('getCT', 'Home::getCT');
+    $routes->post('get_proses_breakdown', 'Home::get_proses_breakdown');
+    $routes->post('get_kategori_reject', 'Home::get_kategori_reject');
+    $routes->post('save_lhp', 'Home::save_lhp');
+    $routes->get('detail_lhp/(:num)', 'Home::detail_lhp/$1');
+    $routes->post('update_lhp', 'Home::update_lhp');
+    $routes->post('get_data_andon', 'Home::get_data_andon');
+    $routes->post('pilih_andon', 'Home::pilih_andon');
+    $routes->get('hapus_lhp/(:num)', 'Home::hapus_lhp/$1');
+});
 
-$routes->post('/lhp/get_data_andon', 'Home::get_data_andon');
-$routes->post('/lhp/pilih_andon', 'Home::pilih_andon');
+
+//GRID
+$routes->group('grid', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Grid::index', ['filter' => 'auth']);
+    $routes->get('detail_lhp/(:num)', 'Grid::detail_lhp/$1');
+    $routes->post('add_lhp', 'Grid::add_lhp');
+    $routes->post('get_jks', 'Grid::get_jks');
+    $routes->post('update_lhp', 'Grid::update_lhp');
+    $routes->post('get_data_andon', 'Grid::get_data_andon');
+    $routes->get('hapus_lhp/(:num)', 'Grid::hapus_lhp/$1');
+});
+
+//PLATECUTTING
+$routes->group('platecutting', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'PlateCutting::platecutting_view');
+    $routes->get('add_platecutting', 'PlateCutting::add_platecutting');
+    $routes->post('save', 'PlateCutting::save');
+    $routes->get('detail_platecutting/(:segment)', 'PlateCutting::detail_platecutting/$1');
+    $routes->post('detail_platecutting/edit', 'PlateCutting::edit');
+    $routes->get('download', 'PlateCutting::download');
+});
+
+//ENVELOPE
+$routes->group('envelope', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Envelope::envelope_view');
+    $routes->get('add_envelope', 'Envelope::add_envelope');
+    $routes->get('detail_envelope', 'Envelope::detail_envelope');
+    $routes->post('save', 'Envelope::save');
+    $routes->get('detail_envelope/(:segment)', 'Envelope::detail_envelope/$1');
+    $routes->post('detail_envelope/edit', 'Envelope::edit');
+    $routes->get('download', 'Envelope::download');
+});
 
 // $routes->get('/lhp/test', 'Home::test');
-$routes->get('/lhp/platecutting', 'PlateCutting::platecutting_view');
-$routes->get('/lhp/platecutting/add_platecutting', 'PlateCutting::add_platecutting');
-$routes->post('/lhp/platecutting/save', 'PlateCutting::save');
 
 /*
  * --------------------------------------------------------------------
