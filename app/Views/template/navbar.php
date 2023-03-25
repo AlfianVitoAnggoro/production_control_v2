@@ -37,8 +37,9 @@
 					</span>
 				  </a>
 				  <ul class="treeview-menu">
-					<li><a href="<?=base_url()?>lhp"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>LHP</a></li>
-					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Plate Cutting</a></li>
+				  	<li><a href="<?=base_url()?>platecutting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Plate Cutting</a></li>
+					<li><a href="<?=base_url()?>envelope"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Envelope</a></li>					
+					<li><a href="<?=base_url()?>lhp"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Assy</a></li>
 				  </ul>
 				</li>
 				<li class="treeview">
