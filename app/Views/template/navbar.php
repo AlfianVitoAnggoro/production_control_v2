@@ -1,16 +1,16 @@
 <aside class="main-sidebar">
-    <!-- sidebar-->
-    <section class="sidebar position-relative">	
-	  	<div class="multinav">
-		  <div class="multinav-scroll" style="height: 100%;">	
-			  <!-- sidebar menu-->
-			  <ul class="sidebar-menu" data-widget="tree">	
-				<li class="header">Menu</li>
-				<li class="treeview">
-				  <a href="#">
-					<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
-					<span>Dashboard</span>
-					<!-- <span class="pull-right-container">
+	<!-- sidebar-->
+	<section class="sidebar position-relative">
+		<div class="multinav">
+			<div class="multinav-scroll" style="height: 100%;">
+				<!-- sidebar menu-->
+				<ul class="sidebar-menu" data-widget="tree">
+					<li class="header">Menu</li>
+					<li class="treeview">
+						<a href="#">
+							<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+							<span>Dashboard</span>
+							<!-- <span class="pull-right-container">
 					  <i class="fa fa-angle-right pull-right"></i>
 					</span> -->
 				  </a>
@@ -25,7 +25,7 @@
 				  </a>
 				  <ul class="treeview-menu">
 					<li><a href="<?=base_url()?>grid"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid</a></li>
-					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Formation</a></li>
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Pasting</a></li>
 				  </ul>
 				</li>
 				<li class="treeview">
@@ -37,8 +37,9 @@
 					</span>
 				  </a>
 				  <ul class="treeview-menu">
-					<li><a href="<?=base_url()?>lhp"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>LHP</a></li>
-					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Plate Cutting</a></li>
+				  	<li><a href="<?=base_url()?>platecutting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Plate Cutting</a></li>
+					<li><a href="<?=base_url()?>envelope"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Envelope</a></li>					
+					<li><a href="<?=base_url()?>lhp"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Assy</a></li>
 				  </ul>
 				</li>
 				<li class="treeview">
@@ -58,7 +59,7 @@
 			  </ul>
 		  </div>
 		</div>
-    </section>
+	</section>
 	<!-- <div class="sidebar-footer">
 		<a href="javascript:void(0)" class="link" data-bs-toggle="tooltip" title="Settings"><span class="icon-Settings-2"></span></a>
 		<a href="mailbox.html" class="link" data-bs-toggle="tooltip" title="Email"><span class="icon-Mail"></span></a>

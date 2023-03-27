@@ -28,6 +28,7 @@
 													<th>Line</th>
 													<th>Kasubsie</th>
 													<th>Grup</th>
+													<th>Efficiency (%)</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -40,6 +41,7 @@
 													<td><?=$lhp['line']?></td>
 													<td><?=$lhp['kasubsie']?></td>
 													<td><?=$lhp['nama_pic']?></td>
+													<td><?=number_format((float) ($lhp['total_aktual'] / $lhp['total_plan']) * 100, 2, '.', '')?></td>
 													<td>
 														<a href="<?=base_url()?>lhp/detail_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-primary btn-sm">Detail</a>
 														<a href="<?=base_url()?>lhp/hapus_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>

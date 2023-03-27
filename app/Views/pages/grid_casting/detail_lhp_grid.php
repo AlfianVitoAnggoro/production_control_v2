@@ -197,6 +197,7 @@
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?= $retVal = (!empty($data_lhp[0]['total_aktual'])) ? number_format(($data_lhp[0]['total_aktual']/$data_lhp[0]['total_jks'])*100 , 2) : 0 ;?>" readonly></td>
                                                 <td></td>
                                             </tr>
+                                        </tfoot>
 									</table>
 								</div>
 								
