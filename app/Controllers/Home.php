@@ -443,6 +443,9 @@ class Home extends BaseController
         $data['data_line'] = $model->get_data_line($data['data_lhp'][0]['line']);
         $data['data_grup'] = $model->get_data_grup_pic($data['data_lhp'][0]['grup']);
 
+        $data['data_all_line'] = $model->get_line();
+        $data['data_all_grup'] = $model->get_grup();
+
         $data['data_wo'] = $model->getDataWO($data['data_lhp'][0]['tanggal_produksi'], $data['data_lhp'][0]['line']);
         // $data['data_wo'] = [];
 

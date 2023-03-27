@@ -21,20 +21,39 @@
 							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">Tanggal Produksi</label>
-									<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="<?=$data_lhp[0]['tanggal_produksi']?>" readonly>
+									<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="<?=$data_lhp[0]['tanggal_produksi']?>">
 								</div>
 							</div>
 							<div class="col-4">
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label class="form-label">Line</label>
 									<input type="hidden" class="form-control" name="line" id="line" value="<?=$data_lhp[0]['line']?>">
-									<input type="text" class="form-control" name="nama_line" id="nama_line" value="<?=$data_line[0]['nama_line']?>" readonly>
+									<input type="text" class="form-control" name="nama_line" id="nama_line" value="<?=$data_line[0]['nama_line']?>">
+								</div> -->
+								<div class="form-group">
+									<label class="form-label">Line</label>
+									<select class="form-select" id="line" name="line">
+										<option selected disabled>-- Pilih Data --</option>
+										<?php 
+											foreach ($data_all_line as $key => $value) {
+												?>
+													<option value="<?=$value['id_line']?>" <?php if($value['id_line'] == $data_lhp[0]['line']){echo "selected";} ?>><?=$value['nama_line']?></option>
+												<?php
+											}
+										?>
+									</select>
 								</div>
 							</div>
 							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">Shift</label>
-									<input type="text" class="form-control" name="shift" id="shift" value="<?=$data_lhp[0]['shift']?>" readonly>
+									<!-- <input type="text" class="form-control" name="shift" id="shift" value="<?=$data_lhp[0]['shift']?>"> -->
+									<select class="form-select" id="shift" name="shift">
+										<option selected disabled>-- Pilih Data --</option>
+										<option value="1" <?php if($data_lhp[0]['shift'] == 1){echo "selected";} ?>>Shift 1</option>
+										<option value="2" <?php if($data_lhp[0]['shift'] == 2){echo "selected";} ?>>Shift 2</option>
+										<option value="3" <?php if($data_lhp[0]['shift'] == 3){echo "selected";} ?>>Shift 3</option>
+									</select>
 								</div>
 							</div>
 							<!-- <div class="col-3">
@@ -48,20 +67,39 @@
 							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">Kasubsie</label>
-									<input type="text" class="form-control" name="kasubsie" id="kasubsie" value="<?=$data_lhp[0]['kasubsie']?>" readonly>
+									<!-- <input type="text" class="form-control" name="kasubsie" id="kasubsie" value="<?=$data_lhp[0]['kasubsie']?>"> -->
+									<select class="form-select" id="kasubsie" name="kasubsie">
+										<option selected disabled>-- Pilih Data --</option>
+										<option value="Yusuf Slamet Pelita" <?php if($data_lhp[0]['kasubsie'] == "Yusuf Slamet Pelita"){echo "selected";} ?>>Yusuf Slamet Pelita</option>
+										<option value="Edi Suwito" <?php if($data_lhp[0]['kasubsie'] == "Edi Suwito"){echo "selected";} ?>>Edi Suwito</option>
+										<option value="Masruri" <?php if($data_lhp[0]['kasubsie'] == "Masruri"){echo "selected";} ?>>Masruri</option>
+										<option value="Parwadi"  <?php if($data_lhp[0]['kasubsie'] == "Parwadi"){echo "selected";} ?>>Parwadi</option>
+										<option value="Iim Arwisman" <?php if($data_lhp[0]['kasubsie'] == "Iim Arwisman"){echo "selected";} ?>>Iim Arwisman</option>
+									</select>
 								</div>
 							</div>
 							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">Grup</label>
-									<input type="hidden" class="form-control" id="grup" name="grup" value="<?=$data_lhp[0]['grup']?>">
-									<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?=$data_grup[0]['nama_pic']?>" readonly>
+									<!-- <input type="hidden" class="form-control" id="grup" name="grup" value="<?=$data_lhp[0]['grup']?>">
+									<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?=$data_grup[0]['nama_pic']?>"> -->
+
+									<select class="form-select select2" id="grup" name="grup">
+										<option selected disabled>-- Pilih Data --</option>
+										<?php 
+											foreach ($data_all_grup as $key => $value) {
+												?>
+													<option value="<?=$value['id_pic']?>" <?php if($value['id_pic'] == $data_lhp[0]['grup']){echo "selected";} ?>><?=$value['nama_pic']?></option>
+												<?php
+											}
+										?>
+									</select>
 								</div>
 							</div>
 							<div class="col-4">
 								<div class="form-group">
 									<label class="form-label">MP</label>
-									<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>" readonly>
+									<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>">
 								</div>
 							</div>
 							<!-- <div class="col-3">
@@ -312,6 +350,15 @@
 												}
 											?>
 										</tbody>
+										<tfoot>
+                                            <tr>
+                                                <td colspan="7"><h3>Total</h3></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?=$data_lhp[0]['total_plan']?>" style="width: 75px" readonly></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=$data_lhp[0]['total_aktual']?>" style="width: 75px" readonly></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?=$data_lhp[0]['total_line_stop']?>" style="width: 75px" readonly></td>
+                                                <td></td>
+                                            </tr>
+                                        </tfoot>
 									</table>
 								</div>
 								
@@ -330,11 +377,11 @@
 											<th>:</th>
 											<th><?= $retVal = (!empty($data_lhp[0]['total_aktual']) && !empty($data_lhp[0]['total_plan'])) ? number_format((float) ($data_lhp[0]['total_aktual'] / $data_lhp[0]['total_plan']) * 100, 2, '.', '') : '' ; ?> %</th>
 										</tr>
-										<tr>
+										<!-- <tr>
 											<th>Total Line Stop</th>
 											<th>:</th>
 											<th><?=$data_lhp[0]['total_line_stop']?> Menit</th>
-										</tr>
+										</tr> -->
 									</thead>
 								</table>
 							</div>
@@ -818,7 +865,7 @@
 	}
 
 	function get_data_andon(j) {
-		var tanggal_produksi = '<?=$data_lhp[0]['tanggal_produksi']?>';
+		var tanggal_produksi = $('#tanggal_produksi').val();
 		var line = <?=$data_lhp[0]['line']?>;
 		$.ajax({
 			url: '<?=base_url()?>lhp/get_data_andon',
