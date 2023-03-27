@@ -60,7 +60,7 @@
                                                     <th>% Reject Eksternal</th>
                                                     <th>% Akumulatif</th>
                                                     <th>Status</th>
-                                                    <?php if ($session['level'] === 5) : ?>
+                                                    <?php if ($session['level'] === 1) : ?>
                                                         <th>Aksi</th>
                                                     <?php endif ?>
                                                 </tr>
@@ -352,7 +352,7 @@
                                                                     <?php endforeach ?>
                                                                 </div>
                                                             </td>
-                                                            <?php if ($session['level'] === 5) : ?>
+                                                            <?php if ($session['level'] === 1) : ?>
                                                                 <td>
                                                                     <div>
                                                                         <?php

@@ -206,7 +206,7 @@ class PlateCutting extends BaseController
     {
         $session = \Config\Services::session();
         $status = $session->get('level');
-        if ($status !== 5) {
+        if ($status !== 1) {
             return redirect()->to('/platecutting');
         }
         $plate = $this->plateModel->findAll();
