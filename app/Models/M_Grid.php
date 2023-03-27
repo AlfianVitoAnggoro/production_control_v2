@@ -148,4 +148,10 @@ class M_Grid extends Model
         $this->db->query('DELETE FROM detail_breakdown_andon_grid WHERE id_lhp_grid = '.$id_lhp);
         $this->db->query('DELETE FROM detail_breakdown_grid WHERE id_lhp_grid = '.$id_lhp);
     }
+
+    function get_pic_grup_mesin($type_mesin, $grup) {
+        $query = $this->db->query('SELECT * FROM detail_grup_mesin WHERE nama_mesin = \''.$type_mesin.'\' AND grup = \''.$grup.'\'');
+
+        return $query->getResultArray();
+    }
 }
