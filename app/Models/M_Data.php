@@ -272,4 +272,3 @@ class M_Data extends Model
         $this->db->query('DELETE FROM detail_reject WHERE id_lhp = '.$id);
     }
 }
-?>

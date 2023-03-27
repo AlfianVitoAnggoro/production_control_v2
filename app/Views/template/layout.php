@@ -56,7 +56,6 @@
 				  <span>Just now</span>
 			  </div>
 			</div>
-
 			<div class="media py-10 px-0">
 			  <a class="avatar avatar-lg status-danger" href="#">
 				<img src="../images/avatar/2.jpg" alt="...">
@@ -69,7 +68,6 @@
 				  <span>33 min ago</span>
 			  </div>
 			</div>
-
 			<div class="media py-10 px-0">
 			  <a class="avatar avatar-lg status-warning" href="#">
 				<img src="../images/avatar/3.jpg" alt="...">
@@ -82,7 +80,6 @@
 				  <span>42 min ago</span>
 			  </div>
 			</div>
-
 			<div class="media py-10 px-0">
 			  <a class="avatar avatar-lg status-primary" href="#">
 				<img src="../images/avatar/4.jpg" alt="...">
@@ -108,7 +105,6 @@
 				  <span>Just now</span>
 			  </div>
 			</div>
-
 			<div class="media py-10 px-0">
 			  <a class="avatar avatar-lg status-danger" href="#">
 				<img src="../images/avatar/2.jpg" alt="...">
@@ -121,7 +117,6 @@
 				  <span>33 min ago</span>
 			  </div>
 			</div>
-
 			<div class="media py-10 px-0">
 			  <a class="avatar avatar-lg status-warning" href="#">
 				<img src="../images/avatar/3.jpg" alt="...">
@@ -134,7 +129,6 @@
 				  <span>42 min ago</span>
 			  </div>
 			</div>
-
 			<div class="media py-10 px-0">
 			  <a class="avatar avatar-lg status-primary" href="#">
 				<img src="../images/avatar/4.jpg" alt="...">
@@ -149,7 +143,6 @@
 			</div>
 			  
 		  </div>
-
       </div> -->
       <!-- /.tab-pane -->
     </div>

@@ -44,6 +44,26 @@ class Database extends Config
         'port'     => 1433,
     ];
 
+    // public array $default = [
+    //     'DSN'      => '',
+    //     'hostname' => '10.19.22.102',
+    //     'username' => 'sa',
+    //     'password' => 'admin',
+    //     'database' => 'production_control_v2',
+    //     'DBDriver' => 'sqlsrv',
+    //     'DBPrefix' => '',
+    //     'pConnect' => false,
+    //     'DBDebug'  => true,
+    //     'charset'  => 'utf8',
+    //     'DBCollat' => 'utf8_general_ci',
+    //     'swapPre'  => '',
+    //     'encrypt'  => false,
+    //     'compress' => false,
+    //     'strictOn' => false,
+    //     'failover' => [],
+    //     'port'     => 1433,
+    // ];
+
     public array $sqlsrv = [
         'DSN'      => '',
         'hostname' => '10.19.16.21',

@@ -37,8 +37,7 @@ $routes->post('/login/proses_login', 'Login::proses_login');
 $routes->get('/logout', 'Login::logout');
 
 //LHP
-
-$routes->group('lhp', ['filter' => 'auth'], function($routes) {
+$routes->group('lhp', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Home::lhp_view');
     $routes->post('add_lhp', 'Home::add_lhp');
     $routes->get('delete_lhp/(:num)', 'Home::delete_lhp/$1');
@@ -56,8 +55,8 @@ $routes->group('lhp', ['filter' => 'auth'], function($routes) {
 
 
 //GRID
-$routes->group('grid', ['filter' => 'auth'], function($routes) {
-    $routes->get('/', 'Grid::index',['filter' => 'auth']);
+$routes->group('grid', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Grid::index', ['filter' => 'auth']);
     $routes->get('detail_lhp/(:num)', 'Grid::detail_lhp/$1');
     $routes->post('add_lhp', 'Grid::add_lhp');
     $routes->post('get_jks', 'Grid::get_jks');
@@ -66,6 +65,26 @@ $routes->group('grid', ['filter' => 'auth'], function($routes) {
     $routes->get('hapus_lhp/(:num)', 'Grid::hapus_lhp/$1');
 });
 
+//PLATECUTTING
+$routes->group('platecutting', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'PlateCutting::platecutting_view');
+    $routes->get('add_platecutting', 'PlateCutting::add_platecutting');
+    $routes->post('save', 'PlateCutting::save');
+    $routes->get('detail_platecutting/(:segment)', 'PlateCutting::detail_platecutting/$1');
+    $routes->post('detail_platecutting/edit', 'PlateCutting::edit');
+    $routes->get('download', 'PlateCutting::download');
+});
+
+//ENVELOPE
+$routes->group('envelope', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Envelope::envelope_view');
+    $routes->get('add_envelope', 'Envelope::add_envelope');
+    $routes->get('detail_envelope', 'Envelope::detail_envelope');
+    $routes->post('save', 'Envelope::save');
+    $routes->get('detail_envelope/(:segment)', 'Envelope::detail_envelope/$1');
+    $routes->post('detail_envelope/edit', 'Envelope::edit');
+    $routes->get('download', 'Envelope::download');
+});
 
 // $routes->get('/lhp/test', 'Home::test');
 

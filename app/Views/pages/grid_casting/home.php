@@ -2,6 +2,10 @@
 
 <?= $this->section('content'); ?>
 <!-- Content Wrapper. Contains page content -->
+<?php
+	$current_date = date('Y-m-d');
+	$previous_date = date('Y-m-d', strtotime('-1 day', strtotime($current_date)));
+?>
 <div class="content-wrapper">
 	  <div class="container-full">
 		<!-- Main content -->
@@ -74,7 +78,7 @@
 						<div class="col-3">
 							<div class="form-group">
 								<label class="form-label">Tanggal Produksi</label>
-								<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" min="<?php echo date("Y-m-d"); ?>">
+								<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" min="<?=$previous_date ?>">
 							</div>
 						</div>
 						<div class="col-3">
