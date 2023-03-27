@@ -39,7 +39,7 @@ class Login extends BaseController
                 'is_login' => true
             ];
             $this->session->set($session_data);
-            if ($data['departemen'] == NULL OR $data['departemen'] == 'produksi2') {
+            if ($data['departemen'] == NULL OR $data['departemen'] == 'produksi2' OR $data['departemen'] == 'isd') {
                 return redirect()->to(base_url('lhp'));
             } elseif ($data['departemen'] == 'produksi1') {
                 return redirect()->to(base_url('grid'));
