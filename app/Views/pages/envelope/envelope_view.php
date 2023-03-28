@@ -42,13 +42,7 @@
                                                     <th>Tersangkut</th>
                                                     <th>% Akumulatif</th>
                                                     <th>Status</th>
-<<<<<<< HEAD
                                                     <th>Aksi</th>
-=======
-                                                    <?php if ($session['level'] === 1) : ?>
-                                                        <th>Aksi</th>
-                                                    <?php endif ?>
->>>>>>> 5d77b6896c78287169c6eb796289af9a0777e08d
                                                 </tr>
                                             </thead>
                                             <tbody id="table_envelope">
