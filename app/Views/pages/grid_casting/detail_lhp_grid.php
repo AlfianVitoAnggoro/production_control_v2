@@ -159,9 +159,10 @@
                                                             <select name="nama_operator[]" id="nama_operator_<?=$d_mesin['nama_mesin']?>" class="form-select select2" style="width: 300px">
                                                                 <option value="">-- Pilih Operator --</option>
                                                                 <?php
+                                                                    $pic_grup_mesin = $model->get_pic_grup_mesin($d_mesin['nama_mesin'], $data_lhp[0]['grup']);
                                                                     foreach ($data_operator as $d_operator) {
                                                                         ?>
-                                                                        <option value="<?=$d_operator['seluruh_anggota']?>"><?=$d_operator['seluruh_anggota']?></option>
+                                                                        <option value="<?=$d_operator['seluruh_anggota']?>" <?php if($d_operator['seluruh_anggota'] == $pic_grup_mesin[0]['pic']){echo "selected";} ?>><?=$d_operator['seluruh_anggota']?></option>
                                                                         <?php
                                                                     }
                                                                 ?>

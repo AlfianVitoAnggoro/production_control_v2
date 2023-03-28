@@ -26,9 +26,9 @@ class Database extends Config
      */
     public array $default = [
         'DSN'      => '',
-        'hostname' => 'localhost',
+        'hostname' => '10.19.16.21',
         'username' => 'sa',
-        'password' => 'admin',
+        'password' => 'User@new1',
         'database' => 'production_control_v2',
         'DBDriver' => 'sqlsrv',
         'DBPrefix' => '',

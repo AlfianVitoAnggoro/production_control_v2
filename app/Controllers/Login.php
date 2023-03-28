@@ -39,10 +39,17 @@ class Login extends BaseController
                 'is_login' => true
             ];
             $this->session->set($session_data);
-            if ($data['departemen'] == NULL OR $data['departemen'] == 'produksi2') {
+
+            if ($data['seksi'] == NULL) {
                 return redirect()->to(base_url('lhp'));
-            } elseif ($data['departemen'] == 'produksi1') {
+            } elseif ($data['seksi'] == 'grid') {
                 return redirect()->to(base_url('grid'));
+            } elseif ($data['seksi'] == 'amb') {
+                return redirect()->to(base_url('lhp'));
+            } elseif ($data['seksi'] == 'plate_cutting') {
+                return redirect()->to(base_url('platecutting'));
+            } elseif ($data['seksi'] == 'envelope') {
+                return redirect()->to(base_url('envelope'));
             }
             
         } else {
