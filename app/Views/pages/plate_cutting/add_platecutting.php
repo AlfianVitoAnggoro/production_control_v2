@@ -15,18 +15,22 @@
                         <div class="box-body">
                             <form action="/platecutting/save" method="post">
                                 <div class="row">
+                                    <input type="hidden" name="id" value="<?= $platecutting['id']; ?>">
                                     <div class="col">
                                         <label for="date" class="form-label">Tanggal</label>
-                                        <input type="date" class="form-control" id="date" name="date" required>
+                                        <input type="date" class="form-control" id="date" name="date" value="<?= $platecutting['date'] ?>" required>
                                     </div>
                                     <div class="col">
                                         <label for="line" class="form-label">Line</label>
                                         <select class="form-control" id="line" name="line" required>
-                                            <option selected value="" disabled>-- Pilih Line --</option>
+                                            <option value="" disabled>-- Pilih Line --</option>
                                             <?php
-                                            for ($j = 1; $j <= 3; $j++) { ?>
-                                                <option value="<?= $j ?>"><?= $j ?></option>
-                                            <?php
+                                            for ($j = 1; $j <= 3; $j++) {
+                                                if ($platecutting['line'] === $j) { ?>
+                                                    <option selected value="<?= $j ?>"><?= $j ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $j ?>"><?= $j ?></option>
+                                            <?php }
                                             }
                                             ?>
                                         </select>
@@ -34,25 +38,40 @@
                                     <div class="col">
                                         <label for="shift" class="form-label">Shift</label>
                                         <select class="form-control" id="shift" name="shift" required>
-                                            <option selected value="" disabled>-- Pilih Shift --</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                        </select>
-                                    </div>
-                                    <div class="col">
-                                        <label for="team" class="form-label">Team</label>
-                                        <select class="form-control select2" id="team" name="team" required>
-                                            <option selected value="" disabled>-- Pilih Team --</option>
+                                            <option value="" disabled>-- Pilih Shift --</option>
                                             <?php
-                                            foreach ($team as $t) {
-                                            ?>
-                                                <option value="<?= trim($t['team']) ?>"><?= trim($t['team']) ?></option>
-                                            <?php
+                                            for ($j = 1; $j <= 3; $j++) {
+                                                if ($platecutting['shift'] === $j) { ?>
+                                                    <option selected value="<?= $j ?>"><?= $j ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $j ?>"><?= $j ?></option>
+                                            <?php }
                                             }
                                             ?>
                                         </select>
                                     </div>
+                                    <div class="col">
+                                        <label for="team" class="form-label">Team</label>
+                                        <select class="form-control" id="team" name="team" required>
+                                            <option value="" disabled>-- Pilih Team --</option>
+                                            <?php
+                                            foreach ($team as $t) {
+                                                if ($platecutting['team'] === $t['team']) { ?>
+                                                    <option selected value="<?= $platecutting['team'] ?>"><?= $platecutting['team'] ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $t['team'] ?>"><?= $t['team'] ?></option>
+                                            <?php }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="text-center my-2">
+                                    <?php if ($platecutting['status'] === 'pending') : ?>
+                                        <button type="submit" class="btn btn-primary" id="submit-form" style="width: 200px">Save</button>
+                                    <?php else : ?>
+                                        <a href="/platecutting" class="btn btn-primary">Back</a>
+                                    <?php endif ?>
                                 </div>
                                 <h2>Plate POS</h2>
                                 <div class="d-flex justify-content-between">
@@ -109,10 +128,10 @@
                                             </tr>
                                         </thead>
                                         <tbody class="form_platecutting_pos">
-                                            <tr class="form_pos" id="form_0_pos">
+                                            <!-- <tr class="form_pos" id="form_0_pos">
                                                 <td>1</td>
                                                 <td>
-                                                    <select class="form-control select2" id="plate_0_pos" onchange="panel_pos(0)" name="plate_pos[]" style="width: 200px;" required>
+                                                    <select class="form-control select2" id="plate_0_pos" onchange="panel_pos(0)" name="plate_pos[]" style="width: 200px;">
                                                         <option selected value="" disabled>-- Pilih Plate --</option>
                                                         <?php
                                                         $plate_pos = array_filter($plate, function ($p_pos) {
@@ -127,7 +146,7 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="hasil_produksi_pos[]" id="hasil_produksi_0_pos" onkeyup="panel_pos(0)" style="width: 100px" required>
+                                                    <input type="text" class="form-control" name="hasil_produksi_pos[]" id="hasil_produksi_0_pos" onkeyup="panel_pos(0)" style="width: 100px">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" name="terpotong_kg_pos[]" id="terpotong_kg_0_pos" value="0" onkeyup="panel_pos(0)" style="width: 75px">
@@ -198,9 +217,16 @@
                                                 <td>
                                                     <input type="text" class="form-control" name="persentase_reject_akumulatif_pos[]" value="0 %" id="persentase_reject_akumulatif_0_pos" style="width: 100px" readonly>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="text-center my-2">
+                                    <?php if ($platecutting['status'] === 'pending') : ?>
+                                        <button type="submit" class="btn btn-primary" id="submit-form" style="width: 200px">Save</button>
+                                    <?php else : ?>
+                                        <a href="/platecutting" class="btn btn-primary">Back</a>
+                                    <?php endif ?>
                                 </div>
                                 <h2>Plate NEG</h2>
                                 <div>
@@ -255,10 +281,10 @@
                                             </tr>
                                         </thead>
                                         <tbody class="form_platecutting_neg">
-                                            <tr class="form_neg" id="form_0_neg">
+                                            <!-- <tr class="form_neg" id="form_0_neg">
                                                 <td>1</td>
                                                 <td>
-                                                    <select class="form-control select2" id="plate_0_neg" onchange="panel_neg(0)" name="plate_neg[]" style="width: 200px;" required>
+                                                    <select class="form-control select2" id="plate_0_neg" onchange="panel_neg(0)" name="plate_neg[]" style="width: 200px;">
                                                         <option selected value="" disabled>-- Pilih Plate --</option>
                                                         <?php
                                                         $plate_neg = array_filter($plate, function ($p_neg) {
@@ -273,7 +299,7 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="hasil_produksi_neg[]" id="hasil_produksi_0_neg" onkeyup="panel_neg(0)" style=" width: 100px" required>
+                                                    <input type="text" class="form-control" name="hasil_produksi_neg[]" id="hasil_produksi_0_neg" onkeyup="panel_neg(0)" style=" width: 100px">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" name="terpotong_kg_neg[]" id="terpotong_kg_0_neg" value="0" onkeyup="panel_neg(0)" style="width: 75px">
@@ -344,12 +370,16 @@
                                                 <td>
                                                     <input type="text" class="form-control" name="persentase_reject_akumulatif_neg[]" value="0 %" id="persentase_reject_akumulatif_0_neg" style="width: 100px" readonly>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="text-center my-2">
-                                    <button type="submit" class="btn btn-primary" id="submit-form" style="width: 200px">Kirim</button>
+                                    <?php if ($platecutting['status'] === 'pending') : ?>
+                                        <button type="submit" class="btn btn-primary" id="submit-form" style="width: 200px">Save</button>
+                                    <?php else : ?>
+                                        <a href="/platecutting" class="btn btn-primary">Back</a>
+                                    <?php endif ?>
                                 </div>
                             </form>
                         </div>
@@ -471,14 +501,237 @@
         $('#persentase_reject_akumulatif_' + baris + '_neg').val((100 * (Math.ceil(terpotong_panel) + Math.ceil(tersangkut_panel) + Math.ceil(overbrush_panel) + Math.ceil(rontok_panel) + Math.ceil(lug_patah_panel) + Math.ceil(patah_kaki_panel) + Math.ceil(patah_frame_panel) + Math.ceil(bolong_panel) + Math.ceil(bending_panel) + Math.ceil(lengket_terpotong_panel)) / $('#hasil_produksi_' + baris + '_neg').val()).toPrecision(3) + '%');
     }
 
+    function data_platecutting_pos() {
+        let baris = 0;
+        <?php
+        $plate_pos = array_filter($plateinput, function ($p_pos) {
+            return strpos($p_pos['plate'], 'POS') !== false;
+        });
+        ?>
+        <?php foreach ($plate_pos as $pp) { ?>
+            baris = document.querySelectorAll('.form_pos').length;
+            $('.form_platecutting_pos').append(`
+			<tr class="form_pos" id="form_${baris}_pos">
+                <input type="hidden" name="id_plateinput_pos[]" value="<?= trim($pp['id']); ?>">
+                <td>${baris + 1}</td>
+                <td>
+                    <select class="form-control select2" id="plate_${baris}_pos" onchange="panel_pos(${baris})" name="plate_pos[]" style="width: 200px;">
+                        <option value="">-- Pilih Plate --</option>
+                        <?php
+                        $plate_pos = array_filter($plate, function ($p_pos) {
+                            return strpos($p_pos['plate'], 'POS') !== false;
+                        });
+                        foreach ($plate_pos as $plt) {
+                        ?>
+                        <?php if (trim($pp['plate']) === trim($plt['plate'])) : ?>
+                            <option value="<?= trim($pp['plate']) ?>" selected><?= trim($pp['plate']) ?></option>
+                        <?php else : ?>
+                            <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
+                        <?php endif ?>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="hasil_produksi_pos[]" id="hasil_produksi_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['hasil_produksi']) ?>" style="width: 100px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="terpotong_kg_pos[]" id="terpotong_kg_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['terpotong_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="tersangkut_kg_pos[]" id="tersangkut_kg_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['tersangkut_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="overbrush_kg_pos[]" id="overbrush_kg_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['overbrush_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="rontok_kg_pos[]" id="rontok_kg_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['rontok_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="lug_patah_kg_pos[]" id="lug_patah_kg_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['lug_patah_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="patah_kaki_kg_pos[]" id="patah_kaki_kg_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['patah_kaki_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="patah_frame_kg_pos[]" id="patah_frame_kg_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['patah_frame_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="bolong_kg_pos[]" id="bolong_kg_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['bolong_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="bending_kg_pos[]" id="bending_kg_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['bending_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="lengket_terpotong_kg_pos[]" id="lengket_terpotong_kg_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['lengket_terpotong_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="terpotong_panel_pos[]" id="terpotong_panel_${baris}_pos" value="<?= trim($pp['terpotong_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="tersangkut_panel_pos[]" id="tersangkut_panel_${baris}_pos" value="<?= trim($pp['tersangkut_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="overbrush_panel_pos[]" id="overbrush_panel_${baris}_pos" value="<?= trim($pp['overbrush_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="rontok_panel_pos[]" id="rontok_panel_${baris}_pos" value="<?= trim($pp['rontok_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="lug_patah_panel_pos[]" id="lug_patah_panel_${baris}_pos" value="<?= trim($pp['lug_patah_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="patah_kaki_panel_pos[]" id="patah_kaki_panel_${baris}_pos" value="<?= trim($pp['patah_kaki_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="patah_frame_panel_pos[]" id="patah_frame_panel_${baris}_pos" value="<?= trim($pp['patah_frame_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="bolong_panel_pos[]" id="bolong_panel_${baris}_pos" value="<?= trim($pp['bolong_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="bending_panel_pos[]" id="bending_panel_${baris}_pos" value="<?= trim($pp['bending_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="lengket_terpotong_panel_pos[]" id="lengket_terpotong_panel_${baris}_pos" value="<?= trim($pp['lengket_terpotong_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="persentase_reject_internal_pos[]" id="persentase_reject_internal_${baris}_pos" value="<?= trim($pp['persentase_reject_internal']) ?>" style="width: 100px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="persentase_reject_eksternal_pos[]" id="persentase_reject_eksternal_${baris}_pos" value="<?= trim($pp['persentase_reject_eksternal']) ?>" style="width: 100px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="persentase_reject_akumulatif_pos[]" id="persentase_reject_akumulatif_${baris}_pos" value="<?= trim($pp['persentase_reject_akumulatif']) ?>" style="width: 100px; background-color: #E8E2E2;" readonly>
+                </td>
+            </tr>
+		`);
+        <?php } ?>
+        $('.select2').select2();
+    }
+    data_platecutting_pos();
+
+    function data_platecutting_neg() {
+        let baris = 0;
+        <?php
+        $plate_neg = array_filter($plateinput, function ($p_neg) {
+            return strpos($p_neg['plate'], 'NEG') !== false;
+        });
+        ?>
+        <?php foreach ($plate_neg as $pn) { ?>
+            baris = document.querySelectorAll('.form_neg').length;
+            $('.form_platecutting_neg').append(`
+			<tr class="form_neg" id="form_${baris}_neg">
+                <input type="hidden" name="id_plateinput_neg[]" value="<?= trim($pn['id']); ?>">
+                <td>${baris + 1}</td>
+                <td>
+                    <select class="form-control select2" id="plate_${baris}_neg" onchange="panel_neg(${baris})" name="plate_neg[]" style="width: 200px;">
+                        <option value="">-- Pilih Plate --</option>
+                        <?php
+                        $plate_neg = array_filter($plate, function ($p_neg) {
+                            return strpos($p_neg['plate'], 'NEG') !== false;
+                        });
+                        foreach ($plate_neg as $plt) {
+                        ?>
+                            <?php if (trim($pn['plate']) === trim($plt['plate'])) : ?>
+                                <option value="<?= trim($pn['plate']) ?>" selected><?= trim($pn['plate']) ?></option>
+                            <?php else : ?>
+                                <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
+                            <?php endif ?>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="hasil_produksi_neg[]" id="hasil_produksi_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['hasil_produksi']) ?>" style="width: 100px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="terpotong_kg_neg[]" id="terpotong_kg_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['terpotong_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="tersangkut_kg_neg[]" id="tersangkut_kg_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['tersangkut_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="overbrush_kg_neg[]" id="overbrush_kg_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['overbrush_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="rontok_kg_neg[]" id="rontok_kg_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['rontok_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="lug_patah_kg_neg[]" id="lug_patah_kg_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['lug_patah_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="patah_kaki_kg_neg[]" id="patah_kaki_kg_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['patah_kaki_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="patah_frame_kg_neg[]" id="patah_frame_kg_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['patah_frame_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="bolong_kg_neg[]" id="bolong_kg_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['bolong_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="bending_kg_neg[]" id="bending_kg_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['bending_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="lengket_terpotong_kg_neg[]" id="lengket_terpotong_kg_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['lengket_terpotong_kg']) ?>" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="terpotong_panel_neg[]" id="terpotong_panel_${baris}_neg" value="<?= trim($pn['terpotong_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="tersangkut_panel_neg[]" id="tersangkut_panel_${baris}_neg" value="<?= trim($pn['tersangkut_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="overbrush_panel_neg[]" id="overbrush_panel_${baris}_neg" value="<?= trim($pn['overbrush_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="rontok_panel_neg[]" id="rontok_panel_${baris}_neg" value="<?= trim($pn['rontok_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="lug_patah_panel_neg[]" id="lug_patah_panel_${baris}_neg" value="<?= trim($pn['lug_patah_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="patah_kaki_panel_neg[]" id="patah_kaki_panel_${baris}_neg" value="<?= trim($pn['patah_kaki_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="patah_frame_panel_neg[]" id="patah_frame_panel_${baris}_neg" value="<?= trim($pn['patah_frame_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="bolong_panel_neg[]" id="bolong_panel_${baris}_neg" value="<?= trim($pn['bolong_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="bending_panel_neg[]" id="bending_panel_${baris}_neg" value="<?= trim($pn['bending_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="lengket_terpotong_panel_neg[]" id="lengket_terpotong_panel_${baris}_neg" value="<?= trim($pn['lengket_terpotong_panel']) ?>" style="width: 75px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="persentase_reject_internal_neg[]" id="persentase_reject_internal_${baris}_neg" value="<?= trim($pn['persentase_reject_internal']) ?>" style="width: 100px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="persentase_reject_eksternal_neg[]" id="persentase_reject_eksternal_${baris}_neg" value="<?= trim($pn['persentase_reject_eksternal']) ?>" style="width: 100px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="persentase_reject_akumulatif_neg[]" id="persentase_reject_akumulatif_${baris}_neg" value="<?= trim($pn['persentase_reject_akumulatif']) ?>" style="width: 100px; background-color: #E8E2E2;" readonly>
+                </td>
+            </tr>
+		`);
+        <?php } ?>
+        $('.select2').select2();
+    }
+    data_platecutting_neg();
+
     function add_platecutting_pos() {
         const baris = document.querySelectorAll('.form_pos').length;
         $('.form_platecutting_pos').append(`
 			<tr class="form_pos" id="form_${baris}_pos">
+                <input type="hidden" name="id_plateinput_pos[]" value="">
                 <td>${baris + 1}</td>
                 <td>
-                    <select class="form-control select2" id="plate_${baris}_pos" onchange="panel_pos(${baris})" name="plate_pos[]" style="width: 200px;" required>
-                        <option selected value="" disabled>-- Pilih Plate --</option>
+                    <select class="form-control select2" id="plate_${baris}_pos" onchange="panel_pos(${baris})" name="plate_pos[]" style="width: 200px;">
+                        <option selected value="">-- Pilih Plate --</option>
                         <?php
                         $plate_pos = array_filter($plate, function ($p_pos) {
                             return strpos($p_pos['plate'], 'POS') !== false;
@@ -492,7 +745,7 @@
                     </select>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="hasil_produksi_pos[]" value="" id="hasil_produksi_${baris}_pos" onkeyup="panel_pos(${baris})" style="width: 100px" required>
+                    <input type="text" class="form-control" name="hasil_produksi_pos[]" value="" id="hasil_produksi_${baris}_pos" onkeyup="panel_pos(${baris})" style="width: 100px">
                 </td>
                 <td>
                     <input type="text" class="form-control" name="terpotong_kg_pos[]" id="terpotong_kg_${baris}_pos" value="0" onkeyup="panel_pos(${baris})" style="width: 75px">
@@ -525,43 +778,43 @@
                     <input type="text" class="form-control" name="lengket_terpotong_kg_pos[]" id="lengket_terpotong_kg_${baris}_pos" value="0" onkeyup="panel_pos(${baris})" style="width: 75px">
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="terpotong_panel_pos[]" value="0" id="terpotong_panel_${baris}_pos" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="terpotong_panel_pos[]" value="0" id="terpotong_panel_${baris}_pos" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="tersangkut_panel_pos[]" value="0" id="tersangkut_panel_${baris}_pos" style=" width: 75px" readonly>
+                    <input type="text" class="form-control" name="tersangkut_panel_pos[]" value="0" id="tersangkut_panel_${baris}_pos" style=" width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="overbrush_panel_pos[]" value="0" id="overbrush_panel_${baris}_pos" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="overbrush_panel_pos[]" value="0" id="overbrush_panel_${baris}_pos" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="rontok_panel_pos[]" value="0" id="rontok_panel_${baris}_pos" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="rontok_panel_pos[]" value="0" id="rontok_panel_${baris}_pos" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="lug_patah_panel_pos[]" value="0" id="lug_patah_panel_${baris}_pos" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="lug_patah_panel_pos[]" value="0" id="lug_patah_panel_${baris}_pos" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="patah_kaki_panel_pos[]" value="0" id="patah_kaki_panel_${baris}_pos" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="patah_kaki_panel_pos[]" value="0" id="patah_kaki_panel_${baris}_pos" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="patah_frame_panel_pos[]" value="0" id="patah_frame_panel_${baris}_pos" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="patah_frame_panel_pos[]" value="0" id="patah_frame_panel_${baris}_pos" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="bolong_panel_pos[]" value="0" id="bolong_panel_${baris}_pos" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="bolong_panel_pos[]" value="0" id="bolong_panel_${baris}_pos" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="bending_panel_pos[]" value="0" id="bending_panel_${baris}_pos" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="bending_panel_pos[]" value="0" id="bending_panel_${baris}_pos" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="lengket_terpotong_panel_pos[]" value="0" id="lengket_terpotong_panel_${baris}_pos" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="lengket_terpotong_panel_pos[]" value="0" id="lengket_terpotong_panel_${baris}_pos" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="persentase_reject_internal_pos[]" value="0 %" id="persentase_reject_internal_${baris}_pos" style="width: 100px" readonly>
+                    <input type="text" class="form-control" name="persentase_reject_internal_pos[]" value="0 %" id="persentase_reject_internal_${baris}_pos" style="width: 100px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="persentase_reject_eksternal_pos[]" value="0 %" id="persentase_reject_eksternal_${baris}_pos" style="width: 100px" readonly>
+                    <input type="text" class="form-control" name="persentase_reject_eksternal_pos[]" value="0 %" id="persentase_reject_eksternal_${baris}_pos" style="width: 100px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="persentase_reject_akumulatif_pos[]" value="0 %" id="persentase_reject_akumulatif_${baris}_pos" style="width: 100px" readonly>
+                    <input type="text" class="form-control" name="persentase_reject_akumulatif_pos[]" value="0 %" id="persentase_reject_akumulatif_${baris}_pos" style="width: 100px; background-color: #E8E2E2;" readonly>
                 </td>
             </tr>
 		`);
@@ -572,10 +825,11 @@
         const baris = document.querySelectorAll('.form_neg').length;
         $('.form_platecutting_neg').append(`
 			<tr class="form_neg" id="form_${baris}_neg">
+                <input type="hidden" name="id_plateinput_neg[]" value="">
                 <td>${baris + 1}</td>
                 <td>
-                    <select class="form-control select2" id="plate_${baris}_neg" onchange="panel_neg(${baris})" name="plate_neg[]" style="width: 200px;" required>
-                        <option selected value="" disabled>-- Pilih Plate --</option>
+                    <select class="form-control select2" id="plate_${baris}_neg" onchange="panel_neg(${baris})" name="plate_neg[]" style="width: 200px;">
+                        <option selected value="">-- Pilih Plate --</option>
                         <?php
                         $plate_neg = array_filter($plate, function ($p_neg) {
                             return strpos($p_neg['plate'], 'NEG') !== false;
@@ -589,7 +843,7 @@
                     </select>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="hasil_produksi_neg[]" id="hasil_produksi_${baris}_neg" onkeyup="panel_neg(${baris})" style="width: 100px" required>
+                    <input type="text" class="form-control" name="hasil_produksi_neg[]" id="hasil_produksi_${baris}_neg" onkeyup="panel_neg(${baris})" style="width: 100px">
                 </td>
                 <td>
                     <input type="text" class="form-control" name="terpotong_kg_neg[]" id="terpotong_kg_${baris}_neg" value="0" onkeyup="panel_neg(${baris})" style="width: 75px">
@@ -622,43 +876,43 @@
                     <input type="text" class="form-control" name="lengket_terpotong_kg_neg[]" id="lengket_terpotong_kg_${baris}_neg" value="0" onkeyup="panel_neg(${baris})" style="width: 75px">
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="terpotong_panel_neg[]" value="0" id="terpotong_panel_${baris}_neg" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="terpotong_panel_neg[]" value="0" id="terpotong_panel_${baris}_neg" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="tersangkut_panel_neg[]" value="0" id="tersangkut_panel_${baris}_neg" style=" width: 75px" readonly>
+                    <input type="text" class="form-control" name="tersangkut_panel_neg[]" value="0" id="tersangkut_panel_${baris}_neg" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="overbrush_panel_neg[]" value="0" id="overbrush_panel_${baris}_neg" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="overbrush_panel_neg[]" value="0" id="overbrush_panel_${baris}_neg" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="rontok_panel_neg[]" value="0" id="rontok_panel_${baris}_neg" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="rontok_panel_neg[]" value="0" id="rontok_panel_${baris}_neg" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="lug_patah_panel_neg[]" value="0" id="lug_patah_panel_${baris}_neg" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="lug_patah_panel_neg[]" value="0" id="lug_patah_panel_${baris}_neg" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="patah_kaki_panel_neg[]" value="0" id="patah_kaki_panel_${baris}_neg" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="patah_kaki_panel_neg[]" value="0" id="patah_kaki_panel_${baris}_neg" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="patah_frame_panel_neg[]" value="0" id="patah_frame_panel_${baris}_neg" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="patah_frame_panel_neg[]" value="0" id="patah_frame_panel_${baris}_neg" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="bolong_panel_neg[]" value="0" id="bolong_panel_${baris}_neg" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="bolong_panel_neg[]" value="0" id="bolong_panel_${baris}_neg" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="bending_panel_neg[]" value="0" id="bending_panel_${baris}_neg" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="bending_panel_neg[]" value="0" id="bending_panel_${baris}_neg" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="lengket_terpotong_panel_neg[]" value="0" id="lengket_terpotong_panel_${baris}_neg" style="width: 75px" readonly>
+                    <input type="text" class="form-control" name="lengket_terpotong_panel_neg[]" value="0" id="lengket_terpotong_panel_${baris}_neg" style="width: 75px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="persentase_reject_internal_neg[]" value="0 %" id="persentase_reject_internal_${baris}_neg" style="width: 100px" readonly>
+                    <input type="text" class="form-control" name="persentase_reject_internal_neg[]" value="0 %" id="persentase_reject_internal_${baris}_neg" style="width: 100px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="persentase_reject_eksternal_neg[]" value="0 %" id="persentase_reject_eksternal_${baris}_neg" style="width: 100px" readonly>
+                    <input type="text" class="form-control" name="persentase_reject_eksternal_neg[]" value="0 %" id="persentase_reject_eksternal_${baris}_neg" style="width: 100px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="persentase_reject_akumulatif_neg[]" value="0 %" id="persentase_reject_akumulatif_${baris}_neg" style="width: 100px" readonly>
+                    <input type="text" class="form-control" name="persentase_reject_akumulatif_neg[]" value="0 %" id="persentase_reject_akumulatif_${baris}_neg" style="width: 100px; background-color: #E8E2E2;" readonly>
                 </td>
             </tr>
 		`);

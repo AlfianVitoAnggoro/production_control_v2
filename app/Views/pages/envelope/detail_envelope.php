@@ -56,7 +56,7 @@
                                             <option value="" disabled>-- Pilih Team --</option>
                                             <?php
                                             foreach ($team as $t) {
-                                                if ($envelope['shift'] === $t['team']) { ?>
+                                                if ($envelope['team'] === $t['team']) { ?>
                                                     <option selected value="<?= $envelope['team'] ?>"><?= $envelope['team'] ?></option>
                                                 <?php } else { ?>
                                                     <option value="<?= $t['team'] ?>"><?= $t['team'] ?></option>
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="text-center my-2 button">
                                     <?php if ($envelope['status'] === 'pending') : ?>
-                                        <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button>
+                                        <!-- <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button> -->
                                         <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
                                         <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>
                                     <?php else : ?>

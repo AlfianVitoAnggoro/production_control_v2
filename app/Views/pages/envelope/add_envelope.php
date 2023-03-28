@@ -15,40 +15,52 @@
                         <div class="box-body">
                             <form action="/envelope/save" method="post">
                                 <div class="row">
+                                    <input type="hidden" name="id_envelope" value="<?= $envelope['id']; ?>">
                                     <div class="col">
                                         <label for="date" class="form-label">Tanggal</label>
-                                        <input type="date" class="form-control" id="date_0" name="date" required>
+                                        <input type="date" class="form-control" id="date" name="date" value="<?= $envelope['date'] ?>" required>
                                     </div>
                                     <div class="col">
                                         <label for="line" class="form-label">Line</label>
-                                        <select class="form-control" id="line_0" name="line" required>
-                                            <option selected value="" disabled>-- Pilih Line --</option>
+                                        <select class="form-control" id="line" name="line" required>
+                                            <option value="" disabled>-- Pilih Line --</option>
                                             <?php
-                                            for ($j = 1; $j <= 3; $j++) { ?>
-                                                <option value="<?= $j ?>"><?= $j ?></option>
-                                            <?php
+                                            for ($j = 1; $j <= 3; $j++) {
+                                                if ($envelope['line'] === $j) { ?>
+                                                    <option selected value="<?= $j ?>"><?= $j ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $j ?>"><?= $j ?></option>
+                                            <?php }
                                             }
                                             ?>
                                         </select>
                                     </div>
                                     <div class="col">
                                         <label for="shift" class="form-label">Shift</label>
-                                        <select class="form-control" id="shift_0" name="shift" required>
-                                            <option selected value="" disabled>-- Pilih Shift --</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
+                                        <select class="form-control" id="shift" name="shift" required>
+                                            <option value="" disabled>-- Pilih Shift --</option>
+                                            <?php
+                                            for ($j = 1; $j <= 3; $j++) {
+                                                if ($envelope['shift'] === $j) { ?>
+                                                    <option selected value="<?= $j ?>"><?= $j ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $j ?>"><?= $j ?></option>
+                                            <?php }
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="col">
                                         <label for="team" class="form-label">Team</label>
-                                        <select class="form-control select2" id="team_0" name="team" required>
-                                            <option selected value="" disabled>-- Pilih Team --</option>
+                                        <select class="form-control" id="team" name="team" required>
+                                            <option value="" disabled>-- Pilih Team --</option>
                                             <?php
                                             foreach ($team as $t) {
-                                            ?>
-                                                <option value="<?= trim($t['team']) ?>"><?= trim($t['team']) ?></option>
-                                            <?php
+                                                if ($envelope['team'] === $t['team']) { ?>
+                                                    <option selected value="<?= $envelope['team'] ?>"><?= $envelope['team'] ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $t['team'] ?>"><?= $t['team'] ?></option>
+                                            <?php }
                                             }
                                             ?>
                                         </select>
@@ -79,7 +91,7 @@
                                             </tr>
                                         </thead>
                                         <tbody class="form_envelope">
-                                            <tr class="form" id="form_0">
+                                            <!-- <tr class="form" id="form_0">
                                                 <td>1</td>
                                                 <td style="width:200px;">
                                                     <select class="form-control select2 plate" id="plate_0" onchange="panel(0)" name="plate[]" style="width: 200px;" required>
@@ -126,12 +138,12 @@
                                                 <td>
                                                     <input type="text" class="form-control" name="persentase_reject_akumulatif[]" id="persentase_reject_akumulatif_0" value="0 %" style="width: 100px" readonly>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="text-center my-2">
-                                    <button type="submit" class="btn btn-primary">Kirim</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -170,14 +182,83 @@
         $('#persentase_reject_akumulatif_' + baris).val((100 * (Math.ceil(melintir_bending) + Math.ceil(terpotong) + Math.ceil(tersangkut) + Math.ceil(rontok)) / $('#hasil_produksi_' + baris).val()).toPrecision(3) + ' %');
     }
 
+    function data_envelope() {
+        let baris = 0;
+        <?php for ($i = 0; $i < count($envelopeinput); $i++) { ?>
+            baris = document.querySelectorAll('.form').length;
+            $('.form_envelope').append(`
+			<tr class="form" id="form_${baris}">
+                <input type="hidden" name="id_envelopeinput[]" value="<?= $envelopeinput[$i]['id']; ?>">
+                <td>${baris + 1}</td>
+                <td>
+                    <select class="form-control select2" id="plate_${baris}" onchange="panel(${baris})" name="plate[]" style="width: 200px; background-color: #E8E2E2;">
+                        <option value="">-- Pilih Plate --</option>
+                        <?php
+                        $plate_pos = array_filter($plate, function ($p) {
+                            return strpos($p['plate'], 'POS') !== false;
+                        });
+                        foreach ($plate_pos as $plt) {
+                        ?>
+                            <?php if (trim($envelopeinput[$i]['plate']) === trim($plt['plate'])) : ?>
+                                <option value="<?= trim($envelopeinput[$i]['plate']) ?>" selected><?= trim($envelopeinput[$i]['plate']) ?></option>
+                            <?php else : ?>
+                                <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
+                            <?php endif ?>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="hasil_produksi[]" id="hasil_produksi_${baris}" onkeyup="panel(${baris})" value="<?= trim($envelopeinput[$i]['hasil_produksi']) ?>" style="width: 100px">
+                </td>
+                <td>
+                    <select class="form-control select2" id="separator_${baris}" onchange="panel(${baris})" name="separator[]" style="width: 200px;">
+                        <option value="">-- Pilih Separator --</option>
+                        <?php
+                        foreach ($separator as $spr) {
+                        ?>
+                            <?php if ($envelopeinput[$i]['separator'] === $spr['separator']) : ?>
+                                <option value="<?= trim($envelopeinput[$i]['separator']) ?>" selected><?= trim($envelopeinput[$i]['separator']) ?></option>
+                            <?php else : ?>
+                                <option value="<?= trim($spr['separator']) ?>"><?= trim($spr['separator']) ?></option>
+                            <?php endif ?>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="melintir_bending[]" id="melintir_bending_${baris}" value="<?= trim($envelopeinput[$i]['melintir_bending']) ?>" onkeyup="panel(${baris})" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="terpotong[]" id="terpotong_${baris}" value="<?= trim($envelopeinput[$i]['terpotong']) ?>" onkeyup="panel(${baris})" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="rontok[]" id="rontok_${baris}" value="<?= trim($envelopeinput[$i]['rontok']) ?>" onkeyup="panel(${baris})" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="tersangkut[]" id="tersangkut_${baris}" value="<?= trim($envelopeinput[$i]['tersangkut']) ?>" onkeyup="panel(${baris})" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="persentase_reject_akumulatif[]" id="persentase_reject_akumulatif_${baris}" value="<?= trim($envelopeinput[$i]['persentase_reject_akumulatif']) ?>" style="width: 100px">
+                </td>
+            </tr>
+		`);
+            $('.select2').select2();
+        <?php } ?>
+    }
+    data_envelope();
+
     function add_envelope() {
         const baris = document.querySelectorAll('.form').length;
         $('.form_envelope').append(`
 			<tr class="form" id="form_${baris}">
+                <input type="hidden" name="id_envelopeinput[]" value="">
                 <td>${baris + 1}</td>
                 <td>
-                    <select class="form-control select2" id="plate_${baris}" onchange="panel(${baris})" name="plate[]" style="width: 200px;" required>
-                        <option selected value="" disabled>-- Pilih Plate --</option>
+                    <select class="form-control select2" id="plate_${baris}" onchange="panel(${baris})" name="plate[]" style="width: 200px;">
+                        <option selected value="">-- Pilih Plate --</option>
                         <?php
                         $plate_pos = array_filter($plate, function ($p_pos) {
                             return strpos($p_pos['plate'], 'POS') !== false;
@@ -191,11 +272,11 @@
                     </select>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="hasil_produksi[]" id="hasil_produksi_${baris}" onkeyup="panel(${baris})" style="width: 100px" required>
+                    <input type="text" class="form-control" name="hasil_produksi[]" id="hasil_produksi_${baris}" onkeyup="panel(${baris})" style="width: 100px">
                 </td>
                 <td>
-                    <select class="form-control select2" id="separator_${baris}" onchange="panel(${baris})" name="separator[]" style="width: 200px;" required>
-                        <option selected value="" disabled>-- Pilih Separator --</option>
+                    <select class="form-control select2" id="separator_${baris}" onchange="panel(${baris})" name="separator[]" style="width: 200px;">
+                        <option selected value="">-- Pilih Separator --</option>
                         <?php
                         foreach ($separator as $spr) {
                         ?>
