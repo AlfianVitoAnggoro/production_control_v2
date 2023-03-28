@@ -333,21 +333,14 @@
                                                             <td>
                                                                 <div>
                                                                     <?php
-                                                                    foreach ($plateinput as $pi) :
-                                                                        if ($pc['id'] === $pi['id_platecutting']) :
-                                                                            if (trim($pc['status']) === 'approved') :
+                                                                    if (trim($pc['status']) === 'approved') :
                                                                     ?>
-                                                                                <span class="badge bg-success">Approved</span>
-                                                                            <?php break;
-                                                                            elseif (trim($pc['status']) === 'pending') : ?>
-                                                                                <span class="badge bg-warning">Pending</span>
-                                                                            <?php break;
-                                                                            elseif (trim($pc['status']) === 'rejected') : ?>
-                                                                                <span class="badge bg-danger">Rejected</span>
-                                                                            <?php break;
-                                                                            endif ?>
-                                                                        <?php endif ?>
-                                                                    <?php endforeach ?>
+                                                                        <span class="badge bg-success">Approved</span>
+                                                                    <?php elseif (trim($pc['status']) === 'pending') : ?>
+                                                                        <span class="badge bg-warning">Pending</span>
+                                                                    <?php elseif (trim($pc['status']) === 'rejected') : ?>
+                                                                        <span class="badge bg-danger">Rejected</span>
+                                                                    <?php endif ?>
                                                                 </div>
                                                             </td>
                                                             <?php if ($session['level'] === 1) : ?>

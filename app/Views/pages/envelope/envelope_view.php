@@ -144,21 +144,16 @@
                                                             </td>
                                                             <td>
                                                                 <div>
-                                                                    <?php foreach ($envelopeinput as $ei) :
-                                                                        if ($envl['id'] === $ei['id_envelope']) :
-                                                                            if (trim($envl['status']) === 'approved') :
+                                                                    <?php
+                                                                    if (trim($envl['status']) === 'approved') :
                                                                     ?>
-                                                                                <span class="badge bg-success">Approved</span>
-                                                                            <?php break;
-                                                                            elseif (trim($envl['status']) === 'pending') : ?>
-                                                                                <span class="badge bg-warning">Pending</span>
-                                                                            <?php break;
-                                                                            elseif (trim($envl['status']) === 'rejected') : ?>
-                                                                                <span class="badge bg-danger">Rejected</span>
-                                                                            <?php break;
-                                                                            endif ?>
-                                                                        <?php endif ?>
-                                                                    <?php endforeach ?>
+                                                                        <span class="badge bg-success">Approved</span>
+                                                                    <?php elseif (trim($envl['status']) === 'pending') : ?>
+                                                                        <span class="badge bg-warning">Pending</span>
+                                                                    <?php elseif (trim($envl['status']) === 'rejected') : ?>
+                                                                        <span class="badge bg-danger">Rejected</span>
+                                                                    <?php endif ?>
+
                                                                 </div>
                                                             </td>
                                                             <?php if ($session['level'] === 1) : ?>
