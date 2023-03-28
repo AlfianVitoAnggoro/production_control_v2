@@ -472,7 +472,7 @@
 														<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['menit_breakdown']?>" style="width: 75px">
 													</td>
 													<td>
-														<button type="button" class="btn btn-danger" onclick="delete_breakdown(<?=$index_breakdown?>)"><i class="fa fa-trash"></i></button>	
+														<a type="button" class="btn btn-danger" href="<?=base_url()?>lhp/delete_line_stop/<?=$d_detail_breakdown['id_breakdown']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 
@@ -556,7 +556,7 @@
 														<textarea class="form-control" name="remark_reject[]" id="remark_reject_<?=$index_reject?>" cols="20" rows="1" style="width: 200px;"><?=$d_detail_reject['remark_reject']?></textarea>
 													</td>
 													<td>
-														<button type="button" class="btn btn-danger" onclick="delete_reject(<?=$index_reject?>)"><i class="fa fa-trash"></i></button>	
+														<a type="button" class="btn btn-danger" href="<?=base_url()?>lhp/delete_reject/<?=$d_detail_reject['id_reject']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>	
 													</td>
 												</tr>
 												<?php

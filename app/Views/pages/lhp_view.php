@@ -178,10 +178,12 @@
   <?= $this->section('script'); ?>
   <script>
 	$(document).ready(function() {
-		$('#data_lhp2').DataTable();
+		$('#data_lhp2').DataTable({
+			"order": []
+		});
 		$('.modal .select2').select2({
-    dropdownParent: $('.modal')
-});
+   		 dropdownParent: $('.modal')
+		});
 	});
   </script>
   <?= $this->endSection(); ?>

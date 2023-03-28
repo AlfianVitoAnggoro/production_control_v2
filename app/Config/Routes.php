@@ -51,6 +51,8 @@ $routes->group('lhp', ['filter' => 'auth'], function ($routes) {
     $routes->post('get_data_andon', 'Home::get_data_andon');
     $routes->post('pilih_andon', 'Home::pilih_andon');
     $routes->get('hapus_lhp/(:num)', 'Home::hapus_lhp/$1');
+    $routes->get('delete_line_stop/(:num)/(:num)', 'Home::delete_line_stop/$1/$2');
+    $routes->get('delete_reject/(:num)/(:num)', 'Home::delete_reject/$1/$2');
 });
 
 
