@@ -33,11 +33,13 @@ class PlateCutting extends BaseController
         $shifts = array_column($platecutting, "shift");
         array_multisort($dates, SORT_ASC, $lines, SORT_ASC, $shifts, SORT_ASC, $platecutting);
         $plateInput = $this->plateInputModel->findAll();
+        $team = $this->teamModel->findAll();
         $status = $session->get();
         $data = [
             'platecutting' => $platecutting,
             'plateinput' => $plateInput,
-            'session' => $status
+            'session' => $status,
+            'team' => $team
         ];
         return view('pages/plate_cutting/platecutting_view', $data);
     }
@@ -48,11 +50,15 @@ class PlateCutting extends BaseController
         return $plate;
     }
 
-    public function add_platecutting()
+    public function add_platecutting($id)
     {
+        $platecutting = $this->platecuttingModel->find($id);
+        $plateinput = $this->plateInputModel->where('id_platecutting', $id)->findAll();
         $plate = $this->plateModel->findAll();
         $team = $this->teamModel->findAll();
         $data = [
+            'platecutting' => $platecutting,
+            'plateinput' => $plateinput,
             'plate' => $plate,
             'team' => $team
         ];
@@ -61,6 +67,10 @@ class PlateCutting extends BaseController
 
     public function save()
     {
+        $id = $this->request->getVar('id');
+        $plateinput = $this->plateInputModel->where('id_platecutting', $id)->findAll();
+        $id_plateinputDBPOS = $this->request->getVar('id_plateinput_pos');
+        $id_plateinputDBNEG = $this->request->getVar('id_plateinput_neg');
         $date = $this->request->getVar('date');
         $line = $this->request->getVar('line');
         $shift = $this->request->getVar('shift');
@@ -115,8 +125,22 @@ class PlateCutting extends BaseController
         $persentase_reject_internal_neg = $this->request->getVar('persentase_reject_internal_neg');
         $persentase_reject_eksternal_neg = $this->request->getVar('persentase_reject_eksternal_neg');
         $persentase_reject_akumulatif_neg = $this->request->getVar('persentase_reject_akumulatif_neg');
-        if ($line !== NULL) {
-            $id = 'D' . $date . 'L' . $line . 'S' . $shift;
+        $plateinputnew = [];
+        $data_plate_new_pos = [];
+        $data_plate_new_neg = [];
+        if ($id === NULL) {
+            $platecutting = $this->platecuttingModel->findAll();
+            $id_platecutting = count($platecutting) + 1;
+            $data_platecutting[] = array(
+                'date' => $date,
+                'line' => $line,
+                'shift' => $shift,
+                'team' => $team,
+                'status' => 'pending',
+            );
+            $this->platecuttingModel->insertBatch($data_platecutting);
+            return redirect()->to(base_url('platecutting/add_platecutting/' . $id_platecutting));
+        } else {
             $data_platecutting[] = array(
                 'id' => $id,
                 'date' => $date,
@@ -125,81 +149,154 @@ class PlateCutting extends BaseController
                 'team' => $team,
                 'status' => 'pending',
             );
-            if ($plate_pos !== NULL) {
-                $plateinput = $this->plateInputModel->findAll();
-                for ($i = 0; $i < count($plate_pos); $i++) {
-                    $id_plateinput = count($plateinput) + $i;
-                    $data_plate_pos[] = array(
-                        'id' => $id_plateinput,
-                        'id_platecutting' => $id,
-                        'plate' => $plate_pos[$i],
-                        'hasil_produksi' => $hasil_produksi_pos[$i],
-                        'terpotong_panel' => ($terpotong_panel_pos[$i] !== NULL ? $terpotong_panel_pos[$i] !== NULL : 0) ? $terpotong_panel_pos[$i] : 0,
-                        'tersangkut_panel' => ($tersangkut_panel_pos[$i] !== NULL ? $tersangkut_panel_pos[$i] !== NULL : 0)  ? $tersangkut_panel_pos[$i] : 0,
-                        'overbrush_panel' => ($overbrush_panel_pos[$i] !== NULL ? $overbrush_panel_pos[$i] !== NULL : 0) ? $overbrush_panel_pos[$i] : 0,
-                        'rontok_panel' => ($rontok_panel_pos[$i] !== NULL ? $rontok_panel_pos[$i] !== NULL : 0) ? $rontok_panel_pos[$i] : 0,
-                        'lug_patah_panel' => ($lug_patah_panel_pos[$i] !== NULL ? $lug_patah_panel_pos[$i] !== NULL : 0) ? $lug_patah_panel_pos[$i] : 0,
-                        'patah_kaki_panel' => ($patah_kaki_panel_pos[$i] !== NULL ? $patah_kaki_panel_pos[$i] !== NULL : 0) ? $patah_kaki_panel_pos[$i] : 0,
-                        'patah_frame_panel' => ($patah_frame_panel_pos[$i] !== NULL ? $patah_frame_panel_pos[$i] !== NULL : 0) ? $patah_frame_panel_pos[$i] : 0,
-                        'bolong_panel' => ($bolong_panel_pos[$i] !== NULL ? $bolong_panel_pos[$i] !== NULL : 0) ? $bolong_panel_pos[$i] : 0,
-                        'bending_panel' => ($bending_panel_pos[$i] !== NULL ? $bending_panel_pos[$i] !== NULL : 0) ? $bending_panel_pos[$i] : 0,
-                        'lengket_terpotong_panel' => ($lengket_terpotong_panel_pos[$i] !== NULL ? $lengket_terpotong_panel_pos[$i] !== NULL : 0) ? $lengket_terpotong_panel_pos[$i] : 0,
-                        'terpotong_kg' => $terpotong_kg_pos[$i] !== NULL ? $terpotong_kg_pos[$i] : 0,
-                        'tersangkut_kg' => $tersangkut_kg_pos[$i] !== NULL ? $tersangkut_kg_pos[$i] : 0,
-                        'overbrush_kg' => $overbrush_kg_pos[$i] !== NULL ? $overbrush_kg_pos[$i] : 0,
-                        'rontok_kg' => $rontok_kg_pos[$i] !== NULL ? $rontok_kg_pos[$i] : 0,
-                        'lug_patah_kg' => $lug_patah_kg_pos[$i] !== NULL ? $lug_patah_kg_pos[$i] : 0,
-                        'patah_kaki_kg' => $patah_kaki_kg_pos[$i] !== NULL ? $patah_kaki_kg_pos[$i] : 0,
-                        'patah_frame_kg' => $patah_frame_kg_pos[$i] !== NULL ? $patah_frame_kg_pos[$i] : 0,
-                        'bolong_kg' => $bolong_kg_pos[$i] !== NULL ? $bolong_kg_pos[$i] : 0,
-                        'bending_kg' => $bending_kg_pos[$i] !== NULL ? $bending_kg_pos[$i] : 0,
-                        'lengket_terpotong_kg' => $lengket_terpotong_kg_pos[$i] !== NULL ? $lengket_terpotong_kg_pos[$i] : 0,
-                        'persentase_reject_internal' => $persentase_reject_internal_pos[$i] !== NULL ? $persentase_reject_internal_pos[$i] : 0,
-                        'persentase_reject_eksternal' => $persentase_reject_eksternal_pos[$i] !== NULL ? $persentase_reject_eksternal_pos[$i] : 0,
-                        'persentase_reject_akumulatif' => $persentase_reject_akumulatif_pos[$i] !== NULL ? $persentase_reject_akumulatif_pos[$i] : 0,
-                    );
+            $this->platecuttingModel->updateBatch($data_platecutting, 'id');
+            for ($i = 0; $i < ($id_plateinputDBPOS !== NULL ? count($id_plateinputDBPOS) : 0); $i++) {
+                if ($plate_pos[$i] !== "") {
+                    if ($id_plateinputDBPOS[$i] === "") {
+                        $data_plate_new_pos[] = array(
+                            'id_platecutting' => $id,
+                            'plate' => $plate_pos[$i],
+                            'hasil_produksi' => ($hasil_produksi_pos[$i] !== NULL ? $hasil_produksi_pos[$i] !== NULL : 0) ? $hasil_produksi_pos[$i] : 0,
+                            'terpotong_panel' => ($terpotong_panel_pos[$i] !== NULL ? $terpotong_panel_pos[$i] !== NULL : 0) ? $terpotong_panel_pos[$i] : 0,
+                            'tersangkut_panel' => ($tersangkut_panel_pos[$i] !== NULL ? $tersangkut_panel_pos[$i] !== NULL : 0)  ? $tersangkut_panel_pos[$i] : 0,
+                            'overbrush_panel' => ($overbrush_panel_pos[$i] !== NULL ? $overbrush_panel_pos[$i] !== NULL : 0) ? $overbrush_panel_pos[$i] : 0,
+                            'rontok_panel' => ($rontok_panel_pos[$i] !== NULL ? $rontok_panel_pos[$i] !== NULL : 0) ? $rontok_panel_pos[$i] : 0,
+                            'lug_patah_panel' => ($lug_patah_panel_pos[$i] !== NULL ? $lug_patah_panel_pos[$i] !== NULL : 0) ? $lug_patah_panel_pos[$i] : 0,
+                            'patah_kaki_panel' => ($patah_kaki_panel_pos[$i] !== NULL ? $patah_kaki_panel_pos[$i] !== NULL : 0) ? $patah_kaki_panel_pos[$i] : 0,
+                            'patah_frame_panel' => ($patah_frame_panel_pos[$i] !== NULL ? $patah_frame_panel_pos[$i] !== NULL : 0) ? $patah_frame_panel_pos[$i] : 0,
+                            'bolong_panel' => ($bolong_panel_pos[$i] !== NULL ? $bolong_panel_pos[$i] !== NULL : 0) ? $bolong_panel_pos[$i] : 0,
+                            'bending_panel' => ($bending_panel_pos[$i] !== NULL ? $bending_panel_pos[$i] !== NULL : 0) ? $bending_panel_pos[$i] : 0,
+                            'lengket_terpotong_panel' => ($lengket_terpotong_panel_pos[$i] !== NULL ? $lengket_terpotong_panel_pos[$i] !== NULL : 0) ? $lengket_terpotong_panel_pos[$i] : 0,
+                            'terpotong_kg' => $terpotong_kg_pos[$i] !== NULL ? $terpotong_kg_pos[$i] : 0,
+                            'tersangkut_kg' => $tersangkut_kg_pos[$i] !== NULL ? $tersangkut_kg_pos[$i] : 0,
+                            'overbrush_kg' => $overbrush_kg_pos[$i] !== NULL ? $overbrush_kg_pos[$i] : 0,
+                            'rontok_kg' => $rontok_kg_pos[$i] !== NULL ? $rontok_kg_pos[$i] : 0,
+                            'lug_patah_kg' => $lug_patah_kg_pos[$i] !== NULL ? $lug_patah_kg_pos[$i] : 0,
+                            'patah_kaki_kg' => $patah_kaki_kg_pos[$i] !== NULL ? $patah_kaki_kg_pos[$i] : 0,
+                            'patah_frame_kg' => $patah_frame_kg_pos[$i] !== NULL ? $patah_frame_kg_pos[$i] : 0,
+                            'bolong_kg' => $bolong_kg_pos[$i] !== NULL ? $bolong_kg_pos[$i] : 0,
+                            'bending_kg' => $bending_kg_pos[$i] !== NULL ? $bending_kg_pos[$i] : 0,
+                            'lengket_terpotong_kg' => $lengket_terpotong_kg_pos[$i] !== NULL ? $lengket_terpotong_kg_pos[$i] : 0,
+                            'persentase_reject_internal' => $persentase_reject_internal_pos[$i] !== NULL ? $persentase_reject_internal_pos[$i] : 0,
+                            'persentase_reject_eksternal' => $persentase_reject_eksternal_pos[$i] !== NULL ? $persentase_reject_eksternal_pos[$i] : 0,
+                            'persentase_reject_akumulatif' => $persentase_reject_akumulatif_pos[$i] !== NULL ? $persentase_reject_akumulatif_pos[$i] : 0,
+                        );
+                    } else {
+                        $plateinputnew[$id_plateinputDBPOS[$i]] = $id_plateinputDBPOS[$i];
+                        $data_plate_old_pos[] = array(
+                            'id' => $id_plateinputDBPOS[$i],
+                            'plate' => $plate_pos[$i],
+                            'hasil_produksi' => ($hasil_produksi_pos[$i] !== NULL ? $hasil_produksi_pos[$i] !== NULL : 0) ? $hasil_produksi_pos[$i] : 0,
+                            'terpotong_panel' => ($terpotong_panel_pos[$i] !== NULL ? $terpotong_panel_pos[$i] !== NULL : 0) ? $terpotong_panel_pos[$i] : 0,
+                            'tersangkut_panel' => ($tersangkut_panel_pos[$i] !== NULL ? $tersangkut_panel_pos[$i] !== NULL : 0)  ? $tersangkut_panel_pos[$i] : 0,
+                            'overbrush_panel' => ($overbrush_panel_pos[$i] !== NULL ? $overbrush_panel_pos[$i] !== NULL : 0) ? $overbrush_panel_pos[$i] : 0,
+                            'rontok_panel' => ($rontok_panel_pos[$i] !== NULL ? $rontok_panel_pos[$i] !== NULL : 0) ? $rontok_panel_pos[$i] : 0,
+                            'lug_patah_panel' => ($lug_patah_panel_pos[$i] !== NULL ? $lug_patah_panel_pos[$i] !== NULL : 0) ? $lug_patah_panel_pos[$i] : 0,
+                            'patah_kaki_panel' => ($patah_kaki_panel_pos[$i] !== NULL ? $patah_kaki_panel_pos[$i] !== NULL : 0) ? $patah_kaki_panel_pos[$i] : 0,
+                            'patah_frame_panel' => ($patah_frame_panel_pos[$i] !== NULL ? $patah_frame_panel_pos[$i] !== NULL : 0) ? $patah_frame_panel_pos[$i] : 0,
+                            'bolong_panel' => ($bolong_panel_pos[$i] !== NULL ? $bolong_panel_pos[$i] !== NULL : 0) ? $bolong_panel_pos[$i] : 0,
+                            'bending_panel' => ($bending_panel_pos[$i] !== NULL ? $bending_panel_pos[$i] !== NULL : 0) ? $bending_panel_pos[$i] : 0,
+                            'lengket_terpotong_panel' => ($lengket_terpotong_panel_pos[$i] !== NULL ? $lengket_terpotong_panel_pos[$i] !== NULL : 0) ? $lengket_terpotong_panel_pos[$i] : 0,
+                            'terpotong_kg' => $terpotong_kg_pos[$i] !== NULL ? $terpotong_kg_pos[$i] : 0,
+                            'tersangkut_kg' => $tersangkut_kg_pos[$i] !== NULL ? $tersangkut_kg_pos[$i] : 0,
+                            'overbrush_kg' => $overbrush_kg_pos[$i] !== NULL ? $overbrush_kg_pos[$i] : 0,
+                            'rontok_kg' => $rontok_kg_pos[$i] !== NULL ? $rontok_kg_pos[$i] : 0,
+                            'lug_patah_kg' => $lug_patah_kg_pos[$i] !== NULL ? $lug_patah_kg_pos[$i] : 0,
+                            'patah_kaki_kg' => $patah_kaki_kg_pos[$i] !== NULL ? $patah_kaki_kg_pos[$i] : 0,
+                            'patah_frame_kg' => $patah_frame_kg_pos[$i] !== NULL ? $patah_frame_kg_pos[$i] : 0,
+                            'bolong_kg' => $bolong_kg_pos[$i] !== NULL ? $bolong_kg_pos[$i] : 0,
+                            'bending_kg' => $bending_kg_pos[$i] !== NULL ? $bending_kg_pos[$i] : 0,
+                            'lengket_terpotong_kg' => $lengket_terpotong_kg_pos[$i] !== NULL ? $lengket_terpotong_kg_pos[$i] : 0,
+                            'persentase_reject_internal' => $persentase_reject_internal_pos[$i] !== NULL ? $persentase_reject_internal_pos[$i] : 0,
+                            'persentase_reject_eksternal' => $persentase_reject_eksternal_pos[$i] !== NULL ? $persentase_reject_eksternal_pos[$i] : 0,
+                            'persentase_reject_akumulatif' => $persentase_reject_akumulatif_pos[$i] !== NULL ? $persentase_reject_akumulatif_pos[$i] : 0,
+                        );
+                        $this->plateInputModel->updateBatch($data_plate_old_pos, 'id');
+                    }
                 }
-                $this->plateInputModel->insertBatch($data_plate_pos);
             }
-            if ($plate_neg !== NULL) {
-                $plateinput = $this->plateInputModel->findAll();
-                for ($i = 0; $i < count($plate_neg); $i++) {
-                    $id_plateinput = count($plateinput) + $i;
-                    $data_plate_neg[] = array(
-                        'id' => $id_plateinput,
-                        'id_platecutting' => $id,
-                        'plate' => $plate_neg[$i],
-                        'hasil_produksi' => $hasil_produksi_neg[$i],
-                        'terpotong_panel' => ($terpotong_panel_neg[$i] !== NULL ? $terpotong_panel_neg[$i] !== NULL : 0) ? $terpotong_panel_neg[$i] : 0,
-                        'tersangkut_panel' => ($tersangkut_panel_neg[$i] !== NULL ? $tersangkut_panel_neg[$i] !== NULL : 0)  ? $tersangkut_panel_neg[$i] : 0,
-                        'overbrush_panel' => ($overbrush_panel_neg[$i] !== NULL ? $overbrush_panel_neg[$i] !== NULL : 0) ? $overbrush_panel_neg[$i] : 0,
-                        'rontok_panel' => ($rontok_panel_neg[$i] !== NULL ? $rontok_panel_neg[$i] !== NULL : 0) ? $rontok_panel_neg[$i] : 0,
-                        'lug_patah_panel' => ($lug_patah_panel_neg[$i] !== NULL ? $lug_patah_panel_neg[$i] !== NULL : 0) ? $lug_patah_panel_neg[$i] : 0,
-                        'patah_kaki_panel' => ($patah_kaki_panel_neg[$i] !== NULL ? $patah_kaki_panel_neg[$i] !== NULL : 0) ? $patah_kaki_panel_neg[$i] : 0,
-                        'patah_frame_panel' => ($patah_frame_panel_neg[$i] !== NULL ? $patah_frame_panel_neg[$i] !== NULL : 0) ? $patah_frame_panel_neg[$i] : 0,
-                        'bolong_panel' => ($bolong_panel_neg[$i] !== NULL ? $bolong_panel_neg[$i] !== NULL : 0) ? $bolong_panel_neg[$i] : 0,
-                        'bending_panel' => ($bending_panel_neg[$i] !== NULL ? $bending_panel_neg[$i] !== NULL : 0) ? $bending_panel_neg[$i] : 0,
-                        'lengket_terpotong_panel' => ($lengket_terpotong_panel_neg[$i] !== NULL ? $lengket_terpotong_panel_neg[$i] !== NULL : 0) ? $lengket_terpotong_panel_neg[$i] : 0,
-                        'terpotong_kg' => $terpotong_kg_neg[$i] !== NULL ? $terpotong_kg_neg[$i] : 0,
-                        'tersangkut_kg' => $tersangkut_kg_neg[$i] !== NULL ? $tersangkut_kg_neg[$i] : 0,
-                        'overbrush_kg' => $overbrush_kg_neg[$i] !== NULL ? $overbrush_kg_neg[$i] : 0,
-                        'rontok_kg' => $rontok_kg_neg[$i] !== NULL ? $rontok_kg_neg[$i] : 0,
-                        'lug_patah_kg' => $lug_patah_kg_neg[$i] !== NULL ? $lug_patah_kg_neg[$i] : 0,
-                        'patah_kaki_kg' => $patah_kaki_kg_neg[$i] !== NULL ? $patah_kaki_kg_neg[$i] : 0,
-                        'patah_frame_kg' => $patah_frame_kg_neg[$i] !== NULL ? $patah_frame_kg_neg[$i] : 0,
-                        'bolong_kg' => $bolong_kg_neg[$i] !== NULL ? $bolong_kg_neg[$i] : 0,
-                        'bending_kg' => $bending_kg_neg[$i] !== NULL ? $bending_kg_neg[$i] : 0,
-                        'lengket_terpotong_kg' => $lengket_terpotong_kg_neg[$i] !== NULL ? $lengket_terpotong_kg_neg[$i] : 0,
-                        'persentase_reject_internal' => $persentase_reject_internal_neg[$i] !== NULL ? $persentase_reject_internal_neg[$i] : 0,
-                        'persentase_reject_eksternal' => $persentase_reject_eksternal_neg[$i] !== NULL ? $persentase_reject_eksternal_neg[$i] : 0,
-                        'persentase_reject_akumulatif' => $persentase_reject_akumulatif_neg[$i] !== NULL ? $persentase_reject_akumulatif_neg[$i] : 0,
-                    );
+            if (count($data_plate_new_pos) > 0) {
+                $this->plateInputModel->insertBatch($data_plate_new_pos);
+            }
+            for ($i = 0; $i < ($id_plateinputDBNEG !== NULL ? count($id_plateinputDBNEG) : 0); $i++) {
+                if ($plate_neg[$i] !== "") {
+                    if ($id_plateinputDBNEG[$i] === "") {
+                        $data_plate_new_neg[] = array(
+                            'id_platecutting' => $id,
+                            'plate' => $plate_neg[$i],
+                            'hasil_produksi' => ($hasil_produksi_neg[$i] !== NULL ? $hasil_produksi_neg[$i] !== NULL : 0) ? $hasil_produksi_neg[$i] : 0,
+                            'terpotong_panel' => ($terpotong_panel_neg[$i] !== NULL ? $terpotong_panel_neg[$i] !== NULL : 0) ? $terpotong_panel_neg[$i] : 0,
+                            'tersangkut_panel' => ($tersangkut_panel_neg[$i] !== NULL ? $tersangkut_panel_neg[$i] !== NULL : 0)  ? $tersangkut_panel_neg[$i] : 0,
+                            'overbrush_panel' => ($overbrush_panel_neg[$i] !== NULL ? $overbrush_panel_neg[$i] !== NULL : 0) ? $overbrush_panel_neg[$i] : 0,
+                            'rontok_panel' => ($rontok_panel_neg[$i] !== NULL ? $rontok_panel_neg[$i] !== NULL : 0) ? $rontok_panel_neg[$i] : 0,
+                            'lug_patah_panel' => ($lug_patah_panel_neg[$i] !== NULL ? $lug_patah_panel_neg[$i] !== NULL : 0) ? $lug_patah_panel_neg[$i] : 0,
+                            'patah_kaki_panel' => ($patah_kaki_panel_neg[$i] !== NULL ? $patah_kaki_panel_neg[$i] !== NULL : 0) ? $patah_kaki_panel_neg[$i] : 0,
+                            'patah_frame_panel' => ($patah_frame_panel_neg[$i] !== NULL ? $patah_frame_panel_neg[$i] !== NULL : 0) ? $patah_frame_panel_neg[$i] : 0,
+                            'bolong_panel' => ($bolong_panel_neg[$i] !== NULL ? $bolong_panel_neg[$i] !== NULL : 0) ? $bolong_panel_neg[$i] : 0,
+                            'bending_panel' => ($bending_panel_neg[$i] !== NULL ? $bending_panel_neg[$i] !== NULL : 0) ? $bending_panel_neg[$i] : 0,
+                            'lengket_terpotong_panel' => ($lengket_terpotong_panel_neg[$i] !== NULL ? $lengket_terpotong_panel_neg[$i] !== NULL : 0) ? $lengket_terpotong_panel_neg[$i] : 0,
+                            'terpotong_kg' => $terpotong_kg_neg[$i] !== NULL ? $terpotong_kg_neg[$i] : 0,
+                            'tersangkut_kg' => $tersangkut_kg_neg[$i] !== NULL ? $tersangkut_kg_neg[$i] : 0,
+                            'overbrush_kg' => $overbrush_kg_neg[$i] !== NULL ? $overbrush_kg_neg[$i] : 0,
+                            'rontok_kg' => $rontok_kg_neg[$i] !== NULL ? $rontok_kg_neg[$i] : 0,
+                            'lug_patah_kg' => $lug_patah_kg_neg[$i] !== NULL ? $lug_patah_kg_neg[$i] : 0,
+                            'patah_kaki_kg' => $patah_kaki_kg_neg[$i] !== NULL ? $patah_kaki_kg_neg[$i] : 0,
+                            'patah_frame_kg' => $patah_frame_kg_neg[$i] !== NULL ? $patah_frame_kg_neg[$i] : 0,
+                            'bolong_kg' => $bolong_kg_neg[$i] !== NULL ? $bolong_kg_neg[$i] : 0,
+                            'bending_kg' => $bending_kg_neg[$i] !== NULL ? $bending_kg_neg[$i] : 0,
+                            'lengket_terpotong_kg' => $lengket_terpotong_kg_neg[$i] !== NULL ? $lengket_terpotong_kg_neg[$i] : 0,
+                            'persentase_reject_internal' => $persentase_reject_internal_neg[$i] !== NULL ? $persentase_reject_internal_neg[$i] : 0,
+                            'persentase_reject_eksternal' => $persentase_reject_eksternal_neg[$i] !== NULL ? $persentase_reject_eksternal_neg[$i] : 0,
+                            'persentase_reject_akumulatif' => $persentase_reject_akumulatif_neg[$i] !== NULL ? $persentase_reject_akumulatif_neg[$i] : 0,
+                        );
+                    } else {
+                        $plateinputnew[$id_plateinputDBNEG[$i]] = $id_plateinputDBNEG[$i];
+                        $data_plate_old_neg[] = array(
+                            'id' => $id_plateinputDBNEG[$i],
+                            'plate' => $plate_neg[$i],
+                            'hasil_produksi' => ($hasil_produksi_neg[$i] !== NULL ? $hasil_produksi_neg[$i] !== NULL : 0) ? $hasil_produksi_neg[$i] : 0,
+                            'terpotong_panel' => ($terpotong_panel_neg[$i] !== NULL ? $terpotong_panel_neg[$i] !== NULL : 0) ? $terpotong_panel_neg[$i] : 0,
+                            'tersangkut_panel' => ($tersangkut_panel_neg[$i] !== NULL ? $tersangkut_panel_neg[$i] !== NULL : 0)  ? $tersangkut_panel_neg[$i] : 0,
+                            'overbrush_panel' => ($overbrush_panel_neg[$i] !== NULL ? $overbrush_panel_neg[$i] !== NULL : 0) ? $overbrush_panel_neg[$i] : 0,
+                            'rontok_panel' => ($rontok_panel_neg[$i] !== NULL ? $rontok_panel_neg[$i] !== NULL : 0) ? $rontok_panel_neg[$i] : 0,
+                            'lug_patah_panel' => ($lug_patah_panel_neg[$i] !== NULL ? $lug_patah_panel_neg[$i] !== NULL : 0) ? $lug_patah_panel_neg[$i] : 0,
+                            'patah_kaki_panel' => ($patah_kaki_panel_neg[$i] !== NULL ? $patah_kaki_panel_neg[$i] !== NULL : 0) ? $patah_kaki_panel_neg[$i] : 0,
+                            'patah_frame_panel' => ($patah_frame_panel_neg[$i] !== NULL ? $patah_frame_panel_neg[$i] !== NULL : 0) ? $patah_frame_panel_neg[$i] : 0,
+                            'bolong_panel' => ($bolong_panel_neg[$i] !== NULL ? $bolong_panel_neg[$i] !== NULL : 0) ? $bolong_panel_neg[$i] : 0,
+                            'bending_panel' => ($bending_panel_neg[$i] !== NULL ? $bending_panel_neg[$i] !== NULL : 0) ? $bending_panel_neg[$i] : 0,
+                            'lengket_terpotong_panel' => ($lengket_terpotong_panel_neg[$i] !== NULL ? $lengket_terpotong_panel_neg[$i] !== NULL : 0) ? $lengket_terpotong_panel_neg[$i] : 0,
+                            'terpotong_kg' => $terpotong_kg_neg[$i] !== NULL ? $terpotong_kg_neg[$i] : 0,
+                            'tersangkut_kg' => $tersangkut_kg_neg[$i] !== NULL ? $tersangkut_kg_neg[$i] : 0,
+                            'overbrush_kg' => $overbrush_kg_neg[$i] !== NULL ? $overbrush_kg_neg[$i] : 0,
+                            'rontok_kg' => $rontok_kg_neg[$i] !== NULL ? $rontok_kg_neg[$i] : 0,
+                            'lug_patah_kg' => $lug_patah_kg_neg[$i] !== NULL ? $lug_patah_kg_neg[$i] : 0,
+                            'patah_kaki_kg' => $patah_kaki_kg_neg[$i] !== NULL ? $patah_kaki_kg_neg[$i] : 0,
+                            'patah_frame_kg' => $patah_frame_kg_neg[$i] !== NULL ? $patah_frame_kg_neg[$i] : 0,
+                            'bolong_kg' => $bolong_kg_neg[$i] !== NULL ? $bolong_kg_neg[$i] : 0,
+                            'bending_kg' => $bending_kg_neg[$i] !== NULL ? $bending_kg_neg[$i] : 0,
+                            'lengket_terpotong_kg' => $lengket_terpotong_kg_neg[$i] !== NULL ? $lengket_terpotong_kg_neg[$i] : 0,
+                            'persentase_reject_internal' => $persentase_reject_internal_neg[$i] !== NULL ? $persentase_reject_internal_neg[$i] : 0,
+                            'persentase_reject_eksternal' => $persentase_reject_eksternal_neg[$i] !== NULL ? $persentase_reject_eksternal_neg[$i] : 0,
+                            'persentase_reject_akumulatif' => $persentase_reject_akumulatif_neg[$i] !== NULL ? $persentase_reject_akumulatif_neg[$i] : 0,
+                        );
+                        $this->plateInputModel->updateBatch($data_plate_old_neg, 'id');
+                    }
                 }
-                $this->plateInputModel->insertBatch($data_plate_neg);
             }
-            $this->platecuttingModel->insertBatch($data_platecutting);
+            if (count($data_plate_new_neg) > 0) {
+                $this->plateInputModel->insertBatch($data_plate_new_neg);
+            }
         }
-        return redirect()->to('/platecutting');
+        foreach ($plateinput as $pi) {
+            if ($plateinputnew !== NULL) {
+                if (!array_key_exists($pi['id'], $plateinputnew)) {
+                    $this->plateInputModel->delete($pi['id']);
+                }
+            } else {
+                $this->plateInputModel->delete($pi['id']);
+            }
+        }
+        return redirect()->to(base_url('platecutting/add_platecutting/' . $id));
     }
 
     public function detail_platecutting($id)

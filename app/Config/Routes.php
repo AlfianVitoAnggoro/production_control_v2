@@ -70,7 +70,7 @@ $routes->group('grid', ['filter' => 'auth'], function ($routes) {
 //PLATECUTTING
 $routes->group('platecutting', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'PlateCutting::platecutting_view');
-    $routes->get('add_platecutting', 'PlateCutting::add_platecutting');
+    $routes->get('add_platecutting/(:segment)', 'PlateCutting::add_platecutting/$1');
     $routes->post('save', 'PlateCutting::save');
     $routes->get('detail_platecutting/(:segment)', 'PlateCutting::detail_platecutting/$1');
     $routes->post('detail_platecutting/edit', 'PlateCutting::edit');
@@ -80,8 +80,8 @@ $routes->group('platecutting', ['filter' => 'auth'], function ($routes) {
 //ENVELOPE
 $routes->group('envelope', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Envelope::envelope_view');
-    $routes->get('add_envelope', 'Envelope::add_envelope');
-    $routes->get('detail_envelope', 'Envelope::detail_envelope');
+    $routes->get('add_envelope/(:segment)', 'Envelope::add_envelope/$1');
+    // $routes->get('detail_envelope', 'Envelope::detail_envelope');
     $routes->post('save', 'Envelope::save');
     $routes->get('detail_envelope/(:segment)', 'Envelope::detail_envelope/$1');
     $routes->post('detail_envelope/edit', 'Envelope::edit');
