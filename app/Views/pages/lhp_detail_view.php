@@ -18,102 +18,107 @@
 					</div>
 					<div class="box-body">
 						<div class="row">
-							<div class="col-4">
-								<div class="form-group">
-									<label class="form-label">Tanggal Produksi</label>
-									<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="<?=$data_lhp[0]['tanggal_produksi']?>">
-								</div>
-							</div>
-							<div class="col-4">
-								<!-- <div class="form-group">
-									<label class="form-label">Line</label>
-									<input type="hidden" class="form-control" name="line" id="line" value="<?=$data_lhp[0]['line']?>">
-									<input type="text" class="form-control" name="nama_line" id="nama_line" value="<?=$data_line[0]['nama_line']?>">
-								</div> -->
-								<div class="form-group">
-									<label class="form-label">Line</label>
-									<select class="form-select" id="line" name="line">
-										<option selected disabled>-- Pilih Data --</option>
-										<?php 
-											foreach ($data_all_line as $key => $value) {
-												?>
-													<option value="<?=$value['id_line']?>" <?php if($value['id_line'] == $data_lhp[0]['line']){echo "selected";} ?>><?=$value['nama_line']?></option>
-												<?php
-											}
-										?>
-									</select>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="form-group">
-									<label class="form-label">Shift</label>
-									<!-- <input type="text" class="form-control" name="shift" id="shift" value="<?=$data_lhp[0]['shift']?>"> -->
-									<select class="form-select" id="shift" name="shift">
-										<option selected disabled>-- Pilih Data --</option>
-										<option value="1" <?php if($data_lhp[0]['shift'] == 1){echo "selected";} ?>>Shift 1</option>
-										<option value="2" <?php if($data_lhp[0]['shift'] == 2){echo "selected";} ?>>Shift 2</option>
-										<option value="3" <?php if($data_lhp[0]['shift'] == 3){echo "selected";} ?>>Shift 3</option>
-									</select>
-								</div>
-							</div>
-							<!-- <div class="col-3">
-								<div class="form-group">
-									<label class="form-label">Kasubsie</label>
-									<input type="text" class="form-control" name="kasubsie" id="kasubsie" value="<?=$data_lhp[0]['kasubsie']?>" readonly>
-								</div>
-							</div> -->
-						</div>
-						<div class="row">
-							<div class="col-4">
-								<div class="form-group">
-									<label class="form-label">Kasubsie</label>
-									<!-- <input type="text" class="form-control" name="kasubsie" id="kasubsie" value="<?=$data_lhp[0]['kasubsie']?>"> -->
-									<select class="form-select" id="kasubsie" name="kasubsie">
-										<option selected disabled>-- Pilih Data --</option>
-										<option value="Yusuf Slamet Pelita" <?php if($data_lhp[0]['kasubsie'] == "Yusuf Slamet Pelita"){echo "selected";} ?>>Yusuf Slamet Pelita</option>
-										<option value="Edi Suwito" <?php if($data_lhp[0]['kasubsie'] == "Edi Suwito"){echo "selected";} ?>>Edi Suwito</option>
-										<option value="Masruri" <?php if($data_lhp[0]['kasubsie'] == "Masruri"){echo "selected";} ?>>Masruri</option>
-										<option value="Parwadi"  <?php if($data_lhp[0]['kasubsie'] == "Parwadi"){echo "selected";} ?>>Parwadi</option>
-										<option value="Iim Arwisman" <?php if($data_lhp[0]['kasubsie'] == "Iim Arwisman"){echo "selected";} ?>>Iim Arwisman</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="form-group">
-									<label class="form-label">Grup</label>
-									<!-- <input type="hidden" class="form-control" id="grup" name="grup" value="<?=$data_lhp[0]['grup']?>">
-									<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?=$data_grup[0]['nama_pic']?>"> -->
+							<div class="col-2"></div>
+							<div class="col-6">
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group">
+											<label class="form-label">Tanggal Produksi</label>
+											<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="<?=$data_lhp[0]['tanggal_produksi']?>">
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label class="form-label">PIC</label>
+											<!-- <input type="hidden" class="form-control" id="grup" name="grup" value="<?=$data_lhp[0]['grup']?>">
+											<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?=$data_grup[0]['nama_pic']?>"> -->
 
-									<select class="form-select select2" id="grup" name="grup">
-										<option selected disabled>-- Pilih Data --</option>
-										<?php 
-											foreach ($data_all_grup as $key => $value) {
+											<select class="form-control select2" id="grup" name="grup" style="width: 100%;">
+												<option selected disabled>-- Pilih Data --</option>
+												<?php 
+													foreach ($data_all_grup as $key => $value) {
+														?>
+															<option value="<?=$value['id_pic']?>" <?php if($value['id_pic'] == $data_lhp[0]['grup']){echo "selected";} ?>><?=$value['nama_pic']?></option>
+														<?php
+													}
 												?>
-													<option value="<?=$value['id_pic']?>" <?php if($value['id_pic'] == $data_lhp[0]['grup']){echo "selected";} ?>><?=$value['nama_pic']?></option>
-												<?php
-											}
-										?>
-									</select>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group">
+											<label class="form-label">Line</label>
+											<select class="form-select" id="line" name="line" style="width: 100%;">
+												<option selected disabled>-- Pilih Data --</option>
+												<?php 
+													foreach ($data_all_line as $key => $value) {
+														?>
+															<option value="<?=$value['id_line']?>" <?php if($value['id_line'] == $data_lhp[0]['line']){echo "selected";} ?>><?=$value['nama_line']?></option>
+														<?php
+													}
+												?>
+											</select>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label class="form-label">Kasubsie</label>
+											<select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;">
+												<option selected disabled>-- Pilih Data --</option>
+												<option value="Yusuf Slamet Pelita" <?php if($data_lhp[0]['kasubsie'] == "Yusuf Slamet Pelita"){echo "selected";} ?>>Yusuf Slamet Pelita</option>
+												<option value="Edi Suwito" <?php if($data_lhp[0]['kasubsie'] == "Edi Suwito"){echo "selected";} ?>>Edi Suwito</option>
+												<option value="Masruri" <?php if($data_lhp[0]['kasubsie'] == "Masruri"){echo "selected";} ?>>Masruri</option>
+												<option value="Parwadi"  <?php if($data_lhp[0]['kasubsie'] == "Parwadi"){echo "selected";} ?>>Parwadi</option>
+												<option value="Iim Arwisman" <?php if($data_lhp[0]['kasubsie'] == "Iim Arwisman"){echo "selected";} ?>>Iim Arwisman</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group">
+											<label class="form-label">Shift</label>
+											<!-- <input type="text" class="form-control" name="shift" id="shift" value="<?=$data_lhp[0]['shift']?>"> -->
+											<select class="form-select" id="shift" name="shift">
+												<option selected disabled>-- Pilih Data --</option>
+												<option value="1" <?php if($data_lhp[0]['shift'] == 1){echo "selected";} ?>>Shift 1</option>
+												<option value="2" <?php if($data_lhp[0]['shift'] == 2){echo "selected";} ?>>Shift 2</option>
+												<option value="3" <?php if($data_lhp[0]['shift'] == 3){echo "selected";} ?>>Shift 3</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label class="form-label">MP</label>
+											<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>">
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="col-4">
-								<div class="form-group">
-									<label class="form-label">MP</label>
-									<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>">
-								</div>
+							<div class="col-2" style="display:flex; justify-content:center;">
+								<table id="" class="table" style="width:300px; font-size: 18px;">
+									<thead>
+										<tr>
+											<th>MH</th>
+											<th>:</th>
+											<th><span id="mh"></span></th>
+										</tr>
+										<tr>
+											<th>Unit / MH</th>
+											<th>:</th>
+											<th><span id="unit_mh"></span></th>
+										</tr>
+										<tr>
+											<th>Efficiency</th>
+											<th>:</th>
+											<th><?= $eff = (!empty($data_lhp[0]['total_aktual']) && !empty($data_lhp[0]['total_plan'])) ? number_format((float) ($data_lhp[0]['total_aktual'] / $data_lhp[0]['total_plan']) * 100, 2, '.', '').' %' : '' ;?></th>
+										</tr>
+									</thead>
+								</table>
 							</div>
-							<!-- <div class="col-3">
-								<div class="form-group">
-									<label class="form-label">Absen</label>
-									<input type="number" class="form-control" id="absen" name="absen" value="<?=$data_lhp[0]['absen']?>" readonly>
-								</div>
-							</div>
-							<div class="col-3">
-								<div class="form-group">
-									<label class="form-label">Cuti</label>
-									<input type="number" class="form-control" id="cuti" name="cuti" value="<?=$data_lhp[0]['cuti']?>" readonly>
-								</div>
-							</div> -->
+							<div class="col-2"></div>
 						</div>
 					</div>
 				</div>
@@ -219,7 +224,7 @@
 														?>
 														
 														<td>
-															<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" onkeyup="update_plan(<?=$i?>)" style="width: 75px">
+															<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px">
 														</td>
 														<td>
 															<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
@@ -249,22 +254,22 @@
 															<input type="text" class="form-control" name="part_number[]" id="part_number_<?=$i?>" value="<?=$data_detail_lhp[$i]['type_battery']?>" style="width: 250px" readonly>
 														</td>
 														<td>
-															<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" value="<?=$data_detail_lhp[$i]['ct']?>" style="width: 75px" readonly>
+															<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" value="<?=$data_detail_lhp[$i]['ct']?>" style="width: 100px" readonly>
 														</td>
 														<td>
-															<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" value="<?=$data_detail_lhp[$i]['plan_cap']?>" style="width: 75px" readonly>
+															<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" value="<?=$data_detail_lhp[$i]['plan_cap']?>" style="width: 100px" readonly>
 														</td>
 														<td>
-															<input type="number" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" value="<?=$data_detail_lhp[$i]['actual']?>" style="width: 75px">
+															<input type="number" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" value="<?=$data_detail_lhp[$i]['actual']?>" style="width: 100px">
 														</td>
 														<!-- <td>
-															<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_<?=$i?>" value="<?=$data_detail_lhp[$i]['act_vs_plan']?>" style="width: 75px" readonly>
+															<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_<?=$i?>" value="<?=$data_detail_lhp[$i]['act_vs_plan']?>" style="width: 100px" readonly>
 														</td>
 														<td>
-															<input type="number" class="form-control" name="efficiency_time[]" id="efficiency_time_<?=$i?>" value="<?=$data_detail_lhp[$i]['efficiency_time']?>" style="width: 75px" readonly>
+															<input type="number" class="form-control" name="efficiency_time[]" id="efficiency_time_<?=$i?>" value="<?=$data_detail_lhp[$i]['efficiency_time']?>" style="width: 100px" readonly>
 														</td> -->
 														<td>
-															<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" value="<?=$data_detail_lhp[$i]['total_menit_breakdown']?>" style="width: 75px" readonly>
+															<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" value="<?=$data_detail_lhp[$i]['total_menit_breakdown']?>" style="width: 100px" readonly>
 														</td>
 														<td>
 															<button type="button"class="btn btn-sm btn-primary" id="add_breakdown_<?=$i?>" onclick="add_breakdown(<?=$i?>)">Add</button>
@@ -301,7 +306,7 @@
 																</div>
 															</td>
 															<td>
-																<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$menit_aktual[$j]?>" onkeyup="update_plan(<?=$i?>)" style="width: 75px">
+																<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$menit_aktual[$j]?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px">
 															</td>
 															<td>
 																<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
@@ -321,22 +326,22 @@
 																<input type="text" class="form-control" name="part_number[]" id="part_number_<?=$i?>" style="width: 250px" readonly>
 															</td>
 															<td>
-																<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" style="width: 75px" readonly>
+																<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" style="width: 100px" readonly>
 															</td>
 															<td>
-																<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" style="width: 75px" readonly>
+																<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" style="width: 100px" readonly>
 															</td>
 															<td>
-																<input type="number" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" style="width: 75px">
+																<input type="number" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" style="width: 100px">
 															</td>
 															<!-- <td>
-																<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_<?=$i?>" style="width: 75px" readonly>
+																<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_<?=$i?>" style="width: 100px" readonly>
 															</td>
 															<td>
-																<input type="number" class="form-control" name="efficiency_time[]" id="efficiency_time_<?=$i?>" style="width: 75px" readonly>
+																<input type="number" class="form-control" name="efficiency_time[]" id="efficiency_time_<?=$i?>" style="width: 100px" readonly>
 															</td> -->
 															<td>
-																<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" style="width: 75px" readonly>
+																<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" style="width: 100px" readonly>
 															</td>
 															<td>
 																<button type="button" class="btn btn-sm btn-primary" id="add_breakdown_<?=$i?>" onclick="add_breakdown(<?=$i?>)">Add</button>
@@ -352,38 +357,17 @@
 										</tbody>
 										<tfoot>
                                             <tr>
-                                                <td colspan="7"><h3>Total</h3></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?=$data_lhp[0]['total_plan']?>" style="width: 75px" readonly></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=$data_lhp[0]['total_aktual']?>" style="width: 75px" readonly></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?=$data_lhp[0]['total_line_stop']?>" style="width: 75px" readonly></td>
+                                                <td colspan="6"></td>
+                                                <td><h3>Total</h3></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?=$data_lhp[0]['total_plan']?>" style="width: 100px" readonly></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=$data_lhp[0]['total_aktual']?>" style="width: 100px" readonly></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?=$data_lhp[0]['total_line_stop']?>" style="width: 100px" readonly></td>
                                                 <td></td>
                                             </tr>
                                         </tfoot>
 									</table>
 								</div>
 								
-							</div>
-							<div class="box-footer">
-								<!-- <input type="submit" class="btn btn-success" value="Save"> -->
-								<table id="" class="table" style="width:300px; font-size: 18px;">
-									<thead>
-										<tr>
-											<th>MH</th>
-											<th>:</th>
-											<th><span id="mh"></span></th>
-										</tr>
-										<tr>
-											<th>Efficiency</th>
-											<th>:</th>
-											<th><?= $retVal = (!empty($data_lhp[0]['total_aktual']) && !empty($data_lhp[0]['total_plan'])) ? number_format((float) ($data_lhp[0]['total_aktual'] / $data_lhp[0]['total_plan']) * 100, 2, '.', '') : '' ; ?> %</th>
-										</tr>
-										<!-- <tr>
-											<th>Total Line Stop</th>
-											<th>:</th>
-											<th><?=$data_lhp[0]['total_line_stop']?> Menit</th>
-										</tr> -->
-									</thead>
-								</table>
 							</div>
 						</div>				
 					</div>
@@ -469,7 +453,7 @@
 														<textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_<?=$index_breakdown?>" cols="20" rows="1" style="width: 200px;"><?=$d_detail_breakdown['uraian_breakdown']?></textarea>
 													</td>
 													<td>
-														<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['menit_breakdown']?>" style="width: 75px">
+														<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['menit_breakdown']?>" style="width: 100px">
 													</td>
 													<td>
 														<a type="button" class="btn btn-danger" href="<?=base_url()?>lhp/delete_line_stop/<?=$d_detail_breakdown['id_breakdown']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
@@ -527,7 +511,7 @@
 														<input type="text" class="form-control" name="part_number_reject[]" id="part_number_reject_<?=$index_reject?>" value="<?=$d_detail_reject['type_battery']?>" style="width: 250px">
 													</td>
 													<td>
-														<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_<?=$index_reject?>" value="<?=$d_detail_reject['qty_reject']?>" style="width: 75px">
+														<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_<?=$index_reject?>" value="<?=$d_detail_reject['qty_reject']?>" style="width: 100px">
 													</td>
 													<td>
 														<select class="form-control select2" name="jenis_reject[]" id="jenis_reject_<?=$index_reject?>" onchange="get_kategori_reject(<?=$index_reject?>)" style="width: 200px">
@@ -652,7 +636,11 @@
 		var mh  = (total_menit * mp) / 60;
 		// var mh  = (total_menit * (mp-absen-cuti)) / 60;
 
+		var total_aktual = <?=$aktual = (!empty($data_lhp[0]['total_aktual'])) ? $data_lhp[0]['total_aktual'] : 0;?>;
+		var unit_mh = total_aktual / mh;
+
 		$('#mh').text(mh.toFixed(2));
+		$('#unit_mh').text(unit_mh.toFixed(2));
 	}
 
 	function getPartNo(i) {
@@ -744,7 +732,7 @@
 					<textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_${j}" cols="20" rows="1" style="width: 200px;"></textarea>
 				</td>
 				<td>
-					<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" style="width: 75px">
+					<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" style="width: 100px">
 				</td>
 				<td>
 					<button type="button" class="btn btn-danger" onclick="delete_breakdown(${j})"><i class="fa fa-trash"></i></button>	
@@ -783,7 +771,7 @@
 					<input type="text" class="form-control" name="part_number_reject[]" id="part_number_reject_${j}" value="${part_number_reject}" style="width: 250px" readonly>
 				</td>
 				<td>
-					<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_${j}" style="width: 75px">
+					<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_${j}" style="width: 100px">
 				</td>
 				<td>
 					<select class="form-control select2" id="jenis_reject_${j}" name="jenis_reject[]" onchange="get_kategori_reject(${j})" style="width: 200px;">
@@ -945,7 +933,7 @@
 				
 				-->
 				<td>
-					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" onkeyup="update_plan(${k})" value="" style="width: 75px">
+					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" onkeyup="update_plan(${k})" value="" style="width: 100px">
 				</td>
 				<td>
 					<select class="form-control select2" id="no_wo_${k}" name="no_wo[]" onchange="getPartNo(${k})" style="width: 200px;">
@@ -959,16 +947,16 @@
 					<input type="text" class="form-control" name="part_number[]" id="part_number_${k}" style="width: 250px" readonly>
 				</td>
 				<td>
-					<input type="text" class="form-control" size="4" name="ct[]" id="ct_${k}" style="width: 75px" readonly>
+					<input type="text" class="form-control" size="4" name="ct[]" id="ct_${k}" style="width: 100px" readonly>
 				</td>
 				<td>
-					<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_${k}" style="width: 75px" readonly>
+					<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_${k}" style="width: 100px" readonly>
 				</td>
 				<td>
-					<input type="number" class="form-control" name="actual[]" id="actual_${k}" onkeyup="presentase_actual(${k})" style="width: 75px">
+					<input type="number" class="form-control" name="actual[]" id="actual_${k}" onkeyup="presentase_actual(${k})" style="width: 100px">
 				</td>
 				<td>
-					<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_${k}" style="width: 75px" readonly>
+					<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_${k}" style="width: 100px" readonly>
 				</td>
 				<td>
 					<button type="button"class="btn btn-sm btn-primary" id="add_breakdown_${k}" onclick="add_breakdown(${k})">Add</button>
@@ -982,10 +970,10 @@
 		$('.select2').select2();
 
 		// <td>
-		// 	<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_${k}" style="width: 75px" readonly>
+		// 	<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_${k}" style="width: 100px" readonly>
 		// </td>
 		// <td>
-		// 	<input type="number" class="form-control" name="efficiency_time[]" id="efficiency_time_${k}" style="width: 75px" readonly>
+		// 	<input type="number" class="form-control" name="efficiency_time[]" id="efficiency_time_${k}" style="width: 100px" readonly>
 		// </td>
 	}
 
