@@ -40,8 +40,12 @@ class Login extends BaseController
             ];
             $this->session->set($session_data);
 
-            if ($data['seksi'] == NULL OR $data['seksi'] == 'quality') {
-                return redirect()->to(base_url('lhp'));
+            if ($data['seksi'] == NULL) {
+                if ($data['departemen'] == 'produksi1') {
+                    return redirect()->to(base_url('grid'));
+                } else {
+                    return redirect()->to(base_url('lhp'));
+                }
             } elseif ($data['seksi'] == 'grid') {
                 return redirect()->to(base_url('grid'));
             } elseif ($data['seksi'] == 'amb') {
