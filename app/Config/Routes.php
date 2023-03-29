@@ -86,6 +86,23 @@ $routes->group('envelope', ['filter' => 'auth'], function ($routes) {
     $routes->get('download', 'Envelope::download');
 });
 
+//PASTING
+$routes->group('pasting', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Pasting::pasting_view');
+    $routes->post('add_pasting', 'Pasting::add_pasting');
+    $routes->get('delete_pasting/(:num)', 'Pasting::delete_pasting/$1');
+    $routes->post('getPartNo', 'Pasting::getPartNo');
+    $routes->post('getCT', 'Pasting::getCT');
+    $routes->post('get_proses_breakdown', 'Pasting::get_proses_breakdown');
+    $routes->post('get_kategori_reject', 'Pasting::get_kategori_reject');
+    $routes->post('save_pasting', 'Pasting::save_pasting');
+    $routes->get('detail_pasting/(:num)', 'Pasting::detail_pasting/$1');
+    $routes->post('update_pasting', 'Pasting::update_pasting');
+    $routes->post('get_data_andon', 'Pasting::get_data_andon');
+    $routes->post('pilih_andon', 'Pasting::pilih_andon');
+    $routes->get('hapus_pasting/(:num)', 'Pasting::hapus_pasting/$1');
+});
+
 // $routes->get('/lhp/test', 'Home::test');
 
 /*
