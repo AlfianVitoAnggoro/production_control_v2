@@ -159,13 +159,7 @@
                                                             <?php if ($session['level'] === 1) : ?>
                                                                 <td>
                                                                     <div>
-                                                                        <?php foreach ($envelopeinput as $ei) :
-                                                                            if ($envl['id'] === $ei['id_envelope']) :
-                                                                        ?>
-                                                                                <a href="/envelope/detail_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary">Detail</a>
-                                                                            <?php break;
-                                                                            endif ?>
-                                                                        <?php endforeach ?>
+                                                                        <a href="/envelope/detail_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary">Detail</a>
                                                                     </div>
                                                                 </td>
                                                             <?php else : ?>

@@ -241,7 +241,7 @@
                     <input type="text" class="form-control" name="tersangkut[]" id="tersangkut_${baris}" value="<?= trim($envelopeinput[$i]['tersangkut']) ?>" onkeyup="panel(${baris})" style="width: 75px">
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="persentase_reject_akumulatif[]" id="persentase_reject_akumulatif_${baris}" value="<?= trim($envelopeinput[$i]['persentase_reject_akumulatif']) ?>" style="width: 100px">
+                    <input type="text" class="form-control" name="persentase_reject_akumulatif[]" id="persentase_reject_akumulatif_${baris}" value="<?= trim($envelopeinput[$i]['persentase_reject_akumulatif']) ?>" style="width: 100px" readonly>
                 </td>
             </tr>
 		`);

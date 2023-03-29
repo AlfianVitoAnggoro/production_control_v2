@@ -323,10 +323,15 @@ class PlateCutting extends BaseController
     public function edit()
     {
         $id_platecutting = $this->request->getVar('id_platecutting');
-        $id_plateinput = $this->request->getVar('id_plateinput');
+        $id_plateinputDBPOS = $this->request->getVar('id_plateinput_pos');
+        $id_plateinputDBNEG = $this->request->getVar('id_plateinput_neg');
         $edit = $this->request->getVar('edit');
         $reject = $this->request->getVar('rejected');
         $approve = $this->request->getVar('approved');
+        $date = $this->request->getVar('date');
+        $line = $this->request->getVar('line');
+        $shift = $this->request->getVar('shift');
+        $team = $this->request->getVar('team');
         $plate_pos = $this->request->getVar('plate_pos');
         $hasil_produksi_pos = $this->request->getVar('hasil_produksi_pos');
         $terpotong_panel_pos = $this->request->getVar('terpotong_panel_pos');
@@ -378,10 +383,19 @@ class PlateCutting extends BaseController
         $persentase_reject_eksternal_neg = $this->request->getVar('persentase_reject_eksternal_neg');
         $persentase_reject_akumulatif_neg = $this->request->getVar('persentase_reject_akumulatif_neg');
         if ($edit !== NULL) {
-            if ($plate_pos !== NULL) {
-                for ($i = 0; $i < count($plate_pos); $i++) {
+            $data_platecutting[] = array(
+                'id' => $id_platecutting,
+                'date' => $date,
+                'line' => $line,
+                'shift' => $shift,
+                'team' => $team,
+                'status' => 'pending',
+            );
+            $this->platecuttingModel->updateBatch($data_platecutting, 'id');
+            for ($i = 0; $i < ($id_plateinputDBPOS !== NULL ? count($id_plateinputDBPOS) : 0); $i++) {
+                if ($plate_pos[$i] !== NULL) {
                     $data_plate_pos[] = array(
-                        'id' => $id_plateinput[$i],
+                        'id' => $id_plateinputDBPOS[$i],
                         'plate' => $plate_pos[$i],
                         'hasil_produksi' => $hasil_produksi_pos[$i],
                         'terpotong_panel' => $terpotong_panel_pos[$i] !== NULL ? $terpotong_panel_pos[$i] : 0,
@@ -411,10 +425,10 @@ class PlateCutting extends BaseController
                     $this->plateInputModel->updateBatch($data_plate_pos, 'id');
                 }
             }
-            if ($plate_neg !== NULL) {
-                for ($i = 0; $i < count($plate_neg); $i++) {
+            for ($i = 0; $i < ($id_plateinputDBNEG !== NULL ? count($id_plateinputDBNEG) : 0); $i++) {
+                if ($plate_neg[$i] !== NULL) {
                     $data_plate_neg[] = array(
-                        'id' => $id_plateinput[$i + count($plate_pos)],
+                        'id' => $id_plateinputDBNEG[$i],
                         'plate' => $plate_neg[$i],
                         'hasil_produksi' => $hasil_produksi_neg[$i],
                         'terpotong_panel' => $terpotong_panel_neg[$i] !== NULL ? $terpotong_panel_neg[$i] : 0,

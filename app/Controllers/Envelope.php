@@ -108,17 +108,19 @@ class Envelope extends BaseController
             $this->envelopeModel->updateBatch($data_envelope, 'id');
             for ($i = 0; $i < ($id_envelopeinput !== NULL ? count($id_envelopeinput) : 0); $i++) {
                 if ($id_envelopeinput[$i] === "") {
-                    $data_new_envelopeinput[] = array(
-                        'id_envelope' => $id,
-                        'plate' => $plate[$i],
-                        'hasil_produksi' => $hasil_produksi[$i],
-                        'separator' => $separator[$i] ?? NULL,
-                        'melintir_bending' => $melintir_bending[$i] !== NULL ? $melintir_bending[$i] : 0,
-                        'terpotong' => $terpotong[$i] !== NULL ? $terpotong[$i] : 0,
-                        'rontok' => $rontok[$i] !== NULL ? $rontok[$i] : 0,
-                        'tersangkut' => $tersangkut[$i] !== NULL  ? $tersangkut[$i] : 0,
-                        'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
-                    );
+                    if ($plate[$i] !== "") {
+                        $data_new_envelopeinput[] = array(
+                            'id_envelope' => $id,
+                            'plate' => $plate[$i],
+                            'hasil_produksi' => $hasil_produksi[$i],
+                            'separator' => $separator[$i] ?? NULL,
+                            'melintir_bending' => $melintir_bending[$i] !== NULL ? $melintir_bending[$i] : 0,
+                            'terpotong' => $terpotong[$i] !== NULL ? $terpotong[$i] : 0,
+                            'rontok' => $rontok[$i] !== NULL ? $rontok[$i] : 0,
+                            'tersangkut' => $tersangkut[$i] !== NULL  ? $tersangkut[$i] : 0,
+                            'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
+                        );
+                    }
                 } else {
                     $envelopeinputnew[$id_envelopeinput[$i]] = $id_envelopeinput[$i];
                     $data_old_envelopeinput[] = array(
@@ -184,6 +186,10 @@ class Envelope extends BaseController
         $edit = $this->request->getVar('edit');
         $reject = $this->request->getVar('rejected');
         $approve = $this->request->getVar('approved');
+        $date = $this->request->getVar('date');
+        $line = $this->request->getVar('line');
+        $shift = $this->request->getVar('shift');
+        $team = $this->request->getVar('team');
         $plate = $this->request->getVar('plate');
         $hasil_produksi = $this->request->getVar('hasil_produksi');
         $separator = $this->request->getVar('separator');
@@ -193,8 +199,17 @@ class Envelope extends BaseController
         $tersangkut = $this->request->getVar('tersangkut');
         $persentase_reject_akumulatif = $this->request->getVar('persentase_reject_akumulatif');
         if ($edit !== NULL) {
-            if ($plate !== NULL) {
-                for ($i = 0; $i < count($plate); $i++) {
+            $data_envelope[] = array(
+                'id' => $id_envelope,
+                'date' => $date,
+                'line' => $line,
+                'shift' => $shift,
+                'team' => $team,
+                'status' => 'pending'
+            );
+            $this->envelopeModel->updateBatch($data_envelope, 'id');
+            for ($i = 0; $i < ($id !== NULL ? count($id) : 0); $i++) {
+                if ($plate[$i] !== NULL) {
                     $data_envelopeinput[] = array(
                         'id' => $id[$i],
                         'plate' => $plate[$i],

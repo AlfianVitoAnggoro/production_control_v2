@@ -169,7 +169,7 @@
                 </div>
                 <div class="text-center my-2 button">
                   <?php if ($platecutting['status'] === 'pending') : ?>
-                    <!-- <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button> -->
+                    <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button>
                     <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
                     <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>
                   <?php else : ?>
@@ -307,7 +307,7 @@
       baris = document.querySelectorAll('.form_pos').length;
       $('.form_platecutting_pos').append(`
 			<tr class="form_pos" id="form_${baris}_pos">
-          <input type="hidden" name="id_plateinput[]" value="<?= trim($pp['id']); ?>">
+          <input type="hidden" name="id_plateinputDBPOS[]" value="<?= trim($pp['id']); ?>">
           <td>${baris + 1}</td>
           <td>
               <select class="form-control select2" id="plate_${baris}_pos" onchange="panel_pos(${baris})" name="plate_pos[]" style="width: 200px;" required disabled>
@@ -418,7 +418,7 @@
       baris = document.querySelectorAll('.form_neg').length;
       $('.form_platecutting_neg').append(`
 			<tr class="form_neg" id="form_${baris}_neg">
-          <input type="hidden" name="id_plateinput[]" value="<?= trim($pn['id']); ?>">
+          <input type="hidden" name="id_plateinputDBNEG[]" value="<?= trim($pn['id']); ?>">
           <td>${baris + 1}</td>
           <td>
               <select class="form-control select2" id="plate_${baris}_neg" onchange="panel_neg(${baris})" name="plate_neg[]" style="width: 200px;" required disabled>
@@ -520,6 +520,10 @@
 
   function edit_button() {
     const barispos = document.querySelectorAll('.form_pos').length;
+    $('#date_0').removeAttr('readonly');
+    $('#line_0').removeAttr('disabled');
+    $('#shift_0').removeAttr('disabled');
+    $('#team_0').removeAttr('disabled');
     for (let i = 0; i < barispos; i++) {
       $('#plate_' + i + '_pos').removeAttr('disabled');
       $('#hasil_produksi_' + i + '_pos').removeAttr('readonly');

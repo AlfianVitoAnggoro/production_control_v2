@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="text-center my-2 button">
                                     <?php if ($envelope['status'] === 'pending') : ?>
-                                        <!-- <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button> -->
+                                        <button type="button" class="btn btn-danger" onclick="reject_button()">Reject</button>
                                         <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
                                         <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>
                                     <?php else : ?>
@@ -206,6 +206,10 @@
 
     function edit_button() {
         const baris = document.querySelectorAll('.form').length;
+        $('#date_0').removeAttr('readonly');
+        $('#line_0').removeAttr('disabled');
+        $('#shift_0').removeAttr('disabled');
+        $('#team_0').removeAttr('disabled');
         for (let i = 0; i < baris; i++) {
             $('#plate_' + i).removeAttr('disabled');
             $('#hasil_produksi_' + i).removeAttr('readonly');
