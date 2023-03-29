@@ -24,7 +24,7 @@
 								</div>
 								<div class="box-body">
 									<div class="table-responsive">
-										<table id="data_lhp2" class="table table-bordered table-striped" style="width:100%">
+										<table id="data_grid" class="table table-bordered table-striped" style="width:100%">
 											<thead>
 												<tr>
 													<!-- <th>No Doc</th> -->
@@ -164,6 +164,11 @@
   <?= $this->section('script'); ?>
   <script>
 	$(document).ready(function() {
+		$('#data_grid').DataTable({
+			"responsive": true,
+			"autoWidth": false,
+			"order": []
+		});
 		$('.modal .select2').select2({
             dropdownParent: $('.modal')
         });
