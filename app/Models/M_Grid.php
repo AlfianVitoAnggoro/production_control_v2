@@ -14,7 +14,7 @@ class M_Grid extends Model
     
     public function get_data_lhp_grid()
     {
-        $query = $this->db->query('SELECT * FROM lhp_grid');
+        $query = $this->db->query('SELECT * FROM lhp_grid ORDER BY date_production DESC, shift DESC');
 
         return $query->getResultArray();
     }

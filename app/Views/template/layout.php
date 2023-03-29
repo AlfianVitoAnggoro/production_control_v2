@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Harian Produksi</title>
 
+	<!-- Icons -->
+	<!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+	<link rel="shortcut icon" href="<?= base_url(). 'assets/images/favicons/favicon.png'?>">
+	<link rel="icon" type="image/png" sizes="192x192" href="<?= base_url() . 'assets/images/favicons/favicon-192x192.png'?>">
+	<link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() . 'assets/images/favicons/apple-touch-icon-180x180.png'?>">
+	<!-- END Icons -->
+
     <!-- Vendors Style-->
 	<link rel="stylesheet" href="<?=base_url()?>assets/template/main/css/vendors_css.css">
 	  
