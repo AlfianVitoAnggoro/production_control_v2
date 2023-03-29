@@ -97,7 +97,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-2" style="display:flex; justify-content:center;">
+							<div class="col-2" style="display:flex; justify-content:space-evenly;flex-direction: column;">
 								<table id="" class="table" style="width:300px; font-size: 18px;">
 									<thead>
 										<tr>
@@ -121,6 +121,11 @@
 							<div class="col-2"></div>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-4"></div>
+					<div class="col-4" style="text-align:center;"><input type="submit" class="btn btn-success" value="Save"></div>
+					<div class="col-4"></div>
 				</div>
 				<div class="row">
 					<div class="col-xl-12 col-12">
