@@ -11,6 +11,8 @@ class M_Data extends Model
         $this->db2 = \Config\Database::connect('sqlsrv');
         $this->db3 = \Config\Database::connect('baan');
         $this->db4 = \Config\Database::connect('prod_control');
+
+        $this->session = \Config\Services::session();
     }
 
     // public function test() {
@@ -146,7 +148,18 @@ class M_Data extends Model
 
     public function get_all_lhp()
     {
-        $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup');
+        // $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup ORDER BY tanggal_produksi DESC');
+        $builder = $this->db->table('lhp_produksi2');
+        $builder->select('lhp_produksi2.*, master_pic_line.nama_pic');
+        $builder->join('master_pic_line', 'master_pic_line.id_pic = lhp_produksi2.grup');
+
+        if ($this->session->get('line') != NULL) {
+            $builder->where('line', $this->session->get('line'));
+        }
+        
+        $builder->orderBy('tanggal_produksi', 'DESC');
+
+        $query = $builder->get();
 
         return $query->getResultArray();
     }
@@ -270,5 +283,13 @@ class M_Data extends Model
         $this->db->query('DELETE FROM detail_lhp_produksi2 WHERE id_lhp_2 = '.$id); 
         $this->db->query('DELETE FROM detail_breakdown WHERE id_lhp = '.$id);
         $this->db->query('DELETE FROM detail_reject WHERE id_lhp = '.$id);
+    }
+
+    public function delete_line_stop($id_line_stop) {
+        $this->db->query('DELETE FROM detail_breakdown WHERE id_breakdown = '.$id_line_stop);
+    }
+
+    public function delete_reject($id_reject) {
+        $this->db->query('DELETE FROM detail_reject WHERE id_reject = '.$id_reject);
     }
 }

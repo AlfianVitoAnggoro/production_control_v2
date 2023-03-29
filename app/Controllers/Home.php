@@ -617,4 +617,20 @@ class Home extends BaseController
 
         return redirect()->to(base_url('lhp'));
     }
+
+    public function delete_line_stop($id_line_stop, $id_lhp)
+    {
+        $model = new M_Data();
+        $model->delete_line_stop($id_line_stop);
+
+        return redirect()->to(base_url('lhp/detail_lhp/'.$id_lhp));
+    }
+
+    public function delete_reject($id_reject, $id_lhp)
+    {
+        $model = new M_Data();
+        $model->delete_reject($id_reject);
+
+        return redirect()->to(base_url('lhp/detail_lhp/'.$id_lhp));
+    }
 }
