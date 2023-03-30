@@ -36,6 +36,11 @@ $routes->get('/login', 'Login::index');
 $routes->post('/login/proses_login', 'Login::proses_login');
 $routes->get('/logout', 'Login::logout');
 
+//MASTER CYCLE TIME
+$routes->group('cycle_time', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'CycleTime::index');
+});
+
 //LHP
 $routes->group('lhp', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Home::lhp_view');
