@@ -25,7 +25,7 @@
                                         <select class="form-control" id="line_0" name="line" required disabled>
                                             <option value="" disabled>-- Pilih Line --</option>
                                             <?php
-                                            for ($j = 1; $j <= 3; $j++) {
+                                            for ($j = 1; $j <= 7; $j++) {
                                                 if ($envelope['line'] === $j) { ?>
                                                     <option selected value="<?= $j ?>"><?= $j ?></option>
                                                 <?php } else { ?>

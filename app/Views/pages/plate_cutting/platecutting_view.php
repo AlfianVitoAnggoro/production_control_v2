@@ -396,7 +396,7 @@
                                 <select class="form-control" id="line" name="line" required>
                                     <option selected value="" disabled>-- Pilih Line --</option>
                                     <?php
-                                    for ($j = 1; $j <= 3; $j++) { ?>
+                                    for ($j = 1; $j <= 7; $j++) { ?>
                                         <option value="<?= $j ?>"><?= $j ?></option>
                                     <?php
                                     }
