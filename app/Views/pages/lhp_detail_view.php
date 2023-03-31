@@ -16,18 +16,18 @@
 					<div class="box-header with-border">
 						<h4>Detail Laporan Harian Produksi</h4>
 					</div>
-					<div class="box-body">
+					<div class="box-body" style="padding-top:5px; padding-bottom:0px;">
 						<div class="row">
-							<div class="col-2"></div>
+							<!-- <div class="col-2"></div> -->
 							<div class="col-6">
 								<div class="row">
-									<div class="col-6">
+									<div class="col-4">
 										<div class="form-group">
 											<label class="form-label">Tanggal Produksi</label>
 											<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" value="<?=$data_lhp[0]['tanggal_produksi']?>">
 										</div>
 									</div>
-									<div class="col-6">
+									<div class="col-4">
 										<div class="form-group">
 											<label class="form-label">PIC</label>
 											<!-- <input type="hidden" class="form-control" id="grup" name="grup" value="<?=$data_lhp[0]['grup']?>">
@@ -45,9 +45,27 @@
 											</select>
 										</div>
 									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-label">MP</label>
+											<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>">
+										</div>
+									</div>
 								</div>
 								<div class="row">
-									<div class="col-6">
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-label">Shift</label>
+											<!-- <input type="text" class="form-control" name="shift" id="shift" value="<?=$data_lhp[0]['shift']?>"> -->
+											<select class="form-select" id="shift" name="shift">
+												<option selected disabled>-- Pilih Data --</option>
+												<option value="1" <?php if($data_lhp[0]['shift'] == 1){echo "selected";} ?>>Shift 1</option>
+												<option value="2" <?php if($data_lhp[0]['shift'] == 2){echo "selected";} ?>>Shift 2</option>
+												<option value="3" <?php if($data_lhp[0]['shift'] == 3){echo "selected";} ?>>Shift 3</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
 										<div class="form-group">
 											<label class="form-label">Line</label>
 											<select class="form-select" id="line" name="line" style="width: 100%;">
@@ -62,7 +80,7 @@
 											</select>
 										</div>
 									</div>
-									<div class="col-6">
+									<div class="col-4">
 										<div class="form-group">
 											<label class="form-label">Kasubsie</label>
 											<select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;">
@@ -76,11 +94,11 @@
 										</div>
 									</div>
 								</div>
-								<div class="row">
+								<!-- <div class="row">
 									<div class="col-6">
 										<div class="form-group">
 											<label class="form-label">Shift</label>
-											<!-- <input type="text" class="form-control" name="shift" id="shift" value="<?=$data_lhp[0]['shift']?>"> -->
+											<input type="text" class="form-control" name="shift" id="shift" value="<?=$data_lhp[0]['shift']?>">
 											<select class="form-select" id="shift" name="shift">
 												<option selected disabled>-- Pilih Data --</option>
 												<option value="1" <?php if($data_lhp[0]['shift'] == 1){echo "selected";} ?>>Shift 1</option>
@@ -95,7 +113,7 @@
 											<input type="number" class="form-control" id="mp" name="mp" value="<?=$data_lhp[0]['mp']?>">
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 							<div class="col-2" style="display:flex; justify-content:space-evenly;flex-direction: column;">
 								<table id="" class="table" style="width:300px; font-size: 18px;">
@@ -119,14 +137,16 @@
 								</table>
 							</div>
 							<div class="col-2"></div>
+							<div class="col-2" style="text-align:center;display:flex; justify-content:space-evenly; flex-direction:column-reverse;"><input type="submit" class="btn btn-success" value="Save"></div>
+							<!-- <div class="col-2"></div> -->
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-4"></div>
 					<div class="col-4" style="text-align:center;"><input type="submit" class="btn btn-success" value="Save"></div>
 					<div class="col-4"></div>
-				</div>
+				</div> -->
 				<div class="row">
 					<div class="col-xl-12 col-12">
 						<div class="box">
