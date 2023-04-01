@@ -62,7 +62,7 @@
 							<ul class="treeview-menu">
 								<li><a href="<?=base_url()?>cycle_time"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Cycle Time</a></li>
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Line Stop</a></li>
-								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Rejection</a></li>
+								<li><a href="<?=base_url()?>reject"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Rejection</a></li>
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Run Time</a></li>
 							</ul>
 						</li>
