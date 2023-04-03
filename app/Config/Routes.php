@@ -99,7 +99,7 @@ $routes->group('pasting', ['filter' => 'auth'], function ($routes) {
     $routes->post('add_pasting', 'Pasting::add_pasting');
     $routes->get('delete_pasting/(:num)', 'Pasting::delete_pasting/$1');
     $routes->post('getPartNo', 'Pasting::getPartNo');
-    $routes->post('getCT', 'Pasting::getCT');
+    // $routes->post('getCT', 'Pasting::getCT');
     $routes->post('get_proses_breakdown', 'Pasting::get_proses_breakdown');
     $routes->post('get_kategori_reject', 'Pasting::get_kategori_reject');
     $routes->post('save_pasting', 'Pasting::save_pasting');
@@ -108,6 +108,15 @@ $routes->group('pasting', ['filter' => 'auth'], function ($routes) {
     $routes->post('get_data_andon', 'Pasting::get_data_andon');
     $routes->post('pilih_andon', 'Pasting::pilih_andon');
     $routes->get('hapus_pasting/(:num)', 'Pasting::hapus_pasting/$1');
+});
+
+//MASTER LINE STOP
+$routes->group('line_stop', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'LineStop::index');
+    $routes->get('detail_line_stop/(:num)', 'LineStop::edit/$1');
+    $routes->post('detail_line_stop/edit', 'LineStop::update_data_breakdown');
+    $routes->post('detail_line_stop/delete', 'LineStop::delete_data_breakdown');
+    $routes->post('add_line_stop', 'LineStop::save');
 });
 
 // $routes->get('/lhp/test', 'Home::test');

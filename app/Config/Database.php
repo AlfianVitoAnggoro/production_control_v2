@@ -24,12 +24,31 @@ class Database extends Config
     /**
      * The default database connection.
      */
+    // public array $default = [
+    //     'DSN'      => '',
+    //     'hostname' => '10.19.16.21',
+    //     'username' => 'sa',
+    //     'password' => 'User@new1',
+    //     'database' => 'production_control_v2',
+    //     'DBDriver' => 'sqlsrv',
+    //     'DBPrefix' => '',
+    //     'pConnect' => false,
+    //     'DBDebug'  => true,
+    //     'charset'  => 'utf8',
+    //     'DBCollat' => 'utf8_general_ci',
+    //     'swapPre'  => '',
+    //     'encrypt'  => false,
+    //     'compress' => false,
+    //     'strictOn' => false,
+    //     'failover' => [],
+    //     'port'     => 1433,
+    // ];
     public array $default = [
         'DSN'      => '',
-        'hostname' => '10.19.16.21',
-        'username' => 'sa',
-        'password' => 'User@new1',
-        'database' => 'production_control_v2',
+        'hostname' => 'localhost',
+        'username' => 'user',
+        'password' => '12345',
+        'database' => 'Pasting',
         'DBDriver' => 'sqlsrv',
         'DBPrefix' => '',
         'pConnect' => false,
