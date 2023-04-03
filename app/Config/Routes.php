@@ -36,9 +36,25 @@ $routes->get('/login', 'Login::index');
 $routes->post('/login/proses_login', 'Login::proses_login');
 $routes->get('/logout', 'Login::logout');
 
+//DASHBOARD
+$routes->get('/dashboard/assy', 'Dashboard::dashboard_lhp_assy');
+
 //MASTER CYCLE TIME
 $routes->group('cycle_time', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'CycleTime::index');
+});
+
+//MASTER REJECT
+$routes->group('reject', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Reject::index');
+    $routes->post('add_reject', 'Reject::add_reject');
+    $routes->get('delete_reject/(:num)', 'Reject::delete_reject/$1');
+    $routes->post('get_data_reject', 'Reject::get_data_reject');
+    $routes->post('update_reject', 'Reject::update_reject');
+    $routes->post('add_reject_utama', 'Reject::add_reject_utama');
+    $routes->get('delete_reject_utama/(:num)/(:any)', 'Reject::delete_reject_utama/$1/$2');
+    $routes->post('get_data_reject_utama', 'Reject::get_data_reject_utama');
+    $routes->post('update_reject_utama', 'Reject::update_reject_utama');
 });
 
 //LHP

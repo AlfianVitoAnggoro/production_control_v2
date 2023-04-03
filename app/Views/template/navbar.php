@@ -38,10 +38,10 @@
 							</span>
 						</a>
 						<ul class="treeview-menu">
-							<?php if (session()->get('seksi') == 'plate_cutting' OR session()->get('seksi') == NULL) { ?>
+							<?php if (session()->get('seksi') == 'plate_cutting' OR session()->get('seksi') == 'envelope' OR session()->get('seksi') == NULL) { ?>
 								<li><a href="<?=base_url()?>platecutting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Plate Cutting</a></li>
 							<?php } ?>
-							<?php if (session()->get('seksi') == 'envelope' OR session()->get('seksi') == NULL) { ?>
+							<?php if (session()->get('seksi') == 'envelope' OR session()->get('seksi') == 'plate_cutting' OR session()->get('seksi') == NULL) { ?>
 								<li><a href="<?=base_url()?>envelope"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Envelope</a></li>
 							<?php } ?>
 							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>

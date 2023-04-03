@@ -487,36 +487,38 @@ class Home extends BaseController
         $total_reject = 0;
 
         if ($update_data > 0) {
-            $total_data = count($this->request->getPost('no_wo'));
-            for ($i = 0; $i < $total_data; $i++) {
-                if ($this->request->getPost('no_wo')[$i] != '') {
-                    $id_detail_lhp = $this->request->getPost('id_detail_lhp')[$i];
-                    $data_detail_lhp = [
-                        'id_lhp_2' => $id_lhp,
-                        'batch' => $this->request->getPost('batch')[$i],
-                        'jam_start' => $this->request->getPost('start')[$i],
-                        'jam_end' => $this->request->getPost('stop')[$i],
-                        'menit_terpakai' => $this->request->getPost('menit_terpakai')[$i],
-                        'no_wo' => $this->request->getPost('no_wo')[$i],
-                        'type_battery' => $this->request->getPost('part_number')[$i],
-                        'ct' => $this->request->getPost('ct')[$i],
-                        'plan_cap' => $this->request->getPost('plan_cap')[$i],
-                        'actual' => $this->request->getPost('actual')[$i],
-                        // 'act_vs_plan' => $this->request->getPost('act_vs_plan')[$i],
-                        // 'efficiency_time' => $this->request->getPost('efficiency_time')[$i],
-                        'total_menit_breakdown' => $this->request->getPost('total_menit_breakdown')[$i]
-                    ];
+            if (!empty($this->request->getPost('no_wo'))) {
+                $total_data = count($this->request->getPost('no_wo'));
+                for ($i = 0; $i < $total_data; $i++) {
+                    if ($this->request->getPost('no_wo')[$i] != '') {
+                        $id_detail_lhp = $this->request->getPost('id_detail_lhp')[$i];
+                        $data_detail_lhp = [
+                            'id_lhp_2' => $id_lhp,
+                            'batch' => $this->request->getPost('batch')[$i],
+                            'jam_start' => $this->request->getPost('start')[$i],
+                            'jam_end' => $this->request->getPost('stop')[$i],
+                            'menit_terpakai' => $this->request->getPost('menit_terpakai')[$i],
+                            'no_wo' => $this->request->getPost('no_wo')[$i],
+                            'type_battery' => $this->request->getPost('part_number')[$i],
+                            'ct' => $this->request->getPost('ct')[$i],
+                            'plan_cap' => $this->request->getPost('plan_cap')[$i],
+                            'actual' => $this->request->getPost('actual')[$i],
+                            // 'act_vs_plan' => $this->request->getPost('act_vs_plan')[$i],
+                            // 'efficiency_time' => $this->request->getPost('efficiency_time')[$i],
+                            'total_menit_breakdown' => $this->request->getPost('total_menit_breakdown')[$i]
+                        ];
 
-                    if ($this->request->getPost('actual')[$i] != null) {
-                        $total_plan += $this->request->getPost('plan_cap')[$i];
-                        $total_actual += $this->request->getPost('actual')[$i];
+                        if ($this->request->getPost('actual')[$i] != null) {
+                            $total_plan += $this->request->getPost('plan_cap')[$i];
+                            $total_actual += $this->request->getPost('actual')[$i];
+                        }
+
+                        if ($this->request->getPost('total_menit_breakdown')[$i] != null) {
+                            $total_line_stop += $this->request->getPost('total_menit_breakdown')[$i];
+                        }
+
+                        $update_detail = $model->update_detail_lhp($id_detail_lhp, $data_detail_lhp);
                     }
-
-                    if ($this->request->getPost('total_menit_breakdown')[$i] != null) {
-                        $total_line_stop += $this->request->getPost('total_menit_breakdown')[$i];
-                    }
-
-                    $update_detail = $model->update_detail_lhp($id_detail_lhp, $data_detail_lhp);
                 }
             }
         }
