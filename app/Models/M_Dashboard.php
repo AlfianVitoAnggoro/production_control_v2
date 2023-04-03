@@ -48,6 +48,19 @@ class M_Dashboard extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_all_line_by_year() 
+    {
+        $tahun = date('Y');
+        $query = $this->db->query('SELECT YEAR(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                    FROM lhp_produksi2 
+                                    WHERE YEAR(tanggal_produksi) = '.$tahun.'
+                                    GROUP BY YEAR(tanggal_produksi)
+                                    ORDER BY YEAR(tanggal_produksi)
+                                    ');
+
+        return $query->getResultArray();
+    }
+
     public function get_data_line_stop($tanggal, $line)
     {
         $query = $this->db->query('SELECT * FROM lhp_produksi2

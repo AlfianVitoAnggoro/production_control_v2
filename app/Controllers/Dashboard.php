@@ -214,6 +214,8 @@ class Dashboard extends BaseController
                 array_push($data['data_all_month'], 0);
             }
         }
+        $data_year = $this->M_Dashboard->get_data_all_line_by_year();
+        $data['data_all_year'] = (!empty($data_year[0]['total_plan']) && !empty($data_year[0]['total_aktual'])) ? (float) number_format(($data_year[0]['total_aktual'] / $data_year[0]['total_plan']) * 100, 2, '.', '') : 0;
         
         return view('dashboard/dashboard_lhp_assy', $data);
     }

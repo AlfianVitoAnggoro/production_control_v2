@@ -78,7 +78,7 @@
 							</div>							
 						</div>
                         <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;">80%</h1>
+                            <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_year)?>%</h1>
                         </div>				
 					</div>
 				</div>
