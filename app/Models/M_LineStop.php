@@ -29,6 +29,27 @@ class M_LineStop extends Model
     return $query->getResultArray();
   }
 
+  public function get_data_jenis_line_stop()
+  {
+    $query = $this->db->query('SELECT DISTINCT jenis_breakdown FROM data_breakdown');
+
+    return $query->getResultArray();
+  }
+
+  public function get_data_dept_in_charge()
+  {
+    $query = $this->db->query('SELECT DISTINCT dept_in_charge FROM data_breakdown');
+
+    return $query->getResultArray();
+  }
+
+  public function get_data_perhitungan()
+  {
+    $query = $this->db->query('SELECT DISTINCT perhitungan FROM data_breakdown');
+
+    return $query->getResultArray();
+  }
+
   public function save_data_breakdown($data)
   {
     $this->db->table('data_breakdown')->insert($data);

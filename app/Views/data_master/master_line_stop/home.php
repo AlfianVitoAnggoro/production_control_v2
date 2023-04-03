@@ -44,8 +44,8 @@
                                 if (trim($d['status']) === 'approved') :
                                 ?>
                                   <span class="badge bg-success">Approved</span>
-                                <?php elseif (trim($d['status']) === 'pending') : ?>
-                                  <span class="badge bg-warning">Pending</span>
+                                <?php elseif (trim($d['status']) === 'waiting') : ?>
+                                  <span class="badge bg-warning">Waiting</span>
                                 <?php elseif (trim($d['status']) === 'rejected') : ?>
                                   <span class="badge bg-danger">Rejected</span>
                                 <?php endif ?>
@@ -89,7 +89,15 @@
             <div class="col-3">
               <div class="form-group">
                 <label class="form-label">Jenis Line Stop</label>
-                <input type="text" class="form-control" id="jenis_breakdown" name="jenis_breakdown">
+                <div class="jenis_breakdown">
+                  <select name="jenis_breakdown[]" id="jenis_breakdown" class="form-select">
+                    <option value="">Pilih Jenis Line Stop</option>
+                    <?php foreach ($data_jenis_breakdown as $d_jenis_breakdown) { ?>
+                      <option value="<?= $d_jenis_breakdown['jenis_breakdown'] ?>"><?= $d_jenis_breakdown['jenis_breakdown'] ?></option>
+                    <?php } ?>
+                  </select>
+                  <button type="button" class="btn btn-primary p-1 mt-1" onclick="add_jenis_breakdown()">Tambah Data</button>
+                </div>
               </div>
             </div>
             <div class="col-3">
@@ -101,13 +109,29 @@
             <div class="col-3">
               <div class="form-group">
                 <label class="form-label">Dept In Charge</label>
-                <input type="text" class="form-control" id="dept_in_charge" name="dept_in_charge">
+                <div class="dept_in_charge">
+                  <select name="dept_in_charge[]" id="dept_in_charge" class="form-select">
+                    <option value="">Pilih Dept In Charge</option>
+                    <?php foreach ($data_dept_in_charge as $d_dept_in_charge) { ?>
+                      <option value="<?= $d_dept_in_charge['dept_in_charge'] ?>"><?= $d_dept_in_charge['dept_in_charge'] ?></option>
+                    <?php } ?>
+                  </select>
+                  <button type="button" class="btn btn-primary p-1 mt-1" onclick="add_dept_in_charge()">Tambah Data</button>
+                </div>
               </div>
             </div>
             <div class="col-3">
               <div class="form-group">
                 <label class="form-label">Perhitungan</label>
-                <input type="text" class="form-control" id="perhitungan" name="perhitungan">
+                <div class="perhitungan">
+                  <select name="perhitungan[]" id="perhitungan" class="form-select">
+                    <option value="">Pilih Perhitungan</option>
+                    <?php foreach ($data_perhitungan as $d_perhitungan) { ?>
+                      <option value="<?= $d_perhitungan['perhitungan'] ?>"><?= $d_perhitungan['perhitungan'] ?></option>
+                    <?php } ?>
+                  </select>
+                  <button type="button" class="btn btn-primary p-1 mt-1" onclick="add_perhitungan()">Tambah Data</button>
+                </div>
               </div>
             </div>
           </div>
@@ -132,5 +156,68 @@
       "order": []
     });
   });
+
+  function add_jenis_breakdown() {
+    let jenis_breakdownElement = document.querySelector('.jenis_breakdown');
+    jenis_breakdownElement.innerHTML = `
+      <input type="text" class="form-control" id="jenis_breakdown" name="jenis_breakdown">
+      <button type="button" class="btn btn-danger p-1 mt-1" onclick="batal_jenis_breakdown()">Batal</button>
+    `
+  }
+
+  function add_dept_in_charge() {
+    let dept_in_chargeElement = document.querySelector('.dept_in_charge');
+    dept_in_chargeElement.innerHTML = `
+      <input type="text" class="form-control" id="dept_in_charge" name="dept_in_charge">
+      <button type="button" class="btn btn-danger p-1 mt-1" onclick="batal_dept_in_charge()">Batal</button>
+    `
+  }
+
+  function add_perhitungan() {
+    let perhitunganElement = document.querySelector('.perhitungan');
+    perhitunganElement.innerHTML = `
+      <input type="text" class="form-control" id="perhitungan" name="perhitungan">
+      <button type="button" class="btn btn-danger p-1 mt-1" onclick="batal_perhitungan()">Batal</button>
+    `
+  }
+  
+  function batal_jenis_breakdown() {
+    let jenis_breakdownElement = document.querySelector('.jenis_breakdown');
+    jenis_breakdownElement.innerHTML = `
+      <select name="jenis_breakdown[]" id="jenis_breakdown" class="form-select">
+        <option value="">Pilih jenis_breakdown</option>
+        <?php foreach ($data_jenis_breakdown as $d_jenis_breakdown) { ?>
+          <option value="<?= $d_jenis_breakdown['jenis_breakdown'] ?>"><?= $d_jenis_breakdown['jenis_breakdown'] ?></option>
+        <?php } ?>
+      </select>
+      <button type="button" class="btn btn-primary p-1 mt-1" onclick="add_jenis_breakdown()">Tambah Data</button>
+    `;
+  }
+
+  function batal_dept_in_charge() {
+    let dept_in_chargeElement = document.querySelector('.dept_in_charge');
+    dept_in_chargeElement.innerHTML = `
+      <select name="dept_in_charge[]" id="dept_in_charge" class="form-select">
+        <option value="">Pilih dept_in_charge</option>
+        <?php foreach ($data_dept_in_charge as $d_dept_in_charge) { ?>
+          <option value="<?= $d_dept_in_charge['dept_in_charge'] ?>"><?= $d_dept_in_charge['dept_in_charge'] ?></option>
+        <?php } ?>
+      </select>
+      <button type="button" class="btn btn-primary p-1 mt-1" onclick="add_dept_in_charge()">Tambah Data</button>
+    `;
+  }
+  
+  function batal_perhitungan() {
+    let perhitunganElement = document.querySelector('.perhitungan');
+    perhitunganElement.innerHTML = `
+      <select name="perhitungan[]" id="perhitungan" class="form-select">
+        <option value="">Pilih Perhitungan</option>
+        <?php foreach ($data_perhitungan as $d_perhitungan) { ?>
+          <option value="<?= $d_perhitungan['perhitungan'] ?>"><?= $d_perhitungan['perhitungan'] ?></option>
+        <?php } ?>
+      </select>
+      <button type="button" class="btn btn-primary p-1 mt-1" onclick="add_perhitungan()">Tambah Data</button>
+    `;
+  }
 </script>
 <?= $this->endSection(); ?>

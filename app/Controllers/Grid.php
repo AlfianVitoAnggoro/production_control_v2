@@ -51,7 +51,8 @@ class Grid extends BaseController
             'mp' => $mp,
             'absen' => $absen,
             'cuti' => $cuti,
-            'kasubsie' => $kasubsie
+            'kasubsie' => $kasubsie,
+            'status' => 'waiting'
         ];
 
         $save_data = $this->M_Grid->add_lhp($data_save);
@@ -68,6 +69,8 @@ class Grid extends BaseController
         $data['data_type_grid'] = $this->M_Grid->get_data_type_grid();
         $data['data_breakdown'] = $this->M_Grid->get_data_breakdown($id_lhp);
         $data['data_andon'] = $this->M_Grid->get_data_andon_by_id($id_lhp);
+        $session = \Config\Services::session();
+        $data['session'] = $session->get('level');
         return view('pages/grid_casting/detail_lhp_grid', $data);
     }
 
@@ -89,7 +92,10 @@ class Grid extends BaseController
         $total_actual = 0;
         $total_andon = 0;
         $total_breakdown = 0;
-
+        
+        $approved = $this->request->getPost('approved');
+        $completed = $this->request->getPost('completed');
+        
         $total_data = $this->request->getPost('aktual');
         for ($i=0; $i < count($total_data); $i++) { 
             $id_detail_lhp_grid = $this->request->getPost('id_detail_lhp_grid')[$i];
@@ -157,11 +163,19 @@ class Grid extends BaseController
             }
         }
 
+        if($completed === NULL && $approved === NULL) {
+            $status = 'waiting';
+        } else if($completed !== NULL) {
+            $status = 'completed';
+        } else if($approved !== NULL) {
+            $status = 'approved';
+        }
         $data_summary_lhp = [
             'total_jks' => $total_jks,
             'total_aktual' => $total_actual,
             'total_breakdown' => $total_breakdown,
-            'total_andon' => $total_andon
+            'total_andon' => $total_andon,
+            'status' => $status
         ];
 
         $this->M_Grid->update_lhp_grid($id_lhp, $data_summary_lhp);

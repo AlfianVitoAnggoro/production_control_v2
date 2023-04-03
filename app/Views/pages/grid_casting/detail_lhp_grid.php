@@ -4,7 +4,7 @@
 <!-- Content Wrapper. Contains page content -->
 <?php 
 // var_dump($data_detail_breakdown);die;
-
+$mh = [8, 7.5, 6.5];
 ?>
 <div class="content-wrapper">
 	  <div class="container-full">
@@ -87,6 +87,8 @@
 												<th>Aktual (Panel)</th>
                                                 <th>Persentase (%)</th>
                                                 <th>Rak</th>
+                                                <th>MH</th>
+                                                <th>Productivity (Panel/MH)</th>
                                                 <!-- <th>Action</th> -->
 											</tr>
 										</thead>
@@ -106,7 +108,7 @@
                                                                 <input type="hidden" name="type_mesin[]" id="type_mesin_<?=$d_mesin['nama_mesin']?>" value="<?=$d_mesin['type_mesin']?>">
                                                             </td>
                                                             <td>
-                                                                <select name="nama_operator[]" id="nama_operator_<?=$d_mesin['nama_mesin']?>" class="form-select select2" style="width: 300px">
+                                                                <select name="nama_operator[]" id="nama_operator_<?=$d_mesin['nama_mesin']?>" class="form-select select2" style="width: 200px">
                                                                     <option value="">-- Pilih Operator --</option>
                                                                     <?php
                                                                         foreach ($data_operator as $d_operator) {
@@ -118,7 +120,7 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <select name="type_grid[]" id="type_grid_<?=$d_mesin['nama_mesin']?>" class="form-select select2" onchange="get_jks(<?=$d_mesin['nama_mesin']?>)" style="width: 300px">
+                                                                <select name="type_grid[]" id="type_grid_<?=$d_mesin['nama_mesin']?>" class="form-select select2" onchange="get_jks(<?=$d_mesin['nama_mesin']?>)" style="width: 200px">
                                                                     <option value="">-- Pilih Type Grid --</option>
                                                                     <?php
                                                                         foreach ($data_type_grid as $d_type_grid) {
@@ -136,10 +138,16 @@
                                                                 <input type="number" name="aktual[]" id="aktual_<?=$d_mesin['nama_mesin']?>" class="form-control" value="<?=$data_detail_lhp[0]['actual']?>" onkeyup="count_persentase(<?=$d_mesin['nama_mesin']?>)"> 
                                                             </td>
                                                             <td>
-                                                                <input type="number" name="persentase[]" id="persentase_<?=$d_mesin['nama_mesin']?>" class="form-control" value="<?=$data_detail_lhp[0]['persentase']?>" readonly>
+                                                                <input type="number" name="persentase[]" id="persentase_<?=$d_mesin['nama_mesin']?>" class="form-control" value="<?=number_format($data_detail_lhp[0]['persentase'])?>" readonly>
                                                             </td>
                                                             <td>
-                                                                <input type="text" name="rak[]" id="rak_<?=$d_mesin['nama_mesin']?>" class="form-control" value="">
+                                                                <input type="text" name="rak[]" id="rak_<?=$d_mesin['nama_mesin']?>" class="form-control" value="" style="width: 75px">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="mh[]" id="mh_<?=$d_mesin['nama_mesin']?>" class="form-control" value="<?= $data_detail_lhp[0]['mh'] === "" ? $data_detail_lhp[0]['mh'] : $mh[$data_lhp[0]['shift']-1]; ?>" style="width: 50px" readonly>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="productivity[]" id="productivity_<?=$d_mesin['nama_mesin']?>" class="form-control" value="<?=$data_detail_lhp[0]['productivity']?>" readonly>
                                                             </td>
                                                             <!-- <td>
                                                                 <button type="button" class="btn btn-sm btn-primary" onclick="add_breakdown(<?=$d_mesin['nama_mesin']?>)">Add</button>
@@ -156,7 +164,7 @@
                                                             <input type="hidden" name="type_mesin[]" id="type_mesin_<?=$d_mesin['nama_mesin']?>" value="<?=$d_mesin['type_mesin']?>">
                                                         </td>
                                                         <td>
-                                                            <select name="nama_operator[]" id="nama_operator_<?=$d_mesin['nama_mesin']?>" class="form-select select2" style="width: 300px">
+                                                            <select name="nama_operator[]" id="nama_operator_<?=$d_mesin['nama_mesin']?>" class="form-select select2" style="width: 200px">
                                                                 <option value="">-- Pilih Operator --</option>
                                                                 <?php
                                                                     $pic_grup_mesin = $model->get_pic_grup_mesin($d_mesin['nama_mesin'], $data_lhp[0]['grup']);
@@ -169,7 +177,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select name="type_grid[]" id="type_grid_<?=$d_mesin['nama_mesin']?>" class="form-select select2" onchange="get_jks(<?=$d_mesin['nama_mesin']?>)" style="width: 300px">
+                                                            <select name="type_grid[]" id="type_grid_<?=$d_mesin['nama_mesin']?>" class="form-select select2" onchange="get_jks(<?=$d_mesin['nama_mesin']?>)" style="width: 200px">
                                                                 <option value="">-- Pilih Type Grid --</option>
                                                                 <?php
                                                                     foreach ($data_type_grid as $d_type_grid) {
@@ -183,7 +191,9 @@
                                                         <td><input type="text" class="form-control" name="jks[]" id="jks_<?=$d_mesin['nama_mesin']?>" readonly></td>
                                                         <td><input type="text" class="form-control" name="aktual[]" id="aktual_<?=$d_mesin['nama_mesin']?>" onkeyup="count_persentase(<?=$d_mesin['nama_mesin']?>)"></td>
                                                         <td><input type="text" class="form-control" name="persentase[]" id="persentase_<?=$d_mesin['nama_mesin']?>" readonly></td>
-                                                        <td><input type="text" class="form-control" name="rak[]" id="rak_<?=$d_mesin['nama_mesin']?>"></td>
+                                                        <td><input type="text" class="form-control" name="rak[]" id="rak_<?=$d_mesin['nama_mesin']?>" style="width: 75px"></td>
+                                                        <td><input type="text" class="form-control" name="mh[]" id="mh_<?=$d_mesin['nama_mesin']?>" value="<?= $mh[$data_lhp[0]['shift']-1]; ?>" style="width: 50px" readonly></td>
+                                                        <td><input type="text" class="form-control" name="productivity[]" id="productivity_<?=$d_mesin['nama_mesin']?>" readonly></td>
                                                     </tr>
                                             <?php
                                                     }
@@ -195,7 +205,7 @@
                                                 <td colspan="3"><h3>Total</h3></td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?=$data_lhp[0]['total_jks']?>" readonly></td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=$data_lhp[0]['total_aktual']?>" readonly></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?= $retVal = (!empty($data_lhp[0]['total_aktual'])) ? number_format(($data_lhp[0]['total_aktual']/$data_lhp[0]['total_jks'])*100 , 2) : 0 ;?>" readonly></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?= $retVal = (!empty($data_lhp[0]['total_aktual'])) ? number_format(($data_lhp[0]['total_aktual']/$data_lhp[0]['total_jks'])*100) : 0 ;?>" readonly></td>
                                                 <td></td>
                                             </tr>
                                         </tfoot>
@@ -317,6 +327,38 @@
 					<div class="col-4" style="text-align:center;"><input type="submit" class="btn btn-success" value="Save"></div>
 					<div class="col-4"></div>
 				</div>
+                <div class="d-flex justify-content-end" style="margin-right: 50px">
+                    <table class="table table-bordered" style="width: 400px;">
+                        <thead>
+                            <th class="text-center">Disetujui</th>
+                            <th class="text-center">Dibuat</th>
+                        </thead>
+                        <tbody>
+                            <td>
+                                <div class="form-check text-center p-0">
+                                    <?php if ($data_lhp[0]['status'] !== 'approved') { ?>
+                                        <button type="submit" class="btn btn-outline-primary" name="approved" value="approved" onclick="return confirm('Apakah Anda Yakin?')">✔</button>
+                                    <?php } else { ?>
+                                        <button class="btn btn-primary" disabled>✔</button>
+                                    <?php } ?>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-check text-center p-0">
+                                    <?php if ($data_lhp[0]['status'] !== 'completed' && $data_lhp[0]['status'] !== 'approved') { ?>
+                                        <button type="submit" class="btn btn-outline-primary" name="completed" value="approved" onclick="return confirm('Apakah Anda Yakin?')">✔</button>
+                                    <?php } else { ?>
+                                        <button class="btn btn-primary" disabled>✔</button>
+                                    <?php } ?>
+                                </div>
+                            </td>
+                        </tbody>
+                        <tfoot>
+                            <th class="text-center">KASIE</th>
+                            <th class="text-center">GL/ KSS</th>
+                        </tfoot>
+                    </table>
+                </div>
 			</form>
 		</section>
 		<!-- /.content -->
@@ -327,6 +369,14 @@
 
 <?= $this->section('script'); ?>
 <script>
+    <?php if($session <= 2) { ?>
+        const approvedElement = document.querySelector('#approved');
+        approvedElement.removeAttribute('disabled');
+    <?php } ?>
+    <?php if($session <= 4) { ?>
+        const completedElement = document.querySelector('#completed');
+        completedElement.removeAttribute('disabled');
+    <?php } ?>
 	function get_jks(i) {
         var type_grid = $('#type_grid_'+i).val();
         var type_mesin = $('#type_mesin_'+i).val();
@@ -350,10 +400,14 @@
     function count_persentase(i) {
         var jks = $('#jks_'+i).val();
         var aktual = $('#aktual_'+i).val();
+        var productivity = $('#productivity_'+i).val();
+        var mh = $('#mh_'+i).val();
 
         var persentase = (aktual/jks)*100;
+        var productivity = (aktual/mh)
 
-        $('#persentase_'+i).val(persentase.toFixed(2));
+        $('#persentase_'+i).val(persentase.toFixed(0));
+        $('#productivity_'+i).val(productivity.toFixed(0));
     }
 
     function get_data_andon() {

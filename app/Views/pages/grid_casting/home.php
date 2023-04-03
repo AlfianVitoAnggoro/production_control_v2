@@ -33,6 +33,7 @@
 													<th>Line</th>
 													<th>Kasubsie</th>
 													<th>Grup</th>
+													<th>Status</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -44,6 +45,15 @@
 													<td><?=$lhp['line']?></td>
 													<td><?=$lhp['kasubsie']?></td>
 													<td><?=$lhp['grup']?></td>
+													<td>
+														<?php if(trim($lhp['status'] === 'approved')) : ?>
+															<span class="badge bg-success">Approved</span>
+														<?php elseif(trim($lhp['status'] === 'waiting')) : ?>
+															<span class="badge bg-warning">Waiting</span>
+														<?php elseif(trim($lhp['status'] === 'rejected')) : ?>
+															<span class="badge bg-danger">Rejected</span>
+														<?php endif ?>
+													</td>
 													<td>
 														<a href="<?=base_url()?>grid/detail_lhp/<?=$lhp['id']?>" class="btn btn-primary btn-sm">Detail</a>
 														<a href="<?=base_url()?>grid/hapus_lhp/<?=$lhp['id']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
