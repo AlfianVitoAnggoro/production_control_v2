@@ -80,6 +80,10 @@ class Envelope extends BaseController
         $terpotong = $this->request->getVar('terpotong');
         $rontok = $this->request->getVar('rontok');
         $tersangkut = $this->request->getVar('tersangkut');
+        $melintir_bending_panel = $this->request->getVar('melintir_bending_panel');
+        $terpotong_panel = $this->request->getVar('terpotong_panel');
+        $rontok_panel = $this->request->getVar('rontok_panel');
+        $tersangkut_panel = $this->request->getVar('tersangkut_panel');
         $persentase_reject_akumulatif = $this->request->getVar('persentase_reject_akumulatif');
         $envelopeinputnew = [];
         $data_new_envelopeinput = [];
@@ -118,6 +122,10 @@ class Envelope extends BaseController
                             'terpotong' => $terpotong[$i] !== NULL ? $terpotong[$i] : 0,
                             'rontok' => $rontok[$i] !== NULL ? $rontok[$i] : 0,
                             'tersangkut' => $tersangkut[$i] !== NULL  ? $tersangkut[$i] : 0,
+                            'melintir_bending_panel' => $melintir_bending_panel[$i] !== NULL ? $melintir_bending_panel[$i] : 0,
+                            'terpotong_panel' => $terpotong_panel[$i] !== NULL ? $terpotong_panel[$i] : 0,
+                            'rontok_panel' => $rontok_panel[$i] !== NULL ? $rontok_panel[$i] : 0,
+                            'tersangkut_panel' => $tersangkut_panel[$i] !== NULL  ? $tersangkut_panel[$i] : 0,
                             'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
                         );
                     }
@@ -132,6 +140,10 @@ class Envelope extends BaseController
                         'terpotong' => $terpotong[$i] !== NULL ? $terpotong[$i] : 0,
                         'rontok' => $rontok[$i] !== NULL ? $rontok[$i] : 0,
                         'tersangkut' => $tersangkut[$i] !== NULL  ? $tersangkut[$i] : 0,
+                        'melintir_bending_panel' => $melintir_bending_panel[$i] !== NULL ? $melintir_bending_panel[$i] : 0,
+                        'terpotong_panel' => $terpotong_panel[$i] !== NULL ? $terpotong_panel[$i] : 0,
+                        'rontok_panel' => $rontok_panel[$i] !== NULL ? $rontok_panel[$i] : 0,
+                        'tersangkut_panel' => $tersangkut_panel[$i] !== NULL  ? $tersangkut_panel[$i] : 0,
                         'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
                     );
                 }
@@ -197,6 +209,10 @@ class Envelope extends BaseController
         $terpotong = $this->request->getVar('terpotong');
         $rontok = $this->request->getVar('rontok');
         $tersangkut = $this->request->getVar('tersangkut');
+        $melintir_bending_panel = $this->request->getVar('melintir_bending_panel');
+        $terpotong_panel = $this->request->getVar('terpotong_panel');
+        $rontok_panel = $this->request->getVar('rontok_panel');
+        $tersangkut_panel = $this->request->getVar('tersangkut_panel');
         $persentase_reject_akumulatif = $this->request->getVar('persentase_reject_akumulatif');
         if ($edit !== NULL) {
             $data_envelope[] = array(
@@ -219,6 +235,10 @@ class Envelope extends BaseController
                         'terpotong' => $terpotong[$i] !== NULL ? $terpotong[$i] : 0,
                         'rontok' => $rontok[$i] !== NULL ? $rontok[$i] : 0,
                         'tersangkut' => $tersangkut[$i] !== NULL  ? $tersangkut[$i] : 0,
+                        'melintir_bending_panel' => $melintir_bending_panel[$i] !== NULL ? $melintir_bending_panel[$i] : 0,
+                        'terpotong_panel' => $terpotong_panel[$i] !== NULL ? $terpotong_panel[$i] : 0,
+                        'rontok_panel' => $rontok_panel[$i] !== NULL ? $rontok_panel[$i] : 0,
+                        'tersangkut_panel' => $tersangkut_panel[$i] !== NULL  ? $tersangkut_panel[$i] : 0,
                         'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
                     );
                     $this->envelopeinputModel->updateBatch($data_envelopeinput, 'id');

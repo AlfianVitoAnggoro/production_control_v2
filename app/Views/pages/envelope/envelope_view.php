@@ -23,8 +23,9 @@
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="5"></th>
-                                                    <th colspan="7" class="text-center">Jumlah NG (Pcs)</th>
+                                                    <th colspan="8"></th>
+                                                    <th colspan="4" class="text-center">Jumlah NG (KG)</th>
+                                                    <th colspan="4" class="text-center">Jumlah NG (Panel)</th>
                                                     <th colspan="3"></th>
                                                 </tr>
                                                 <tr>
@@ -36,6 +37,10 @@
                                                     <th style="width: 125px;">Plate</th>
                                                     <th>Hasil Produksi</th>
                                                     <th>Separator</th>
+                                                    <th>Melintir/ Bending</th>
+                                                    <th>Terpotong</th>
+                                                    <th>Rontok</th>
+                                                    <th>Tersangkut</th>
                                                     <th>Melintir/ Bending</th>
                                                     <th>Terpotong</th>
                                                     <th>Rontok</th>
@@ -127,6 +132,46 @@
                                                                     <?php foreach ($envelopeinput as $ei) : ?>
                                                                         <?php if ($envl['id'] === $ei['id_envelope']) : ?>
                                                                             <?= $ei['tersangkut'] ?>
+                                                                            <br>
+                                                                        <?php endif ?>
+                                                                    <?php endforeach ?>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="melintir_bending_panel_section">
+                                                                    <?php foreach ($envelopeinput as $ei) : ?>
+                                                                        <?php if ($envl['id'] === $ei['id_envelope']) : ?>
+                                                                            <?= $ei['melintir_bending_panel'] ?>
+                                                                            <br>
+                                                                        <?php endif ?>
+                                                                    <?php endforeach ?>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="terpotong_panel_section">
+                                                                    <?php foreach ($envelopeinput as $ei) : ?>
+                                                                        <?php if ($envl['id'] === $ei['id_envelope']) : ?>
+                                                                            <?= $ei['terpotong_panel'] ?>
+                                                                            <br>
+                                                                        <?php endif ?>
+                                                                    <?php endforeach ?>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="rontok_panel_section">
+                                                                    <?php foreach ($envelopeinput as $ei) : ?>
+                                                                        <?php if ($envl['id'] === $ei['id_envelope']) : ?>
+                                                                            <?= $ei['rontok_panel'] ?>
+                                                                            <br>
+                                                                        <?php endif ?>
+                                                                    <?php endforeach ?>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="tersangkut_panel_section">
+                                                                    <?php foreach ($envelopeinput as $ei) : ?>
+                                                                        <?php if ($envl['id'] === $ei['id_envelope']) : ?>
+                                                                            <?= $ei['tersangkut_panel'] ?>
                                                                             <br>
                                                                         <?php endif ?>
                                                                     <?php endforeach ?>
