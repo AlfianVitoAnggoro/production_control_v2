@@ -37,7 +37,11 @@ $routes->post('/login/proses_login', 'Login::proses_login');
 $routes->get('/logout', 'Login::logout');
 
 //DASHBOARD
+$routes->get('/dashboard', 'Dashboard::index');
 $routes->get('/dashboard/assy', 'Dashboard::dashboard_lhp_assy');
+$routes->post('/dashboard/assy', 'Dashboard::dashboard_lhp_assy');
+$routes->post('/dashboard/assy/get_data_line_stop', 'Dashboard::get_data_line_stop');
+$routes->post('/dashboard/assy/get_data_line_stop_by_shift', 'Dashboard::get_data_line_stop_by_shift');
 
 //MASTER CYCLE TIME
 $routes->group('cycle_time', ['filter' => 'auth'], function ($routes) {
