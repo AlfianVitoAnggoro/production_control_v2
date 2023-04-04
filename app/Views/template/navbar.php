@@ -6,12 +6,18 @@
 				<!-- sidebar menu-->
 				<ul class="sidebar-menu" data-widget="tree">
 					<li class="header">Menu</li>
-					<!-- <li class="treeview">
+					<li class="treeview">
 						<a href="#">
 							<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
 							<span>Dashboard</span>
+							<span class="pull-right-container">
+							<i class="fa fa-angle-right pull-right"></i>
 						</a>
-					</li> -->
+						<ul class="treeview-menu">
+							<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Produksi 1</a></li>
+							<li><a href="<?=base_url()?>dashboard"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Produksi 2</a></li>
+						</ul>
+					</li>
 					<?php if (session()->get('departemen') == 'produksi1' OR session()->get('departemen') == 'isd' OR session()->get('departemen') == 'quality' OR session()->get('departemen') == NULL) { ?>
 						<li class="treeview">
 							<a href="#">
@@ -62,7 +68,7 @@
 							<ul class="treeview-menu">
 								<li><a href="<?=base_url()?>cycle_time"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Cycle Time</a></li>
 								<li><a href="<?=base_url()?>line_stop"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Line Stop</a></li>
-								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Rejection</a></li>
+								<li><a href="<?=base_url()?>reject"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Rejection</a></li>
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Run Time</a></li>
 							</ul>
 						</li>
