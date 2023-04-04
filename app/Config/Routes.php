@@ -99,6 +99,7 @@ $routes->group('platecutting', ['filter' => 'auth'], function ($routes) {
     $routes->post('save', 'PlateCutting::save');
     $routes->get('detail_platecutting/(:segment)', 'PlateCutting::detail_platecutting/$1');
     $routes->post('detail_platecutting/edit', 'PlateCutting::edit');
+    $routes->post('detail_platecutting/delete', 'PlateCutting::delete_platecutting');
     $routes->get('download', 'PlateCutting::download');
 });
 
@@ -110,6 +111,7 @@ $routes->group('envelope', ['filter' => 'auth'], function ($routes) {
     $routes->post('save', 'Envelope::save');
     $routes->get('detail_envelope/(:segment)', 'Envelope::detail_envelope/$1');
     $routes->post('detail_envelope/edit', 'Envelope::edit');
+    $routes->post('detail_envelope/delete', 'Envelope::delete_envelope');
     $routes->get('download', 'Envelope::download');
 });
 
@@ -137,6 +139,15 @@ $routes->group('line_stop', ['filter' => 'auth'], function ($routes) {
     $routes->post('detail_line_stop/edit', 'LineStop::update_data_breakdown');
     $routes->post('detail_line_stop/delete', 'LineStop::delete_data_breakdown');
     $routes->post('add_line_stop', 'LineStop::save');
+});
+
+//MASTER REJECT PASTING
+$routes->group('reject_pasting', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'RejectPasting::index');
+    $routes->get('detail_reject_pasting/(:num)', 'RejectPasting::edit/$1');
+    $routes->post('detail_reject_pasting/edit', 'RejectPasting::update_data_reject_pasting');
+    $routes->post('detail_reject_pasting/delete', 'RejectPasting::delete_data_reject_pasting');
+    $routes->post('add_reject_pasting', 'RejectPasting::save');
 });
 
 // $routes->get('/lhp/test', 'Home::test');

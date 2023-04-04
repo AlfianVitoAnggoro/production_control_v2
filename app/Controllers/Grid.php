@@ -123,9 +123,14 @@ class Grid extends BaseController
         }
 
         $total_data_breakdown = $this->request->getPost('nama_mesin_breakdown');
+        $model = new M_Grid();
+        $data_detail_breakdown = $model->get_data_breakdown($id_lhp);
+        $id_detail_lhp_grid_breakdown_input = $this->request->getPost('id_detail_lhp_grid_breakdown');
+        $id_detail_lhp_grid_breakdown_exist = [];
         if (!empty($total_data_breakdown)) {
             for ($i=0; $i < count($total_data_breakdown); $i++) { 
                 $id_detail_lhp_grid_breakdown = $this->request->getPost('id_detail_lhp_grid_breakdown')[$i];
+                $id_detail_lhp_grid_breakdown_exist[$id_detail_lhp_grid_breakdown] = $id_detail_lhp_grid_breakdown;
     
                 if ($this->request->getPost('nama_mesin_breakdown')[$i] != null) {
     
@@ -141,8 +146,13 @@ class Grid extends BaseController
                     $total_breakdown += $this->request->getPost('total_menit_breakdown_grid')[$i];
                 }
             }
+            foreach ($data_detail_breakdown as $ddb) {
+                if(!array_key_exists($ddb['id_breakdown_grid'], $id_detail_lhp_grid_breakdown_exist)) {
+                    $this->M_Grid->delete_detail_breakdown_by_id_breakdown_grid($ddb['id_breakdown_grid']);
+                }
+            }
         } else {
-            $this->M_Grid->delete_detail_breakdown($id_lhp);
+            $this->M_Grid->delete_detail_breakdown_by_id_lhp($id_lhp);
         }
 
         $total_data_andon = $this->request->getPost('no_machine_andon');

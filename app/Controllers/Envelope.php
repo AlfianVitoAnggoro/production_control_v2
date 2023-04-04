@@ -240,6 +240,15 @@ class Envelope extends BaseController
         return redirect()->to('/envelope');
     }
 
+    public function delete_envelope()
+    {
+        $id_envelope = $this->request->getVar('id_envelope');
+        $this->envelopeModel->delete(['id' => $id_envelope]);
+        $this->envelopeinputModel->delete(['id_envelope' => $id_envelope]);
+
+        return redirect()->to('/envelope');
+    }
+
     public function download()
     {
         $envelope = $this->envelopeModel->findAll();

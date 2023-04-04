@@ -10,7 +10,7 @@
         <div class="col-xl-12 col-12">
           <div class="box">
             <div class="box-header with-border">
-              <h4>Detail Envelope</h4>
+              <h4>Detail Line Stop</h4>
             </div>
             <div class="box-body">
               <form action="/line_stop/detail_line_stop/edit" method="post">

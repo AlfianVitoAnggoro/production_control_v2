@@ -158,8 +158,13 @@
                                                             </td>
                                                             <?php if ($session['level'] === 1) : ?>
                                                                 <td>
-                                                                    <div>
-                                                                        <a href="/envelope/detail_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary">Detail</a>
+                                                                    <div class="d-flex">
+                                                                        <a href="/envelope/detail_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary btn-sm">Detail</a>
+                                                                        &nbsp
+                                                                        <form action="<?php base_url() ?>envelope/detail_envelope/delete" method="POST">
+                                                                            <input type="hidden" name="id_envelope" id="id_envelope" value="<?= trim($envl['id']) ?>">
+                                                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin?')">Hapus</button>
+                                                                        </form>
                                                                     </div>
                                                                 </td>
                                                             <?php else : ?>

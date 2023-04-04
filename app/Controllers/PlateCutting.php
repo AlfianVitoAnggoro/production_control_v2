@@ -474,6 +474,15 @@ class PlateCutting extends BaseController
         return redirect()->to('/platecutting');
     }
 
+    public function delete_platecutting()
+    {
+        $id_platecutting = $this->request->getVar('id_platecutting');
+        $this->platecuttingModel->delete(['id' => $id_platecutting]);
+        $this->plateInputModel->delete(['id_platecutting' => $id_platecutting]);
+
+        return redirect()->to('/platecutting');
+    }
+
     public function download()
     {
         $platecutting = $this->platecuttingModel->findAll();
