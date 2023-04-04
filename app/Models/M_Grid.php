@@ -118,6 +118,12 @@ class M_Grid extends Model
         }
     }
 
+    public function delete_detail_breakdown ($id_lhp_grid) {
+        $builder = $this->db->table('detail_breakdown_grid');
+
+        $builder->delete(['id_lhp_grid' => $id_lhp_grid]);
+    }
+
     public function get_data_breakdown($id_lhp_grid) {
         $query = $this->db->query('SELECT * FROM detail_breakdown_grid WHERE id_lhp_grid = \''.$id_lhp_grid.'\'');
 

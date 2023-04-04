@@ -141,6 +141,8 @@ class Grid extends BaseController
                     $total_breakdown += $this->request->getPost('total_menit_breakdown_grid')[$i];
                 }
             }
+        } else {
+            $this->M_Grid->delete_detail_breakdown($id_lhp);
         }
 
         $total_data_andon = $this->request->getPost('no_machine_andon');

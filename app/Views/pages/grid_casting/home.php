@@ -4,6 +4,7 @@
 <!-- Content Wrapper. Contains page content -->
 <?php
 	$current_date = date('Y-m-d');
+	$current_month = date('Y-m');
 	$previous_date = date('Y-m-d', strtotime('-1 day', strtotime($current_date)));
 ?>
 <div class="content-wrapper">
@@ -23,7 +24,7 @@
 									</button>
 								</div>
 								<div class="box-body">
-									<input type="month" name="month" id="month" class="form-control" onchange="monthFilter()" style="width: 200px">
+									<input type="month" name="month" id="month" class="form-control my-2" onchange="monthFilter()" value="<?= $current_month ?>" style="width: 200px">
 									<div class="table-responsive">
 										<table id="data_grid" class="table table-bordered table-striped" style="width:100%">
 											<thead>
@@ -39,7 +40,9 @@
 												</tr>
 											</thead>
 											<tbody>
-												<?php foreach($data_lhp_grid as $lhp) : ?>
+												<?php foreach($data_lhp_grid as $lhp) : 
+													if($current_month === substr(trim($lhp['date_production']), 0, 7)) {
+												?>
 												<tr>
 													<td><?=$lhp['date_production']?></td>
 													<td><?=$lhp['shift']?></td>
@@ -60,7 +63,8 @@
 														<a href="<?=base_url()?>grid/hapus_lhp/<?=$lhp['id']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
 													</td>
 												</tr>
-												<?php endforeach; ?>
+												<?php }
+												endforeach; ?>
 											</tbody>
 										</table>
 									</div>
@@ -187,7 +191,6 @@
 
 	function monthFilter() {
 		const monthElement = document.querySelector('#month');
-		console.log(monthElement.value.substr(0, 7));
 		const tbodyElement = document.querySelector('tbody');
 		tbodyElement.innerHTML = '';
 		<?php foreach($data_lhp_grid as $lhp) : ?>
