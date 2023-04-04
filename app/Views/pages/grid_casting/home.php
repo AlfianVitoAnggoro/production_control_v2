@@ -23,6 +23,7 @@
 									</button>
 								</div>
 								<div class="box-body">
+									<input type="month" name="month" id="month" class="form-control" onchange="monthFilter()" style="width: 200px">
 									<div class="table-responsive">
 										<table id="data_grid" class="table table-bordered table-striped" style="width:100%">
 											<thead>
@@ -183,5 +184,38 @@
             dropdownParent: $('.modal')
         });
 	});
+
+	function monthFilter() {
+		const monthElement = document.querySelector('#month');
+		console.log(monthElement.value.substr(0, 7));
+		const tbodyElement = document.querySelector('tbody');
+		tbodyElement.innerHTML = '';
+		<?php foreach($data_lhp_grid as $lhp) : ?>
+			if(monthElement.value.substr(0, 7) === "<?= substr(trim($lhp['date_production']), 0, 7)?>") {
+				tbodyElement.innerHTML += `
+					<tr>
+						<td><?=$lhp['date_production']?></td>
+						<td><?=$lhp['shift']?></td>
+						<td><?=$lhp['line']?></td>
+						<td><?=$lhp['kasubsie']?></td>
+						<td><?=$lhp['grup']?></td>
+						<td>
+							<?php if(trim($lhp['status'] === 'approved')) : ?>
+								<span class="badge bg-success">Approved</span>
+							<?php elseif(trim($lhp['status'] === 'waiting')) : ?>
+								<span class="badge bg-warning">Waiting</span>
+							<?php elseif(trim($lhp['status'] === 'rejected')) : ?>
+								<span class="badge bg-danger">Rejected</span>
+							<?php endif ?>
+						</td>
+						<td>
+							<a href="<?=base_url()?>grid/detail_lhp/<?=$lhp['id']?>" class="btn btn-primary btn-sm">Detail</a>
+							<a href="<?=base_url()?>grid/hapus_lhp/<?=$lhp['id']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
+						</td>
+					</tr>
+				`;
+			}
+		<?php endforeach; ?>
+	}
   </script>
   <?= $this->endSection(); ?>
