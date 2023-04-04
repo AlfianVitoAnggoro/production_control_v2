@@ -257,7 +257,7 @@ class Envelope extends BaseController
             );
             $this->envelopeModel->updateBatch($data_envelope, 'id');
         }
-        return redirect()->to('/envelope');
+        return redirect()->to(base_url('/envelope'));
     }
 
     public function delete_envelope()
@@ -266,7 +266,7 @@ class Envelope extends BaseController
         $this->envelopeModel->delete(['id' => $id_envelope]);
         $this->envelopeinputModel->delete(['id_envelope' => $id_envelope]);
 
-        return redirect()->to('/envelope');
+        return redirect()->to(base_url('/envelope'));
     }
 
     public function download()

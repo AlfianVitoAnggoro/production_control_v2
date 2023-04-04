@@ -304,7 +304,7 @@ class PlateCutting extends BaseController
         $session = \Config\Services::session();
         $status = $session->get('level');
         if ($status !== 1) {
-            return redirect()->to('/platecutting');
+            return redirect()->to(base_url('/platecutting'));
         }
         $plate = $this->plateModel->findAll();
         $team = $this->teamModel->findAll();
@@ -471,7 +471,7 @@ class PlateCutting extends BaseController
             );
             $this->platecuttingModel->updateBatch($data_plateinput, 'id');
         }
-        return redirect()->to('/platecutting');
+        return redirect()->to(base_url('/platecutting'));
     }
 
     public function delete_platecutting()
@@ -480,7 +480,7 @@ class PlateCutting extends BaseController
         $this->platecuttingModel->delete(['id' => $id_platecutting]);
         $this->plateInputModel->delete(['id_platecutting' => $id_platecutting]);
 
-        return redirect()->to('/platecutting');
+        return redirect()->to(base_url('/platecutting'));
     }
 
     public function download()
