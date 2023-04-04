@@ -150,6 +150,15 @@ $routes->group('reject_pasting', ['filter' => 'auth'], function ($routes) {
     $routes->post('add_reject_pasting', 'RejectPasting::save');
 });
 
+//MASTER GRUP GRID
+$routes->group('grup_grid', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'GrupGrid::index');
+    $routes->get('detail_grup_grid/(:num)', 'GrupGrid::edit/$1');
+    $routes->post('detail_grup_grid/edit', 'GrupGrid::update_data_grup_grid');
+    $routes->post('detail_grup_grid/delete', 'GrupGrid::delete_data_grup_grid');
+    $routes->post('add_grup_grid', 'GrupGrid::save');
+});
+
 // $routes->get('/lhp/test', 'Home::test');
 
 /*

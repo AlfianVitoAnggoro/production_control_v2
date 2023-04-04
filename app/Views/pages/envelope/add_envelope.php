@@ -76,13 +76,18 @@
                                         <thead>
                                             <tr>
                                                 <th colspan="4"></th>
-                                                <th colspan="7" class="text-center">Jumlah NG (Pcs)</th>
+                                                <th colspan="4" class="text-center">Jumlah NG (KG)</th>
+                                                <th colspan="4" class="text-center">Jumlah NG (Panel)</th>
                                             </tr>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Tipe Plate</th>
                                                 <th>Hasil Produksi</th>
                                                 <th>Separator</th>
+                                                <th>Melintir/ Bending</th>
+                                                <th>Terpotong</th>
+                                                <th>Rontok</th>
+                                                <th>Tersangkut</th>
                                                 <th>Melintir/ Bending</th>
                                                 <th>Terpotong</th>
                                                 <th>Rontok</th>
@@ -167,7 +172,7 @@
         let tersangkut = $('#tersangkut_' + baris).val() ? parseFloat($('#tersangkut_' + baris).val()) : 0;
         if (melintir_bending !== 0 || terpotong !== 0 || rontok !== 0 || tersangkut !== 0) {
             <?php foreach ($plate as $p) : ?>
-                if ($('#plate_' + baris + '_pos').val() === "<?= trim($p['plate']) ?>") {
+                if ($('#plate_' + baris).val() === "<?= trim($p['plate']) ?>") {
                     melintir_bending = (melintir_bending / <?= $p['berat'] ?>) * (110 / 100);
                     terpotong = (terpotong / <?= $p['berat'] ?>) * (110 / 100);
                     rontok = (rontok / <?= $p['berat'] ?>) * (110 / 100);
@@ -175,10 +180,10 @@
                 }
             <?php endforeach ?>
         }
-        $('#melintir_bending_' + baris).val(Math.ceil(melintir_bending));
-        $('#terpotong_' + baris).val(Math.ceil(terpotong));
-        $('#rontok_' + baris).val(Math.ceil(rontok));
-        $('#tersangkut_' + baris).val(Math.ceil(tersangkut));
+        $('#melintir_bending_panel_' + baris).val(Math.ceil(melintir_bending));
+        $('#terpotong_panel_' + baris).val(Math.ceil(terpotong));
+        $('#rontok_panel_' + baris).val(Math.ceil(rontok));
+        $('#tersangkut_panel_' + baris).val(Math.ceil(tersangkut));
         $('#persentase_reject_akumulatif_' + baris).val((100 * (Math.ceil(melintir_bending) + Math.ceil(terpotong) + Math.ceil(tersangkut) + Math.ceil(rontok)) / $('#hasil_produksi_' + baris).val()).toPrecision(3) + ' %');
     }
 
@@ -241,6 +246,18 @@
                     <input type="text" class="form-control" name="tersangkut[]" id="tersangkut_${baris}" value="<?= trim($envelopeinput[$i]['tersangkut']) ?>" onkeyup="panel(${baris})" style="width: 75px">
                 </td>
                 <td>
+                    <input type="text" class="form-control" name="melintir_bending_panel[]" id="melintir_bending_panel_${baris}" value="<?= trim($envelopeinput[$i]['melintir_bending_panel']) ?>" onkeyup="panel(${baris})" style="width: 75px" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="terpotong_panel[]" id="terpotong_panel_${baris}" value="<?= trim($envelopeinput[$i]['terpotong_panel']) ?>" onkeyup="panel(${baris})" style="width: 75px" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="rontok_panel[]" id="rontok_panel_${baris}" value="<?= trim($envelopeinput[$i]['rontok_panel']) ?>" onkeyup="panel(${baris})" style="width: 75px" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="tersangkut_panel[]" id="tersangkut_panel_${baris}" value="<?= trim($envelopeinput[$i]['tersangkut_panel']) ?>" onkeyup="panel(${baris})" style="width: 75px" readonly>
+                </td>
+                <td>
                     <input type="text" class="form-control" name="persentase_reject_akumulatif[]" id="persentase_reject_akumulatif_${baris}" value="<?= trim($envelopeinput[$i]['persentase_reject_akumulatif']) ?>" style="width: 100px" readonly>
                 </td>
             </tr>
@@ -297,6 +314,18 @@
                 </td>
                 <td>
                     <input type="text" class="form-control" name="tersangkut[]" id="tersangkut_${baris}" value="0" onkeyup="panel(${baris})" style="width: 75px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="melintir_bending_panel[]" id="melintir_bending_panel_${baris}" value="0" onkeyup="panel(${baris})" style="width: 75px" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="terpotong_panel[]" id="terpotong_panel_${baris}" value="0" onkeyup="panel(${baris})" style="width: 75px" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="rontok_panel[]" id="rontok_panel_${baris}" value="0" onkeyup="panel(${baris})" style="width: 75px" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="tersangkut_panel[]" id="tersangkut_panel_${baris}" value="0" onkeyup="panel(${baris})" style="width: 75px" readonly>
                 </td>
                 <td>
                     <input type="text" class="form-control" name="persentase_reject_akumulatif[]" id="persentase_reject_akumulatif_${baris}" value="0 %" style="width: 100px" readonly>

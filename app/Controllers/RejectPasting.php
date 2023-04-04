@@ -23,7 +23,6 @@ class RejectPasting extends BaseController
   {
     $jenis_reject_pasting = $this->request->getPost('jenis_reject_pasting');
     $kategori_reject_pasting = $this->request->getPost('kategori_reject_pasting');
-    $perhitungan = $this->request->getPost('perhitungan');
 
     $data_reject_pasting = [
       'jenis_reject_pasting' => $jenis_reject_pasting,

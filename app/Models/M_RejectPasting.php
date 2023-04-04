@@ -36,20 +36,6 @@ class M_RejectPasting extends Model
     return $query->getResultArray();
   }
 
-  public function get_data_dept_in_charge()
-  {
-    $query = $this->db->query('SELECT DISTINCT dept_in_charge FROM data_reject_pasting');
-
-    return $query->getResultArray();
-  }
-
-  public function get_data_perhitungan()
-  {
-    $query = $this->db->query('SELECT DISTINCT perhitungan FROM data_reject_pasting');
-
-    return $query->getResultArray();
-  }
-
   public function save_data_reject_pasting($data)
   {
     $this->db->table('data_reject_pasting')->insert($data);
