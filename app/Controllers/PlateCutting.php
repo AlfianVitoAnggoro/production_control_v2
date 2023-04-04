@@ -130,7 +130,6 @@ class PlateCutting extends BaseController
         $data_plate_new_neg = [];
         if ($id === NULL) {
             $platecutting = $this->platecuttingModel->findAll();
-            $id_platecutting = count($platecutting) + 1;
             $data_platecutting[] = array(
                 'date' => $date,
                 'line' => $line,
@@ -139,7 +138,8 @@ class PlateCutting extends BaseController
                 'status' => 'pending',
             );
             $this->platecuttingModel->insertBatch($data_platecutting);
-            return redirect()->to(base_url('platecutting/add_platecutting/' . $id_platecutting));
+            $newid = $this->platecuttingModel->insertID();
+            return redirect()->to(base_url('platecutting/add_platecutting/' . $newid));
         } else {
             $data_platecutting[] = array(
                 'id' => $id,

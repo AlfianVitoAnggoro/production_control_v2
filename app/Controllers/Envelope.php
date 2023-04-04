@@ -90,7 +90,6 @@ class Envelope extends BaseController
         $data_old_envelopeinput = [];
         if ($id === NULL) {
             $envelope = $this->envelopeModel->findAll();
-            $id_envelope = count($envelope) + 1;
             $data_envelope[] = array(
                 'date' => $date,
                 'line' => $line,
@@ -99,7 +98,8 @@ class Envelope extends BaseController
                 'status' => 'pending'
             );
             $this->envelopeModel->insertBatch($data_envelope);
-            return redirect()->to(base_url('envelope/add_envelope/' . $id_envelope));
+            $newid = $this->envelopeModel->insertID();
+            return redirect()->to(base_url('envelope/add_envelope/' . $newid));
         } else {
             $data_envelope[] = array(
                 'id' => $id,
