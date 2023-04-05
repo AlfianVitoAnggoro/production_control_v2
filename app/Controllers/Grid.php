@@ -69,6 +69,7 @@ class Grid extends BaseController
         $data['data_type_grid'] = $this->M_Grid->get_data_type_grid();
         $data['data_breakdown'] = $this->M_Grid->get_data_breakdown($id_lhp);
         $data['data_andon'] = $this->M_Grid->get_data_andon_by_id($id_lhp);
+        $data['data_all_rak'] = $this->M_Grid->get_data_rak_by_id($id_lhp);
         $session = \Config\Services::session();
         $data['session'] = $session->get('level');
         return view('pages/grid_casting/detail_lhp_grid', $data);
@@ -200,6 +201,24 @@ class Grid extends BaseController
 
         $this->M_Grid->update_lhp_grid($id_lhp, $data_summary_lhp);
 
+        // $this->M_Grid->delete_data_rak_by_id($id_lhp);
+
+        $barcode = $this->request->getPost('barcode_rak');
+        $qty = $this->request->getPost('qty_rak');
+        $id_rak = $this->request->getPost('id_rak');
+        $id_rak_barcode = $this->request->getPost('id_rak_barcode');
+
+        for ($i=0; $i < count($barcode); $i++) { 
+            $data_rak = [
+                'id_lhp' => $id_lhp,
+                'barcode' => $barcode[$i],
+                'qty' => $qty[$i],
+                'id_rak' => $id_rak[$i]
+            ];
+
+            $this->M_Grid->add_rak($id_rak_barcode[$i], $data_rak);
+        }
+
         return redirect()->to(base_url('grid/detail_lhp/'.$id_lhp));
     }
 
@@ -216,4 +235,41 @@ class Grid extends BaseController
         $this->M_Grid->hapus_lhp($id_lhp);
         return redirect()->to(base_url('grid'));
     }
+
+    public function get_qty_rak()
+    {
+        $barcode = $this->request->getPost('barcode');
+        $query = $this->M_Grid->get_qty_rak($barcode);
+        echo json_encode($query);
+    }
+
+    public function add_rak() {
+        $id_lhp = $this->request->getPost('id_lhp');
+        $id_detail_lhp = $this->request->getPost('id_detail_lhp');
+
+        $barcode = $this->request->getPost('barcode');
+        $id = $this->request->getPost('id');
+        $qty = $this->request->getPost('qty');
+
+        for ($i=0; $i < count($barcode); $i++) { 
+            $data = [
+                'id_lhp_grid' => $id_lhp,
+                'barcode' => $barcode[$i],
+                'qty' => $qty[$i],
+                'id_rak' => $id[$i]
+            ];
+
+            $this->M_Grid->add_rak($id, $data);
+        }
+
+        return redirect()->to(base_url('grid/detail_lhp/'.$id_lhp));
+    }
+
+    public function get_data_rak_by_id()
+    {
+        $id_lhp = $this->request->getPost('id_lhp');
+        $id_detail_lhp = $this->request->getPost('id_detail_lhp');
+    }
+
+    
 }
