@@ -160,6 +160,13 @@ $routes->group('grup_grid', ['filter' => 'auth'], function ($routes) {
     $routes->post('add_grup_grid', 'GrupGrid::save');
 });
 
+// REWORK GRID
+$routes->get('grid_rework/', 'GridRework::dashboard');
+$routes->get('grid_rework/(:any)', 'GridRework::mc/$1');
+$routes->post('grid_rework/save', 'GridRework::save');
+$routes->post('grid_rework/edit', 'GridRework::edit');
+$routes->post('grid_rework/delete', 'GridRework::delete');
+
 // $routes->get('/lhp/test', 'Home::test');
 
 /*
