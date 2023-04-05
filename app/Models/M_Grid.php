@@ -9,6 +9,7 @@ class M_Grid extends Model
     public function __construct()
     {
         $this->db = \Config\Database::connect();
+        $this->db3 = \Config\Database::connect('baan');
         $this->db4 = \Config\Database::connect('prod_control');
     }
     
@@ -165,5 +166,38 @@ class M_Grid extends Model
         $query = $this->db->query('SELECT * FROM detail_grup_mesin WHERE nama_mesin = \''.$type_mesin.'\' AND grup = \''.$grup.'\'');
 
         return $query->getResultArray();
+    }
+
+    function get_qty_rak($barcode) {
+        $query = $this->db3->query('SELECT t$note as barcode, t$actq as qty FROM baan.tcbinh985777 WHERE t$note = \''.$barcode.'\'');
+
+        return $query->getResultArray();
+    }
+
+    function add_rak ($id, $data) {
+
+        $builder = $this->db->table('data_record_rak');
+        // $builder->insert($data);
+
+        if ($id != '') {
+            $builder->where('id', $id);
+            $builder->update($data);
+            return $id;
+        } else {
+            $builder->insert($data);
+            return $this->db->insertID();
+        }
+    }
+
+    function get_data_rak_by_id($id_lhp) {
+        $query = $this->db->query('SELECT * FROM data_record_rak WHERE id_lhp = \''.$id_lhp.'\'');
+
+        return $query->getResultArray();
+    }
+
+    function delete_data_rak_by_id($id_lhp) {
+        $builder = $this->db->table('data_record_rak');
+
+        $builder->delete(['id_lhp' => $id_lhp]);
     }
 }

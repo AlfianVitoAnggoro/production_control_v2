@@ -90,6 +90,7 @@ $routes->group('grid', ['filter' => 'auth'], function ($routes) {
     $routes->post('update_lhp', 'Grid::update_lhp');
     $routes->post('get_data_andon', 'Grid::get_data_andon');
     $routes->get('hapus_lhp/(:num)', 'Grid::hapus_lhp/$1');
+    $routes->post('get_qty_rak', 'Grid::get_qty_rak');
 });
 
 //PLATECUTTING

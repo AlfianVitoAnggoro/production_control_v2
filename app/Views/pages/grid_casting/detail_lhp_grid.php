@@ -86,7 +86,8 @@ $mh = [8, 7.5, 6.5];
 												<th>JKS (Panel)</th>
 												<th>Aktual (Panel)</th>
                                                 <th>Persentase (%)</th>
-                                                <th>Rak</th>
+                                                <!-- <th>Jumlah Rak</th> -->
+                                                <!-- <th>Detail Rak</th> -->
                                                 <th>MH</th>
                                                 <th>Productivity (Panel/MH)</th>
                                                 <!-- <th>Action</th> -->
@@ -140,9 +141,12 @@ $mh = [8, 7.5, 6.5];
                                                             <td>
                                                                 <input type="number" name="persentase[]" id="persentase_<?=$d_mesin['nama_mesin']?>" class="form-control" value="<?=number_format($data_detail_lhp[0]['persentase'])?>" readonly>
                                                             </td>
-                                                            <td>
-                                                                <input type="text" name="rak[]" id="rak_<?=$d_mesin['nama_mesin']?>" class="form-control" value="" style="width: 75px">
-                                                            </td>
+                                                            <!-- <td>
+                                                                <input type="text" name="rak[]" id="jumlah_rak_<?=$d_mesin['nama_mesin']?>" class="form-control" value="" style="width: 75px" readonly>
+                                                            </td> -->
+                                                            <!-- <td>
+                                                                <a href="#" class="btn btn-info btn-sm detail-btn" data-id_lhp="<?=$id_lhp?>" data-id_detail_lhp="<?=$data_detail_lhp[0]['id']?>">Detail</a>
+                                                            </td> -->
                                                             <td>
                                                                 <input type="text" name="mh[]" id="mh_<?=$d_mesin['nama_mesin']?>" class="form-control" value="<?= $data_detail_lhp[0]['mh'] === "" ? $data_detail_lhp[0]['mh'] : $mh[$data_lhp[0]['shift']-1]; ?>" style="width: 50px" readonly>
                                                             </td>
@@ -322,6 +326,72 @@ $mh = [8, 7.5, 6.5];
 					</div>
 				</div>
 
+                <div class="row">
+					<div class="col-xl-12 col-12">
+						<div class="box">
+                            <div class="box-header">
+                                <h4>Detail Rak</h4>
+                                <br>
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                           Barcode  <input type="text" class="form-control" name="start_barcode" id="start_barcode" onchange="get_qty_rak()" class="form-control">
+                                        </td>
+                                        <td>
+                                            Qty <input type="text" class="form-control" name="start_qty" id="start_qty" class="form-control" readonly>
+                                        </td>
+                                        <td>
+                                            QR Code Rak<input type="text" class="form-control" name="start_rak" id="start_rak" class="form-control">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" onclick="add_rak()">Add</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+							<div class="box-body">
+								<div class="table-responsive">
+									<table id="data_line_stop" class="table table-striped mb-0">
+										<thead>
+											<tr>
+												<th>Barcode</th>
+                                                <th>QTY</th>
+                                                <th>ID Rak</th>
+                                                <th>Action</th>
+											</tr>
+										</thead>
+										<tbody id="tbody_data_rak">
+											<?php foreach ($data_all_rak as $d_rak) { ?>
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_<?=$d_rak['id']?>" value="<?=$d_rak['barcode']?>" readonly>
+                                                        <input type="hidden" class="form-control" name="id_rak_barcode[]" id="id_rak_barcode_<?=$d_rak['id']?>" value="<?=$d_rak['id']?>" readonly>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_<?=$d_rak['id']?>" value="<?=$d_rak['qty']?>" readonly>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="id_rak[]" id="id_rak_<?=$d_rak['id']?>" value="<?=$d_rak['id_rak']?>" readonly>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger" onclick="delete__detail_rak(this)">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                                }
+                                            ?>
+										</tbody>
+									</table>
+								</div>
+								
+							</div>
+							<div class="box-footer" style="text-align: center;">
+								<!-- <input type="submit" class="btn btn-success" value="Save"> -->
+							</div>
+						</div>				
+					</div>
+				</div>
+
 				<div class="row">
 					<div class="col-4"></div>
 					<div class="col-4" style="text-align:center;"><input type="submit" class="btn btn-success" value="Save"></div>
@@ -365,6 +435,110 @@ $mh = [8, 7.5, 6.5];
 	  </div>
 	</div>
 	<!-- /.content-wrapper -->
+
+    <!-- Modal -->
+    <div class="modal fade modal_detail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Tambah Rak</h4>
+                    <!-- <button type="button" class="btn btn-primary" onclick="add_detail_rak()"><i class="fa fa-plus"></i></button> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?=base_url()?>grid/add_rak" method="post">
+                    <input type="hidden" name="detail_rak_id_lhp" id="detail_rak_id_lhp">
+                    <input type="hidden" name="detail_rak_id_detail_lhp" id="detail_rak_id_detail_lhp">
+
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Barcode</th>
+                                        <th>Qty</th>
+                                        <th>Rak</th>
+                                        <!-- <th>Action</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_rak">
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" name="barcode[]" id="barcode_1" onchange="get_qty_rak(1)" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="qty[]" id="qty_1" class="form-control" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="id_rak[]" id="id_rak_1" class="form-control">
+                                        </td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak(this)">Delete</button>
+                                        </td> -->
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" name="barcode[]" id="barcode_2" onchange="get_qty_rak(2)" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="qty[]" id="qty_2" class="form-control" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="id_rak[]" id="id_rak_2" class="form-control">
+                                        </td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak(this)">Delete</button>
+                                        </td> -->
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" name="barcode[]" id="barcode_3" onchange="get_qty_rak(3)" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="qty[]" id="qty_3" class="form-control" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="id_rak[]" id="id_rak_3" class="form-control">
+                                        </td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak(this)">Delete</button>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="float: right;">
+                        <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
+                        <input type="submit" class="btn btn-primary float-end" value="Tambah">
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- Modal Scan -->
+    <!-- <div class="modal fade modal_scan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Tambah Rak</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="qr-reader" style="width:500px"></div>
+                    <div id="qr-reader-results"></div>
+                </div>
+            </div>
+        </div>>
+    </div> -->
+    <!-- /.modal -->
+
 <?= $this->endSection(); ?>
 
 <?= $this->section('script'); ?>
@@ -384,6 +558,22 @@ $mh = [8, 7.5, 6.5];
             $('#productivity_'+i).val(productivity.toFixed(0));
         }
     });
+
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.detail-btn').on('click', function() {
+				// Get data attributes from button
+				var id_lhp = $(this).data('id_lhp');
+				var id_detail_lhp = $(this).data('id_detail_lhp');
+
+                // Set data attributes to modal
+                $('#detail_rak_id_lhp').val(id_lhp);
+                $('#detail_rak_id_detail_lhp').val(id_detail_lhp);
+                $('.modal_detail').modal('show');
+        });
+    })
     <?php if($session <= 2) { ?>
         const approvedElement = document.querySelector('#approved');
         approvedElement.removeAttribute('disabled');
@@ -499,6 +689,127 @@ $mh = [8, 7.5, 6.5];
 
     function delete_breakdown(e) {
         $(e).parent().parent().remove();
+    }
+
+    function get_qty_rak() {
+        var barcode = $('#start_barcode').val();
+
+        $.ajax({
+            url: '<?=base_url()?>grid/get_qty_rak',
+            type: 'POST',
+            data: {
+                barcode: barcode
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                $('#start_qty').val(data[0].QTY);
+            }
+        })
+    }
+
+    function add_rak() {
+        var barcode = $('#start_barcode').val();
+        var qty = $('#start_qty').val();
+        var rak = $('#start_rak').val();
+
+
+
+        $('#tbody_data_rak').append(`
+            <tr>
+                <td>
+                    <input type="text" class="form-control" name="barcode_rak[]" id="" class="form-control" value="${barcode}">
+                    <input type="hidden" class="form-control" name="id_rak_barcode[]" id="" class="form-control" value="">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="qty_rak[]" id="" class="form-control" value="${qty}">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="id_rak[]" id="" class="form-control" value="${rak}">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" onclick="delete_detail_rak(this)">Delete</button>
+                </td>
+            </tr>
+        `);
+
+        $('#start_barcode').val('');
+        $('#start_qty').val('');
+        $('#start_rak').val('');
+    }
+
+
+    // function get_qty_rak(i) {
+    //     // var id_lhp = $('#detail_rak_id_lhp').val();
+    //     // var id_detail_lhp = $('#detail_rak_id_detail_lhp').val();
+
+    //     var barcode = $('#barcode_'+i).val();
+
+    //     $.ajax({
+    //         url: '<?=base_url()?>grid/get_qty_rak',
+    //         type: 'POST',
+    //         data: {
+    //             barcode: barcode
+    //         },
+    //         dataType: 'json',
+    //         success: function(data) {
+    //             console.log(data);
+    //             $('#qty_'+i).val(data[0].QTY);
+    //             // if (data.length > 0) {
+    //             //     var html = '';
+    //             //     var no = 1;
+    //             //     for (var i = 0; i < data.length; i++) {
+    //             //         html += `<tr>
+    //             //                     <td>
+    //             //                         <input type="text" class="form-control" name="barcode[]" id="" class="form-control" value="${data[i].barcode}">
+    //             //                     </td>
+    //             //                     <td>
+    //             //                         <input type="text" class="form-control" name="qty[]" id="" class="form-control" value="${data[i].qty}">
+    //             //                     </td>
+    //             //                     <td>
+    //             //                         <input type="text" class="form-control" name="id_rak[]" id="" class="form-control" value="${data[i].id_rak}">
+    //             //                     </td>
+    //             //                     <td>
+    //             //                         <button type="button" class="btn btn-danger" onclick="delete_detail_rak(this)">Delete</button>
+    //             //                     </td>
+    //             //                 </tr>`;
+    //             //         no++;
+    //             //     }
+    //             //     $('#tbody_rak').html(html);
+    //             // } else {
+    //             //     alert('Tidak Ada Rak');
+    //             // }
+    //         }
+    //     })
+    // }
+
+    function add_detail_rak() {
+        $('#tbody_rak').append(`
+            <tr>
+                <td>
+                    <input type="text" class="form-control" name="barcode[]" id="" class="form-control" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="qty[]" id="" class="form-control" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="id_rak[]" id="" class="form-control" readonly>
+                </td>
+                
+            </tr>
+        `);
+
+        // <td>
+        //     <button type="button" class="btn btn-danger" onclick="delete_detail_rak(this)">Delete</button>
+        // </td>
+    }
+
+    function delete_detail_rak(e) {
+        $(e).parent().parent().remove();
+    }
+
+    function scan() {
+        $('.modal_scan').modal('show');
     }
 </script>
 <?= $this->endSection(); ?>
