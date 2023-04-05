@@ -276,6 +276,13 @@ class M_Pasting extends Model
     return $query->getResultArray();
   }
 
+  public function get_grup_grid()
+    {
+        $query = $this->db->query('SELECT DISTINCT nama_grup, kasubsie FROM data_grup_grid');
+
+        return $query->getResultArray();
+    }
+
   public function hapus_pasting($id)
   {
     $this->db->query('DELETE FROM lhp_pasting WHERE id_lhp_pasting = ' . $id);

@@ -76,21 +76,11 @@
                   <!-- <input type="text" class="form-control" name="kasubsie" id="kasubsie" value="<?= $data_lhp_pasting[0]['kasubsie'] ?>"> -->
                   <select class="form-select" id="kasubsie" name="kasubsie">
                     <option selected disabled>-- Pilih Data --</option>
-                    <option value="Yusuf Slamet Pelita" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Yusuf Slamet Pelita") {
+                    <?php foreach($data_grup_grid as $grup) : ?>
+                      <option value="<?= $grup['kasubsie']?>" <?php if ($data_lhp_pasting[0]['kasubsie'] == $grup['kasubsie']) {
                                                           echo "selected";
-                                                        } ?>>Yusuf Slamet Pelita</option>
-                    <option value="Edi Suwito" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Edi Suwito") {
-                                                  echo "selected";
-                                                } ?>>Edi Suwito</option>
-                    <option value="Masruri" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Masruri") {
-                                              echo "selected";
-                                            } ?>>Masruri</option>
-                    <option value="Parwadi" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Parwadi") {
-                                              echo "selected";
-                                            } ?>>Parwadi</option>
-                    <option value="Iim Arwisman" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Iim Arwisman") {
-                                                    echo "selected";
-                                                  } ?>>Iim Arwisman</option>
+                                                        } ?>><?= $grup['kasubsie']?></option>
+                    <?php endforeach; ?>
                   </select>
                 </div>
               </div>
@@ -100,19 +90,15 @@
                 <div class="form-group">
                   <label class="form-label">Grup</label>
                   <!-- <input type="hidden" class="form-control" id="grup" name="grup" value="<?= $data_lhp_pasting[0]['grup'] ?>">
-									<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?= $data_grup[0]['nama_pic'] ?>"> -->
+									<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?= ""//$data_grup[0]['nama_pic'] ?>"> -->
 
-                  <select class="form-select select2" id="grup" name="grup">
+                  <select class="form-select" id="grup" name="grup">
                     <option selected disabled>-- Pilih Data --</option>
-                    <?php
-                    foreach ($data_all_grup as $key => $value) {
-                    ?>
-                      <option value="<?= $value['id_pic'] ?>" <?php if ($value['id_pic'] == $data_lhp_pasting[0]['grup']) {
-                                                                echo "selected";
-                                                              } ?>><?= $value['nama_pic'] ?></option>
-                    <?php
-                    }
-                    ?>
+                    <?php foreach($data_grup_grid as $grup) : ?>
+                      <option value="<?= $grup['nama_grup']?>" <?php if ($data_lhp_pasting[0]['grup'] === $grup['nama_grup']) {
+                                                          echo "selected";
+                                                        } ?>><?= $grup['nama_grup']?></option>
+                    <?php endforeach; ?>
                   </select>
                 </div>
               </div>
@@ -248,7 +234,7 @@
                           ?>
 
                           <td>
-                            <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>" value="<?= $data_detail_lhp[$i]['menit_terpakai'] ?>" onkeyup="update_plan(<?= $i ?>)" style="width: 75px">
+                            <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>" value="<?= $data_detail_lhp[$i]['menit_terpakai'] ?>" onkeyup="update_plan(<?= $i ?>)" style="width: 100px">
                           </td>
                           <!-- <td>
                             <select class="form-control select2" id="no_wo_<?= $i ?>" name="no_wo[]" onchange="getPartNo(<?= $i ?>)" style="width: 200px;">
@@ -307,10 +293,10 @@
                                                                                                                         ?>" style="width: 75px" readonly>
                           </td> -->
                           <td>
-                            <input type="number" class="form-control" name="jks[]" id="jks_<?= $i ?>" value="<?= $data_detail_lhp[$i]['jks'] ?>" style="width: 75px" readonly>
+                            <input type="number" class="form-control" name="jks[]" id="jks_<?= $i ?>" value="<?= $data_detail_lhp[$i]['jks'] ?>" style="width: 100px" readonly>
                           </td>
                           <td>
-                            <input type="number" class="form-control" name="actual[]" id="actual_<?= $i ?>" onkeyup="presentase_actual(<?= $i ?>)" value="<?= $data_detail_lhp[$i]['actual'] ?>" style="width: 75px">
+                            <input type="number" class="form-control" name="actual[]" id="actual_<?= $i ?>" onkeyup="presentase_actual(<?= $i ?>)" value="<?= $data_detail_lhp[$i]['actual'] ?>" style="width: 100px">
                           </td>
                           <!-- <td>
 															<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_<?= $i ?>" value="<?= $data_detail_lhp[$i]['act_vs_jks'] ?>" style="width: 75px" readonly>
@@ -358,7 +344,7 @@
                               </div>
                             </td>
                             <td>
-                              <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>" value="<?= $menit_aktual[$j] ?>" onkeyup="update_plan(<?= $i ?>)" style="width: 75px">
+                              <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>" value="<?= $menit_aktual[$j] ?>" onkeyup="update_plan(<?= $i ?>)" style="width: 100px">
                             </td>
                             <!-- <td>
                               <select class="form-control select2" id="no_wo_<?= $i ?>" name="no_wo[]" onchange="getPartNo(<?= $i ?>)" style="width: 200px;">
@@ -399,10 +385,10 @@
                               <input type="number" class="form-control" name="plan_cap[]" id="plan_cap_<?= $i ?>" style="width: 75px" readonly>
                             </td> -->
                             <td>
-                              <input type="number" class="form-control" name="jks[]" id="jks_<?= $i ?>" style="width: 75px" readonly>
+                              <input type="number" class="form-control" name="jks[]" id="jks_<?= $i ?>" style="width: 100px" readonly>
                             </td>
                             <td>
-                              <input type="number" class="form-control" name="actual[]" id="actual_<?= $i ?>" onkeyup="presentase_actual(<?= $i ?>)" style="width: 75px">
+                              <input type="number" class="form-control" name="actual[]" id="actual_<?= $i ?>" onkeyup="presentase_actual(<?= $i ?>)" style="width: 100px">
                             </td>
                             <!-- <td>
 																<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_<?= $i ?>" style="width: 75px" readonly>
@@ -433,8 +419,8 @@
                         <td colspan="5" class="text-end">
                           <h3>Total</h3>
                         </td>
-                        <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?= $data_lhp_pasting[0]['total_jks'] ?>" style="width: 75px" readonly></td>
-                        <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?= $data_lhp_pasting[0]['total_aktual'] ?>" style="width: 75px" readonly></td>
+                        <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?= $data_lhp_pasting[0]['total_jks'] ?>" style="width: 100px" readonly></td>
+                        <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?= $data_lhp_pasting[0]['total_aktual'] ?>" style="width: 100px" readonly></td>
                         <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?= number_format($data_lhp_pasting[0]['total_act_vs_jks'], 3) ?>" style="width: 75px" readonly></td>
                         <td></td>
                       </tr>

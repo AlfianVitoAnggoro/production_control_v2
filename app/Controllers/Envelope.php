@@ -111,8 +111,20 @@ class Envelope extends BaseController
             );
             $this->envelopeModel->updateBatch($data_envelope, 'id');
             for ($i = 0; $i < ($id_envelopeinput !== NULL ? count($id_envelopeinput) : 0); $i++) {
-                if ($id_envelopeinput[$i] === "") {
-                    if ($plate[$i] !== "") {
+                if ($id_envelopeinput[$i] === "" && $plate[$i] !== "") {
+                    if($line <= 3) {
+                        $data_new_envelopeinput[] = array(
+                            'id_envelope' => $id,
+                            'plate' => $plate[$i],
+                            'hasil_produksi' => $hasil_produksi[$i],
+                            'separator' => $separator[$i] ?? NULL,
+                            'melintir_bending_panel' => $melintir_bending_panel[$i] !== NULL ? $melintir_bending_panel[$i] : 0,
+                            'terpotong_panel' => $terpotong_panel[$i] !== NULL ? $terpotong_panel[$i] : 0,
+                            'rontok_panel' => $rontok_panel[$i] !== NULL ? $rontok_panel[$i] : 0,
+                            'tersangkut_panel' => $tersangkut_panel[$i] !== NULL  ? $tersangkut_panel[$i] : 0,
+                            'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
+                        );
+                    } else {
                         $data_new_envelopeinput[] = array(
                             'id_envelope' => $id,
                             'plate' => $plate[$i],
@@ -131,21 +143,35 @@ class Envelope extends BaseController
                     }
                 } else {
                     $envelopeinputnew[$id_envelopeinput[$i]] = $id_envelopeinput[$i];
-                    $data_old_envelopeinput[] = array(
-                        'id' => $id_envelopeinput[$i],
-                        'plate' => $plate[$i],
-                        'hasil_produksi' => $hasil_produksi[$i],
-                        'separator' => $separator[$i],
-                        'melintir_bending' => $melintir_bending[$i] !== NULL ? $melintir_bending[$i] : 0,
-                        'terpotong' => $terpotong[$i] !== NULL ? $terpotong[$i] : 0,
-                        'rontok' => $rontok[$i] !== NULL ? $rontok[$i] : 0,
-                        'tersangkut' => $tersangkut[$i] !== NULL  ? $tersangkut[$i] : 0,
-                        'melintir_bending_panel' => $melintir_bending_panel[$i] !== NULL ? $melintir_bending_panel[$i] : 0,
-                        'terpotong_panel' => $terpotong_panel[$i] !== NULL ? $terpotong_panel[$i] : 0,
-                        'rontok_panel' => $rontok_panel[$i] !== NULL ? $rontok_panel[$i] : 0,
-                        'tersangkut_panel' => $tersangkut_panel[$i] !== NULL  ? $tersangkut_panel[$i] : 0,
-                        'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
-                    );
+                    if($line <= 3) {
+                        $data_old_envelopeinput[] = array(
+                            'id' => $id_envelopeinput[$i],
+                            'plate' => $plate[$i],
+                            'hasil_produksi' => $hasil_produksi[$i],
+                            'separator' => $separator[$i],
+                            'melintir_bending_panel' => $melintir_bending_panel[$i] !== NULL ? $melintir_bending_panel[$i] : 0,
+                            'terpotong_panel' => $terpotong_panel[$i] !== NULL ? $terpotong_panel[$i] : 0,
+                            'rontok_panel' => $rontok_panel[$i] !== NULL ? $rontok_panel[$i] : 0,
+                            'tersangkut_panel' => $tersangkut_panel[$i] !== NULL  ? $tersangkut_panel[$i] : 0,
+                            'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
+                        );
+                    } else {
+                        $data_old_envelopeinput[] = array(
+                            'id' => $id_envelopeinput[$i],
+                            'plate' => $plate[$i],
+                            'hasil_produksi' => $hasil_produksi[$i],
+                            'separator' => $separator[$i],
+                            'melintir_bending' => $melintir_bending[$i] !== NULL ? $melintir_bending[$i] : 0,
+                            'terpotong' => $terpotong[$i] !== NULL ? $terpotong[$i] : 0,
+                            'rontok' => $rontok[$i] !== NULL ? $rontok[$i] : 0,
+                            'tersangkut' => $tersangkut[$i] !== NULL  ? $tersangkut[$i] : 0,
+                            'melintir_bending_panel' => $melintir_bending_panel[$i] !== NULL ? $melintir_bending_panel[$i] : 0,
+                            'terpotong_panel' => $terpotong_panel[$i] !== NULL ? $terpotong_panel[$i] : 0,
+                            'rontok_panel' => $rontok_panel[$i] !== NULL ? $rontok_panel[$i] : 0,
+                            'tersangkut_panel' => $tersangkut_panel[$i] !== NULL  ? $tersangkut_panel[$i] : 0,
+                            'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
+                        );
+                    }
                 }
             }
             if (count($data_new_envelopeinput) > 0) {
@@ -226,21 +252,31 @@ class Envelope extends BaseController
             $this->envelopeModel->updateBatch($data_envelope, 'id');
             for ($i = 0; $i < ($id !== NULL ? count($id) : 0); $i++) {
                 if ($plate[$i] !== NULL) {
-                    $data_envelopeinput[] = array(
-                        'id' => $id[$i],
-                        'plate' => $plate[$i],
-                        'hasil_produksi' => $hasil_produksi[$i],
-                        'separator' => $separator[$i],
-                        'melintir_bending' => $melintir_bending[$i] !== NULL ? $melintir_bending[$i] : 0,
-                        'terpotong' => $terpotong[$i] !== NULL ? $terpotong[$i] : 0,
-                        'rontok' => $rontok[$i] !== NULL ? $rontok[$i] : 0,
-                        'tersangkut' => $tersangkut[$i] !== NULL  ? $tersangkut[$i] : 0,
-                        'melintir_bending_panel' => $melintir_bending_panel[$i] !== NULL ? $melintir_bending_panel[$i] : 0,
-                        'terpotong_panel' => $terpotong_panel[$i] !== NULL ? $terpotong_panel[$i] : 0,
-                        'rontok_panel' => $rontok_panel[$i] !== NULL ? $rontok_panel[$i] : 0,
-                        'tersangkut_panel' => $tersangkut_panel[$i] !== NULL  ? $tersangkut_panel[$i] : 0,
-                        'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
-                    );
+                    if($line <= 3) {
+                        $data_envelopeinput[] = array(
+                            'id' => $id[$i],
+                            'plate' => $plate[$i],
+                            'hasil_produksi' => $hasil_produksi[$i],
+                            'separator' => $separator[$i],
+                            'melintir_bending_panel' => $melintir_bending_panel[$i] !== NULL ? $melintir_bending_panel[$i] : 0,
+                            'terpotong_panel' => $terpotong_panel[$i] !== NULL ? $terpotong_panel[$i] : 0,
+                            'rontok_panel' => $rontok_panel[$i] !== NULL ? $rontok_panel[$i] : 0,
+                            'tersangkut_panel' => $tersangkut_panel[$i] !== NULL  ? $tersangkut_panel[$i] : 0,
+                            'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
+                        );
+                    } else {
+                        $data_envelopeinput[] = array(
+                            'id' => $id[$i],
+                            'plate' => $plate[$i],
+                            'hasil_produksi' => $hasil_produksi[$i],
+                            'separator' => $separator[$i],
+                            'melintir_bending_panel' => $melintir_bending_panel[$i] !== NULL ? $melintir_bending_panel[$i] : 0,
+                            'terpotong_panel' => $terpotong_panel[$i] !== NULL ? $terpotong_panel[$i] : 0,
+                            'rontok_panel' => $rontok_panel[$i] !== NULL ? $rontok_panel[$i] : 0,
+                            'tersangkut_panel' => $tersangkut_panel[$i] !== NULL  ? $tersangkut_panel[$i] : 0,
+                            'persentase_reject_akumulatif' => $persentase_reject_akumulatif[$i] !== NULL  ? $persentase_reject_akumulatif[$i] : 0,
+                        );
+                    }
                     $this->envelopeinputModel->updateBatch($data_envelopeinput, 'id');
                 }
             }

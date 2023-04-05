@@ -119,11 +119,9 @@
                 <label class="form-label">Kasubsie</label>
                 <select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;">
                   <option selected disabled>-- Pilih Data --</option>
-                  <option value="Yusuf Slamet Pelita">Yusuf Slamet Pelita</option>
-                  <option value="Edi Suwito">Edi Suwito</option>
-                  <option value="Masruri">Masruri</option>
-                  <option value="Parwadi">Parwadi</option>
-                  <option value="Iim Arwisman">Iim Arwisman</option>
+                  <?php foreach($data_grup_grid as $grup) : ?>
+										<option value="<?=$grup['kasubsie']?>"><?=$grup['kasubsie']?></option>
+									<?php endforeach; ?>
                 </select>
               </div>
             </div>
@@ -134,9 +132,9 @@
                 <label class="form-label">Grup</label>
                 <select class="form-control select2" id="grup" name="grup" style="width: 100%;">
                   <option selected disabled>-- Pilih Data --</option>
-                  <?php foreach ($data_grup as $grup) : ?>
-                    <option value="<?= $grup['id_pic'] ?>"><?= $grup['nama_pic'] ?></option>
-                  <?php endforeach; ?>
+                  <?php foreach($data_grup_grid as $grup) : ?>
+										<option value="<?=$grup['nama_grup']?>"><?=$grup['nama_grup']?></option>
+									<?php endforeach; ?>
                 </select>
               </div>
             </div>

@@ -22,6 +22,7 @@ class Pasting extends BaseController
     $data['data_pasting'] = $model->get_all_lhp_pasting();
     $data['data_mesin_pasting'] = $model->get_mesin_pasting();
     $data['data_grup'] = $model->get_grup();
+    $data['data_grup_grid'] = $model->get_grup_grid();
     return view('pages/pasting/pasting_view', $data);
   }
 
@@ -43,7 +44,7 @@ class Pasting extends BaseController
 
     $model = new M_Pasting();
     $data_mesin_pasting = $model->get_data_mesin_pasting($mesin_pasting);
-    $data_grup = $model->get_data_grup_pic($grup);
+    // $data_grup = $model->get_data_grup_pic($grup);
 
     $data = [
       'tanggal_produksi' => $tanggal_produksi,
@@ -51,7 +52,7 @@ class Pasting extends BaseController
       'mesin_pasting' => $data_mesin_pasting[0]['nama_mesin_pasting'],
       'shift' => $shift,
       'id_pic' => $grup,
-      'grup' => $data_grup[0]['nama_pic'],
+      // 'grup' => $data_grup[0]['nama_pic'],
       'mp' => $mp,
       'absen' => $absen,
       'cuti' => $cuti,
@@ -251,9 +252,10 @@ class Pasting extends BaseController
     $data['data_detail_breakdown'] = $model->get_detail_breakdown_by_id($id);
     $data['data_detail_reject'] = $model->get_detail_reject_by_id($id);
     $data['data_type_grid'] = $model->get_data_type_grid();
+    $data['data_grup_grid'] = $model->get_grup_grid();
 
     $data['data_mesin_pasting'] = $model->get_data_mesin_pasting($data['data_lhp_pasting'][0]['mesin_pasting']);
-    $data['data_grup'] = $model->get_data_grup_pic($data['data_lhp_pasting'][0]['grup']);
+    // $data['data_grup'] = $model->get_data_grup_pic($data['data_lhp_pasting'][0]['grup']);
 
     $data['data_all_machine'] = $model->get_mesin_pasting();
     $data['data_all_grup'] = $model->get_grup();

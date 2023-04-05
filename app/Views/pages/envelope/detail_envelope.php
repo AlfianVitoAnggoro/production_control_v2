@@ -121,6 +121,14 @@
         $('#persentase_reject_akumulatif_' + baris).val((100 * (Math.ceil(melintir_bending) + Math.ceil(terpotong) + Math.ceil(tersangkut) + Math.ceil(rontok)) / $('#hasil_produksi_' + baris).val()).toPrecision(3) + ' %');
     }
 
+    function persentase(baris) {
+        let melintir_bending_panel = parseInt($('#melintir_bending_panel_' + baris).val());
+        let terpotong_panel = parseInt($('#terpotong_panel_' + baris).val());
+        let rontok_panel = parseInt($('#rontok_panel_' + baris).val());
+        let tersangkut_panel = parseInt($('#tersangkut_panel_' + baris).val());
+        $('#persentase_reject_akumulatif_' + baris).val((100 * (melintir_bending_panel + terpotong_panel + rontok_panel + tersangkut_panel) / $('#hasil_produksi_' + baris).val()).toPrecision(3) + ' %');
+    }
+
     function add_envelope() {
         let baris = 0;
         let line = document.querySelector('#line_0').value;
@@ -137,6 +145,94 @@
                     <th>Tipe Plate</th>
                     <th>Hasil Produksi</th>
                     <th>Separator</th>
+                    <th>Melintir/ Bending</th>
+                    <th>Terpotong</th>
+                    <th>Rontok</th>
+                    <th>Tersangkut</th>
+                    <th>% Akumulatif</th>
+                </tr>
+            `);
+            <?php for ($i = 0; $i < count($envelopeinput); $i++) { ?>
+                baris = document.querySelectorAll('.form').length;
+                $('.form_envelope').append(`
+                <tr class="form" id="form_${baris}">
+                    <input type="hidden" name="id[]" value="<?= $envelopeinput[$i]['id']; ?>">
+                    <td>${baris + 1}</td>
+                    <td>
+                        <select class="form-control select2" id="plate_${baris}" onchange="panel(${baris})" name="plate[]" style="width: 200px;" required disabled>
+                            <option value="" disabled>-- Pilih Plate --</option>
+                            <?php
+                            $plate_pos = array_filter($plate, function ($p) {
+                                return strpos($p['plate'], 'POS') !== false;
+                            });
+                            foreach ($plate_pos as $plt) {
+                            ?>
+                                <?php if (trim($envelopeinput[$i]['plate']) === trim($plt['plate'])) : ?>
+                                    <option value="<?= trim($envelopeinput[$i]['plate']) ?>" selected><?= trim($envelopeinput[$i]['plate']) ?></option>
+                                <?php else : ?>
+                                    <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
+                                <?php endif ?>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="hasil_produksi[]" id="hasil_produksi_${baris}" onkeyup="panel(${baris})" value="<?= trim($envelopeinput[$i]['hasil_produksi']) ?>" style="width: 100px" required readonly>
+                    </td>
+                    <td>
+                        <select class="form-control select2" id="separator_${baris}" onchange="panel(${baris})" name="separator[]" style="width: 200px;" required disabled>
+                            <option value="" disabled>-- Pilih Separator --</option>
+                            <?php
+                            foreach ($separator as $spr) {
+                            ?>
+                                <?php if ($envelopeinput[$i]['separator'] === $spr['separator']) : ?>
+                                    <option value="<?= trim($envelopeinput[$i]['separator']) ?>" selected><?= trim($envelopeinput[$i]['separator']) ?></option>
+                                <?php else : ?>
+                                    <option value="<?= trim($spr['separator']) ?>"><?= trim($spr['separator']) ?></option>
+                                <?php endif ?>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="melintir_bending_panel[]" id="melintir_bending_panel_${baris}" value="<?= trim($envelopeinput[$i]['melintir_bending_panel']) ?>" style="width: 75px" onkeyup="persentase(${baris})" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="terpotong_panel[]" id="terpotong_panel_${baris}" value="<?= trim($envelopeinput[$i]['terpotong_panel']) ?>" style="width: 75px" onkeyup="persentase(${baris})" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="rontok_panel[]" id="rontok_panel_${baris}" value="<?= trim($envelopeinput[$i]['rontok_panel']) ?>" style="width: 75px" onkeyup="persentase(${baris})" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="tersangkut_panel[]" id="tersangkut_panel_${baris}" value="<?= trim($envelopeinput[$i]['tersangkut_panel']) ?>" onkeyup="persentase(${baris})" style="width: 75px" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="persentase_reject_akumulatif[]" id="persentase_reject_akumulatif_${baris}" value="<?= trim($envelopeinput[$i]['persentase_reject_akumulatif']) ?>" style="width: 100px" readonly>
+                    </td>
+                </tr>
+            `);
+                $('.select2').select2();
+            <?php } ?>
+        } else {
+            document.querySelector('.header_envelope').innerHTML = '';
+            $('.header_envelope').append(`
+                <tr>
+                    <th colspan="4"></th>
+                    <th colspan="4" class="text-center">Jumlah NG (Kg)</th>
+                    <th colspan="4" class="text-center">Jumlah NG (Panel)</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>No</th>
+                    <th>Tipe Plate</th>
+                    <th>Hasil Produksi</th>
+                    <th>Separator</th>
+                    <th>Melintir/ Bending</th>
+                    <th>Terpotong</th>
+                    <th>Rontok</th>
+                    <th>Tersangkut</th>
                     <th>Melintir/ Bending</th>
                     <th>Terpotong</th>
                     <th>Rontok</th>
@@ -219,112 +315,37 @@
             `);
                 $('.select2').select2();
             <?php } ?>
-        } else {
-            document.querySelector('.header_envelope').innerHTML = '';
-            $('.header_envelope').append(`
-                <tr>
-                    <th colspan="4"></th>
-                    <th colspan="4" class="text-center">Jumlah NG (Kg)</th>
-                    <th colspan="4" class="text-center">Jumlah NG (Panel)</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th>No</th>
-                    <th>Tipe Plate</th>
-                    <th>Hasil Produksi</th>
-                    <th>Separator</th>
-                    <th>Melintir/ Bending</th>
-                    <th>Terpotong</th>
-                    <th>Rontok</th>
-                    <th>Tersangkut</th>
-                    <th>Melintir/ Bending</th>
-                    <th>Terpotong</th>
-                    <th>Rontok</th>
-                    <th>Tersangkut</th>
-                    <th>% Akumulatif</th>
-                </tr>
-            `);
-            <?php for ($i = 0; $i < count($envelopeinput); $i++) { ?>
-                baris = document.querySelectorAll('.form').length;
-                $('.form_envelope').append(`
-                <tr class="form" id="form_${baris}">
-                    <input type="hidden" name="id[]" value="<?= $envelopeinput[$i]['id']; ?>">
-                    <td>${baris + 1}</td>
-                    <td>
-                        <select class="form-control select2" id="plate_${baris}" onchange="panel(${baris})" name="plate[]" style="width: 200px;" required disabled>
-                            <option value="" disabled>-- Pilih Plate --</option>
-                            <?php
-                            $plate_pos = array_filter($plate, function ($p) {
-                                return strpos($p['plate'], 'POS') !== false;
-                            });
-                            foreach ($plate_pos as $plt) {
-                            ?>
-                                <?php if (trim($envelopeinput[$i]['plate']) === trim($plt['plate'])) : ?>
-                                    <option value="<?= trim($envelopeinput[$i]['plate']) ?>" selected><?= trim($envelopeinput[$i]['plate']) ?></option>
-                                <?php else : ?>
-                                    <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
-                                <?php endif ?>
-                            <?php
-                            }
-                            ?>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="hasil_produksi[]" id="hasil_produksi_${baris}" onkeyup="panel(${baris})" value="<?= trim($envelopeinput[$i]['hasil_produksi']) ?>" style="width: 100px" required readonly>
-                    </td>
-                    <td>
-                        <select class="form-control select2" id="separator_${baris}" onchange="panel(${baris})" name="separator[]" style="width: 200px;" required disabled>
-                            <option value="" disabled>-- Pilih Separator --</option>
-                            <?php
-                            foreach ($separator as $spr) {
-                            ?>
-                                <?php if ($envelopeinput[$i]['separator'] === $spr['separator']) : ?>
-                                    <option value="<?= trim($envelopeinput[$i]['separator']) ?>" selected><?= trim($envelopeinput[$i]['separator']) ?></option>
-                                <?php else : ?>
-                                    <option value="<?= trim($spr['separator']) ?>"><?= trim($spr['separator']) ?></option>
-                                <?php endif ?>
-                            <?php
-                            }
-                            ?>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="melintir_bending_panel[]" id="melintir_bending_panel_${baris}" value="<?= trim($envelopeinput[$i]['melintir_bending_panel']) ?>" style="width: 75px" readonly>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="terpotong_panel[]" id="terpotong_panel_${baris}" value="<?= trim($envelopeinput[$i]['terpotong_panel']) ?>" style="width: 75px" readonly>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="rontok_panel[]" id="rontok_panel_${baris}" value="<?= trim($envelopeinput[$i]['rontok_panel']) ?>" style="width: 75px" readonly>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="tersangkut_panel[]" id="tersangkut_panel_${baris}" value="<?= trim($envelopeinput[$i]['tersangkut_panel']) ?>" style="width: 75px" readonly>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="persentase_reject_akumulatif[]" id="persentase_reject_akumulatif_${baris}" value="<?= trim($envelopeinput[$i]['persentase_reject_akumulatif']) ?>" style="width: 100px" readonly>
-                    </td>
-                </tr>
-            `);
-                $('.select2').select2();
-            <?php } ?>
         }
     }
     add_envelope();
 
     function edit_button() {
         const baris = document.querySelectorAll('.form').length;
+        let line = $('#line_0').val();
         $('#date_0').removeAttr('readonly');
         $('#line_0').removeAttr('disabled');
         $('#shift_0').removeAttr('disabled');
         $('#team_0').removeAttr('disabled');
-        for (let i = 0; i < baris; i++) {
-            $('#plate_' + i).removeAttr('disabled');
-            $('#hasil_produksi_' + i).removeAttr('readonly');
-            $('#separator_' + i).removeAttr('disabled');
-            $('#melintir_bending_' + i).removeAttr('readonly');
-            $('#terpotong_' + i).removeAttr('readonly');
-            $('#rontok_' + i).removeAttr('readonly');
-            $('#tersangkut_' + i).removeAttr('readonly');
+        if(line <= 3) {
+            for (let i = 0; i < baris; i++) {
+                $('#plate_' + i).removeAttr('disabled');
+                $('#hasil_produksi_' + i).removeAttr('readonly');
+                $('#separator_' + i).removeAttr('disabled');
+                $('#melintir_bending_panel_' + i).removeAttr('readonly');
+                $('#terpotong_panel_' + i).removeAttr('readonly');
+                $('#rontok_panel_' + i).removeAttr('readonly');
+                $('#tersangkut_panel_' + i).removeAttr('readonly');
+            }
+        } else {
+            for (let i = 0; i < baris; i++) {
+                $('#plate_' + i).removeAttr('disabled');
+                $('#hasil_produksi_' + i).removeAttr('readonly');
+                $('#separator_' + i).removeAttr('disabled');
+                $('#melintir_bending_' + i).removeAttr('readonly');
+                $('#terpotong_' + i).removeAttr('readonly');
+                $('#rontok_' + i).removeAttr('readonly');
+                $('#tersangkut_' + i).removeAttr('readonly');
+            }
         }
         const buttonElement = document.querySelector('.button');
         buttonElement.innerHTML = '';
