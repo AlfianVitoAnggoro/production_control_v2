@@ -36,6 +36,34 @@ class M_GrupGrid extends Model
     return $query->getResultArray();
   }
 
+  public function get_data_leader()
+  {
+    $query = $this->db->query('SELECT DISTINCT leader FROM data_grup_grid');
+
+    return $query->getResultArray();
+  }
+
+  public function get_data_kasubsie()
+  {
+    $query = $this->db->query('SELECT DISTINCT kasubsie FROM data_grup_grid');
+
+    return $query->getResultArray();
+  }
+
+  public function get_data_supplyman_1()
+  {
+    $query = $this->db->query('SELECT DISTINCT supplyman_1 FROM data_grup_grid');
+
+    return $query->getResultArray();
+  }
+
+  public function get_data_supplyman_2()
+  {
+    $query = $this->db->query('SELECT DISTINCT supplyman_2 FROM data_grup_grid');
+
+    return $query->getResultArray();
+  }
+
   public function save_data_grup_grid($data)
   {
     $this->db->table('data_grup_grid')->insert($data);

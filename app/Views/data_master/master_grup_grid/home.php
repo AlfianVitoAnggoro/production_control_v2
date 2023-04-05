@@ -125,6 +125,50 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label">Kasubsie</label>
+                <div class="kasubsie">
+                  <select name="kasubsie[]" id="kasubsie" class="form-select">
+                    <option value="">Pilih Kasubsie</option>
+                    <?php foreach ($data_kasubsie as $d_kasubsie) { ?>
+                      <option value="<?= $d_kasubsie['kasubsie'] ?>"><?= $d_kasubsie['kasubsie'] ?></option>
+                    <?php } ?>
+                  </select>
+                  <button type="button" class="btn btn-primary p-1 mt-1" onclick="add_kasubsie()">Tambah Data</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label">Supplyman 1</label>
+                <div class="supplyman_1">
+                  <select name="supplyman_1[]" id="supplyman_1" class="form-select">
+                    <option value="">Pilih Supplyman 1</option>
+                    <?php foreach ($data_supplyman_1 as $d_supplyman_1) { ?>
+                      <option value="<?= $d_supplyman_1['supplyman_1'] ?>"><?= $d_supplyman_1['supplyman_1'] ?></option>
+                    <?php } ?>
+                  </select>
+                  <button type="button" class="btn btn-primary p-1 mt-1" onclick="add_supplyman_1()">Tambah Data</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label">Supplyman 2</label>
+                <div class="supplyman_2">
+                  <select name="supplyman_2[]" id="supplyman_2" class="form-select">
+                    <option value="">Pilih Supplyman 2</option>
+                    <?php foreach ($data_supplyman_2 as $d_supplyman_2) { ?>
+                      <option value="<?= $d_supplyman_2['supplyman_2'] ?>"><?= $d_supplyman_2['supplyman_2'] ?></option>
+                    <?php } ?>
+                  </select>
+                  <button type="button" class="btn btn-primary p-1 mt-1" onclick="add_supplyman_2()">Tambah Data</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer" style="float: right;">
           <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->

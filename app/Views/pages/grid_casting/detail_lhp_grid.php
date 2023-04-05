@@ -337,7 +337,7 @@ $mh = [8, 7.5, 6.5];
                             <td>
                                 <div class="form-check text-center p-0">
                                     <?php if ($data_lhp[0]['status'] !== 'approved') { ?>
-                                        <button type="submit" class="btn btn-outline-primary" name="approved" value="approved" onclick="return confirm('Apakah Anda Yakin?')">✔</button>
+                                        <button type="submit" class="btn btn-outline-primary" name="approved" value="approved" onclick="return confirm('Apakah Anda Yakin?')" disabled>✔</button>
                                     <?php } else { ?>
                                         <button class="btn btn-primary" disabled>✔</button>
                                     <?php } ?>
@@ -346,7 +346,7 @@ $mh = [8, 7.5, 6.5];
                             <td>
                                 <div class="form-check text-center p-0">
                                     <?php if ($data_lhp[0]['status'] !== 'completed' && $data_lhp[0]['status'] !== 'approved') { ?>
-                                        <button type="submit" class="btn btn-outline-primary" name="completed" value="approved" onclick="return confirm('Apakah Anda Yakin?')">✔</button>
+                                        <button type="submit" class="btn btn-outline-primary" name="completed" value="approved" onclick="return confirm('Apakah Anda Yakin?')" disabled>✔</button>
                                     <?php } else { ?>
                                         <button class="btn btn-primary" disabled>✔</button>
                                     <?php } ?>
@@ -369,6 +369,21 @@ $mh = [8, 7.5, 6.5];
 
 <?= $this->section('script'); ?>
 <script>
+    $(document).ready(function() {
+        let baris = <?= count($data_mesin) ?>;
+        for(let i = 1; i <= baris; i++) {
+            var jks = $('#jks_'+i).val();
+            var aktual = $('#aktual_'+i).val();
+            var productivity = $('#productivity_'+i).val();
+            var mh = $('#mh_'+i).val();
+
+            var persentase = (aktual/jks)*100;
+            var productivity = (aktual/mh)
+
+            $('#persentase_'+i).val(persentase.toFixed(0));
+            $('#productivity_'+i).val(productivity.toFixed(0));
+        }
+    });
     <?php if($session <= 2) { ?>
         const approvedElement = document.querySelector('#approved');
         approvedElement.removeAttribute('disabled');

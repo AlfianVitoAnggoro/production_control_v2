@@ -108,6 +108,8 @@ class Grid extends BaseController
                     'type_grid' => $this->request->getPost('type_grid')[$i],
                     'jks' => $this->request->getPost('jks')[$i],
                     'actual' => $this->request->getPost('aktual')[$i],
+                    'mh' => $this->request->getPost('mh')[$i],
+                    'productivity' => $this->request->getPost('productivity')[$i],
                     'persentase' => $this->request->getPost('persentase')[$i],
                 ];
                 $save_data = $this->M_Grid->update_lhp($id_detail_lhp_grid, $data);
