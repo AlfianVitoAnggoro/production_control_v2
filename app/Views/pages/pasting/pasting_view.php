@@ -40,7 +40,7 @@
                             <td><?= $pasting['shift'] ?></td>
                             <td><?= $pasting['mesin_pasting'] ?></td>
                             <td><?= $pasting['kasubsie'] ?></td>
-                            <td><?= $pasting['nama_pic'] ?></td>
+                            <td><?= $pasting['grup'] ?></td>
                             <!-- <td><?= $retVal = (!empty($pasting['total_aktual']) && !empty($pasting['total_plan'])) ? number_format((float) ($pasting['total_aktual'] / $pasting['total_plan']) * 100, 2, '.', '') : ''; ?></td> -->
                             <td>
                               <a href="<?= base_url() ?>pasting/detail_pasting/<?= $pasting['id_lhp_pasting'] ?>" class="btn btn-primary btn-sm">Detail</a>

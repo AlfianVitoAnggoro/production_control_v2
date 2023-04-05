@@ -144,7 +144,7 @@ $mh = [8, 7.5, 6.5];
                                                                 <input type="text" name="rak[]" id="rak_<?=$d_mesin['nama_mesin']?>" class="form-control" value="" style="width: 75px">
                                                             </td>
                                                             <td>
-                                                                <input type="text" name="mh[]" id="mh_<?=$d_mesin['nama_mesin']?>" class="form-control" value="<?= $data_detail_lhp[0]['mh'] === "" ? $data_detail_lhp[0]['mh'] : $mh[$data_lhp[0]['shift']-1]; ?>" style="width: 50px" readonly>
+                                                                <input type="text" name="mh[]" id="mh_<?=$d_mesin['nama_mesin']?>" class="form-control" value="<?= $data_detail_lhp[0]['mh'] === "" ? $data_detail_lhp[0]['mh'] : $mh[$data_lhp[0]['shift']-1]; ?>" style="width: 75px" readonly>
                                                             </td>
                                                             <td>
                                                                 <input type="text" name="productivity[]" id="productivity_<?=$d_mesin['nama_mesin']?>" class="form-control" value="<?=$data_detail_lhp[0]['productivity']?>" readonly>
@@ -192,7 +192,7 @@ $mh = [8, 7.5, 6.5];
                                                         <td><input type="text" class="form-control" name="aktual[]" id="aktual_<?=$d_mesin['nama_mesin']?>" onkeyup="count_persentase(<?=$d_mesin['nama_mesin']?>)"></td>
                                                         <td><input type="text" class="form-control" name="persentase[]" id="persentase_<?=$d_mesin['nama_mesin']?>" readonly></td>
                                                         <td><input type="text" class="form-control" name="rak[]" id="rak_<?=$d_mesin['nama_mesin']?>" style="width: 75px"></td>
-                                                        <td><input type="text" class="form-control" name="mh[]" id="mh_<?=$d_mesin['nama_mesin']?>" value="<?= $mh[$data_lhp[0]['shift']-1]; ?>" style="width: 50px" readonly></td>
+                                                        <td><input type="text" class="form-control" name="mh[]" id="mh_<?=$d_mesin['nama_mesin']?>" value="<?= $mh[$data_lhp[0]['shift']-1]; ?>" style="width: 75px" readonly></td>
                                                         <td><input type="text" class="form-control" name="productivity[]" id="productivity_<?=$d_mesin['nama_mesin']?>" readonly></td>
                                                     </tr>
                                             <?php
@@ -203,9 +203,12 @@ $mh = [8, 7.5, 6.5];
                                         <tfoot>
                                             <tr>
                                                 <td colspan="3"><h3>Total</h3></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?=$data_lhp[0]['total_jks']?>" readonly></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=$data_lhp[0]['total_aktual']?>" readonly></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?=str_replace(',', '.', number_format($data_lhp[0]['total_jks']))?>" readonly></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=str_replace(',', '.', number_format($data_lhp[0]['total_aktual']))?>" readonly></td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?= $retVal = (!empty($data_lhp[0]['total_aktual'])) ? number_format(($data_lhp[0]['total_aktual']/$data_lhp[0]['total_jks'])*100) : 0 ;?>" readonly></td>
+                                                <td></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_mh" id="" value="<?= $retVal = (!empty($data_lhp[0]['total_mh'])) ? $data_lhp[0]['total_mh'] : 0 ;?>" style="width: 75px" readonly></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_productivity" id="" value="<?= $retVal = (!empty($data_lhp[0]['total_productivity'])) ? str_replace(',', '.', number_format($data_lhp[0]['total_productivity'])) : 0 ;?>" readonly></td>
                                                 <td></td>
                                             </tr>
                                         </tfoot>

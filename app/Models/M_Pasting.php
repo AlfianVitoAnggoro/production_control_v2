@@ -157,7 +157,7 @@ class M_Pasting extends Model
 
   public function get_all_lhp_pasting()
   {
-    $query = $this->db->query('SELECT * FROM lhp_pasting JOIN master_pic_line ON master_pic_line.id_pic = lhp_pasting.grup');
+    $query = $this->db->query('SELECT * FROM lhp_pasting');
 
     return $query->getResultArray();
   }

@@ -90,6 +90,8 @@ class Grid extends BaseController
         $id_lhp = $this->request->getPost('id_lhp');
         $total_jks = 0;
         $total_actual = 0;
+        $total_mh = 0;
+        $total_productivity = 0;
         $total_andon = 0;
         $total_breakdown = 0;
         
@@ -120,6 +122,8 @@ class Grid extends BaseController
                 
                 if (!empty($this->request->getPost('aktual')[$i])) {
                     $total_actual += $this->request->getPost('aktual')[$i];
+                    $total_mh = $this->request->getPost('mh')[$i] * 24;
+                    $total_productivity += $this->request->getPost('productivity')[$i];
                 }
             }
         }
@@ -189,6 +193,8 @@ class Grid extends BaseController
             'total_aktual' => $total_actual,
             'total_breakdown' => $total_breakdown,
             'total_andon' => $total_andon,
+            'total_mh' => $total_mh,
+            'total_productivity' => $total_productivity,
             'status' => $status
         ];
 
