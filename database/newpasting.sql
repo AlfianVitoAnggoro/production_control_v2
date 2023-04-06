@@ -38,6 +38,33 @@ CREATE TABLE [dbo].[detail_breakdown_lhp_pasting](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+/* MENAMBAHKAN KOLOM BARU PADA TABEL ENVELOPE INPUT, KOLOM MELINTIR BENDING PANEL, TERPOTONG PANEL, RONTOK PANEL, DAN TERSANGKUT PANEL */
+/****** Object:  Table [dbo].[envelopeinput]    Script Date: 06/04/2023 13:03:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[envelopeinput](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[id_envelope] [int] NOT NULL,
+	[plate] [varchar](50) NULL,
+	[hasil_produksi] [int] NULL,
+	[separator] [varchar](50) NULL,
+	[melintir_bending] [float] NULL,
+	[terpotong] [float] NULL,
+	[rontok] [float] NULL,
+	[tersangkut] [float] NULL,
+	[melintir_bending_panel] [float] NULL,
+	[terpotong_panel] [float] NULL,
+	[rontok_panel] [float] NULL,
+	[tersangkut_panel] [float] NULL,
+	[persentase_reject_akumulatif] [varchar](50) NULL,
+ CONSTRAINT [PK_envelopeinputnew_1] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 /* MENAMBAHKAN TABEL BARU, TABEL MASTER LINE STOP PASTING CASTING */
 /****** Object:  Table [dbo].[master_line_stop_pasting_casting]    Script Date: 06/04/2023 13:03:38 ******/
 SET ANSI_NULLS ON

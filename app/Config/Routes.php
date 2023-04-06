@@ -167,6 +167,17 @@ $routes->post('grid_rework/save', 'GridRework::save');
 $routes->post('grid_rework/edit', 'GridRework::edit');
 $routes->post('grid_rework/delete', 'GridRework::delete');
 
+//SAW REPAIR
+$routes->group('saw_repair', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'SawRepair::saw_repair_view');
+    $routes->get('add_saw_repair/(:segment)', 'SawRepair::add_saw_repair/$1');
+    $routes->post('save', 'SawRepair::save');
+    $routes->get('detail_saw_repair/(:segment)', 'SawRepair::detail_saw_repair/$1');
+    $routes->post('detail_saw_repair/edit', 'SawRepair::edit');
+    $routes->post('detail_saw_repair/delete', 'SawRepair::delete_saw_repair');
+    $routes->get('download', 'SawRepair::download');
+});
+
 // $routes->get('/lhp/test', 'Home::test');
 
 /*
