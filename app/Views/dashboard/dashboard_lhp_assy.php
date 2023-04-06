@@ -406,11 +406,16 @@
 
     Highcharts.chart('container', {
         chart: {
-            type: '<?=$type_chart?>'
+            type: 'column'
+            // type: '<?=$type_chart?>'
         },
         title: {
-            text: 'Efficiency Per Line',
+            text: 'Efficiency',
             align: 'center'
+        },
+
+        subtitle: {
+            text: 'Source: Laporan Harian Produksi'
         },
 
         yAxis: {
