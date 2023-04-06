@@ -4,7 +4,7 @@
 <!-- Content Wrapper. Contains page content -->
 <?php
 // var_dump($data_detail_breakdown);die;
-
+$shift
 ?>
 <div class="content-wrapper">
   <div class="container-full">
@@ -39,7 +39,7 @@
                     ?>
                       <option value="<?= $value['id_mesin_pasting'] ?>" <?php if ($value['id_mesin_pasting'] == $data_lhp_pasting[0]['mesin_pasting']) {
                                                                           echo "selected";
-                                                                        } ?>><?= $value['nama_mesin_pasting'] ?></option>
+                                                                        } ?>>Mesin <?= $value['nama_mesin_pasting'] ?></option>
                     <?php
                     }
                     ?>
@@ -76,11 +76,12 @@
                   <!-- <input type="text" class="form-control" name="kasubsie" id="kasubsie" value="<?= $data_lhp_pasting[0]['kasubsie'] ?>"> -->
                   <select class="form-select" id="kasubsie" name="kasubsie">
                     <option selected disabled>-- Pilih Data --</option>
-                    <?php foreach($data_grup_grid as $grup) : ?>
-                      <option value="<?= $grup['kasubsie']?>" <?php if ($data_lhp_pasting[0]['kasubsie'] == $grup['kasubsie']) {
+                      <option value="<?= "Yanto A"?>" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Yanto A") {
                                                           echo "selected";
-                                                        } ?>><?= $grup['kasubsie']?></option>
-                    <?php endforeach; ?>
+                                                        } ?>><?= "Yanto A"?></option>
+                      <option value="<?= "Ade Suryana"?>" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Ade Suryana") {
+                                                          echo "selected";
+                                                        } ?>><?= "Ade Suryana"?></option>
                   </select>
                 </div>
               </div>
@@ -94,7 +95,7 @@
 
                   <select class="form-select" id="grup" name="grup">
                     <option selected disabled>-- Pilih Data --</option>
-                    <?php foreach($data_grup_grid as $grup) : ?>
+                    <?php foreach($data_grup_pasting as $grup) : ?>
                       <option value="<?= $grup['nama_grup']?>" <?php if ($data_lhp_pasting[0]['grup'] === $grup['nama_grup']) {
                                                           echo "selected";
                                                         } ?>><?= $grup['nama_grup']?></option>
@@ -469,11 +470,12 @@
                       <tr>
                         <th>Jam Start</th>
                         <th>Jam Stop</th>
-                        <th>No WO</th>
-                        <th>Type Battery</th>
-                        <th>Line Stop Jenis</th>
-                        <th>Line Stop Proses</th>
-                        <th>Line Stop Uraian</th>
+                        <!-- <th>No WO</th>
+                        <th>Type Battery</th> -->
+                        <th>Type</th>
+                        <th>Kategori Line Stop</th>
+                        <th>Jenis Line Stop</th>
+                        <th>Uraian Line Stop</th>
                         <th>Line Stop Minute</th>
                         <th>Line Stop Action</th>
                       </tr>
@@ -490,51 +492,73 @@
                           <td>
                             <input type="time" class="form-control" name="stop_breakdown[]" id="stop_breakdown_<?= $index_breakdown ?>" value="<?= date("H:i", strtotime($d_detail_breakdown['jam_end'])) ?>" style="width: 100px;">
                           </td>
+                          <!-- <td>
+                            <input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_<?= $index_breakdown ?>" value="<?= ""//$d_detail_breakdown['no_wo'] ?>" style="width: 125px">
+                          </td> -->
                           <td>
-                            <input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_<?= $index_breakdown ?>" value="<?= $d_detail_breakdown['no_wo'] ?>" style="width: 125px">
                             <input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_<?= $index_breakdown ?>" value="<?= $d_detail_breakdown['id_breakdown'] ?>" style="width: 250px">
+                            <input type="text" class="form-control" name="type_grid_line_stop[]" id="type_grid_line_stop_<?= $index_breakdown ?>" value="<?= $d_detail_breakdown['type_grid'] ?>" style="width: 225px" readonly>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_<?= $index_breakdown ?>" value="<?= $d_detail_breakdown['type_grid'] ?>" style="width: 225px">
-                          </td>
-                          <td>
-                            <select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_<?= $index_breakdown ?>" onchange="get_proses_breakdown(<?= $index_breakdown ?>)" style="width: 200px">
-                              <option value="">Pilih Jenis Line Stop</option>
+                            <select class="form-control select2" name="kategori_line_stop[]" id="kategori_line_stop_<?= $index_breakdown ?>" onchange="get_jenis_line_stop(<?= $index_breakdown ?>)" style="width: 200px">
+                              <option value="">Pilih Kategori Line Stop</option>
                               <?php
-                              foreach ($data_breakdown as $d_jenis_breakdown) { ?>
-                                <option value="<?= $d_jenis_breakdown['jenis_breakdown'] ?>" <?php if ($d_jenis_breakdown['jenis_breakdown'] == $d_detail_breakdown['jenis_breakdown']) {
-                                                                                                echo "selected";
-                                                                                              } ?>><?= $d_jenis_breakdown['jenis_breakdown'] ?></option>
-                              <?php
+                              if($data_lhp_pasting[0]['mesin_pasting'] <= 3) {
+                                foreach ($data_line_stop_casting as $d_kategori_line_stop) { ?>
+                                  <option value="<?= $d_kategori_line_stop['kategori_line_stop'] ?>" <?php if ($d_kategori_line_stop['kategori_line_stop'] == $d_detail_breakdown['kategori_line_stop']) {
+                                                                                                  echo "selected";
+                                                                                                } ?>><?= $d_kategori_line_stop['kategori_line_stop'] ?></option>
+                                <?php
+                                }
+                              } else {
+                                foreach ($data_line_stop_punching as $d_kategori_line_stop) { ?>
+                                  <option value="<?= $d_kategori_line_stop['kategori_line_stop'] ?>" <?php if ($d_kategori_line_stop['kategori_line_stop'] == $d_detail_breakdown['kategori_line_stop']) {
+                                                                                                  echo "selected";
+                                                                                                } ?>><?= $d_kategori_line_stop['kategori_line_stop'] ?></option>
+                                <?php
+                              }
                               }
                               ?>
                             </select>
                           </td>
                           <td>
-                            <select class="form-control select2" id="proses_breakdown_<?= $index_breakdown ?>" name="proses_breakdown[]" style="width: 250px;">
-                              <option selected disabled>-- Pilih Proses Line Stop --</option>
+                            <select class="form-control select2" id="jenis_line_stop_<?= $index_breakdown ?>" name="jenis_line_stop[]" style="width: 200px;">
+                              <option selected disabled>-- Pilih Jenis Line Stop --</option>
                               <?php
-                              $data_proses_breakdown = $model->getProsesBreakdown($d_detail_breakdown['jenis_breakdown']);
-                              $andon_proses = true;
-                              foreach ($data_proses_breakdown as $d_proses_breakdown) {
-                                $selected = ($d_proses_breakdown['proses_breakdown'] == $d_detail_breakdown['proses_breakdown']) ? 'selected' : '';
-                                if ($selected != '') {
-                                  $andon_proses = false;
+                              if($data_lhp_pasting[0]['mesin_pasting'] <= 3) {
+                                $data_jenis_line_stop = $model->getListJenisLineStopCasting($d_detail_breakdown['kategori_line_stop']);
+                                $andon_proses = true;
+                                foreach ($data_jenis_line_stop as $d_jenis_line_stop) {
+                                  $selected = ($d_jenis_line_stop['jenis_line_stop'] == $d_detail_breakdown['jenis_line_stop']) ? 'selected' : '';
+                                  if ($selected != '') {
+                                    $andon_proses = false;
+                                  }
+                                ?>
+                                  <option value="<?= $d_jenis_line_stop['jenis_line_stop'] ?>" <?= $selected ?>><?= $d_jenis_line_stop['jenis_line_stop'] ?></option>
+                                  <?php
                                 }
-                              ?>
-                                <option value="<?= $d_proses_breakdown['proses_breakdown'] ?>" <?= $selected ?>><?= $d_proses_breakdown['proses_breakdown'] ?></option>
-                              <?php
+                              } else {
+                                $data_jenis_line_stop = $model->getListJenisLineStopPunching($d_detail_breakdown['kategori_line_stop']);
+                                foreach ($data_jenis_line_stop as $d_jenis_line_stop) {
+                                  $selected = ($d_jenis_line_stop['jenis_line_stop'] == $d_detail_breakdown['jenis_line_stop']) ? 'selected' : '';
+                                  if ($selected != '') {
+                                    $andon_proses = false;
+                                  }
+                                ?>
+                                  <option value="<?= $d_jenis_line_stop['jenis_line_stop'] ?>" <?= $selected ?>><?= $d_jenis_line_stop['jenis_line_stop'] ?></option>
+                                <?php
+                                }
                               }
 
                               if ($andon_proses) { ?>
-                                <option value="<?= $d_detail_breakdown['proses_breakdown'] ?>" selected><?= $d_detail_breakdown['proses_breakdown'] ?></option>
+                                <option value="<?= $d_detail_breakdown['jenis_line_stop'] ?>" selected><?= $d_detail_breakdown['jenis_line_stop'] ?></option>
                               <?php
                               }
                               ?>
                             </select>
                           </td>
                           <td>
-                            <textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_<?= $index_breakdown ?>" cols="20" rows="1" style="width: 200px;"><?= $d_detail_breakdown['uraian_breakdown'] ?></textarea>
+                            <textarea class="form-control" name="uraian_line_stop[]" id="uraian_line_stop_<?= $index_breakdown ?>" cols="20" rows="1" style="width: 200px;"><?= $d_detail_breakdown['uraian_line_stop'] ?></textarea>
                           </td>
                           <td>
                             <input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_<?= $index_breakdown ?>" value="<?= $d_detail_breakdown['menit_breakdown'] ?>" style="width: 75px">
@@ -599,7 +623,7 @@
                           </td>
                           <td>
                             <select class="form-control select2" name="jenis_reject_pasting[]" id="jenis_reject_pasting_<?= $index_reject ?>" onchange="get_kategori_reject(<?= $index_reject ?>)" style="width: 200px">
-                              <option value="">Pilih Jenis Reject</option>
+                              <option value="">Pilih Kategori Reject</option>
                               <?php
                               foreach ($data_reject_pasting as $d_jenis_reject) { ?>
                                 <option value="<?= $d_jenis_reject['jenis_reject_pasting'] ?>" <?php if ($d_jenis_reject['jenis_reject_pasting'] == $d_detail_reject['jenis_reject_pasting']) {
@@ -612,7 +636,7 @@
                           </td>
                           <td>
                             <select class="form-control select2" id="kategori_reject_pasting_<?= $index_reject ?>" name="kategori_reject_pasting[]" style="width: 250px;">
-                              <option selected disabled>-- Pilih Kategori Reject --</option>
+                              <option selected disabled>-- Pilih Jenis Reject --</option>
                               <?php
                               $data_kategori_reject = $model->getKategoriReject($d_detail_reject['jenis_reject_pasting']);
                               foreach ($data_kategori_reject as $d_kategori_reject) { ?>
@@ -795,12 +819,18 @@
   // }
 
   function add_breakdown(i) {
-    var data_breakdown = <?= json_encode($data_breakdown); ?>;
+    var mesin_pasting = $('#mesin_pasting').val();
+    let data_line_stop;
+    if(mesin_pasting <= 3) {
+      data_line_stop = <?= json_encode($data_line_stop_casting); ?>;
+    } else {
+      data_line_stop = <?= json_encode($data_line_stop_punching); ?>;
+    }
 
     var start_breakdown = $('#start_' + i).val();
     var stop_breakdown = $('#stop_' + i).val();
-    var no_wo_breakdown = $('#no_wo_' + i).val();
-    var part_number_breakdown = $('#part_number_' + i).val();
+    var type_grid = $('#type_grid_' + i).val();
+    // var no_wo_breakdown = $('#no_wo_' + i).val();
 
 
     var tbody = document.getElementById('tbody_line_stop');
@@ -816,28 +846,25 @@
 				<td>
 					<input type="time" class="form-control" name="stop_breakdown[]" id="stop_breakdown_${j}" value="${stop_breakdown}" style="width: 100px;">
 				</td>
+        <td>
+          <input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_${j}" value="" style="width: 250px">
+          <input type="text" class="form-control" name="type_grid_line_stop[]" id="type_grid_line_stop_${j}" value="${type_grid}" style="width: 225px" readonly>
+        </td>
 				<td>
-					<input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_${j}" value="${no_wo_breakdown}" style="width: 125px" readonly>
-					<input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_${j}" value="" style="width: 100px">
-				</td>
-				<td>
-					<input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_${j}" value="${part_number_breakdown}" style="width: 225px" readonly>
-				</td>
-				<td>
-					<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_${j}" onchange="get_proses_breakdown(${j})" style="width: 200px">
-						<option value="">Pilih Jenis Line Stop</option>
-						${data_breakdown.map((item) => {
-							return `<option value="${item.jenis_breakdown}">${item.jenis_breakdown}</option>`;
+					<select class="form-control select2" name="kategori_line_stop[]" id="kategori_line_stop_${j}" onchange="get_jenis_line_stop(${j})" style="width: 200px">
+						<option value="">Pilih Kategori Line Stop</option>
+						${data_line_stop.map((item) => {
+							return `<option value="${item.kategori_line_stop}">${item.kategori_line_stop}</option>`;
 						}).join('')}
 					</select>
 				</td>
 				<td>
-					<select class="form-control select2" id="proses_breakdown_${j}" name="proses_breakdown[]" style="width: 200px;">
-						<option selected disabled>-- Pilih Proses Line Stop --</option>
+					<select class="form-control select2" id="jenis_line_stop_${j}" name="jenis_line_stop[]" style="width: 200px;">
+						<option selected disabled>-- Pilih Jenis Line Stop --</option>
 					</select>
 				</td>
 				<td>
-					<textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_${j}" cols="20" rows="1" style="width: 200px;"></textarea>
+					<textarea class="form-control" name="uraian_line_stop[]" id="uraian_line_stop_${j}" cols="20" rows="1" style="width: 200px;"></textarea>
 				</td>
 				<td>
 					<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" style="width: 75px">
@@ -880,7 +907,7 @@
 				</td>
 				<td>
 					<select class="form-control select2" id="jenis_reject_pasting_${j}" name="jenis_reject_pasting[]" onchange="get_kategori_reject(${j})" style="width: 200px;">
-						<option selected disabled>-- Pilih Jenis Reject --</option>
+						<option selected disabled>-- Pilih Kategori Reject --</option>
 						${data_reject_pasting.map((item) => {
 							return `<option value="${item.jenis_reject_pasting}">${item.jenis_reject_pasting}</option>`;
 						}).join('')}
@@ -888,7 +915,7 @@
 				</td>
 				<td>
 					<select class="form-control select2" id="kategori_reject_pasting_${j}" name="kategori_reject_pasting[]" style="width: 250px;">
-						<option selected disabled>-- Pilih Kategori Reject --</option>
+						<option selected disabled>-- Pilih Jenis Reject --</option>
 					</select>
 				</td>
 				<td>
@@ -913,28 +940,31 @@
     // </td>
   }
 
-  function get_proses_breakdown(i) {
-    var jenis_breakdown = $('#jenis_breakdown_' + i).val();
+  function get_jenis_line_stop(i) {
+    var mesin_pasting = $('#mesin_pasting').val();
+    var kategori_line_stop = $('#kategori_line_stop_' + i).val();
     // if (i == 0) {
     // 	i = '00';
     // }
 
-    if (jenis_breakdown == 'ANDON') {
+    if (kategori_line_stop == 'ANDON') {
       get_data_andon(i);
     } else {
       $.ajax({
-        url: '<?= base_url() ?>pasting/get_proses_breakdown',
+        url: '<?= base_url() ?>pasting/get_jenis_line_stop',
         type: 'POST',
         data: {
-          jenis_breakdown: jenis_breakdown
+          kategori_line_stop: kategori_line_stop,
+          mesin_pasting: mesin_pasting
         },
         dataType: 'json',
         success: function(data) {
-          $('#proses_breakdown_' + i).html(`
-						<option selected disabled>-- Pilih Proses Line Stop --</option>
-						${data.map((item) => `<option value="${item.proses_breakdown}">${item.proses_breakdown}</option>`)}
+          console.log(data)
+          $('#jenis_line_stop_' + i).html(`
+						<option selected disabled>-- Pilih Jenis Line Stop --</option>
+						${data.map((item) => `<option value="${item.jenis_line_stop}">${item.jenis_line_stop}</option>`)}
 					`);
-          $('#uraian_breakdown_' + i).val('');
+          $('#uraian_line_stop_' + i).val('');
           $('#menit_breakdown_' + i).val('');
         }
       });
@@ -953,7 +983,7 @@
       dataType: 'json',
       success: function(data) {
         $('#kategori_reject_pasting_' + i).html(`
-					<option selected disabled>-- Pilih Kategori Reject --</option>
+					<option selected disabled>-- Pilih Jenis Reject --</option>
 					${data.map((item) => `<option value="${item.kategori_reject_pasting}">${item.kategori_reject_pasting}</option>`)}
 				`);
         $('#remark_reject_' + i).val('');
@@ -1001,11 +1031,11 @@
       },
       dataType: 'json',
       success: function(data) {
-        $('#proses_breakdown_' + i).html(`
+        $('#jenis_line_stop_' + i).html(`
 					${data.map((item) => `<option value="${item.id_ticket}-${item.tujuan}-${item.nama_mesin}" selected>${item.id_ticket}-${item.tujuan}-${item.nama_mesin}</option>`)}
 				`);
 
-        $('#uraian_breakdown_' + i).val(data[0].permasalahan);
+        $('#uraian_line_stop_' + i).val(data[0].permasalahan);
         $('#menit_breakdown_' + i).val(data[0].total_min_reduce);
 
       }
@@ -1017,7 +1047,7 @@
   //   // var data_wo = <?php //echo json_encode($data_wo); 
                         //                     
                         ?>;
-  //   var data_breakdown = <?php echo json_encode($data_breakdown); ?>;
+  //   var data_line_stop = <?php ""//echo json_encode($data_line_stop); ?>;
 
   //   var tbody = document.getElementById('tbody'),
   //     row, k;
@@ -1032,7 +1062,7 @@
   //   var count_row = tbody.rows.length;
   //   var j = (count_row - total_row) + i;
 
-  //   // uniqid untuk id jenis_breakdown dan proses_breakdown
+  //   // uniqid untuk id kategori_line_stop dan jenis_line_stop
   //   var k = count_row * 2;
 
   //   row = tbody.insertRow(j);

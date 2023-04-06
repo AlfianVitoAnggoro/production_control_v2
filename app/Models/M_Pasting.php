@@ -84,9 +84,30 @@ class M_Pasting extends Model
   //   return $query->getResultArray();
   // }
 
-  public function getListBreakdown()
+  public function getListKategoriLineStopCasting()
   {
-    $query = $this->db->query('SELECT DISTINCT jenis_breakdown FROM data_breakdown');
+    $query = $this->db->query('SELECT DISTINCT kategori_line_stop FROM master_line_stop_pasting_casting');
+
+    return $query->getResultArray();
+  }
+
+  public function getListJenisLineStopCasting($kategori_line_stop)
+  {
+    $query = $this->db->query('SELECT * FROM master_line_stop_pasting_casting WHERE kategori_line_stop = \'' . $kategori_line_stop . '\'');
+
+    return $query->getResultArray();
+  }
+
+  public function getListKategoriLineStopPunching()
+  {
+    $query = $this->db->query('SELECT DISTINCT kategori_line_stop FROM master_line_stop_pasting_punching');
+
+    return $query->getResultArray();
+  }
+
+  public function getListJenisLineStopPunching($kategori_line_stop)
+  {
+    $query = $this->db->query('SELECT * FROM master_line_stop_pasting_punching WHERE kategori_line_stop = \'' . $kategori_line_stop . '\'');
 
     return $query->getResultArray();
   }
@@ -98,12 +119,12 @@ class M_Pasting extends Model
     return $query->getResultArray();
   }
 
-  public function getProsesBreakdown($jenis_breakdown)
-  {
-    $query = $this->db->query('SELECT * FROM data_breakdown WHERE jenis_breakdown = \'' . $jenis_breakdown . '\'');
+  // public function getProsesBreakdown($jenis_breakdown)
+  // {
+  //   $query = $this->db->query('SELECT * FROM data_breakdown WHERE jenis_breakdown = \'' . $jenis_breakdown . '\'');
 
-    return $query->getResultArray();
-  }
+  //   return $query->getResultArray();
+  // }
 
   public function getKategoriReject($jenis_reject_pasting)
   {
@@ -199,11 +220,43 @@ class M_Pasting extends Model
     }
   }
 
+
   public function get_detail_breakdown_by_id($id_lhp_pasting)
   {
     $query = $this->db->query('SELECT * FROM detail_breakdown_lhp_pasting WHERE id_lhp_pasting = ' . $id_lhp_pasting);
 
     return $query->getResultArray();
+  }
+
+  public function delete_detail_line_stop_by_id_breakdown($id_breakdown)
+  {
+    $query = $this->db->query('DELETE FROM detail_breakdown_lhp_pasting WHERE id_breakdown = ' . $id_breakdown);
+    return $query;
+  }
+
+  public function delete_detail_line_stop_by_id_lhp($id_lhp_pasting)
+  {
+    $query = $this->db->query('DELETE FROM detail_breakdown_lhp_pasting WHERE id_lhp_pasting = ' . $id_lhp_pasting);
+    return $query;
+  }
+
+  public function get_detail_reject_pasting_by_id($id_lhp_pasting)
+  {
+    $query = $this->db->query('SELECT * FROM detail_reject_pasting WHERE id_lhp_pasting = ' . $id_lhp_pasting);
+
+    return $query->getResultArray();
+  }
+
+  public function delete_detail_reject_pasting_by_id_reject_pasting($id_reject_pasting)
+  {
+    $query = $this->db->query('DELETE FROM detail_reject_pasting WHERE id_reject_pasting = ' . $id_reject_pasting);
+    return $query;
+  }
+
+  public function delete_detail_reject_pasting_by_id_lhp($id_lhp_pasting)
+  {
+    $query = $this->db->query('DELETE FROM detail_reject_pasting WHERE id_lhp_pasting = ' . $id_lhp_pasting);
+    return $query;
   }
 
   public function get_detail_reject_by_id($id_lhp_pasting)
@@ -276,9 +329,9 @@ class M_Pasting extends Model
     return $query->getResultArray();
   }
 
-  public function get_grup_grid()
+  public function get_grup_pasting()
     {
-        $query = $this->db->query('SELECT DISTINCT nama_grup, kasubsie FROM data_grup_grid');
+        $query = $this->db->query('SELECT DISTINCT nama_grup FROM data_grup_pasting');
 
         return $query->getResultArray();
     }

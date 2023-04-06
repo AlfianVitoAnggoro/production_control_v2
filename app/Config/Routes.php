@@ -123,7 +123,7 @@ $routes->group('pasting', ['filter' => 'auth'], function ($routes) {
     $routes->get('delete_pasting/(:num)', 'Pasting::delete_pasting/$1');
     $routes->post('getPartNo', 'Pasting::getPartNo');
     // $routes->post('getCT', 'Pasting::getCT');
-    $routes->post('get_proses_breakdown', 'Pasting::get_proses_breakdown');
+    $routes->post('get_jenis_line_stop', 'Pasting::get_jenis_line_stop');
     $routes->post('get_kategori_reject', 'Pasting::get_kategori_reject');
     $routes->post('save_pasting', 'Pasting::save_pasting');
     $routes->get('detail_pasting/(:num)', 'Pasting::detail_pasting/$1');

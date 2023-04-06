@@ -85,7 +85,7 @@
                 <select class="form-select" id="mesin_pasting" name="mesin_pasting">
                   <option selected disabled>-- Pilih Data --</option>
                   <?php foreach ($data_mesin_pasting as $mesin_pasting) : ?>
-                    <option value="<?= $mesin_pasting['id_mesin_pasting'] ?>"><?= $mesin_pasting['nama_mesin_pasting'] ?></option>
+                    <option value="<?= $mesin_pasting['id_mesin_pasting'] ?>">Mesin <?= $mesin_pasting['nama_mesin_pasting'] ?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
@@ -119,9 +119,8 @@
                 <label class="form-label">Kasubsie</label>
                 <select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;">
                   <option selected disabled>-- Pilih Data --</option>
-                  <?php foreach($data_grup_grid as $grup) : ?>
-										<option value="<?=$grup['kasubsie']?>"><?=$grup['kasubsie']?></option>
-									<?php endforeach; ?>
+                  <option value="Yanto A">Yanto A</option>
+                  <option value="Ade Suryana">Ade Suryana</option>
                 </select>
               </div>
             </div>
@@ -132,7 +131,7 @@
                 <label class="form-label">Grup</label>
                 <select class="form-control select2" id="grup" name="grup" style="width: 100%;">
                   <option selected disabled>-- Pilih Data --</option>
-                  <?php foreach($data_grup_grid as $grup) : ?>
+                  <?php foreach($data_grup_pasting as $grup) : ?>
 										<option value="<?=$grup['nama_grup']?>"><?=$grup['nama_grup']?></option>
 									<?php endforeach; ?>
                 </select>
