@@ -107,10 +107,10 @@ class SawRepair extends BaseController
     foreach ($saw_repair_saw as $srs) {
       if ($saw_repairinputnew !== NULL) {
         if (!array_key_exists($srs['id'], $saw_repairinputnew)) {
-          $this->saw_repairinputModel->delete($srs['id']);
+          $this->saw_repair_sawModel->delete($srs['id']);
         }
       } else {
-        $this->saw_repairinputModel->delete($srs['id']);
+        $this->saw_repair_sawModel->delete($srs['id']);
       }
     }
     return redirect()->to(base_url('saw_repair/add_saw_repair/' . $id));
@@ -125,7 +125,7 @@ class SawRepair extends BaseController
     }
     $plate = $this->plateModel->findAll();
     $saw_repair = $this->saw_repairModel->find($id);
-    $saw_repairinput = $this->saw_repairinputModel->where('id_saw_repair', $id)->findAll();
+    $saw_repairinput = $this->saw_repair_sawModel->where('id_saw_repair', $id)->findAll();
 
     $data = [
       'plate' => $plate,
@@ -156,7 +156,7 @@ class SawRepair extends BaseController
           'id' => $id[$i],
           'plate' => $plate[$i],
         );
-        $this->saw_repairinputModel->updateBatch($data_saw_repairinput, 'id');
+        $this->saw_repair_sawModel->updateBatch($data_saw_repairinput, 'id');
       }
     }
     return redirect()->to(base_url('/saw_repair'));
@@ -166,7 +166,7 @@ class SawRepair extends BaseController
   {
     $id_saw_repair = $this->request->getVar('id_saw_repair');
     $this->saw_repairModel->delete(['id' => $id_saw_repair]);
-    $this->saw_repairinputModel->delete(['id_saw_repair' => $id_saw_repair]);
+    $this->saw_repair_sawModel->delete(['id_saw_repair' => $id_saw_repair]);
 
     return redirect()->to(base_url('/saw_repair'));
   }

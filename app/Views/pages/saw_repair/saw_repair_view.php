@@ -81,13 +81,13 @@
             <form action="/saw_repair/save" method="post">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col">
                             <div class="form-group">
                                 <label for="date" class="form-label">Tanggal</label>
                                 <input type="date" class="form-control" id="date" name="date" required>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col">
                             <div class="form-group">
                                 <label for="shift" class="form-label">Shift</label>
                                 <select class="form-control" id="shift" name="shift" required>

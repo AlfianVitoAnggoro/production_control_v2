@@ -410,7 +410,7 @@ $mh = [8, 7.5, 6.5];
                             <td>
                                 <div class="form-check text-center p-0">
                                     <?php if ($data_lhp[0]['status'] !== 'approved') { ?>
-                                        <button type="submit" class="btn btn-outline-primary" name="approved" value="approved" onclick="return confirm('Apakah Anda Yakin?')" disabled>✔</button>
+                                        <button type="submit" class="btn btn-outline-primary" id="approved" name="approved" value="approved" onclick="return confirm('Apakah Anda Yakin?')" disabled>✔</button>
                                     <?php } else { ?>
                                         <button class="btn btn-primary" disabled>✔</button>
                                     <?php } ?>
@@ -419,7 +419,7 @@ $mh = [8, 7.5, 6.5];
                             <td>
                                 <div class="form-check text-center p-0">
                                     <?php if ($data_lhp[0]['status'] !== 'completed' && $data_lhp[0]['status'] !== 'approved') { ?>
-                                        <button type="submit" class="btn btn-outline-primary" name="completed" value="approved" onclick="return confirm('Apakah Anda Yakin?')" disabled>✔</button>
+                                        <button type="submit" class="btn btn-outline-primary" id="completed" name="completed" value="completed" onclick="return confirm('Apakah Anda Yakin?')" disabled>✔</button>
                                     <?php } else { ?>
                                         <button class="btn btn-primary" disabled>✔</button>
                                     <?php } ?>
