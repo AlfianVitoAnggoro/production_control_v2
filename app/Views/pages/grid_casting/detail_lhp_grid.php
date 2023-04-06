@@ -706,6 +706,7 @@ $mh = [8, 7.5, 6.5];
             success: function(data) {
                 console.log(data);
                 $('#start_qty').val(data[0].QTY);
+                $('#start_rak').focus();
             }
         })
     }
