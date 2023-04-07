@@ -308,7 +308,7 @@
     function populateSecondarySelect(selectedValue) {
         $('#baby_filter').empty();
         
-        if (selectedValue === '0') {
+        if (selectedValue == '0') {
             $('#baby_filter').append($('<option>', {
                 value: 'average',
                 text: 'By Average'

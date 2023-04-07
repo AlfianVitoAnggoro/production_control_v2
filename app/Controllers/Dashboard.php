@@ -101,7 +101,7 @@ class Dashboard extends BaseController
                         $total_plan = $d1['total_plan'];
                         $total_aktual = $d1['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_line_1'], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_line_'.$child_filter], (float) number_format($eff, 2, '.', ''));
                     } 
                 } else {
                     array_push($data['data_line_'.$child_filter], 0);
