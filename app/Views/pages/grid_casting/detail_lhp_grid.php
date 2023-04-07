@@ -210,7 +210,6 @@ $mh = [8, 7.5, 6.5];
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?=str_replace(',', '.', number_format($data_lhp[0]['total_jks']))?>" readonly></td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=str_replace(',', '.', number_format($data_lhp[0]['total_aktual']))?>" readonly></td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?= $retVal = (!empty($data_lhp[0]['total_aktual'])) ? number_format(($data_lhp[0]['total_aktual']/$data_lhp[0]['total_jks'])*100) : 0 ;?>" readonly></td>
-                                                <td></td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_mh" id="" value="<?= $retVal = (!empty($data_lhp[0]['total_mh'])) ? $data_lhp[0]['total_mh'] : 0 ;?>" style="width: 75px" readonly></td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_productivity" id="" value="<?= $retVal = (!empty($data_lhp[0]['total_productivity'])) ? str_replace(',', '.', number_format($data_lhp[0]['total_productivity'])) : 0 ;?>" readonly></td>
                                                 <td></td>
@@ -707,6 +706,7 @@ $mh = [8, 7.5, 6.5];
             success: function(data) {
                 console.log(data);
                 $('#start_qty').val(data[0].QTY);
+                $('#start_rak').focus();
             }
         })
     }
