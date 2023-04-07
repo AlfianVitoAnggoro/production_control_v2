@@ -42,6 +42,8 @@ $routes->get('/dashboard/assy', 'Dashboard::dashboard_lhp_assy');
 $routes->post('/dashboard/assy', 'Dashboard::dashboard_lhp_assy');
 $routes->post('/dashboard/assy/get_data_line_stop', 'Dashboard::get_data_line_stop');
 $routes->post('/dashboard/assy/get_data_line_stop_by_shift', 'Dashboard::get_data_line_stop_by_shift');
+$routes->post('/dashboard/assy/get_data_line_stop_by_grup', 'Dashboard::get_data_line_stop_by_grup');
+$routes->post('/dashboard/assy/get_data_line_stop_by_kss', 'Dashboard::get_data_line_stop_by_kss');
 
 //MASTER CYCLE TIME
 $routes->group('cycle_time', ['filter' => 'auth'], function ($routes) {

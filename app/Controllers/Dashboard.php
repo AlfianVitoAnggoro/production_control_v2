@@ -76,6 +76,9 @@ class Dashboard extends BaseController
         $data['data_line_shift_2'] = [];
         $data['data_line_shift_3'] = [];
 
+        $data['data_line_by_grup'] = [];
+        $data['data_line_by_kss'] = [];
+
         if ($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0)) {
             while (strtotime($start) <= strtotime($now)) {
                 $data_all = $this->M_Dashboard->get_data_all_line_by_date($start);
@@ -91,7 +94,6 @@ class Dashboard extends BaseController
                 }
     
                 $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
-                
             }
         } elseif($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter != null OR $child_filter != 0) AND $baby_filter != null AND $baby_filter == 'average') {
             while (strtotime($start) <= strtotime($now)) {
@@ -107,9 +109,8 @@ class Dashboard extends BaseController
                     array_push($data['data_line_'.$child_filter], 0);
                 }
                 $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
-                
             }
-        } else {
+        } elseif($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter != null OR $child_filter != 0) AND $baby_filter != null AND $baby_filter == 'shift') {
             while (strtotime($start) <= strtotime($now)) {
                 $data1 = $this->M_Dashboard->get_data_line($start, $child_filter, 1);
                 if (!empty($data1)) {
@@ -148,9 +149,78 @@ class Dashboard extends BaseController
                 }
     
                 $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
+            }
+        } elseif($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter != null OR $child_filter != 0) AND $baby_filter != null AND $baby_filter == 'grup') {
+            $data_grup_line = $this->M_Dashboard->get_data_grup_by_line($start, $child_filter);
+
+            if (!empty($data_grup_line)) {
+                    while (strtotime($start) <= strtotime($now)) {
+                        foreach ($data_grup_line as $d_grup_line) {
+                            $grup = $d_grup_line['nama_pic'];
+                            $data_all_grup = $this->M_Dashboard->get_data_line_by_grup($start, $child_filter, $grup);
+                            if (!empty($data_all_grup)) {
+                                foreach ($data_all_grup as $d_all_grup) {
+                                    $total_plan_grup = $d_all_grup['total_plan'];
+                                    $total_aktual_grup = $d_all_grup['total_aktual'];
+                                    $eff = (!empty($total_plan_grup) && !empty($total_aktual_grup)) ? ($total_aktual_grup / $total_plan_grup) * 100 : 0;
                 
+                                    $data_grup = [
+                                        'grup' => $grup,
+                                        'data' => (float) number_format($eff, 2, '.', '')
+                                    ];
+                                    $data['data_line_by_grup'][] = $data_grup;
+                                } 
+                            } else {
+                                $data_grup = [
+                                    'grup' => $grup,
+                                    'data' => 0
+                                ];
+                                $data['data_line_by_grup'][] = $data_grup;
+                
+                            }
+            
+                        
+                    }
+                    $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
+                }
+            }
+        } elseif($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter != null OR $child_filter != 0) AND $baby_filter != null AND $baby_filter == 'kasubsie') {
+            $data_kss_line = $this->M_Dashboard->get_data_kss_by_line($start, $child_filter);
+
+            if (!empty($data_kss_line)) {
+                    while (strtotime($start) <= strtotime($now)) {
+                        foreach ($data_kss_line as $d_kss_line) {
+                            $kss = $d_kss_line['kasubsie'];
+                            $data_all_kss = $this->M_Dashboard->get_data_line_by_kss($start, $child_filter, $kss);
+                            if (!empty($data_all_kss)) {
+                                foreach ($data_all_kss as $d_all_kss) {
+                                    $total_plan_kss = $d_all_kss['total_plan'];
+                                    $total_aktual_kss = $d_all_kss['total_aktual'];
+                                    $eff = (!empty($total_plan_kss) && !empty($total_aktual_kss)) ? ($total_aktual_kss / $total_plan_kss) * 100 : 0;
+                
+                                    $data_kss = [
+                                        'kss' => $kss,
+                                        'data' => (float) number_format($eff, 2, '.', '')
+                                    ];
+                                    $data['data_line_by_kss'][] = $data_kss;
+                                } 
+                            } else {
+                                $data_kss = [
+                                    'kss' => $kss,
+                                    'data' => 0
+                                ];
+                                $data['data_line_by_kss'][] = $data_kss;
+                
+                            }
+            
+                        
+                    }
+                    $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
+                }
             }
         }
+        
+        
 
         $data['data_all_month'] = [];
         for ($i=1; $i < 12; $i++) { 
@@ -186,6 +256,24 @@ class Dashboard extends BaseController
         $shift = $this->request->getPost('shift');
 
         $data = $this->M_Dashboard->get_data_line_stop_by_shift($tanggal, $line, $shift);
+        echo json_encode($data);
+    }
+
+    public function get_data_line_stop_by_grup() {
+        $tanggal = $this->request->getPost('date');
+        $line = $this->request->getPost('line');
+        $grup = $this->request->getPost('grup');
+
+        $data = $this->M_Dashboard->get_data_line_stop_by_grup($tanggal, $line, $grup);
+        echo json_encode($data);
+    }
+
+    public function get_data_line_stop_by_kss() {
+        $tanggal = $this->request->getPost('date');
+        $line = $this->request->getPost('line');
+        $kss = $this->request->getPost('kss');
+
+        $data = $this->M_Dashboard->get_data_line_stop_by_kss($tanggal, $line, $kss);
         echo json_encode($data);
     }
 }

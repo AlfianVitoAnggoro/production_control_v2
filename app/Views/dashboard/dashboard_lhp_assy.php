@@ -16,6 +16,32 @@
     } else {
         $type_chart = 'column';
     }
+
+    // FILTER ARRAY BY GRUP
+    $arr_data_line_by_grup = array();
+
+    foreach ($data_line_by_grup as $item) {
+        if ($item == 0) continue;
+        if (!array_key_exists($item['grup'], $arr_data_line_by_grup)) {
+            $arr_data_line_by_grup[$item['grup']] = array("grup" => $item['grup'], "data" => array());
+        }
+        $arr_data_line_by_grup[$item['grup']]["data"][] = $item['data'];
+    }
+
+    $res_data_line_by_grup = array_values($arr_data_line_by_grup);
+
+    // FILTER ARRAY BY KASUBSIE
+    $arr_data_line_by_kss = array();
+
+    foreach ($data_line_by_kss as $item) {
+        if ($item == 0) continue;
+        if (!array_key_exists($item['kss'], $arr_data_line_by_kss)) {
+            $arr_data_line_by_kss[$item['kss']] = array("kss" => $item['kss'], "data" => array());
+        }
+        $arr_data_line_by_kss[$item['kss']]["data"][] = $item['data'];
+    }
+
+    $res_data_line_by_kss = array_values($arr_data_line_by_kss);
 ?>
 
 <div class="content-wrapper" style="margin-left:0;">
@@ -43,19 +69,17 @@
                                     </div>
 
                                     <div class="col-3" style="display:flex;">
-                                        <select class="form-select" name="parent_filter" id="parent_filter">
+                                        <select class="form-select" name="parent_filter" id="parent_filter" style="display:none">
                                             <option value="line" <?= ($parent_filter == 'line') ? 'selected':''?>>Line</option>
                                         </select>
-                                        &nbsp;
+                                        <!-- &nbsp; -->
                                         <select class="form-select" name="child_filter" id="child_filter">
                                             <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>All</option>
                                             <?php for ($i=1; $i <= 7 ; $i++) { ?>
                                                 <option value="<?=$i?>" <?= ($child_filter == $i) ? 'selected':''?>>Line <?=$i?></option>
                                             <?php } ?>
                                         </select>
-                                    </div>
-                                    
-                                    <div class="col-3" style="display:flex;">
+                                        &nbsp;
                                         <select class="form-select" name="baby_filter" id="baby_filter">
                                             <?php if ($child_filter == 0) { ?>
                                                 <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
@@ -66,7 +90,10 @@
                                                 <option value="kasubsie" <?= ($baby_filter == 'kasubsie') ? 'selected':''?>>By Kasubsie</option>
                                             <?php } ?>
                                         </select>
-                                        &nbsp;   
+                                    </div>
+                                    
+                                    <div class="col-3" style="display:flex;">
+                                        <!-- &nbsp;    -->
                                         <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>">
                                     </div>
                                     <div class="col-3" style="display: flex; flex-direction: column;">
@@ -640,6 +667,94 @@
                         }
                     }
                 },
+            <?php } ?>
+
+            <?php if ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND $baby_filter == 'grup') { 
+                foreach ($res_data_line_by_grup as $r_data_line_by_grup) { ?>
+                    {
+                        name: <?= json_encode($r_data_line_by_grup['grup']); ?>,
+                        data: <?php echo json_encode($r_data_line_by_grup['data']); ?>,
+                        point: {
+                        events: {
+                            click: function() {
+                                var date = this.category;
+                                var line = <?=$child_filter?>;
+                                var grup = <?= json_encode($r_data_line_by_grup['grup']); ?>;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop_by_grup'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line,
+                                        grup: grup
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                    },
+                <?php } ?>
+            <?php } ?>
+
+            <?php if ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND $baby_filter == 'kasubsie') { 
+                foreach ($res_data_line_by_kss as $r_data_line_by_kss) { ?>
+                    {
+                        name: <?= json_encode($r_data_line_by_kss['kss']); ?>,
+                        data: <?php echo json_encode($r_data_line_by_kss['data']); ?>,
+                        point: {
+                        events: {
+                            click: function() {
+                                var date = this.category;
+                                var line = <?=$child_filter?>;
+                                var kss = <?= json_encode($r_data_line_by_kss['kss']); ?>;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop_by_kss'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line,
+                                        kss: kss
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                    },
+                <?php } ?>
             <?php } ?>
         ],
 
