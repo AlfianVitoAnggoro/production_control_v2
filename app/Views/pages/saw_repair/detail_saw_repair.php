@@ -13,7 +13,7 @@
                             <h4>Detail Saw Repair</h4>
                         </div>
                         <div class="box-body">
-                            <form action="/saw_repair/save" method="post">
+                            <form action="/saw_repair/detail_saw_repair/edit" method="post">
                                 <div class="row">
                                     <input type="hidden" name="id_saw_repair" value="<?= $saw_repair['id']; ?>">
                                     <div class="col">
@@ -37,10 +37,6 @@
                                     </div>
                                 </div>
                                 <h1>Saw Repair</h1>
-                                <div>
-                                    <button type="button" class="btn btn-primary" id="add_form_saw_repair" onclick="add_saw_repair()">Add</button>
-                                    <button type="button" class="btn btn-danger" id="delete_form_saw_repair" onclick="delete_saw_repair()">Delete</button>
-                                </div>
                                 <div class="table-responsive">
                                     <table id="" class="table table-striped mb-0">
                                         <thead class="header_saw_repair">
@@ -56,10 +52,6 @@
                                     </table>
                                 </div>
                                 <h1>Potong Battery</h1>
-                                <div>
-                                    <button type="button" class="btn btn-primary" id="add_form_potong_battery" onclick="add_potong_battery()">Add</button>
-                                    <button type="button" class="btn btn-danger" id="delete_form_potong_battery" onclick="delete_potong_battery()">Delete</button>
-                                </div>
                                 <div class="table-responsive">
                                     <table id="" class="table table-striped mb-0">
                                         <thead class="header_potong_battery">
@@ -168,63 +160,6 @@
     }
     data_saw_repair();
 
-    function add_saw_repair() {
-        const baris = document.querySelectorAll('.saw_repair').length;
-        if(baris === 0) {
-            $('.form_saw_repair').append(`
-                <tr class="saw_repair" id="form_saw_repair_${baris}">
-                    <input type="hidden" name="id_saw_repair_saw[]" value="">
-                    <td>${baris + 1}</td>
-                    <td>
-                        <select class="form-select" id="operator_saw_${baris}" name="operator_saw">
-                            <option value="" selected>-- Nama Operator --</option>
-                            <option value="M. Tohar">M. Tohar</option>
-                            <option value="Purwanta">Purwanta</option>
-                            <option value="Sarjono">Sarjono</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select class="form-select" id="type_battery_saw_${baris}" name="type_battery_saw[]">
-                            <option value="" selected>-- Pilih Type Battery --</option>
-                            <?php foreach($type_battery as $tb) : ?>
-                                <option value="<?= $tb['type_battery'] ?>"><?= $tb['type_battery'] ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="qty_repair_saw[]" id="qty_repair_saw_${baris}">
-                    </td>
-                </tr>
-            `);
-        } else {
-            $('.form_saw_repair').append(`
-                <tr class="saw_repair" id="form_saw_repair_${baris}">
-                    <input type="hidden" name="id_saw_repair_saw[]" value="">
-                    <td>${baris + 1}</td>
-                    <td></td>
-                    <td>
-                        <select class="form-select" id="type_battery_saw_${baris}" name="type_battery_saw[]">
-                            <option value="" selected>-- Pilih Type Battery --</option>
-                            <?php foreach($type_battery as $tb) : ?>
-                                <option value="<?= $tb['type_battery'] ?>"><?= $tb['type_battery'] ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="qty_repair_saw[]" id="qty_repair_saw_${baris}">
-                    </td>
-                </tr>
-            `);
-        }
-        $('.select2').select2();
-    }
-
-    function delete_saw_repair() {
-        const baris = document.querySelectorAll('.saw_repair');
-        const element = document.getElementById('form_saw_repair_' + (baris.length - 1));
-        element.parentNode.removeChild(element);
-    }
-
     function data_potong_battery() {
         let baris = 0;
         <?php for ($i = 0; $i < count($saw_repair_potong); $i++) {?>
@@ -313,96 +248,5 @@
         <?php } ?>
     }
     data_potong_battery();
-
-    function add_potong_battery() {
-        const baris = document.querySelectorAll('.potong_battery').length;
-        if(baris === 0) {
-            $('.form_potong_battery').append(`
-                <tr class="potong_battery" id="form_potong_battery_${baris}">
-                    <input type="hidden" name="id_saw_repair_potong[]" value="">
-                    <td>${baris + 1}</td>
-                    <td>
-                        <select class="form-select" id="operator_potong_${baris}" name="operator_potong">
-                            <option value="" selected>-- Nama Operator --</option>
-                            <option value="Eko">Eko</option>
-                            <option value="Ali">Ali</option>
-                            <option value="Sahru">Sahru</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select class="form-select" id="type_battery_potong_${baris}" name="type_battery_potong[]">
-                            <option value="" selected>-- Pilih Type Battery --</option>
-                            <?php foreach($type_battery as $tb) : ?>
-                                <option value="<?= $tb['type_battery'] ?>"><?= $tb['type_battery'] ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="qty_element_potong[]" id="qty_element_potong_${baris}">
-                    </td>
-                    <td>
-                        <select class="form-select select2" id="type_plate_reject_potong_${baris}" name="type_plate_reject_potong[]" onchange="panel(${baris})">
-                            <option value="" selected>-- Pilih Type Plate --</option>
-                            <?php foreach ($plate as $plt) { ?>
-                                <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
-                            <?php } ?>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="qty_plate_reject_potong_kg[]" id="qty_plate_reject_potong_kg_${baris}" onkeyup="panel(${baris})">
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="qty_plate_reject_potong_panel[]" id="qty_plate_reject_potong_panel_${baris}" readonly>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="keterangan_potong[]" id="keterangan_potong_${baris}">
-                    </td>
-                </tr>
-            `);
-        } else {
-            $('.form_potong_battery').append(`
-                <tr class="potong_battery" id="form_potong_battery_${baris}">
-                    <input type="hidden" name="id_saw_repair_potong[]" value="">
-                    <td>${baris + 1}</td>
-                    <td></td>
-                    <td>
-                        <select class="form-select" id="type_battery_potong_${baris}" name="type_battery_potong[]">
-                            <option value="" selected>-- Pilih Type Battery --</option>
-                            <?php foreach($type_battery as $tb) : ?>
-                                <option value="<?= $tb['type_battery'] ?>"><?= $tb['type_battery'] ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="qty_element_potong[]" id="qty_element_potong_${baris}">
-                    </td>
-                    <td>
-                        <select class="form-select select2" id="type_plate_reject_potong_${baris}" name="type_plate_reject_potong[]" onchange="panel(${baris})">
-                            <option value="" selected>-- Pilih Type Plate --</option>
-                            <?php foreach ($plate as $plt) { ?>
-                                <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
-                            <?php } ?>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="qty_plate_reject_potong_kg[]" id="qty_plate_reject_potong_kg_${baris}" onkeyup="panel(${baris})">
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="qty_plate_reject_potong_panel[]" id="qty_plate_reject_potong_panel_${baris}" readonly>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="keterangan_potong[]" id="keterangan_potong_${baris}">
-                    </td>
-                </tr>
-            `);
-        }
-        $('.select2').select2();
-    }
-
-    function delete_potong_battery() {
-        const baris = document.querySelectorAll('.potong_battery');
-        const element = document.getElementById('form_potong_battery_' + (baris.length - 1));
-        element.parentNode.removeChild(element);
-    }
 </script>
 <?= $this->endSection(); ?>
