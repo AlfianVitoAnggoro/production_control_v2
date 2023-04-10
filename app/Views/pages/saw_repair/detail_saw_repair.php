@@ -57,8 +57,8 @@
                                         <thead class="header_potong_battery">
                                             <tr>
                                                 <th colspan="2"></th>
-                                                <th colspan="2">Element OK</th>
-                                                <th colspan="4">Element NG</th>
+                                                <th colspan="2" style="text-align: center;">Element OK</th>
+                                                <th colspan="4" style="text-align: center;">Element NG</th>
                                             </tr>
                                             <tr>
                                                 <th>No</th>
