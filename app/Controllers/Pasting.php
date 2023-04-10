@@ -258,6 +258,7 @@ class Pasting extends BaseController
     $data['data_detail_reject'] = $model->get_detail_reject_by_id($id);
     $data['data_type_grid'] = $model->get_data_type_grid();
     $data['data_grup_pasting'] = $model->get_grup_pasting();
+    $data['data_andon'] = $model->get_data_andon_by_id($id);
 
     $data['data_mesin_pasting'] = $model->get_data_mesin_pasting($data['data_lhp_pasting'][0]['mesin_pasting']);
     // $data['data_grup'] = $model->get_data_grup_pic($data['data_lhp_pasting'][0]['grup']);
@@ -308,6 +309,7 @@ class Pasting extends BaseController
     $total_detail_line_stop = 0;
     $total_reject = 0;
     $total_act_vs_jks = 0;
+    $total_andon = 0;
 
     if ($update_data > 0) {
       $total_data = count($this->request->getPost('id_detail_lhp_pasting'));
@@ -428,12 +430,33 @@ class Pasting extends BaseController
       $this->M_Pasting->delete_detail_reject_pasting_by_id_lhp($id_lhp_pasting);
     }
 
+    $total_data_andon = $this->request->getPost('no_machine_andon');
+    if (!empty($total_data_andon)) {
+        $this->M_Pasting->delete_detail_andon($id_lhp);
+        for ($i=0; $i < count($total_data_andon); $i++) {
+
+                $data_andon = [
+                    'id_lhp_grid' => $id_lhp,
+                    'no_machine' => $this->request->getPost('no_machine_andon')[$i],
+                    'tiket_andon' => $this->request->getPost('tiket_andon')[$i],
+                    'permasalahan' => $this->request->getPost('permasalahan_andon')[$i],
+                    'tujuan' => $this->request->getPost('tujuan_andon')[$i],
+                    'total_menit' => $this->request->getPost('total_menit_andon')[$i],
+                ];
+
+                $save_data_andon = $this->M_Pasting->save_detail_andon($data_andon);
+                
+                $total_andon += $this->request->getPost('total_menit_andon')[$i];
+        }
+    }
+
     $data_detail = [
       'total_jks' => $total_jks,
       'total_aktual' => $total_actual,
       'total_line_stop' => $total_line_stop,
       'total_reject' => $total_reject,
-      'total_act_vs_jks' => $total_act_vs_jks
+      'total_act_vs_jks' => $total_act_vs_jks,
+      'total_menit_andon' => $total_andon
     ];
 
     $model->update_pasting($id_lhp_pasting, $data_detail);
@@ -441,15 +464,15 @@ class Pasting extends BaseController
     return redirect()->to(base_url('pasting/detail_pasting/' . $id_lhp_pasting));
   }
 
-  public function get_data_andon()
-  {
-    $tanggal_produksi = $this->request->getPost('tanggal_produksi');
-    $mesin_pasting = $this->request->getPost('mesin_pasting');
+  // public function get_data_andon()
+  // {
+  //   $tanggal_produksi = $this->request->getPost('tanggal_produksi');
+  //   $mesin_pasting = $this->request->getPost('mesin_pasting');
 
-    $model = new M_Pasting();
-    $data = $model->get_data_andon($tanggal_produksi, $mesin_pasting);
-    echo json_encode($data);
-  }
+  //   $model = new M_Pasting();
+  //   $data = $model->get_data_andon($tanggal_produksi, $mesin_pasting);
+  //   echo json_encode($data);
+  // }
 
   public function pilih_andon()
   {
@@ -467,4 +490,15 @@ class Pasting extends BaseController
 
     return redirect()->to(base_url('pasting'));
   }
+
+  public function get_data_andon() {
+    $shift = $this->request->getPost('shift');
+    $tanggal = $this->request->getPost('tanggal');
+    $mesin = $this->request->getPost('mesin_pasting');
+
+    $model = new M_Pasting();
+    
+    $query = $model->get_data_andon($shift, $tanggal, $mesin);
+    echo json_encode($query);
+}
 }

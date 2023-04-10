@@ -13,7 +13,7 @@ class M_Pasting extends Model
     $this->db = \Config\Database::connect();
     // $this->db2 = \Config\Database::connect('sqlsrv');
     // $this->db3 = \Config\Database::connect('baan');
-    // $this->db4 = \Config\Database::connect('prod_control');
+    $this->db4 = \Config\Database::connect('prod_control');
   }
 
   // public function test() {
@@ -342,5 +342,30 @@ class M_Pasting extends Model
     $this->db->query('DELETE FROM detail_lhp_pasting WHERE id_lhp_pasting = ' . $id);
     $this->db->query('DELETE FROM detail_breakdown_lhp_pasting WHERE id_lhp_pasting = ' . $id);
     $this->db->query('DELETE FROM detail_reject_pasting WHERE id_lhp_pasting = ' . $id);
+  }
+  
+  public function get_data_andon($shift, $tanggal_produksi, $mesin) {
+    $nama_mesin = 'Pasting '.$mesin;
+    $query = $this->db4->query('SELECT * FROM ticket_produksi1 WHERE tanggal_produksi = \''.$tanggal_produksi.'\' AND shift = \''.$shift.'\' AND seksi_pelapor = \'pasting\' AND kategori_perbaikan = \'DT\' AND nama_mesin = \''.$nama_mesin.'\' ORDER BY nama_mesin ASC');
+
+    return $query->getResultArray();
+  }
+
+  function delete_detail_andon($id_lhp_pasting) {
+    $builder = $this->db->table('detail_breakdown_andon_pasting');
+
+    $builder->delete(['id_lhp_pasting' => $id_lhp_pasting]);
+  }
+
+  function save_detail_andon($data) {
+      $builder = $this->db->table('detail_breakdown_andon_pasting');
+
+      $builder->insert($data);
+  }
+
+  function get_data_andon_by_id($id_lhp_pasting) {
+    $query = $this->db->query('SELECT * FROM detail_breakdown_andon_pasting WHERE id_lhp_pasting = \''.$id_lhp_pasting.'\'');
+
+    return $query->getResultArray();
   }
 }
