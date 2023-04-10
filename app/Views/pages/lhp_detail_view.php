@@ -217,12 +217,7 @@
 																<button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?=$i?>)">
 																	Add
 																</button>
-															</td>
-															<!-- <td>
-																<span style="display:block; width: 100px;"><?=$jam_start[$data_detail_lhp[$i]['batch'] - 1]?> - <?=$jam_end[$data_detail_lhp[$i]['batch'] - 1]?></span>
-															</td>
-															<td><?=$menit_tersedia[$data_detail_lhp[$i]['batch'] - 1]?></td>
-															<td><?=$menit_aktual[$data_detail_lhp[$i]['batch'] - 1]?></td> -->
+															</td>															
 															<td>
 																<div id="start_section_<?=$i?>">
 																	<input type="time" class="form-control" name="start[]" id="start_<?=$i?>" value="<?=date("H:i", strtotime($data_detail_lhp[$i]['jam_start']))?>" style="width: 100px;">
@@ -308,7 +303,7 @@
 												<?php
 												}
 
-												if (count($data_detail_lhp) < 8) {
+												if (count($data_detail_lhp) <= count($jam_start)) {
 													for ($i=count($data_detail_lhp); $i < count($jam_start); $i++) {
 														$j = $i;?>
 														<tr>
