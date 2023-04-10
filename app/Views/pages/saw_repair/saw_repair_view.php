@@ -28,9 +28,7 @@
                                                     <th>No</th>
                                                     <th>Date</th>
                                                     <th>Shift</th>
-                                                    <?php if ($session['level'] === 1) : ?>
-                                                      <th>Aksi</th>
-                                                    <?php endif ?>
+                                                    <th>Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="table_saw_repair">
@@ -38,23 +36,25 @@
                                                 $number = 0;
                                                 ?>
                                                 <?php foreach ($saw_repair as $sr) : ?>
-                                                      <tr>
-                                                          <th><?= $number ?></th>
-                                                          <td><?= $sr['date'] ?></td>
-                                                          <td><?= $sr['shift'] ?></td>
-                                                          <?php if ($session['level'] === 1) : ?>
-                                                              <td>
-                                                                  <div class="d-flex">
-                                                                      <a href="/saw_repair/detail_saw_repair/<?= trim($sr['id']) ?>" class="btn btn-primary btn-sm">Detail</a>
-                                                                      &nbsp
-                                                                      <form action="<?php base_url() ?>saw_repair/detail_saw_repair/delete" method="POST">
-                                                                          <input type="hidden" name="id_saw_repair" id="id_saw_repair" value="<?= trim($sr['id']) ?>">
-                                                                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin?')">Hapus</button>
-                                                                      </form>
-                                                                  </div>
-                                                              </td>
-                                                          <?php endif ?>
-                                                      </tr>
+                                                    <tr>
+                                                        <th><?= $number ?></th>
+                                                        <td><?= $sr['date'] ?></td>
+                                                        <td><?= $sr['shift'] ?></td>
+                                                        <td>
+                                                            <?php if($session <= 1) : ?>
+                                                                <div class="d-flex">
+                                                                    <a href="/saw_repair/detail_saw_repair/<?= trim($sr['id']) ?>" class="btn btn-primary btn-sm">Detail</a>
+                                                                    &nbsp
+                                                                    <form action="<?php base_url() ?>saw_repair/detail_saw_repair/delete" method="POST">
+                                                                        <input type="hidden" name="id_saw_repair" id="id_saw_repair" value="<?= trim($sr['id']) ?>">
+                                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin?')">Hapus</button>
+                                                                    </form>
+                                                                </div>
+                                                            <?php else : ?>
+                                                                <a href="/saw_repair/add_saw_repair/<?= trim($sr['id']) ?>" class="btn btn-primary">Detail</a>
+                                                            <?php endif ?>
+                                                        </td>
+                                                    </tr>
                                                 <?php endforeach ?>
                                             </tbody>
                                         </table>
@@ -81,13 +81,13 @@
             <form action="/saw_repair/save" method="post">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col">
                             <div class="form-group">
                                 <label for="date" class="form-label">Tanggal</label>
                                 <input type="date" class="form-control" id="date" name="date" required>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col">
                             <div class="form-group">
                                 <label for="shift" class="form-label">Shift</label>
                                 <select class="form-control" id="shift" name="shift" required>
