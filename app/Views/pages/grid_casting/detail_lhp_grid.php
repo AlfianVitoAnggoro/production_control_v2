@@ -552,13 +552,25 @@ $mh = [8, 7.5, 6.5];
             var aktual = $('#aktual_'+i).val();
             var productivity = $('#productivity_'+i).val();
             var mh = $('#mh_'+i).val();
-
+            
             var persentase = (aktual/jks)*100;
+
+            if (jks === '' || jks === null && (aktual === '' || aktual === null)) {
+                persentase = 0;
+            }
+
+            
             var productivity = (aktual/mh)
 
             $('#persentase_'+i).val(persentase.toFixed(0));
             $('#productivity_'+i).val(productivity.toFixed(0));
         }
+
+        $('input[type="number"]').each(function() {
+			if ($(this).val() == 0) {
+			$(this).val('');
+			}
+		});
     });
 
 </script>

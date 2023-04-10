@@ -23,7 +23,8 @@ class GridRework extends BaseController
     }
     public function mc($mc)
     {
-        $machine = $this->Machine->findAll();
+        $tanggal = date('Y-m-d');
+        $machine = $this->Machine->where('CAST(created_at AS date)', $tanggal)->findAll();
         $start = substr($mc, 2, 2);
         $end = substr($mc, 5, 2);
         $data = [
