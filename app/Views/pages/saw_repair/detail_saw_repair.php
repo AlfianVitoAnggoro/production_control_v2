@@ -3,180 +3,406 @@
 <?= $this->section('content'); ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <div class="container-full">
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xl-12 col-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <h4>Detail Saw Repair</h4>
+    <div class="container-full">
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xl-12 col-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h4>Detail Saw Repair</h4>
+                        </div>
+                        <div class="box-body">
+                            <form action="/saw_repair/save" method="post">
+                                <div class="row">
+                                    <input type="hidden" name="id_saw_repair" value="<?= $saw_repair['id']; ?>">
+                                    <div class="col">
+                                        <label for="date" class="form-label">Tanggal</label>
+                                        <input type="date" class="form-control" id="date" name="date" value="<?= $saw_repair['date'] ?>" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="shift" class="form-label">Shift</label>
+                                        <select class="form-select" id="shift" name="shift" required>
+                                            <option value="" disabled>-- Pilih Shift --</option>
+                                            <?php
+                                            for ($j = 1; $j <= 3; $j++) {
+                                                if ($saw_repair['shift'] === $j) { ?>
+                                                    <option selected value="<?= $j ?>"><?= $j ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $j ?>"><?= $j ?></option>
+                                            <?php }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h1>Saw Repair</h1>
+                                <div>
+                                    <button type="button" class="btn btn-primary" id="add_form_saw_repair" onclick="add_saw_repair()">Add</button>
+                                    <button type="button" class="btn btn-danger" id="delete_form_saw_repair" onclick="delete_saw_repair()">Delete</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="" class="table table-striped mb-0">
+                                        <thead class="header_saw_repair">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Operator Saw</th>
+                                                <th>Type Battery Saw</th>
+                                                <th>Qty Repair</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="form_saw_repair">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h1>Potong Battery</h1>
+                                <div>
+                                    <button type="button" class="btn btn-primary" id="add_form_potong_battery" onclick="add_potong_battery()">Add</button>
+                                    <button type="button" class="btn btn-danger" id="delete_form_potong_battery" onclick="delete_potong_battery()">Delete</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="" class="table table-striped mb-0">
+                                        <thead class="header_potong_battery">
+                                            <tr>
+                                                <th colspan="2"></th>
+                                                <th colspan="2">Element OK</th>
+                                                <th colspan="4">Element NG</th>
+                                            </tr>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Operator Potong</th>
+                                                <th>Type Battery Saw</th>
+                                                <th>Qty Element Potong</th>
+                                                <th>Type Plate Reject Potong</th>
+                                                <th>Qty Plate Reject Potong Kg</th>
+                                                <th>Qty Plate Reject Potong Panel</th>
+                                                <th>Keterangan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="form_potong_battery">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center my-2">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="box-body">
-              <form action="/saw_repair/detail_saw_repair/edit" method="post">
-                <div class="row">
-                  <input type="hidden" name="id_saw_repair" value="<?= trim($saw_repair['id']); ?>">
-                  <div class="col">
-                    <label for="date" class="form-label">Tanggal</label>
-                    <input type="date" class="form-control" id="date_0" name="date" value="<?= $saw_repair['date']; ?>" required readonly>
-                  </div>
-                  <div class="col">
-                    <label for="shift" class="form-label">Shift</label>
-                    <select class="form-control" id="shift_0" name="shift" required disabled>
-                      <option value="" disabled>-- Pilih Shift --</option>
-                      <?php
-                      for ($j = 1; $j <= 3; $j++) {
-                        if ($saw_repair['shift'] === $j) { ?>
-                          <option selected value="<?= $j ?>"><?= $j ?></option>
-                        <?php } else { ?>
-                          <option value="<?= $j ?>"><?= $j ?></option>
-                      <?php }
-                      }
-                      ?>
-                    </select>
-                  </div>
-                </div>
-                <h1>Saw Repair</h1>
-                <div class="table-responsive">
-                  <table id="" class="table table-striped mb-0">
-                    <thead class="header_saw_repair">
-                    </thead>
-                    <tbody class="form_saw_repair">
-                    </tbody>
-                  </table>
-                </div>
-                <div class="text-center my-2 button">
-                  <button type="submit" class="btn btn-warning">Save</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- /.content -->
-  </div>
+        </section>
+        <!-- /.content -->
+    </div>
 </div>
 <!-- /.content-wrapper -->
 <?= $this->endSection(); ?>
 
 <?= $this->section('script'); ?>
 <script>
-  function panel(baris) {
-    const plate = $('#plate_' + baris).val();
-    let melintir_bending = $('#melintir_bending_' + baris).val() ? parseFloat($('#melintir_bending_' + baris).val()) : 0;
-    let terpotong = $('#terpotong_' + baris).val() ? parseFloat($('#terpotong_' + baris).val()) : 0;
-    let rontok = $('#rontok_' + baris).val() ? parseFloat($('#rontok_' + baris).val()) : 0;
-    let tersangkut = $('#tersangkut_' + baris).val() ? parseFloat($('#tersangkut_' + baris).val()) : 0;
-    if (melintir_bending !== 0 || terpotong !== 0 || rontok !== 0 || tersangkut !== 0) {
-      <?php foreach ($plate as $p) : ?>
-        if ($('#plate_' + baris).val() === "<?= trim($p['plate']) ?>") {
-          melintir_bending = (melintir_bending / <?= $p['berat'] ?>) * (110 / 100);
-          terpotong = (terpotong / <?= $p['berat'] ?>) * (110 / 100);
-          rontok = (rontok / <?= $p['berat'] ?>) * (110 / 100);
-          tersangkut = (tersangkut / <?= $p['berat'] ?>) * (110 / 100);
+    function panel(baris) {
+        const type_plate_reject_potong = $('#type_plate_reject_potong_' + baris).val();
+        let qty_plate_reject_potong_kg = $('#qty_plate_reject_potong_kg_' + baris).val() ? parseFloat($('#qty_plate_reject_potong_kg_' + baris).val()) : 0;
+        if (qty_plate_reject_potong_kg !== 0) {
+            <?php foreach ($plate as $p) : ?>
+                if ($('#type_plate_reject_potong_' + baris).val() === "<?= trim($p['plate']) ?>") {
+                    qty_plate_reject_potong_kg = (qty_plate_reject_potong_kg / <?= $p['berat'] ?>) * (110 / 100);
+                }
+            <?php endforeach ?>
         }
-      <?php endforeach ?>
+        $('#qty_plate_reject_potong_panel_' + baris).val(Math.ceil(qty_plate_reject_potong_kg));
     }
-    $('#melintir_bending_panel_' + baris).val(Math.ceil(melintir_bending));
-    $('#terpotong_panel_' + baris).val(Math.ceil(terpotong));
-    $('#rontok_panel_' + baris).val(Math.ceil(rontok));
-    $('#tersangkut_panel_' + baris).val(Math.ceil(tersangkut));
-    $('#persentase_reject_akumulatif_' + baris).val((100 * (Math.ceil(melintir_bending) + Math.ceil(terpotong) + Math.ceil(tersangkut) + Math.ceil(rontok)) / $('#hasil_produksi_' + baris).val()).toPrecision(3) + ' %');
-  }
 
-  function add_saw_repair() {
-    let baris = 0;
-    document.querySelector('.header_saw_repair').innerHTML = '';
-    $('.header_saw_repair').append(`
-            <tr>
-                <th colspan="4"></th>
-                <th colspan="4" class="text-center">Jumlah NG (Panel)</th>
-                <th></th>
-            </tr>
-            <tr>
-                <th>No</th>
-                <th>Tipe Plate</th>
-                <th>Hasil Produksi</th>
-                <th>Separator</th>
-                <th>Melintir/ Bending</th>
-                <th>Terpotong</th>
-                <th>Rontok</th>
-                <th>Tersangkut</th>
-                <th>% Akumulatif</th>
-            </tr>
-        `);
-    <?php for ($i = 0; $i < count($saw_repairinput); $i++) { ?>
-      baris = document.querySelectorAll('.form').length;
-      $('.form_saw_repair').append(`
-            <tr class="form" id="form_${baris}">
-                <input type="hidden" name="id[]" value="<?= $saw_repairinput[$i]['id']; ?>">
-                <td>${baris + 1}</td>
-                <td>
-                    <select class="form-control select2" id="plate_${baris}" onchange="panel(${baris})" name="plate[]" style="width: 200px;" required disabled>
-                        <option value="" disabled>-- Pilih Plate --</option>
-                        <?php
-                        $plate_pos = array_filter($plate, function ($p) {
-                          return strpos($p['plate'], 'POS') !== false;
-                        });
-                        foreach ($plate_pos as $plt) {
-                        ?>
-                            <?php if (trim($saw_repairinput[$i]['plate']) === trim($plt['plate'])) : ?>
-                                <option value="<?= trim($saw_repairinput[$i]['plate']) ?>" selected><?= trim($saw_repairinput[$i]['plate']) ?></option>
-                            <?php else : ?>
-                                <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
-                            <?php endif ?>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" class="form-control" name="hasil_produksi[]" id="hasil_produksi_${baris}" onkeyup="panel(${baris})" value="<?= trim($saw_repairinput[$i]['hasil_produksi']) ?>" style="width: 100px" required readonly>
-                    <input value="kg">
-                </td>
-                <td>
-                    <select class="form-control select2" id="separator_${baris}" onchange="panel(${baris})" name="separator[]" style="width: 200px;" required disabled>
-                        <option value="" disabled>-- Pilih Separator --</option>
-                        <?php
-                        foreach ($separator as $spr) {
-                        ?>
-                            <?php if ($saw_repairinput[$i]['separator'] === $spr['separator']) : ?>
-                                <option value="<?= trim($saw_repairinput[$i]['separator']) ?>" selected><?= trim($saw_repairinput[$i]['separator']) ?></option>
-                            <?php else : ?>
-                                <option value="<?= trim($spr['separator']) ?>"><?= trim($spr['separator']) ?></option>
-                            <?php endif ?>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" class="form-control" name="melintir_bending_panel[]" id="melintir_bending_panel_${baris}" value="<?= trim($saw_repairinput[$i]['melintir_bending_panel']) ?>" style="width: 75px" onkeyup="persentase(${baris})" readonly>
-                </td>
-                <td>
-                    <input type="text" class="form-control" name="terpotong_panel[]" id="terpotong_panel_${baris}" value="<?= trim($saw_repairinput[$i]['terpotong_panel']) ?>" style="width: 75px" onkeyup="persentase(${baris})" readonly>
-                </td>
-                <td>
-                    <input type="text" class="form-control" name="rontok_panel[]" id="rontok_panel_${baris}" value="<?= trim($saw_repairinput[$i]['rontok_panel']) ?>" style="width: 75px" onkeyup="persentase(${baris})" readonly>
-                </td>
-                <td>
-                    <input type="text" class="form-control" name="tersangkut_panel[]" id="tersangkut_panel_${baris}" value="<?= trim($saw_repairinput[$i]['tersangkut_panel']) ?>" onkeyup="persentase(${baris})" style="width: 75px" readonly>
-                </td>
-                <td>
-                    <input type="text" class="form-control" name="persentase_reject_akumulatif[]" id="persentase_reject_akumulatif_${baris}" value="<?= trim($saw_repairinput[$i]['persentase_reject_akumulatif']) ?>" style="width: 100px" readonly>
-                </td>
-            </tr>
+    function data_saw_repair() {
+        let baris = 0;
+        <?php for ($i = 0; $i < count($saw_repair_saw); $i++) { ?>
+            baris = document.querySelectorAll('.saw_repair').length;
+            if(baris === 0) {
+                $('.form_saw_repair').append(`
+                <tr class="saw_repair" id="form_saw_repair_${baris}">
+                    <input type="hidden" name="id_saw_repair_saw[]" value="<?= $saw_repair_saw[$i]['id']; ?>">
+                    <td>${baris + 1}</td>
+                    <td>
+                        <select class="form-select" id="operator_saw" name="operator_saw">
+                            <option value="" selected>-- Nama Operator --</option>
+                            <option value="M. Tohar" <?php if(trim($saw_repair_saw[$i]['operator_saw']) === "M. Tohar") echo "selected"?>>M. Tohar</option>
+                            <option value="Purwanta" <?php if(trim($saw_repair_saw[$i]['operator_saw']) === "Purwanta") echo "selected"?>>Purwanta</option>
+                            <option value="Sarjono" <?php if(trim($saw_repair_saw[$i]['operator_saw']) === "Sarjono") echo "selected"?>>Sarjono</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select" id="type_battery_saw_${baris}" name="type_battery_saw[]">
+                            <option value="" selected>-- Pilih Type Battery --</option>
+                            <?php foreach($type_battery as $tb) : ?>
+                                <option value="<?= $tb['type_battery'] ?>" <?php if($saw_repair_saw[$i]['type_battery_saw'] === $tb['type_battery']) echo "selected" ?>><?= $tb['type_battery'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_repair_saw[]" id="qty_repair_saw_${baris}" value="<?= trim($saw_repair_saw[$i]['qty_repair_saw']) ?>">
+                    </td>
+                </tr>
+                `);
+            } else {
+                $('.form_saw_repair').append(`
+                <tr class="saw_repair" id="form_saw_repair_${baris}">
+                    <input type="hidden" name="id_saw_repair_saw[]" value="<?= $saw_repair_saw[$i]['id']; ?>">
+                    <td>${baris + 1}</td>
+                    <td></td>
+                    <td>
+                        <select class="form-select" id="type_battery_saw_${baris}" name="type_battery_saw[]">
+                            <option value="" selected>-- Pilih Type Battery --</option>
+                            <?php foreach($type_battery as $tb) : ?>
+                                <option value="<?= $tb['type_battery'] ?>" <?php if($saw_repair_saw[$i]['type_battery_saw'] === $tb['type_battery']) echo "selected" ?>><?= $tb['type_battery'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_repair_saw[]" id="qty_repair_saw_${baris}" value="<?= trim($saw_repair_saw[$i]['qty_repair_saw']) ?>">
+                    </td>
+                </tr>
+                `);
+            }
+            $('.select2').select2();
+        <?php } ?>
+    }
+    data_saw_repair();
+
+    function add_saw_repair() {
+        const baris = document.querySelectorAll('.saw_repair').length;
+        if(baris === 0) {
+            $('.form_saw_repair').append(`
+                <tr class="saw_repair" id="form_saw_repair_${baris}">
+                    <input type="hidden" name="id_saw_repair_saw[]" value="">
+                    <td>${baris + 1}</td>
+                    <td>
+                        <select class="form-select" id="operator_saw_${baris}" name="operator_saw">
+                            <option value="" selected>-- Nama Operator --</option>
+                            <option value="M. Tohar">M. Tohar</option>
+                            <option value="Purwanta">Purwanta</option>
+                            <option value="Sarjono">Sarjono</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select" id="type_battery_saw_${baris}" name="type_battery_saw[]">
+                            <option value="" selected>-- Pilih Type Battery --</option>
+                            <?php foreach($type_battery as $tb) : ?>
+                                <option value="<?= $tb['type_battery'] ?>"><?= $tb['type_battery'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_repair_saw[]" id="qty_repair_saw_${baris}">
+                    </td>
+                </tr>
             `);
-      $('.select2').select2();
-    <?php } ?>
-  }
-  add_saw_repair();
+        } else {
+            $('.form_saw_repair').append(`
+                <tr class="saw_repair" id="form_saw_repair_${baris}">
+                    <input type="hidden" name="id_saw_repair_saw[]" value="">
+                    <td>${baris + 1}</td>
+                    <td></td>
+                    <td>
+                        <select class="form-select" id="type_battery_saw_${baris}" name="type_battery_saw[]">
+                            <option value="" selected>-- Pilih Type Battery --</option>
+                            <?php foreach($type_battery as $tb) : ?>
+                                <option value="<?= $tb['type_battery'] ?>"><?= $tb['type_battery'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_repair_saw[]" id="qty_repair_saw_${baris}">
+                    </td>
+                </tr>
+            `);
+        }
+        $('.select2').select2();
+    }
 
-  function delete_saw_repair() {
-    const baris = document.querySelectorAll('.form');
-    const element = document.getElementById('form_' + (baris.length - 1));
-    element.parentNode.removeChild(element);
-  }
+    function delete_saw_repair() {
+        const baris = document.querySelectorAll('.saw_repair');
+        const element = document.getElementById('form_saw_repair_' + (baris.length - 1));
+        element.parentNode.removeChild(element);
+    }
+
+    function data_potong_battery() {
+        let baris = 0;
+        <?php for ($i = 0; $i < count($saw_repair_potong); $i++) {?>
+            baris = document.querySelectorAll('.potong_battery').length;
+            if(baris === 0) {
+                $('.form_potong_battery').append(`
+                    <tr class="potong_battery" id="form_potong_battery_${baris}">
+                        <input type="hidden" name="id_saw_repair_potong[]" value="<?= $saw_repair_potong[$i]['id']; ?>">
+                        <td>${baris + 1}</td>
+                        <td>
+                            <select class="form-select" id="operator_potong" name="operator_potong">
+                                <option value="" selected>-- Nama Operator --</option>
+                                <option value="Eko" <?php if(trim($saw_repair_potong[$i]['operator_potong']) === "Eko") echo "selected"?>>Eko</option>
+                                <option value="Ali" <?php if(trim($saw_repair_potong[$i]['operator_potong']) === "Ali") echo "selected"?>>Ali</option>
+                                <option value="Sahru" <?php if(trim($saw_repair_potong[$i]['operator_potong']) === "Sahru") echo "selected"?>>Sahru</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-select" id="type_battery_potong_${baris}" name="type_battery_potong[]" onchange="panel(${baris})">
+                                <option value="" selected>-- Pilih Type Battery --</option>
+                                <?php foreach($type_battery as $tb) : ?>
+                                    <option value="<?= $tb['type_battery'] ?>" <?php if($saw_repair_potong[$i]['type_battery_potong']) echo "selected"?>><?= $tb['type_battery'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="qty_element_potong[]" id="qty_element_potong_${baris}" value="<?= trim($saw_repair_potong[$i]['qty_plate_reject_potong_kg']) ?>">
+                        </td>
+                        <td>
+                            <select class="form-select select2" id="type_plate_reject_potong_${baris}" name="type_plate_reject_potong[]">
+                                <option value="" selected>-- Pilih Type Plate --</option>
+                                <?php foreach ($plate as $plt) { ?>
+                                    <option value="<?= trim($plt['plate']) ?>" <?php if (trim($saw_repair_potong[$i]['type_plate_reject_potong']) === trim($plt['plate'])) echo "selected" ?>><?= trim($plt['plate']) ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="qty_plate_reject_potong_kg[]" id="qty_plate_reject_potong_kg_${baris}" value="<?= trim($saw_repair_potong[$i]['qty_plate_reject_potong_kg']) ?>" onkeyup="panel(${baris})">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="qty_plate_reject_potong_panel[]" id="qty_plate_reject_potong_panel_${baris}" value="<?= trim($saw_repair_potong[$i]['qty_plate_reject_potong_panel']) ?>" readonly>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="keterangan_potong[]" id="keterangan_potong_${baris}" value="<?= trim($saw_repair_potong[$i]['keterangan_potong']) ?>">
+                        </td>
+                    </tr>
+                `);
+            } else {
+                $('.form_potong_battery').append(`
+                    <tr class="potong_battery" id="form_potong_battery_${baris}">
+                        <input type="hidden" name="id_saw_repair_potong[]" value="<?= $saw_repair_potong[$i]['id']; ?>">
+                        <td>${baris + 1}</td>
+                        <td></td>
+                        <td>
+                            <select class="form-select" id="type_battery_potong_${baris}" name="type_battery_potong[]">
+                                <option value="" selected>-- Pilih Type Battery --</option>
+                                <?php foreach($type_battery as $tb) : ?>
+                                    <option value="<?= $tb['type_battery'] ?>" <?php if($saw_repair_potong[$i]['type_battery_potong']) echo "selected"?>><?= $tb['type_battery'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="qty_element_potong[]" id="qty_element_potong_${baris}" value="<?= trim($saw_repair_potong[$i]['qty_plate_reject_potong_kg']) ?>">
+                        </td>
+                        <td>
+                            <select class="form-select select2" id="type_plate_reject_potong_${baris}" name="type_plate_reject_potong[]" onchange="panel(${baris})">
+                                <option value="" selected>-- Pilih Type Plate --</option>
+                                <?php foreach ($plate as $plt) { ?>
+                                    <option value="<?= trim($plt['plate']) ?>" <?php if (trim($saw_repair_potong[$i]['type_plate_reject_potong']) === trim($plt['plate'])) echo "selected" ?>><?= trim($plt['plate']) ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="qty_plate_reject_potong_kg[]" id="qty_plate_reject_potong_kg_${baris}" value="<?= trim($saw_repair_potong[$i]['qty_plate_reject_potong_kg']) ?>" onkeyup="panel(${baris})">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="qty_plate_reject_potong_panel[]" id="qty_plate_reject_potong_panel_${baris}" value="<?= trim($saw_repair_potong[$i]['qty_plate_reject_potong_panel']) ?>" readonly>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="keterangan_potong[]" id="keterangan_potong_${baris}" value="<?= trim($saw_repair_potong[$i]['keterangan_potong']) ?>">
+                        </td>
+                    </tr>
+                `);
+            }
+            $('.select2').select2();
+        <?php } ?>
+    }
+    data_potong_battery();
+
+    function add_potong_battery() {
+        const baris = document.querySelectorAll('.potong_battery').length;
+        if(baris === 0) {
+            $('.form_potong_battery').append(`
+                <tr class="potong_battery" id="form_potong_battery_${baris}">
+                    <input type="hidden" name="id_saw_repair_potong[]" value="">
+                    <td>${baris + 1}</td>
+                    <td>
+                        <select class="form-select" id="operator_potong_${baris}" name="operator_potong">
+                            <option value="" selected>-- Nama Operator --</option>
+                            <option value="Eko">Eko</option>
+                            <option value="Ali">Ali</option>
+                            <option value="Sahru">Sahru</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select" id="type_battery_potong_${baris}" name="type_battery_potong[]">
+                            <option value="" selected>-- Pilih Type Battery --</option>
+                            <?php foreach($type_battery as $tb) : ?>
+                                <option value="<?= $tb['type_battery'] ?>"><?= $tb['type_battery'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_element_potong[]" id="qty_element_potong_${baris}">
+                    </td>
+                    <td>
+                        <select class="form-select select2" id="type_plate_reject_potong_${baris}" name="type_plate_reject_potong[]" onchange="panel(${baris})">
+                            <option value="" selected>-- Pilih Type Plate --</option>
+                            <?php foreach ($plate as $plt) { ?>
+                                <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_plate_reject_potong_kg[]" id="qty_plate_reject_potong_kg_${baris}" onkeyup="panel(${baris})">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_plate_reject_potong_panel[]" id="qty_plate_reject_potong_panel_${baris}" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="keterangan_potong[]" id="keterangan_potong_${baris}">
+                    </td>
+                </tr>
+            `);
+        } else {
+            $('.form_potong_battery').append(`
+                <tr class="potong_battery" id="form_potong_battery_${baris}">
+                    <input type="hidden" name="id_saw_repair_potong[]" value="">
+                    <td>${baris + 1}</td>
+                    <td></td>
+                    <td>
+                        <select class="form-select" id="type_battery_potong_${baris}" name="type_battery_potong[]">
+                            <option value="" selected>-- Pilih Type Battery --</option>
+                            <?php foreach($type_battery as $tb) : ?>
+                                <option value="<?= $tb['type_battery'] ?>"><?= $tb['type_battery'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_element_potong[]" id="qty_element_potong_${baris}">
+                    </td>
+                    <td>
+                        <select class="form-select select2" id="type_plate_reject_potong_${baris}" name="type_plate_reject_potong[]" onchange="panel(${baris})">
+                            <option value="" selected>-- Pilih Type Plate --</option>
+                            <?php foreach ($plate as $plt) { ?>
+                                <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_plate_reject_potong_kg[]" id="qty_plate_reject_potong_kg_${baris}" onkeyup="panel(${baris})">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_plate_reject_potong_panel[]" id="qty_plate_reject_potong_panel_${baris}" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="keterangan_potong[]" id="keterangan_potong_${baris}">
+                    </td>
+                </tr>
+            `);
+        }
+        $('.select2').select2();
+    }
+
+    function delete_potong_battery() {
+        const baris = document.querySelectorAll('.potong_battery');
+        const element = document.getElementById('form_potong_battery_' + (baris.length - 1));
+        element.parentNode.removeChild(element);
+    }
 </script>
 <?= $this->endSection(); ?>
