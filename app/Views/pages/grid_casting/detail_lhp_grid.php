@@ -409,7 +409,7 @@ $mh = [8, 7.5, 6.5];
                             <td>
                                 <div class="form-check text-center p-0">
                                     <?php if ($data_lhp[0]['status'] !== 'approved') { ?>
-                                        <button type="submit" class="btn btn-outline-primary" name="approved" value="approved" onclick="return confirm('Apakah Anda Yakin?')" disabled>✔</button>
+                                        <button type="submit" class="btn btn-outline-primary" id="approved" name="approved" value="approved" onclick="return confirm('Apakah Anda Yakin?')" disabled>✔</button>
                                     <?php } else { ?>
                                         <button class="btn btn-primary" disabled>✔</button>
                                     <?php } ?>
@@ -418,7 +418,7 @@ $mh = [8, 7.5, 6.5];
                             <td>
                                 <div class="form-check text-center p-0">
                                     <?php if ($data_lhp[0]['status'] !== 'completed' && $data_lhp[0]['status'] !== 'approved') { ?>
-                                        <button type="submit" class="btn btn-outline-primary" name="completed" value="approved" onclick="return confirm('Apakah Anda Yakin?')" disabled>✔</button>
+                                        <button type="submit" class="btn btn-outline-primary" id="completed" name="completed" value="completed" onclick="return confirm('Apakah Anda Yakin?')" disabled>✔</button>
                                     <?php } else { ?>
                                         <button class="btn btn-primary" disabled>✔</button>
                                     <?php } ?>
@@ -552,13 +552,25 @@ $mh = [8, 7.5, 6.5];
             var aktual = $('#aktual_'+i).val();
             var productivity = $('#productivity_'+i).val();
             var mh = $('#mh_'+i).val();
-
+            
             var persentase = (aktual/jks)*100;
+
+            if (jks === '' || jks === null && (aktual === '' || aktual === null)) {
+                persentase = 0;
+            }
+
+            
             var productivity = (aktual/mh)
 
             $('#persentase_'+i).val(persentase.toFixed(0));
             $('#productivity_'+i).val(productivity.toFixed(0));
         }
+
+        $('input[type="number"]').each(function() {
+			if ($(this).val() == 0) {
+			$(this).val('');
+			}
+		});
     });
 
 </script>
