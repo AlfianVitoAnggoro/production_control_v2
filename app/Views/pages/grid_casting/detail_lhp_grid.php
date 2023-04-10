@@ -195,7 +195,7 @@ $mh = [8, 7.5, 6.5];
                                                         <td><input type="text" class="form-control" name="jks[]" id="jks_<?=$d_mesin['nama_mesin']?>" readonly></td>
                                                         <td><input type="text" class="form-control" name="aktual[]" id="aktual_<?=$d_mesin['nama_mesin']?>" onkeyup="count_persentase(<?=$d_mesin['nama_mesin']?>)"></td>
                                                         <td><input type="text" class="form-control" name="persentase[]" id="persentase_<?=$d_mesin['nama_mesin']?>" readonly></td>
-                                                        <td><input type="text" class="form-control" name="rak[]" id="rak_<?=$d_mesin['nama_mesin']?>" style="width: 75px"></td>
+                                                        <!-- <td><input type="text" class="form-control" name="rak[]" id="rak_<?=$d_mesin['nama_mesin']?>" style="width: 75px"></td> -->
                                                         <td><input type="text" class="form-control" name="mh[]" id="mh_<?=$d_mesin['nama_mesin']?>" value="<?= $mh[$data_lhp[0]['shift']-1]; ?>" style="width: 75px" readonly></td>
                                                         <td><input type="text" class="form-control" name="productivity[]" id="productivity_<?=$d_mesin['nama_mesin']?>" readonly></td>
                                                     </tr>
@@ -337,7 +337,7 @@ $mh = [8, 7.5, 6.5];
                                 <table class="table">
                                     <tr>
                                         <td>
-                                           Barcode  <input type="text" class="form-control" name="start_barcode" id="start_barcode" onchange="get_qty_rak()" class="form-control">
+                                           Barcode  <input type="text" class="form-control" name="start_barcode" id="start_barcode" onchange="scanQr()" class="form-control">
                                         </td>
                                         <td>
                                             Qty <input type="text" class="form-control" name="start_qty" id="start_qty" class="form-control" readonly>
@@ -691,6 +691,16 @@ $mh = [8, 7.5, 6.5];
 
     function delete_breakdown(e) {
         $(e).parent().parent().remove();
+    }
+
+    function scanQr() {
+        var barcode = $("#start_barcode").val();
+        
+        document.addEventListener('keyup', function(event) {
+            if (event.keyCode == 9) {
+                get_qty_rak();
+            }
+        });
     }
 
     function get_qty_rak() {
