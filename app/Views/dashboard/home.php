@@ -8,7 +8,7 @@
 
             <div class="row">
                 <div class="col-12" style="text-align:center;">
-                    <h1>Production Dashboard</h1>
+                    <h1>Production 2 Dashboard</h1>
                     <br>
                 </div>
             </div>

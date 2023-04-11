@@ -44,10 +44,12 @@ class Login extends BaseController
                 if ($data['departemen'] == 'produksi1') {
                     return redirect()->to(base_url('grid'));
                 } else {
-                    return redirect()->to(base_url('lhp'));
+                    return redirect()->to(base_url('dashboard'));
                 }
             } elseif ($data['seksi'] == 'grid') {
                 return redirect()->to(base_url('grid'));
+            } elseif ($data['seksi'] == 'pasting') {
+                return redirect()->to(base_url('pasting'));
             } elseif ($data['seksi'] == 'amb') {
                 return redirect()->to(base_url('lhp'));
             } elseif ($data['seksi'] == 'plate_cutting') {

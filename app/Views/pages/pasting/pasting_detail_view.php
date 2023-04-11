@@ -799,6 +799,48 @@ $shift
           </div>
         </div>
         <div class="row">
+					<div class="col-xl-12 col-12">
+						<div class="box">
+              <div class="box-header">
+                  <button type="button" class="btn btn-primary" onclick="get_data_andon()">Refresh Andon</button>
+              </div>
+							<div class="box-body">
+								<div class="table-responsive">
+									<table id="data_andon" class="table table-striped mb-0">
+										<thead>
+											<tr>
+												<th>Nama Mesin</th>
+												<th>Permasalahan</th>
+												<th>Tujuan</th>
+                        <th>Total Menit</th>
+											</tr>
+										</thead>
+										<tbody id="tbody_data_andon">
+                      <?php
+                        foreach ($data_andon as $d_andon) {
+                            ?>
+                            <tr>
+                                <td>MC <?=$d_andon['no_machine']?></td>
+                                <td><?=$d_andon['permasalahan']?></td>
+                                <td><?=$d_andon['tujuan']?></td>
+                                <td><?=$d_andon['total_menit']?></td>
+                            </tr>
+                            <?php
+                        }
+                      ?>
+										</tbody>
+									</table>
+								</div>
+								
+							</div>
+							<div class="box-footer" style="text-align: center;">
+								<!-- <input type="submit" class="btn btn-success" value="Save"> -->
+							</div>
+						</div>				
+					</div>
+				</div>
+
+        <div class="row">
           <div class="col-4"></div>
           <div class="col-4" style="text-align:center;"><input type="submit" class="btn btn-success" value="Save"></div>
           <div class="col-4"></div>
@@ -810,44 +852,6 @@ $shift
 </div>
 <!-- /.content-wrapper -->
 
-<!-- Modal Data Andon-->
-<div class="modal fade" id="modal_data_andon" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-dialog modal-lg" style="max-width: 1500px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myLargeModalLabel">Data Andon</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="table-responsive">
-          <table id="data_andon" class="table table-bordered table-striped" style="width:100%">
-            <thead>
-              <tr>
-                <th>ID Ticket</th>
-                <th>Permasalahan</th>
-                <th>Shift</th>
-                <th>Line</th>
-                <th>Pelapor</th>
-                <th>Waktu</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="tbody_andon">
-
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger text-start" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
 <?= $this->endSection(); ?>
 
 <?= $this->section('script'); ?>
@@ -857,7 +861,7 @@ $shift
     var tbody = document.getElementById('tbody');
     total_row = tbody.rows.length - 1;
 
-    $('#data_andon').DataTable();
+    // $('#data_andon').DataTable();
 
     hitung_mh();
 
@@ -867,6 +871,52 @@ $shift
       }
     });
   });
+
+  function get_data_andon() {
+        var shift = $('#shift').val();
+        var tanggal = $('#tanggal_produksi').val();
+        var mesin = $('#mesin_pasting').val();
+
+        $.ajax({
+            url: '<?=base_url()?>pasting/get_data_andon',
+            type: 'POST',
+            data: {
+                shift: shift,
+                tanggal: tanggal,
+                mesin: mesin
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                if (data.length > 0) {
+                    var html = '';
+                    var no = 1;
+                    for (var i = 0; i < data.length; i++) {
+                        html += `<tr>
+                                    <td>
+                                        ${data[i].nama_mesin}
+                                        <input type="hidden" name="no_machine_andon[]" value="${data[i].nama_mesin.substring(3)}">
+                                        <input type="hidden" name="tiket_andon[]" value="${data[i].id_ticket}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="permasalahan_andon[]" id="permasalahan_${no}" class="form-control" value="${data[i].permasalahan.substring(8)}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="tujuan_andon[]" id="tujuan_${no}" class="form-control" value="${data[i].tujuan}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="total_menit_andon[]" id="total_menit_${no}" class="form-control" value="${data[i].total_min}">
+                                    </td>
+                                </tr>`;
+                        no++;
+                    }
+                    $('#tbody_data_andon').html(html);
+                } else {
+                    alert('Tidak Ada Andon');
+                }
+            }
+        })
+    }
 
   function get_jks(i) {
     let menit_terpakai = $('#menit_terpakai_' + i).val();
@@ -1119,36 +1169,36 @@ $shift
     });
   }
 
-  function get_data_andon(j) {
-    var tanggal_produksi = $('#tanggal_produksi').val();
-    var mesin_pasting = <?= $data_lhp_pasting[0]['mesin_pasting'] ?>;
-    $.ajax({
-      url: '<?= base_url() ?>pasting/get_data_andon',
-      type: 'POST',
-      data: {
-        tanggal_produksi: tanggal_produksi,
-        mesin_pasting: mesin_pasting
-      },
-      dataType: 'json',
-      success: function(data) {
-        $('#tbody_andon').html('');
-        data.forEach((item, i) => {
-          $('#tbody_andon').append(`
-						<tr>
-							<td>${item.id_ticket}</td>
-							<td>${item.permasalahan}</td>
-							<td>${item.shift}</td>
-							<td>${item.id_mesin_pasting}</td>
-							<td>${item.pelapor}</td>
-							<td>${item.created_at}</td>
-							<td><button class="btn btn-primary btn-sm" onclick="pilih_andon(${item.id_ticket}, ${j})">Pilih</button></td>
-						</tr>
-					`);
-        });
-      }
-    })
-    $('#modal_data_andon').modal('show');
-  }
+  // function get_data_andon(j) {
+  //   var tanggal_produksi = $('#tanggal_produksi').val();
+  //   var mesin_pasting = <?= $data_lhp_pasting[0]['mesin_pasting'] ?>;
+  //   $.ajax({
+  //     url: '<?= base_url() ?>pasting/get_data_andon',
+  //     type: 'POST',
+  //     data: {
+  //       tanggal_produksi: tanggal_produksi,
+  //       mesin_pasting: mesin_pasting
+  //     },
+  //     dataType: 'json',
+  //     success: function(data) {
+  //       $('#tbody_andon').html('');
+  //       data.forEach((item, i) => {
+  //         $('#tbody_andon').append(`
+	// 					<tr>
+	// 						<td>${item.id_ticket}</td>
+	// 						<td>${item.permasalahan}</td>
+	// 						<td>${item.shift}</td>
+	// 						<td>${item.id_mesin_pasting}</td>
+	// 						<td>${item.pelapor}</td>
+	// 						<td>${item.created_at}</td>
+	// 						<td><button class="btn btn-primary btn-sm" onclick="pilih_andon(${item.id_ticket}, ${j})">Pilih</button></td>
+	// 					</tr>
+	// 				`);
+  //       });
+  //     }
+  //   })
+  //   $('#modal_data_andon').modal('show');
+  // }
 
   function pilih_andon(id_ticket, i) {
     $.ajax({
