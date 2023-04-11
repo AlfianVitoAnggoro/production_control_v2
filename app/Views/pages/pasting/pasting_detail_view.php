@@ -203,7 +203,7 @@ $shift
 												<th>Menit Aktual</th> -->
                         <th>Jam Start</th>
                         <th>Jam End</th>
-                        <!-- <th>Menit Terpakai</th> -->
+                        <th>Menit Terpakai</th>
                         <!-- <th>No WO</th> -->
                         <!-- <th>Type Battery</th> -->
                         <th>Type</th>
@@ -299,9 +299,9 @@ $shift
                           //}
                           ?>
 
-                          <!-- <td>
+                          <td>
                             <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>" value="<?= $data_detail_lhp[$i]['menit_terpakai'] ?>" onkeyup="update_plan(<?= $i ?>)" style="width: 100px">
-                          </td> -->
+                          </td>
                           <!-- <td>
                             <select class="form-control select2" id="no_wo_<?= $i ?>" name="no_wo[]" onchange="getPartNo(<?= $i ?>)" style="width: 200px;">
                               <option selected disabled>-- Pilih No WO --</option>
@@ -409,9 +409,9 @@ $shift
                                 <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>" value="<?= date('H:i', strtotime(str_replace('.', ':', $jam_end[$j]))) ?>" style="width: 100px;">
                               </div>
                             </td>
-                            <!-- <td>
+                            <td>
                               <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>" value="<?= $menit_aktual[$j] ?>" onkeyup="update_plan(<?= $i ?>)" style="width: 100px">
-                            </td> -->
+                            </td>
                             <!-- <td>
                               <select class="form-control select2" id="no_wo_<?= $i ?>" name="no_wo[]" onchange="getPartNo(<?= $i ?>)" style="width: 200px;">
                                 <option selected disabled>-- Pilih No WO --</option>
