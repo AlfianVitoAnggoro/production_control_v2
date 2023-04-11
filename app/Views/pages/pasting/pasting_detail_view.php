@@ -1364,28 +1364,28 @@ $shift
             dataType: 'json',
             success: function(data) {
                 // console.log(data)
-                window.location.reload();
-                // $('#tbody_data_rak').append(`
-                //     <tr class="rak_in">
-                //         <td>
-                //             <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_${baris}" class="form-control" value="${barcode}">
-                //             <input type="hidden" class="form-control" name="id_rak_barcode[]" id="id_rak_barcode_${baris}" class="form-control" value="">
-                //         </td>
-                //         <td>
-                //             <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_${baris}" class="form-control" value="${qty}">
-                //         </td>
-                //         <td>
-                //             <input type="text" class="form-control" name="id_rak[]" id="id_rak_${baris}" class="form-control" value="${rak}">
-                //         </td>
-                //         <td>
-                //             <button type="button" class="btn btn-danger" onclick="delete_detail_rak_in(this, ${baris})">Delete</button>
-                //         </td>
-                //     </tr>
-                // `);
+                // window.location.reload();
+                $('#tbody_data_rak').append(`
+                    <tr class="rak_in">
+                        <td>
+                            <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_${baris}" class="form-control" value="${barcode}">
+                            <input type="hidden" class="form-control" name="id_rak_barcode[]" id="id_rak_barcode_${baris}" class="form-control" value="${data}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_${baris}" class="form-control" value="${qty}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="id_rak[]" id="id_rak_${baris}" class="form-control" value="${rak}">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak_in(this, ${baris})">Delete</button>
+                        </td>
+                    </tr>
+                `);
 
-                // $('#start_barcode').val('');
-                // $('#start_qty').val('');
-                // $('#start_rak').val('');
+                $('#start_barcode').val('');
+                $('#start_qty').val('');
+                $('#start_rak').val('');
             }
         });
     }
@@ -1440,28 +1440,28 @@ $shift
             },
             dataType: 'json',
             success: function(data) {
-                window.location.reload();
-                // $('#tbody_data_rak_out').append(`
-                //     <tr class="rak_out">
-                //         <td>
-                //             <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_${baris}" class="form-control" value="${barcode}">
-                //             <input type="hidden" class="form-control" name="id_rak_barcode_out[]" id="id_rak_barcode_out_${baris}" class="form-control" value="">
-                //         </td>
-                //         <td>
-                //             <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_${baris}" class="form-control" value="${qty}">
-                //         </td>
-                //         <td>
-                //             <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_${baris}" class="form-control" value="${rak}">
-                //         </td>
-                //         <td>
-                //             <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, ${baris})">Delete</button>
-                //         </td>
-                //     </tr>
-                // `);
+                // window.location.reload();
+                $('#tbody_data_rak_out').append(`
+                    <tr class="rak_out">
+                        <td>
+                            <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_${baris}" class="form-control" value="${barcode}">
+                            <input type="hidden" class="form-control" name="id_rak_barcode_out[]" id="id_rak_barcode_out_${baris}" class="form-control" value="${data}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_${baris}" class="form-control" value="${qty}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_${baris}" class="form-control" value="${rak}">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, ${baris})">Delete</button>
+                        </td>
+                    </tr>
+                `);
             
-                // $('#start_barcode_out').val('');
-                // $('#start_qty_out').val('');
-                // $('#start_rak_out').val('');
+                $('#start_barcode_out').val('');
+                $('#start_qty_out').val('');
+                $('#start_rak_out').val('');
             }
         });
       }

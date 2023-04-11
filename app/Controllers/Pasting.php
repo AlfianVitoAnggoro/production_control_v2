@@ -549,7 +549,7 @@ class Pasting extends BaseController
           'qty' => $qty,
           'id_rak' => $id_rak,
       ];
-      if($barcode !== "" && $qty !== "" && $id_rak !== "") {
+      if($barcode !== "" && $id_rak !== "") {
           $query = $this->M_Pasting->add_rak($id_rak_barcode_in, $data);
       }
       echo json_encode($query);
@@ -568,7 +568,7 @@ class Pasting extends BaseController
           'qty' => $qty,
           'id_rak' => $id_rak,
       ];
-      if($barcode !== "" && $qty !== "" && $id_rak !== "") {
+      if($barcode !== "" && $id_rak !== "") {
           $query = $this->M_Pasting->add_rak_out($id_rak_barcode_out, $data);
       }
       echo json_encode($query);
