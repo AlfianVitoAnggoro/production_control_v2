@@ -264,6 +264,8 @@ class Pasting extends BaseController
 
     $data['data_all_machine'] = $model->get_mesin_pasting();
     $data['data_all_grup'] = $model->get_grup();
+    $data['data_all_rak_in'] = $model->get_data_rak_in_by_id($id);
+    $data['data_all_rak_out'] = $model->get_data_rak_out_by_id($id);
 
     // $data['data_wo'] = $model->getDataWO($data['data_lhp_pasting'][0]['tanggal_produksi'], $data['data_lhp_pasting'][0]['mesin_pasting']);
     // $data['data_wo'] = [];
@@ -438,6 +440,42 @@ class Pasting extends BaseController
 
     $model->update_pasting($id_lhp_pasting, $data_detail);
 
+    // $barcode_in = $this->request->getPost('barcode_rak');
+    // $qty_in = $this->request->getPost('qty_rak');
+    // $id_rak_in = $this->request->getPost('id_rak');
+    // $id_rak_barcode_in = $this->request->getPost('id_rak_barcode');
+
+    // if(!empty($barcode_in)) {
+    //   for ($i=0; $i < count($barcode_in); $i++) { 
+    //     $data_rak_in = [
+    //       'id_lhp_pasting' => $id_lhp_pasting,
+    //       'barcode' => $barcode_in[$i],
+    //       'qty' => $qty_in[$i],
+    //       'id_rak' => $id_rak_in[$i]
+    //     ];
+
+    //     $this->M_Pasting->add_rak($id_rak_barcode_in[$i], $data_rak_in);
+    //   }
+    // }
+
+    // $barcode_out = $this->request->getPost('barcode_rak_out');
+    // $qty_out = $this->request->getPost('qty_rak_out');
+    // $id_rak_out = $this->request->getPost('id_rak_out');
+    // $id_rak_barcode_out = $this->request->getPost('id_rak_barcode_out');
+
+    // if(!empty($barcode_out)) {
+    //   for ($i=0; $i < count($barcode_out); $i++) { 
+    //     $data_rak_out = [
+    //       'id_lhp_pasting' => $id_lhp_pasting,
+    //       'barcode' => $barcode_out[$i],
+    //       'qty' => $qty_out[$i],
+    //       'id_rak' => $id_rak_out[$i]
+    //     ];
+
+    //     $this->M_Pasting->add_rak_out($id_rak_barcode_out[$i], $data_rak_out);
+    //   }
+    // }
+
     return redirect()->to(base_url('pasting/detail_pasting/' . $id_lhp_pasting));
   }
 
@@ -466,5 +504,64 @@ class Pasting extends BaseController
     $model->hapus_pasting($id_lhp_pasting);
 
     return redirect()->to(base_url('pasting'));
+  }
+
+  public function get_qty_rak()
+  {
+      $barcode = $this->request->getPost('barcode');
+      $query = $this->M_Pasting->get_qty_rak($barcode);
+      echo json_encode($query);
+  }
+
+  public function add_rak_in()
+  {
+      $id_rak_barcode_in = "";
+      $id_lhp_pasting = $this->request->getPost('id_lhp_pasting');
+      $barcode = $this->request->getPost('barcode');
+      $qty = $this->request->getPost('qty');
+      $id_rak = $this->request->getPost('rak');
+      $data = [
+          'id_lhp_pasting' => $id_lhp_pasting,
+          'barcode' => $barcode,
+          'qty' => $qty,
+          'id_rak' => $id_rak,
+      ];
+      if($barcode !== "" && $qty !== "" && $id_rak !== "") {
+          $query = $this->M_Pasting->add_rak($id_rak_barcode_in, $data);
+      }
+      echo json_encode($query);
+  }
+
+  public function add_rak_out()
+  {
+      $id_rak_barcode_out = "";
+      $id_lhp_pasting = $this->request->getPost('id_lhp_pasting');
+      $barcode = $this->request->getPost('barcode');
+      $qty = $this->request->getPost('qty');
+      $id_rak = $this->request->getPost('rak');
+      $data = [
+          'id_lhp_pasting' => $id_lhp_pasting,
+          'barcode' => $barcode,
+          'qty' => $qty,
+          'id_rak' => $id_rak,
+      ];
+      if($barcode !== "" && $qty !== "" && $id_rak !== "") {
+          $query = $this->M_Pasting->add_rak_out($id_rak_barcode_out, $data);
+      }
+      echo json_encode($query);
+  }
+
+  public function delete_rak()
+  {
+      $barcode = $this->request->getPost('barcode');
+      $query = $this->M_Pasting->delete_rak($barcode);
+      echo json_encode($query);
+  }
+
+  public function delete_rak_out()
+  {
+      $barcode = $this->request->getPost('id_barcode_out');
+      $query = $this->M_Pasting->delete_rak_out($barcode);
+      echo json_encode($query);
   }
 }

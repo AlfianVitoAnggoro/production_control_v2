@@ -125,6 +125,71 @@ $shift
           </div>
         </div>
         <div class="row">
+					<div class="col-xl-12 col-12">
+						<div class="box">
+              <div class="box-header">
+                <h4>Detail Rak Masuk</h4>
+                <br>
+                <table class="table">
+                  <tr>
+                    <td>
+                      Barcode  <input type="text" class="form-control" name="start_barcode" id="start_barcode" onchange="get_qty_rak()" class="form-control">
+                    </td>
+                    <td>
+                      Qty <input type="text" class="form-control" name="start_qty" id="start_qty" class="form-control" readonly>
+                    </td>
+                    <td>
+                      QR Code Rak<input type="text" class="form-control" name="start_rak" id="start_rak" class="form-control">
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-primary" onclick="add_rak_in()">Add</button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+							<div class="box-body">
+								<div class="table-responsive">
+									<table id="data_line_stop" class="table table-striped mb-0">
+										<thead>
+											<tr>
+												<th>Barcode</th>
+                        <th>QTY</th>
+                        <th>ID Rak</th>
+                        <th>Action</th>
+											</tr>
+										</thead>
+										<tbody id="tbody_data_rak">
+											<?php $number=0; foreach ($data_all_rak_in as $d_rak) { ?>
+                        <tr class="rak_in">
+                          <td>
+                            <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_<?=$number?>" value="<?=$d_rak['barcode']?>" readonly>
+                            <input type="hidden" class="form-control" name="id_rak_barcode[]" id="id_rak_barcode_<?=$number?>" value="<?=$d_rak['id']?>" readonly>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_<?=$number?>" value="<?=$d_rak['qty']?>" readonly>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="id_rak[]" id="id_rak_<?=$number?>" value="<?=$d_rak['id_rak']?>" readonly>
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak_in(this, <?=$number?>)">Delete</button>
+                          </td>
+                        </tr>
+                      <?php
+                          $number+=1;
+                        }
+                      ?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="box-footer" style="text-align: center;">
+								<!-- <input type="submit" class="btn btn-success" value="Save"> -->
+							</div>
+						</div>				
+					</div>
+				</div>
+        <div class="row">
           <div class="col-xl-12 col-12">
             <div class="box">
               <div class="box-body">
@@ -669,7 +734,70 @@ $shift
             </div>
           </div>
         </div>
-
+        <div class="row">
+          <div class="col-xl-12 col-12">
+            <div class="box">
+              <div class="box-header">
+                <h4>Detail Rak Keluar</h4>
+                <br>
+                <table class="table">
+                  <tr>
+                    <td>
+                      Barcode  <input type="text" class="form-control" name="start_barcode_out" id="start_barcode_out" onchange="//get_qty_rak_out()" class="form-control">
+                    </td>
+                    <td>
+                      Qty <input type="text" class="form-control" name="start_qty_out" id="start_qty_out" class="form-control" readonly>
+                    </td>
+                    <td>
+                      QR Code Rak<input type="text" class="form-control" name="start_rak_out" id="start_rak_out" class="form-control">
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-primary" onclick="add_rak_out()">Add</button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="box-body">
+                <div class="table-responsive">
+                  <table id="data_line_stop" class="table table-striped mb-0">
+                    <thead>
+                      <tr>
+                        <th>Barcode</th>
+                        <th>QTY</th>
+                        <th>ID Rak</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody_data_rak_out">
+                      <?php $no = 0; foreach ($data_all_rak_out as $d_rak) { ?>
+                        <tr class="rak_out">
+                          <td>
+                            <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_<?=$no?>" value="<?=$d_rak['barcode']?>" readonly>
+                            <input type="hidden" class="form-control" name="id_rak_barcode_out[]" id="id_rak_barcode_out_<?=$no?>" value="<?=$d_rak['id']?>" readonly>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_<?=$no?>" value="<?=$d_rak['qty']?>" readonly>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_<?=$no?>" value="<?=$d_rak['id_rak']?>" readonly>
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, <?= $no ?>)">Delete</button>
+                          </td>
+                        </tr>
+                      <?php $no += 1;
+                        }
+                      ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="box-footer" style="text-align: center;">
+                <!-- <input type="submit" class="btn btn-success" value="Save"> -->
+              </div>
+            </div>				
+          </div>
+        </div>
         <div class="row">
           <div class="col-4"></div>
           <div class="col-4" style="text-align:center;"><input type="submit" class="btn btn-success" value="Save"></div>
@@ -1167,5 +1295,140 @@ $shift
 			<input type="time" class="form-control" name="stop_${i}" id="stop_${i}" value="${currentTime}" style="width: 100px;">
 		`);
   }
+
+  function add_rak_in() {
+        let id_lhp_pasting = $('#id_lhp_pasting').val();
+        let barcode = $('#start_barcode').val();
+        let qty = $('#start_qty').val();
+        let rak = $('#start_rak').val();
+        let baris = document.querySelectorAll('.rak_in').length;
+        $.ajax({
+            url: '<?=base_url()?>pasting/add_rak_in',
+            type: 'POST',
+            data: {
+                id_lhp_pasting: id_lhp_pasting,
+                barcode: barcode,
+                qty: qty,
+                rak: rak
+            },
+            dataType: 'json',
+            success: function(data) {
+                // console.log(data)
+                window.location.reload();
+                // $('#tbody_data_rak').append(`
+                //     <tr class="rak_in">
+                //         <td>
+                //             <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_${baris}" class="form-control" value="${barcode}">
+                //             <input type="hidden" class="form-control" name="id_rak_barcode[]" id="id_rak_barcode_${baris}" class="form-control" value="">
+                //         </td>
+                //         <td>
+                //             <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_${baris}" class="form-control" value="${qty}">
+                //         </td>
+                //         <td>
+                //             <input type="text" class="form-control" name="id_rak[]" id="id_rak_${baris}" class="form-control" value="${rak}">
+                //         </td>
+                //         <td>
+                //             <button type="button" class="btn btn-danger" onclick="delete_detail_rak_in(this, ${baris})">Delete</button>
+                //         </td>
+                //     </tr>
+                // `);
+
+                // $('#start_barcode').val('');
+                // $('#start_qty').val('');
+                // $('#start_rak').val('');
+            }
+        });
+    }
+
+    function delete_detail_rak_in(e, baris) {
+        var barcode = $('#id_rak_barcode_' + baris).val();
+        $.ajax({
+            url: '<?=base_url()?>pasting/delete_rak',
+            type: 'POST',
+            data: {
+                barcode: barcode
+            },
+            dataType: 'json',
+            success: function(data) {
+                $(e).parent().parent().remove();
+            }
+        });
+    }
+
+    function get_qty_rak() {
+        var barcode = $('#start_barcode').val();
+
+        $.ajax({
+            url: '<?=base_url()?>pasting/get_qty_rak',
+            type: 'POST',
+            data: {
+                barcode: barcode
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                $('#start_qty').val(data[0].qty);
+                $('#start_rak').focus();
+            }
+        })
+    }
+
+    function add_rak_out() {
+        let id_lhp_pasting = $('#id_lhp_pasting').val();
+        let barcode = $('#start_barcode_out').val();
+        let qty = $('#start_qty_out').val();
+        let rak = $('#start_rak_out').val();
+        let baris = document.querySelectorAll('.rak_out').length;
+        $.ajax({
+            url: '<?=base_url()?>pasting/add_rak_out',
+            type: 'POST',
+            data: {
+                id_lhp_pasting: id_lhp_pasting,
+                barcode: barcode,
+                qty: qty,
+                rak: rak
+            },
+            dataType: 'json',
+            success: function(data) {
+                window.location.reload();
+                // $('#tbody_data_rak_out').append(`
+                //     <tr class="rak_out">
+                //         <td>
+                //             <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_${baris}" class="form-control" value="${barcode}">
+                //             <input type="hidden" class="form-control" name="id_rak_barcode_out[]" id="id_rak_barcode_out_${baris}" class="form-control" value="">
+                //         </td>
+                //         <td>
+                //             <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_${baris}" class="form-control" value="${qty}">
+                //         </td>
+                //         <td>
+                //             <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_${baris}" class="form-control" value="${rak}">
+                //         </td>
+                //         <td>
+                //             <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, ${baris})">Delete</button>
+                //         </td>
+                //     </tr>
+                // `);
+            
+                // $('#start_barcode_out').val('');
+                // $('#start_qty_out').val('');
+                // $('#start_rak_out').val('');
+            }
+        });
+      }
+    
+    function delete_detail_rak_out(e, baris) {
+      let id_barcode_out = $('#id_rak_barcode_out_' + baris).val();
+      $.ajax({
+          url: '<?=base_url()?>pasting/delete_rak_out',
+          type: 'POST',
+          data: {
+              id_barcode_out: id_barcode_out
+          },
+          dataType: 'json',
+          success: function(data) {
+              $(e).parent().parent().remove();
+          }
+      });
+    }
 </script>
 <?= $this->endSection(); ?>

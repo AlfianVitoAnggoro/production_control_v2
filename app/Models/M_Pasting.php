@@ -343,4 +343,62 @@ class M_Pasting extends Model
     $this->db->query('DELETE FROM detail_breakdown_lhp_pasting WHERE id_lhp_pasting = ' . $id);
     $this->db->query('DELETE FROM detail_reject_pasting WHERE id_lhp_pasting = ' . $id);
   }
+
+  function get_qty_rak($barcode) {
+      $query = $this->db->query('SELECT qty FROM data_record_rak WHERE barcode = \''.$barcode.'\'');
+
+      return $query->getResultArray();
+  }
+
+  function add_rak ($id, $data) {
+      $builder = $this->db->table('data_record_rak_pasting_in');
+      // $builder->insert($data);
+
+      if ($id != '') {
+          $builder->where('id', $id);
+          $builder->update($data);
+          return $id;
+      } else {
+          $builder->insert($data);
+          return $this->db->insertID();
+      }
+  }
+
+  function add_rak_out ($id, $data) {
+      $builder = $this->db->table('data_record_rak_pasting_out');
+      // $builder->insert($data);
+
+      if ($id != '') {
+          $builder->where('id', $id);
+          $builder->update($data);
+          return $id;
+      } else {
+          $builder->insert($data);
+          return $this->db->insertID();
+      }
+  }
+
+  function get_data_rak_in_by_id($id_lhp_pasting) {
+      $query = $this->db->query('SELECT * FROM data_record_rak_pasting_in WHERE id_lhp_pasting = \''.$id_lhp_pasting.'\'');
+
+      return $query->getResultArray();
+  }
+
+  function get_data_rak_out_by_id($id_lhp_pasting) {
+      $query = $this->db->query('SELECT * FROM data_record_rak_pasting_out WHERE id_lhp_pasting = \''.$id_lhp_pasting.'\'');
+
+      return $query->getResultArray();
+  }
+
+  function delete_rak($id_lhp_pasting) {
+      $builder = $this->db->table('data_record_rak_pasting_in');
+
+      $builder->delete(['id' => $id_lhp_pasting]);
+  }
+
+  function delete_rak_out($id_lhp_pasting) {
+      $builder = $this->db->table('data_record_rak_pasting_out');
+
+      $builder->delete(['id' => $id_lhp_pasting]);
+  }
 }

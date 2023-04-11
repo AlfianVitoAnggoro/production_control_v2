@@ -133,6 +133,11 @@ $routes->group('pasting', ['filter' => 'auth'], function ($routes) {
     $routes->post('get_data_andon', 'Pasting::get_data_andon');
     $routes->post('pilih_andon', 'Pasting::pilih_andon');
     $routes->get('hapus_pasting/(:num)', 'Pasting::hapus_pasting/$1');
+    $routes->post('get_qty_rak', 'Pasting::get_qty_rak');
+    $routes->post('add_rak_in', 'Pasting::add_rak_in');
+    $routes->post('add_rak_out', 'Pasting::add_rak_out');
+    $routes->post('delete_rak', 'Pasting::delete_rak');
+    $routes->post('delete_rak_out', 'Pasting::delete_rak_out');
 });
 
 //MASTER LINE STOP
