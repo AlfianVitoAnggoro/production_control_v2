@@ -200,4 +200,11 @@ class M_Grid extends Model
 
         $builder->delete(['id_lhp' => $id_lhp]);
     }
+
+    public function cek_lhp($date_production, $line, $shift, $grup)
+    {
+        $query = $this->db->query('SELECT * FROM lhp_grid WHERE date_production = \'' . $date_production . '\' AND line = \'' . $line . '\' AND shift = \'' . $shift . '\' AND grup = \'' . $grup . '\'');
+
+        return $query->getResultArray();
+    }
 }

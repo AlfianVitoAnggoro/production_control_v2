@@ -54,10 +54,15 @@ class Grid extends BaseController
             'kasubsie' => $kasubsie,
             'status' => 'waiting'
         ];
-
-        $save_data = $this->M_Grid->add_lhp($data_save);
-
-        return redirect()->to(base_url('grid/detail_lhp/'.$save_data));
+        $model = new M_Grid();
+        $cek = $model->cek_lhp($tanggal_produksi, $line, $shift, $grup);
+        if (count($cek) > 0) {
+            $id = $cek[0]['id'];
+            return redirect()->to(base_url('grid/detail_lhp/' . $id));
+        } else {
+            $save_data = $this->M_Grid->add_lhp($data_save);
+            return redirect()->to(base_url('grid/detail_lhp/'.$save_data));
+        }
     }
 
     public function detail_lhp($id_lhp)
