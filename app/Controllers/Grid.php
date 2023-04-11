@@ -55,7 +55,7 @@ class Grid extends BaseController
             'status' => 'waiting'
         ];
         $model = new M_Grid();
-        $cek = $model->cek_lhp($tanggal_produksi, $line, $shift, $grup);
+        $cek = $model->cek_lhp($tanggal_produksi, $line, $shift, $kasubsie, $grup);
         if (count($cek) > 0) {
             $id = $cek[0]['id'];
             return redirect()->to(base_url('grid/detail_lhp/' . $id));
