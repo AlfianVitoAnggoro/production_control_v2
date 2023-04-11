@@ -38,7 +38,14 @@
                             <!-- <td><?= $pasting['no_doc'] ?></td> -->
                             <td><?= $pasting['tanggal_produksi'] ?></td>
                             <td><?= $pasting['shift'] ?></td>
-                            <td><?= $pasting['mesin_pasting'] ?></td>
+                            <td>
+                              <?php foreach($data_mesin_pasting as $dms) {
+                                  if($pasting['mesin_pasting'] === $dms['id_mesin_pasting']) {
+                                    echo 'Mesin ' . $dms['nama_mesin_pasting'];
+                                  }
+                                }
+                              ?>
+                            </td>
                             <td><?= $pasting['kasubsie'] ?></td>
                             <td><?= $pasting['grup'] ?></td>
                             <!-- <td><?= $retVal = (!empty($pasting['total_aktual']) && !empty($pasting['total_plan'])) ? number_format((float) ($pasting['total_aktual'] / $pasting['total_plan']) * 100, 2, '.', '') : ''; ?></td> -->
