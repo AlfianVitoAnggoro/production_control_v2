@@ -516,7 +516,7 @@
 												<th>Reject QTY</th>
 												<th>Reject Jenis</th>
 												<th>Reject Kategori</th>
-												<th>Reject Remark</th>
+												<th>Analisa Problem</th>
 												<th>Reject Action</th>
 											</tr>
 										</thead>
