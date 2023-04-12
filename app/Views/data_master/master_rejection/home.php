@@ -233,30 +233,30 @@
         $('.modal .select2').select2({
    		 dropdownParent: $('.modal')
 		});
+	});
 
-        $('.edit-btn').on('click', function() {
-				// Get data attributes from button
-				var id = $(this).data('id');
-				var name = $(this).data('name');
-                // Set data attributes to modal
-                $('#edit_jenis_reject_utama').val(name);
-                $('#edit_reject_utama').val(name);
-                $('#edit_id_reject_utama').val(id);
-                $('.modal_edit_jenis').modal('show');
-        });
+	$('.edit-btn').on('click', function() {
+			// Get data attributes from button
+			var id = $(this).data('id');
+			var name = $(this).data('name');
+			// Set data attributes to modal
+			$('#edit_jenis_reject_utama').val(name);
+			$('#edit_reject_utama').val(name);
+			$('#edit_id_reject_utama').val(id);
+			$('.modal_edit_jenis').modal('show'); 
+	});
 
-		$('.edit-btn-kategori').on('click', function() {
-				// Get data attributes from button
-				var id = $(this).data('id');
-				var jenis = $(this).data('jenis');
-				var kategori = $(this).data('kategori');
+	$('.edit-btn-kategori').on('click', function() {
+		// Get data attributes from button
+		var id = $(this).data('id');
+		var jenis = $(this).data('jenis');
+		var kategori = $(this).data('kategori');
 
-				// Set data attributes to modal
-				$('#edit_jenis_reject').val(jenis);
-				$('#edit_kategori_reject').val(kategori);
-				$('#edit_id_ketegori_reject').val(id);
-				$('.modal_edit_kategori').modal('show');
-        });
+		// Set data attributes to modal
+		$('#edit_jenis_reject').val(jenis);
+		$('#edit_kategori_reject').val(kategori);
+		$('#edit_id_ketegori_reject').val(id);
+		$('.modal_edit_kategori').modal('show');
 	});
   </script>
   <?= $this->endSection(); ?>
