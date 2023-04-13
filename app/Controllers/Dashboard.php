@@ -223,7 +223,7 @@ class Dashboard extends BaseController
         
 
         $data['data_all_month'] = [];
-        for ($i=1; $i < 12; $i++) { 
+        for ($i=1; $i <= 12; $i++) { 
             $data_all = $this->M_Dashboard->get_data_all_line_by_month($i, $child_filter);
             if (!empty($data_all)) {
                 foreach($data_all as $d_all) {

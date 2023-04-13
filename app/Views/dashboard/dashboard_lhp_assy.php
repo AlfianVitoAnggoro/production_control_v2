@@ -54,12 +54,12 @@
                     <br>
                 </div>
             </div> -->
-            <div class="row">
-				<div class="col-12">														
-					<div class="box no-shadow mb-0 bg-transparent">
-						<div class="box-header no-border px-0">
+            <!-- <div class="row"> -->
+				<!-- <div class="col-12">														 -->
+					<!-- <div class="box" >
+						<div class="box-header no-border px-0"> -->
 							<!-- <h4 class="box-title">Current Running Courses</h4>	 -->
-                            <form action="<?=base_url()?>dashboard/assy" method="POST">
+                            <!-- <form action="<?=base_url()?>dashboard/assy" method="POST">
                                 <div class="row">
                                     <div class="col-3">
                                         <select class="form-select" name="jenis_dashboard" id="jenis_dashboard">
@@ -72,7 +72,6 @@
                                         <select class="form-select" name="parent_filter" id="parent_filter" style="display:none">
                                             <option value="line" <?= ($parent_filter == 'line') ? 'selected':''?>>Line</option>
                                         </select>
-                                        <!-- &nbsp; -->
                                         <select class="form-select" name="child_filter" id="child_filter">
                                             <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>All</option>
                                             <?php for ($i=1; $i <= 7 ; $i++) { ?>
@@ -93,24 +92,23 @@
                                     </div>
                                     
                                     <div class="col-3" style="display:flex;">
-                                        <!-- &nbsp;    -->
                                         <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>">
                                     </div>
                                     <div class="col-3" style="display: flex; flex-direction: column;">
                                         <button class="btn btn-sm btn-success"> Filter </button>
                                     </div>
                                 </div>
-                            </form>
+                            </form> -->
 							<!-- <ul class="box-controls pull-right d-md-flex d-none">
 							  <li>
 								<button class="btn btn-primary-light px-10">View All</button>
 							  </li>
 							</ul> -->
-						</div>
-					</div>
-				</div>
+						<!-- </div>
+					</div> -->
+				<!-- </div> -->
                 
-				<div class="col-xl-3 col-md-6 col-12">
+				<!-- <div class="col-xl-3 col-md-6 col-12">
 					<div class="box pull-up">
 						<div class="box-body">	
 							<div class="bg-primary rounded">
@@ -157,15 +155,105 @@
                             <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>%</h1>
                         </div>
 					</div>
-				</div>
-			</div>
+				</div> -->
+			<!-- </div> -->
+
+            <div class="row">
+                    <div class="box">
+                        <div class="box-body" style="display:flex">
+                            <div class="col-2">
+                                <form action="<?=base_url()?>dashboard/assy" method="POST">
+                                    <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                        <option value="1">Efficiency</option>
+                                        <option value="2">Unit / MH</option>
+                                    </select>
+                                    &nbsp;
+                                    <select class="form-select" name="parent_filter" id="parent_filter" style="display:none">
+                                        <option value="line" <?= ($parent_filter == 'line') ? 'selected':''?>>Line</option>
+                                    </select>
+                                    &nbsp;
+                                    <select class="form-select" name="child_filter" id="child_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                        <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>All</option>
+                                        <?php for ($i=1; $i <= 7 ; $i++) { ?>
+                                            <option value="<?=$i?>" <?= ($child_filter == $i) ? 'selected':''?>>Line <?=$i?></option>
+                                        <?php } ?>
+                                    </select>
+                                    &nbsp;
+                                    <select class="form-select" name="baby_filter" id="baby_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                        <?php if ($child_filter == 0) { ?>
+                                            <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
+                                        <?php } else { ?>
+                                            <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
+                                            <option value="shift" <?= ($baby_filter == 'shift') ? 'selected':''?>>By Shift</option>
+                                            <option value="grup" <?= ($baby_filter == 'grup') ? 'selected':''?>>By Grup</option>
+                                            <option value="kasubsie" <?= ($baby_filter == 'kasubsie') ? 'selected':''?>>By Kasubsie</option>
+                                        <?php } ?>
+                                    </select>
+                                    &nbsp;
+                                    <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                    &nbsp;
+                                    <div style="display: flex; flex-direction: column;" >
+                                        <button class="btn btn-sm btn-success" style="font-size: 20px;font-weight: 900;width: 250px;"> Filter </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-6" style="display:flex; margin-top:35px;">
+                                <div class="col-xl-3 col-md-6 col-12">
+                                    <div id="year_to_date_chart" style="height:250px;"></div>
+                                </div>
+                                <div class="col-3">
+                                    <div id="target_chart" style="height:250px;"></div>
+                                </div>
+                                <div class="col-3">
+                                    <div id="previous_month_chart" style="height:250px;"></div>
+                                </div>
+                                <div class="col-3">
+                                    <div id="current_month_chart" style="height:250px;"></div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="row">
+                                    <div class="col-12" style="text-align:center">
+                                        <button class="btn btn-danger">Rejection</button>
+                                        <button class="btn btn-info">Line Stop</button>
+                                        <button class="btn btn-success">Overtime</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" style="text-align:center">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>#</td>
+                                                        <td><?=date('F', mktime(0, 0, 0, $previous_date, 10))?></td>
+                                                        <td><?=date('F', mktime(0, 0, 0, $current_date, 10))?></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php for ($i=1; $i <= 7; $i++) { ?>
+                                                        <tr>
+                                                            <td>Line <?=$i?></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
 
 			<div class="row" id="efficiency-wrapper">
 				<div class="col-xl-8 col-12">
 					<div class="box">
 						<div class="box-body">
                             <figure class="highcharts-figure">
-                                <div id="container"></div>
+                                <div id="main_chart"></div>
                             </figure>
 						</div>
 					</div>										
@@ -176,108 +264,11 @@
 							<div class="box no-shadow mb-0">
 								<div class="box-body px-0 pt-0">
                                     <figure class="highcharts-figure">
-                                        <div id="container1"></div>
+                                        <div id="side_chart"></div>
                                     </figure>
 								</div>
 							</div>							
 						</div>
-					</div>
-				</div>
-			</div>
-            
-            
-            <div class="row" id="grup-wrapper" style="display:none">
-				<div class="col-xl-8 col-12">
-					<div class="box">
-						<div class="box-body">
-                            <figure class="highcharts-figure">
-                                <div id="chart-grup"></div>
-                            </figure>
-						</div>
-					</div>										
-				</div>
-				<div class="col-xl-4 col-12">
-                    <div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-primary rounded">
-								<h5 class="text-white text-center p-10">Efficiency Grup</h5>
-							</div>							
-						</div>
-                        <div class="box-body text-center">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Grup</th>
-                                        <th scope="col">Efficiency</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>A</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>B</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>C</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>D</td>
-                                        <td>80%</td>
-                                    </tr>
-                            </table>
-                        </div>				
-					</div>
-				</div>
-			</div>
-
-            <div class="row" id="kasubsie-wrapper" style="display:none">
-				<div class="col-xl-8 col-12">
-					<div class="box">
-						<div class="box-body">
-                            <figure class="highcharts-figure">
-                                <div id="chart-kss"></div>
-                            </figure>
-						</div>
-					</div>										
-				</div>
-				<div class="col-xl-4 col-12">
-                    <div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-primary rounded">
-								<h5 class="text-white text-center p-10">Efficiency Kasubsie</h5>
-							</div>							
-						</div>
-                        <div class="box-body text-center">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Kasubsie</th>
-                                        <th scope="col">Efficiency</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>80%</td>
-                                    </tr>
-                            </table>
-                        </div>				
 					</div>
 				</div>
 			</div>
@@ -363,12 +354,240 @@
         }
     }
 
-    Highcharts.chart('container1', {
+    // PIE CHART YEAR TO GET
+    var year_to_date_chart = echarts.init(document.getElementById('year_to_date_chart'));
+    year_to_date_chart.setOption(
+        {
+            title: {
+                text: '<?=json_encode($data_all_year)?>%',
+                subtext: 'Year To Date',
+                x: 'center',
+                y: 'center',
+                itemGap: 5,
+                textStyle: {
+                    color: '#ffffff',
+                    fontSize: 30,
+                    fontWeight: '700'
+                },
+                subtextStyle: {
+                    color: '#ffffff',
+                    fontSize: 15,
+                    fontWeight: 'normal'
+                }
+
+            },           
+            series: [
+                {
+                    name: '1',
+                    type: 'pie',
+                    clockWise: false,
+                    radius: ['75%', '90%'],
+                    itemStyle: {
+                        normal: {
+                            label: {show: false},
+                            labelLine: {show: false}
+                        }
+                    },
+                    data: [
+                        {
+                            value: <?=json_encode($data_all_year)?>,
+                            name: 'Monday',
+                            itemStyle: {
+                                color: 'blue'
+                            }
+                        },
+                        {
+                            value: 100 - <?=json_encode($data_all_year)?>,
+                            name: 'invisible',
+                            itemStyle: {
+                                color: 'grey'
+                            }
+                        }
+                    ]
+                },
+            ]
+        }
+    );
+
+    // PIE CHART TARGET
+    var target_chart = echarts.init(document.getElementById('target_chart'));
+    target_chart.setOption(
+        {
+            title: {
+                text: '85%',
+                subtext: 'Target 2023',
+                x: 'center',
+                y: 'center',
+                itemGap: 5,
+                textStyle: {
+                    color: '#ffffff',
+                    fontSize: 30,
+                    fontWeight: '700'
+                },
+                subtextStyle: {
+                    color: '#ffffff',
+                    fontSize: 15,
+                    fontWeight: 'normal'
+                }
+
+            },           
+            series: [
+                {
+                    name: '1',
+                    type: 'pie',
+                    clockWise: false,
+                    radius: ['75%', '90%'],
+                    itemStyle: {
+                        normal: {
+                            label: {show: false},
+                            labelLine: {show: false}
+                        }
+                    },
+                    data: [
+                        {
+                            value: 85,
+                            name: 'Monday',
+                            itemStyle: {
+                                color: '#ff9920'
+                            }
+                        },
+                        {
+                            value: 15,
+                            name: 'invisible',
+                            itemStyle: {
+                                color: 'grey'
+                            }
+                        }
+                    ]
+                },
+            ]
+        }
+    );
+
+    // PIE CHART Previous Month
+    var previous_month_chart = echarts.init(document.getElementById('previous_month_chart'));
+    previous_month_chart.setOption(
+        {
+            title: {
+                text: '<?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>%',
+                subtext: '<?=date('F', mktime(0, 0, 0, $previous_date, 10))?> Efficiency',
+                x: 'center',
+                y: 'center',
+                itemGap: 5,
+                textStyle: {
+                    color: '#ffffff',
+                    fontSize: 30,
+                    fontWeight: '700'
+                },
+                subtextStyle: {
+                    color: '#ffffff',
+                    fontSize: 15,
+                    fontWeight: 'normal'
+                }
+
+            },           
+            series: [
+                {
+                    name: '1',
+                    type: 'pie',
+                    clockWise: false,
+                    radius: ['75%', '90%'],
+                    itemStyle: {
+                        normal: {
+                            label: {show: false},
+                            labelLine: {show: false}
+                        }
+                    },
+                    data: [
+                        {
+                            value: <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
+                            name: 'Monday',
+                            itemStyle: {
+                                color: 'red'
+                            }
+                        },
+                        {
+                            value: 100 - <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
+                            name: 'invisible',
+                            itemStyle: {
+                                color: 'grey'
+                            }
+                        }
+                    ]
+                },
+            ]
+        }
+    );
+
+    // PIE CHART Current Month
+    var current_month_chart = echarts.init(document.getElementById('current_month_chart'));
+    current_month_chart.setOption(
+        {
+            title: {
+                text: '<?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>%',
+                subtext: '<?=date('F', mktime(0, 0, 0, $current_date, 10))?> Efficiency',
+                x: 'center',
+                y: 'center',
+                itemGap: 5,
+                textStyle: {
+                    color: '#ffffff',
+                    fontSize: 30,
+                    fontWeight: '700'
+                },
+                subtextStyle: {
+                    color: '#ffffff',
+                    fontSize: 15,
+                    fontWeight: 'normal'
+                }
+
+            },           
+            series: [
+                {
+                    name: '1',
+                    type: 'pie',
+                    clockWise: false,
+                    radius: ['75%', '90%'],
+                    itemStyle: {
+                        normal: {
+                            label: {show: false},
+                            labelLine: {show: false}
+                        }
+                    },
+                    data: [
+                        {
+                            value: <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>,
+                            name: 'Monday',
+                            itemStyle: {
+                                color: 'cyan'
+                            }
+                        },
+                        {
+                            value: 100 - <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>,
+                            name: 'invisible',
+                            itemStyle: {
+                                color: 'grey'
+                            }
+                        }
+                    ]
+                },
+            ]
+        }
+    );
+
+    Highcharts.chart('side_chart', {
         chart: {
-            type: 'column'
+            type: 'column',
+            backgroundColor: '#0c1a32',
+        },
+        exporting: {
+            enabled: false
         },
         title: {
-            text: 'Monthly Efficiency'
+            text: 'Monthly Efficiency',
+            style: {
+                color: '#ffffff',
+                fontSize: '20px'
+            }
         },
         xAxis: {
             categories: [
@@ -402,10 +621,14 @@
                 }
             }
         },
+        legend: {
+                enabled: false
+            },
 
         series: [{
             // name: 'All Line',
-            data: <?php echo json_encode($data_all_month); ?>
+            data: <?php echo json_encode($data_all_month); ?>,
+            color:'yellow',
 
         }
     ]
@@ -429,52 +652,91 @@
             array_push($dates, $start);
             $start = date ("Y-m-d", strtotime("+1 day", strtotime($start)));
         }
+
+        // $dates=array();
+
+        // for($d=1; $d<=31; $d++)
+        // {
+        //     $time=mktime(12, 0, 0, date('m'), $d, date('Y'));
+        //     if (date('m', $time)==date('m'))
+        //         $dates[]=date('d', $time);
+        // }
     ?>
 
-    Highcharts.chart('container', {
+    Highcharts.chart('main_chart', {
         chart: {
-            type: 'column'
+            type: 'column',
+            // backgroundColor: '#12213c',
+            backgroundColor: '#0c1a32',
             // type: '<?=$type_chart?>'
         },
+
+        exporting: {
+            enabled: false
+        },
+
         title: {
             text: 'Efficiency',
-            align: 'center'
+            align: 'center',
+            style: {
+                color: '#ffffff',
+                fontSize: '20px'
+            }
         },
 
         subtitle: {
-            text: 'Source: Laporan Harian Produksi'
+            text: 'Source: Laporan Harian Produksi',
+            align: 'center',
+            style: {
+                color: '#ffffff',
+                fontSize: '15px'
+            }
         },
 
         yAxis: {
             title: {
                 text: '%'
             },
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
+            }
         },
 
         xAxis: {
-            categories: <?= json_encode($dates); ?>
+            categories: <?= json_encode($dates); ?>,
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
+            }
         },
 
         legend: {
             layout: 'vertical',
             align: 'right',
-            verticalAlign: 'middle'
+            verticalAlign: 'middle',
+            itemStyle: {
+                color: '#ffffff'
+            }
         },
 
         plotOptions: {
             column: {
                 dataLabels: {
                     enabled: true
-                }
+                },
             }
         },
+        colors: ['yellow', 'red', 'cyan'],
         
-
         series: [
             <?php if (($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'average') { ?>
                 {
                     name: 'All Line',
                     data: <?php echo json_encode($data_all_line); ?>,
+                    color:'yellow',
                     point: {
                         events: {
                             click: function() {
@@ -757,114 +1019,6 @@
                 <?php } ?>
             <?php } ?>
         ],
-
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-
-    });
-
-    Highcharts.chart('chart-grup', {
-
-        title: {
-            text: 'Efficiency Per Grup',
-            align: 'center'
-        },
-
-        yAxis: {
-            title: {
-                text: '%'
-            },
-        },
-
-        xAxis: {
-            categories: <?= json_encode($dates); ?>
-        },
-
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
-
-        series: [{
-            name: 'Grup A',
-            data: [43934, 48656]
-        }, {
-            name: 'Grup B',
-            data: [24916, 37941]
-        }, {
-            name: 'Grup C',
-            data: [11744, 30000]
-        }],
-
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-
-    });
-
-    Highcharts.chart('chart-kss', {
-
-        title: {
-            text: 'Efficiency Per Kasubsie',
-            align: 'center'
-        },
-
-        yAxis: {
-            title: {
-                text: '%'
-            },
-            // categories: [20, 40, 60, 80, 100],
-        },
-
-        xAxis: {
-            categories: <?= json_encode($dates); ?>
-        },
-
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
-
-
-
-        series: [{
-            name: 'Grup A',
-            data: [43934, 48656, 65165, 81827, 112143, 142383,171533, 165174, 155157, 161454, 154610]
-        }, {
-            name: 'Grup B',
-            data: [24916, 37941, 29742, 29851, 32490, 30282,38121, 36885, 33726, 34243, 31050]
-        }, {
-            name: 'Grup C',
-            data: [11744, 30000, 16005, 19771, 20185, 24377,32147, 30912, 29243, 29213, 25663]
-        }, {
-            name: 'Grup D',
-            data: [11164, 11218, 10077]
-        }],
 
         responsive: {
             rules: [{

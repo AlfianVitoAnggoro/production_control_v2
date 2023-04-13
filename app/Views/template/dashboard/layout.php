@@ -26,13 +26,34 @@
 	<script src="<?= base_url() . 'assets/js/highcharts/modules/exporting.js'?>"></script>
 	<script src="<?= base_url() . 'assets/js/highcharts/modules/export-data.js'?>"></script>
 	<script src="<?= base_url() . 'assets/js/highcharts/modules/accessibility.js'?>"></script>
+
+	<style>
+		@font-face {
+			font-family: azonix;
+			src: url("<?= base_url()?>fonts/azonix.otf") format("opentype");
+		}
+
+		.judul_dashboard {
+			/* font-family: azonix; */
+			font-size: 35px;
+			color: #fff;
+			font-weight:600;	
+		}
+
+		.sub_judul_dashboard {
+			/* font-family: azonix; */
+			font-size: 28px;
+			color: #fff;
+			font-weight:500;	
+		}
+	</style>
 </head>
-<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+<body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
 	
 <div class="wrapper">
     <?= $this->include('template/dashboard/header') ?>
     <?= $this->renderSection('content') ?>
-    <?= $this->include('template/footer') ?>
+    
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar">
@@ -42,7 +63,7 @@
       <li class="nav-item"><a href="#control-sidebar-home-tab" data-bs-toggle="tab" class="active"><i class="mdi mdi-message-text"></i></a></li>
       <li class="nav-item"><a href="#control-sidebar-settings-tab" data-bs-toggle="tab"><i class="mdi mdi-playlist-check"></i></a></li>
     </ul>
-    <!-- Tab panes -->
+    <!-- Tab panes -->	
     <div class="tab-content">
       <!-- Home tab content -->
       <!-- <div class="tab-pane active" id="control-sidebar-home-tab">
@@ -198,6 +219,9 @@
 	<script src="<?=base_url()?>assets/template/main/js/pages/calendar.js"></script>
 	<!-- <script src="<?=base_url()?>assets/template/main/js/pages/data-table.js"></script> -->
 	<script src="<?=base_url()?>assets/template/main/js/pages/advanced-form-element.js"></script>
+	<script src="<?=base_url()?>assets/template/assets/vendor_components/echarts/dist/echarts-en.min.js"></script>
+	<!-- <script src="<?=base_url()?>js/pages/echart-pie-doghnut.js"></script> -->
+	
 
 	<?= $this->renderSection('script') ?>
 
