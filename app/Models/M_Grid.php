@@ -207,4 +207,15 @@ class M_Grid extends Model
 
         return $query->getResultArray();
     }
+
+    public function get_summary_rework() {
+        $query = $this->db->query('
+                                    select      SUM(jumlah) as total , cast(created_at as date) tanggal, id_machine
+                                    from        rework_grid
+                                    group by    cast(created_at as date), id_machine
+                                    order by    cast(created_at as date) desc
+                                ');
+
+        return $query->getResultArray();        
+    }
 }

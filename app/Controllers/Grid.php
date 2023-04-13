@@ -278,5 +278,9 @@ class Grid extends BaseController
         $id_detail_lhp = $this->request->getPost('id_detail_lhp');
     }
 
-    
+    public function get_summary_rework()
+    {
+        $data['data_rework'] = $this->M_Grid->get_summary_rework();
+        return view('pages/grid_casting/summary_grid_rework', $data);
+    }    
 }
