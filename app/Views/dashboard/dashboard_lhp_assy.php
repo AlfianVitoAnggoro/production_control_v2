@@ -233,6 +233,7 @@
                                                         <td>#</td>
                                                         <td><?=date('F', mktime(0, 0, 0, $previous_date, 10))?></td>
                                                         <td><?=date('F', mktime(0, 0, 0, $current_date, 10))?></td>
+                                                        <td>Status</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -241,6 +242,15 @@
                                                             <td>Line <?=$i?></td>
                                                             <td><?=${'data_line_'.$i.'_previous_month'}[0]?> %</td>
                                                             <td><?=${'data_line_'.$i.'_current_month'}[0]?> %</td>
+                                                            <td>
+                                                                <?php if(${'data_line_'.$i.'_current_month'}[0] > ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                    echo '<i class="fa fa-arrow-up" style="color:green"></i>';
+                                                                } else if(${'data_line_'.$i.'_current_month'}[0] < ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                    echo '<i class="fa fa-arrow-down" style="color:red"></i>';
+                                                                } else if(${'data_line_'.$i.'_current_month'}[0] == ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                    echo '<i class="fa fa-minus" style="color:yellow"></i>';
+                                                                } ?>
+                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>
