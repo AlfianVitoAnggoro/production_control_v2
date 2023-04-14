@@ -231,6 +231,9 @@
                                 </div> -->
                                 <!-- <div class="row"> -->
                                     <!-- <div class="col-12" style="text-align:center"> -->
+                                        <div>
+                                            <h4 style="font-weight: 500;color: yellow;">Production Performance Review </h4>
+                                        </div>
                                         <div class="table-responsive">
                                             <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700;">
                                                 <thead>
@@ -470,7 +473,7 @@
                             value: 85,
                             name: 'Monday',
                             itemStyle: {
-                                color: '#ff9920'
+                                color: 'red'
                             }
                         },
                         {
