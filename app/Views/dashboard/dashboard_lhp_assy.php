@@ -204,15 +204,20 @@
                                 <div class="col-3">
                                     <div id="target_chart" style="height:250px;"></div>
                                 </div>
-                                <div class="col-3">
+                                <!-- <div class="col-3">
                                     <div id="previous_month_chart" style="height:250px;"></div>
-                                </div>
+                                </div> -->
                                 <div class="col-3">
                                     <div id="current_month_chart" style="height:250px;"></div>
                                 </div>
+                                <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
+                                    <button class="btn btn-danger">Rejection</button>
+                                    <button class="btn btn-info">Line Stop</button>
+                                    <button class="btn btn-success">Overtime</button>
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <div class="row">
+                            <div class="col-4" style="text-align:center">
+                                <!-- <div class="row">
                                     <div class="col-12" style="text-align:center">
                                         <button class="btn btn-danger">Rejection</button>
                                         <button class="btn btn-info">Line Stop</button>
@@ -223,11 +228,11 @@
                                     <div class="col-12">
                                         <br>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12" style="text-align:center">
+                                </div> -->
+                                <!-- <div class="row"> -->
+                                    <!-- <div class="col-12" style="text-align:center"> -->
                                         <div class="table-responsive">
-                                            <table class="table" style="width: 60%; margin: 0 auto; color:white; font-weight:700;">
+                                            <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700;">
                                                 <thead>
                                                     <tr>
                                                         <td>#</td>
@@ -256,8 +261,8 @@
                                                 </tbody>
                                             </table>
                                         </div>                                        
-                                    </div>
-                                </div>
+                                    <!-- </div> -->
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -482,60 +487,60 @@
     );
 
     // PIE CHART Previous Month
-    var previous_month_chart = echarts.init(document.getElementById('previous_month_chart'));
-    previous_month_chart.setOption(
-        {
-            title: {
-                text: '<?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>%',
-                subtext: '<?=date('F', mktime(0, 0, 0, $previous_date, 10))?> Efficiency',
-                x: 'center',
-                y: 'center',
-                itemGap: 5,
-                textStyle: {
-                    color: '#ffffff',
-                    fontSize: 30,
-                    fontWeight: '700'
-                },
-                subtextStyle: {
-                    color: '#ffffff',
-                    fontSize: 15,
-                    fontWeight: 'normal'
-                }
+    // var previous_month_chart = echarts.init(document.getElementById('previous_month_chart'));
+    // previous_month_chart.setOption(
+    //     {
+    //         title: {
+    //             text: '<?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>%',
+    //             subtext: '<?=date('F', mktime(0, 0, 0, $previous_date, 10))?> Efficiency',
+    //             x: 'center',
+    //             y: 'center',
+    //             itemGap: 5,
+    //             textStyle: {
+    //                 color: '#ffffff',
+    //                 fontSize: 30,
+    //                 fontWeight: '700'
+    //             },
+    //             subtextStyle: {
+    //                 color: '#ffffff',
+    //                 fontSize: 15,
+    //                 fontWeight: 'normal'
+    //             }
 
-            },           
-            series: [
-                {
-                    name: '1',
-                    type: 'pie',
-                    clockWise: false,
-                    radius: ['75%', '90%'],
-                    silent: true,
-                    itemStyle: {
-                        normal: {
-                            label: {show: false},
-                            labelLine: {show: false}
-                        }
-                    },
-                    data: [
-                        {
-                            value: <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
-                            name: 'Monday',
-                            itemStyle: {
-                                color: 'red'
-                            }
-                        },
-                        {
-                            value: 100 - <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
-                            name: 'invisible',
-                            itemStyle: {
-                                color: 'grey'
-                            }
-                        }
-                    ]
-                },
-            ]
-        }
-    );
+    //         },           
+    //         series: [
+    //             {
+    //                 name: '1',
+    //                 type: 'pie',
+    //                 clockWise: false,
+    //                 radius: ['75%', '90%'],
+    //                 silent: true,
+    //                 itemStyle: {
+    //                     normal: {
+    //                         label: {show: false},
+    //                         labelLine: {show: false}
+    //                     }
+    //                 },
+    //                 data: [
+    //                     {
+    //                         value: <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
+    //                         name: 'Monday',
+    //                         itemStyle: {
+    //                             color: 'red'
+    //                         }
+    //                     },
+    //                     {
+    //                         value: 100 - <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
+    //                         name: 'invisible',
+    //                         itemStyle: {
+    //                             color: 'grey'
+    //                         }
+    //                     }
+    //                 ]
+    //             },
+    //         ]
+    //     }
+    // );
 
     // PIE CHART Current Month
     var current_month_chart = echarts.init(document.getElementById('current_month_chart'));

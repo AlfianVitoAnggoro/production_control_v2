@@ -87,7 +87,7 @@ class Dashboard extends BaseController
                         $total_plan = $da['total_plan'];
                         $total_aktual = $da['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_all_line'], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_all_line'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
                     array_push($data['data_all_line'], 0);
@@ -103,7 +103,7 @@ class Dashboard extends BaseController
                         $total_plan = $d1['total_plan'];
                         $total_aktual = $d1['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_line_'.$child_filter], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_line_'.$child_filter], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
                     array_push($data['data_line_'.$child_filter], 0);
@@ -118,7 +118,7 @@ class Dashboard extends BaseController
                         $total_plan = $d1['total_plan'];
                         $total_aktual = $d1['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_line_shift_1'], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_line_shift_1'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
                     array_push($data['data_line_shift_1'], 0);
@@ -130,7 +130,7 @@ class Dashboard extends BaseController
                         $total_plan = $d2['total_plan'];
                         $total_aktual = $d2['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_line_shift_2'], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_line_shift_2'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
                     array_push($data['data_line_shift_2'], 0);
@@ -142,7 +142,7 @@ class Dashboard extends BaseController
                         $total_plan = $d3['total_plan'];
                         $total_aktual = $d3['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_line_shift_3'], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_line_shift_3'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
                     array_push($data['data_line_shift_3'], 0);
@@ -166,7 +166,7 @@ class Dashboard extends BaseController
                 
                                     $data_grup = [
                                         'grup' => $grup,
-                                        'data' => (float) number_format($eff, 2, '.', '')
+                                        'data' => (float) number_format($eff, 1, '.', '')
                                     ];
                                     $data['data_line_by_grup'][] = $data_grup;
                                 } 
@@ -200,7 +200,7 @@ class Dashboard extends BaseController
                 
                                     $data_kss = [
                                         'kss' => $kss,
-                                        'data' => (float) number_format($eff, 2, '.', '')
+                                        'data' => (float) number_format($eff, 1, '.', '')
                                     ];
                                     $data['data_line_by_kss'][] = $data_kss;
                                 } 
