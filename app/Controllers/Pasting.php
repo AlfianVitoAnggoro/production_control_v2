@@ -130,12 +130,11 @@ class Pasting extends BaseController
     $mesin_pasting = $this->request->getPost('mesin_pasting');
     $kategori_line_stop = $this->request->getPost('kategori_line_stop');
     $model = new M_Pasting();
-    if($mesin_pasting <= 3) {
+    if ($mesin_pasting <= 3) {
       echo json_encode($model->getListJenisLineStopCasting($kategori_line_stop));
     } else {
       echo json_encode($model->getListJenisLineStopPunching($kategori_line_stop));
     }
-
   }
 
   public function get_kategori_reject()
@@ -265,8 +264,10 @@ class Pasting extends BaseController
 
     $data['data_all_machine'] = $model->get_mesin_pasting();
     $data['data_all_grup'] = $model->get_grup();
-    $data['data_all_rak_in'] = $model->get_data_rak_in_by_id($id);
-    $data['data_all_rak_out'] = $model->get_data_rak_out_by_id($id);
+    // $data['data_all_rak_in'] = $model->get_data_rak_in_by_id($id);
+    $data['data_record_rak_in'] = $model->get_data_detail_record_rak_by_id_rak_in($id, 'K-CAS');
+    // $data['data_all_rak_out'] = $model->get_data_rak_out_by_id($id);
+    $data['data_record_rak_out'] = $model->get_data_detail_record_rak_by_id_rak_out($id, 'K-PAS');
 
     // $data['data_wo'] = $model->getDataWO($data['data_lhp_pasting'][0]['tanggal_produksi'], $data['data_lhp_pasting'][0]['mesin_pasting']);
     // $data['data_wo'] = [];
@@ -317,35 +318,35 @@ class Pasting extends BaseController
       $total_data = count($this->request->getPost('id_detail_lhp_pasting'));
       for ($i = 0; $i < $total_data; $i++) {
         // if ($this->request->getPost('id_detail_lhp_pasting')[$i] != '') {
-          $id_detail_lhp_pasting = $this->request->getPost('id_detail_lhp_pasting')[$i];
-          $data_detail_pasting = [
-            'id_lhp_pasting' => $id_lhp_pasting,
-            // 'batch' => $this->request->getPost('batch')[$i],
-            'jam_start' => $this->request->getPost('start')[$i],
-            'jam_end' => $this->request->getPost('stop')[$i],
-            'menit_terpakai' => $this->request->getPost('menit_terpakai')[$i],
-            'type_grid' => $this->request->getPost('type_grid')[$i],
-            'ct' => $this->request->getPost('ct')[$i],
-            'jks' => $this->request->getPost('jks')[$i],
-            'actual' => $this->request->getPost('actual')[$i],
-            'act_vs_jks' => $this->request->getPost('presentase')[$i],
-            // 'efficiency_time' => $this->request->getPost('efficiency_time')[$i],
-            // 'total_menit_breakdown' => $this->request->getPost('total_menit_breakdown')[$i]
-          ];
+        $id_detail_lhp_pasting = $this->request->getPost('id_detail_lhp_pasting')[$i];
+        $data_detail_pasting = [
+          'id_lhp_pasting' => $id_lhp_pasting,
+          // 'batch' => $this->request->getPost('batch')[$i],
+          'jam_start' => $this->request->getPost('start')[$i],
+          'jam_end' => $this->request->getPost('stop')[$i],
+          'menit_terpakai' => $this->request->getPost('menit_terpakai')[$i],
+          'type_grid' => $this->request->getPost('type_grid')[$i],
+          'ct' => $this->request->getPost('ct')[$i],
+          'jks' => $this->request->getPost('jks')[$i],
+          'actual' => $this->request->getPost('actual')[$i],
+          'act_vs_jks' => $this->request->getPost('presentase')[$i],
+          // 'efficiency_time' => $this->request->getPost('efficiency_time')[$i],
+          // 'total_menit_breakdown' => $this->request->getPost('total_menit_breakdown')[$i]
+        ];
 
-          if ($this->request->getPost('actual')[$i] != null) {
-            $total_jks += $this->request->getPost('jks')[$i];
-            $total_actual += $this->request->getPost('actual')[$i];
-          }
+        if ($this->request->getPost('actual')[$i] != null) {
+          $total_jks += $this->request->getPost('jks')[$i];
+          $total_actual += $this->request->getPost('actual')[$i];
+        }
 
-          // if ($this->request->getPost('total_menit_breakdown')[$i] != null) {
-          //   $total_line_stop += $this->request->getPost('total_menit_breakdown')[$i];
-          // }
+        // if ($this->request->getPost('total_menit_breakdown')[$i] != null) {
+        //   $total_line_stop += $this->request->getPost('total_menit_breakdown')[$i];
+        // }
 
-          $update_detail = $model->update_detail_pasting($id_detail_lhp_pasting, $data_detail_pasting);
+        $update_detail = $model->update_detail_pasting($id_detail_lhp_pasting, $data_detail_pasting);
         // }
       }
-      
+
       if ($total_actual > 0) {
         $total_act_vs_jks += $total_actual / $total_jks * 100;
       }
@@ -356,7 +357,7 @@ class Pasting extends BaseController
     $data_detail_line_stop = $model->get_detail_breakdown_by_id($id_lhp_pasting);
     if (!empty($total_type_grid_line_stop)) {
       for ($i = 0; $i < count($total_type_grid_line_stop); $i++) {
-        if($this->request->getPost('jenis_line_stop') !== NULL && array_key_exists($i, $this->request->getPost('jenis_line_stop'))) {
+        if ($this->request->getPost('jenis_line_stop') !== NULL && array_key_exists($i, $this->request->getPost('jenis_line_stop'))) {
           if ($this->request->getPost('jenis_line_stop')[$i] == 'ANDON') {
             $string_ticket = $this->request->getPost('kategori_line_stop')[$i];
             $arr = explode("-", $string_ticket);
@@ -366,9 +367,9 @@ class Pasting extends BaseController
             $ticket = '';
             $kategori_line_stop = $this->request->getPost('kategori_line_stop')[$i];
           }
-  
+
           $id_breakdown = $this->request->getPost('id_breakdown')[$i];
-          if($id_breakdown !== "") {
+          if ($id_breakdown !== "") {
             $breakdownExist[$id_breakdown] = $id_breakdown;
           }
           $data_detail_breakdown = [
@@ -385,14 +386,14 @@ class Pasting extends BaseController
             'tiket_andon' => $ticket,
             'menit_breakdown' => $this->request->getPost('menit_breakdown')[$i]
           ];
-  
+
           $total_detail_line_stop += intval($this->request->getPost('menit_breakdown')[$i]);
-  
+
           $model->save_detail_breakdown($id_breakdown, $data_detail_breakdown);
         }
       }
       foreach ($data_detail_line_stop as $ddls) {
-        if(!array_key_exists($ddls['id_breakdown'], $breakdownExist)) {
+        if (!array_key_exists($ddls['id_breakdown'], $breakdownExist)) {
           $this->M_Pasting->delete_detail_line_stop_by_id_breakdown($ddls['id_breakdown']);
         }
       }
@@ -405,7 +406,7 @@ class Pasting extends BaseController
     $data_detail_reject_pasting = $model->get_detail_reject_pasting_by_id($id_lhp_pasting);
     if (!empty($total_data_reject)) {
       for ($i = 0; $i < count($total_data_reject); $i++) {
-        if($this->request->getPost('kategori_reject_pasting') !== NULL && array_key_exists($i, $this->request->getPost('kategori_reject_pasting'))) {
+        if ($this->request->getPost('kategori_reject_pasting') !== NULL && array_key_exists($i, $this->request->getPost('kategori_reject_pasting'))) {
           $id_reject_pasting = $this->request->getPost('id_reject_pasting')[$i];
           $rejectPastingExist[$id_reject_pasting] = $id_reject_pasting;
           $data_detail_reject = [
@@ -417,14 +418,14 @@ class Pasting extends BaseController
             'kategori_reject_pasting' => $this->request->getPost('kategori_reject_pasting')[$i],
             'remark_reject' => $this->request->getPost('remark_reject')[$i]
           ];
-  
+
           $total_reject += $this->request->getPost('qty_reject')[$i];
-  
+
           $model->save_detail_reject($id_reject_pasting, $data_detail_reject);
         }
       }
       foreach ($data_detail_reject_pasting as $ddrp) {
-        if(!array_key_exists($ddrp['id_reject_pasting'], $rejectPastingExist)) {
+        if (!array_key_exists($ddrp['id_reject_pasting'], $rejectPastingExist)) {
           $this->M_Pasting->delete_detail_reject_pasting_by_id_reject_pasting($ddrp['id_reject_pasting']);
         }
       }
@@ -434,22 +435,22 @@ class Pasting extends BaseController
 
     $total_data_andon = $this->request->getPost('no_machine_andon');
     if (!empty($total_data_andon)) {
-        $this->M_Pasting->delete_detail_andon($id_lhp);
-        for ($i=0; $i < count($total_data_andon); $i++) {
+      $this->M_Pasting->delete_detail_andon($id_lhp);
+      for ($i = 0; $i < count($total_data_andon); $i++) {
 
-                $data_andon = [
-                    'id_lhp_grid' => $id_lhp,
-                    'no_machine' => $this->request->getPost('no_machine_andon')[$i],
-                    'tiket_andon' => $this->request->getPost('tiket_andon')[$i],
-                    'permasalahan' => $this->request->getPost('permasalahan_andon')[$i],
-                    'tujuan' => $this->request->getPost('tujuan_andon')[$i],
-                    'total_menit' => $this->request->getPost('total_menit_andon')[$i],
-                ];
+        $data_andon = [
+          'id_lhp_grid' => $id_lhp,
+          'no_machine' => $this->request->getPost('no_machine_andon')[$i],
+          'tiket_andon' => $this->request->getPost('tiket_andon')[$i],
+          'permasalahan' => $this->request->getPost('permasalahan_andon')[$i],
+          'tujuan' => $this->request->getPost('tujuan_andon')[$i],
+          'total_menit' => $this->request->getPost('total_menit_andon')[$i],
+        ];
 
-                $save_data_andon = $this->M_Pasting->save_detail_andon($data_andon);
-                
-                $total_andon += $this->request->getPost('total_menit_andon')[$i];
-        }
+        $save_data_andon = $this->M_Pasting->save_detail_andon($data_andon);
+
+        $total_andon += $this->request->getPost('total_menit_andon')[$i];
+      }
     }
 
     $data_detail = [
@@ -531,70 +532,190 @@ class Pasting extends BaseController
 
   public function get_qty_rak()
   {
-      $barcode = $this->request->getPost('barcode');
-      $query = $this->M_Pasting->get_qty_rak($barcode);
-      echo json_encode($query);
+    $barcode = $this->request->getPost('barcode');
+    $query = $this->M_Pasting->get_qty_rak($barcode);
+    echo json_encode($query);
   }
 
   public function add_rak_in()
   {
-      $id_rak_barcode_in = "";
-      $id_lhp_pasting = $this->request->getPost('id_lhp_pasting');
-      $barcode = $this->request->getPost('barcode');
-      $qty = $this->request->getPost('qty');
-      $id_rak = $this->request->getPost('rak');
-      $data = [
-          'id_lhp_pasting' => $id_lhp_pasting,
-          'barcode' => $barcode,
-          'qty' => $qty,
-          'id_rak' => $id_rak,
+    // $id_rak_barcode_in = "";
+    $id_lhp_pasting = $this->request->getPost('id_lhp_pasting');
+    // $barcode = $this->request->getPost('barcode');
+    // $qty = $this->request->getPost('qty');
+    $id_rak = $this->request->getPost('rak');
+    date_default_timezone_set("Asia/Jakarta");
+    $date = date('Y-m-d  H:i:s');
+    $cek_detail_record_rak = $this->M_Pasting->cek_detail_record_rak($id_rak);
+    if (count($cek_detail_record_rak) > 0) {
+      // $data = [
+      //   'id_lhp_pasting' => $id_lhp_pasting,
+      //   'barcode' => $barcode,
+      //   'qty' => $qty,
+      //   'id_rak' => $id_rak,
+      // ];
+      $data_detail_record_rak = [
+        'id_lhp_wh_end' => $id_lhp_pasting,
+        'close_time' => $date,
+        'status' => 'close'
       ];
-      if($barcode !== "" && $id_rak !== "") {
-          $query = $this->M_Pasting->add_rak($id_rak_barcode_in, $data);
+      $data_master_rak = [
+        'current_position' => 'K-PAS',
+        'status' => 0,
+        'updated_at' => $date
+      ];
+      if ($id_rak !== "") {
+        // $id_rak_barcode_in = $this->M_Pasting->add_rak($id_rak_barcode_in, $data);
+        $id_log_detail_record_rak_in = $this->M_Pasting->update_detail_record_rak($id_rak, $data_detail_record_rak);
+        $update_data_master_rak = $this->M_Pasting->update_data_master_rak($id_rak, $data_master_rak);
+        // $cek_data_master_rak = $this->M_Pasting->cek_data_master_rak($id_rak, 'open');
       }
-      echo json_encode($query);
+      $data_id = [
+        // 'id_rak_barcode_in' => $id_rak_barcode_in,
+        'data_record_rak' => $cek_detail_record_rak,
+        'id_log_detail_record_rak_in' => $id_log_detail_record_rak_in,
+        'update_data_master_rak' => $update_data_master_rak,
+        // 'cek_data_master_rak' => $cek_data_master_rak
+      ];
+      echo json_encode($data_id);
+    } else {
+      echo json_encode("Gagal");
+    }
   }
 
   public function add_rak_out()
   {
-      $id_rak_barcode_out = "";
-      $id_lhp_pasting = $this->request->getPost('id_lhp_pasting');
-      $barcode = $this->request->getPost('barcode');
-      $qty = $this->request->getPost('qty');
-      $id_rak = $this->request->getPost('rak');
-      $data = [
-          'id_lhp_pasting' => $id_lhp_pasting,
-          'barcode' => $barcode,
-          'qty' => $qty,
-          'id_rak' => $id_rak,
+    // $id_rak_barcode_out = "";
+    $id_lhp_pasting = $this->request->getPost('id_lhp_pasting');
+    $barcode = $this->request->getPost('barcode');
+    $qty = $this->request->getPost('qty');
+    $id_rak = $this->request->getPost('rak');
+    $item = $this->request->getPost('item');
+    $descrp = $this->request->getPost('descrp');
+    $satuan = $this->request->getPost('satuan');
+    $mesin = $this->request->getPost('mesin');
+    $entry_date = $this->request->getPost('entry_date');
+    $no_wo = $this->request->getPost('no_wo');
+    $wh_from = 'K-PAS';
+    $wh_to = 'K-FOR / ASSY';
+    date_default_timezone_set("Asia/Jakarta");
+    $date = date('Y-m-d  H:i:s');
+    $cek_detail_record_rak = $this->M_Pasting->cek_detail_record_rak($id_rak, $barcode);
+    if ($cek_detail_record_rak !== null) {
+      // $data = [
+      //   'id_lhp_pasting' => $id_lhp_pasting,
+      //   'barcode' => $barcode,
+      //   'qty' => $qty,
+      //   'id_rak' => $id_rak,
+      // ];
+      $data_detail_record_rak = [
+        'id_lhp_wh_start' => $id_lhp_pasting,
+        'pn_qr' => $id_rak,
+        'barcode' => $barcode,
+        'qty' => $qty,
+        'wh_from' => $wh_from,
+        'wh_to' => $wh_to,
+        'supply_time' => $date,
+        'status' => 'open'
       ];
-      if($barcode !== "" && $id_rak !== "") {
-          $query = $this->M_Pasting->add_rak_out($id_rak_barcode_out, $data);
+      $data_master_rak = [
+        'current_position' => $wh_to,
+        'status' => 1,
+        'updated_at' => $date
+      ];
+      $data_detail_barcode_rak = [
+        'barcode' => $barcode,
+        'item' => $item,
+        'descrp' => $descrp,
+        'satuan' => $satuan,
+        'qty' => $qty,
+        'mesin' => $mesin,
+        'entry_date' => $entry_date,
+        'no_wo' => $no_wo,
+      ];
+      if ($barcode !== "" && $id_rak !== "") {
+        // $id_rak_barcode_out = $this->M_Pasting->add_rak_out($id_rak_barcode_out, $data);
+        $id_log_detail_record_rak_out = $this->M_Pasting->add_detail_record_rak($data_detail_record_rak);
+        $update_data_master_rak = $this->M_Pasting->update_data_master_rak($id_rak, $data_master_rak);
+        $id_detail_barcode_rak = $this->M_Pasting->add_detail_barcode_rak($data_detail_barcode_rak);
       }
-      echo json_encode($query);
+      $data_id = [
+        // 'id_rak_barcode_out' => $id_rak_barcode_out,
+        'id_log_detail_record_rak_out' => $id_log_detail_record_rak_out,
+        'update_data_master_rak' => $update_data_master_rak,
+        'id_detail_barcode_rak' => $id_detail_barcode_rak,
+      ];
+      echo json_encode($data_id);
+    } else {
+      echo json_encode("Gagal");
+    }
   }
 
   public function delete_rak()
   {
-      $barcode = $this->request->getPost('barcode');
-      $query = $this->M_Pasting->delete_rak($barcode);
-      echo json_encode($query);
+    // $id_rak_barcode = $this->request->getPost('id_rak_barcode');
+    // $id_log_detail_record_rak = $this->request->getPost('id_log_detail_record_rak');
+    $pn_qr = $this->request->getPost('pn_qr');
+    date_default_timezone_set("Asia/Jakarta");
+    $date = date('Y-m-d  H:i:s');
+    $data_detail_record_rak = [
+      'id_lhp_wh_end' => NULL,
+      'close_time' => NULL,
+      'status' => 'open'
+    ];
+    $data_master_rak = [
+      'current_position' => 'K-CAS',
+      'status' => 1,
+      'updated_at' => $date
+    ];
+    $update_detail_record_rak = $this->M_Pasting->update_detail_record_rak($pn_qr, $data_detail_record_rak);
+    $update_data_master_rak = $this->M_Pasting->update_data_master_rak($pn_qr, $data_master_rak);
+    // $cek_data_master_rak = $this->M_Pasting->cek_data_master_rak($pn_qr, $barcode, 'open');
+    // $query = $this->M_Pasting->delete_rak($id_rak_barcode);
+    $data = [
+      'update_detail_record_rak' => $update_detail_record_rak,
+      'update_data_master_rak' => $update_data_master_rak,
+      // 'cek_data_master_rak' => $cek_data_master_rak,
+      // 'query' => $query,
+    ];
+    echo json_encode($data);
+    // echo json_encode($query);
   }
 
   public function delete_rak_out()
   {
-      $barcode = $this->request->getPost('id_barcode_out');
-      $query = $this->M_Pasting->delete_rak_out($barcode);
-      echo json_encode($query);
+    // $id_rak_barcode_out = $this->request->getPost('id_rak_barcode_out');
+    $id_rak = $this->request->getPost('id_rak');
+    $id_log_detail_record_rak_out = $this->request->getPost('id_log_detail_record_rak_out');
+    $barcode = $this->request->getPost('barcode_rak_out');
+    date_default_timezone_set("Asia/Jakarta");
+    $date = date('Y-m-d  H:i:s');
+    $data_master_rak = [
+      'current_position' => NULL,
+      'status' => NULL,
+      'updated_at' => $date
+    ];
+    $update_detail_record_rak = $this->M_Pasting->delete_detail_record_rak_by_id($id_log_detail_record_rak_out);
+    $update_data_master_rak = $this->M_Pasting->update_data_master_rak($id_rak, $data_master_rak);
+    $delete_detail_barcode_rak = $this->M_Pasting->delete_detail_barcode_rak($barcode);
+    // $query = $this->M_Pasting->delete_rak_out($id_rak_barcode_out);
+    $data = [
+      'update_detail_record_rak' => $update_detail_record_rak,
+      'update_data_master_rak' => $update_data_master_rak,
+      'delete_detail_barcode_rak' => $delete_detail_barcode_rak,
+      // 'query' => $query,
+    ];
+    echo json_encode($data);
   }
-  public function get_data_andon() {
+  public function get_data_andon()
+  {
     $shift = $this->request->getPost('shift');
     $tanggal = $this->request->getPost('tanggal');
     $mesin = $this->request->getPost('mesin_pasting');
 
     $model = new M_Pasting();
-    
+
     $query = $model->get_data_andon($shift, $tanggal, $mesin);
     echo json_encode($query);
-}
+  }
 }

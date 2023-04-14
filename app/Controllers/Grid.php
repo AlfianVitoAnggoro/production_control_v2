@@ -21,7 +21,7 @@ class Grid extends BaseController
         return view('pages/grid_casting/home', $data);
     }
 
-    public function add_lhp() 
+    public function add_lhp()
     {
         $tanggal_produksi = $this->request->getPost('tanggal_produksi');
         $line = $this->request->getPost('line');
@@ -61,7 +61,7 @@ class Grid extends BaseController
             return redirect()->to(base_url('grid/detail_lhp/' . $id));
         } else {
             $save_data = $this->M_Grid->add_lhp($data_save);
-            return redirect()->to(base_url('grid/detail_lhp/'.$save_data));
+            return redirect()->to(base_url('grid/detail_lhp/' . $save_data));
         }
     }
 
@@ -74,7 +74,8 @@ class Grid extends BaseController
         $data['data_type_grid'] = $this->M_Grid->get_data_type_grid();
         $data['data_breakdown'] = $this->M_Grid->get_data_breakdown($id_lhp);
         $data['data_andon'] = $this->M_Grid->get_data_andon_by_id($id_lhp);
-        $data['data_all_rak'] = $this->M_Grid->get_data_rak_by_id($id_lhp);
+        $data['data_record_rak'] = $this->M_Grid->get_id_data_detail_record_rak_by_id($id_lhp, 'K-CAS');
+        // $data['data_all_rak'] = $this->M_Grid->get_data_rak_by_id($id_lhp);
         $session = \Config\Services::session();
         $data['session'] = $session->get('level');
         return view('pages/grid_casting/detail_lhp_grid', $data);
@@ -100,12 +101,12 @@ class Grid extends BaseController
         $total_productivity = 0;
         $total_andon = 0;
         $total_breakdown = 0;
-        
+
         $approved = $this->request->getPost('approved');
         $completed = $this->request->getPost('completed');
-        
+
         $total_data = $this->request->getPost('aktual');
-        for ($i=0; $i < count($total_data); $i++) { 
+        for ($i = 0; $i < count($total_data); $i++) {
             $id_detail_lhp_grid = $this->request->getPost('id_detail_lhp_grid')[$i];
 
             if ($this->request->getPost('nama_operator')[$i] != null) {
@@ -121,11 +122,11 @@ class Grid extends BaseController
                     'persentase' => $this->request->getPost('persentase')[$i],
                 ];
                 $save_data = $this->M_Grid->update_lhp($id_detail_lhp_grid, $data);
-                
+
                 if (!empty($this->request->getPost('jks')[$i])) {
                     $total_jks += $this->request->getPost('jks')[$i];
                 }
-                
+
                 if (!empty($this->request->getPost('aktual')[$i])) {
                     $total_actual += $this->request->getPost('aktual')[$i];
                     $total_mh = $this->request->getPost('mh')[$i] * 24;
@@ -140,26 +141,26 @@ class Grid extends BaseController
         $id_detail_lhp_grid_breakdown_input = $this->request->getPost('id_detail_lhp_grid_breakdown');
         $id_detail_lhp_grid_breakdown_exist = [];
         if (!empty($total_data_breakdown)) {
-            for ($i=0; $i < count($total_data_breakdown); $i++) { 
+            for ($i = 0; $i < count($total_data_breakdown); $i++) {
                 $id_detail_lhp_grid_breakdown = $this->request->getPost('id_detail_lhp_grid_breakdown')[$i];
                 $id_detail_lhp_grid_breakdown_exist[$id_detail_lhp_grid_breakdown] = $id_detail_lhp_grid_breakdown;
-    
+
                 if ($this->request->getPost('nama_mesin_breakdown')[$i] != null) {
-    
+
                     $data_breakdown = [
                         'id_lhp_grid' => $id_lhp,
                         'no_machine' => $this->request->getPost('nama_mesin_breakdown')[$i],
                         'uraian_breakdown' => $this->request->getPost('uraian_breakdown_grid')[$i],
                         'total_menit' => $this->request->getPost('total_menit_breakdown_grid')[$i],
                     ];
-    
+
                     $save_data_breakdown = $this->M_Grid->save_detail_breakdown($id_detail_lhp_grid_breakdown, $data_breakdown);
-                    
+
                     $total_breakdown += $this->request->getPost('total_menit_breakdown_grid')[$i];
                 }
             }
             foreach ($data_detail_breakdown as $ddb) {
-                if(!array_key_exists($ddb['id_breakdown_grid'], $id_detail_lhp_grid_breakdown_exist)) {
+                if (!array_key_exists($ddb['id_breakdown_grid'], $id_detail_lhp_grid_breakdown_exist)) {
                     $this->M_Grid->delete_detail_breakdown_by_id_breakdown_grid($ddb['id_breakdown_grid']);
                 }
             }
@@ -170,28 +171,28 @@ class Grid extends BaseController
         $total_data_andon = $this->request->getPost('no_machine_andon');
         if (!empty($total_data_andon)) {
             $this->M_Grid->delete_detail_andon($id_lhp);
-            for ($i=0; $i < count($total_data_andon); $i++) {
-    
-                    $data_andon = [
-                        'id_lhp_grid' => $id_lhp,
-                        'no_machine' => $this->request->getPost('no_machine_andon')[$i],
-                        'tiket_andon' => $this->request->getPost('tiket_andon')[$i],
-                        'permasalahan' => $this->request->getPost('permasalahan_andon')[$i],
-                        'tujuan' => $this->request->getPost('tujuan_andon')[$i],
-                        'total_menit' => $this->request->getPost('total_menit_andon')[$i],
-                    ];
-    
-                    $save_data_andon = $this->M_Grid->save_detail_andon($data_andon);
-                    
-                    $total_andon += $this->request->getPost('total_menit_andon')[$i];
+            for ($i = 0; $i < count($total_data_andon); $i++) {
+
+                $data_andon = [
+                    'id_lhp_grid' => $id_lhp,
+                    'no_machine' => $this->request->getPost('no_machine_andon')[$i],
+                    'tiket_andon' => $this->request->getPost('tiket_andon')[$i],
+                    'permasalahan' => $this->request->getPost('permasalahan_andon')[$i],
+                    'tujuan' => $this->request->getPost('tujuan_andon')[$i],
+                    'total_menit' => $this->request->getPost('total_menit_andon')[$i],
+                ];
+
+                $save_data_andon = $this->M_Grid->save_detail_andon($data_andon);
+
+                $total_andon += $this->request->getPost('total_menit_andon')[$i];
             }
         }
 
-        if($completed === NULL && $approved === NULL) {
+        if ($completed === NULL && $approved === NULL) {
             $status = 'waiting';
-        } else if($completed !== NULL) {
+        } else if ($completed !== NULL) {
             $status = 'completed';
-        } else if($approved !== NULL) {
+        } else if ($approved !== NULL) {
             $status = 'approved';
         }
         $data_summary_lhp = [
@@ -213,23 +214,24 @@ class Grid extends BaseController
         $id_rak = $this->request->getPost('id_rak');
         $id_rak_barcode = $this->request->getPost('id_rak_barcode');
 
-        if(!empty($barcode)) {
-            for ($i=0; $i < count($barcode); $i++) { 
+        if (!empty($barcode)) {
+            for ($i = 0; $i < count($barcode); $i++) {
                 $data_rak = [
                     'id_lhp' => $id_lhp,
                     'barcode' => $barcode[$i],
                     'qty' => $qty[$i],
                     'id_rak' => $id_rak[$i]
                 ];
-    
+
                 $this->M_Grid->add_rak($id_rak_barcode[$i], $data_rak);
             }
         }
 
-        return redirect()->to(base_url('grid/detail_lhp/'.$id_lhp));
+        return redirect()->to(base_url('grid/detail_lhp/' . $id_lhp));
     }
 
-    public function get_data_andon() {
+    public function get_data_andon()
+    {
         $shift = $this->request->getPost('shift');
         $tanggal = $this->request->getPost('tanggal');
 
@@ -250,26 +252,111 @@ class Grid extends BaseController
         echo json_encode($query);
     }
 
-    public function add_rak() {
+    // public function add_rak()
+    // {
+    //     $id_lhp = $this->request->getPost('id_lhp');
+    //     $id_detail_lhp = $this->request->getPost('id_detail_lhp');
+
+    //     $barcode = $this->request->getPost('barcode');
+    //     $id = $this->request->getPost('id');
+    //     $qty = $this->request->getPost('qty');
+
+    //     for ($i = 0; $i < count($barcode); $i++) {
+    //         $data = [
+    //             'id_lhp_grid' => $id_lhp,
+    //             'barcode' => $barcode[$i],
+    //             'qty' => $qty[$i],
+    //             'id_rak' => $id[$i]
+    //         ];
+
+    //         $this->M_Grid->add_rak($id, $data);
+    //     }
+
+    //     return redirect()->to(base_url('grid/detail_lhp/' . $id_lhp));
+    // }
+
+    public function add_rak()
+    {
         $id_lhp = $this->request->getPost('id_lhp');
-        $id_detail_lhp = $this->request->getPost('id_detail_lhp');
-
         $barcode = $this->request->getPost('barcode');
-        $id = $this->request->getPost('id');
         $qty = $this->request->getPost('qty');
-
-        for ($i=0; $i < count($barcode); $i++) { 
-            $data = [
-                'id_lhp_grid' => $id_lhp,
-                'barcode' => $barcode[$i],
-                'qty' => $qty[$i],
-                'id_rak' => $id[$i]
-            ];
-
-            $this->M_Grid->add_rak($id, $data);
+        $rak = $this->request->getPost('rak');
+        $wh_from = $this->request->getPost('wh_from');
+        $wh_to = $this->request->getPost('wh_to');
+        $item = $this->request->getPost('item');
+        $descrp = $this->request->getPost('descrp');
+        $satuan = $this->request->getPost('satuan');
+        $mesin = $this->request->getPost('mesin');
+        $entry_date = $this->request->getPost('entry_date');
+        $no_wo = $this->request->getPost('no_wo');
+        date_default_timezone_set("Asia/Jakarta");
+        $date = date('Y-m-d  H:i:s');
+        $data_detail_record_rak = [
+            'id_lhp_wh_start' => $id_lhp,
+            'pn_qr' => $rak,
+            'barcode' => $barcode,
+            'qty' => $qty,
+            'wh_from' => $wh_from,
+            'wh_to' => $wh_to,
+            'supply_time' => $date,
+            'status' => 'open'
+        ];
+        $data_master_rak = [
+            'current_position' => $wh_from,
+            'status' => 1,
+            'updated_at' => $date
+        ];
+        $data_detail_barcode_rak = [
+            'barcode' => $barcode,
+            'item' => $item,
+            'descrp' => $descrp,
+            'satuan' => $satuan,
+            'qty' => $qty,
+            'mesin' => $mesin,
+            'entry_date' => $entry_date,
+            'no_wo' => $no_wo,
+        ];
+        if ($barcode !== "" && $rak !== "") {
+            $id_log_detail_record_rak = $this->M_Grid->add_detail_record_rak($data_detail_record_rak);
+            $update_data_master_rak = $this->M_Grid->update_data_master_rak($rak, $data_master_rak);
+            $id_detail_barcode_rak = $this->M_Grid->add_detail_barcode_rak($data_detail_barcode_rak);
         }
+        $data_id = [
+            'id_log_detail_record_rak' => $id_log_detail_record_rak,
+            'update_data_master_rak' => $update_data_master_rak,
+            'id_detail_barcode_rak' => $id_detail_barcode_rak,
+        ];
+        echo json_encode($data_id);
+    }
 
-        return redirect()->to(base_url('grid/detail_lhp/'.$id_lhp));
+    public function delete_rak()
+    {
+        // $id_rak_barcode = $this->request->getPost('id_rak_barcode');
+        $id_rak = $this->request->getPost('id_rak');
+        $id_log_detail_record_rak = $this->request->getPost('id_log_detail_record_rak');
+        $barcode = $this->request->getPost('barcode_rak');
+        date_default_timezone_set("Asia/Jakarta");
+        $date = date('Y-m-d  H:i:s');
+        $data_master_rak = [
+            'current_position' => NULL,
+            'status' => NULL,
+            'updated_at' => $date
+        ];
+        $update_detail_record_rak = $this->M_Grid->delete_detail_record_rak_by_id($id_log_detail_record_rak);
+        $update_data_master_rak = $this->M_Grid->update_data_master_rak($id_rak, $data_master_rak);
+        $delete_detail_barcode_rak = $this->M_Grid->delete_detail_barcode_rak($barcode);
+        // $query = $this->M_Grid->delete_rak($id_rak_barcode);
+        $data = [
+            // 'id_rak' => $id_rak,
+            // 'id_log_detail_record_rak' => $id_log_detail_record_rak,
+            // 'barcode' => $barcode,
+            // 'data_master_rak' => $data_master_rak,
+            'update_detail_record_rak' => $update_detail_record_rak,
+            'update_data_master_rak' => $update_data_master_rak,
+            'delete_detail_barcode_rak' => $delete_detail_barcode_rak,
+            // 'query' => $query,
+        ];
+        echo json_encode($data);
     }
 
     public function get_data_rak_by_id()
@@ -282,5 +369,5 @@ class Grid extends BaseController
     {
         $data['data_rework'] = $this->M_Grid->get_summary_rework();
         return view('pages/grid_casting/summary_grid_rework', $data);
-    }    
+    }
 }

@@ -14,6 +14,7 @@ class M_Pasting extends Model
     // $this->db2 = \Config\Database::connect('sqlsrv');
     // $this->db3 = \Config\Database::connect('baan');
     $this->db4 = \Config\Database::connect('prod_control');
+    $this->db5 = \Config\Database::connect('manajemen_rak');
   }
 
   // public function test() {
@@ -330,11 +331,11 @@ class M_Pasting extends Model
   }
 
   public function get_grup_pasting()
-    {
-        $query = $this->db->query('SELECT DISTINCT nama_grup FROM data_grup_pasting');
+  {
+    $query = $this->db->query('SELECT DISTINCT nama_grup FROM data_grup_pasting');
 
-        return $query->getResultArray();
-    }
+    return $query->getResultArray();
+  }
 
   public function hapus_pasting($id)
   {
@@ -344,85 +345,201 @@ class M_Pasting extends Model
     $this->db->query('DELETE FROM detail_reject_pasting WHERE id_lhp_pasting = ' . $id);
   }
 
-  function get_qty_rak($barcode) {
-      $query = $this->db->query('SELECT qty FROM data_record_rak WHERE barcode = \''.$barcode.'\'');
-
-      return $query->getResultArray();
-  }
-
-  function add_rak ($id, $data) {
-      $builder = $this->db->table('data_record_rak_pasting_in');
-      // $builder->insert($data);
-
-      if ($id != '') {
-          $builder->where('id', $id);
-          $builder->update($data);
-          return $id;
-      } else {
-          $builder->insert($data);
-          return $this->db->insertID();
-      }
-  }
-
-  function add_rak_out ($id, $data) {
-      $builder = $this->db->table('data_record_rak_pasting_out');
-      // $builder->insert($data);
-
-      if ($id != '') {
-          $builder->where('id', $id);
-          $builder->update($data);
-          return $id;
-      } else {
-          $builder->insert($data);
-          return $this->db->insertID();
-      }
-  }
-
-  function get_data_rak_in_by_id($id_lhp_pasting) {
-      $query = $this->db->query('SELECT * FROM data_record_rak_pasting_in WHERE id_lhp_pasting = \''.$id_lhp_pasting.'\'');
-
-      return $query->getResultArray();
-  }
-
-  function get_data_rak_out_by_id($id_lhp_pasting) {
-      $query = $this->db->query('SELECT * FROM data_record_rak_pasting_out WHERE id_lhp_pasting = \''.$id_lhp_pasting.'\'');
-
-      return $query->getResultArray();
-  }
-
-  function delete_rak($id_lhp_pasting) {
-      $builder = $this->db->table('data_record_rak_pasting_in');
-
-      $builder->delete(['id' => $id_lhp_pasting]);
-  }
-
-  function delete_rak_out($id_lhp_pasting) {
-      $builder = $this->db->table('data_record_rak_pasting_out');
-
-      $builder->delete(['id' => $id_lhp_pasting]);
-  }
-  
-  public function get_data_andon($shift, $tanggal_produksi, $mesin) {
-    $nama_mesin = 'Pasting '.$mesin;
-    $query = $this->db4->query('SELECT * FROM ticket_produksi1 WHERE tanggal_produksi = \''.$tanggal_produksi.'\' AND shift = \''.$shift.'\' AND seksi_pelapor = \'pasting\' AND kategori_perbaikan = \'DT\' AND nama_mesin = \''.$nama_mesin.'\' ORDER BY nama_mesin ASC');
+  function get_qty_rak($barcode)
+  {
+    $query = $this->db5->query('SELECT * FROM data_barcode WHERE t$note = \'' . $barcode . '\'');
 
     return $query->getResultArray();
   }
 
-  function delete_detail_andon($id_lhp_pasting) {
+  function update_data_master_rak($pn_qr, $data)
+  {
+    $builder = $this->db5->table('data_master_rak');
+    $builder->where('pn_qr', $pn_qr);
+    $builder->update($data);
+    return $pn_qr;
+  }
+
+  // function add_rak($id, $data)
+  // {
+  //   $builder = $this->db->table('data_record_rak_pasting_in');
+  //   // $builder->insert($data);
+
+  //   if ($id != '') {
+  //     $builder->where('id', $id);
+  //     $builder->update($data);
+  //     return $id;
+  //   } else {
+  //     $builder->insert($data);
+  //     return $this->db->insertID();
+  //   }
+  // }
+
+  // function add_rak_out($id, $data)
+  // {
+  //   $builder = $this->db->table('data_record_rak_pasting_out');
+  //   // $builder->insert($data);
+
+  //   if ($id != '') {
+  //     $builder->where('id', $id);
+  //     $builder->update($data);
+  //     return $id;
+  //   } else {
+  //     $builder->insert($data);
+  //     return $this->db->insertID();
+  //   }
+  // }
+
+  function cek_detail_record_rak($pn_qr)
+  {
+    $query = $this->db5->query('SELECT * FROM detail_record_rak WHERE pn_qr = \'' . $pn_qr . '\' AND status = \'open\'');
+    $id_log_detail_record_rak = $query->getResultArray();
+    // return $builder->getResultArray();
+    return $id_log_detail_record_rak;
+  }
+
+  function cek_detail_record_rak_out($pn_qr, $barcode)
+  {
+    $query = $this->db5->query('SELECT MAX(id_log) as id_log FROM detail_record_rak WHERE pn_qr = \'' . $pn_qr . '\' AND barcode = \'' . $barcode . '\' AND status = \'close\'');
+    $id_log_detail_record_rak = $query->getResultArray();
+    // return $builder->getResultArray();
+    return $id_log_detail_record_rak[0]['id_log'];
+  }
+
+  // function cek_data_master_rak($pn_qr, $status)
+  // {
+  //   $query = $this->db5->query('SELECT id_log FROM detail_record_rak WHERE pn_qr = \'' . $pn_qr . '\' AND status = \'' . $status . '\'');
+  //   $id_log_detail_record_rak = $query->getResultArray();
+  //   if (count($id_log_detail_record_rak) === 0) {
+  //     $data = [
+  //       'status' => 0
+  //     ];
+  //   } else {
+  //     $data = [
+  //       'status' => 1
+  //     ];
+  //   }
+  //   $builder = $this->db5->table('data_master_rak');
+  //   $builder->where('pn_qr', $pn_qr);
+  //   $builder->update($data);
+  //   // return $builder->getResultArray();
+  //   return $query->getResultArray();
+  // }
+
+  // function update_detail_record_rak_by_id($id_log, $data)
+  // {
+  //   $builder = $this->db5->table('detail_record_rak');
+  //   $builder->where('id_log', $id_log);
+  //   $builder->update($data);
+  // }
+
+  function delete_detail_record_rak_by_id($id_log)
+  {
+    $builder = $this->db5->table('detail_record_rak');
+    $builder->delete(['id_log' => $id_log]);
+  }
+
+  function delete_detail_barcode_rak($barcode)
+  {
+    $query = $this->db5->query('SELECT MAX(id) as id FROM detail_barcode_rak WHERE barcode = \'' . $barcode . '\'');
+    $id_detail_barcode_rak = $query->getResultArray();
+
+    $builder = $this->db5->table('detail_barcode_rak');
+    $builder->delete(['id' => $id_detail_barcode_rak[0]['id']]);
+
+    return $id_detail_barcode_rak[0]['id'];
+  }
+
+  function add_detail_barcode_rak($data)
+  {
+    $builder = $this->db5->table('detail_barcode_rak');
+    $builder->insert($data);
+    return $this->db5->insertID();
+  }
+
+  function add_detail_record_rak($data)
+  {
+    $builder = $this->db5->table('detail_record_rak');
+    $builder->insert($data);
+    return $this->db5->insertID();
+  }
+
+  function update_detail_record_rak($pn_qr, $data)
+  {
+    $builder = $this->db5->table('detail_record_rak');
+    $builder->where('pn_qr', $pn_qr);
+    $builder->update($data);
+    // return $builder->getResultArray();
+    return $pn_qr;
+  }
+
+  function get_data_rak_in_by_id($id_lhp_pasting)
+  {
+    $query = $this->db->query('SELECT * FROM data_record_rak_pasting_in WHERE id_lhp_pasting = \'' . $id_lhp_pasting . '\'');
+
+    return $query->getResultArray();
+  }
+
+  function get_data_detail_record_rak_by_id_rak_in($id_lhp_pasting, $wh_from)
+  {
+    $query = $this->db5->query('SELECT * FROM detail_record_rak WHERE id_lhp_wh_end = \'' . $id_lhp_pasting . '\' AND wh_from = \'' . $wh_from . '\'');
+
+    return $query->getResultArray();
+  }
+
+  function get_data_detail_record_rak_by_id_rak_out($id_lhp_pasting, $wh_from)
+  {
+    $query = $this->db5->query('SELECT * FROM detail_record_rak WHERE id_lhp_wh_start = \'' . $id_lhp_pasting . '\' AND wh_from = \'' . $wh_from . '\'');
+
+    return $query->getResultArray();
+  }
+
+  function get_data_rak_out_by_id($id_lhp_pasting)
+  {
+    $query = $this->db->query('SELECT * FROM data_record_rak_pasting_out WHERE id_lhp_pasting = \'' . $id_lhp_pasting . '\'');
+
+    return $query->getResultArray();
+  }
+
+  // function delete_rak($id_lhp_pasting)
+  // {
+  //   $builder = $this->db->table('data_record_rak_pasting_in');
+
+  //   $builder->delete(['id' => $id_lhp_pasting]);
+  // }
+
+  // function delete_rak_out($id_lhp_pasting)
+  // {
+  //   $builder = $this->db->table('data_record_rak_pasting_out');
+
+  //   $builder->delete(['id' => $id_lhp_pasting]);
+  // }
+
+  public function get_data_andon($shift, $tanggal_produksi, $mesin)
+  {
+    $nama_mesin = 'Pasting ' . $mesin;
+    $query = $this->db4->query('SELECT * FROM ticket_produksi1 WHERE tanggal_produksi = \'' . $tanggal_produksi . '\' AND shift = \'' . $shift . '\' AND seksi_pelapor = \'pasting\' AND kategori_perbaikan = \'DT\' AND nama_mesin = \'' . $nama_mesin . '\' ORDER BY nama_mesin ASC');
+
+    return $query->getResultArray();
+  }
+
+  function delete_detail_andon($id_lhp_pasting)
+  {
     $builder = $this->db->table('detail_breakdown_andon_pasting');
 
     $builder->delete(['id_lhp_pasting' => $id_lhp_pasting]);
   }
 
-  function save_detail_andon($data) {
-      $builder = $this->db->table('detail_breakdown_andon_pasting');
+  function save_detail_andon($data)
+  {
+    $builder = $this->db->table('detail_breakdown_andon_pasting');
 
-      $builder->insert($data);
+    $builder->insert($data);
   }
 
-  function get_data_andon_by_id($id_lhp_pasting) {
-    $query = $this->db->query('SELECT * FROM detail_breakdown_andon_pasting WHERE id_lhp_pasting = \''.$id_lhp_pasting.'\'');
+  function get_data_andon_by_id($id_lhp_pasting)
+  {
+    $query = $this->db->query('SELECT * FROM detail_breakdown_andon_pasting WHERE id_lhp_pasting = \'' . $id_lhp_pasting . '\'');
 
     return $query->getResultArray();
   }

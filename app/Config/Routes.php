@@ -94,6 +94,9 @@ $routes->group('grid', ['filter' => 'auth'], function ($routes) {
     $routes->get('hapus_lhp/(:num)', 'Grid::hapus_lhp/$1');
     $routes->post('get_qty_rak', 'Grid::get_qty_rak');
     $routes->get('get_summary_rework', 'Grid::get_summary_rework');
+    $routes->post('add_rak', 'Grid::add_rak');
+    $routes->post('delete_rak', 'Grid::delete_rak');
+    // $routes->post('add_detail_record_rak', 'Grid::add_detail_record_rak');
 });
 
 //PLATECUTTING

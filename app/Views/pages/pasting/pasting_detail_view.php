@@ -76,12 +76,12 @@ $shift
                   <!-- <input type="text" class="form-control" name="kasubsie" id="kasubsie" value="<?= $data_lhp_pasting[0]['kasubsie'] ?>"> -->
                   <select class="form-select" id="kasubsie" name="kasubsie">
                     <option selected disabled>-- Pilih Data --</option>
-                      <option value="<?= "Yanto A"?>" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Yanto A") {
-                                                          echo "selected";
-                                                        } ?>><?= "Yanto A"?></option>
-                      <option value="<?= "Ade Suryana"?>" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Ade Suryana") {
-                                                          echo "selected";
-                                                        } ?>><?= "Ade Suryana"?></option>
+                    <option value="<?= "Yanto A" ?>" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Yanto A") {
+                                                        echo "selected";
+                                                      } ?>><?= "Yanto A" ?></option>
+                    <option value="<?= "Ade Suryana" ?>" <?php if ($data_lhp_pasting[0]['kasubsie'] == "Ade Suryana") {
+                                                            echo "selected";
+                                                          } ?>><?= "Ade Suryana" ?></option>
                   </select>
                 </div>
               </div>
@@ -91,14 +91,15 @@ $shift
                 <div class="form-group">
                   <label class="form-label">Grup</label>
                   <!-- <input type="hidden" class="form-control" id="grup" name="grup" value="<?= $data_lhp_pasting[0]['grup'] ?>">
-									<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?= ""//$data_grup[0]['nama_pic'] ?>"> -->
+									<input type="text" class="form-control" name="nama_pic" id="nama_pic" value="<?= "" //$data_grup[0]['nama_pic'] 
+                                                                                                ?>"> -->
 
                   <select class="form-select" id="grup" name="grup">
                     <option selected disabled>-- Pilih Data --</option>
-                    <?php foreach($data_grup_pasting as $grup) : ?>
-                      <option value="<?= $grup['nama_grup']?>" <?php if ($data_lhp_pasting[0]['grup'] === $grup['nama_grup']) {
-                                                          echo "selected";
-                                                        } ?>><?= $grup['nama_grup']?></option>
+                    <?php foreach ($data_grup_pasting as $grup) : ?>
+                      <option value="<?= $grup['nama_grup'] ?>" <?php if ($data_lhp_pasting[0]['grup'] === $grup['nama_grup']) {
+                                                                  echo "selected";
+                                                                } ?>><?= $grup['nama_grup'] ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -125,19 +126,19 @@ $shift
           </div>
         </div>
         <div class="row">
-					<div class="col-xl-12 col-12">
-						<div class="box">
+          <div class="col-xl-12 col-12">
+            <div class="box">
               <div class="box-header">
                 <h4>Detail Rak Masuk</h4>
                 <br>
                 <table class="table">
                   <tr>
-                    <td>
-                      Barcode  <input type="text" class="form-control" name="start_barcode" id="start_barcode" onchange="get_qty_rak()" class="form-control">
+                    <!-- <td>
+                      Barcode <input type="text" class="form-control" name="start_barcode" id="start_barcode" onchange="get_qty_rak()" class="form-control">
                     </td>
                     <td>
                       Qty <input type="text" class="form-control" name="start_qty" id="start_qty" class="form-control" readonly>
-                    </td>
+                    </td> -->
                     <td>
                       QR Code Rak<input type="text" class="form-control" name="start_rak" id="start_rak" class="form-control">
                     </td>
@@ -147,48 +148,51 @@ $shift
                   </tr>
                 </table>
               </div>
-							<div class="box-body">
-								<div class="table-responsive">
-									<table id="data_line_stop" class="table table-striped mb-0">
-										<thead>
-											<tr>
-												<th>Barcode</th>
+              <div class="box-body">
+                <div class="table-responsive">
+                  <table id="data_line_stop" class="table table-striped mb-0">
+                    <thead>
+                      <tr>
+                        <th>Barcode</th>
                         <th>QTY</th>
                         <th>ID Rak</th>
                         <th>Action</th>
-											</tr>
-										</thead>
-										<tbody id="tbody_data_rak">
-											<?php $number=0; foreach ($data_all_rak_in as $d_rak) { ?>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody_data_rak">
+                      <?php $number = 0;
+                      foreach ($data_record_rak_in as $d_rak) { ?>
                         <tr class="rak_in">
                           <td>
-                            <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_<?=$number?>" value="<?=$d_rak['barcode']?>" readonly>
-                            <input type="hidden" class="form-control" name="id_rak_barcode[]" id="id_rak_barcode_<?=$number?>" value="<?=$d_rak['id']?>" readonly>
+                            <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_<?= $number ?>" value="<?= $d_rak['barcode'] ?>" readonly>
+                            <!-- <input type="hidden" class="form-control" name="id_rak_barcode[]" id="id_rak_barcode_<?= $number ?>" value="<?= "" //$d_rak['id'] 
+                                                                                                                                              ?>" readonly> -->
+                            <input type="hidden" class="form-control" name="id_log_detail_record_rak[]" id="id_log_detail_record_rak_<?= $number ?>" value="<?= $d_rak['id_log'] ?>" readonly>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_<?=$number?>" value="<?=$d_rak['qty']?>" readonly>
+                            <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_<?= $number ?>" value="<?= $d_rak['qty'] ?>" readonly>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="id_rak[]" id="id_rak_<?=$number?>" value="<?=$d_rak['id_rak']?>" readonly>
+                            <input type="text" class="form-control" name="id_rak[]" id="id_rak_<?= $number ?>" value="<?= $d_rak['pn_qr'] ?>" readonly>
                           </td>
                           <td>
-                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak_in(this, <?=$number?>)">Delete</button>
+                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak_in(this, <?= $number ?>)">Delete</button>
                           </td>
                         </tr>
                       <?php
-                          $number+=1;
-                        }
+                        $number += 1;
+                      }
                       ?>
-										</tbody>
-									</table>
-								</div>
-							</div>
-							<div class="box-footer" style="text-align: center;">
-								<!-- <input type="submit" class="btn btn-success" value="Save"> -->
-							</div>
-						</div>				
-					</div>
-				</div>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="box-footer" style="text-align: center;">
+                <!-- <input type="submit" class="btn btn-success" value="Save"> -->
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-xl-12 col-12">
             <div class="box">
@@ -558,7 +562,8 @@ $shift
                             <input type="time" class="form-control" name="stop_breakdown[]" id="stop_breakdown_<?= $index_breakdown ?>" value="<?= date("H:i", strtotime($d_detail_breakdown['jam_end'])) ?>" style="width: 100px;">
                           </td>
                           <!-- <td>
-                            <input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_<?= $index_breakdown ?>" value="<?= ""//$d_detail_breakdown['no_wo'] ?>" style="width: 125px">
+                            <input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_<?= $index_breakdown ?>" value="<?= "" //$d_detail_breakdown['no_wo'] 
+                                                                                                                                                  ?>" style="width: 125px">
                           </td> -->
                           <td>
                             <input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_<?= $index_breakdown ?>" value="<?= $d_detail_breakdown['id_breakdown'] ?>" style="width: 250px">
@@ -568,20 +573,20 @@ $shift
                             <select class="form-control select2" name="kategori_line_stop[]" id="kategori_line_stop_<?= $index_breakdown ?>" onchange="get_jenis_line_stop(<?= $index_breakdown ?>)" style="width: 200px">
                               <option value="">Pilih Kategori Line Stop</option>
                               <?php
-                              if($data_lhp_pasting[0]['mesin_pasting'] <= 3) {
+                              if ($data_lhp_pasting[0]['mesin_pasting'] <= 3) {
                                 foreach ($data_line_stop_casting as $d_kategori_line_stop) { ?>
                                   <option value="<?= $d_kategori_line_stop['kategori_line_stop'] ?>" <?php if ($d_kategori_line_stop['kategori_line_stop'] == $d_detail_breakdown['kategori_line_stop']) {
-                                                                                                  echo "selected";
-                                                                                                } ?>><?= $d_kategori_line_stop['kategori_line_stop'] ?></option>
+                                                                                                        echo "selected";
+                                                                                                      } ?>><?= $d_kategori_line_stop['kategori_line_stop'] ?></option>
                                 <?php
                                 }
                               } else {
                                 foreach ($data_line_stop_punching as $d_kategori_line_stop) { ?>
                                   <option value="<?= $d_kategori_line_stop['kategori_line_stop'] ?>" <?php if ($d_kategori_line_stop['kategori_line_stop'] == $d_detail_breakdown['kategori_line_stop']) {
-                                                                                                  echo "selected";
-                                                                                                } ?>><?= $d_kategori_line_stop['kategori_line_stop'] ?></option>
-                                <?php
-                              }
+                                                                                                        echo "selected";
+                                                                                                      } ?>><?= $d_kategori_line_stop['kategori_line_stop'] ?></option>
+                              <?php
+                                }
                               }
                               ?>
                             </select>
@@ -590,7 +595,7 @@ $shift
                             <select class="form-control select2" id="jenis_line_stop_<?= $index_breakdown ?>" name="jenis_line_stop[]" style="width: 200px;">
                               <option selected disabled>-- Pilih Jenis Line Stop --</option>
                               <?php
-                              if($data_lhp_pasting[0]['mesin_pasting'] <= 3) {
+                              if ($data_lhp_pasting[0]['mesin_pasting'] <= 3) {
                                 $data_jenis_line_stop = $model->getListJenisLineStopCasting($d_detail_breakdown['kategori_line_stop']);
                                 $andon_proses = true;
                                 foreach ($data_jenis_line_stop as $d_jenis_line_stop) {
@@ -598,9 +603,9 @@ $shift
                                   if ($selected != '') {
                                     $andon_proses = false;
                                   }
-                                ?>
+                              ?>
                                   <option value="<?= $d_jenis_line_stop['jenis_line_stop'] ?>" <?= $selected ?>><?= $d_jenis_line_stop['jenis_line_stop'] ?></option>
-                                  <?php
+                                <?php
                                 }
                               } else {
                                 $data_jenis_line_stop = $model->getListJenisLineStopPunching($d_detail_breakdown['kategori_line_stop']);
@@ -743,10 +748,11 @@ $shift
                 <table class="table">
                   <tr>
                     <td>
-                      Barcode  <input type="text" class="form-control" name="start_barcode_out" id="start_barcode_out" onchange="//get_qty_rak_out()" class="form-control">
+                      Barcode <input type="text" class="form-control" name="start_barcode_out" id="start_barcode_out" onchange="get_qty_rak_out()" class="form-control">
                     </td>
                     <td>
                       Qty <input type="text" class="form-control" name="start_qty_out" id="start_qty_out" class="form-control" readonly>
+                      <div class="qty"></div>
                     </td>
                     <td>
                       QR Code Rak<input type="text" class="form-control" name="start_rak_out" id="start_rak_out" class="form-control">
@@ -769,24 +775,27 @@ $shift
                       </tr>
                     </thead>
                     <tbody id="tbody_data_rak_out">
-                      <?php $no = 0; foreach ($data_all_rak_out as $d_rak) { ?>
+                      <?php $no = 0;
+                      foreach ($data_record_rak_out as $d_rak) { ?>
                         <tr class="rak_out">
                           <td>
-                            <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_<?=$no?>" value="<?=$d_rak['barcode']?>" readonly>
-                            <input type="hidden" class="form-control" name="id_rak_barcode_out[]" id="id_rak_barcode_out_<?=$no?>" value="<?=$d_rak['id']?>" readonly>
+                            <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_<?= $no ?>" value="<?= $d_rak['barcode'] ?>" readonly>
+                            <!-- <input type="hidden" class="form-control" name="id_rak_barcode_out[]" id="id_rak_barcode_out_<?= $no ?>" value="<?= "" //$d_rak['id'] 
+                                                                                                                                                  ?>" readonly> -->
+                            <input type="hidden" class="form-control" name="id_log_detail_record_rak_out[]" id="id_log_detail_record_rak_out_<?= $no ?>" value="<?= $d_rak['id_log'] ?>" readonly>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_<?=$no?>" value="<?=$d_rak['qty']?>" readonly>
+                            <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_<?= $no ?>" value="<?= $d_rak['qty'] ?>" readonly>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_<?=$no?>" value="<?=$d_rak['id_rak']?>" readonly>
+                            <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_<?= $no ?>" value="<?= $d_rak['pn_qr'] ?>" readonly>
                           </td>
                           <td>
                             <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, <?= $no ?>)">Delete</button>
                           </td>
                         </tr>
                       <?php $no += 1;
-                        }
+                      }
                       ?>
                     </tbody>
                   </table>
@@ -795,50 +804,50 @@ $shift
               <div class="box-footer" style="text-align: center;">
                 <!-- <input type="submit" class="btn btn-success" value="Save"> -->
               </div>
-            </div>				
+            </div>
           </div>
         </div>
         <div class="row">
-					<div class="col-xl-12 col-12">
-						<div class="box">
+          <div class="col-xl-12 col-12">
+            <div class="box">
               <div class="box-header">
-                  <button type="button" class="btn btn-primary" onclick="get_data_andon()">Refresh Andon</button>
+                <button type="button" class="btn btn-primary" onclick="get_data_andon()">Refresh Andon</button>
               </div>
-							<div class="box-body">
-								<div class="table-responsive">
-									<table id="data_andon" class="table table-striped mb-0">
-										<thead>
-											<tr>
-												<th>Nama Mesin</th>
-												<th>Permasalahan</th>
-												<th>Tujuan</th>
+              <div class="box-body">
+                <div class="table-responsive">
+                  <table id="data_andon" class="table table-striped mb-0">
+                    <thead>
+                      <tr>
+                        <th>Nama Mesin</th>
+                        <th>Permasalahan</th>
+                        <th>Tujuan</th>
                         <th>Total Menit</th>
-											</tr>
-										</thead>
-										<tbody id="tbody_data_andon">
+                      </tr>
+                    </thead>
+                    <tbody id="tbody_data_andon">
                       <?php
-                        foreach ($data_andon as $d_andon) {
-                            ?>
-                            <tr>
-                                <td>MC <?=$d_andon['no_machine']?></td>
-                                <td><?=$d_andon['permasalahan']?></td>
-                                <td><?=$d_andon['tujuan']?></td>
-                                <td><?=$d_andon['total_menit']?></td>
-                            </tr>
-                            <?php
-                        }
+                      foreach ($data_andon as $d_andon) {
                       ?>
-										</tbody>
-									</table>
-								</div>
-								
-							</div>
-							<div class="box-footer" style="text-align: center;">
-								<!-- <input type="submit" class="btn btn-success" value="Save"> -->
-							</div>
-						</div>				
-					</div>
-				</div>
+                        <tr>
+                          <td>MC <?= $d_andon['no_machine'] ?></td>
+                          <td><?= $d_andon['permasalahan'] ?></td>
+                          <td><?= $d_andon['tujuan'] ?></td>
+                          <td><?= $d_andon['total_menit'] ?></td>
+                        </tr>
+                      <?php
+                      }
+                      ?>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+              <div class="box-footer" style="text-align: center;">
+                <!-- <input type="submit" class="btn btn-success" value="Save"> -->
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="row">
           <div class="col-4"></div>
@@ -851,6 +860,18 @@ $shift
   </div>
 </div>
 <!-- /.content-wrapper -->
+<div class="modal" id="loading-modal" data-bs-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background-color:rgba(0, 0, 0, 0.01);">
+      <div class="modal-body text-center">
+        <div class="spinner-border text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <h5 class="mt-2 text-light">Loading...</h5>
+      </div>
+    </div>
+  </div>
+</div>
 
 <?= $this->endSection(); ?>
 
@@ -873,26 +894,26 @@ $shift
   });
 
   function get_data_andon() {
-        var shift = $('#shift').val();
-        var tanggal = $('#tanggal_produksi').val();
-        var mesin = $('#mesin_pasting').val();
+    var shift = $('#shift').val();
+    var tanggal = $('#tanggal_produksi').val();
+    var mesin = $('#mesin_pasting').val();
 
-        $.ajax({
-            url: '<?=base_url()?>pasting/get_data_andon',
-            type: 'POST',
-            data: {
-                shift: shift,
-                tanggal: tanggal,
-                mesin: mesin
-            },
-            dataType: 'json',
-            success: function(data) {
-                console.log(data);
-                if (data.length > 0) {
-                    var html = '';
-                    var no = 1;
-                    for (var i = 0; i < data.length; i++) {
-                        html += `<tr>
+    $.ajax({
+      url: '<?= base_url() ?>pasting/get_data_andon',
+      type: 'POST',
+      data: {
+        shift: shift,
+        tanggal: tanggal,
+        mesin: mesin
+      },
+      dataType: 'json',
+      success: function(data) {
+        console.log(data);
+        if (data.length > 0) {
+          var html = '';
+          var no = 1;
+          for (var i = 0; i < data.length; i++) {
+            html += `<tr>
                                     <td>
                                         ${data[i].nama_mesin}
                                         <input type="hidden" name="no_machine_andon[]" value="${data[i].nama_mesin.substring(3)}">
@@ -908,15 +929,15 @@ $shift
                                         <input type="text" class="form-control" name="total_menit_andon[]" id="total_menit_${no}" class="form-control" value="${data[i].total_min}">
                                     </td>
                                 </tr>`;
-                        no++;
-                    }
-                    $('#tbody_data_andon').html(html);
-                } else {
-                    alert('Tidak Ada Andon');
-                }
-            }
-        })
-    }
+            no++;
+          }
+          $('#tbody_data_andon').html(html);
+        } else {
+          alert('Tidak Ada Andon');
+        }
+      }
+    })
+  }
 
   function get_jks(i) {
     let menit_terpakai = $('#menit_terpakai_' + i).val();
@@ -999,7 +1020,7 @@ $shift
   function add_breakdown(i) {
     var mesin_pasting = $('#mesin_pasting').val();
     let data_line_stop;
-    if(mesin_pasting <= 3) {
+    if (mesin_pasting <= 3) {
       data_line_stop = <?= json_encode($data_line_stop_casting); ?>;
     } else {
       data_line_stop = <?= json_encode($data_line_stop_punching); ?>;
@@ -1184,16 +1205,16 @@ $shift
   //       $('#tbody_andon').html('');
   //       data.forEach((item, i) => {
   //         $('#tbody_andon').append(`
-	// 					<tr>
-	// 						<td>${item.id_ticket}</td>
-	// 						<td>${item.permasalahan}</td>
-	// 						<td>${item.shift}</td>
-	// 						<td>${item.id_mesin_pasting}</td>
-	// 						<td>${item.pelapor}</td>
-	// 						<td>${item.created_at}</td>
-	// 						<td><button class="btn btn-primary btn-sm" onclick="pilih_andon(${item.id_ticket}, ${j})">Pilih</button></td>
-	// 					</tr>
-	// 				`);
+  // 					<tr>
+  // 						<td>${item.id_ticket}</td>
+  // 						<td>${item.permasalahan}</td>
+  // 						<td>${item.shift}</td>
+  // 						<td>${item.id_mesin_pasting}</td>
+  // 						<td>${item.pelapor}</td>
+  // 						<td>${item.created_at}</td>
+  // 						<td><button class="btn btn-primary btn-sm" onclick="pilih_andon(${item.id_ticket}, ${j})">Pilih</button></td>
+  // 					</tr>
+  // 				`);
   //       });
   //     }
   //   })
@@ -1225,7 +1246,8 @@ $shift
   //   // var data_wo = <?php //echo json_encode($data_wo); 
                         //                     
                         ?>;
-  //   var data_line_stop = <?php ""//echo json_encode($data_line_stop); ?>;
+  //   var data_line_stop = <?php "" //echo json_encode($data_line_stop); 
+                            ?>;
 
   //   var tbody = document.getElementById('tbody'),
   //     row, k;
@@ -1347,138 +1369,233 @@ $shift
   }
 
   function add_rak_in() {
-        let id_lhp_pasting = $('#id_lhp_pasting').val();
-        let barcode = $('#start_barcode').val();
-        let qty = $('#start_qty').val();
-        let rak = $('#start_rak').val();
-        let baris = document.querySelectorAll('.rak_in').length;
-        $.ajax({
-            url: '<?=base_url()?>pasting/add_rak_in',
-            type: 'POST',
-            data: {
-                id_lhp_pasting: id_lhp_pasting,
-                barcode: barcode,
-                qty: qty,
-                rak: rak
-            },
-            dataType: 'json',
-            success: function(data) {
-                // console.log(data)
-                // window.location.reload();
-                $('#tbody_data_rak').append(`
-                    <tr class="rak_in">
-                        <td>
-                            <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_${baris}" class="form-control" value="${barcode}">
-                            <input type="hidden" class="form-control" name="id_rak_barcode[]" id="id_rak_barcode_${baris}" class="form-control" value="${data}">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_${baris}" class="form-control" value="${qty}">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" name="id_rak[]" id="id_rak_${baris}" class="form-control" value="${rak}">
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak_in(this, ${baris})">Delete</button>
-                        </td>
-                    </tr>
-                `);
+    let id_lhp_pasting = $('#id_lhp_pasting').val();
+    // let barcode = $('#start_barcode').val();
+    // let qty = $('#start_qty').val();
+    let rak = $('#start_rak').val();
+    // let baris = document.querySelectorAll('.rak_in').length;
+    $('#loading-modal').modal('show');
+    $.ajax({
+      url: '<?= base_url() ?>pasting/add_rak_in',
+      type: 'POST',
+      data: {
+        id_lhp_pasting: id_lhp_pasting,
+        // barcode: barcode,
+        // qty: qty,
+        rak: rak
+      },
+      dataType: 'json',
+      success: function(data) {
+        console.log(data)
+        // window.location.reload();
+        if (data === 'Gagal') {
+          alert('Data Tidak Ditemukan');
+          $('#start_rak').val('');
+          $('#loading-modal').modal('hide');
+          $('#start_rak').focus();
+        } else {
+          let no = 0;
+          data['data_record_rak'].forEach(drr => {
+            $('#tbody_data_rak').append(`
+                <tr class="rak_in">
+                    <td>
+                        <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_${no}" class="form-control" value="${drr['barcode']}">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_${no}" class="form-control" value="${drr['qty']}">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="id_rak[]" id="id_rak_${no}" class="form-control" value="${rak}">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="delete_detail_rak_in(this, ${no})">Delete</button>
+                    </td>
+                </tr>
+            `);
+            no++;
+          });
 
-                $('#start_barcode').val('');
-                $('#start_qty').val('');
-                $('#start_rak').val('');
-            }
-        });
-    }
-
-    function delete_detail_rak_in(e, baris) {
-        var barcode = $('#id_rak_barcode_' + baris).val();
-        $.ajax({
-            url: '<?=base_url()?>pasting/delete_rak',
-            type: 'POST',
-            data: {
-                barcode: barcode
-            },
-            dataType: 'json',
-            success: function(data) {
-                $(e).parent().parent().remove();
-            }
-        });
-    }
-
-    function get_qty_rak() {
-        var barcode = $('#start_barcode').val();
-
-        $.ajax({
-            url: '<?=base_url()?>pasting/get_qty_rak',
-            type: 'POST',
-            data: {
-                barcode: barcode
-            },
-            dataType: 'json',
-            success: function(data) {
-                console.log(data);
-                $('#start_qty').val(data[0].qty);
-                $('#start_rak').focus();
-            }
-        })
-    }
-
-    function add_rak_out() {
-        let id_lhp_pasting = $('#id_lhp_pasting').val();
-        let barcode = $('#start_barcode_out').val();
-        let qty = $('#start_qty_out').val();
-        let rak = $('#start_rak_out').val();
-        let baris = document.querySelectorAll('.rak_out').length;
-        $.ajax({
-            url: '<?=base_url()?>pasting/add_rak_out',
-            type: 'POST',
-            data: {
-                id_lhp_pasting: id_lhp_pasting,
-                barcode: barcode,
-                qty: qty,
-                rak: rak
-            },
-            dataType: 'json',
-            success: function(data) {
-                // window.location.reload();
-                $('#tbody_data_rak_out').append(`
-                    <tr class="rak_out">
-                        <td>
-                            <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_${baris}" class="form-control" value="${barcode}">
-                            <input type="hidden" class="form-control" name="id_rak_barcode_out[]" id="id_rak_barcode_out_${baris}" class="form-control" value="${data}">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_${baris}" class="form-control" value="${qty}">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_${baris}" class="form-control" value="${rak}">
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, ${baris})">Delete</button>
-                        </td>
-                    </tr>
-                `);
-            
-                $('#start_barcode_out').val('');
-                $('#start_qty_out').val('');
-                $('#start_rak_out').val('');
-            }
-        });
+          // $('#start_barcode').val('');
+          // $('#start_qty').val('');
+          $('#start_rak').val('');
+          $('#loading-modal').modal('hide');
+        }
       }
-    
-    function delete_detail_rak_out(e, baris) {
-      let id_barcode_out = $('#id_rak_barcode_out_' + baris).val();
-      $.ajax({
-          url: '<?=base_url()?>pasting/delete_rak_out',
-          type: 'POST',
-          data: {
-              id_barcode_out: id_barcode_out
-          },
-          dataType: 'json',
-          success: function(data) {
-              $(e).parent().parent().remove();
+    });
+  }
+
+  function delete_detail_rak_in(e, baris) {
+    // let id_rak_barcode = $('#id_rak_barcode_' + baris).val();
+    // let id_log_detail_record_rak = $('#id_log_detail_record_rak_' + baris).val();
+    let pn_qr = $('#id_rak_' + baris).val();
+    let id_rakElement = [];
+    // let barcode = $('#barcode_rak_' + baris).val();
+    let jumlah_baris = document.querySelectorAll('.rak_in').length;
+    $('#loading-modal').modal('show');
+    $.ajax({
+      url: '<?= base_url() ?>pasting/delete_rak',
+      type: 'POST',
+      data: {
+        // id_rak_barcode: id_rak_barcode,
+        // id_log_detail_record_rak: id_log_detail_record_rak,
+        pn_qr: pn_qr,
+        // barcode: barcode,
+      },
+      dataType: 'json',
+      success: function(data) {
+        console.log(data)
+        for (let i = 0; i < jumlah_baris; i++) {
+          id_rakElement = $('#id_rak_' + i).val();
+          if (id_rakElement === pn_qr) {
+            $('#id_rak_' + i).parent().parent().remove();
           }
-      });
-    }
+        }
+        $('#loading-modal').modal('hide');
+      }
+    });
+  }
+
+  function get_qty_rak() {
+    let barcode = $('#start_barcode').val();
+    $('#loading-modal').modal('show');
+    $.ajax({
+      url: '<?= base_url() ?>pasting/get_qty_rak',
+      type: 'POST',
+      data: {
+        barcode: barcode
+      },
+      dataType: 'json',
+      success: function(data) {
+        console.log(data);
+        if (data.length > 0) {
+          $('#start_qty').val(data[0].t$actq);
+          $('#loading-modal').modal('hide');
+          $('#start_rak').focus();
+        } else {
+          alert('Data Tidak Ditemukan');
+          $('#loading-modal').modal('hide');
+        }
+      }
+    })
+  }
+
+  function get_qty_rak_out() {
+    let barcode = $('#start_barcode_out').val();
+    $('#loading-modal').modal('show');
+    $.ajax({
+      url: '<?= base_url() ?>pasting/get_qty_rak',
+      type: 'POST',
+      data: {
+        barcode: barcode
+      },
+      dataType: 'json',
+      success: function(data) {
+        console.log(data);
+        if (data.length > 0) {
+          document.querySelector('.qty').innerHTML = '';
+          $('.qty').append(`
+              <input type="hidden" class="form-control" name="item" id="item" class="form-control" value="${data[0]['t$item'].trim()}">
+              <input type="hidden" class="form-control" name="dsca" id="dsca" class="form-control" value="${data[0]['t$dsca']}">
+              <input type="hidden" class="form-control" name="cuni" id="cuni" class="form-control" value="${data[0]['t$cuni']}">
+              <input type="hidden" class="form-control" name="endt" id="endt" class="form-control" value="${data[0]['t$endt']}">
+              <input type="hidden" class="form-control" name="orno" id="orno" class="form-control" value="${data[0]['t$orno']}">
+              <input type="hidden" class="form-control" name="mach" id="mach" class="form-control" value="${data[0]['t$mach']}">
+          `);
+          $('#start_qty_out').val(data[0].t$actq);
+          $('#loading-modal').modal('hide');
+          $('#start_rak_out').focus();
+        } else {
+          alert('Data Tidak Ditemukan');
+          $('#loading-modal').modal('hide');
+        }
+      }
+    })
+  }
+
+  function add_rak_out() {
+    let id_lhp_pasting = $('#id_lhp_pasting').val();
+    let barcode = $('#start_barcode_out').val();
+    let qty = $('#start_qty_out').val();
+    let rak = $('#start_rak_out').val();
+    let item = $('#item').val();
+    let descrp = $('#dsca').val();
+    let satuan = $('#cuni').val();
+    let mesin = $('#mach').val();
+    let entry_date = $('#endt').val();
+    let no_wo = $('#orno').val();
+    let baris = document.querySelectorAll('.rak_out').length;
+    $('#loading-modal').modal('show');
+    $.ajax({
+      url: '<?= base_url() ?>pasting/add_rak_out',
+      type: 'POST',
+      data: {
+        id_lhp_pasting: id_lhp_pasting,
+        barcode: barcode,
+        qty: qty,
+        rak: rak,
+        item: item,
+        descrp: descrp,
+        satuan: satuan,
+        mesin: mesin,
+        entry_date: entry_date,
+        no_wo: no_wo,
+      },
+      dataType: 'json',
+      success: function(data) {
+        if (data === 'Gagal') {
+          $('#loading-modal').modal('hide');
+          alert('Data Tidak Ditemukan');
+        } else {
+          // window.location.reload();
+          $('#tbody_data_rak_out').append(`
+              <tr class="rak_out">
+                  <td>
+                      <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_${baris}" class="form-control" value="${barcode}">
+                      <input type="hidden" class="form-control" name="id_log_detail_record_rak_out[]" id="id_log_detail_record_rak_out_${baris}" class="form-control" value="${data['id_log_detail_record_rak_out']}">
+                  </td>
+                  <td>
+                      <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_${baris}" class="form-control" value="${qty}">
+                  </td>
+                  <td>
+                      <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_${baris}" class="form-control" value="${rak}">
+                  </td>
+                  <td>
+                      <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, ${baris})">Delete</button>
+                  </td>
+              </tr>
+          `);
+
+          $('#start_barcode_out').val('');
+          $('#start_qty_out').val('');
+          $('#start_rak_out').val('');
+          $('#loading-modal').modal('hide');
+        }
+      }
+    });
+  }
+
+  function delete_detail_rak_out(e, baris) {
+    // let id_rak_barcode_out = $('#id_rak_barcode_out_' + baris).val();
+    let id_rak = $('#id_rak_out_' + baris).val();
+    let id_log_detail_record_rak_out = $('#id_log_detail_record_rak_out_' + baris).val();
+    let barcode_rak_out = $('#barcode_rak_out_' + baris).val();
+    $('#loading-modal').modal('show');
+    $.ajax({
+      url: '<?= base_url() ?>pasting/delete_rak_out',
+      type: 'POST',
+      data: {
+        // id_rak_barcode_out: id_rak_barcode_out,
+        id_rak: id_rak,
+        id_log_detail_record_rak_out: id_log_detail_record_rak_out,
+        barcode_rak_out: barcode_rak_out,
+      },
+      dataType: 'json',
+      success: function(data) {
+        console.log(data)
+        $(e).parent().parent().remove();
+        $('#loading-modal').modal('hide');
+      }
+    });
+  }
 </script>
 <?= $this->endSection(); ?>
