@@ -220,9 +220,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-12">
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-12" style="text-align:center">
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table" style="width: 60%; margin: 0 auto; color:white; font-weight:700;">
                                                 <thead>
                                                     <tr>
                                                         <td>#</td>
@@ -232,10 +237,10 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php for ($i=1; $i <= 7; $i++) { ?>
-                                                        <tr>
+                                                        <tr style="line-height: 0px;">
                                                             <td>Line <?=$i?></td>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td><?=${'data_line_'.$i.'_previous_month'}[0]?> %</td>
+                                                            <td><?=${'data_line_'.$i.'_current_month'}[0]?> %</td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>
@@ -382,6 +387,7 @@
                     type: 'pie',
                     clockWise: false,
                     radius: ['75%', '90%'],
+                    silent: true,
                     itemStyle: {
                         normal: {
                             label: {show: false},
@@ -437,6 +443,7 @@
                     type: 'pie',
                     clockWise: false,
                     radius: ['75%', '90%'],
+                    silent: true,
                     itemStyle: {
                         normal: {
                             label: {show: false},
@@ -492,6 +499,7 @@
                     type: 'pie',
                     clockWise: false,
                     radius: ['75%', '90%'],
+                    silent: true,
                     itemStyle: {
                         normal: {
                             label: {show: false},
@@ -547,6 +555,7 @@
                     type: 'pie',
                     clockWise: false,
                     radius: ['75%', '90%'],
+                    silent: true,
                     itemStyle: {
                         normal: {
                             label: {show: false},
@@ -604,7 +613,12 @@
                 'Nov',
                 'Dec'
             ],
-            crosshair: true
+            crosshair: true,
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
+            }
         },
         yAxis: {
             min: 0,
@@ -617,7 +631,10 @@
                 pointPadding: 0.2,
                 borderWidth: 0,
                 dataLabels: {
-                    enabled: true
+                    enabled: true,
+                    formatter: function(){
+                        return (this.y!=0)?this.y:"";
+                    }
                 }
             }
         },
@@ -649,7 +666,7 @@
         }
 
         while (strtotime($start) <= strtotime($now)) {
-            array_push($dates, $start);
+            array_push($dates, date("d", strtotime($start)));
             $start = date ("Y-m-d", strtotime("+1 day", strtotime($start)));
         }
 
@@ -709,7 +726,10 @@
             labels: {
                 style: {
                     color: '#ffffff'
-                }
+                },
+                // formatter: function(){
+                //     return (this.value != 0 || this.value != null) ? this.value : "";
+                // }
             }
         },
 
@@ -725,7 +745,10 @@
         plotOptions: {
             column: {
                 dataLabels: {
-                    enabled: true
+                    enabled: true,
+                    formatter: function(){
+                        return (this.y!=0)?this.y:"";
+                    }
                 },
             }
         },
@@ -740,7 +763,7 @@
                     point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 $.ajax({
                                     url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
                                     type: "POST",
@@ -778,7 +801,7 @@
                     point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 $.ajax({
                                     url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
@@ -818,7 +841,7 @@
                     point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 var shift = 1;
                                 $.ajax({
@@ -857,7 +880,7 @@
                     point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 var shift = 2;
                                 $.ajax({
@@ -896,7 +919,7 @@
                     point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 var shift = 3;
                                 $.ajax({
@@ -939,7 +962,7 @@
                         point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 var grup = <?= json_encode($r_data_line_by_grup['grup']); ?>;
                                 $.ajax({
@@ -983,7 +1006,7 @@
                         point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 var kss = <?= json_encode($r_data_line_by_kss['kss']); ?>;
                                 $.ajax({

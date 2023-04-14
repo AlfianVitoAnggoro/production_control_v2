@@ -1,5 +1,4 @@
 <header class="main-header">
-	<
 	<!-- Header Navbar -->
 	<nav class="navbar navbar-static-top">
 		<!-- Sidebar toggle button-->
@@ -28,7 +27,7 @@
 			</ul>
 		</div>
 
-		<div style="margin-left:-250px; text-align:center; margin-top:-25px;">
+		<div style="margin-left:-250px; text-align:center; margin-top:-5px;">
 			<h1 class="judul_dashboard">PERFORMANCE DASHBOARD</h1>
 			<!-- <br> -->
 			<span class="sub_judul_dashboard">PRODUCTION 2</span>

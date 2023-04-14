@@ -46,6 +46,10 @@
 			color: #fff;
 			font-weight:500;	
 		}
+
+		input {
+			color-scheme: dark;
+		}
 	</style>
 </head>
 <body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
@@ -209,9 +213,6 @@
 
 	<script src="<?=base_url()?>assets/template/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
 	<script src="<?=base_url()?>assets/template/assets/vendor_components/moment/min/moment.min.js"></script>
-	<script src="<?=base_url()?>assets/template/assets/vendor_components/fullcalendar/fullcalendar.js"></script>
-	<script src="<?=base_url()?>assets/template/assets/vendor_components/datatable/datatables.min.js"></script>
-	<script src="<?=base_url()?>assets/template/assets/vendor_components/select2/dist/js/select2.full.js"></script>
 	
 	<!-- EduAdmin App -->
 	<script src="<?=base_url()?>assets/template/main/js/template.js"></script>

@@ -219,7 +219,60 @@ class Dashboard extends BaseController
                 }
             }
         }
-        
+
+        $current_date = idate('m', strtotime($bulan));
+        if ($current_date != 12) {
+            $previous_date = $current_date - 1;
+        } else {
+            $previous_date = 12;
+        }
+        // VARIABLE DATA PER LINE UNTUK BULAN BERJALAN
+        $data['data_line_1_current_month'] = [];
+        $data['data_line_2_current_month'] = [];
+        $data['data_line_3_current_month'] = [];
+        $data['data_line_4_current_month'] = [];
+        $data['data_line_5_current_month'] = [];
+        $data['data_line_6_current_month'] = [];
+        $data['data_line_7_current_month'] = [];
+
+        //PUSH DATA PER LINE UNTUK BULAN BERJALAN
+        for ($i=1; $i <= 7; $i++) { 
+            $data_all = $this->M_Dashboard->get_data_all_line_by_month($current_date, $i);
+            if (!empty($data_all)) {
+                foreach($data_all as $d_all) {
+                    $total_plan = $d_all['total_plan'];
+                    $total_aktual = $d_all['total_aktual'];
+                    $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                    array_push($data['data_line_'.$i.'_current_month'], (float) number_format($eff, 2, '.', ''));
+                }
+            } else {
+                array_push($data['data_line_'.$i.'_current_month'], 0);
+            }
+        }
+
+        // VARIABLE DATA PER LINE UNTUK BULAN SEBELUMNYA
+        $data['data_line_1_previous_month'] = [];
+        $data['data_line_2_previous_month'] = [];
+        $data['data_line_3_previous_month'] = [];
+        $data['data_line_4_previous_month'] = [];
+        $data['data_line_5_previous_month'] = [];
+        $data['data_line_6_previous_month'] = [];
+        $data['data_line_7_previous_month'] = [];
+
+        //PUSH DATA PER LINE UNTUK BULAN SEBELUMNYA
+        for ($i=1; $i <= 7; $i++) { 
+            $data_all = $this->M_Dashboard->get_data_all_line_by_month($previous_date, $i);
+            if (!empty($data_all)) {
+                foreach($data_all as $d_all) {
+                    $total_plan = $d_all['total_plan'];
+                    $total_aktual = $d_all['total_aktual'];
+                    $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                    array_push($data['data_line_'.$i.'_previous_month'], (float) number_format($eff, 2, '.', ''));
+                }
+            } else {
+                array_push($data['data_line_'.$i.'_previous_month'], 0);
+            }
+        }
         
 
         $data['data_all_month'] = [];

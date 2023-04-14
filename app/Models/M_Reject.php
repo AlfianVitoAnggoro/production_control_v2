@@ -22,7 +22,7 @@ class M_Reject extends Model
 
     public function get_data_reject()
     {
-        $query = $this->db->query('SELECT * FROM data_reject ORDER BY jenis_reject ASC');
+        $query = $this->db->query('SELECT * FROM data_reject ORDER BY jenis_reject ASC, kategori_reject ASC');
 
         return $query->getResultArray();
     }
