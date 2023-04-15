@@ -11,7 +11,7 @@
         $previous_date = 12;
     }
 
-    if ($child_filter != null AND $child_filter != 0 AND $baby_filter == 'average') {
+    if ($child_filter == 0 AND $baby_filter == 'line') {
         $type_chart = 'line';
     } else {
         $type_chart = 'column';
@@ -182,6 +182,7 @@
                                     <select class="form-select" name="baby_filter" id="baby_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
                                         <?php if ($child_filter == 0) { ?>
                                             <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
+                                            <option value="line" <?= ($baby_filter == 'line') ? 'selected':''?>>By Line</option>
                                         <?php } else { ?>
                                             <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
                                             <option value="shift" <?= ($baby_filter == 'shift') ? 'selected':''?>>By Shift</option>
@@ -355,6 +356,11 @@
             $('#baby_filter').append($('<option>', {
                 value: 'average',
                 text: 'By Average'
+            }));
+
+            $('#baby_filter').append($('<option>', {
+                value: 'line',
+                text: 'By Line'
             }));
         } else {
             $('#baby_filter').append($('<option>', {
@@ -702,10 +708,10 @@
 
     Highcharts.chart('main_chart', {
         chart: {
-            type: 'column',
+            // type: 'column',
             // backgroundColor: '#12213c',
             backgroundColor: '#0c1a32',
-            // type: '<?=$type_chart?>'
+            type: '<?=$type_chart?>'
         },
 
         exporting: {
@@ -772,7 +778,7 @@
                 },
             }
         },
-        colors: ['yellow', 'red', 'cyan'],
+        colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
         
         series: [
             <?php if (($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'average') { ?>
@@ -812,6 +818,268 @@
                         }
                     }
                 },
+            <?php } ?>
+
+            <?php if (($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'line') { ?>
+                {
+                    name: 'Line 1',
+                    data: <?php echo json_encode($data_line_1); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 1;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                    '<td>' + data[i].no_wo + '</td>' +
+                                                    '<td>' + data[i].type_battery + '</td>' +
+                                                    '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                    '<td>' + data[i].proses_breakdown + '</td>' +
+                                                    '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                    '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 2',
+                    data: <?php echo json_encode($data_line_2); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 2;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                        '<td>' + data[i].no_wo + '</td>' +
+                                                        '<td>' + data[i].type_battery + '</td>' +
+                                                        '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                        '<td>' + data[i].proses_breakdown + '</td>' +
+                                                        '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                        '<td>' + data[i].menit_breakdown + '</td>' +
+                                                    '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 3',
+                    data: <?php echo json_encode($data_line_3); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 3;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 4',
+                    data: <?php echo json_encode($data_line_4); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 4;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 5',
+                    data: <?php echo json_encode($data_line_5); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 5;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 6',
+                    data: <?php echo json_encode($data_line_6); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 6;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 7',
+                    data: <?php echo json_encode($data_line_7); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 7;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
             <?php } ?>
 
             <?php if ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND ($baby_filter == null OR $baby_filter == 'average')) { ?>
