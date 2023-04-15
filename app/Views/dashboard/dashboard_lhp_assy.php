@@ -344,6 +344,8 @@
             var selectedValue = $(this).val();
             populateSecondarySelect(selectedValue);
         });
+
+        setTimeout(function () { location.reload(1); }, 60*60*1000);
     });
 
     function populateSecondarySelect(selectedValue) {
