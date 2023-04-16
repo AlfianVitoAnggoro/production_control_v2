@@ -27,8 +27,17 @@
 			</ul>
 		</div>
 
+		<?php
+		$uri = current_url(true);
+		if ($uri->getSegment(3) == 'assy') {
+			$judul = 'PERFORMANCE';
+		} else if ($uri->getSegment(3) == 'reject') {
+			$judul = 'REJECTION';
+		}
+		 ?>
+
 		<div style="margin-left:-250px; text-align:center; margin-top:-5px;">
-			<h1 class="judul_dashboard">PERFORMANCE DASHBOARD</h1>
+			<h1 class="judul_dashboard"><?=$judul?> DASHBOARD</h1>
 			<!-- <br> -->
 			<span class="sub_judul_dashboard">PRODUCTION 2</span>
 		</div>

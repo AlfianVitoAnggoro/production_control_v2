@@ -212,7 +212,7 @@
                                     <div id="current_month_chart" style="height:250px;"></div>
                                 </div>
                                 <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
-                                    <button class="btn btn-danger">Rejection</button>
+                                    <a href="<?=base_url()?>dashboard/reject" class="btn btn-danger">Rejection</a>
                                     <button class="btn btn-info">Line Stop</button>
                                     <button class="btn btn-success">Overtime</button>
                                 </div>
@@ -760,9 +760,9 @@
         },
 
         legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
+            align: 'center',
+            verticalAlign: 'bottom',
+            layout: 'horizontal',
             itemStyle: {
                 color: '#ffffff'
             }
