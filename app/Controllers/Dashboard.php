@@ -79,7 +79,7 @@ class Dashboard extends BaseController
         $data['data_line_by_grup'] = [];
         $data['data_line_by_kss'] = [];
 
-        if ($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0)) {
+        if ($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'average') {
             while (strtotime($start) <= strtotime($now)) {
                 $data_all = $this->M_Dashboard->get_data_all_line_by_date($start);
                 if (!empty($data_all)) {
@@ -87,10 +87,28 @@ class Dashboard extends BaseController
                         $total_plan = $da['total_plan'];
                         $total_aktual = $da['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_all_line'], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_all_line'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
                     array_push($data['data_all_line'], 0);
+                }
+    
+                $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
+            }
+        } elseif ($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'line') {
+            while (strtotime($start) <= strtotime($now)) {
+                for ($i=1; $i <= 7; $i++) { 
+                    $data1 = $this->M_Dashboard->get_data_all_line($start, $i);
+                    if (!empty($data1)) {
+                        foreach ($data1 as $d1) {
+                            $total_plan = $d1['total_plan'];
+                            $total_aktual = $d1['total_aktual'];
+                            $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                            array_push($data['data_line_'.$i], (float) number_format($eff, 1, '.', ''));
+                        } 
+                    } else {
+                        array_push($data['data_line_'.$i], 0);
+                    }
                 }
     
                 $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
@@ -103,7 +121,7 @@ class Dashboard extends BaseController
                         $total_plan = $d1['total_plan'];
                         $total_aktual = $d1['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_line_'.$child_filter], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_line_'.$child_filter], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
                     array_push($data['data_line_'.$child_filter], 0);
@@ -118,7 +136,7 @@ class Dashboard extends BaseController
                         $total_plan = $d1['total_plan'];
                         $total_aktual = $d1['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_line_shift_1'], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_line_shift_1'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
                     array_push($data['data_line_shift_1'], 0);
@@ -130,7 +148,7 @@ class Dashboard extends BaseController
                         $total_plan = $d2['total_plan'];
                         $total_aktual = $d2['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_line_shift_2'], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_line_shift_2'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
                     array_push($data['data_line_shift_2'], 0);
@@ -142,7 +160,7 @@ class Dashboard extends BaseController
                         $total_plan = $d3['total_plan'];
                         $total_aktual = $d3['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
-                        array_push($data['data_line_shift_3'], (float) number_format($eff, 2, '.', ''));
+                        array_push($data['data_line_shift_3'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
                     array_push($data['data_line_shift_3'], 0);
@@ -166,7 +184,7 @@ class Dashboard extends BaseController
                 
                                     $data_grup = [
                                         'grup' => $grup,
-                                        'data' => (float) number_format($eff, 2, '.', '')
+                                        'data' => (float) number_format($eff, 1, '.', '')
                                     ];
                                     $data['data_line_by_grup'][] = $data_grup;
                                 } 
@@ -200,7 +218,7 @@ class Dashboard extends BaseController
                 
                                     $data_kss = [
                                         'kss' => $kss,
-                                        'data' => (float) number_format($eff, 2, '.', '')
+                                        'data' => (float) number_format($eff, 1, '.', '')
                                     ];
                                     $data['data_line_by_kss'][] = $data_kss;
                                 } 
@@ -219,7 +237,60 @@ class Dashboard extends BaseController
                 }
             }
         }
-        
+
+        $current_date = idate('m', strtotime($bulan));
+        if ($current_date != 12) {
+            $previous_date = $current_date - 1;
+        } else {
+            $previous_date = 12;
+        }
+        // VARIABLE DATA PER LINE UNTUK BULAN BERJALAN
+        $data['data_line_1_current_month'] = [];
+        $data['data_line_2_current_month'] = [];
+        $data['data_line_3_current_month'] = [];
+        $data['data_line_4_current_month'] = [];
+        $data['data_line_5_current_month'] = [];
+        $data['data_line_6_current_month'] = [];
+        $data['data_line_7_current_month'] = [];
+
+        //PUSH DATA PER LINE UNTUK BULAN BERJALAN
+        for ($i=1; $i <= 7; $i++) { 
+            $data_all = $this->M_Dashboard->get_data_all_line_by_month($current_date, $i);
+            if (!empty($data_all)) {
+                foreach($data_all as $d_all) {
+                    $total_plan = $d_all['total_plan'];
+                    $total_aktual = $d_all['total_aktual'];
+                    $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                    array_push($data['data_line_'.$i.'_current_month'], (float) number_format($eff, 2, '.', ''));
+                }
+            } else {
+                array_push($data['data_line_'.$i.'_current_month'], 0);
+            }
+        }
+
+        // VARIABLE DATA PER LINE UNTUK BULAN SEBELUMNYA
+        $data['data_line_1_previous_month'] = [];
+        $data['data_line_2_previous_month'] = [];
+        $data['data_line_3_previous_month'] = [];
+        $data['data_line_4_previous_month'] = [];
+        $data['data_line_5_previous_month'] = [];
+        $data['data_line_6_previous_month'] = [];
+        $data['data_line_7_previous_month'] = [];
+
+        //PUSH DATA PER LINE UNTUK BULAN SEBELUMNYA
+        for ($i=1; $i <= 7; $i++) { 
+            $data_all = $this->M_Dashboard->get_data_all_line_by_month($previous_date, $i);
+            if (!empty($data_all)) {
+                foreach($data_all as $d_all) {
+                    $total_plan = $d_all['total_plan'];
+                    $total_aktual = $d_all['total_aktual'];
+                    $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                    array_push($data['data_line_'.$i.'_previous_month'], (float) number_format($eff, 2, '.', ''));
+                }
+            } else {
+                array_push($data['data_line_'.$i.'_previous_month'], 0);
+            }
+        }
         
 
         $data['data_all_month'] = [];

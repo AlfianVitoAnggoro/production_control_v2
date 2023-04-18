@@ -36,7 +36,7 @@ $routes->get('/login', 'Login::index');
 $routes->post('/login/proses_login', 'Login::proses_login');
 $routes->get('/logout', 'Login::logout');
 
-//DASHBOARD
+//DASHBOARD EFF ASSY
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->get('/dashboard/assy', 'Dashboard::dashboard_lhp_assy');
 $routes->post('/dashboard/assy', 'Dashboard::dashboard_lhp_assy');
@@ -45,6 +45,11 @@ $routes->post('/dashboard/assy/get_data_line_stop_by_shift', 'Dashboard::get_dat
 $routes->post('/dashboard/assy/get_data_line_stop_by_grup', 'Dashboard::get_data_line_stop_by_grup');
 $routes->post('/dashboard/assy/get_data_line_stop_by_kss', 'Dashboard::get_data_line_stop_by_kss');
 
+// DASHBOARD REJECT
+$routes->get('/dashboard/reject', 'DashboardAssyRejection::dashboard_reject_assy');
+
+
+//DASHBOARD EFF GRID
 $routes->get('/dashboardGrid', 'DashboardGrid::index');
 $routes->get('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
 $routes->post('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');

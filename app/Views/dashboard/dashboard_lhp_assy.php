@@ -11,7 +11,7 @@
         $previous_date = 12;
     }
 
-    if ($child_filter != null AND $child_filter != 0 AND $baby_filter == 'average') {
+    if ($child_filter == 0 AND $baby_filter == 'line') {
         $type_chart = 'line';
     } else {
         $type_chart = 'column';
@@ -182,6 +182,7 @@
                                     <select class="form-select" name="baby_filter" id="baby_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
                                         <?php if ($child_filter == 0) { ?>
                                             <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
+                                            <option value="line" <?= ($baby_filter == 'line') ? 'selected':''?>>By Line</option>
                                         <?php } else { ?>
                                             <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
                                             <option value="shift" <?= ($baby_filter == 'shift') ? 'selected':''?>>By Shift</option>
@@ -204,15 +205,20 @@
                                 <div class="col-3">
                                     <div id="target_chart" style="height:250px;"></div>
                                 </div>
-                                <div class="col-3">
+                                <!-- <div class="col-3">
                                     <div id="previous_month_chart" style="height:250px;"></div>
-                                </div>
+                                </div> -->
                                 <div class="col-3">
                                     <div id="current_month_chart" style="height:250px;"></div>
                                 </div>
+                                <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
+                                    <a href="<?=base_url()?>dashboard/reject" class="btn btn-danger">Rejection</a>
+                                    <button class="btn btn-info">Line Stop</button>
+                                    <button class="btn btn-success">Overtime</button>
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <div class="row">
+                            <div class="col-4" style="text-align:center">
+                                <!-- <div class="row">
                                     <div class="col-12" style="text-align:center">
                                         <button class="btn btn-danger">Rejection</button>
                                         <button class="btn btn-info">Line Stop</button>
@@ -220,29 +226,47 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-12" style="text-align:center">
+                                    <div class="col-12">
+                                        <br>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="row"> -->
+                                    <!-- <div class="col-12" style="text-align:center"> -->
+                                        <div>
+                                            <h4 style="font-weight: 500;color: yellow;">Production Performance Review </h4>
+                                        </div>
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700;">
                                                 <thead>
                                                     <tr>
                                                         <td>#</td>
                                                         <td><?=date('F', mktime(0, 0, 0, $previous_date, 10))?></td>
                                                         <td><?=date('F', mktime(0, 0, 0, $current_date, 10))?></td>
+                                                        <td>Status</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php for ($i=1; $i <= 7; $i++) { ?>
-                                                        <tr>
+                                                        <tr style="line-height: 0px;">
                                                             <td>Line <?=$i?></td>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td><?=${'data_line_'.$i.'_previous_month'}[0]?> %</td>
+                                                            <td><?=${'data_line_'.$i.'_current_month'}[0]?> %</td>
+                                                            <td>
+                                                                <?php if(${'data_line_'.$i.'_current_month'}[0] > ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                    echo '<i class="fa fa-arrow-up" style="color:green"></i>';
+                                                                } else if(${'data_line_'.$i.'_current_month'}[0] < ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                    echo '<i class="fa fa-arrow-down" style="color:red"></i>';
+                                                                } else if(${'data_line_'.$i.'_current_month'}[0] == ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                    echo '<i class="fa fa-minus" style="color:yellow"></i>';
+                                                                } ?>
+                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>                                        
-                                    </div>
-                                </div>
+                                    <!-- </div> -->
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -321,6 +345,8 @@
             var selectedValue = $(this).val();
             populateSecondarySelect(selectedValue);
         });
+
+        setTimeout(function () { location.reload(1); }, 60*60*1000);
     });
 
     function populateSecondarySelect(selectedValue) {
@@ -330,6 +356,11 @@
             $('#baby_filter').append($('<option>', {
                 value: 'average',
                 text: 'By Average'
+            }));
+
+            $('#baby_filter').append($('<option>', {
+                value: 'line',
+                text: 'By Line'
             }));
         } else {
             $('#baby_filter').append($('<option>', {
@@ -382,6 +413,7 @@
                     type: 'pie',
                     clockWise: false,
                     radius: ['75%', '90%'],
+                    silent: true,
                     itemStyle: {
                         normal: {
                             label: {show: false},
@@ -437,6 +469,7 @@
                     type: 'pie',
                     clockWise: false,
                     radius: ['75%', '90%'],
+                    silent: true,
                     itemStyle: {
                         normal: {
                             label: {show: false},
@@ -448,7 +481,7 @@
                             value: 85,
                             name: 'Monday',
                             itemStyle: {
-                                color: '#ff9920'
+                                color: 'red'
                             }
                         },
                         {
@@ -465,59 +498,60 @@
     );
 
     // PIE CHART Previous Month
-    var previous_month_chart = echarts.init(document.getElementById('previous_month_chart'));
-    previous_month_chart.setOption(
-        {
-            title: {
-                text: '<?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>%',
-                subtext: '<?=date('F', mktime(0, 0, 0, $previous_date, 10))?> Efficiency',
-                x: 'center',
-                y: 'center',
-                itemGap: 5,
-                textStyle: {
-                    color: '#ffffff',
-                    fontSize: 30,
-                    fontWeight: '700'
-                },
-                subtextStyle: {
-                    color: '#ffffff',
-                    fontSize: 15,
-                    fontWeight: 'normal'
-                }
+    // var previous_month_chart = echarts.init(document.getElementById('previous_month_chart'));
+    // previous_month_chart.setOption(
+    //     {
+    //         title: {
+    //             text: '<?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>%',
+    //             subtext: '<?=date('F', mktime(0, 0, 0, $previous_date, 10))?> Efficiency',
+    //             x: 'center',
+    //             y: 'center',
+    //             itemGap: 5,
+    //             textStyle: {
+    //                 color: '#ffffff',
+    //                 fontSize: 30,
+    //                 fontWeight: '700'
+    //             },
+    //             subtextStyle: {
+    //                 color: '#ffffff',
+    //                 fontSize: 15,
+    //                 fontWeight: 'normal'
+    //             }
 
-            },           
-            series: [
-                {
-                    name: '1',
-                    type: 'pie',
-                    clockWise: false,
-                    radius: ['75%', '90%'],
-                    itemStyle: {
-                        normal: {
-                            label: {show: false},
-                            labelLine: {show: false}
-                        }
-                    },
-                    data: [
-                        {
-                            value: <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
-                            name: 'Monday',
-                            itemStyle: {
-                                color: 'red'
-                            }
-                        },
-                        {
-                            value: 100 - <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
-                            name: 'invisible',
-                            itemStyle: {
-                                color: 'grey'
-                            }
-                        }
-                    ]
-                },
-            ]
-        }
-    );
+    //         },           
+    //         series: [
+    //             {
+    //                 name: '1',
+    //                 type: 'pie',
+    //                 clockWise: false,
+    //                 radius: ['75%', '90%'],
+    //                 silent: true,
+    //                 itemStyle: {
+    //                     normal: {
+    //                         label: {show: false},
+    //                         labelLine: {show: false}
+    //                     }
+    //                 },
+    //                 data: [
+    //                     {
+    //                         value: <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
+    //                         name: 'Monday',
+    //                         itemStyle: {
+    //                             color: 'red'
+    //                         }
+    //                     },
+    //                     {
+    //                         value: 100 - <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
+    //                         name: 'invisible',
+    //                         itemStyle: {
+    //                             color: 'grey'
+    //                         }
+    //                     }
+    //                 ]
+    //             },
+    //         ]
+    //     }
+    // );
 
     // PIE CHART Current Month
     var current_month_chart = echarts.init(document.getElementById('current_month_chart'));
@@ -547,6 +581,7 @@
                     type: 'pie',
                     clockWise: false,
                     radius: ['75%', '90%'],
+                    silent: true,
                     itemStyle: {
                         normal: {
                             label: {show: false},
@@ -604,7 +639,12 @@
                 'Nov',
                 'Dec'
             ],
-            crosshair: true
+            crosshair: true,
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
+            }
         },
         yAxis: {
             min: 0,
@@ -617,7 +657,10 @@
                 pointPadding: 0.2,
                 borderWidth: 0,
                 dataLabels: {
-                    enabled: true
+                    enabled: true,
+                    formatter: function(){
+                        return (this.y!=0)?this.y:"";
+                    }
                 }
             }
         },
@@ -649,7 +692,7 @@
         }
 
         while (strtotime($start) <= strtotime($now)) {
-            array_push($dates, $start);
+            array_push($dates, date("d", strtotime($start)));
             $start = date ("Y-m-d", strtotime("+1 day", strtotime($start)));
         }
 
@@ -665,10 +708,10 @@
 
     Highcharts.chart('main_chart', {
         chart: {
-            type: 'column',
+            // type: 'column',
             // backgroundColor: '#12213c',
             backgroundColor: '#0c1a32',
-            // type: '<?=$type_chart?>'
+            type: '<?=$type_chart?>'
         },
 
         exporting: {
@@ -709,14 +752,17 @@
             labels: {
                 style: {
                     color: '#ffffff'
-                }
+                },
+                // formatter: function(){
+                //     return (this.value != 0 || this.value != null) ? this.value : "";
+                // }
             }
         },
 
         legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
+            align: 'center',
+            verticalAlign: 'bottom',
+            layout: 'horizontal',
             itemStyle: {
                 color: '#ffffff'
             }
@@ -725,11 +771,14 @@
         plotOptions: {
             column: {
                 dataLabels: {
-                    enabled: true
+                    enabled: true,
+                    formatter: function(){
+                        return (this.y!=0)?this.y:"";
+                    }
                 },
             }
         },
-        colors: ['yellow', 'red', 'cyan'],
+        colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
         
         series: [
             <?php if (($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'average') { ?>
@@ -740,7 +789,7 @@
                     point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 $.ajax({
                                     url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
                                     type: "POST",
@@ -771,6 +820,268 @@
                 },
             <?php } ?>
 
+            <?php if (($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'line') { ?>
+                {
+                    name: 'Line 1',
+                    data: <?php echo json_encode($data_line_1); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 1;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                    '<td>' + data[i].no_wo + '</td>' +
+                                                    '<td>' + data[i].type_battery + '</td>' +
+                                                    '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                    '<td>' + data[i].proses_breakdown + '</td>' +
+                                                    '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                    '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 2',
+                    data: <?php echo json_encode($data_line_2); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 2;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                        '<td>' + data[i].no_wo + '</td>' +
+                                                        '<td>' + data[i].type_battery + '</td>' +
+                                                        '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                        '<td>' + data[i].proses_breakdown + '</td>' +
+                                                        '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                        '<td>' + data[i].menit_breakdown + '</td>' +
+                                                    '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 3',
+                    data: <?php echo json_encode($data_line_3); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 3;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 4',
+                    data: <?php echo json_encode($data_line_4); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 4;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 5',
+                    data: <?php echo json_encode($data_line_5); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 5;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 6',
+                    data: <?php echo json_encode($data_line_6); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 6;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Line 7',
+                    data: <?php echo json_encode($data_line_7); ?>,
+                    point: {
+                        events: {
+                            click: function() {
+                                var date = $('#bulan').val()+'-'+this.category;
+                                var line = 7;
+                                $.ajax({
+                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
+                                    type: "POST",
+                                    data: {
+                                        date: date,
+                                        line: line
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i = 0; i < data.length; i++) {
+                                            html += '<tr>' +
+                                                '<td>' + data[i].no_wo + '</td>' +
+                                                '<td>' + data[i].type_battery + '</td>' +
+                                                '<td>' + data[i].jenis_breakdown + '</td>' +
+                                                '<td>' + data[i].proses_breakdown + '</td>' +
+                                                '<td>' + data[i].uraian_breakdown + '</td>' +
+                                                '<td>' + data[i].menit_breakdown + '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#data_breakdown').html(html);
+                                        $('.modal').modal('show');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            <?php } ?>
+
             <?php if ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND ($baby_filter == null OR $baby_filter == 'average')) { ?>
                 {
                     name: 'Line <?=$child_filter?>',
@@ -778,7 +1089,7 @@
                     point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 $.ajax({
                                     url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
@@ -818,7 +1129,7 @@
                     point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 var shift = 1;
                                 $.ajax({
@@ -857,7 +1168,7 @@
                     point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 var shift = 2;
                                 $.ajax({
@@ -896,7 +1207,7 @@
                     point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 var shift = 3;
                                 $.ajax({
@@ -939,7 +1250,7 @@
                         point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 var grup = <?= json_encode($r_data_line_by_grup['grup']); ?>;
                                 $.ajax({
@@ -983,7 +1294,7 @@
                         point: {
                         events: {
                             click: function() {
-                                var date = this.category;
+                                var date = $('#bulan').val()+'-'+this.category;
                                 var line = <?=$child_filter?>;
                                 var kss = <?= json_encode($r_data_line_by_kss['kss']); ?>;
                                 $.ajax({

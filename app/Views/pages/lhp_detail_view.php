@@ -279,10 +279,10 @@
 															<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" value="<?=$data_detail_lhp[$i]['ct']?>" style="width: 100px" readonly>
 														</td>
 														<td>
-															<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" value="<?=$data_detail_lhp[$i]['plan_cap']?>" style="width: 100px" readonly>
+															<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" value="<?=$data_detail_lhp[$i]['plan_cap']?>" style="width: 100px" readonly>
 														</td>
 														<td>
-															<input type="number" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" value="<?=$data_detail_lhp[$i]['actual']?>" style="width: 100px">
+															<input type="text" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" value="<?=$data_detail_lhp[$i]['actual']?>" style="width: 100px">
 														</td>
 														<!-- <td>
 															<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_<?=$i?>" value="<?=$data_detail_lhp[$i]['act_vs_plan']?>" style="width: 100px" readonly>
@@ -291,7 +291,7 @@
 															<input type="number" class="form-control" name="efficiency_time[]" id="efficiency_time_<?=$i?>" value="<?=$data_detail_lhp[$i]['efficiency_time']?>" style="width: 100px" readonly>
 														</td> -->
 														<td>
-															<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" value="<?=$data_detail_lhp[$i]['total_menit_breakdown']?>" style="width: 100px" readonly>
+															<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" value="<?=$data_detail_lhp[$i]['total_menit_breakdown']?>" style="width: 100px" readonly>
 														</td>
 														<td>
 															<button type="button"class="btn btn-sm btn-primary" id="add_breakdown_<?=$i?>" onclick="add_breakdown(<?=$i?>)">Add</button>
@@ -351,10 +351,10 @@
 																<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" style="width: 100px" readonly>
 															</td>
 															<td>
-																<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" style="width: 100px" readonly>
+																<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" style="width: 100px" readonly>
 															</td>
 															<td>
-																<input type="number" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" style="width: 100px">
+																<input type="text" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" style="width: 100px">
 															</td>
 															<!-- <td>
 																<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_<?=$i?>" style="width: 100px" readonly>
@@ -363,7 +363,7 @@
 																<input type="number" class="form-control" name="efficiency_time[]" id="efficiency_time_<?=$i?>" style="width: 100px" readonly>
 															</td> -->
 															<td>
-																<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" style="width: 100px" readonly>
+																<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" style="width: 100px" readonly>
 															</td>
 															<td>
 																<button type="button" class="btn btn-sm btn-primary" id="add_breakdown_<?=$i?>" onclick="add_breakdown(<?=$i?>)">Add</button>
@@ -475,7 +475,7 @@
 														<textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_<?=$index_breakdown?>" cols="20" rows="1" style="width: 200px;"><?=$d_detail_breakdown['uraian_breakdown']?></textarea>
 													</td>
 													<td>
-														<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['menit_breakdown']?>" style="width: 100px">
+														<input type="text" class="form-control" name="menit_breakdown[]" id="menit_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['menit_breakdown']?>" style="width: 100px" required>
 													</td>
 													<td>
 														<a type="button" class="btn btn-danger" href="<?=base_url()?>lhp/delete_line_stop/<?=$d_detail_breakdown['id_breakdown']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
@@ -533,10 +533,10 @@
 														<input type="text" class="form-control" name="part_number_reject[]" id="part_number_reject_<?=$index_reject?>" value="<?=$d_detail_reject['type_battery']?>" style="width: 250px">
 													</td>
 													<td>
-														<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_<?=$index_reject?>" value="<?=$d_detail_reject['qty_reject']?>" style="width: 100px">
+														<input type="text" class="form-control" name="qty_reject[]" id="qty_reject_<?=$index_reject?>" value="<?=$d_detail_reject['qty_reject']?>" style="width: 100px" required>
 													</td>
 													<td>
-														<select class="form-control select2" name="jenis_reject[]" id="jenis_reject_<?=$index_reject?>" onchange="get_kategori_reject(<?=$index_reject?>)" style="width: 200px">
+														<select class="form-control select2" name="jenis_reject[]" id="jenis_reject_<?=$index_reject?>" onchange="get_kategori_reject(<?=$index_reject?>)" style="width: 200px" required>
 															<option value="">Pilih Jenis Reject</option>
 															<?php 
 																foreach ($data_reject as $d_jenis_reject) { ?>
@@ -547,7 +547,7 @@
 														</select>
 													</td>
 													<td>
-														<select class="form-control select2" id="kategori_reject_<?=$index_reject?>" name="kategori_reject[]" style="width: 250px;">
+														<select class="form-control select2" id="kategori_reject_<?=$index_reject?>" name="kategori_reject[]" style="width: 250px;" required>
 															<option selected disabled>-- Pilih Kategori Reject --</option>
 															<?php
 															$data_kategori_reject = $model->getKategoriReject($d_detail_reject['jenis_reject']);
@@ -648,6 +648,13 @@
 			$(this).val('');
 			}
 		});
+
+		$(window).keydown(function(event){
+			if(event.keyCode == 13) {
+			event.preventDefault();
+			return false;
+			}
+		});
 	});
 
 	function hitung_mh() {
@@ -739,7 +746,7 @@
 					<input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_${j}" value="${part_number_breakdown}" style="width: 225px" readonly>
 				</td>
 				<td>
-					<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_${j}" onchange="get_proses_breakdown(${j})" style="width: 200px">
+					<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_${j}" onchange="get_proses_breakdown(${j})" style="width: 200px" required>
 						<option value="">Pilih Jenis Line Stop</option>
 						${data_breakdown.map((item) => {
 							return `<option value="${item.jenis_breakdown}">${item.jenis_breakdown}</option>`;
@@ -747,7 +754,7 @@
 					</select>
 				</td>
 				<td>
-					<select class="form-control select2" id="proses_breakdown_${j}" name="proses_breakdown[]" style="width: 200px;">
+					<select class="form-control select2" id="proses_breakdown_${j}" name="proses_breakdown[]" style="width: 200px;" required>
 						<option selected disabled>-- Pilih Proses Line Stop --</option>
 					</select>
 				</td>
@@ -755,7 +762,7 @@
 					<textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_${j}" cols="20" rows="1" style="width: 200px;"></textarea>
 				</td>
 				<td>
-					<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" value="${menit_breakdown}" style="width: 100px">
+					<input type="text" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" value="${menit_breakdown}" style="width: 100px" required>
 				</td>
 				<td>
 					<button type="button" class="btn btn-danger" onclick="delete_breakdown(${j})"><i class="fa fa-trash"></i></button>	
@@ -797,7 +804,7 @@
 					<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_${j}" style="width: 100px">
 				</td>
 				<td>
-					<select class="form-control select2" id="jenis_reject_${j}" name="jenis_reject[]" onchange="get_kategori_reject(${j})" style="width: 200px;">
+					<select class="form-control select2" id="jenis_reject_${j}" name="jenis_reject[]" onchange="get_kategori_reject(${j})" style="width: 200px;" required>
 						<option selected disabled>-- Pilih Jenis Reject --</option>
 						${data_reject.map((item) => {
 							return `<option value="${item.jenis_reject}">${item.jenis_reject}</option>`;
@@ -805,7 +812,7 @@
 					</select>
 				</td>
 				<td>
-					<select class="form-control select2" id="kategori_reject_${j}" name="kategori_reject[]" style="width: 250px;">
+					<select class="form-control select2" id="kategori_reject_${j}" name="kategori_reject[]" style="width: 250px;" required>
 						<option selected disabled>-- Pilih Kategori Reject --</option>
 					</select>
 				</td>
@@ -851,7 +858,7 @@
 						${data.map((item) => `<option value="${item.proses_breakdown}">${item.proses_breakdown}</option>`)}
 					`);
 					$('#uraian_breakdown_'+i).val('');
-					$('#menit_breakdown_'+i).val('');
+					// $('#menit_breakdown_'+i).val('');
 				}
 			});
 		}
@@ -973,13 +980,13 @@
 					<input type="text" class="form-control" size="4" name="ct[]" id="ct_${k}" style="width: 100px" readonly>
 				</td>
 				<td>
-					<input type="number" class="form-control" name="plan_cap[]" id="plan_cap_${k}" style="width: 100px" readonly>
+					<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_${k}" style="width: 100px" readonly>
 				</td>
 				<td>
-					<input type="number" class="form-control" name="actual[]" id="actual_${k}" onkeyup="presentase_actual(${k})" style="width: 100px">
+					<input type="text" class="form-control" name="actual[]" id="actual_${k}" onkeyup="presentase_actual(${k})" style="width: 100px">
 				</td>
 				<td>
-					<input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_${k}" style="width: 100px" readonly>
+					<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_${k}" style="width: 100px" readonly>
 				</td>
 				<td>
 					<button type="button"class="btn btn-sm btn-primary" id="add_breakdown_${k}" onclick="add_breakdown(${k})">Add</button>

@@ -553,7 +553,9 @@ class Home extends BaseController
                     'menit_breakdown' => $this->request->getPost('menit_breakdown')[$i]
                 ];
 
-                $total_detail_line_stop += $this->request->getPost('menit_breakdown')[$i];
+                if ($this->request->getPost('menit_breakdown')[$i] != '') {
+                    $total_detail_line_stop += (int) $this->request->getPost('menit_breakdown')[$i];
+                }
     
                 $model->save_detail_breakdown($id_breakdown, $data_detail_breakdown);
             } 
