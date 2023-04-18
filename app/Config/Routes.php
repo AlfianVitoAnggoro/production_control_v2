@@ -45,6 +45,10 @@ $routes->post('/dashboard/assy/get_data_line_stop_by_shift', 'Dashboard::get_dat
 $routes->post('/dashboard/assy/get_data_line_stop_by_grup', 'Dashboard::get_data_line_stop_by_grup');
 $routes->post('/dashboard/assy/get_data_line_stop_by_kss', 'Dashboard::get_data_line_stop_by_kss');
 
+$routes->get('/dashboardGrid', 'DashboardGrid::index');
+$routes->get('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
+$routes->post('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
+
 //MASTER CYCLE TIME
 $routes->group('cycle_time', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'CycleTime::index');
