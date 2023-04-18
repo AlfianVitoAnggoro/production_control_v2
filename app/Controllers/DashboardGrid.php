@@ -235,4 +235,12 @@ class DashboardGrid extends BaseController
 
     return view('dashboardGrid/dashboard_lhp_grid', $data);
   }
+
+  public function get_data_line_stop()
+  {
+    $tanggal = $this->request->getPost('date');
+
+    $data = $this->M_DashboardGrid->get_data_line_stop($tanggal);
+    echo json_encode($data);
+  }
 }

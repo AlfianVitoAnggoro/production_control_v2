@@ -119,4 +119,13 @@ class M_DashboardGrid extends Model
 
     return $query->getResultArray();
   }
+
+  public function get_data_line_stop($tanggal)
+  {
+    $query = $this->db->query('SELECT * FROM lhp_grid
+                                    JOIN detail_breakdown_grid ON detail_breakdown_grid.id_lhp_grid = lhp_grid.id
+                                    WHERE lhp_grid.date_production = \'' . $tanggal . '\'');
+
+    return $query->getResultArray();
+  }
 }

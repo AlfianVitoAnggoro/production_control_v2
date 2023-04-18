@@ -164,10 +164,7 @@ if ($current_date != 12) {
         <table class="table" id="tbl_breakdown" width="100%">
           <thead>
             <tr>
-              <td>No WO</td>
-              <td>Type Battery</td>
-              <td>Jenis Line Stop</td>
-              <td>Proses Line Stop</td>
+              <td>Nama Mesin</td>
               <td>Uraian</td>
               <td>Total Menit</td>
             </tr>
@@ -887,6 +884,35 @@ if ($current_date != 12) {
       color: 'yellow',
       tooltip: {
         valueSuffix: ' %'
+      },
+      point: {
+        events: {
+          click: function() {
+            var date = $('#bulan').val() + '-' + this.category;
+            $.ajax({
+              url: "<?= base_url('dashboardGrid/grid/get_data_line_stop'); ?>",
+              type: "POST",
+              data: {
+                date: date,
+              },
+              dataType: "json",
+              success: function(data) {
+                console.log(data);
+                var html = '';
+                var i;
+                for (i = 0; i < data.length; i++) {
+                  html += '<tr>' +
+                    '<td>MC ' + data[i].no_machine + '</td>' +
+                    '<td>' + data[i].uraian_breakdown + '</td>' +
+                    '<td>' + data[i].total_menit + '</td>' +
+                    '</tr>';
+                }
+                $('#data_breakdown').html(html);
+                $('.modal').modal('show');
+              }
+            });
+          }
+        }
       }
     }, {
       name: 'Target',

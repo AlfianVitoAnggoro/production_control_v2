@@ -53,6 +53,7 @@ $routes->get('/dashboard/reject', 'DashboardAssyRejection::dashboard_reject_assy
 $routes->get('/dashboardGrid', 'DashboardGrid::index');
 $routes->get('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
 $routes->post('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
+$routes->post('/dashboardGrid/grid/get_data_line_stop', 'DashboardGrid::get_data_line_stop');
 
 //MASTER CYCLE TIME
 $routes->group('cycle_time', ['filter' => 'auth'], function ($routes) {
