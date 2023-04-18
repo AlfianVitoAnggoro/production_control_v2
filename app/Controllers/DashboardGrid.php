@@ -34,11 +34,11 @@ class DashboardGrid extends BaseController
       $now = date('Y-m-t', strtotime($bulan));
     }
     $data['bulan'] = $bulan;
-    $data_year = $this->M_DashboardGrid->get_data_all_by_year();
+    $data_year = $this->M_DashboardGrid->get_data_all_by_year($bulan);
     $data['data_all_year'] = (!empty($data_year[0]['total_jks']) && !empty($data_year[0]['total_aktual'])) ? (float) number_format(($data_year[0]['total_aktual'] / $data_year[0]['total_jks']) * 100, 2, '.', '') : 0;
     $data['data_all_month'] = [];
     for ($i = 1; $i <= 12; $i++) {
-      $data_all_month = $this->M_DashboardGrid->get_data_all_by_month($i);
+      $data_all_month = $this->M_DashboardGrid->get_data_all_by_month($i, $bulan);
       if (!empty($data_all_month)) {
         foreach ($data_all_month as $d_all_month) {
           $total_jks = $d_all_month['total_jks'];
