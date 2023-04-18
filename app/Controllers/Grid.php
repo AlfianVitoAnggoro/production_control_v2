@@ -209,23 +209,23 @@ class Grid extends BaseController
 
         // $this->M_Grid->delete_data_rak_by_id($id_lhp);
 
-        $barcode = $this->request->getPost('barcode_rak');
-        $qty = $this->request->getPost('qty_rak');
-        $id_rak = $this->request->getPost('id_rak');
-        $id_rak_barcode = $this->request->getPost('id_rak_barcode');
+        // $barcode = $this->request->getPost('barcode_rak');
+        // $qty = $this->request->getPost('qty_rak');
+        // $id_rak = $this->request->getPost('id_rak');
+        // $id_rak_barcode = $this->request->getPost('id_rak_barcode');
 
-        if (!empty($barcode)) {
-            for ($i = 0; $i < count($barcode); $i++) {
-                $data_rak = [
-                    'id_lhp' => $id_lhp,
-                    'barcode' => $barcode[$i],
-                    'qty' => $qty[$i],
-                    'id_rak' => $id_rak[$i]
-                ];
+        // if (!empty($barcode)) {
+        //     for ($i = 0; $i < count($barcode); $i++) {
+        //         $data_rak = [
+        //             'id_lhp' => $id_lhp,
+        //             'barcode' => $barcode[$i],
+        //             'qty' => $qty[$i],
+        //             'id_rak' => $id_rak[$i]
+        //         ];
 
-                $this->M_Grid->add_rak($id_rak_barcode[$i], $data_rak);
-            }
-        }
+        //         $this->M_Grid->add_rak($id_rak_barcode[$i], $data_rak);
+        //     }
+        // }
 
         return redirect()->to(base_url('grid/detail_lhp/' . $id_lhp));
     }
