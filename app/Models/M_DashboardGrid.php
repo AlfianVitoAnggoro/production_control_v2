@@ -36,11 +36,11 @@ class M_DashboardGrid extends Model
 
   public function get_data_all_by_date($tanggal, $month)
   {
-    $month = idate('m', strtotime($month));
+    $bulan = idate('m', strtotime($month));
     $year = idate('Y', strtotime($month));
     $query = $this->db->query('SELECT date_production, SUM(total_jks) AS total_jks, SUM(total_aktual) AS total_aktual
                                     FROM		lhp_grid
-                                    WHERE		date_production = \'' . $tanggal . '\' AND MONTH(date_production) = \'' . $month . '\' AND YEAR(date_production) = \'' . $year . '\'
+                                    WHERE		date_production = \'' . $tanggal . '\' AND MONTH(date_production) = \'' . $bulan . '\' AND YEAR(date_production) = \'' . $year . '\'
                                     GROUP BY	date_production');
 
     return $query->getResultArray();
