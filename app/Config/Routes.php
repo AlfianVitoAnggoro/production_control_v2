@@ -48,6 +48,11 @@ $routes->post('/dashboard/assy/get_data_line_stop_by_kss', 'Dashboard::get_data_
 // DASHBOARD REJECT
 $routes->get('/dashboard/reject', 'DashboardAssyRejection::dashboard_reject_assy');
 
+//DASHBOARD EFF GRID
+$routes->get('/dashboardGrid', 'DashboardGrid::index');
+$routes->get('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
+$routes->post('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
+
 //MASTER CYCLE TIME
 $routes->group('cycle_time', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'CycleTime::index');

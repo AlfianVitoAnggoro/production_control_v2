@@ -1,0 +1,85 @@
+<?= $this->extend('template/layout'); ?>
+
+<?= $this->section('content'); ?>
+<div class="content-wrapper">
+  <div class="container-full">
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+        <div class="col-12" style="text-align:center;">
+          <h1>Production 1 Dashboard</h1>
+          <br>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <br>
+        </div>
+      </div>
+
+      <div class="row" style="text-align:center;">
+        <!-- <div class="col-6">
+          <a href="<?= base_url() ?>dashboardGrid/grid" target="_blank">
+            <img src="<?= base_url() ?>assets/images/icon-dashboard-produksi2/realtime_performance.png" alt="" style="width: 30%;">
+            <br>
+            <h3>Realtime Performance</h3>
+          </a>
+        </div> -->
+        <div class="col-12">
+          <a href="<?= base_url() ?>dashboardGrid/grid" target="_blank">
+            <!-- <img src="<?= base_url() ?>assets/images/icon-dashboard-produksi2/daily_report.jpg" alt="" style="width: 30%;"> -->
+            <span class="fa-stack fa-lg fa-5x" style="color: #000000">
+              <i class="fa fa-square-o fa-stack-2x"></i>
+              <i class="fa fa-bar-chart fa-stack-1x" aria-hidden="true"></i>
+            </span>
+            <br>
+            <br>
+            <br>
+            <h3>Grid Casting</h3>
+          </a>
+        </div>
+        <!-- <div class="col-4">
+          <img src="<?= base_url() ?>assets/images/icon-dashboard-produksi2/henkaten_man_power.png" alt="" style="width: 30%;">
+          <br>
+          <h3>Henkaten Man Power</h3>
+        </div> -->
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <br>
+          <br>
+        </div>
+      </div>
+
+      <div class="row" style="text-align:center;">
+        <div class="col-2">
+
+        </div>
+        <div class="col-8">
+          <!-- <img src="<?= base_url() ?>assets/images/icon-dashboard-produksi2/parameter_data.jpg" alt="" style="width: 30%;">
+          <br>
+          <h3>Parameter Data</h3> -->
+        </div>
+        <!-- <div class="col-4">
+          <img src="<?= base_url() ?>assets/images/icon-dashboard-produksi2/pica.png" alt="" style="width: 30%;">
+          <br>
+          <h3>PICA</h3>
+        </div> -->
+        <div class="col-2">
+
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+</div>
+<!-- /.content-wrapper -->
+<?= $this->endSection(); ?>
+
+<?= $this->section('script'); ?>
+<script>
+</script>
+<?= $this->endSection(); ?>
