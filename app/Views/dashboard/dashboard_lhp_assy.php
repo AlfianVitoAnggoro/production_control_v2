@@ -669,7 +669,7 @@
                         fontSize: 14
                     },
                 },
-                pointWidth: 30,
+                // pointWidth: 30,
             }
         },
         legend: {
@@ -790,7 +790,7 @@
                         fontSize: 14
                     },
                 },
-                pointWidth: 30,
+                // pointWidth: 30,
             }
         },
         colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
