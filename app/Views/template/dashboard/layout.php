@@ -35,14 +35,15 @@
 
 		.judul_dashboard {
 			/* font-family: azonix; */
-			font-size: 35px;
+			font-size: 45px;
 			color: #fff;
-			font-weight:600;	
+			font-weight:600;
+			letter-spacing: 4px;	
 		}
 
 		.sub_judul_dashboard {
 			/* font-family: azonix; */
-			font-size: 28px;
+			font-size: 37px;
 			color: #fff;
 			font-weight:500;	
 		}
@@ -50,6 +51,24 @@
 		input {
 			color-scheme: dark;
 		}
+
+		body {
+			background-image: url("<?= base_url()?>assets/images/bg-dashboard.jpg");
+			/* background-color: #cccccc; */
+			background-size: cover;
+		}
+
+		.main-header {
+			background-color: transparent !important;
+			background: transparent !important;
+			border-color: transparent !important;
+		}
+
+		.btn-nav {
+			font-size: 18px;
+			font-weight: 600;
+		}
+
 	</style>
 </head>
 <body class="hold-transition dark-skin sidebar-mini theme-primary fixed">

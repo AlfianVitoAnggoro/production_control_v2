@@ -159,7 +159,7 @@
 			<!-- </div> -->
 
             <div class="row">
-                    <div class="box">
+                    <div class="box bg-transparent">
                         <div class="box-body" style="display:flex">
                             <div class="col-2">
                                 <form action="<?=base_url()?>dashboard/assy" method="POST">
@@ -212,9 +212,9 @@
                                     <div id="current_month_chart" style="height:250px;"></div>
                                 </div>
                                 <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
-                                    <a href="<?=base_url()?>dashboard/reject" class="btn btn-danger">Rejection</a>
-                                    <button class="btn btn-info">Line Stop</button>
-                                    <button class="btn btn-success">Overtime</button>
+                                    <a href="<?=base_url()?>dashboard/reject" class="btn btn-danger btn-nav">Rejection</a>
+                                    <button class="btn btn-info btn-nav">Line Stop</button>
+                                    <button class="btn btn-success btn-nav">Overtime</button>
                                 </div>
                             </div>
                             <div class="col-4" style="text-align:center">
@@ -236,7 +236,7 @@
                                             <h4 style="font-weight: 500;color: yellow;">Production Performance Review </h4>
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700;">
+                                            <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
                                                 <thead>
                                                     <tr>
                                                         <td>#</td>
@@ -274,7 +274,7 @@
 
 			<div class="row" id="efficiency-wrapper">
 				<div class="col-xl-8 col-12">
-					<div class="box">
+					<div class="box bg-transparent">
 						<div class="box-body">
                             <figure class="highcharts-figure">
                                 <div id="main_chart"></div>
@@ -283,15 +283,15 @@
 					</div>										
 				</div>
 				<div class="col-xl-4 col-12">
-					<div class="box">
+					<div class="box bg-transparent">
 						<div class="box-body">							
-							<div class="box no-shadow mb-0">
-								<div class="box-body px-0 pt-0">
+							<!-- <div class="box no-shadow mb-0"> -->
+								<!-- <div class="box-body px-0 pt-0"> -->
                                     <figure class="highcharts-figure">
                                         <div id="side_chart"></div>
                                     </figure>
-								</div>
-							</div>							
+								<!-- </div> -->
+							<!-- </div>							 -->
 						</div>
 					</div>
 				</div>
@@ -611,8 +611,10 @@
 
     Highcharts.chart('side_chart', {
         chart: {
+            backgroundColor: 'transparent',
             type: 'column',
-            backgroundColor: '#0c1a32',
+            // backgroundColor: '#0c1a32',
+            
         },
         exporting: {
             enabled: false
@@ -660,8 +662,14 @@
                     enabled: true,
                     formatter: function(){
                         return (this.y!=0)?this.y:"";
-                    }
-                }
+                    },
+                    style: {
+                        color: '#ffffff',
+                        textOutline: 0,
+                        fontSize: 14
+                    },
+                },
+                pointWidth: 30,
             }
         },
         legend: {
@@ -710,7 +718,8 @@
         chart: {
             // type: 'column',
             // backgroundColor: '#12213c',
-            backgroundColor: '#0c1a32',
+            // backgroundColor: '#0c1a32',
+            backgroundColor: 'transparent',
             type: '<?=$type_chart?>'
         },
 
@@ -774,8 +783,14 @@
                     enabled: true,
                     formatter: function(){
                         return (this.y!=0)?this.y:"";
-                    }
+                    },
+                    style: {
+                        color: '#ffffff',
+                        textOutline: 0,
+                        fontSize: 14
+                    },
                 },
+                pointWidth: 30,
             }
         },
         colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
