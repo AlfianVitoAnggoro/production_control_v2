@@ -2,8 +2,8 @@
 
 <?= $this->section('content'); ?>
 <!-- Content Wrapper. Contains page content -->
-<?=date_default_timezone_set('Asia/Jakarta');?>
 <?php
+    date_default_timezone_set('Asia/Jakarta');
     $current_date = idate('m', strtotime($bulan));
     if ($current_date != 12) {
         $previous_date = $current_date - 1;
@@ -612,7 +612,8 @@
     Highcharts.chart('side_chart', {
         chart: {
             backgroundColor: 'transparent',
-            type: 'column',
+            type: '<?=$type_chart?>'
+            // type: 'column',
             // backgroundColor: '#0c1a32',
             
         },
@@ -673,16 +674,57 @@
             }
         },
         legend: {
+            <?php if (($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'line') { ?>
+                align: 'center',
+                verticalAlign: 'bottom',
+                layout: 'horizontal',
+                itemStyle: {
+                    color: '#ffffff'
+                }
+            <?php } else { ?>
                 enabled: false
+            <?php } ?>
             },
+        colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
 
-        series: [{
-            // name: 'All Line',
-            data: <?php echo json_encode($data_all_month); ?>,
-            color:'yellow',
-
-        }
-    ]
+        series: [
+            
+            <?php if (($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'line') { ?>
+                {
+                    name: 'Line 1',
+                    data: <?php echo json_encode($data_by_month_line_1); ?>,
+                },
+                {
+                    name: 'Line 2',
+                    data: <?php echo json_encode($data_by_month_line_2); ?>,
+                },
+                {
+                    name: 'Line 3',
+                    data: <?php echo json_encode($data_by_month_line_3); ?>,
+                },
+                {
+                    name: 'Line 4',
+                    data: <?php echo json_encode($data_by_month_line_4); ?>,
+                },
+                {
+                    name: 'Line 5',
+                    data: <?php echo json_encode($data_by_month_line_5); ?>,
+                },
+                {
+                    name: 'Line 6',
+                    data: <?php echo json_encode($data_by_month_line_6); ?>,
+                },
+                {
+                    name: 'Line 7',
+                    data: <?php echo json_encode($data_by_month_line_7); ?>,
+                }
+            <?php } else { ?>
+                {
+                    // name: 'All Line',
+                    data: <?php echo json_encode($data_all_month); ?>
+                }
+            <?php } ?>        
+        ]
     });
 
     // GENERATE X AXIS DATE
@@ -698,7 +740,7 @@
             $start = date('Y-m-01', strtotime($bulan));
             $now = date('Y-m-t', strtotime($bulan));
         }
-
+        
         while (strtotime($start) <= strtotime($now)) {
             array_push($dates, date("d", strtotime($start)));
             $start = date ("Y-m-d", strtotime("+1 day", strtotime($start)));
@@ -1344,6 +1386,12 @@
                     },
                 <?php } ?>
             <?php } ?>
+            // {
+            //     type: 'spline',
+            //     name: 'Target',
+            //     data: <?php echo json_encode($target_by_date); ?>,
+            //     color:'LawnGreen',
+            // }
         ],
 
         responsive: {
