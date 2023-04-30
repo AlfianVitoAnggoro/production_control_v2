@@ -740,7 +740,7 @@
             $start = date('Y-m-01', strtotime($bulan));
             $now = date('Y-m-t', strtotime($bulan));
         }
-        
+
         while (strtotime($start) <= strtotime($now)) {
             array_push($dates, date("d", strtotime($start)));
             $start = date ("Y-m-d", strtotime("+1 day", strtotime($start)));
@@ -1386,12 +1386,6 @@
                     },
                 <?php } ?>
             <?php } ?>
-            // {
-            //     type: 'spline',
-            //     name: 'Target',
-            //     data: <?php echo json_encode($target_by_date); ?>,
-            //     color:'LawnGreen',
-            // }
         ],
 
         responsive: {
