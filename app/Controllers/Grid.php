@@ -303,7 +303,7 @@ class Grid extends BaseController
         ];
         $data_master_rak = [
             'current_position' => $wh_from,
-            'status' => 1,
+            'status' => 0,
             'updated_at' => $date
         ];
         $data_detail_barcode_rak = [
