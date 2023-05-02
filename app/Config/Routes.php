@@ -104,6 +104,7 @@ $routes->group('grid', ['filter' => 'auth'], function ($routes) {
     $routes->post('update_lhp', 'Grid::update_lhp');
     $routes->post('get_data_andon', 'Grid::get_data_andon');
     $routes->get('hapus_lhp/(:num)', 'Grid::hapus_lhp/$1');
+    $routes->get('get_qty_rak', 'Grid::get_qty_rak');
     $routes->post('get_qty_rak', 'Grid::get_qty_rak');
     $routes->get('get_summary_rework', 'Grid::get_summary_rework');
     $routes->post('add_rak', 'Grid::add_rak');

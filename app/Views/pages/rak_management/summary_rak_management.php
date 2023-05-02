@@ -40,7 +40,13 @@
 													<td><?=$drm['area']?></td>
 													<td><?=$drm['jenis_rak']?></td>
 													<td><?=$drm['current_position']?></td>
-													<td><?=$drm['status']?></td>
+													<td>
+														<?php if($drm['status'] == '1') : ?>
+															<span class="badge badge-secondary">Isi</span>
+														<?php else : ?>
+															<span class="badge badge-success">Kosong</span>
+														<?php endif; ?>
+													</td>
 													<td>
 														<a href="<?=base_url()?>rak_management/detail_rak_management/<?=$drm['pn_qr']?>" class="btn btn-primary btn-sm">Detail</a>
 														<!-- <a href="<?=base_url()?>rak_management/hapus_lhp/<?=$drm['id']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a> -->

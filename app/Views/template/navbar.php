@@ -80,6 +80,21 @@
 							</ul>
 						</li>
 					<?php } ?>
+
+					<?php if (session()->get('departement') == 'isd' OR session()->get('username') == 'admin') { ?>
+						<li class="treeview">
+							<a href="#">
+								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+								<span>Manajemen Rak</span>
+								<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="<?=base_url()?>rak_management"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Data Rak</a></li>
+							</ul>
+						</li>
+					<?php } ?>
 			  	</ul>
 		  	</div>
 		</div>
