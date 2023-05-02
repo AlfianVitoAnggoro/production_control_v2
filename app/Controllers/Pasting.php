@@ -321,7 +321,7 @@ class Pasting extends BaseController
         $id_detail_lhp_pasting = $this->request->getPost('id_detail_lhp_pasting')[$i];
         $data_detail_pasting = [
           'id_lhp_pasting' => $id_lhp_pasting,
-          // 'batch' => $this->request->getPost('batch')[$i],
+          'batch' => $this->request->getPost('batch')[$i],
           'jam_start' => $this->request->getPost('start')[$i],
           'jam_end' => $this->request->getPost('stop')[$i],
           'menit_terpakai' => $this->request->getPost('menit_terpakai')[$i],

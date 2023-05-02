@@ -63,7 +63,7 @@ class M_Pasting extends Model
 
   public function get_data_type_grid()
   {
-    $query = $this->db->query('SELECT * FROM data_grid');
+    $query = $this->db->query('SELECT * FROM data_grid ORDER BY type_grid ASC');
 
     return $query->getResultArray();
   }
@@ -179,7 +179,7 @@ class M_Pasting extends Model
 
   public function get_all_lhp_pasting()
   {
-    $query = $this->db->query('SELECT * FROM lhp_pasting');
+    $query = $this->db->query('SELECT * FROM lhp_pasting ORDER BY tanggal_produksi DESC, shift ASC');
 
     return $query->getResultArray();
   }

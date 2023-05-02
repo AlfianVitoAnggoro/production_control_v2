@@ -182,7 +182,9 @@
 <?= $this->section('script'); ?>
 <script>
   $(document).ready(function() {
-    $('#data_pasting2').DataTable();
+    $('#data_pasting2').DataTable({
+      order: []
+    });
     $('.modal .select2').select2({
       dropdownParent: $('.modal')
     });
