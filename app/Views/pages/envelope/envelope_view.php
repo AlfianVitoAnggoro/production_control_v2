@@ -174,7 +174,11 @@
 <?= $this->section('script'); ?>
 <script>
     $(document).ready(function() {
-        $('#example5').DataTable();
+        $('#example5').DataTable({
+			"responsive": true,
+			"autoWidth": false,
+			"order": []
+		});
     });
 </script>
 <?= $this->endSection(); ?>
