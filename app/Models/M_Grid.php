@@ -9,7 +9,7 @@ class M_Grid extends Model
     public function __construct()
     {
         $this->db = \Config\Database::connect();
-        // $this->db3 = \Config\Database::connect('baan');
+        $this->db3 = \Config\Database::connect('baan');
         // $this->db4 = \Config\Database::connect('prod_control');
         $this->db5 = \Config\Database::connect('manajemen_rak');
     }
@@ -178,18 +178,18 @@ class M_Grid extends Model
         return $query->getResultArray();
     }
 
-    function get_qty_rak($barcode)
-    {
-        $query = $this->db5->query('SELECT * FROM data_barcode WHERE t$note = \'' . $barcode . '\'');
-
-        return $query->getResultArray();
-    }
-
-    // function get_qty_rak($barcode) {
-    //     $query = $this->db3->query('SELECT t$note as barcode, t$actq as qty FROM baan.tcbinh985777 WHERE t$note = \''.$barcode.'\'');
+    // function get_qty_rak($barcode)
+    // {
+    //     $query = $this->db5->query('SELECT * FROM data_barcode WHERE t$note = \'' . $barcode . '\'');
 
     //     return $query->getResultArray();
     // }
+
+    function get_qty_rak($barcode) {
+        $query = $this->db3->query('SELECT * FROM baan.tcbinh985777 WHERE t$note = \''.$barcode.'\'');
+
+        return $query->getResultArray();
+    }
 
     // function add_rak ($id, $data) {
 
