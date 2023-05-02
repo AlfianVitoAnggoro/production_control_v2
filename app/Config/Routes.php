@@ -54,6 +54,7 @@ $routes->get('/dashboardGrid', 'DashboardGrid::index');
 $routes->get('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
 $routes->post('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
 $routes->post('/dashboardGrid/grid/get_data_line_stop', 'DashboardGrid::get_data_line_stop');
+$routes->post('/dashboardGrid/grid/download_pdf', 'DashboardGrid::download_pdf');
 
 //MASTER CYCLE TIME
 $routes->group('cycle_time', ['filter' => 'auth'], function ($routes) {
@@ -97,6 +98,7 @@ $routes->group('lhp', ['filter' => 'auth'], function ($routes) {
 $routes->group('grid', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Grid::index', ['filter' => 'auth']);
     $routes->get('detail_lhp/(:num)', 'Grid::detail_lhp/$1');
+    $routes->get('detail_lhp_grid_print_view/(:num)', 'Grid::download_pdf/$1');
     $routes->post('add_lhp', 'Grid::add_lhp');
     $routes->post('get_jks', 'Grid::get_jks');
     $routes->post('update_lhp', 'Grid::update_lhp');
@@ -197,6 +199,12 @@ $routes->group('saw_repair', ['filter' => 'auth'], function ($routes) {
     $routes->post('detail_saw_repair/edit', 'SawRepair::edit');
     $routes->post('detail_saw_repair/delete', 'SawRepair::delete_saw_repair');
     $routes->get('download', 'SawRepair::download');
+});
+
+//RAK MANAGEMNE
+$routes->group('rak_management', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'RakManagement::index');
+    $routes->get('detail_rak_management/(:segment)', 'RakManagement::detail_rak_management/$1');
 });
 
 // $routes->get('/lhp/test', 'Home::test');

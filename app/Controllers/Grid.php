@@ -316,7 +316,10 @@ class Grid extends BaseController
             'entry_date' => $entry_date,
             'no_wo' => $no_wo,
         ];
-        if ($barcode !== "" && $rak !== "") {
+        $id_log_detail_record_rak = "";
+        $update_data_master_rak = "";
+        $id_detail_barcode_rak = "";
+        if (/*$barcode !== "" && */$rak !== "") {
             $id_log_detail_record_rak = $this->M_Grid->add_detail_record_rak($data_detail_record_rak);
             $update_data_master_rak = $this->M_Grid->update_data_master_rak($rak, $data_master_rak);
             $id_detail_barcode_rak = $this->M_Grid->add_detail_barcode_rak($data_detail_barcode_rak);
@@ -369,5 +372,21 @@ class Grid extends BaseController
     {
         $data['data_rework'] = $this->M_Grid->get_summary_rework();
         return view('pages/grid_casting/summary_grid_rework', $data);
+    }
+
+    public function download_pdf($id_lhp)
+    {
+        $data['id_lhp'] = $id_lhp;
+        $data['data_lhp'] = $this->M_Grid->get_data_lhp_grid_by_id($id_lhp);
+        $data['data_mesin'] = $this->M_Grid->get_data_mesin_grid();
+        $data['data_operator'] = $this->M_Grid->get_data_operator_grid();
+        $data['data_type_grid'] = $this->M_Grid->get_data_type_grid();
+        $data['data_breakdown'] = $this->M_Grid->get_data_breakdown($id_lhp);
+        $data['data_andon'] = $this->M_Grid->get_data_andon_by_id($id_lhp);
+        $data['data_record_rak'] = $this->M_Grid->get_id_data_detail_record_rak_by_id($id_lhp, 'K-CAS');
+        // $data['data_all_rak'] = $this->M_Grid->get_data_rak_by_id($id_lhp);
+        $session = \Config\Services::session();
+        $data['session'] = $session->get('level');
+        return view('pages/grid_casting/detail_lhp_grid_print_view', $data);
     }
 }

@@ -633,7 +633,10 @@ class Pasting extends BaseController
         'entry_date' => $entry_date,
         'no_wo' => $no_wo,
       ];
-      if ($barcode !== "" && $id_rak !== "") {
+      $id_log_detail_record_rak_out = "";
+      $update_data_master_rak = "";
+      $id_detail_barcode_rak = "";
+      if (/*$barcode !== "" && */$id_rak !== "") {
         // $id_rak_barcode_out = $this->M_Pasting->add_rak_out($id_rak_barcode_out, $data);
         $id_log_detail_record_rak_out = $this->M_Pasting->add_detail_record_rak($data_detail_record_rak);
         $update_data_master_rak = $this->M_Pasting->update_data_master_rak($id_rak, $data_master_rak);

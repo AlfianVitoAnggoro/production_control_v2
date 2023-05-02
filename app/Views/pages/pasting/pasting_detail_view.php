@@ -1545,19 +1545,24 @@ $shift
         if (data === 'Gagal') {
           $('#loading-modal').modal('hide');
           alert('Data Tidak Ditemukan');
+        } else if(data['id_log_detail_record_rak_out'] === "") {
+          $('#start_barcode_out').val('');
+          $('#start_qty_out').val('');
+          $('#start_rak_out').val('');
+          $('#loading-modal').modal('hide');
         } else {
           // window.location.reload();
           $('#tbody_data_rak_out').append(`
               <tr class="rak_out">
                   <td>
-                      <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_${baris}" class="form-control" value="${barcode}">
+                      <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_${baris}" class="form-control" value="${barcode}" readonly>
                       <input type="hidden" class="form-control" name="id_log_detail_record_rak_out[]" id="id_log_detail_record_rak_out_${baris}" class="form-control" value="${data['id_log_detail_record_rak_out']}">
                   </td>
                   <td>
-                      <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_${baris}" class="form-control" value="${qty}">
+                      <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_${baris}" class="form-control" value="${qty}" readonly>
                   </td>
                   <td>
-                      <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_${baris}" class="form-control" value="${rak}">
+                      <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_${baris}" class="form-control" value="${rak}" readonly>
                   </td>
                   <td>
                       <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, ${baris})">Delete</button>
