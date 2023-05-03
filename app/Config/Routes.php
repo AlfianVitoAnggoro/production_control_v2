@@ -155,6 +155,7 @@ $routes->group('pasting', ['filter' => 'auth'], function ($routes) {
     $routes->post('add_rak_out', 'Pasting::add_rak_out');
     $routes->post('delete_rak', 'Pasting::delete_rak');
     $routes->post('delete_rak_out', 'Pasting::delete_rak_out');
+    $routes->post('delete_rows', 'Pasting::delete_rows');
 });
 
 //MASTER LINE STOP

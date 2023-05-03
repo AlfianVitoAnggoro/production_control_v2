@@ -67,7 +67,7 @@ class M_Grid extends Model
 
     public function get_data_type_grid()
     {
-        $query = $this->db->query('SELECT * FROM data_grid');
+        $query = $this->db->query('SELECT * FROM data_grid WHERE type_mesin = \'casting\'');
 
         return $query->getResultArray();
     }
