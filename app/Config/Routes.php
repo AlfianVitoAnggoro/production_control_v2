@@ -47,6 +47,13 @@ $routes->post('/dashboard/assy/get_data_line_stop_by_kss', 'Dashboard::get_data_
 
 // DASHBOARD REJECT
 $routes->get('/dashboard/reject', 'DashboardAssyRejection::dashboard_reject_assy');
+$routes->post('/dashboard/reject', 'DashboardAssyRejection::dashboard_reject_assy');
+$routes->post('/dashboard/reject/get_detail_rejection_by_jenis', 'DashboardAssyRejection::get_detail_rejection_by_jenis');
+
+//DASHBOARD EFF GRID
+$routes->get('/dashboardGrid', 'DashboardGrid::index');
+$routes->get('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
+$routes->post('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
 
 
 //DASHBOARD EFF GRID

@@ -43,12 +43,24 @@
 													<td><?=$lhp['nama_pic']?></td>
 													<!-- <td><?=$retVal = (!empty($lhp['total_aktual']) && !empty($lhp['total_plan'])) ? number_format((float) ($lhp['total_aktual'] / $lhp['total_plan']) * 100, 2, '.', '') : '' ; ?></td> -->
 													<td>
-														<a href="<?=base_url()?>lhp/detail_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-primary btn-sm">Detail</a>
+														<a href="<?=base_url()?>lhp/detail_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-primary btn-sm" target="_blank">Detail</a>
 														<a href="<?=base_url()?>lhp/hapus_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
 													</td>
 												</tr>
 												<?php endforeach; ?>
 											</tbody>
+											<tfoot>
+												<tr>
+													<!-- <th>No Doc</th> -->
+													<th>Tanggal</th>
+													<th>Shift</th>
+													<th>Line</th>
+													<th>Kasubsie</th>
+													<th>Grup</th>
+													<!-- <th>Efficiency (%)</th> -->
+													<th>Action</th>
+												</tr>
+											</tfoot>
 										</table>
 									</div>
 								</div>
@@ -179,7 +191,29 @@
   <script>
 	$(document).ready(function() {
 		$('#data_lhp2').DataTable({
-			"order": []
+			"order": [],
+			initComplete: function () {
+				this.api()
+					.columns()
+					.every(function () {
+						var column = this;
+						var select = $('<select class="form-select"><option value=""></option></select>')
+							.appendTo($(column.footer()).empty())
+							.on('change', function () {
+								var val = $.fn.dataTable.util.escapeRegex($(this).val());
+	
+								column.search(val ? '^' + val + '$' : '', true, false).draw();
+							});
+	
+						column
+							.data()
+							.unique()
+							.sort()
+							.each(function (d, j) {
+								select.append('<option value="' + d + '">' + d + '</option>');
+							});
+					});
+			},
 		});
 		$('.modal .select2').select2({
    		 dropdownParent: $('.modal')

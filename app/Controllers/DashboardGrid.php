@@ -204,6 +204,10 @@ class DashboardGrid extends BaseController
     $data['data_previous_month_group'] = [];
     if (count($data_by_grup_previous_month) > 0) {
       foreach ($data_by_grup_previous_month as $d_by_grup) {
+
+    $data['data_previous_month_group'] = [];
+    if (count($data_by_grup) > 0) {
+      foreach ($data_by_grup as $d_by_grup) {
         $data_all_grup_previous_month = $this->M_DashboardGrid->get_data_all_grup_by_previous_month($bulan, $d_by_grup['grup']);
         if (count($data_all_grup_previous_month) > 0) {
           foreach ($data_all_grup_previous_month as $d_all_grup_previous_month) {

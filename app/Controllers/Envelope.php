@@ -36,7 +36,7 @@ class Envelope extends BaseController
         $dates = array_column($envelope, "date");
         $lines = array_column($envelope, "line");
         $shift = array_column($envelope, "shift");
-        array_multisort($lines, SORT_ASC, $dates, SORT_ASC, $shift, SORT_ASC,  $envelope);
+        array_multisort( $dates, SORT_DESC, $lines, SORT_ASC, $shift, SORT_ASC,  $envelope);
         $status = $session->get();
         $data = [
             'envelope' => $envelope,

@@ -31,7 +31,7 @@ class PlateCutting extends BaseController
         $dates = array_column($platecutting, "date");
         $lines = array_column($platecutting, "line");
         $shifts = array_column($platecutting, "shift");
-        array_multisort($dates, SORT_ASC, $lines, SORT_ASC, $shifts, SORT_ASC, $platecutting);
+        array_multisort($dates, SORT_DESC, $lines, SORT_ASC, $shifts, SORT_ASC, $platecutting);
         $plateInput = $this->plateInputModel->findAll();
         $team = $this->teamModel->findAll();
         $status = $session->get();

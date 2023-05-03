@@ -72,6 +72,14 @@ class Dashboard extends BaseController
         $data['data_line_6'] = [];
         $data['data_line_7'] = [];
 
+        $data['data_by_month_line_1'] = [];
+        $data['data_by_month_line_2'] = [];
+        $data['data_by_month_line_3'] = [];
+        $data['data_by_month_line_4'] = [];
+        $data['data_by_month_line_5'] = [];
+        $data['data_by_month_line_6'] = [];
+        $data['data_by_month_line_7'] = [];
+
         $data['data_line_shift_1'] = [];
         $data['data_line_shift_2'] = [];
         $data['data_line_shift_3'] = [];
@@ -96,6 +104,22 @@ class Dashboard extends BaseController
                 $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
             }
         } elseif ($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'line') {
+            for ($h=1; $h <= 12; $h++) { 
+                for ($i=1; $i <= 7; $i++) {
+                    $data_all_line_by_month = $this->M_Dashboard->get_data_all_line_by_month($h, $i);
+                    if (!empty($data_all_line_by_month)) {
+                        foreach ($data_all_line_by_month as $dalm) {
+                            $total_plan = $dalm['total_plan'];
+                            $total_aktual = $dalm['total_aktual'];
+                            $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                            array_push($data['data_by_month_line_'.$i], (float) number_format($eff, 1, '.', ''));
+                        }
+                    } else {
+                        array_push($data['data_by_month_line_'.$i], 0);
+                    }
+                }
+            }
+
             while (strtotime($start) <= strtotime($now)) {
                 for ($i=1; $i <= 7; $i++) { 
                     $data1 = $this->M_Dashboard->get_data_all_line($start, $i);
