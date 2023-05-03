@@ -128,6 +128,7 @@
                                     <?php
                                     }
                                     ?>
+                                    <option value="10">MCB</option>
                                 </select>
                             </div>
                         </div>
