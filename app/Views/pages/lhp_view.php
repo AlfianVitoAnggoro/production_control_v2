@@ -49,6 +49,18 @@
 												</tr>
 												<?php endforeach; ?>
 											</tbody>
+											<tfoot>
+												<tr>
+													<!-- <th>No Doc</th> -->
+													<th>Tanggal</th>
+													<th>Shift</th>
+													<th>Line</th>
+													<th>Kasubsie</th>
+													<th>Grup</th>
+													<!-- <th>Efficiency (%)</th> -->
+													<th>Action</th>
+												</tr>
+											</tfoot>
 										</table>
 									</div>
 								</div>
@@ -179,7 +191,29 @@
   <script>
 	$(document).ready(function() {
 		$('#data_lhp2').DataTable({
-			"order": []
+			"order": [],
+			initComplete: function () {
+				this.api()
+					.columns()
+					.every(function () {
+						var column = this;
+						var select = $('<select class="form-select"><option value=""></option></select>')
+							.appendTo($(column.footer()).empty())
+							.on('change', function () {
+								var val = $.fn.dataTable.util.escapeRegex($(this).val());
+	
+								column.search(val ? '^' + val + '$' : '', true, false).draw();
+							});
+	
+						column
+							.data()
+							.unique()
+							.sort()
+							.each(function (d, j) {
+								select.append('<option value="' + d + '">' + d + '</option>');
+							});
+					});
+			},
 		});
 		$('.modal .select2').select2({
    		 dropdownParent: $('.modal')
