@@ -205,7 +205,6 @@ $shift
                         <!-- <th>Jam</th>
 												<th>Menit Tersedia</th>
 												<th>Menit Aktual</th> -->
-                        <th>#</th>
                         <th>Jam Start</th>
                         <th>Jam End</th>
                         <th>Menit Terpakai</th>
@@ -252,21 +251,22 @@ $shift
                         $menit_aktual = ['70', '60', '60', '60', '60', '60'];
                       }
 
-                      $temp_batch = '';
+                      // $temp_batch = '';
                       for ($i = 0; $i < count($data_detail_lhp); $i++) {
-                        if ($i > 0) {
-                          $j = $i - 1;
-                          $temp_batch = $data_detail_lhp[$j]['batch'];
-                        }
+                        // if ($i > 0) {
+                        //   $j = $i - 1;
+                        //   $temp_batch = $data_detail_lhp[$j]['batch'];
+                        // }
                       ?>
                         <tr>
-                          <?php if ($data_detail_lhp[$i]['batch'] != $temp_batch) { ?>
-                            <td>
+                          <?php //if ($data_detail_lhp[$i]['batch'] != $temp_batch) { 
+                            ?>
+                            <!-- <td>
                               <button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?= $i ?>)">
                                 Add
                               </button>
-                            </td>
-                            <td>
+                            </td> -->
+                            <!-- <td>
                               <div id="start_section_<?= $i ?>">
                                 <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" style="width: 100px;">
                               </div>
@@ -275,11 +275,11 @@ $shift
                               <div id="stop_section_<?= $i ?>">
                                 <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" style="width: 100px;">
                               </div>
-                            </td>
-                          <?php } else { ?>
-                            <td>
+                            </td> -->
+                          <?php // } else { ?>
+                            <!-- <td>
                               <button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(<?= $i ?>)">Remove</button>
-                            </td>
+                            </td> -->
                             <td>
                               <div id="start_section_<?= $i ?>">
                                 <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" style="width: 100px;">
@@ -290,7 +290,7 @@ $shift
                                 <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" style="width: 100px;">
                               </div>
                             </td>
-                          <?php } ?>
+                          <?php // } ?>
                           <td>
                             <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>" value="<?= $data_detail_lhp[$i]['menit_terpakai'] ?>" onkeyup="update_plan(<?= $i ?>)" style="width: 100px">
                           </td>
@@ -310,7 +310,7 @@ $shift
                                                       ?></option>
                               <?php
                               // }
-
+                              
                               if ($cek_wo) { ?>
                                 <option value="<?= "" //$data_detail_lhp[$i]['no_wo'] 
                                                 ?>" selected><?= "" //$data_detail_lhp[$i]['no_wo'] 
@@ -329,7 +329,7 @@ $shift
                             <input type="text" class="form-control" name="part_number[]" id="part_number_<?= $i ?>" value="<?= $data_detail_lhp[$i]['type_grid'] ?>" style="width: 250px" readonly>
                           </td> -->
                           <td>
-                            <select name="type_grid[]" id="type_grid_<?= $i ?>" class="form-select select2 type_grid" onchange="get_jks(<?= $i ?>)" style="width: 300px">
+                            <select name="type_grid[]" id="type_grid_<?= $i ?>" class="form-select select2" onchange="get_jks(<?= $i ?>)" style="width: 300px">
                               <option value="">-- Pilih Type --</option>
                               <?php
                               foreach ($data_type_grid as $d_type_grid) {
@@ -341,7 +341,6 @@ $shift
                               }
                               ?>
                             </select>
-                            <input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$data_detail_lhp[$i]['batch']?>">
                             <input type="hidden" name="id_detail_lhp_pasting[]" id="id_detail_lhp_pasting_<?= $i ?>" value="<?= $data_detail_lhp[$i]['id_detail_lhp_pasting'] ?>">
                           </td>
                           <td>
