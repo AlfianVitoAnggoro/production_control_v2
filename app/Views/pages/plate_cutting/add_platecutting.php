@@ -33,6 +33,7 @@
                                             <?php }
                                             }
                                             ?>
+                                            <option value="10" <?= ($platecutting['line'] == 10) ? 'selected':''?>> MCB</option>
                                         </select>
                                     </div>
                                     <div class="col">
