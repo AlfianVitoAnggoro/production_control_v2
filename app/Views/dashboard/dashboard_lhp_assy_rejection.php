@@ -135,12 +135,35 @@
 	  </div>
   </div>
   <!-- /.content-wrapper -->
+
+<!-- MODAL -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:120%;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">Detail Line Stop</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detail_pareto_kategori_reject"></div>
+                <div id="detail_pareto_type_battery"></div>
+            </div>
+            <div class="modal-footer" style="float: right;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <?= $this->endSection(); ?>
 
 <?= $this->section('script'); ?>
 <script>
     $(document).ready(function() {
-        
+        setTimeout(function () { location.reload(1); }, 60*60*1000);
     });
 
     // PIE CHART YEAR TO GET
@@ -647,7 +670,90 @@
                 },
                 events: {
                     click: function(event) {
-                        
+                        var date = $('#bulan').val()+'-'+event.point.category;
+                        var line = <?=$child_filter?>;
+                        var jenis_reject = this.name;
+
+                        $.ajax({
+                            url: "<?= base_url('dashboard/reject/get_detail_rejection_by_jenis'); ?>",
+                            type: "POST",
+                            data: {
+                                date: date,
+                                line: line,
+                                jenis_reject: jenis_reject
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                console.log(data);
+                                var data_reject_by_jenis_reject = data['data_reject_by_jenis_reject'];
+                                var i;
+                                var arr_kategori_reject = [];
+                                var arr_qty_kategori_reject = [];
+                                for (i = 0; i < data_reject_by_jenis_reject.length; i++) {
+                                    arr_kategori_reject.push(data_reject_by_jenis_reject[i].kategori_reject);
+                                    arr_qty_kategori_reject.push(data_reject_by_jenis_reject[i].qty);
+                                }
+                                $('#detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
+                                                                                <div id="chart_pareto_ketegori_reject"></div>
+                                                                            </figure>`
+                                                                        );
+                                Highcharts.chart('chart_pareto_ketegori_reject', {
+                                    chart: {
+                                            backgroundColor: 'transparent',
+                                            type: 'column'
+                                        },
+                                        exporting: {
+                                            enabled: false
+                                        },
+                                        title: {
+                                            text: 'Detail '+jenis_reject+' Rejection',
+                                            style: {
+                                                color: '#ffffff',
+                                                fontSize: '20px'
+                                            }
+                                        },
+                                        xAxis: {
+                                            categories: arr_kategori_reject,
+                                            crosshair: true,
+                                            labels: {
+                                                style: {
+                                                    color: '#ffffff'
+                                                }
+                                            }
+                                        },
+                                        yAxis: {
+                                            min: 0,
+                                            title: {
+                                                text: 'Pcs'
+                                            }
+                                        },
+                                        plotOptions: {
+                                            column: {
+                                                pointPadding: 0.2,
+                                                borderWidth: 0,
+                                                dataLabels: {
+                                                enabled: true,
+                                                style: {
+                                                    color: '#ffffff',
+                                                    textOutline: 0,
+                                                    fontSize: 14
+                                                },
+                                            },
+                                            }
+                                        },
+                                        legend: {
+                                            enabled: false
+                                        },
+                                        series: [{
+                                            // name: 'Tokyo',
+                                            data: arr_qty_kategori_reject,
+                                            color:'yellow',
+
+                                        }]
+                                });
+                                $('.modal').modal('show');
+                            }
+                        });
                     }
                 }
             }

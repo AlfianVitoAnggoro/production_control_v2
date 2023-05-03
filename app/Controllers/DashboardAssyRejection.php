@@ -151,4 +151,18 @@ class DashboardAssyRejection extends BaseController
         return view('dashboard/dashboard_lhp_assy_rejection', $data);
 
     }
+
+    public function get_detail_rejection_by_jenis()
+    {
+        $jenis_reject = $this->request->getPost('jenis_reject');
+        $date = $this->request->getPost('date');
+        $line = $this->request->getPost('line');
+
+        $data['data_reject_by_jenis_reject'] = $this->M_DashboardAssyRejection->get_detail_rejection_by_jenis($jenis_reject, $date, $line);
+        // $data['data_reject_by_type_battery'] = $this->M_DashboardAssyRejection->get_detail_rejection_by_type_battery($jenis_reject, $date, $line);
+
+
+
+        echo json_encode($data);    
+    }
 }
