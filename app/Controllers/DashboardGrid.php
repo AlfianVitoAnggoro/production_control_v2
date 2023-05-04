@@ -76,12 +76,20 @@ class DashboardGrid extends BaseController
             $data['data_all_mp_by_current_month'][$damp['operator_name']]['jks'] += $damp['jks'];
             $data['data_all_mp_by_current_month'][$damp['operator_name']]['actual'] += $damp['actual'];
             if ($damp['jks'] !== 0)
+            {
               $data['data_all_mp_by_current_month'][$damp['operator_name']]['persentase'] = number_format(($data['data_all_mp_by_current_month'][$damp['operator_name']]['actual'] / $data['data_all_mp_by_current_month'][$damp['operator_name']]['jks'] * 100), 2);
+            } else {
+              $data['data_all_mp_by_current_month'][$damp['operator_name']]['persentase'] = 0;
+            }
           } else {
             $data['data_all_mp_by_current_month'][$damp['operator_name']]['jks'] = $damp['jks'];
             $data['data_all_mp_by_current_month'][$damp['operator_name']]['actual'] = $damp['actual'];
             if ($damp['jks'] !== 0)
+            {
               $data['data_all_mp_by_current_month'][$damp['operator_name']]['persentase'] = number_format(($data['data_all_mp_by_current_month'][$damp['operator_name']]['actual'] / $data['data_all_mp_by_current_month'][$damp['operator_name']]['jks'] * 100), 2);
+            } else {
+              $data['data_all_mp_by_current_month'][$damp['operator_name']]['persentase'] = 0;
+            }
           }
         }
         // $jks = $damp['jks'];
@@ -100,12 +108,20 @@ class DashboardGrid extends BaseController
             $data['data_all_mp_by_previous_month'][$damp['operator_name']]['jks'] += $damp['jks'];
             $data['data_all_mp_by_previous_month'][$damp['operator_name']]['actual'] += $damp['actual'];
             if ($damp['jks'] !== 0)
+            {
               $data['data_all_mp_by_previous_month'][$damp['operator_name']]['persentase'] = number_format(($data['data_all_mp_by_previous_month'][$damp['operator_name']]['actual'] / $data['data_all_mp_by_previous_month'][$damp['operator_name']]['jks'] * 100), 2);
+            } else {
+              $data['data_all_mp_by_previous_month'][$damp['operator_name']]['persentase'] = 0;
+            }
           } else {
             $data['data_all_mp_by_previous_month'][$damp['operator_name']]['jks'] = $damp['jks'];
             $data['data_all_mp_by_previous_month'][$damp['operator_name']]['actual'] = $damp['actual'];
             if ($damp['jks'] !== 0)
+            {
               $data['data_all_mp_by_previous_month'][$damp['operator_name']]['persentase'] = number_format(($data['data_all_mp_by_previous_month'][$damp['operator_name']]['actual'] / $data['data_all_mp_by_previous_month'][$damp['operator_name']]['jks'] * 100), 2);
+            } else {
+              $data['data_all_mp_by_previous_month'][$damp['operator_name']]['persentase'] = 0;
+            }
           }
         }
         // $jks = $damp['jks'];
