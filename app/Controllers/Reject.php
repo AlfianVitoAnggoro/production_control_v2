@@ -36,10 +36,12 @@ class Reject extends BaseController
     {
         $jenis_reject = $this->request->getPost('jenis_reject');
         $kategori_reject = $this->request->getPost('kategori_reject');
+        $dashboard = $this->request->getPost('dashboard');
 
         $data = [
             'jenis_reject' => $jenis_reject,
-            'kategori_reject' => $kategori_reject
+            'kategori_reject' => $kategori_reject,
+            'dashboard' => $dashboard
         ];
 
         $save_data = $this->M_Reject->add_reject($data);
@@ -67,10 +69,12 @@ class Reject extends BaseController
         $id_reject = $this->request->getPost('edit_id_ketegori_reject');
         $jenis_reject = $this->request->getPost('edit_jenis_reject');
         $kategori_reject = $this->request->getPost('edit_kategori_reject');
+        $dashboard = $this->request->getPost('edit_dashboard');
 
         $data = [
             'jenis_reject' => $jenis_reject,
-            'kategori_reject' => $kategori_reject
+            'kategori_reject' => $kategori_reject,
+            'dashboard' => $dashboard
         ];
 
         $save_data = $this->M_Reject->update_reject($data, $id_reject);

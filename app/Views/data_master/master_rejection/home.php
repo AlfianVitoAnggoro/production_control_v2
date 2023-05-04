@@ -58,6 +58,7 @@
 												<tr>
 													<th>Jenis Reject</th>
                                                     <th>Kategori Reject</th>
+													<th>Dashboard</th>
                                                     <th>Action</th>
 												</tr>
 											</thead>
@@ -66,8 +67,19 @@
 												<tr>
                                                     <td><?=$d_reject['jenis_reject']?></td>
                                                     <td><?=$d_reject['kategori_reject']?></td>
+													<td>
+														<?php 
+														if ($d_reject['dashboard'] == 'reject') {
+															echo 'Reject';
+														} elseif ($d_reject['dashboard'] == 'adj') {
+															echo 'Adjustment';
+														} else {
+															echo '';
+														}
+														?>
+													</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-primary btn-sm edit-btn-kategori" data-id="<?=$d_reject['id_reject']?>" data-jenis="<?=$d_reject['jenis_reject']?>" data-kategori="<?=$d_reject['kategori_reject']?>">Edit</a>
+                                                        <a href="#" class="btn btn-primary btn-sm edit-btn-kategori" data-id="<?=$d_reject['id_reject']?>" data-jenis="<?=$d_reject['jenis_reject']?>" data-kategori="<?=$d_reject['kategori_reject']?>" data-dashboard="<?=$d_reject['dashboard']?>">Edit</a>
                                                         <a href="<?=base_url()?>reject/delete_reject/<?=$d_reject['id_reject']?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger btn-sm">Delete</a>
                                                     </td>
 												</tr>
@@ -154,7 +166,7 @@
 			<form action="<?=base_url()?>reject/add_reject" method="post">
 				<div class="modal-body">
 					<div class="form-group">
-                        <label for="Jenis Reject">Jenis Reject</label>
+                        <label for="jenis_reject">Jenis Reject</label>
                         <select class="form-select" id="jenis_reject" name="jenis_reject">
                             <option value="">Pilih Jenis Reject</option>
                             <?php foreach($data_reject_utama as $d_reject_utama) : ?>
@@ -163,8 +175,16 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="Jenis Reject">Kategori Reject</label>
+                        <label for="kategori_reject">Kategori Reject</label>
                         <input type="text" class="form-control" id="kategori_reject" name="kategori_reject" placeholder="Kategori Reject">
+                    </div>
+					<div class="form-group">
+                        <label for="dashboard">Dashboard</label>
+						<select class="form-select" id="dashboard" name="dashboard">
+							<option value="" selected disabled>Pilih Dashboard</option>
+							<option value="reject">Reject</option>
+							<option value="adj">Adjustment</option>
+						</select>
                     </div>
 				</div>
 				<div class="modal-footer" style="float: right;">
@@ -202,6 +222,14 @@
                     <div class="form-group">
                         <label for="Jenis Reject">Kategori Reject</label>
                         <input type="text" class="form-control" id="edit_kategori_reject" name="edit_kategori_reject" placeholder="Kategori Reject">
+                    </div>
+					<div class="form-group">
+                        <label for="dashboard">Dashboard</label>
+						<select class="form-select" id="edit_dashboard" name="edit_dashboard">
+							<option value="" selected disabled>Pilih Dashboard</option>
+							<option value="reject">Reject</option>
+							<option value="adj">Adjustment</option>
+						</select>
                     </div>
 				</div>
 				<div class="modal-footer" style="float: right;">
@@ -251,10 +279,12 @@
 		var id = $(this).data('id');
 		var jenis = $(this).data('jenis');
 		var kategori = $(this).data('kategori');
+		var dashboard = $(this).data('dashboard');
 
 		// Set data attributes to modal
 		$('#edit_jenis_reject').val(jenis);
 		$('#edit_kategori_reject').val(kategori);
+		$('#edit_dashboard').val(dashboard);
 		$('#edit_id_ketegori_reject').val(id);
 		$('.modal_edit_kategori').modal('show');
 	});
