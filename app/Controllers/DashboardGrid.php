@@ -236,6 +236,8 @@ class DashboardGrid extends BaseController
     } else {
       $data['data_previous_month_group'] = 0;
     }
+  }
+}
 
 
     return view('dashboardGrid/dashboard_lhp_grid', $data);
