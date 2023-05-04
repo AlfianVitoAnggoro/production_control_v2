@@ -81,7 +81,7 @@
 						</li>
 					<?php } ?>
 
-					<?php if (session()->get('departement') == 'isd' OR session()->get('username') == 'admin') { ?>
+					<?php if (session()->get('departemen') == 'isd' OR session()->get('username') == 'admin') { ?>
 						<li class="treeview">
 							<a href="#">
 								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
