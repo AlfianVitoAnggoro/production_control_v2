@@ -241,6 +241,20 @@
                             <?php
                             }
                             ?>
+                            <?php
+                            $plate_neg = array_filter($plate, function ($p) {
+                                return strpos($p['plate'], 'NEG') !== false;
+                            });
+                            foreach ($plate_neg as $plt) {
+                            ?>
+                                <?php if (trim($envelopeinput[$i]['plate']) === trim($plt['plate'])) : ?>
+                                    <option value="<?= trim($envelopeinput[$i]['plate']) ?>" selected><?= trim($envelopeinput[$i]['plate']) ?></option>
+                                <?php else : ?>
+                                    <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
+                                <?php endif ?>
+                            <?php
+                            }
+                            ?>
                         </select>
                     </td>
                     <td>
@@ -329,6 +343,20 @@
                             <?php
                             }
                             ?>
+                            <?php
+                            $plate_neg = array_filter($plate, function ($p) {
+                                return strpos($p['plate'], 'NEG') !== false;
+                            });
+                            foreach ($plate_neg as $plt) {
+                            ?>
+                                <?php if (trim($envelopeinput[$i]['plate']) === trim($plt['plate'])) : ?>
+                                    <option value="<?= trim($envelopeinput[$i]['plate']) ?>" selected><?= trim($envelopeinput[$i]['plate']) ?></option>
+                                <?php else : ?>
+                                    <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
+                                <?php endif ?>
+                            <?php
+                            }
+                            ?>
                         </select>
                     </td>
                     <td>
@@ -406,6 +434,16 @@
                             <?php
                             }
                             ?>
+                            <?php
+                            $plate_neg = array_filter($plate, function ($p_pos) {
+                                return strpos($p_pos['plate'], 'NEG') !== false;
+                            });
+                            foreach ($plate_neg as $plt) {
+                            ?>
+                                <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
+                            <?php
+                            }
+                            ?>
                         </select>
                     </td>
                     <td>
@@ -453,6 +491,16 @@
                                 return strpos($p_pos['plate'], 'POS') !== false;
                             });
                             foreach ($plate_pos as $plt) {
+                            ?>
+                                <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            $plate_neg = array_filter($plate, function ($p_pos) {
+                                return strpos($p_pos['plate'], 'NEG') !== false;
+                            });
+                            foreach ($plate_neg as $plt) {
                             ?>
                                 <option value="<?= trim($plt['plate']) ?>"><?= trim($plt['plate']) ?></option>
                             <?php
