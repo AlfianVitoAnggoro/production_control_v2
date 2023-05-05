@@ -178,7 +178,7 @@ class Cos extends BaseController
     // Menambahkan data ke worksheet
     $sheet = $spreadsheet->getActiveSheet();
     $data = array(
-        array('Date', 'Shift', 'Line', 'Kasubsie', 'NO WO', 'Type Battery', 'Hasil', 'Tersangkut', 'Strap Dross', 'Lug Lepas', 'Strap Tipis', 'Dross 1', 'Dross 2', 'Dross 3'),
+        array('Date', 'Shift', 'Line', 'Team', 'NO WO', 'Type Battery', 'Hasil', 'Tersangkut', 'Strap Dross', 'Lug Lepas', 'Strap Tipis', 'Dross 1', 'Dross 2', 'Dross 3'),
     );
     $isExist = [];
     if($data_cos !== NULL) {
@@ -186,10 +186,10 @@ class Cos extends BaseController
             foreach ($data_detail_lhp_cos as $ddlc) {
                 if($ddlc !== NULL) {
                     if ($dc['id_lhp_cos'] === $ddlc[0]['id_lhp_cos']) {
-                        $data[] = array($dc['tanggal_produksi'], $dc['shift'], $dc['line'], $dc['kasubsie'], $ddlc[0]['no_wo'], $ddlc[0]['type_battery'], $ddlc[0]['hasil'], $ddlc[0]['tersangkut'], $ddlc[0]['strap_dross'], $ddlc[0]['lug_lepas'], $ddlc[0]['strap_tipis'], $ddlc[0]['dross_1'], $ddlc[0]['dross_2'], $ddlc[0]['dross_3']);
+                        $data[] = array($dc['tanggal_produksi'], $dc['shift'], $dc['line'], $dc['team'], $ddlc[0]['no_wo'], $ddlc[0]['type_battery'], $ddlc[0]['hasil'], $ddlc[0]['tersangkut'], $ddlc[0]['strap_dross'], $ddlc[0]['lug_lepas'], $ddlc[0]['strap_tipis'], $ddlc[0]['dross_1'], $ddlc[0]['dross_2'], $ddlc[0]['dross_3']);
                     };
                 } else {
-                    $data[] = array($dc['tanggal_produksi'], $dc['shift'], $dc['line'], $dc['kasubsie']);
+                    $data[] = array($dc['tanggal_produksi'], $dc['shift'], $dc['line'], $dc['team']);
                 }
             }
         }
