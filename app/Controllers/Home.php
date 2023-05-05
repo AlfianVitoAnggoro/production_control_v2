@@ -703,9 +703,9 @@ class Home extends BaseController
             foreach ($data_lhp as $dl) {
                 foreach ($data_detail_line_stop as $ddls) {
                     if($ddls !== NULL) {
-                        foreach ($ddls as $dt_ddl) {
-                            if ($dl['id_lhp_2'] === $dt_ddl['id_lhp']) {
-                                $data_line_stop[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $dt_ddl['jam_start'], $dt_ddl['jam_end'], $dt_ddl['menit_terpakai'], $dt_ddl['jam_start'], $dt_ddl['jam_end'], $dt_ddl['menit_terpakai'], $dt_ddl['no_wo'], $dt_ddl['type_battery'], $dt_ddl['jenis_breakdown'], $dt_ddl['tiket_andon'], $dt_ddl['proses_breakdown'], $dt_ddl['uraian_breakdown'], $dt_ddl['menit_breakdown']);
+                        foreach ($ddls as $dt_ddls) {
+                            if ($dl['id_lhp_2'] === $dt_ddls['id_lhp']) {
+                                $data_line_stop[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $dt_ddls['jam_start'], $dt_ddls['jam_end'], $dt_ddls['menit_terpakai'], $dt_ddls['no_wo'], $dt_ddls['type_battery'], $dt_ddls['jenis_breakdown'], $dt_ddls['tiket_andon'], $dt_ddls['proses_breakdown'], $dt_ddls['uraian_breakdown'], $dt_ddls['menit_breakdown']);
                             };
                         }
                     } else {
@@ -717,6 +717,38 @@ class Home extends BaseController
 
         // Memasukkan data array ke dalam worksheet
         $sheet2->fromArray($data_line_stop);
+
+        //data sheet reject
+        foreach ($data_lhp as $dl) {
+            $data_detail_reject[] = $model->get_detail_reject_by_id($dl['id_lhp_2']);
+        }
+
+        // Menambahkan data ke worksheet
+        $sheet3 = $spreadsheet->createSheet();
+        $sheet3->setTitle('Reject');   
+
+        $data_reject = array(
+            array('Date', 'Shift', 'Line', 'PIC', 'Kasubsie', 'No WO', 'Type Battery', 'QTY Reject', 'Jenis Reject', 'Kategori Reject', 'Remark Reject'),
+        );
+        $isExist = [];
+        if($data_lhp !== NULL) {
+            foreach ($data_lhp as $dl) {
+                foreach ($data_detail_reject as $ddj) {
+                    if($ddj !== NULL) {
+                        foreach ($ddj as $dt_ddj) {
+                            if ($dl['id_lhp_2'] === $dt_ddj['id_lhp']) {
+                                $data_reject[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $dt_ddj['no_wo'], $dt_ddj['type_battery'], $dt_ddj['qty_reject'], $dt_ddj['jenis_reject'], $dt_ddj['kategori_reject'], $dt_ddj['remark_reject']);
+                            };
+                        }
+                    } else {
+                        $data_reject[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie']);
+                    }
+                }
+            }
+        }
+
+        // Memasukkan data array ke dalam worksheet
+        $sheet3->fromArray($data_reject);
 
 
         // Mengatur header respons HTTP
