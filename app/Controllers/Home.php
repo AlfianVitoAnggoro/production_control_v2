@@ -10,6 +10,8 @@ use CodeIgniter\Controller;
 use App\Models\M_Data;
 use App\Models\ProductionReport;
 use App\Models\TypeGrid;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Home extends BaseController
 {
@@ -636,5 +638,57 @@ class Home extends BaseController
         $model->delete_reject($id_reject);
 
         return redirect()->to(base_url('lhp/detail_lhp/'.$id_lhp));
+    }
+
+    public function download()
+    {
+        $date = $this->request->getPost('date');
+        $model = new M_Data();
+        $data_lhp = $model->get_all_lhp_by_month($date);
+        dd($data_lhp);
+        if($data_lhp !== NULL) {
+            foreach ($data_lhp as $dl) {
+                $data_detail_lhp[] = $model->get_all_detail_lhp_by_id_lhp($dl['id_lhp_2']);
+            }
+            $dates = array_column($data_lhp, "tanggal_produksi");
+            $lines = array_column($data_lhp, "line");
+            $shift = array_column($data_lhp, "shift");
+            array_multisort($dates, SORT_ASC, $shift, SORT_ASC, $lines, SORT_ASC,  $data_lhp);
+        }
+        // Membuat objek Spreadsheet baru
+        $spreadsheet = new Spreadsheet();
+
+        // Menambahkan data ke worksheet
+        $sheet = $spreadsheet->getActiveSheet();
+        $data = array(
+            array('Date', 'Shift', 'Line', 'Kasubsie', 'Jam Start', 'Jam End', 'Menit Terpakai', 'No WO', 'Type Battery', 'CT', 'Plan Cap', 'Actual', 'Total Menit Line Stop'),
+        );
+        $isExist = [];
+        if($data_lhp !== NULL) {
+            foreach ($data_lhp as $dl) {
+                foreach ($data_detail_lhp as $ddl) {
+                    if($ddl !== NULL) {
+                        if ($dl['id_lhp_2'] === $ddl[0]['id_lhp_2']) {
+                            $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['kasubsie'], $ddl[0]['jam_start'], $ddl[0]['jam_end'], $ddl[0]['menit_terpakai'], $ddl[0]['no_wo'], $ddl[0]['type_battery'], $ddl[0]['ct'], $ddl[0]['plan_cap'], $ddl[0]['actual'], $ddl[0]['total_menit_breakdown']);
+                        };
+                    } else {
+                        $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['kasubsie']);
+                    }
+                }
+            }
+        }
+
+        // Memasukkan data array ke dalam worksheet
+        $sheet->fromArray($data);
+
+
+        // Mengatur header respons HTTP
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="data.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // Membuat objek Writer untuk menulis spreadsheet ke output
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
     }
 }
