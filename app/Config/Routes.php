@@ -216,6 +216,18 @@ $routes->group('rak_management', ['filter' => 'auth'], function ($routes) {
     $routes->get('detail_rak_management/(:segment)', 'RakManagement::detail_rak_management/$1');
 });
 
+//COS
+$routes->group('cos', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Cos::cos_view');
+    $routes->get('add_cos/(:segment)', 'Cos::add_cos/$1');
+    $routes->post('save', 'Cos::save');
+    $routes->get('detail_cos/(:segment)', 'Cos::detail_cos/$1');
+    $routes->post('detail_cos/edit', 'Cos::edit');
+    $routes->post('detail_cos/delete', 'Cos::delete_cos');
+    $routes->post('download', 'Cos::download');
+    $routes->post('getPartNo', 'Cos::getPartNo');
+});
+
 // $routes->get('/lhp/test', 'Home::test');
 
 /*

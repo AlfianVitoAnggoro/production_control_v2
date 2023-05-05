@@ -499,20 +499,20 @@ class PlateCutting extends BaseController
         $data = array(
             array('', '', '', '', '', '', 'Jumlah NG (Panel)', '', '', '', '', '', '', '', '', '', 'Jumlah NG (Kg)'),
             array('', '', '', '', '', '', 'Internal', '', '', 'Eksternal', '', '', '', '', '', '', 'Internal', '', '', 'Eksternal'),
-            array('Date', 'Line', 'Shift', 'Team', 'Plate', 'Hasil Produksi', 'Terpotong', 'Tersangkut', 'Overbrush', 'Rontok', 'Lug Patah', 'Patah Kaki', 'Patah Frame', 'Bolong', 'Bending', 'Lengket Terpotong', 'Terpotong', 'Tersangkut', 'Overbrush', 'Rontok', 'Lug Patah', 'Patah Kaki', 'Patah Frame', 'Bolong', 'Bending', 'Lengket Terpotong', 'Persentase Reject Internal', 'Persentase Reject Eksternal', 'Persentase Reject Akumulatif'),
+            array('Date', 'Line', 'Shift', 'Team', 'Plate', 'Hasil Produksi', 'Terpotong', 'Tersangkut', 'Overbrush', 'Rontok', 'Lug Patah', 'Patah Kaki', 'Patah Frame', 'Bolong', 'Bending', 'Lengket Terpotong', 'Terpotong', 'Tersangkut', 'Overbrush', 'Rontok', 'Lug Patah', 'Patah Kaki', 'Patah Frame', 'Bolong', 'Bending', 'Lengket Terpotong', 'Persentase Reject Internal', 'Persentase Reject Eksternal', 'Persentase Reject Akumulatif', 'Status'),
         );
         $isExist = [];
         foreach ($platecutting as $pc) {
-            if ($pc['status'] === 'approved') {
+            // if ($pc['status'] === 'approved') {
                 if (!array_key_exists($pc['id'], $isExist)) {
                     foreach ($plateinput as $pi) {
                         if ($pc['id'] === $pi['id_platecutting']) {
                             $isExist[$pc['id']] = $pc['id'];
-                            $data[] = array($pc['date'], $pc['line'], $pc['shift'], $pc['team'], $pi['plate'], $pi['hasil_produksi'], $pi['terpotong_panel'], $pi['tersangkut_panel'], $pi['overbrush_panel'], $pi['rontok_panel'], $pi['lug_patah_panel'], $pi['patah_kaki_panel'], $pi['patah_frame_panel'], $pi['bolong_panel'], $pi['bending_panel'], $pi['lengket_terpotong_panel'], $pi['terpotong_kg'], $pi['tersangkut_kg'], $pi['overbrush_kg'], $pi['rontok_kg'], $pi['lug_patah_kg'], $pi['patah_kaki_kg'], $pi['patah_frame_kg'], $pi['bolong_kg'], $pi['bending_kg'], $pi['lengket_terpotong_kg'], $pi['persentase_reject_internal'], $pi['persentase_reject_eksternal'], $pi['persentase_reject_akumulatif']);
+                            $data[] = array($pc['date'], $pc['line'], $pc['shift'], $pc['team'], $pi['plate'], $pi['hasil_produksi'], $pi['terpotong_panel'], $pi['tersangkut_panel'], $pi['overbrush_panel'], $pi['rontok_panel'], $pi['lug_patah_panel'], $pi['patah_kaki_panel'], $pi['patah_frame_panel'], $pi['bolong_panel'], $pi['bending_panel'], $pi['lengket_terpotong_panel'], $pi['terpotong_kg'], $pi['tersangkut_kg'], $pi['overbrush_kg'], $pi['rontok_kg'], $pi['lug_patah_kg'], $pi['patah_kaki_kg'], $pi['patah_frame_kg'], $pi['bolong_kg'], $pi['bending_kg'], $pi['lengket_terpotong_kg'], $pi['persentase_reject_internal'], $pi['persentase_reject_eksternal'], $pi['persentase_reject_akumulatif'], $pc['status']);
                         }
                     }
                 }
-            }
+            // }
         };
 
         // Memasukkan data array ke dalam worksheet
