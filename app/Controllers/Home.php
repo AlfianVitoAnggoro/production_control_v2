@@ -649,13 +649,13 @@ class Home extends BaseController
         //data sheet lhp
         $data_lhp = $model->get_all_lhp_by_month($date);
         if($data_lhp !== NULL) {
-            foreach ($data_lhp as $dl) {
-                $data_detail_lhp[] = $model->get_all_detail_lhp_by_id_lhp($dl['id_lhp_2']);
-            }
             $dates = array_column($data_lhp, "tanggal_produksi");
             $lines = array_column($data_lhp, "line");
             $shift = array_column($data_lhp, "shift");
             array_multisort($dates, SORT_ASC, $shift, SORT_ASC, $lines, SORT_ASC,  $data_lhp);
+            foreach ($data_lhp as $dl) {
+                $data_detail_lhp[] = $model->get_all_detail_lhp_by_id_lhp($dl['id_lhp_2']);
+            }
         }
         // Membuat objek Spreadsheet baru
         $spreadsheet = new Spreadsheet();
@@ -671,9 +671,11 @@ class Home extends BaseController
             foreach ($data_lhp as $dl) {
                 foreach ($data_detail_lhp as $ddl) {
                     if($ddl !== NULL) {
-                        if ($dl['id_lhp_2'] === $ddl[0]['id_lhp_2']) {
-                            $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $ddl[0]['jam_start'], $ddl[0]['jam_end'], $ddl[0]['menit_terpakai'], $ddl[0]['no_wo'], $ddl[0]['type_battery'], $ddl[0]['ct'], $ddl[0]['plan_cap'], $ddl[0]['actual'], $ddl[0]['total_menit_breakdown']);
-                        };
+                        foreach ($ddl as $dt_ddl) {
+                            if ($dl['id_lhp_2'] === $ddl[0]['id_lhp_2']) {
+                                $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $dt_ddl['jam_start'], $dt_ddl['jam_end'], $dt_ddl['menit_terpakai'], $dt_ddl['no_wo'], $dt_ddl['type_battery'], $dt_ddl['ct'], $dt_ddl['plan_cap'], $dt_ddl['actual'], $dt_ddl['total_menit_breakdown']);
+                            };
+                        }
                     } else {
                         $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie']);
                     }
@@ -686,28 +688,26 @@ class Home extends BaseController
 
         //data sheet line stop
         foreach ($data_lhp as $dl) {
-            $data_detail_lhp[] = $model->get_detail_breakdown_by_id($dl['id_lhp_2']);
+            $data_detail_line_stop[] = $model->get_detail_breakdown_by_id($dl['id_lhp_2']);
         }
-        $dates = array_column($data_lhp, "tanggal_produksi");
-        $lines = array_column($data_lhp, "line");
-        $shift = array_column($data_lhp, "shift");
-        array_multisort($dates, SORT_ASC, $shift, SORT_ASC, $lines, SORT_ASC,  $data_lhp);
 
         // Menambahkan data ke worksheet
         $sheet2 = $spreadsheet->createSheet();
         $sheet2->setTitle('Line Stop');   
 
-        $data_lhp = array(
-            array('Date', 'Shift', 'Line', 'PIC', 'Kasubsie', 'Jam Start', 'Jam End', 'Menit Terpakai', 'No WO', 'Type Battery', 'CT', 'Plan Cap', 'Actual', 'Total Menit Line Stop'),
+        $data_line_stop = array(
+            array('Date', 'Shift', 'Line', 'PIC', 'Kasubsie', 'Jam Start', 'Jam End', 'Menit Terpakai', 'No WO', 'Type Battery', 'Jenis Breakdown', 'Tiket Andon', 'Proses Breakdown', 'Uraian Breakdown', 'Menit Breakdown'),
         );
         $isExist = [];
         if($data_lhp !== NULL) {
             foreach ($data_lhp as $dl) {
-                foreach ($data_detail_lhp as $ddl) {
-                    if($ddl !== NULL) {
-                        if ($dl['id_lhp_2'] === $ddl[0]['id_lhp_2']) {
-                            $data_line_stop[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $ddl[0]['jam_start'], $ddl[0]['jam_end'], $ddl[0]['menit_terpakai'], $ddl[0]['no_wo'], $ddl[0]['type_battery'], $ddl[0]['ct'], $ddl[0]['plan_cap'], $ddl[0]['actual'], $ddl[0]['total_menit_breakdown']);
-                        };
+                foreach ($data_detail_line_stop as $ddls) {
+                    if($ddls !== NULL) {
+                        foreach ($ddls as $dt_ddl) {
+                            if ($dl['id_lhp_2'] === $dt_ddl['id_lhp']) {
+                                $data_line_stop[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $dt_ddl['jam_start'], $dt_ddl['jam_end'], $dt_ddl['menit_terpakai'], $dt_ddl['jam_start'], $dt_ddl['jam_end'], $dt_ddl['menit_terpakai'], $dt_ddl['no_wo'], $dt_ddl['type_battery'], $dt_ddl['jenis_breakdown'], $dt_ddl['tiket_andon'], $dt_ddl['proses_breakdown'], $dt_ddl['uraian_breakdown'], $dt_ddl['menit_breakdown']);
+                            };
+                        }
                     } else {
                         $data_line_stop[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie']);
                     }
