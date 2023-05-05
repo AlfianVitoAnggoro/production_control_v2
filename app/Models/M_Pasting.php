@@ -193,7 +193,7 @@ class M_Pasting extends Model
 
   public function get_detail_pasting_by_id($id_lhp_pasting)
   {
-    $query = $this->db->query('SELECT * FROM detail_lhp_pasting WHERE id_lhp_pasting = ' . $id_lhp_pasting);
+    $query = $this->db->query('SELECT * FROM detail_lhp_pasting WHERE id_lhp_pasting = ' . $id_lhp_pasting . ' ORDER BY batch ASC, id_detail_lhp_pasting ASC');
 
     return $query->getResultArray();
   }
@@ -221,6 +221,11 @@ class M_Pasting extends Model
     }
   }
 
+  public function add_detail_pasting($data) {
+    $builder = $this->db->table('detail_lhp_pasting');
+    $builder->insert($data);
+    return $this->db->insertID();
+  }
 
   public function get_detail_breakdown_by_id($id_lhp_pasting)
   {
@@ -542,5 +547,11 @@ class M_Pasting extends Model
     $query = $this->db->query('SELECT * FROM detail_breakdown_andon_pasting WHERE id_lhp_pasting = \'' . $id_lhp_pasting . '\'');
 
     return $query->getResultArray();
+  }
+
+  function delete_rows($id) {
+    $builder = $this->db->table('detail_lhp_pasting');
+
+    $builder->delete(['id_detail_lhp_pasting' => $id]);
   }
 }

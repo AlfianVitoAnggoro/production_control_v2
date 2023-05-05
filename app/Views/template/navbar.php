@@ -60,6 +60,9 @@
 							<?php if (session()->get('seksi') == 'saw_repair' OR session()->get('seksi') == NULL) { ?>
 								<li><a href="<?=base_url()?>saw_repair"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>SAW Repair</a></li>
 							<?php } ?>
+							<?php if (session()->get('seksi') == 'cos' OR session()->get('seksi') == NULL) { ?>
+								<li><a href="<?=base_url()?>cos"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>COS</a></li>
+							<?php } ?>
 						</ul>
 					</li>
 					<?php } ?>
