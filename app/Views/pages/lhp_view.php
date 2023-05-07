@@ -18,6 +18,9 @@
 									</button>
 								</div>
 								<div class="box-body">
+									<button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target=".modal_download_lhp">
+										Download
+									</button>
 									<div class="table-responsive">
 										<table id="data_lhp2" class="table table-bordered table-striped" style="width:100%">
 											<thead>
@@ -184,7 +187,29 @@
 </div>
 <!-- /.modal -->
 
-
+<div class="modal fade modal_download_lhp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">Download COS</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- <a href="/cos/download" class="btn btn-danger mb-2">Download</a> -->
+            <form action="/lhp/download" method="post">
+                <div class="modal-body">
+                    <label for="date" class="form-label">Bulan</label>
+                    <input type="month" class="form-control" id="date" name="date" value="<?= date('Y-m') ?>">
+                </div>
+                <div class="modal-footer" style="float: right;">
+                    <input type="submit" class="btn btn-primary float-end" value="Download">
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
   <?= $this->endSection(); ?>
 
   <?= $this->section('script'); ?>
