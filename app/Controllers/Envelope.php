@@ -307,9 +307,12 @@ class Envelope extends BaseController
 
     public function download()
     {
-        $start_date = $this->request->getPost('start_date');
-        $end_date = $this->request->getPost('end_date');
-        $envelope = $this->envelopeModel->where('date >=', $start_date)->where('date <=', $end_date)->findAll();
+        // $start_date = $this->request->getPost('start_date');
+        // $end_date = $this->request->getPost('end_date');
+        $month = $this->request->getPost('month');
+        $bulan = date('m', strtotime($month));
+        $envelope = $this->envelopeModel->where('MONTH(date) =', $bulan)->findAll();
+        // $envelope = $this->envelopeModel->where('date >=', $start_date)->where('date <=', $end_date)->findAll();
         $envelopeinput = $this->envelopeinputModel->findAll();
         $dates = array_column($envelope, "date");
         $lines = array_column($envelope, "line");
@@ -337,7 +340,6 @@ class Envelope extends BaseController
 
         // Memasukkan data array ke dalam worksheet
         $sheet->fromArray($data);
-
 
         // Mengatur header respons HTTP
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

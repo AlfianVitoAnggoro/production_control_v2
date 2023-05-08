@@ -191,17 +191,21 @@
                 <h4 class="modal-title" id="myLargeModalLabel">Download Envelope</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!-- <a href="/cos/download" class="btn btn-danger mb-2">Download</a> -->
+            <!-- <a href="/envelope/download" class="btn btn-danger mb-2">Download</a> -->
             <form action="/envelope/download" method="post">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col mb-2">
+                        <!-- <div class="col mb-2">
                             <label for="start_date" class="form-label">Start Date</label>
                             <input type="date" class="form-control" id="start_date" name="start_date">
                         </div>
                         <div class="col mb-2">
                             <label for="end_date" class="form-label">End Date</label>
                             <input type="date" class="form-control" id="end_date" name="end_date">
+                        </div> -->
+                        <div class="col mb-2">
+                            <label for="month" class="form-label">Bulan</label>
+                            <input type="month" class="form-control" id="month" name="month">
                         </div>
                     </div>
                 </div>
