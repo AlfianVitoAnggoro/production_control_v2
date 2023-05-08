@@ -128,7 +128,7 @@ $routes->group('platecutting', ['filter' => 'auth'], function ($routes) {
     $routes->get('detail_platecutting/(:segment)', 'PlateCutting::detail_platecutting/$1');
     $routes->post('detail_platecutting/edit', 'PlateCutting::edit');
     $routes->post('detail_platecutting/delete', 'PlateCutting::delete_platecutting');
-    $routes->get('download', 'PlateCutting::download');
+    $routes->post('download', 'PlateCutting::download');
 });
 
 //ENVELOPE
@@ -140,7 +140,7 @@ $routes->group('envelope', ['filter' => 'auth'], function ($routes) {
     $routes->get('detail_envelope/(:segment)', 'Envelope::detail_envelope/$1');
     $routes->post('detail_envelope/edit', 'Envelope::edit');
     $routes->post('detail_envelope/delete', 'Envelope::delete_envelope');
-    $routes->get('download', 'Envelope::download');
+    $routes->post('download', 'Envelope::download');
 });
 
 //PASTING

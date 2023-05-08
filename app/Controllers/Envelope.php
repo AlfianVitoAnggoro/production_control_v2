@@ -307,7 +307,9 @@ class Envelope extends BaseController
 
     public function download()
     {
-        $envelope = $this->envelopeModel->findAll();
+        $start_date = $this->request->getPost('start_date');
+        $end_date = $this->request->getPost('end_date');
+        $envelope = $this->envelopeModel->where('date >=', $start_date)->where('date <=', $end_date)->findAll();
         $envelopeinput = $this->envelopeinputModel->findAll();
         $dates = array_column($envelope, "date");
         $lines = array_column($envelope, "line");
@@ -323,13 +325,11 @@ class Envelope extends BaseController
         );
         $isExist = [];
         foreach ($envelope as $envl) {
-            if ($envl['status'] === 'approved') {
-                if (!array_key_exists($envl['id'], $isExist)) {
-                    foreach ($envelopeinput as $ei) {
-                        if ($envl['id'] === $ei['id_envelope']) {
-                            $isExist[$envl['id']] = $envl['id'];
-                            $data[] = array($envl['date'], $envl['line'], $envl['shift'], $envl['team'], $ei['hasil_produksi'], $ei['separator'], $ei['melintir_bending'], $ei['terpotong'], $ei['rontok'], $ei['tersangkut'], $ei['persentase_reject_akumulatif']);
-                        }
+            if (!array_key_exists($envl['id'], $isExist)) {
+                foreach ($envelopeinput as $ei) {
+                    if ($envl['id'] === $ei['id_envelope']) {
+                        $isExist[$envl['id']] = $envl['id'];
+                        $data[] = array($envl['date'], $envl['line'], $envl['shift'], $envl['team'], $ei['hasil_produksi'], $ei['separator'], $ei['melintir_bending'], $ei['terpotong'], $ei['rontok'], $ei['tersangkut'], $ei['persentase_reject_akumulatif']);
                     }
                 }
             }
