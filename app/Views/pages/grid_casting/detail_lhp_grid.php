@@ -110,7 +110,7 @@ $mh = [8, 7.5, 6.5];
                                                             <input type="hidden" name="type_mesin[]" id="type_mesin_<?= $d_mesin['nama_mesin'] ?>" value="<?= $d_mesin['type_mesin'] ?>">
                                                         </td>
                                                         <td>
-                                                            <select name="nama_operator[]" id="nama_operator_<?= $d_mesin['nama_mesin'] ?>" class="form-select select2" style="width: 200px">
+                                                            <select name="nama_operator[]" id="nama_operator_<?= $d_mesin['nama_mesin'] ?>" class="form-select select2" onchange="cek_mp(<?= $d_mesin['nama_mesin'] ?>)" style="width: 200px">
                                                                 <option value="">-- Pilih Operator --</option>
                                                                 <?php
                                                                 foreach ($data_operator as $d_operator) {
@@ -121,20 +121,31 @@ $mh = [8, 7.5, 6.5];
                                                                 <?php
                                                                 }
                                                                 ?>
+                                                                <option value="NO MP" <?php if ('NO MP' == $data_detail_lhp[0]['operator_name']) {
+                                                                                                                                echo "selected";
+                                                                                                                            } ?>>NO MP</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select name="type_grid[]" id="type_grid_<?= $d_mesin['nama_mesin'] ?>" class="form-select select2" onchange="get_jks(<?= $d_mesin['nama_mesin'] ?>)" style="width: 200px">
                                                                 <option value="">-- Pilih Type Grid --</option>
                                                                 <?php
-                                                                foreach ($data_type_grid as $d_type_grid) {
-                                                                ?>
-                                                                    <option value="<?= $d_type_grid['id_grid'] ?>" <?php if ($d_type_grid['id_grid'] == $data_detail_lhp[0]['type_grid']) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>><?= $d_type_grid['type_grid'] ?></option>
-                                                                <?php
+                                                                if($data_detail_lhp[0]['operator_name'] !== 'NO MP') {
+                                                                    foreach ($data_type_grid as $d_type_grid) {
+                                                                    ?>
+                                                                        <option value="<?= $d_type_grid['id_grid'] ?>" <?php if ($d_type_grid['id_grid'] == $data_detail_lhp[0]['type_grid']) {
+                                                                                                                            echo "selected";
+                                                                                                                        } ?>><?= $d_type_grid['type_grid'] ?></option>
+                                                                    <?php
+                                                                    }
                                                                 }
                                                                 ?>
+                                                                <option value="MESIN OFF" <?php if ('MESIN OFF' == $data_detail_lhp[0]['type_grid']) {
+                                                                                                                        echo "selected";
+                                                                                                                    } ?>>MESIN OFF</option>
+                                                                <option value="NO WO" <?php if ('NO WO' == $data_detail_lhp[0]['type_grid']) {
+                                                                                                                        echo "selected";
+                                                                                                                    } ?>>NO WO</option>
                                                             </select>
                                                         </td>
                                                         <td>
@@ -153,7 +164,7 @@ $mh = [8, 7.5, 6.5];
                                                                 <a href="#" class="btn btn-info btn-sm detail-btn" data-id_lhp="<?= $id_lhp ?>" data-id_detail_lhp="<?= $data_detail_lhp[0]['id'] ?>">Detail</a>
                                                             </td> -->
                                                         <td>
-                                                            <input type="text" name="mh[]" id="mh_<?= $d_mesin['nama_mesin'] ?>" class="form-control" value="<?= $data_detail_lhp[0]['mh'] === "" ? $data_detail_lhp[0]['mh'] : $mh[$data_lhp[0]['shift'] - 1]; ?>" style="width: 75px" readonly>
+                                                            <input type="text" name="mh[]" id="mh_<?= $d_mesin['nama_mesin'] ?>" class="form-control" value="<?= $data_detail_lhp[0]['mh'] !== "" ? $data_detail_lhp[0]['mh'] : $mh[$data_lhp[0]['shift'] - 1]; ?>" style="width: 75px" readonly>
                                                         </td>
                                                         <td>
                                                             <input type="text" name="productivity[]" id="productivity_<?= $d_mesin['nama_mesin'] ?>" class="form-control" value="<?= $data_detail_lhp[0]['productivity'] ?>" readonly>
@@ -185,6 +196,7 @@ $mh = [8, 7.5, 6.5];
                                                                 <?php
                                                                 }
                                                                 ?>
+                                                                <option value="NO MP">NO MP</option>
                                                             </select>
                                                         </td>
                                                         <td>
@@ -197,6 +209,8 @@ $mh = [8, 7.5, 6.5];
                                                                 <?php
                                                                 }
                                                                 ?>
+                                                                <option value="MESIN OFF">MESIN OFF</option>
+                                                                <option value="NO WO">NO WO</option>
                                                             </select>
                                                         </td>
                                                         <td><input type="text" class="form-control" name="jks[]" id="jks_<?= $d_mesin['nama_mesin'] ?>" readonly></td>
@@ -581,15 +595,23 @@ $mh = [8, 7.5, 6.5];
             var aktual = $('#aktual_' + i).val();
             var productivity = $('#productivity_' + i).val();
             var mh = $('#mh_' + i).val();
-
+            let nama_operator = $('#nama_operator_' + i).val();
+            
             var persentase = (aktual / jks) * 100;
-
+            
             if (jks === '' || jks === null && (aktual === '' || aktual === null)) {
                 persentase = 0;
             }
-
-
-            var productivity = (aktual / mh)
+            
+            if(mh != 0) {
+                var productivity = (aktual / mh)
+            } else {
+                productivity = 0
+            }
+            
+            if(nama_operator === 'NO MP') {
+                document.querySelector('#aktual_' + i).setAttribute('readonly', '');
+            }
 
             $('#persentase_' + i).val(persentase.toFixed(0));
             $('#productivity_' + i).val(productivity.toFixed(0));
@@ -629,20 +651,29 @@ $mh = [8, 7.5, 6.5];
         var type_grid = $('#type_grid_' + i).val();
         var type_mesin = $('#type_mesin_' + i).val();
         var shift = $('#shift').val();
+        if(type_grid === 'MESIN OFF' || type_grid === 'NO WO') {
+            $('#mh_' + i).val(0);
+            $('#jks_' + i).val(0);
+            $('#aktual_' + i).val(0);
+            $('#persentase_' + i).val(0);
+            $('#productivity_' + i).val(0);
+        } else {
+            $.ajax({
+                url: '<?= base_url() ?>grid/get_jks',
+                type: 'POST',
+                data: {
+                    type_grid: type_grid,
+                    type_mesin: type_mesin,
+                    shift: shift
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#mh_' + i).val(<?= $mh[$data_lhp[0]['shift'] - 1] ?>);
+                    $('#jks_' + i).val(data[0].jks);
+                }
+            })
+        }
 
-        $.ajax({
-            url: '<?= base_url() ?>grid/get_jks',
-            type: 'POST',
-            data: {
-                type_grid: type_grid,
-                type_mesin: type_mesin,
-                shift: shift
-            },
-            dataType: 'json',
-            success: function(data) {
-                $('#jks_' + i).val(data[0].jks);
-            }
-        })
     }
 
     function count_persentase(i) {
@@ -948,6 +979,43 @@ $mh = [8, 7.5, 6.5];
 
     function scan() {
         $('.modal_scan').modal('show');
+    }
+
+    function cek_mp(i) {
+        let nama_operator = $('#nama_operator_' + i).val();
+        if(nama_operator === 'NO MP') {
+            $('#mh_' + i).val(0);
+            $('#jks_' + i).val(0);
+            $('#aktual_' + i).val(0);
+            $('#persentase_' + i).val(0);
+            $('#productivity_' + i).val(0);
+            document.querySelector('#aktual_' + i).setAttribute('readonly', '');
+            document.querySelector('#type_grid_' + i).innerHTML = `
+                <option value="">-- Pilih Type Grid --</option>
+                <option value="MESIN OFF" <?php if ('MESIN OFF' == $data_detail_lhp[0]['type_grid']) {
+                                                                        echo "selected";
+                                                                    } ?>>MESIN OFF</option>
+                <option value="NO WO" <?php if ('NO WO' == $data_detail_lhp[0]['type_grid']) {
+                                                                        echo "selected";
+                                                                    } ?>>NO WO</option>
+            `;
+        } else {
+            $('#mh_' + i).val(<?= $mh[$data_lhp[0]['shift'] - 1] ?>);
+            $('#jks_' + i).val(0);
+            $('#aktual_' + i).val(0);
+            $('#persentase_' + i).val(0);
+            document.querySelector('#aktual_' + i).removeAttribute('readonly', '');
+            document.querySelector('#type_grid_' + i).innerHTML = `
+                <option value="">-- Pilih Type Grid --</option>
+                <?php
+                foreach ($data_type_grid as $d_type_grid) {
+                ?>
+                    <option value="<?= $d_type_grid['id_grid'] ?>"><?= $d_type_grid['type_grid'] ?></option>
+                <?php
+                }
+                ?>
+            `;
+        }
     }
 </script>
 <?= $this->endSection(); ?>

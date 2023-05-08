@@ -115,11 +115,11 @@ class Grid extends BaseController
                     'no_machine' => $this->request->getPost('no_machine')[$i],
                     'operator_name' => $this->request->getPost('nama_operator')[$i],
                     'type_grid' => $this->request->getPost('type_grid')[$i],
-                    'jks' => $this->request->getPost('jks')[$i],
-                    'actual' => $this->request->getPost('aktual')[$i],
-                    'mh' => $this->request->getPost('mh')[$i],
-                    'productivity' => $this->request->getPost('productivity')[$i],
-                    'persentase' => $this->request->getPost('persentase')[$i],
+                    'jks' => intval($this->request->getPost('jks')[$i]),
+                    'actual' => intval($this->request->getPost('aktual')[$i]),
+                    'mh' => floatval($this->request->getPost('mh')[$i]),
+                    'productivity' => floatval($this->request->getPost('productivity')[$i]),
+                    'persentase' => floatval($this->request->getPost('persentase')[$i]),
                 ];
                 $save_data = $this->M_Grid->update_lhp($id_detail_lhp_grid, $data);
 
@@ -130,7 +130,7 @@ class Grid extends BaseController
                 if (!empty($this->request->getPost('aktual')[$i])) {
                     $total_actual += $this->request->getPost('aktual')[$i];
                     $total_mh = $this->request->getPost('mh')[$i] * 24;
-                    $total_productivity += $this->request->getPost('productivity')[$i];
+                    $total_productivity += floatval($this->request->getPost('productivity')[$i]);
                 }
             }
         }
