@@ -27,4 +27,18 @@ class M_RakManagement extends Model
 
         return $query->getResultArray();
     }
+
+    public function get_data_rak_management_status($status)
+    {
+        $query = $this->db5->query('SELECT * FROM data_master_rak WHERE status = \'' . $status . '\' ORDER BY pn_qr ASC ');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_rak_management_gedung($gedung)
+    {
+        $query = $this->db5->query('SELECT * FROM data_master_rak WHERE gedung = \'' . $gedung . '\' ORDER BY pn_qr ASC ');
+
+        return $query->getResultArray();
+    }
 }

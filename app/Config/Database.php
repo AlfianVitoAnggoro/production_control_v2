@@ -46,9 +46,9 @@ class Database extends Config
     public array $default = [
         'DSN'      => '',
         'hostname' => 'localhost',
-        'username' => 'user',
-        'password' => '12345',
-        'database' => 'Pasting',
+        'username' => 'sa',
+        'password' => 'zidan123',
+        'database' => 'manajemen_rak',
         'DBDriver' => 'sqlsrv',
         'DBPrefix' => '',
         'pConnect' => false,
@@ -66,8 +66,8 @@ class Database extends Config
     public array $manajemen_rak = [
         'DSN'      => '',
         'hostname' => 'localhost',
-        'username' => 'user',
-        'password' => '12345',
+        'username' => 'sa',
+        'password' => 'zidan123',
         'database' => 'manajemen_rak',
         'DBDriver' => 'sqlsrv',
         'DBPrefix' => '',
