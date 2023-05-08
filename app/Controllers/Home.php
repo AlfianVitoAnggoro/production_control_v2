@@ -653,10 +653,17 @@ class Home extends BaseController
             $lines = array_column($data_lhp, "line");
             $shift = array_column($data_lhp, "shift");
             array_multisort($dates, SORT_ASC, $shift, SORT_ASC, $lines, SORT_ASC,  $data_lhp);
+            $data_detail_lhp = [];
             foreach ($data_lhp as $dl) {
-                $data_detail_lhp[] = $model->get_all_detail_lhp_by_id_lhp($dl['id_lhp_2']);
+                $temp = $model->get_all_detail_lhp_by_id_lhp($dl['id_lhp_2']);
+                if($temp !== NULL) {
+                    foreach ($temp as $t) {
+                        array_push($data_detail_lhp, $t);
+                    }
+                }
             }
         }
+        // dd($fix_data_detail_lhp);
         // Membuat objek Spreadsheet baru
         $spreadsheet = new Spreadsheet();
 
@@ -670,15 +677,15 @@ class Home extends BaseController
         if($data_lhp !== NULL) {
             foreach ($data_lhp as $dl) {
                 foreach ($data_detail_lhp as $ddl) {
-                    if($ddl !== NULL) {
-                        foreach ($ddl as $dt_ddl) {
-                            if ($dl['id_lhp_2'] === $ddl[0]['id_lhp_2']) {
-                                $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $dt_ddl['jam_start'], $dt_ddl['jam_end'], $dt_ddl['menit_terpakai'], $dt_ddl['no_wo'], $dt_ddl['type_battery'], $dt_ddl['ct'], $dt_ddl['plan_cap'], $dt_ddl['actual'], $dt_ddl['total_menit_breakdown']);
+                    // if($ddl !== NULL) {
+                    //     foreach ($ddl as $dt_ddl) {
+                            if ($dl['id_lhp_2'] === $ddl['id_lhp_2']) {
+                                $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $ddl['jam_start'], $ddl['jam_end'], $ddl['menit_terpakai'], $ddl['no_wo'], $ddl['type_battery'], $ddl['ct'], $ddl['plan_cap'], $ddl['actual'], $ddl['total_menit_breakdown']);
                             };
-                        }
-                    } else {
-                        $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie']);
-                    }
+                    //     }
+                    // } else {
+                    //     $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie']);
+                    // }
                 }
             }
         }
