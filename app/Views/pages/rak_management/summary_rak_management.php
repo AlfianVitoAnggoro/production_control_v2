@@ -69,11 +69,14 @@ $previous_date = date('Y-m-d', strtotime('-1 day', strtotime($current_date)));
 												<div class="box">
 													<div class="box-body">
 														<div class="d-flex justify-content-evenly align-items-center">
-
+												 
 															<?php
+															// $gedung = array('A', 'B', 'C', 'D', 'E', 'F', 'G');
+
 															foreach ($data_rak_management_gedung as $nama_gedung => $gedung) {
+																dd($gedung);
 																$margin = ($nama_gedung == 'A' || $nama_gedung == 'G') ? '10.5px' : '0';
-																echo '<button type="none" class="waves-effect waves-light btn btn-info mx-5" style="margin-right: ' . $margin . '"><strong>Gedung ' . $nama_gedung . '<br>' . count($gedung) . ' Rak</br></strong></button>';
+																echo '<button type="none" class="waves-effect waves-light btn btn-info mx-5" style="margin-right: ' . $margin . '"><strong>Gedung ' . $nama_gedung . '<br>' . count($gedung) : 0 .' Rak</br></strong></button>';
 															}
 															?>
 

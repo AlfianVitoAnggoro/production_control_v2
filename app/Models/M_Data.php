@@ -9,7 +9,7 @@ class M_Data extends Model
     {
         $this->db = \Config\Database::connect();
         $this->db2 = \Config\Database::connect('sqlsrv');
-        $this->db3 = \Config\Database::connect('baan');
+        // $this->db3 = \Config\Database::connect('baan');
         $this->db4 = \Config\Database::connect('prod_control');
 
         $this->session = \Config\Services::session();

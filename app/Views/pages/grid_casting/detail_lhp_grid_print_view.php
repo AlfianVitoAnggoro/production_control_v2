@@ -14,32 +14,36 @@ $mh = [8, 7.5, 6.5];
         <input type="hidden" name="id_lhp" id="id_lhp" value="<?= $id_lhp ?>">
         <div class="box">
           <div class="box-header with-border">
+            <div class="d-flex justify-content-between">
             <h4>Detail Laporan Grid Casting</h4>
+            <h4>Signed by : <?= $data_lhp[0]['kasubsie'] ?></h4>
+            </div>
             <!-- <button class="btn btn-danger" onclick="print()">Print</button> -->
           </div>
           <div class="box-body">
             <div class="row">
               <div class="col-3">
                 <div class="form-group">
-                  <label class="form-label">Tanggal Produksi</label>
-                  <span><?= $data_lhp[0]['date_production'] ?></span>
+                  <label class="form-label">Tanggal Produksi : </label>
+                  <span><?= date('j F Y', strtotime($data_lhp[0]['date_production'])) ?>
+                  </span>
                 </div>
               </div>
               <div class="col-3">
                 <div class="form-group">
-                  <label class="form-label">Line</label>
+                  <label class="form-label">Line : </label>
                   <span><?= $data_lhp[0]['line'] ?></span>
                 </div>
               </div>
               <div class="col-3">
                 <div class="form-group">
-                  <label class="form-label">Shift</label>
+                  <label class="form-label">Shift : </label>
                   <span><?= $data_lhp[0]['shift'] ?></span>
                 </div>
               </div>
               <div class="col-3">
                 <div class="form-group">
-                  <label class="form-label">Kasubsie</label>
+                  <label class="form-label">Kasubsie : </label>
                   <span><?= $data_lhp[0]['kasubsie'] ?></span>
                 </div>
               </div>
@@ -47,25 +51,25 @@ $mh = [8, 7.5, 6.5];
             <div class="row">
               <div class="col-3">
                 <div class="form-group">
-                  <label class="form-label">Grup</label>
+                  <label class="form-label">Grup : </label>
                   <span><?= $data_lhp[0]['grup'] ?></span>
                 </div>
               </div>
               <div class="col-3">
                 <div class="form-group">
-                  <label class="form-label">MP</label>
+                  <label class="form-label">MP : </label>
                   <span><?= $data_lhp[0]['mp'] ?></span>
                 </div>
               </div>
               <div class="col-3">
                 <div class="form-group">
-                  <label class="form-label">Absen</label>
+                  <label class="form-label">Absen : </label>
                   <span><?= $data_lhp[0]['absen'] ?></span>
                 </div>
               </div>
               <div class="col-3">
                 <div class="form-group">
-                  <label class="form-label">Cuti</label>
+                  <label class="form-label">Cuti : </label>
                   <span><?= $data_lhp[0]['cuti'] ?></span>
                 </div>
               </div>
@@ -329,7 +333,7 @@ $mh = [8, 7.5, 6.5];
                           <td>
                             <?= $d_rak['barcode'] ?>
                             <input type="hidden" class="form-control" name="id_rak_barcode[]" id="id_rak_barcode_<?= $number ?>" value="<?= "" //$d_rak['id'] 
-                                                                                                                                              ?>" readonly>
+                                                                                                                                        ?>" readonly>
                             <input type="hidden" class="form-control" name="id_log_detail_record_rak[]" id="id_log_detail_record_rak_<?= $number ?>" value="<?= $d_rak['id_log'] ?>" readonly>
                           </td>
                           <td>
@@ -337,7 +341,7 @@ $mh = [8, 7.5, 6.5];
                           </td>
                           <td>
                             <input type="text" class="form-control" name="id_rak[]" id="id_rak_<?= $number ?>" value="<?= "" //$d_rak['id_rak'] 
-                                                                                                                            ?>" readonly>
+                                                                                                                      ?>" readonly>
                             <?= $d_rak['pn_qr'] ?>
                           </td>
                           <td>

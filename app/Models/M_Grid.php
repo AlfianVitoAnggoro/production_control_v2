@@ -9,7 +9,7 @@ class M_Grid extends Model
     public function __construct()
     {
         $this->db = \Config\Database::connect();
-        $this->db3 = \Config\Database::connect('baan');
+        // $this->db3 = \Config\Database::connect('baan');
         // $this->db4 = \Config\Database::connect('prod_control');
         $this->db5 = \Config\Database::connect('manajemen_rak');
     }
