@@ -253,46 +253,66 @@ $shift
                       }
 
                       $temp_batch = '';
+                      $number = 0;
                       for ($i = 0; $i < count($data_detail_lhp); $i++) {
                         if ($i > 0) {
                           $j = $i - 1;
                           $temp_batch = $data_detail_lhp[$j]['batch'];
                         }
                       ?>
-                        <tr class="row_<?= $i ?>">
-                          <?php if ($data_detail_lhp[$i]['batch'] != $temp_batch) { ?>
+                          <?php if ($data_detail_lhp[$i]['batch'] !== NULL) {
+                            if ($data_detail_lhp[$i]['batch'] != $temp_batch) { $number = 0; ?>
+                        <tr class="row_<?= $data_detail_lhp[$i]['batch'] ?>">
                             <td>
-                              <button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?= $data_detail_lhp[$i]['batch'] ?>, <?= $i ?>)">
+                              <button type="button" class="btn btn-sm btn-primary button_add_rows_batch_<?= $data_detail_lhp[$i]['batch'] ?>" onclick="add_rows_batch(<?= $data_detail_lhp[$i]['batch'] ?>)">
+                                Add
+                              </button>
+                            </td>
+                            <td>
+                              <div id="start_section_<?= $data_detail_lhp[$i]['batch'] ?>">
+                                <input type="time" class="form-control" name="start[]" id="start_<?= $data_detail_lhp[$i]['batch'] ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" style="width: 100px;">
+                              </div>
+                            </td>
+                            <td>
+                              <div id="stop_section_<?= $data_detail_lhp[$i]['batch'] ?>">
+                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $data_detail_lhp[$i]['batch'] ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" style="width: 100px;">
+                              </div>
+                            </td>
+                          <?php } else { $number++ ?>
+                        <tr class="row_<?= $data_detail_lhp[$i]['batch'] ?>">
+                            <td>
+                              <button type="button" class="btn btn-sm btn-danger" onclick="delete_rows_db(this, <?= $i ?>, <?= $data_detail_lhp[$i]['batch'] ?>)">Remove</button>
+                            </td>
+                            <td>
+                              <div id="start_section_<?= $data_detail_lhp[$i]['batch'] ?>">
+                                <input type="time" class="form-control" name="start[]" id="start_<?= $data_detail_lhp[$i]['batch'] ?>_<?= $number ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" style="width: 100px;">
+                              </div>
+                            </td>
+                            <td>
+                              <div id="stop_section_<?= $data_detail_lhp[$i]['batch'] ?>">
+                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $data_detail_lhp[$i]['batch'] ?>_<?= $number ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" style="width: 100px;">
+                              </div>
+                            </td>
+                          <?php } } else { ?>
+                        <tr class="row_<?= $i ?>">
+                            <td>
+                              <button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?= $i ?>)">
                                 Add
                               </button>
                             </td>
                             <td>
                               <div id="start_section_<?= $i ?>">
-                                <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" style="width: 100px;">
                               </div>
                             </td>
                             <td>
                               <div id="stop_section_<?= $i ?>">
-                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" style="width: 100px;">
-                              </div>
-                            </td>
-                          <?php } else { ?>
-                            <td>
-                              <button type="button" class="btn btn-sm btn-danger" onclick="delete_rows_db(this, <?= $i ?>)">Remove</button>
-                            </td>
-                            <td>
-                              <div id="start_section_<?= $i ?>">
-                                <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" style="width: 100px;">
-                              </div>
-                            </td>
-                            <td>
-                              <div id="stop_section_<?= $i ?>">
-                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" style="width: 100px;">
                               </div>
                             </td>
                           <?php } ?>
                           <td>
-                            <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>" value="<?= $data_detail_lhp[$i]['menit_terpakai'] ?>" onkeyup="update_plan(<?= $i ?>)" style="width: 100px">
+                            <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" value="<?= $data_detail_lhp[$i]['menit_terpakai'] ?>" onkeyup="update_jks(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>, <?= $number ?>)" style="width: 100px">
                           </td>
                           <!-- <td>
                             <select class="form-control select2" id="no_wo_<?= $i ?>" name="no_wo[]" onchange="getPartNo(<?= $i ?>)" style="width: 200px;">
@@ -329,7 +349,7 @@ $shift
                             <input type="text" class="form-control" name="part_number[]" id="part_number_<?= $i ?>" value="<?= $data_detail_lhp[$i]['type_grid'] ?>" style="width: 250px" readonly>
                           </td> -->
                           <td>
-                            <select name="type_grid[]" id="type_grid_<?= $i ?>" class="form-select select2 type_grid" onchange="get_jks(<?= $i ?>)" style="width: 300px">
+                            <select name="type_grid[]" id="type_grid_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" class="form-select select2 type_grid" onchange="get_jks(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>, <?= $number ?>)" style="width: 300px">
                               <option value="">-- Pilih Type --</option>
                               <?php
                               foreach ($data_type_grid as $d_type_grid) {
@@ -341,21 +361,21 @@ $shift
                               }
                               ?>
                             </select>
-                            <input type="hidden" name="batch[]" id="batch_<?=$data_detail_lhp[$i]['batch']?>" value="<?=$data_detail_lhp[$i]['batch']?>">
-                            <input type="hidden" name="id_detail_lhp_pasting[]" id="id_detail_lhp_pasting_<?= $i ?>" value="<?= $data_detail_lhp[$i]['id_detail_lhp_pasting'] ?>">
+                            <input type="hidden" name="batch[]" id="batch_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>" value="<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>">
+                            <input type="hidden" name="id_detail_lhp_pasting[]" id="id_detail_lhp_pasting_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" value="<?= $data_detail_lhp[$i]['id_detail_lhp_pasting'] ?>">
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="ct[]" id="ct_<?= $i ?>" value="<?= $data_detail_lhp[$i]['ct'] ?>" style="width: 75px" readonly>
+                            <input type="text" class="form-control" name="ct[]" id="ct_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" value="<?= $data_detail_lhp[$i]['ct'] ?>" style="width: 75px" readonly>
                           </td>
                           <!-- <td>
                             <input type="number" class="form-control" name="plan_cap[]" id="plan_cap_<?= $i ?>" value="<?= "" // $data_detail_lhp[$i]['plan_cap'] 
                                                                                                                         ?>" style="width: 75px" readonly>
                           </td> -->
                           <td>
-                            <input type="number" class="form-control" name="jks[]" id="jks_<?= $i ?>" value="<?= $data_detail_lhp[$i]['jks'] ?>" style="width: 100px" readonly>
+                            <input type="number" class="form-control" name="jks[]" id="jks_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" value="<?= $data_detail_lhp[$i]['jks'] ?>" style="width: 100px" readonly>
                           </td>
                           <td>
-                            <input type="number" class="form-control" name="actual[]" id="actual_<?= $i ?>" onkeyup="presentase_actual(<?= $i ?>)" value="<?= $data_detail_lhp[$i]['actual'] ?>" style="width: 100px">
+                            <input type="number" class="form-control" name="actual[]" id="actual_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" onkeyup="presentase_actual(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>, <?= $number ?>)" value="<?= $data_detail_lhp[$i]['actual'] ?>" style="width: 100px">
                           </td>
                           <!-- <td>
 															<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_<?= $i ?>" value="<?= $data_detail_lhp[$i]['act_vs_jks'] ?>" style="width: 75px" readonly>
@@ -367,43 +387,42 @@ $shift
                             <input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?= $i ?>" value="<?= $data_detail_lhp[$i]['total_menit_breakdown'] ?>" style="width: 75px" readonly>
                           </td> -->
                           <td>
-                            <input type="number" class="form-control" name="presentase[]" id="presentase_<?= $i ?>" value="<?= number_format($data_detail_lhp[$i]['act_vs_jks'], 3) ?>" style="width: 75px" readonly>
+                            <input type="number" class="form-control" name="presentase[]" id="presentase_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" value="<?= number_format($data_detail_lhp[$i]['act_vs_jks'], 3) ?>" style="width: 75px" readonly>
                           </td>
                           <td>
-                            <button type="button" class="btn btn-sm btn-primary" id="add_breakdown_<?= $i ?>" onclick="add_breakdown(<?= $i ?>)">Add</button>
+                            <button type="button" class="btn btn-sm btn-primary" id="add_breakdown_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" onclick="add_breakdown(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>, <?= $number ?>)">Add</button>
                           </td>
                           <td>
-                            <button type="button" class="btn btn-sm btn-primary" id="add_reject_<?= $i ?>" onclick="add_reject(<?= $i ?>)">Add</button>
+                            <button type="button" class="btn btn-sm btn-primary" id="add_reject_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" onclick="add_reject(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>, <?= $number ?>)">Add</button>
                           </td>
                         </tr>
                         <?php
                       }
                       if (count($data_detail_lhp) <= count($jam_start)) {
-                        for ($i = count($data_detail_lhp); $i < count($jam_start); $i++) {
-                          $j = $i; ?>
+                        for ($i = count($data_detail_lhp); $i < count($jam_start); $i++) { ?>
                           <tr class="row_<?= $i ?>">
                             <td>
-                              <button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?= $i ?>, <?= $i ?>)">
+                              <button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?= $i ?>)">
                                 Add
                               </button>
                             </td>
                             <!-- <td>
-																<span style="display:block; width: 100px;"><?= $jam_start[$j] ?> - <?= $jam_end[$j] ?></span>
+																<span style="display:block; width: 100px;"><?= $jam_start[$i] ?> - <?= $jam_end[$i] ?></span>
 															</td>
-															<td><?= $menit_tersedia[$j] ?></td>
-															<td><?= $menit_aktual[$j] ?></td> -->
+															<td><?= $menit_tersedia[$i] ?></td>
+															<td><?= $menit_aktual[$i] ?></td> -->
                             <td>
                               <div id="start_section_<?= $i ?>">
-                                <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>" value="<?= date('H:i', strtotime(str_replace('.', ':', $jam_start[$j]))) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>_0" value="<?= date('H:i', strtotime(str_replace('.', ':', $jam_start[$i]))) ?>" style="width: 100px;">
                               </div>
                             </td>
                             <td>
                               <div id="stop_section_<?= $i ?>">
-                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>" value="<?= date('H:i', strtotime(str_replace('.', ':', $jam_end[$j]))) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>_0" value="<?= date('H:i', strtotime(str_replace('.', ':', $jam_end[$i]))) ?>" style="width: 100px;">
                               </div>
                             </td>
                             <td>
-                              <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>" value="<?= $menit_aktual[$j] ?>" onkeyup="update_plan(<?= $i ?>)" style="width: 100px">
+                              <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>_0" value="<?= $menit_aktual[$i] ?>" onkeyup="update_jks(<?= $i ?>, 0)" style="width: 100px">
                             </td>
                             <!-- <td>
                               <select class="form-control select2" id="no_wo_<?= $i ?>" name="no_wo[]" onchange="getPartNo(<?= $i ?>)" style="width: 200px;">
@@ -425,7 +444,7 @@ $shift
                               <input type="text" class="form-control" name="part_number[]" id="part_number_<?= $i ?>" style="width: 250px" readonly>
                             </td> -->
                             <td>
-                              <select name="type_grid[]" id="type_grid_<?= $i ?>" class="form-select select2" onchange="get_jks(<?= $i ?>)" style="width: 300px">
+                              <select name="type_grid[]" id="type_grid_<?= $i ?>_0" class="form-select select2" onchange="get_jks(<?= $i ?>, 0)" style="width: 300px">
                                 <option value="">-- Pilih Type --</option>
                                 <?php
                                 foreach ($data_type_grid as $d_type_grid) {
@@ -435,20 +454,20 @@ $shift
                                 }
                                 ?>
                               </select>
-                              <input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$j?>">
-                              <input type="hidden" name="id_detail_lhp_pasting[]" id="id_detail_lhp_pasting_<?= $i ?>" value="">
+                              <input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$i?>">
+                              <input type="hidden" name="id_detail_lhp_pasting[]" id="id_detail_lhp_pasting_<?= $i ?>_0" value="">
                             </td>
                             <td>
-                              <input type="text" class="form-control" name="ct[]" id="ct_<?= $i ?>" style="width: 75px" readonly>
+                              <input type="text" class="form-control" name="ct[]" id="ct_<?= $i ?>_0" style="width: 75px" readonly>
                             </td>
                             <!-- <td>
                               <input type="number" class="form-control" name="plan_cap[]" id="plan_cap_<?= $i ?>" style="width: 75px" readonly>
                             </td> -->
                             <td>
-                              <input type="number" class="form-control" name="jks[]" id="jks_<?= $i ?>" style="width: 100px" readonly>
+                              <input type="number" class="form-control" name="jks[]" id="jks_<?= $i ?>_0" style="width: 100px" readonly>
                             </td>
                             <td>
-                              <input type="number" class="form-control" name="actual[]" id="actual_<?= $i ?>" onkeyup="presentase_actual(<?= $i ?>)" style="width: 100px">
+                              <input type="number" class="form-control" name="actual[]" id="actual_<?= $i ?>_0" onkeyup="presentase_actual(<?= $i ?>, 0)" style="width: 100px">
                             </td>
                             <!-- <td>
 																<input type="text" class="form-control" size="4" name="act_vs_plan[]" id="act_vs_plan_<?= $i ?>" style="width: 75px" readonly>
@@ -460,13 +479,13 @@ $shift
                               <input type="number" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?= $i ?>" style="width: 75px" readonly>
                             </td> -->
                             <td>
-                              <input type="number" class="form-control" name="presentase[]" id="presentase_<?= $i ?>" style="width: 75px" readonly>
+                              <input type="number" class="form-control" name="presentase[]" id="presentase_<?= $i ?>_0" style="width: 75px" readonly>
                             </td>
                             <td>
-                              <button type="button" class="btn btn-sm btn-primary" id="add_breakdown_<?= $i ?>" onclick="add_breakdown(<?= $i ?>)">Add</button>
+                              <button type="button" class="btn btn-sm btn-primary" id="add_breakdown_<?= $i ?>_0" onclick="add_breakdown(<?= $i ?>, 0)">Add</button>
                             </td>
                             <td>
-                              <button type="button" class="btn btn-sm btn-primary" id="add_reject_<?= $i ?>" onclick="add_reject(<?= $i ?>)">Add</button>
+                              <button type="button" class="btn btn-sm btn-primary" id="add_reject_<?= $i ?>_0" onclick="add_reject(<?= $i ?>, 0)">Add</button>
                             </td>
                           </tr>
                       <?php
@@ -929,15 +948,15 @@ $shift
     })
   }
 
-  function get_jks(i) {
-    let menit_terpakai = $('#menit_terpakai_' + i).val();
-    let type_grid = $('#type_grid_' + i).val();
+  function get_jks(i, j) {
+    let menit_terpakai = $('#menit_terpakai_' + i + '_' + j).val();
+    let type_grid = $('#type_grid_' + i + '_' + j).val();
     console.log(type_grid);
     <?php foreach ($data_type_grid as $dtg) { ?>
       if (type_grid.toString() == "<?= str_replace(' ', '', trim($dtg['type_grid'])) ?>") {
-        $('#ct_' + i).val(<?= trim($dtg['ct']) ?>);
+        $('#ct_' + i + '_' + j).val(<?= trim($dtg['ct']) ?>);
         console.log(<?= floatval($dtg['ct']) ?>)
-        $('#jks_' + i).val(Math.floor((menit_terpakai * 60) / <?= floatval(trim($dtg['ct'])) ?>))
+        $('#jks_' + i + '_' + j).val(Math.floor((menit_terpakai * 60) / <?= floatval(trim($dtg['ct'])) ?>))
       }
     <?php } ?>
   }
@@ -984,11 +1003,11 @@ $shift
     });
   }
 
-  function presentase_actual(i) {
-    var jks = $('#jks_' + i).val();
-    var actual = $('#actual_' + i).val();
+  function presentase_actual(i, j) {
+    var jks = $('#jks_' + i + '_' + j).val();
+    var actual = $('#actual_' + i + '_' + j).val();
     var presentase = (actual / jks) * 100;
-    $('#presentase_' + i).val(presentase.toFixed(2));
+    $('#presentase_' + i + '_' + j).val(presentase.toFixed(2));
   }
 
   // function presentase_actual(i) {
@@ -1007,7 +1026,7 @@ $shift
   //   $('#total_menit_breakdown_' + i).val(total_menit_breakdown);
   // }
 
-  function add_breakdown(i) {
+  function add_breakdown(i, j) {
     var mesin_pasting = $('#mesin_pasting').val();
     let data_line_stop;
     if (mesin_pasting <= 3) {
@@ -1016,31 +1035,31 @@ $shift
       data_line_stop = <?= json_encode($data_line_stop_punching); ?>;
     }
 
-    var start_breakdown = $('#start_' + i).val();
-    var stop_breakdown = $('#stop_' + i).val();
-    var type_grid = $('#type_grid_' + i).val();
+    var start_breakdown = $('#start_' + i + '_' + j).val();
+    var stop_breakdown = $('#stop_' + i + '_' + j).val();
+    var type_grid = $('#type_grid_' + i + '_' + j).val();
     // var no_wo_breakdown = $('#no_wo_' + i).val();
 
 
     var tbody = document.getElementById('tbody_line_stop');
 
-    var j = tbody.rows.length;
+    var row = tbody.rows.length;
 
 
     $('#tbody_line_stop').append(`
 			<tr>
 				<td>
-					<input type="time" class="form-control" name="start_breakdown[]" id="start_breakdown_${j}" value="${start_breakdown}" style="width: 100px;">
+					<input type="time" class="form-control" name="start_breakdown[]" id="start_breakdown_${row}" value="${start_breakdown}" style="width: 100px;">
 				</td>
 				<td>
-					<input type="time" class="form-control" name="stop_breakdown[]" id="stop_breakdown_${j}" value="${stop_breakdown}" style="width: 100px;">
+					<input type="time" class="form-control" name="stop_breakdown[]" id="stop_breakdown_${row}" value="${stop_breakdown}" style="width: 100px;">
 				</td>
         <td>
-          <input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_${j}" value="" style="width: 250px">
-          <input type="text" class="form-control" name="type_grid_line_stop[]" id="type_grid_line_stop_${j}" value="${type_grid}" style="width: 225px" readonly>
+          <input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_${row}" value="" style="width: 250px">
+          <input type="text" class="form-control" name="type_grid_line_stop[]" id="type_grid_line_stop_${row}" value="${type_grid}" style="width: 225px" readonly>
         </td>
 				<td>
-					<select class="form-control select2" name="kategori_line_stop[]" id="kategori_line_stop_${j}" onchange="get_jenis_line_stop(${j})" style="width: 200px">
+					<select class="form-control select2" name="kategori_line_stop[]" id="kategori_line_stop_${row}" onchange="get_jenis_line_stop(${row})" style="width: 200px">
 						<option value="">Pilih Kategori Line Stop</option>
 						${data_line_stop.map((item) => {
 							return `<option value="${item.kategori_line_stop}">${item.kategori_line_stop}</option>`;
@@ -1048,18 +1067,18 @@ $shift
 					</select>
 				</td>
 				<td>
-					<select class="form-control select2" id="jenis_line_stop_${j}" name="jenis_line_stop[]" style="width: 200px;">
+					<select class="form-control select2" id="jenis_line_stop_${row}" name="jenis_line_stop[]" style="width: 200px;">
 						<option selected disabled>-- Pilih Jenis Line Stop --</option>
 					</select>
 				</td>
 				<td>
-					<textarea class="form-control" name="uraian_line_stop[]" id="uraian_line_stop_${j}" cols="20" rows="1" style="width: 200px;"></textarea>
+					<textarea class="form-control" name="uraian_line_stop[]" id="uraian_line_stop_${row}" cols="20" rows="1" style="width: 200px;"></textarea>
 				</td>
 				<td>
-					<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" style="width: 75px">
+					<input type="number" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${row}" style="width: 75px">
 				</td>
 				<td>
-					<button type="button" class="btn btn-danger" onclick="delete_breakdown(${j})"><i class="fa fa-trash"></i></button>	
+					<button type="button" class="btn btn-danger" onclick="delete_breakdown(${row})"><i class="fa fa-trash"></i></button>	
 				</td>
 			</tr>
 		`);
@@ -1072,13 +1091,13 @@ $shift
 
   }
 
-  function add_reject(i) {
+  function add_reject(i, j) {
     var data_reject_pasting = <?= json_encode($data_reject_pasting); ?>;
 
-    var start_reject = $('#start_' + i).val();
-    var stop_reject = $('#stop_' + i).val();
-    var no_wo_reject = $('#no_wo_' + i).val();
-    var type_grid_reject = $('#type_grid_' + i).val();
+    var start_reject = $('#start_' + i + '_' + j).val();
+    var stop_reject = $('#stop_' + i + '_' + j).val();
+    // var no_wo_reject = $('#no_wo_' + i).val();
+    var type_grid_reject = $('#type_grid_' + i + '_' + j).val();
 
 
     var tbody = document.getElementById('tbody_reject');
@@ -1232,56 +1251,73 @@ $shift
     $('#modal_data_andon').modal('hide');
   }
 
-  function add_rows_batch(i, j) {
+  let numbers = [];
+  function getNumbers(i) {
+    if(numbers[i] === undefined)
+      numbers[i] = 0;
+    return numbers[i];
+  }
+
+  function rowDeleted(i) {
+    if(numbers[i] !== undefined)
+      numbers[i] = numbers[i] + 1;
+    else
+      numbers[i] = 1;
+    return numbers[i];
+  }
+
+  function add_rows_batch(i) {
+    let rowDeleted = getNumbers(i);
     let data_type_grid = <?php echo json_encode($data_type_grid); ?>;
     let tbodyElement = document.getElementById('tbody');
 
     let batchElement = document.querySelectorAll('#batch_' + i);
     batchElement = batchElement.length;
-    let row = document.querySelector('.row_' + j);
-    console.log({row});
+    let row = document.querySelectorAll('.row_' + i);
+    let lastRow = row[row.length-1];
     let k = i + 1;
-    let jam_start = $('#start_' + k).val();
-		let jam_stop = $('#stop_' + i).val();
-    row = row.rowIndex;
+    let jam_start = $('#start_' + k + '_0').val();
+    let jam_stop = $('#stop_' + i + '_0').val();
+    let batchNumber = batchElement + rowDeleted;
+    if(batchElement > 1) {
+      jam_stop = $('#stop_' + i + '_' + (batchNumber - 1)).val();
+    }
+    lastRow = lastRow.rowIndex;
     // let totalRow = tbodyElement.rows.length;
-    let addRowAfter = row + batchElement - 1;
-    console.log({row, addRowAfter, batchElement});
-    row = tbodyElement.insertRow(addRowAfter);
-		row.innerHTML = `
-			<tr class="row_${i}">
-				<td><button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(this)">Remove</button></td>
-				<td><input type="time" class="form-control" name="start[]" id="start_(${addRowAfter})" value="${jam_stop}" style="width: 100px;"></td>
-				<td><input type="time" class="form-control" name="stop[]" id="stop_(${addRowAfter})" value="${jam_start}" style="width: 100px;"></td>
-				<td>
-					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" onkeyup="update_plan(${k})" value="" style="width: 100px">
-				</td>
-				<td>
-					<select name="type_grid[]" id="type_grid_${k}" class="form-select select2 type_grid" onchange="get_jks(${k})" style="width: 300px">
-            <option value="">-- Pilih Type --</option>
-            ${data_type_grid.map((item) => `<option value="${item.type_grid}">${item.type_grid}</option>`)}
+    // let addRowAfter = lastRow + batchElement - 1;
+    lastRow = tbodyElement.insertRow(lastRow);
+    lastRow.classList.add('row_' + i);
+		lastRow.innerHTML = `
+      <td><button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(this, ${i})">Remove</button></td>
+      <td><input type="time" class="form-control" name="start[]" id="start_${i}_${batchNumber}" value="${jam_stop}" style="width: 100px;"></td>
+      <td><input type="time" class="form-control" name="stop[]" id="stop_${i}_${batchNumber}" value="${jam_start}" style="width: 100px;"></td>
+      <td><input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${i}_${batchNumber}" onkeyup="update_jks(${i}, ${batchNumber})" value="" style="width: 100px"></td>
+      <td>
+          <select name="type_grid[]" id="type_grid_${i}_${batchNumber}" class="form-select select2 type_grid"
+              onchange="get_jks(${i}, ${batchNumber})" style="width: 300px">
+              <option value="">-- Pilih Type --</option>
+              ${data_type_grid.map((item) => `<option value="${item.type_grid}">${item.type_grid}</option>`)}
           </select>
           <input type="hidden" name="batch[]" id="batch_${i}" value="${i}">
-				</td>
-				<td>
-          <input type="text" class="form-control" name="ct[]" id="ct_${k}" value="" style="width: 75px" readonly>
-        </td>
-        <td>
-          <input type="number" class="form-control" name="jks[]" id="jks_${k}" value="" style="width: 100px" readonly>
-        </td>
-        <td>
-          <input type="number" class="form-control" name="actual[]" id="actual_${k}" onkeyup="presentase_actual(${k})" value="" style="width: 100px">
-        </td>
-        <td>
-          <input type="number" class="form-control" name="presentase[]" id="presentase_${k}" value="" style="width: 75px" readonly>
-        </td>
-        <td>
-          <button type="button" class="btn btn-sm btn-primary" id="add_breakdown_${k}" onclick="add_breakdown(${k})">Add</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-sm btn-primary" id="add_reject_${k}" onclick="add_reject(${k})">Add</button>
-        </td>
-			</tr>
+      </td>
+      <td>
+          <input type="text" class="form-control" name="ct[]" id="ct_${i}_${batchNumber}" value="" style="width: 75px" readonly>
+      </td>
+      <td>
+          <input type="number" class="form-control" name="jks[]" id="jks_${i}_${batchNumber}" value="" style="width: 100px" readonly>
+      </td>
+      <td>
+          <input type="number" class="form-control" name="actual[]" id="actual_${i}_${batchNumber}" onkeyup="presentase_actual(${i}, ${batchNumber})" value="" style="width: 100px">
+      </td>
+      <td>
+          <input type="number" class="form-control" name="presentase[]" id="presentase_${i}_${batchNumber}" value="" style="width: 75px" readonly>
+      </td>
+      <td>
+          <button type="button" class="btn btn-sm btn-primary" id="add_breakdown_${i}_${batchNumber}" onclick="add_breakdown(${i})">Add</button>
+      </td>
+      <td>
+          <button type="button" class="btn btn-sm btn-primary" id="add_reject_${i}_${batchNumber}" onclick="add_reject(${i})">Add</button>
+      </td>
 		`;
 
 		$('.select2').select2();
@@ -1352,7 +1388,7 @@ $shift
 	// 	// </td>
 	// }
 
-  function delete_rows_db(e, i) {
+  function delete_rows_db(e, i, j) {
     let id_detail_lhp_pasting = $('#id_detail_lhp_pasting_' + i).val();
     $.ajax({
       url: '<?= base_url() ?>pasting/delete_rows',
@@ -1362,8 +1398,8 @@ $shift
       },
       dataType: 'json',
       success: function(data) {
-        console.log(data);
         // if(data === 'Success')
+          rowDeleted(j);
           $(e).parent().parent().remove();
         // else
           // alert('Data Gagal Dihapus');
@@ -1373,9 +1409,10 @@ $shift
     })
   }
 
-  function delete_rows(e) {
+  function delete_rows(e, i) {
     // var tbody = document.getElementById('tbody');
     // tbody.deleteRow(e);
+    rowDeleted(i);
     $(e).parent().parent().remove();
   }
 
@@ -1389,13 +1426,13 @@ $shift
     tbody.deleteRow(i);
   }
 
-  function update_plan(i) {
-    var menit_terpakai = $('#menit_terpakai_' + i).val() * 60;
-    var ct = $('#ct_' + i).val();
-    var plan_cap = Math.floor(menit_terpakai / ct);
-    $('#plan_cap_' + i).val(plan_cap);
+  function update_jks(i, j) {
+    var menit_terpakai = $('#menit_terpakai_' + i + '_' + j).val() * 60;
+    var ct = $('#ct_' + i + '_' + j).val();
+    var jks = Math.floor(menit_terpakai / ct);
+    $('#jks_' + i + '_' + j).val(jks);
 
-    presentase_actual(i);
+    presentase_actual(i, j);
   }
 
   function time_start(i) {
