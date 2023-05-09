@@ -186,7 +186,7 @@
                             </select>
                         </td>
                         <td>
-                            <input type="text" class="form-control" name="qty_element_potong[]" id="qty_element_potong_${baris}" value="<?= trim($saw_repair_potong[$i]['qty_plate_reject_potong_kg']) ?>">
+                            <input type="text" class="form-control" name="qty_element_potong[]" id="qty_element_potong_${baris}" value="<?= trim($saw_repair_potong[$i]['qty_element_potong']) ?>">
                         </td>
                         <td>
                             <select class="form-select select2" id="type_plate_reject_potong_${baris}" name="type_plate_reject_potong[]">
@@ -222,7 +222,7 @@
                             </select>
                         </td>
                         <td>
-                            <input type="text" class="form-control" name="qty_element_potong[]" id="qty_element_potong_${baris}" value="<?= trim($saw_repair_potong[$i]['qty_plate_reject_potong_kg']) ?>">
+                            <input type="text" class="form-control" name="qty_element_potong[]" id="qty_element_potong_${baris}" value="<?= trim($saw_repair_potong[$i]['qty_element_potong']) ?>">
                         </td>
                         <td>
                             <select class="form-select select2" id="type_plate_reject_potong_${baris}" name="type_plate_reject_potong[]" onchange="panel(${baris})">
