@@ -41,7 +41,7 @@
 													<!-- <td><?=$lhp['no_doc']?></td> -->
 													<td><?=$lhp['tanggal_produksi']?></td>
 													<td><?=$lhp['shift']?></td>
-													<td><?=$lhp['line']?></td>
+													<td><?=($lhp['line'] == 10) ? 'MCB' : $lhp['line']?></td>
 													<td><?=$lhp['kasubsie']?></td>
 													<td><?=$lhp['nama_pic']?></td>
 													<!-- <td><?=$retVal = (!empty($lhp['total_aktual']) && !empty($lhp['total_plan'])) ? number_format((float) ($lhp['total_aktual'] / $lhp['total_plan']) * 100, 2, '.', '') : '' ; ?></td> -->
@@ -134,20 +134,21 @@
 						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Kasubsie</label>
-								<select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;">
+								<select class="form-select" id="kasubsie" name="kasubsie" style="width: 100%;">
 									<option selected disabled>-- Pilih Data --</option>
 									<option value="Yusuf Slamet Pelita">Yusuf Slamet Pelita</option>
 									<option value="Edi Suwito">Edi Suwito</option>
 									<option value="Masruri">Masruri</option>
 									<option value="Parwadi">Parwadi</option>
 									<option value="Iim Arwisman">Iim Arwisman</option>
+									<option value="Supianto">Supianto</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Grup</label>
-								<select class="form-control select2" id="grup" name="grup" style="width: 100%;">
+								<select class="form-select" id="grup" name="grup" style="width: 100%;">
 									<option selected disabled>-- Pilih Data --</option>
 									<?php foreach($data_grup as $grup) : ?>
 										<option value="<?=$grup['id_pic']?>"><?=$grup['nama_pic']?></option>
