@@ -41,18 +41,14 @@
                                                         <td><?= $sr['date'] ?></td>
                                                         <td><?= $sr['shift'] ?></td>
                                                         <td>
-                                                            <?php if($session <= 1) : ?>
-                                                                <div class="d-flex">
-                                                                    <a href="/saw_repair/detail_saw_repair/<?= trim($sr['id']) ?>" class="btn btn-primary btn-sm">Detail</a>
-                                                                    &nbsp
-                                                                    <form action="<?php base_url() ?>detail_saw_repair/delete" method="POST">
-                                                                        <input type="hidden" name="id_saw_repair" id="id_saw_repair" value="<?= trim($sr['id']) ?>">
-                                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin?')">Hapus</button>
-                                                                    </form>
-                                                                </div>
-                                                            <?php else : ?>
-                                                                <a href="/saw_repair/add_saw_repair/<?= trim($sr['id']) ?>" class="btn btn-primary">Detail</a>
-                                                            <?php endif ?>
+                                                            <div class="d-flex">
+                                                                <a href="/saw_repair/add_saw_repair/<?= trim($sr['id']) ?>" class="btn btn-sm btn-primary">Detail</a>
+                                                                &nbsp
+                                                                <form action="<?php base_url() ?>saw_repair/detail_saw_repair/delete" method="POST">
+                                                                    <input type="hidden" name="id_saw_repair" id="id_saw_repair" value="<?= trim($sr['id']) ?>">
+                                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin?')">Hapus</button>
+                                                                </form>
+                                                            </div>   
                                                         </td>
                                                     </tr>
                                                 <?php endforeach ?>
