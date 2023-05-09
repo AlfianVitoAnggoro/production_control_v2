@@ -992,12 +992,8 @@ $mh = [8, 7.5, 6.5];
             document.querySelector('#aktual_' + i).setAttribute('readonly', '');
             document.querySelector('#type_grid_' + i).innerHTML = `
                 <option value="">-- Pilih Type Grid --</option>
-                <option value="MESIN OFF" <?php if ('MESIN OFF' == $data_detail_lhp[0]['type_grid']) {
-                                                                        echo "selected";
-                                                                    } ?>>MESIN OFF</option>
-                <option value="NO WO" <?php if ('NO WO' == $data_detail_lhp[0]['type_grid']) {
-                                                                        echo "selected";
-                                                                    } ?>>NO WO</option>
+                <option value="MESIN OFF">MESIN OFF</option>
+                <option value="NO WO">NO WO</option>
             `;
         } else {
             $('#mh_' + i).val(<?= $mh[$data_lhp[0]['shift'] - 1] ?>);
