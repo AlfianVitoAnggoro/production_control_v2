@@ -195,18 +195,18 @@
             <form action="/envelope/download" method="post">
                 <div class="modal-body">
                     <div class="row">
-                        <!-- <div class="col mb-2">
+                        <div class="col mb-2">
                             <label for="start_date" class="form-label">Start Date</label>
                             <input type="date" class="form-control" id="start_date" name="start_date">
                         </div>
                         <div class="col mb-2">
                             <label for="end_date" class="form-label">End Date</label>
                             <input type="date" class="form-control" id="end_date" name="end_date">
-                        </div> -->
-                        <div class="col mb-2">
+                        </div>
+                        <!-- <div class="col mb-2">
                             <label for="month" class="form-label">Bulan</label>
                             <input type="month" class="form-control" id="month" name="month" required>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer" style="float: right;">
