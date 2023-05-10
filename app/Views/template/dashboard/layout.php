@@ -53,9 +53,18 @@
 		}
 
 		body {
-			background-image: url("<?= base_url()?>assets/images/bg-dashboard-crop.jpg");
+			/* background-image: url("<?= base_url()?>assets/images/bg-dashboard-crop.jpg"); */
+			background-image: url("<?= base_url()?>assets/images/4.PNG");
 			/* background-color: #cccccc; */
-			background-size: cover;
+			<?php 
+			$uri = current_url(true);
+			if ($uri->getSegment(3) == 'assy') {
+				echo 'background-size: cover;';
+			} else if ($uri->getSegment(3) == 'reject') {
+				echo 'background-size: contain;';
+			}
+			?>
+			
 		}
 
 		.main-header {
