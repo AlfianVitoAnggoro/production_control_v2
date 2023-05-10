@@ -346,8 +346,10 @@ class Envelope extends BaseController
         header('Content-Disposition: attachment;filename="data.xlsx"');
         header('Cache-Control: max-age=0');
 
+        ob_end_clean();
         // Membuat objek Writer untuk menulis spreadsheet ke output
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
+        exit();
     }
 }
