@@ -205,7 +205,7 @@
                         </div> -->
                         <div class="col mb-2">
                             <label for="month" class="form-label">Bulan</label>
-                            <input type="month" class="form-control" id="month" name="month">
+                            <input type="month" class="form-control" id="month" name="month" required>
                         </div>
                     </div>
                 </div>

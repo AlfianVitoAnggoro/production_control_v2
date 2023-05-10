@@ -91,13 +91,13 @@
 						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Tanggal Produksi</label>
-								<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi">
+								<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" required>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Line</label>
-								<select class="form-select" id="line" name="line">
+								<select class="form-select" id="line" name="line" required>
 									<option selected disabled>-- Pilih Data --</option>
 									<?php foreach($data_line as $line) : ?>
 										<option value="<?=$line['id_line']?>"><?=$line['nama_line']?></option>
@@ -108,7 +108,7 @@
 						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Shift</label>
-								<select class="form-select" id="shift" name="shift">
+								<select class="form-select" id="shift" name="shift" required>
 									<option selected disabled>-- Pilih Data --</option>
 									<option>1</option>
 									<option>2</option>
@@ -134,7 +134,7 @@
 						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Kasubsie</label>
-								<select class="form-select" id="kasubsie" name="kasubsie" style="width: 100%;">
+								<select class="form-select" id="kasubsie" name="kasubsie" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
 									<option value="Yusuf Slamet Pelita">Yusuf Slamet Pelita</option>
 									<option value="Edi Suwito">Edi Suwito</option>
@@ -148,7 +148,7 @@
 						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">Grup</label>
-								<select class="form-select" id="grup" name="grup" style="width: 100%;">
+								<select class="form-select" id="grup" name="grup" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
 									<?php foreach($data_grup as $grup) : ?>
 										<option value="<?=$grup['id_pic']?>"><?=$grup['nama_pic']?></option>
@@ -159,7 +159,7 @@
 						<div class="col-4">
 							<div class="form-group">
 								<label class="form-label">MP</label>
-								<input type="number" class="form-control" id="mp" name="mp">
+								<input type="number" class="form-control" id="mp" name="mp" required>
 							</div>
 						</div>
 						<!-- <div class="col-3">
