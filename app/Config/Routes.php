@@ -229,6 +229,17 @@ $routes->group('cos', ['filter' => 'auth'], function ($routes) {
     $routes->post('getPartNo', 'Cos::getPartNo');
 });
 
+//COS
+$routes->group('timbangan_reject', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'TimbanganReject::timbangan_reject_view');
+    $routes->get('add_timbangan_reject/(:segment)', 'TimbanganReject::add_timbangan_reject/$1');
+    $routes->post('save', 'TimbanganReject::save');
+    $routes->get('detail_timbangan_reject/(:segment)', 'TimbanganReject::detail_timbangan_reject/$1');
+    $routes->post('detail_timbangan_reject/edit', 'TimbanganReject::edit');
+    $routes->post('detail_timbangan_reject/delete', 'TimbanganReject::delete_timbangan_reject');
+    $routes->post('download', 'TimbanganReject::download');
+});
+
 // $routes->get('/lhp/test', 'Home::test');
 
 /*
