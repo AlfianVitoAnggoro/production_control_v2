@@ -53,7 +53,7 @@
 		}
 
 		body {
-			background-image: url("<?= base_url()?>assets/images/bg-dashboard.jpg");
+			background-image: url("<?= base_url()?>assets/images/bg-dashboard-crop.jpg");
 			/* background-color: #cccccc; */
 			background-size: cover;
 		}
@@ -67,6 +67,10 @@
 		.btn-nav {
 			font-size: 18px;
 			font-weight: 600;
+		}
+
+		.modal {
+			overflow-y:auto;
 		}
 
 	</style>
