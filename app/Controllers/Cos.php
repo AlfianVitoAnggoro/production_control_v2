@@ -66,12 +66,15 @@ class Cos extends BaseController
     $type_battery = $this->request->getPost('type_battery');
     $hasil = $this->request->getPost('hasil');
     $tersangkut = $this->request->getPost('tersangkut');
-    $strap_dross = $this->request->getPost('strap_dross');
+    $terbakar = $this->request->getPost('terbakar');
     $lug_lepas = $this->request->getPost('lug_lepas');
     $strap_tipis = $this->request->getPost('strap_tipis');
     $dross_1 = $this->request->getPost('dross_1');
     $dross_2 = $this->request->getPost('dross_2');
     $dross_3 = $this->request->getPost('dross_3');
+    $timbangan_strap_1 = $this->request->getPost('timbangan_strap_1');
+    $timbangan_strap_2 = $this->request->getPost('timbangan_strap_2');
+    $timbangan_strap_3 = $this->request->getPost('timbangan_strap_3');
     $id_detail_lhp_cos_Exist = [];
     $model = new M_Cos();
     $all_id_detail_lhp_cos = $model->get_id_detail_lhp_cos_by_id_lhp_cos($id);
@@ -93,12 +96,15 @@ class Cos extends BaseController
             'type_battery' => $type_battery[$i] !== NULL ? $type_battery[$i] : 0,
             'hasil' => $hasil[$i] !== NULL ? $hasil[$i] : 0,
             'tersangkut' => $tersangkut[$i] !== NULL ? $tersangkut[$i] : 0,
-            'strap_dross' => $strap_dross[$i] !== NULL ? $strap_dross[$i] : 0,
+            'terbakar' => $terbakar[$i] !== NULL ? $terbakar[$i] : 0,
             'lug_lepas' => $lug_lepas[$i] !== NULL ? $lug_lepas[$i] : 0,
             'strap_tipis' => $strap_tipis[$i] !== NULL ? $strap_tipis[$i] : 0,
             'dross_1' => $dross_1[$i] !== NULL ? $dross_1[$i] : 0,
             'dross_2' => $dross_2[$i] !== NULL ? $dross_2[$i] : 0,
             'dross_3' => $dross_3[$i] !== NULL ? $dross_3[$i] : 0,
+            'timbangan_strap_1' => $timbangan_strap_1[$i] !== NULL ? $timbangan_strap_1[$i] : 0,
+            'timbangan_strap_2' => $timbangan_strap_2[$i] !== NULL ? $timbangan_strap_2[$i] : 0,
+            'timbangan_strap_3' => $timbangan_strap_3[$i] !== NULL ? $timbangan_strap_3[$i] : 0,
           );
           $update_data = $model->update_detail_lhp_cos($id_detail_cos[$i], $data_detail_lhp_cos);
       }
@@ -187,7 +193,7 @@ class Cos extends BaseController
                 if($ddlc !== NULL) {
                   foreach ($ddlc as $dlc) {
                     // if ($dc['id_lhp_cos'] === $dlc['id_lhp_cos']) {
-                        $data[] = array($dc['tanggal_produksi'], $dc['shift'], $dc['line'], $dc['team'], $dlc['no_wo'], $dlc['type_battery'], $dlc['hasil'], $dlc['tersangkut'], $dlc['strap_dross'], $dlc['lug_lepas'], $dlc['strap_tipis'], $dlc['dross_1'], $dlc['dross_2'], $dlc['dross_3']);
+                        $data[] = array($dc['tanggal_produksi'], $dc['shift'], $dc['line'], $dc['team'], $dlc['no_wo'], $dlc['type_battery'], $dlc['hasil'], $dlc['tersangkut'], $dlc['terbakar'], $dlc['lug_lepas'], $dlc['strap_tipis'], $dlc['dross_1'], $dlc['dross_2'], $dlc['dross_3']);
                     // };
                   }
                 } else {
@@ -206,8 +212,10 @@ class Cos extends BaseController
     header('Content-Disposition: attachment;filename="data.xlsx"');
     header('Cache-Control: max-age=0');
 
+    ob_end_clean();
     // Membuat objek Writer untuk menulis spreadsheet ke output
     $writer = new Xlsx($spreadsheet);
     $writer->save('php://output');
+    exit();
   }
 }
