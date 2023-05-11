@@ -270,12 +270,12 @@ $shift
                             </td>
                             <td>
                               <div id="start_section_<?= $data_detail_lhp[$i]['batch'] ?>">
-                                <input type="time" class="form-control" name="start[]" id="start_<?= $data_detail_lhp[$i]['batch'] ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="start[]" id="start_<?= $data_detail_lhp[$i]['batch'] ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" onkeyup="hitung_menit_terpakai(<?= $data_detail_lhp[$i]['batch'] ?>, 0)" style="width: 100px;">
                               </div>
                             </td>
                             <td>
                               <div id="stop_section_<?= $data_detail_lhp[$i]['batch'] ?>">
-                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $data_detail_lhp[$i]['batch'] ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $data_detail_lhp[$i]['batch'] ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" onkeyup="hitung_menit_terpakai(<?= $data_detail_lhp[$i]['batch'] ?>, 0)" style="width: 100px;">
                               </div>
                             </td>
                           <?php } else { $number++ ?>
@@ -285,12 +285,12 @@ $shift
                             </td>
                             <td>
                               <div id="start_section_<?= $data_detail_lhp[$i]['batch'] ?>">
-                                <input type="time" class="form-control" name="start[]" id="start_<?= $data_detail_lhp[$i]['batch'] ?>_<?= $number ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="start[]" id="start_<?= $data_detail_lhp[$i]['batch'] ?>_<?= $number ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" onkeyup="hitung_menit_terpakai(<?= $data_detail_lhp[$i]['batch'] ?>, <?= $number ?>)" style="width: 100px;">
                               </div>
                             </td>
                             <td>
                               <div id="stop_section_<?= $data_detail_lhp[$i]['batch'] ?>">
-                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $data_detail_lhp[$i]['batch'] ?>_<?= $number ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $data_detail_lhp[$i]['batch'] ?>_<?= $number ?>" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" onkeyup="hitung_menit_terpakai(<?= $data_detail_lhp[$i]['batch'] ?>, <?= $number ?>)" style="width: 100px;">
                               </div>
                             </td>
                           <?php } } else { ?>
@@ -302,12 +302,12 @@ $shift
                             </td>
                             <td>
                               <div id="start_section_<?= $i ?>">
-                                <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_start'])) ?>" onkeyup="hitung_menit_terpakai(<?= $i ?>, 0)" style="width: 100px;">
                               </div>
                             </td>
                             <td>
                               <div id="stop_section_<?= $i ?>">
-                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>_0" value="<?= date("H:i", strtotime($data_detail_lhp[$i]['jam_end'])) ?>" onkeyup="hitung_menit_terpakai(<?= $i ?>, 0)" style="width: 100px;">
                               </div>
                             </td>
                           <?php } ?>
@@ -413,12 +413,12 @@ $shift
 															<td><?= $menit_aktual[$i] ?></td> -->
                             <td>
                               <div id="start_section_<?= $i ?>">
-                                <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>_0" value="<?= date('H:i', strtotime(str_replace('.', ':', $jam_start[$i]))) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="start[]" id="start_<?= $i ?>_0" value="<?= date('H:i', strtotime(str_replace('.', ':', $jam_start[$i]))) ?>" onkeyup="hitung_menit_terpakai(<?= $i ?>, 0)" style="width: 100px;">
                               </div>
                             </td>
                             <td>
                               <div id="stop_section_<?= $i ?>">
-                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>_0" value="<?= date('H:i', strtotime(str_replace('.', ':', $jam_end[$i]))) ?>" style="width: 100px;">
+                                <input type="time" class="form-control" name="stop[]" id="stop_<?= $i ?>_0" value="<?= date('H:i', strtotime(str_replace('.', ':', $jam_end[$i]))) ?>" onkeyup="hitung_menit_terpakai(<?= $i ?>, 0)" style="width: 100px;">
                               </div>
                             </td>
                             <td>
@@ -1289,8 +1289,8 @@ $shift
     lastRow.classList.add('row_' + i);
 		lastRow.innerHTML = `
       <td><button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(this, ${i})">Remove</button></td>
-      <td><input type="time" class="form-control" name="start[]" id="start_${i}_${batchNumber}" value="${jam_stop}" style="width: 100px;"></td>
-      <td><input type="time" class="form-control" name="stop[]" id="stop_${i}_${batchNumber}" value="${jam_start}" style="width: 100px;"></td>
+      <td><input type="time" class="form-control" name="start[]" id="start_${i}_${batchNumber}" value="${jam_stop}" onkeyup="hitung_menit_terpakai(${i}, ${batchNumber})" style="width: 100px;"></td>
+      <td><input type="time" class="form-control" name="stop[]" id="stop_${i}_${batchNumber}" value="${jam_start}" onkeyup="hitung_menit_terpakai(${i}, ${batchNumber})" style="width: 100px;"></td>
       <td><input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${i}_${batchNumber}" onkeyup="update_jks(${i}, ${batchNumber})" value="" style="width: 100px"></td>
       <td>
           <select name="type_grid[]" id="type_grid_${i}_${batchNumber}" class="form-select select2 type_grid"
@@ -1321,6 +1321,17 @@ $shift
 		`;
 
 		$('.select2').select2();
+    let hours = jam_start.split(':')[0] - jam_stop.split(':')[0];
+    let minutes = jam_start.split(':')[1] - jam_stop.split(':')[1];
+    if(minutes < 0) {
+      hours--;
+      minutes = 60 + minutes;
+    }
+    if(hours < 0) {
+      hours = 24 + hours;
+    }
+    let menit_terpakai = hours * 60 + minutes;
+    $('#menit_terpakai_' + i + '_' + batchNumber).val(menit_terpakai);
   }
 
   // function add_rows_batch(i) {
@@ -1433,6 +1444,23 @@ $shift
     $('#jks_' + i + '_' + j).val(jks);
 
     presentase_actual(i, j);
+  }
+
+  function hitung_menit_terpakai(i, j) {
+    let start = $('#start_' + i + '_' + j).val();
+    let stop = $('#stop_' + i + '_' + j).val();
+
+    let hours = stop.split(':')[0] - start.split(':')[0];
+    let minutes = stop.split(':')[1] - start.split(':')[1];
+    if(minutes < 0) {
+      hours--;
+      minutes = 60 + minutes;
+    }
+    if(hours < 0) {
+      hours = 24 + hours;
+    }
+    let menit_terpakai = hours * 60 + minutes;
+    $('#menit_terpakai_' + i + '_' + j).val(menit_terpakai);
   }
 
   function time_start(i) {
