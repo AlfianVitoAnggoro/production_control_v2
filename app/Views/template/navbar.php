@@ -64,7 +64,7 @@
 								<li><a href="<?=base_url()?>cos"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>COS</a></li>
 							<?php } ?>
 							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
-								<li><a href="<?=base_url()?>timbangan-reject"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Laporan Timbangan Reject</a></li>
+								<li><a href="<?=base_url()?>timbangan_reject"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Laporan Timbangan Reject</a></li>
 							<?php } ?>
 						</ul>
 					</li>

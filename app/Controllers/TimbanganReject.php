@@ -67,8 +67,8 @@ class TimbanganReject extends BaseController
     $all_id_detail_lhp_timbangan_reject = $model->get_id_detail_lhp_timbangan_reject_by_id_lhp_timbangan_reject($id);
     $data_lhp_timbangan_reject = array(
       'tanggal' => $date,
-      'total_plate' => $total_plate,
-      'total_battery' => $total_battery,
+      'total_plate' => $total_plate == 'NaN' ? 0 : $total_plate,
+      'total_battery' => $total_battery == 'NaN' ? 0 : $total_battery,
     );
     // for ($i=1; $i <= 3; $i++) { 
     //   $data[] = $this->request->getPost('status_plate_' . $i);
