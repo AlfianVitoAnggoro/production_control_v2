@@ -198,24 +198,34 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-6" style="display:flex; margin-top:35px;">
-                                <div class="col-xl-3 col-md-6 col-12">
+                            <div class="col-6" style="display:flex; margin-top:40px;">
+                                <div class="col-4">
                                     <div id="year_to_date_chart" style="height:250px;"></div>
+                                    <div style="text-align: center;margin-top: 60px;">
+                                        <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav">Rejection</a>
+                                    </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4">
                                     <div id="target_chart" style="height:250px;"></div>
+                                    <div style="text-align: center;margin-top: 60px;">
+                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</button>
+                                    </div>
+
                                 </div>
                                 <!-- <div class="col-3">
                                     <div id="previous_month_chart" style="height:250px;"></div>
                                 </div> -->
-                                <div class="col-3">
+                                <div class="col-4">
                                     <div id="current_month_chart" style="height:250px;"></div>
+                                    <div style="text-align: center;margin-top: 60px;">
+                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
+                                        </div>
                                 </div>
-                                <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
-                                    <a href="<?=base_url()?>dashboard/reject" class="btn btn-danger btn-nav">Rejection</a>
-                                    <button class="btn btn-info btn-nav">Line Stop</button>
-                                    <button class="btn btn-success btn-nav">Overtime</button>
-                                </div>
+                                <!-- <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
+                                    <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-nav">Rejection</a>
+                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-nav">Line Stop</button>
+                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-nav">Overtime</button>
+                                </div> -->
                             </div>
                             <div class="col-4" style="text-align:center">
                                 <!-- <div class="row">
@@ -412,7 +422,7 @@
                     name: '1',
                     type: 'pie',
                     clockWise: false,
-                    radius: ['75%', '90%'],
+                    radius: ['63%', '90%'],
                     silent: true,
                     itemStyle: {
                         normal: {
@@ -468,7 +478,7 @@
                     name: '1',
                     type: 'pie',
                     clockWise: false,
-                    radius: ['75%', '90%'],
+                    radius: ['63%', '90%'],
                     silent: true,
                     itemStyle: {
                         normal: {
@@ -580,7 +590,7 @@
                     name: '1',
                     type: 'pie',
                     clockWise: false,
-                    radius: ['75%', '90%'],
+                    radius: ['63%', '90%'],
                     silent: true,
                     itemStyle: {
                         normal: {
@@ -593,7 +603,7 @@
                             value: <?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>,
                             name: 'Monday',
                             itemStyle: {
-                                color: 'cyan'
+                                color: 'orange'
                             }
                         },
                         {
@@ -762,7 +772,8 @@
             // backgroundColor: '#12213c',
             // backgroundColor: '#0c1a32',
             backgroundColor: 'transparent',
-            type: '<?=$type_chart?>'
+            type: '<?=$type_chart?>',
+            height: 440,
         },
 
         exporting: {
