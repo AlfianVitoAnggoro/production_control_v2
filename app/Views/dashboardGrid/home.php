@@ -27,7 +27,7 @@
             <h3>Realtime Performance</h3>
           </a>
         </div> -->
-        <div class="col-12">
+        <div class="col-6">
           <a href="<?= base_url() ?>dashboardGrid/grid" target="_blank">
             <!-- <img src="<?= base_url() ?>assets/images/icon-dashboard-produksi2/daily_report.jpg" alt="" style="width: 30%;"> -->
             <span class="fa-stack fa-lg fa-5x" style="color: #000000">
@@ -38,6 +38,19 @@
             <br>
             <br>
             <h3>Grid Casting</h3>
+          </a>
+        </div>
+        <div class="col-6">
+          <a href="<?= base_url() ?>dashboardPasting/pasting" target="_blank">
+            <!-- <img src="<?= base_url() ?>assets/images/icon-dashboard-produksi2/daily_report.jpg" alt="" style="width: 30%;"> -->
+            <span class="fa-stack fa-lg fa-5x" style="color: #000000">
+              <i class="fa fa-square-o fa-stack-2x"></i>
+              <i class="fa fa-clipboard fa-stack-1x" aria-hidden="true"></i>
+            </span>
+            <br>
+            <br>
+            <br>
+            <h3>Pasting</h3>
           </a>
         </div>
         <!-- <div class="col-4">

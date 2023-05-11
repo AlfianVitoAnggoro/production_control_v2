@@ -67,6 +67,12 @@ $routes->post('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
 $routes->post('/dashboardGrid/grid/get_data_line_stop', 'DashboardGrid::get_data_line_stop');
 $routes->post('/dashboardGrid/grid/download_pdf', 'DashboardGrid::download_pdf');
 
+//DASHBOARD EFF GRID
+// $routes->get('/dashboardPasting', 'DashboardPasting::index');
+$routes->get('/dashboardPasting/pasting', 'DashboardPasting::dashboard_lhp_pasting');
+$routes->post('/dashboardPasting/pasting', 'DashboardPasting::dashboard_lhp_pasting');
+$routes->post('/dashboardPasting/pasting/get_data_line_stop', 'DashboardPasting::get_data_line_stop');
+
 //MASTER CYCLE TIME
 $routes->group('cycle_time', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'CycleTime::index');
