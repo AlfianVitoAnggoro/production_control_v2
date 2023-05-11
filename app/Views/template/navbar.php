@@ -63,6 +63,9 @@
 							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
 								<li><a href="<?=base_url()?>cos"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>COS</a></li>
 							<?php } ?>
+							<?php if (session()->get('seksi') == 'envelope' OR session()->get('seksi') == 'plate_cutting' OR session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
+								<li><a href="<?=base_url()?>saw"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>SAW</a></li>
+							<?php } ?>
 						</ul>
 					</li>
 					<?php } ?>
