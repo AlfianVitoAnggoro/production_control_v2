@@ -211,7 +211,7 @@ $routes->group('saw_repair', ['filter' => 'auth'], function ($routes) {
     $routes->get('download', 'SawRepair::download');
 });
 
-//RAK MANAGEMNE
+//RAK MANAGEMENT
 $routes->group('rak_management', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'RakManagement::index');
     $routes->get('detail_rak_management/(:segment)', 'RakManagement::detail_rak_management/$1');

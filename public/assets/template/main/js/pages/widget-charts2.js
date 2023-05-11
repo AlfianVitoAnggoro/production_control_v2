@@ -178,9 +178,9 @@ $( document ).ready(function() {
 		var ctx7 = document.getElementById("doughnut-chart").getContext("2d");
 		var data7 = {
 			 labels: [
-			"lab 1",
-			"lab 2",
-			"lab 3"
+			"Rak Tersedia",
+			"Rak Terisi",
+			"Rak Kosong"
 		],
 		datasets: [
 			{
