@@ -86,10 +86,12 @@ class SawRepair extends BaseController
     $data_old_saw_repair_saw = [];
     $data_new_saw_repair_potong = [];
     $data_old_saw_repair_potong = [];
-    $cek = $this->saw_repairModel->where('date', $date)->where('shift', $shift)->findAll();
-    if(count($cek) > 0) {
-      $id = $cek[0]['id'];
-      return redirect()->to(base_url('saw_repair/add_saw_repair/' . $id));
+    if($id === NULL) {
+      $cek = $this->saw_repairModel->where('date', $date)->where('shift', $shift)->findAll();
+      if(count($cek) > 0) {
+        $id = $cek[0]['id'];
+        return redirect()->to(base_url('saw_repair/add_saw_repair/' . $id));
+      }
     }
     if ($id === NULL) {
       $data_saw_repair[] = array(

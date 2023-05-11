@@ -13,7 +13,7 @@
                             <h4>Detail Saw Repair</h4>
                         </div>
                         <div class="box-body">
-                            <form action="/saw_repair/save" method="post">
+                            <form action="<?= base_url() ?>saw_repair/save" method="post">
                                 <div class="row">
                                     <input type="hidden" name="id_saw_repair" value="<?= $saw_repair['id']; ?>">
                                     <div class="col">
