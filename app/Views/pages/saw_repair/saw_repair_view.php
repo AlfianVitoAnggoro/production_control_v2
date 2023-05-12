@@ -25,7 +25,7 @@
                                                     <th colspan="7"></th>
                                                 </tr>
                                                 <tr>
-                                                    <th>No</th>
+                                                    <!-- <th>No</th> -->
                                                     <th>Date</th>
                                                     <th>Shift</th>
                                                     <th>Aksi</th>
@@ -37,7 +37,7 @@
                                                 ?>
                                                 <?php foreach ($saw_repair as $sr) : ?>
                                                     <tr>
-                                                        <th><?= $number ?></th>
+                                                        <!-- <th><?= $number ?></th> -->
                                                         <td><?= $sr['date'] ?></td>
                                                         <td><?= $sr['shift'] ?></td>
                                                         <td>
@@ -111,7 +111,9 @@
 <?= $this->section('script'); ?>
 <script>
     $(document).ready(function() {
-        $('#example5').DataTable();
+        $('#example5').DataTable({
+            "order":[]
+        });
     });
 </script>
 <?= $this->endSection(); ?>

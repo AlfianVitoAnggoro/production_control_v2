@@ -32,7 +32,7 @@ class SawRepair extends BaseController
     $type_battery = $this->type_batteryModel->findAll();
     $dates = array_column($saw_repair, "date");
     $shift = array_column($saw_repair, "shift");
-    array_multisort($dates, SORT_ASC, $shift, SORT_ASC,  $saw_repair);
+    array_multisort($dates, SORT_DESC, $shift, SORT_ASC,  $saw_repair);
     $status = $session->get('level');
     $data = [
       'saw_repair' => $saw_repair,
