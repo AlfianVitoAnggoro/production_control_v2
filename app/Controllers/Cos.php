@@ -167,11 +167,20 @@ class Cos extends BaseController
   public function download()
   {
     $date = $this->request->getPost('date');
+    $start_date = $this->request->getPost('start_date');
+    $end_date = $this->request->getPost('end_date');
     $model = new M_Cos();
-    $data_cos = $model->get_all_lhp_cos_by_month($date);
+    $data_cos = $model->get_all_lhp_cos_by_date($start_date, $end_date);
+    // $data_cos = $model->get_all_lhp_cos_by_month($date);
+    $data_detail_lhp_cos = [];
     if($data_cos !== NULL) {
         foreach ($data_cos as $dc) {
-          $data_detail_lhp_cos[] = $model->get_all_detail_lhp_cos_by_id_lhp_cos($dc['id_lhp_cos']);
+          $temp = $model->get_all_detail_lhp_cos_by_id_lhp_cos($dc['id_lhp_cos']);
+          if($temp !== NULL) {
+            foreach ($temp as $t) {
+              array_push($data_detail_lhp_cos, $t);
+            }
+          }
         }
         $dates = array_column($data_cos, "tanggal_produksi");
         $lines = array_column($data_cos, "line");
@@ -184,21 +193,22 @@ class Cos extends BaseController
     // Menambahkan data ke worksheet
     $sheet = $spreadsheet->getActiveSheet();
     $data = array(
-        array('Date', 'Shift', 'Line', 'Team', 'NO WO', 'Type Battery', 'Hasil', 'Tersangkut', 'Strap Dross', 'Lug Lepas', 'Strap Tipis', 'Dross 1', 'Dross 2', 'Dross 3'),
+        array('Date', 'Shift', 'Line', 'Team', 'NO WO', 'Type Battery', 'Hasil', 'Tersangkut', 'Terbakar', 'Lug Lepas', 'Strap Tipis', 'Dross 1', 'Dross 2', 'Dross 3', 'Timbangan Strap 1', 'Timbangan Strap 2', 'Timbangan Strap 3'),
     );
     $isExist = [];
     if($data_cos !== NULL) {
         foreach ($data_cos as $dc) {
             foreach ($data_detail_lhp_cos as $ddlc) {
-                if($ddlc !== NULL) {
-                  foreach ($ddlc as $dlc) {
-                    // if ($dc['id_lhp_cos'] === $dlc['id_lhp_cos']) {
-                        $data[] = array($dc['tanggal_produksi'], $dc['shift'], $dc['line'], $dc['team'], $dlc['no_wo'], $dlc['type_battery'], $dlc['hasil'], $dlc['tersangkut'], $dlc['terbakar'], $dlc['lug_lepas'], $dlc['strap_tipis'], $dlc['dross_1'], $dlc['dross_2'], $dlc['dross_3']);
-                    // };
-                  }
-                } else {
-                    $data[] = array($dc['tanggal_produksi'], $dc['shift'], $dc['line'], $dc['team']);
-                }
+              // if($ddlc !== NULL) {
+                  // foreach ($ddlc as $dlc) {
+                    if ($dc['id_lhp_cos'] === $ddlc['id_lhp_cos']) {
+                        $data[] = array($dc['tanggal_produksi'], $dc['shift'], $dc['line'], $dc['team'], $ddlc['no_wo'], $ddlc['type_battery'], $ddlc['hasil'], $ddlc['tersangkut'], $ddlc['terbakar'], $ddlc['lug_lepas'], $ddlc['strap_tipis'], $ddlc['dross_1'], $ddlc['dross_2'], $ddlc['dross_3'], $ddlc['timbangan_strap_1'], $ddlc['timbangan_strap_2'], $ddlc['timbangan_strap_3']);
+                    };
+                  // }
+                // }
+                // else {
+                //     $data[] = array($dc['tanggal_produksi'], $dc['shift'], $dc['line'], $dc['team']);
+                // }
             }
         }
     }

@@ -642,12 +642,15 @@ class Home extends BaseController
 
     public function download()
     {
-        $date = $this->request->getPost('date');
-        $month = date('F_Y', strtotime($date));
+        // $date = $this->request->getPost('date');
+        $start_date = $this->request->getPost('start_date');
+        $end_date = $this->request->getPost('end_date');
+        // $month = date('F_Y', strtotime($date));
         $model = new M_Data();
 
         //data sheet lhp
-        $data_lhp = $model->get_all_lhp_by_month($date);
+        $data_lhp = $model->get_all_lhp_by_date($start_date, $end_date);
+        // $data_lhp = $model->get_all_lhp_by_month($date);
         if($data_lhp !== NULL) {
             $dates = array_column($data_lhp, "tanggal_produksi");
             $lines = array_column($data_lhp, "line");
@@ -760,7 +763,7 @@ class Home extends BaseController
 
         // Mengatur header respons HTTP
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="data_lhp_assy_' . $month . '.xlsx"');
+        header('Content-Disposition: attachment;filename="Data LHP ASSY.xlsx"');
         header('Cache-Control: max-age=0');
 
         ob_end_clean();

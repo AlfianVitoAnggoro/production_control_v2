@@ -173,16 +173,39 @@ class M_Data extends Model
         return $query->getResultArray();
     }
 
-    public function get_all_lhp_by_month($bulan)
+    // public function get_all_lhp_by_month($bulan)
+    // {
+    //     // $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup ORDER BY tanggal_produksi DESC');
+    //     $month = idate('m', strtotime($bulan));
+    //     $year = idate('Y', strtotime($bulan));
+    //     $builder = $this->db->table('lhp_produksi2');
+    //     $builder->select('lhp_produksi2.*, master_pic_line.nama_pic');
+    //     $builder->join('master_pic_line', 'master_pic_line.id_pic = lhp_produksi2.grup');
+    //     $builder->where('MONTH(tanggal_produksi)', $month);
+    //     $builder->where('YEAR(tanggal_produksi)', $year);
+    //     // if ($this->session->get('line') != NULL) {
+    //     //     $builder->where('line', $this->session->get('line'));
+    //     // }
+        
+    //     // $builder->orderBy('tanggal_produksi', 'DESC');
+
+    //     $query = $builder->get();
+
+    //     if(count($query->getResultArray()) > 0) {
+    //         return $query->getResultArray();
+    //     } else {
+    //         return;
+    //     }
+    // }
+
+    public function get_all_lhp_by_date($start_date, $end_date)
     {
         // $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup ORDER BY tanggal_produksi DESC');
-        $month = idate('m', strtotime($bulan));
-        $year = idate('Y', strtotime($bulan));
         $builder = $this->db->table('lhp_produksi2');
         $builder->select('lhp_produksi2.*, master_pic_line.nama_pic');
         $builder->join('master_pic_line', 'master_pic_line.id_pic = lhp_produksi2.grup');
-        $builder->where('MONTH(tanggal_produksi)', $month);
-        $builder->where('YEAR(tanggal_produksi)', $year);
+        $builder->where('tanggal_produksi >= ', $start_date);
+        $builder->where('tanggal_produksi <= ', $end_date);
         // if ($this->session->get('line') != NULL) {
         //     $builder->where('line', $this->session->get('line'));
         // }
