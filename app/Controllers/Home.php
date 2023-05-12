@@ -472,7 +472,8 @@ class Home extends BaseController
             'grup' => $this->request->getPost('grup'),
             'mp' => $this->request->getPost('mp'),
             'absen' => $this->request->getPost('absen'),
-            'cuti' => $this->request->getPost('cuti')
+            'cuti' => $this->request->getPost('cuti'),
+            'kasubsie' => $this->request->getPost('kasubsie')
         ];
 
         // var_dump($data_lhp);
@@ -487,6 +488,14 @@ class Home extends BaseController
         $total_line_stop = 0;
         $total_detail_line_stop = 0;
         $total_reject = 0;
+
+        if ( $this->request->getPost('shift') == 1) {
+            $loading_time = 440;
+        } elseif ( $this->request->getPost('shift') == 2) {
+            $loading_time = 410;
+        } elseif ( $this->request->getPost('shift') == 3) {
+            $loading_time = 370;
+        }
 
         if ($update_data > 0) {
             if (!empty($this->request->getPost('no_wo'))) {
@@ -589,7 +598,8 @@ class Home extends BaseController
             'total_plan' => $total_plan,
             'total_aktual' => $total_actual,
             'total_line_stop' => $total_line_stop,
-            'total_reject' => $total_reject
+            'total_reject' => $total_reject,
+            'loading_time' => $loading_time
         ];
 
         $model->update_lhp($id_lhp, $data_detail);
