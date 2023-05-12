@@ -26,13 +26,10 @@
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="7"></th>
-                                                </tr>
-                                                <tr>
-                                                    <th>No</th>
+                                                    <!-- <th>No</th> -->
                                                     <th>Date</th>
-                                                    <th>Line</th>
                                                     <th>Shift</th>
+                                                    <th>Line</th>
                                                     <th>Team</th>
                                                     <th>Status</th>
                                                     <th>Aksi</th>
@@ -50,10 +47,10 @@
                                                         $isExist[$pc['id']] = $pc['id'];
                                                     ?>
                                                         <tr>
-                                                            <th><?= $number ?></th>
+                                                            <!-- <th><?= $number ?></th> -->
                                                             <td><?= $pc['date'] ?></td>
-                                                            <td><?= $pc['line'] ?></td>
                                                             <td><?= $pc['shift'] ?></td>
+                                                            <td><?= $pc['line'] ?></td>
                                                             <td><?= $pc['team'] ?></td>
                                                             <td>
                                                                 <div>
@@ -90,6 +87,17 @@
                                                     <?php endif ?>
                                                 <?php endforeach ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <!-- <th>No</th> -->
+                                                    <th>Date</th>
+                                                    <th>Shift</th>
+                                                    <th>Line</th>
+                                                    <th>Team</th>
+                                                    <th>Status</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
@@ -212,7 +220,31 @@
 <?= $this->section('script'); ?>
 <script>
     $(document).ready(function() {
-        $('#example5').DataTable();
+        $('#example5').DataTable({
+            "order":[],
+            initComplete: function () {
+				this.api()
+					.columns()
+					.every(function () {
+						var column = this;
+						var select = $('<select class="form-select"><option value=""></option></select>')
+							.appendTo($(column.footer()).empty())
+							.on('change', function () {
+								var val = $.fn.dataTable.util.escapeRegex($(this).val());
+	
+								column.search(val ? '^' + val + '$' : '', true, false).draw();
+							});
+	
+						column
+							.data()
+							.unique()
+							.sort()
+							.each(function (d, j) {
+								select.append('<option value="' + d + '">' + d + '</option>');
+							});
+					});
+			},
+        });
     });
 </script>
 <?= $this->endSection(); ?>

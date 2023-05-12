@@ -26,10 +26,10 @@
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>No</th>
+                                                    <!-- <th>No</th> -->
                                                     <th style="width: 150px;">Date</th>
-                                                    <th>Line</th>
                                                     <th>Shift</th>
+                                                    <th>Line</th>
                                                     <th>Team</th>
                                                     <th>Status</th>
                                                     <th>Aksi</th>
@@ -47,10 +47,10 @@
                                                         $number++;
                                                     ?>
                                                         <tr>
-                                                            <th><?= $number ?></th>
-                                                            <td style="width: 150px;"><?= $envl['date'] ?></td>
-                                                            <td><?= $envl['line'] ?></td>
+                                                            <!-- <th><?= $number ?></th> -->
+                                                            <td style="width: 150px;"><?= date('Y-m-d', strtotime($envl['date'])) ?></td>
                                                             <td><?= $envl['shift'] ?></td>
+                                                            <td><?= $envl['line'] ?></td>
                                                             <td><?= $envl['team'] ?></td>
                                                             <td>
                                                                 <div>
@@ -92,8 +92,8 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Date</th>
-                                                    <th>Line</th>
                                                     <th>Shift</th>
+                                                    <th>Line</th>
                                                     <th>Team</th>
                                                     <th>Status</th>
                                                     <th>Aksi</th>
