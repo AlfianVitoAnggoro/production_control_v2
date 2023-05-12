@@ -322,7 +322,7 @@
     //   original = berat_limbah - berat_can;
     // }
     $('#original_plate_' + i).val(original);
-    let total_plate = parseFloat($('#original_plate_1').val()) + parseFloat($('#original_plate_2').val()) + parseFloat($('#original_plate_3').val());
+    let total_plate = parseFloat($('#original_plate_1').val() == '' ? 0 : $('#original_plate_1').val()) + parseFloat($('#original_plate_2').val() == '' ? 0 : $('#original_plate_2').val()) + parseFloat($('#original_plate_3').val() == '' ? 0 : $('#original_plate_3').val());
     $('#total_plate').val(total_plate);
     return value_status_plate[i];
   }
@@ -413,7 +413,7 @@
     //   original = berat_limbah - berat_can;
     // }
     $('#original_battery_' + i).val(original);
-    let total_battery = parseFloat($('#original_battery_1').val()) + parseFloat($('#original_battery_2').val()) + parseFloat($('#original_battery_3').val());
+    let total_battery = parseFloat($('#original_battery_1').val() == '' ? 0 : $('#original_battery_1').val()) + parseFloat($('#original_battery_2').val() == '' ? 0 : $('#original_battery_2').val()) + parseFloat($('#original_battery_3').val() == '' ? 0 : $('#original_battery_3').val());
     $('#total_battery').val(total_battery);
     return value_status_battery[i];
   }
@@ -469,7 +469,7 @@
       }
     }
     $('#original_battery_' + i).val(original);
-    let total_battery = parseFloat($('#original_battery_1').val()) + parseFloat($('#original_battery_2').val()) + parseFloat($('#original_battery_3').val());
+    let total_battery = parseFloat($('#original_battery_1').val() == '' ? 0 : $('#original_battery_1').val()) + parseFloat($('#original_battery_2').val() == '' ? 0 : $('#original_battery_2').val()) + parseFloat($('#original_battery_3').val() == '' ? 0 : $('#original_battery_3').val());
     $('#total_battery').val(total_battery);
   }
 
@@ -524,7 +524,7 @@
       }
     }
     $('#original_plate_' + i).val(original);
-    let total_plate = parseFloat($('#original_plate_1').val()) + parseFloat($('#original_plate_2').val()) + parseFloat($('#original_plate_3').val());
+    let total_plate = parseFloat($('#original_plate_1').val() == '' ? 0 : $('#original_plate_1').val()) + parseFloat($('#original_plate_2').val() == '' ? 0 : $('#original_plate_2').val()) + parseFloat($('#original_plate_3').val() == '' ? 0 : $('#original_plate_3').val());
     $('#total_plate').val(total_plate);
   }
 </script>
