@@ -244,6 +244,18 @@ $routes->group('timbangan_reject', ['filter' => 'auth'], function ($routes) {
     $routes->post('download', 'TimbanganReject::download');
 });
 
+//saw
+$routes->group('saw', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Saw::saw_view');
+    $routes->get('add_saw/(:segment)', 'Saw::add_saw/$1');
+    $routes->post('save', 'Saw::save');
+    $routes->get('detail_saw/(:segment)', 'Saw::detail_saw/$1');
+    $routes->post('detail_saw/edit', 'Saw::edit');
+    $routes->post('detail_saw/delete', 'Saw::delete_saw');
+    $routes->post('download', 'Saw::download');
+    $routes->post('getPartNo', 'Saw::getPartNo');
+});
+
 // $routes->get('/lhp/test', 'Home::test');
 
 /*
