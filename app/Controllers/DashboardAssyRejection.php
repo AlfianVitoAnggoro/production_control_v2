@@ -270,7 +270,7 @@ class DashboardAssyRejection extends BaseController
                         foreach ($data_jenis_reject_by_date_persentase as $d_jenis_reject_by_date) {
                             $data_reject = [
                                 'name' => $d_jenis_reject_by_date['jenis_reject'],
-                                'data' => (float) number_format( ((int) $d_jenis_reject_by_date['qty'] / (int) $data_reject_per_line_by_date[0]['total_aktual']) * 100, 2, '.', '')
+                                'data' => ($data_reject_per_line_by_date[0]['total_aktual'] == 0) ? 0 : (float) number_format( ((int) $d_jenis_reject_by_date['qty'] / ((int) $data_reject_per_line_by_date[0]['total_aktual'])) * 100, 2, '.', '')
                             ];
                             
                             $data['data_reject_by_date_persentase'][] = $data_reject;
