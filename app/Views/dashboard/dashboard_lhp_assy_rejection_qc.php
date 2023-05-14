@@ -110,7 +110,7 @@
             <div style="margin-left:-250px; text-align:center; margin-top:-5px;">
                 <h1 class="judul_dashboard">REJECTION DASHBOARD</h1>
                 <!-- <br> -->
-                <span class="sub_judul_dashboard">PRODUCTION 2</span>
+                <!-- <span class="sub_judul_dashboard">PRODUCTION 2</span> -->
             </div>
 
             <div class="navbar-custom-menu r-side">
@@ -276,7 +276,7 @@
                 <div class="box bg-transparent">
                     <div class="box-body" style="display:flex">
                         <div class="col-2">
-                            <form action="<?=base_url()?>dashboard/reject" method="POST">
+                            <form action="<?=base_url()?>dashboard/reject_qc" method="POST">
                                 <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px; display:none;">
                                     <option value="1">Rejection</option>
                                     <option value="2">Unit / MH</option>
@@ -1140,7 +1140,7 @@
                                                 yAxis: {
                                                     min: 0,
                                                     title: {
-                                                        text: 'Pcs'
+                                                        text: '%'
                                                     }
                                                 },
                                                 plotOptions: {
@@ -1210,7 +1210,7 @@
                                                                                 yAxis: {
                                                                                     min: 0,
                                                                                     title: {
-                                                                                        text: 'Pcs'
+                                                                                        text: '%'
                                                                                     }
                                                                                 },
                                                                                 plotOptions: {
@@ -1283,7 +1283,7 @@
                                                                                 yAxis: {
                                                                                     min: 0,
                                                                                     title: {
-                                                                                        text: 'Pcs'
+                                                                                        text: '%'
                                                                                     }
                                                                                 },
                                                                                 plotOptions: {
