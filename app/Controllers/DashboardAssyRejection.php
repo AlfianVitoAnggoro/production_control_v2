@@ -296,6 +296,9 @@ class DashboardAssyRejection extends BaseController
         $jenis_reject = $this->request->getPost('jenis_reject');
         $date = $this->request->getPost('date');
         $line = $this->request->getPost('line');
+        $type_battery = $this->request->getPost('type_battery');
+        $grup = $this->request->getPost('grup');
+        $shift = $this->request->getPost('shift');
 
         $data['total_aktual_by_month'] = $this->M_DashboardAssyRejection->get_total_aktual_by_month(idate('m',strtotime($date)), $line);
         $data['total_aktual_by_date'] = $this->M_DashboardAssyRejection->get_total_aktual_by_date($date, $line);
@@ -306,6 +309,14 @@ class DashboardAssyRejection extends BaseController
         $data['data_reject_by_jenis_reject'] = $this->M_DashboardAssyRejection->get_detail_rejection_by_jenis($jenis_reject, $date, $line);
         $data['data_reject_by_type_battery'] = $this->M_DashboardAssyRejection->get_detail_rejection_by_type_battery($jenis_reject, $date, $line);
         $data['data_reject_by_grup'] = $this->M_DashboardAssyRejection->get_detail_rejection_by_grup($jenis_reject, $date, $line);
+
+        $data['data_jenis_reject_by_type_battery'] = $this->M_DashboardAssyRejection->get_jenis_reject_by_type_battery($type_battery, $date, $line);
+        $data['data_kategori_reject_by_type_battery'] = $this->M_DashboardAssyRejection->get_kategori_reject_by_type_battery($type_battery, $date, $line);
+        $data['data_grup_reject_by_type_battery'] = $this->M_DashboardAssyRejection->get_grup_reject_by_type_battery($type_battery, $date, $line);
+
+        $data['data_jenis_reject_by_grup_shift'] = $this->M_DashboardAssyRejection->get_jenis_reject_by_grup_shift($grup, $shift, $date, $line);
+        $data['data_kategori_reject_by_grup_shift'] = $this->M_DashboardAssyRejection->get_kategori_reject_by_grup_shift($grup, $shift, $date, $line);
+        $data['data_battery_reject_by_grup_shift'] = $this->M_DashboardAssyRejection->get_battery_reject_by_grup_shift($grup, $shift, $date, $line);
 
         $data['data_all_detail_kategori_rejection_by_date'] = $this->M_DashboardAssyRejection->get_all_detail_kategori_rejection_by_date($date, $line);
         $data['data_all_detail_battery_rejection_by_date'] = $this->M_DashboardAssyRejection->get_all_detail_battery_rejection_by_date($date, $line);
@@ -574,7 +585,7 @@ class DashboardAssyRejection extends BaseController
                         foreach ($data_jenis_reject_by_date_persentase as $d_jenis_reject_by_date) {
                             $data_reject = [
                                 'name' => $d_jenis_reject_by_date['jenis_reject'],
-                                'data' => (float) number_format( ((int) $d_jenis_reject_by_date['qty'] / (int) $data_reject_per_line_by_date[0]['total_aktual']) * 100, 2, '.', '')
+                                'data' => ($data_reject_per_line_by_date[0]['total_aktual'] == 0) ? 0 : (float) number_format( ((int) $d_jenis_reject_by_date['qty'] / (int) $data_reject_per_line_by_date[0]['total_aktual']) * 100, 2, '.', '')
                             ];
                             
                             $data['data_reject_by_date_persentase'][] = $data_reject;

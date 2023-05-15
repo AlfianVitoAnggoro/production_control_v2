@@ -257,6 +257,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div id="sub_detail_pareto_jenis_reject"></div>
                 <div id="sub_detail_pareto_kategori_reject"></div>
                 <div id="sub_detail_pareto_type_battery"></div>
                 <div id="sub_detail_pareto_grup_shift"></div>
@@ -762,7 +763,7 @@
                                             yAxis: {
                                                 min: 0,
                                                 title: {
-                                                    text: 'Pcs'
+                                                    text: '%'
                                                 }
                                             },
                                             plotOptions: {
@@ -832,7 +833,7 @@
                                                                             yAxis: {
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: '%'
                                                                                 }
                                                                             },
                                                                             plotOptions: {
@@ -905,7 +906,7 @@
                                                                             yAxis: {
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: '%'
                                                                                 }
                                                                             },
                                                                             plotOptions: {
@@ -973,7 +974,7 @@
                                                                             yAxis: {
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: '%'
                                                                                 }
                                                                             },
                                                                             plotOptions: {
@@ -1058,7 +1059,7 @@
                                             yAxis: {
                                                 min: 0,
                                                 title: {
-                                                    text: 'Pcs'
+                                                    text: '%'
                                                 }
                                             },
                                             plotOptions: {
@@ -1126,7 +1127,7 @@
                                             yAxis: {
                                                 min: 0,
                                                 title: {
-                                                    text: 'Pcs'
+                                                    text: '%'
                                                 }
                                             },
                                             plotOptions: {
@@ -1141,6 +1142,236 @@
                                                             fontSize: 14
                                                         },
                                                     },
+                                                    events : {
+                                                        click: function(event) {
+                                                            var type_battery = event.point.category;
+
+                                                            $.ajax({
+                                                                url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                                                type: "POST",
+                                                                data: {
+                                                                    date: date,
+                                                                    line: line,
+                                                                    type_battery: type_battery
+                                                                },
+                                                                dataType: "json",
+                                                                success: function(data) {
+                                                                    console.log(data);
+                                                                    var data_jenis_reject_by_type_battery = data['data_jenis_reject_by_type_battery'];
+                                                                    var i;
+                                                                    var arr_jenis_reject_battery = [];
+                                                                    var arr_qty_jenis_reject_battery = [];
+                                                                    for (i = 0; i < data_jenis_reject_by_type_battery.length; i++) {
+                                                                        arr_jenis_reject_battery.push(data_jenis_reject_by_type_battery[i].jenis_reject);
+                                                                        arr_qty_jenis_reject_battery.push(parseFloat(((data_jenis_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    }
+
+                                                                    $('#sub_detail_pareto_jenis_reject').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_jenis_reject"></div>
+                                                                                                                </figure>`
+                                                                                                            );
+                                                                    Highcharts.chart('chart_detail_pareto_jenis_reject', {
+                                                                        chart: {
+                                                                                backgroundColor: 'transparent',
+                                                                                type: 'column'
+                                                                            },
+                                                                            exporting: {
+                                                                                enabled: false
+                                                                            },
+                                                                            title: {
+                                                                                text: 'Detail Rejection',
+                                                                                style: {
+                                                                                    color: '#ffffff',
+                                                                                    fontSize: '20px'
+                                                                                }
+                                                                            },
+                                                                            xAxis: {
+                                                                                categories: arr_jenis_reject_battery,
+                                                                                crosshair: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            yAxis: {
+                                                                                min: 0,
+                                                                                title: {
+                                                                                    text: '%'
+                                                                                }
+                                                                            },
+                                                                            plotOptions: {
+                                                                                column: {
+                                                                                    pointPadding: 0.2,
+                                                                                    borderWidth: 0,
+                                                                                    dataLabels: {
+                                                                                        enabled: true,
+                                                                                        style: {
+                                                                                            color: '#ffffff',
+                                                                                            textOutline: 0,
+                                                                                            fontSize: 14
+                                                                                        },
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            legend: {
+                                                                                enabled: false
+                                                                            },
+                                                                            series: [{
+                                                                                name: 'Total',
+                                                                                data: arr_qty_jenis_reject_battery,
+                                                                                color:'yellow',
+
+                                                                            }]
+                                                                    });
+
+                                                                    var data_kategori_reject_by_type_battery = data['data_kategori_reject_by_type_battery'];
+                                                                    var i;
+                                                                    var arr_kategori_reject_battery = [];
+                                                                    var arr_qty_kategori_reject_battery = [];
+                                                                    for (i = 0; i < data_kategori_reject_by_type_battery.length; i++) {
+                                                                        arr_kategori_reject_battery.push(data_kategori_reject_by_type_battery[i].kategori_reject);
+                                                                        arr_qty_kategori_reject_battery.push(parseFloat(((data_kategori_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    }
+
+                                                                    $('#sub_detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_kategori_reject"></div>
+                                                                                                                </figure>`
+                                                                                                            );
+                                                                    Highcharts.chart('chart_detail_pareto_kategori_reject', {
+                                                                        chart: {
+                                                                                backgroundColor: 'transparent',
+                                                                                type: 'column'
+                                                                            },
+                                                                            exporting: {
+                                                                                enabled: false
+                                                                            },
+                                                                            title: {
+                                                                                text: 'Detail Kategori Rejection',
+                                                                                style: {
+                                                                                    color: '#ffffff',
+                                                                                    fontSize: '20px'
+                                                                                }
+                                                                            },
+                                                                            xAxis: {
+                                                                                categories: arr_kategori_reject_battery,
+                                                                                crosshair: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            yAxis: {
+                                                                                min: 0,
+                                                                                title: {
+                                                                                    text: '%'
+                                                                                }
+                                                                            },
+                                                                            plotOptions: {
+                                                                                column: {
+                                                                                    pointPadding: 0.2,
+                                                                                    borderWidth: 0,
+                                                                                    dataLabels: {
+                                                                                        enabled: true,
+                                                                                        style: {
+                                                                                            color: '#ffffff',
+                                                                                            textOutline: 0,
+                                                                                            fontSize: 14
+                                                                                        },
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            legend: {
+                                                                                enabled: false
+                                                                            },
+                                                                            series: [{
+                                                                                name: 'Total',
+                                                                                data: arr_qty_kategori_reject_battery,
+                                                                                color:'yellow',
+
+                                                                            }]
+                                                                    });
+
+                                                                    
+
+                                                                    $('#sub_detail_pareto_type_battery').html(``);
+
+                                                                    var data_grup_reject_by_type_battery = data['data_grup_reject_by_type_battery'];
+                                                                    var i;
+                                                                    var arr_grup_reject_battery = [];
+                                                                    var arr_qty_grup_reject_battery = [];
+                                                                    for (i = 0; i < data_grup_reject_by_type_battery.length; i++) {
+                                                                        arr_grup_reject_battery.push(data_grup_reject_by_type_battery[i].nama_pic+' ('+data_grup_reject_by_type_battery[i].shift+')');
+                                                                        arr_qty_grup_reject_battery.push(parseFloat(((data_grup_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    }
+
+                                                                    $('#sub_detail_pareto_grup_shift').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_grup_reject"></div>
+                                                                                                                </figure>`
+                                                                                                            );
+                                                                    Highcharts.chart('chart_detail_pareto_grup_reject', {
+                                                                        chart: {
+                                                                                backgroundColor: 'transparent',
+                                                                                type: 'column'
+                                                                            },
+                                                                            exporting: {
+                                                                                enabled: false
+                                                                            },
+                                                                            title: {
+                                                                                text: 'Detail Grup Shift Rejection',
+                                                                                style: {
+                                                                                    color: '#ffffff',
+                                                                                    fontSize: '20px'
+                                                                                }
+                                                                            },
+                                                                            xAxis: {
+                                                                                categories: arr_grup_reject_battery,
+                                                                                crosshair: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            yAxis: {
+                                                                                min: 0,
+                                                                                title: {
+                                                                                    text: '%'
+                                                                                }
+                                                                            },
+                                                                            plotOptions: {
+                                                                                column: {
+                                                                                    pointPadding: 0.2,
+                                                                                    borderWidth: 0,
+                                                                                    dataLabels: {
+                                                                                        enabled: true,
+                                                                                        style: {
+                                                                                            color: '#ffffff',
+                                                                                            textOutline: 0,
+                                                                                            fontSize: 14
+                                                                                        },
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            legend: {
+                                                                                enabled: false
+                                                                            },
+                                                                            series: [{
+                                                                                name: 'Total',
+                                                                                data: arr_qty_grup_reject_battery,
+                                                                                color:'yellow',
+
+                                                                            }]
+                                                                    });
+
+                                                                    
+                                                                    $('#sub_modal').modal('show');
+                                                                }
+                                                            })
+                                                        }
+                                                    }
+
                                                 }
                                             },
                                             legend: {
@@ -1194,7 +1425,7 @@
                                             yAxis: {
                                                 min: 0,
                                                 title: {
-                                                    text: 'Pcs'
+                                                    text: '%'
                                                 }
                                             },
                                             plotOptions: {
@@ -1209,6 +1440,260 @@
                                                             fontSize: 14
                                                         },
                                                     },
+                                                    events : {
+                                                        click: function(event) {
+                                                            var group = event.point.category;
+                                                            var regex = /^(.*?)\s*\((\d+)\)$/;
+                                                            var matches = group.match(regex);
+
+                                                            if (matches) {
+                                                                var name = matches[1].trim();
+                                                                var shift = matches[2];
+                                                            } else {
+                                                                console.log('Invalid format');
+                                                            }
+
+                                                            $.ajax({
+                                                                url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                                                type: "POST",
+                                                                data: {
+                                                                    date: date,
+                                                                    line: line,
+                                                                    grup: name,
+                                                                    shift: shift
+                                                                },
+                                                                dataType: "json",
+                                                                success: function(data) {
+                                                                    console.log(data);
+                                                                    var data_detail_reject_by_grup = data['data_jenis_reject_by_grup_shift'];
+                                                                    var i;
+                                                                    var arr_jenis_reject = [];
+                                                                    var arr_qty_jenis_reject = [];
+                                                                    for (i = 0; i < data_detail_reject_by_grup.length; i++) {
+                                                                        arr_jenis_reject.push(data_detail_reject_by_grup[i].jenis_reject);
+                                                                        arr_qty_jenis_reject.push(parseFloat(((data_detail_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                        
+                                                                    }
+
+                                                                    $('#sub_detail_pareto_jenis_reject').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_jenis_reject"></div>
+                                                                                                                </figure>`
+                                                                                                            );
+                                                                    Highcharts.chart('chart_detail_pareto_jenis_reject', {
+                                                                        chart: {
+                                                                                backgroundColor: 'transparent',
+                                                                                type: 'column'
+                                                                            },
+                                                                            exporting: {
+                                                                                enabled: false
+                                                                            },
+                                                                            title: {
+                                                                                text: 'Detail Rejection',
+                                                                                style: {
+                                                                                    color: '#ffffff',
+                                                                                    fontSize: '20px'
+                                                                                }
+                                                                            },
+                                                                            xAxis: {
+                                                                                categories: arr_jenis_reject,
+                                                                                crosshair: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            yAxis: {
+                                                                                min: 0,
+                                                                                title: {
+                                                                                    text: '%'
+                                                                                }
+                                                                            },
+                                                                            plotOptions: {
+                                                                                column: {
+                                                                                    pointPadding: 0.2,
+                                                                                    borderWidth: 0,
+                                                                                    dataLabels: {
+                                                                                        enabled: true,
+                                                                                        style: {
+                                                                                            color: '#ffffff',
+                                                                                            textOutline: 0,
+                                                                                            fontSize: 14
+                                                                                        },
+                                                                                    },
+                                                                                    events: {
+                                                                                        click: function(event) {
+                                                                                            $('#sub_modal').modal('show');
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            legend: {
+                                                                                enabled: false
+                                                                            },
+                                                                            series: [{
+                                                                                name: 'Total',
+                                                                                data: arr_qty_jenis_reject,
+                                                                                color:'yellow',
+
+                                                                            }]
+                                                                    });
+
+                                                                    var data_kategori_reject_by_grup = data['data_kategori_reject_by_grup_shift'];
+                                                                    var i;
+                                                                    var arr_kategori_reject = [];
+                                                                    var arr_qty_kategori_reject = [];
+                                                                    for (i = 0; i < data_kategori_reject_by_grup.length; i++) {
+                                                                        arr_kategori_reject.push(data_kategori_reject_by_grup[i].kategori_reject);
+                                                                        arr_qty_kategori_reject.push(parseFloat(((data_kategori_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                        
+                                                                    }
+
+                                                                    $('#sub_detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_kategori_reject"></div>
+                                                                                                                </figure>`
+                                                                                                            );
+                                                                    Highcharts.chart('chart_detail_pareto_kategori_reject', {
+                                                                        chart: {
+                                                                                backgroundColor: 'transparent',
+                                                                                type: 'column'
+                                                                            },
+                                                                            exporting: {
+                                                                                enabled: false
+                                                                            },
+                                                                            title: {
+                                                                                text: 'Detail Kategori Rejection',
+                                                                                style: {
+                                                                                    color: '#ffffff',
+                                                                                    fontSize: '20px'
+                                                                                }
+                                                                            },
+                                                                            xAxis: {
+                                                                                categories: arr_kategori_reject,
+                                                                                crosshair: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            yAxis: {
+                                                                                min: 0,
+                                                                                title: {
+                                                                                    text: '%'
+                                                                                }
+                                                                            },
+                                                                            plotOptions: {
+                                                                                column: {
+                                                                                    pointPadding: 0.2,
+                                                                                    borderWidth: 0,
+                                                                                    dataLabels: {
+                                                                                        enabled: true,
+                                                                                        style: {
+                                                                                            color: '#ffffff',
+                                                                                            textOutline: 0,
+                                                                                            fontSize: 14
+                                                                                        },
+                                                                                    },
+                                                                                    events: {
+                                                                                        click: function(event) {
+                                                                                            $('#sub_modal').modal('show');
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            legend: {
+                                                                                enabled: false
+                                                                            },
+                                                                            series: [{
+                                                                                name: 'Total',
+                                                                                data: arr_qty_kategori_reject,
+                                                                                color:'yellow',
+
+                                                                            }]
+                                                                    });
+
+                                                                    var data_battery_reject_by_grup = data['data_battery_reject_by_grup_shift'];
+                                                                    var i;
+                                                                    var arr_battery_reject = [];
+                                                                    var arr_qty_battery_reject = [];
+                                                                    for (i = 0; i < data_battery_reject_by_grup.length; i++) {
+                                                                        arr_battery_reject.push(data_battery_reject_by_grup[i].type_battery);
+                                                                        arr_qty_battery_reject.push(parseFloat(((data_battery_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                        
+                                                                    }
+
+                                                                    $('#sub_detail_pareto_type_battery').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_battery_reject"></div>
+                                                                                                                </figure>`
+                                                                                                            );
+                                                                    Highcharts.chart('chart_detail_pareto_battery_reject', {
+                                                                        chart: {
+                                                                                backgroundColor: 'transparent',
+                                                                                type: 'column'
+                                                                            },
+                                                                            exporting: {
+                                                                                enabled: false
+                                                                            },
+                                                                            title: {
+                                                                                text: 'Detail Type Battery',
+                                                                                style: {
+                                                                                    color: '#ffffff',
+                                                                                    fontSize: '20px'
+                                                                                }
+                                                                            },
+                                                                            xAxis: {
+                                                                                categories: arr_battery_reject,
+                                                                                crosshair: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            yAxis: {
+                                                                                min: 0,
+                                                                                title: {
+                                                                                    text: '%'
+                                                                                }
+                                                                            },
+                                                                            plotOptions: {
+                                                                                column: {
+                                                                                    pointPadding: 0.2,
+                                                                                    borderWidth: 0,
+                                                                                    dataLabels: {
+                                                                                        enabled: true,
+                                                                                        style: {
+                                                                                            color: '#ffffff',
+                                                                                            textOutline: 0,
+                                                                                            fontSize: 14
+                                                                                        },
+                                                                                    },
+                                                                                    events: {
+                                                                                        click: function(event) {
+                                                                                            $('#sub_modal').modal('show');
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            legend: {
+                                                                                enabled: false
+                                                                            },
+                                                                            series: [{
+                                                                                name: 'Total',
+                                                                                data: arr_qty_battery_reject,
+                                                                                color:'yellow',
+
+                                                                            }]
+                                                                    });
+
+                                                                    $('#sub_detail_pareto_grup_shift').html(``);
+
+                                                                    $('#sub_modal').modal('show');
+                                                                }
+                                                            })
+                                                        }
+                                                    }
                                                 }
                                             },
                                             legend: {
@@ -1368,7 +1853,7 @@
                                             yAxis: {
                                                 min: 0,
                                                 title: {
-                                                    text: 'Pcs'
+                                                    text: '%'
                                                 }
                                             },
                                             plotOptions: {
@@ -1436,7 +1921,7 @@
                                                                             yAxis: {
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: '%'
                                                                                 }
                                                                             },
                                                                             plotOptions: {
@@ -1508,7 +1993,7 @@
                                                                             yAxis: {
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: '%'
                                                                                 }
                                                                             },
                                                                             plotOptions: {
@@ -1535,6 +2020,8 @@
 
                                                                             }]
                                                                     });
+                                                                    $('#sub_detail_pareto_grup_shift').html(``);
+
                                                                     $('#sub_modal').modal('show');
                                                                 }
                                                             });
@@ -1552,6 +2039,9 @@
 
                                             }]
                                     });
+                                    $('#detail_pareto_kategori_reject').html(``);
+                                    $('#detail_pareto_type_battery').html(``);
+                                    $('#detail_pareto_grup_shift').html(``);
                                     $('#main_modal').modal('show');
                                 }
                             });
@@ -2259,7 +2749,7 @@
                                         yAxis: {
                                             min: 0,
                                             title: {
-                                                text: 'Pcs'
+                                                text: '%'
                                             }
                                         },
                                         plotOptions: {
@@ -2326,7 +2816,7 @@
                                         yAxis: {
                                             min: 0,
                                             title: {
-                                                text: 'Pcs'
+                                                text: '%'
                                             }
                                         },
                                         plotOptions: {
