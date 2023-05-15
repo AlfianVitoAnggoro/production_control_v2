@@ -105,6 +105,12 @@ $routes->group('lhp', ['filter' => 'auth'], function ($routes) {
     $routes->post('download', 'Home::download');
 });
 
+//MCB
+$routes->group('mcb', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'MCB::mcb_view');
+    $routes->post('download', 'MCB::download');
+});
+
 
 //GRID
 $routes->group('grid', ['filter' => 'auth'], function ($routes) {
