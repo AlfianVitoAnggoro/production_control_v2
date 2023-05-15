@@ -15,62 +15,62 @@ $mh = [8, 7.5, 6.5];
         <div class="box">
           <div class="box-header with-border">
             <div class="d-flex justify-content-between">
-            <h4>Detail Laporan Grid Casting</h4>
-            <h4>Signed by : <?= $data_lhp[0]['kasubsie'] ?></h4>
+            <h4 style="font-size: 28px">Detail Laporan Grid Casting</h4>
+            <h4 style="font-size: 28px">Signed by : <?= $data_lhp[0]['kasubsie'] ?></h4>
             </div>
             <!-- <button class="btn btn-danger" onclick="print()">Print</button> -->
           </div>
           <div class="box-body">
             <div class="row">
-              <div class="col-3">
+              <div class="col-4">
                 <div class="form-group">
-                  <label class="form-label">Tanggal Produksi : </label>
-                  <span><?= date('j F Y', strtotime($data_lhp[0]['date_production'])) ?>
+                  <label class="form-label" style="font-size: 25px">Tanggal Produksi : </label>
+                  <span style="font-size: 25px"><?= date('d-m-Y', strtotime($data_lhp[0]['date_production'])) ?>
                   </span>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-2">
                 <div class="form-group">
-                  <label class="form-label">Line : </label>
-                  <span><?= $data_lhp[0]['line'] ?></span>
+                  <label class="form-label" style="font-size: 25px">Line : </label>
+                  <span style="font-size: 25px"><?= $data_lhp[0]['line'] ?></span>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-2">
                 <div class="form-group">
-                  <label class="form-label">Shift : </label>
-                  <span><?= $data_lhp[0]['shift'] ?></span>
+                  <label class="form-label" style="font-size: 25px">Shift : </label>
+                  <span style="font-size: 25px"><?= $data_lhp[0]['shift'] ?></span>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-4">
                 <div class="form-group">
-                  <label class="form-label">Kasubsie : </label>
-                  <span><?= $data_lhp[0]['kasubsie'] ?></span>
+                  <label class="form-label" style="font-size: 25px">Kasubsie : </label>
+                  <span style="font-size: 25px"><?= $data_lhp[0]['kasubsie'] ?></span>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-3">
+              <div class="col-4">
                 <div class="form-group">
-                  <label class="form-label">Grup : </label>
-                  <span><?= $data_lhp[0]['grup'] ?></span>
+                  <label class="form-label" style="font-size: 25px">Grup : </label>
+                  <span style="font-size: 25px"><?= $data_lhp[0]['grup'] ?></span>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-2">
                 <div class="form-group">
-                  <label class="form-label">MP : </label>
-                  <span><?= $data_lhp[0]['mp'] ?></span>
+                  <label class="form-label" style="font-size: 25px">MP : </label>
+                  <span style="font-size: 25px"><?= $data_lhp[0]['mp'] ?></span>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-2">
                 <div class="form-group">
-                  <label class="form-label">Absen : </label>
-                  <span><?= $data_lhp[0]['absen'] ?></span>
+                  <label class="form-label" style="font-size: 25px">Absen : </label>
+                  <span style="font-size: 25px"><?= $data_lhp[0]['absen'] ?></span>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-4">
                 <div class="form-group">
-                  <label class="form-label">Cuti : </label>
-                  <span><?= $data_lhp[0]['cuti'] ?></span>
+                  <label class="form-label" style="font-size: 25px">Cuti : </label>
+                  <span style="font-size: 25px"><?= $data_lhp[0]['cuti'] ?></span>
                 </div>
               </div>
             </div>
@@ -85,17 +85,17 @@ $mh = [8, 7.5, 6.5];
                   <table id="" class="table table-striped mb-0">
                     <thead>
                       <tr>
-                        <th>Nama Mesin</th>
-                        <th>Nama Operator</th>
-                        <th>Type Grid</th>
-                        <th>JKS (Panel)</th>
-                        <th>Aktual (Panel)</th>
-                        <th>Persentase (%)</th>
-                        <!-- <th>Jumlah Rak</th> -->
-                        <!-- <th>Detail Rak</th> -->
-                        <th>MH</th>
-                        <th>Productivity (Panel/MH)</th>
-                        <!-- <th>Action</th> -->
+                        <th class="py-0" style="font-size: 25px">Nama Mesin</th>
+                        <th class="py-0" style="font-size: 25px">Nama Operator</th>
+                        <th class="py-0" style="font-size: 25px">Type Grid</th>
+                        <th class="py-0" style="font-size: 25px">JKS (Panel)</th>
+                        <th class="py-0" style="font-size: 25px">Aktual (Panel)</th>
+                        <th class="py-0" style="font-size: 25px">Persentase (%)</th>
+                        <!-- <th class="py-0" style="font-size: 25px">Jumlah Rak</th> -->
+                        <!-- <th class="py-0" style="font-size: 25px">Detail Rak</th> -->
+                        <th class="py-0" style="font-size: 25px">MH</th>
+                        <th class="py-0" style="font-size: 25px">Productivity (Panel/MH)</th>
+                        <!-- <th class="py-0" style="font-size: 25px">Action</th> -->
                       </tr>
                     </thead>
                     <tbody id="tbody">
@@ -107,37 +107,43 @@ $mh = [8, 7.5, 6.5];
                         if (!empty($data_detail_lhp)) {
                       ?>
                           <tr>
-                            <td>
+                            <td class="py-0" style="font-size: 25px">
                               <input type="hidden" name="id_detail_lhp_grid[]" value="<?= $data_detail_lhp[0]['id'] ?>">
                               <input type="hidden" name="no_machine[]" id="no_machine_<?= $d_mesin['nama_mesin'] ?>" value="<?= $d_mesin['nama_mesin'] ?>" readonly>
                               MC <?= $d_mesin['nama_mesin'] ?>
                               <input type="hidden" name="type_mesin[]" id="type_mesin_<?= $d_mesin['nama_mesin'] ?>" value="<?= $d_mesin['type_mesin'] ?>">
                             </td>
-                            <td>
+                            <td class="py-0" style="font-size: 25px; white-space: nowrap">
                               <?= $data_detail_lhp[0]['operator_name'] ?>
                             </td>
-                            <td>
-                              <?= $data_detail_lhp[0]['type_grid'] ?>
+                            <td class="py-0" style="font-size: 25px; white-space: nowrap">
+                            <?php
+                              foreach ($data_type_grid as $d_type_grid) {
+                                if ($d_type_grid['id_grid'] == $data_detail_lhp[0]['type_grid']) echo $d_type_grid['type_grid'];
+                              }
+                              if ('MESIN OFF' == $data_detail_lhp[0]['type_grid']) echo 'MESIN OFF';
+                              if ('NO WO' == $data_detail_lhp[0]['type_grid']) echo 'NO WO';
+                            ?>
                             </td>
-                            <td>
+                            <td class="py-0" style="text-align: right; font-size: 25px">
                               <?= $data_detail_lhp[0]['jks'] ?>
                             </td>
-                            <td>
+                            <td class="py-0" style="text-align: right; font-size: 25px">
                               <?= $data_detail_lhp[0]['actual'] ?>
                             </td>
-                            <td>
+                            <td class="py-0" style="text-align: right; font-size: 25px">
                               <?= number_format($data_detail_lhp[0]['persentase']) ?>
                             </td>
-                            <!-- <td>
+                            <!-- <td class="py-0" style="font-size: 25px">
                                                                 <input type="text" name="rak[]" id="jumlah_rak_<?= $d_mesin['nama_mesin'] ?>" class="form-control" value="" style="width: 75px" readonly>
                                                             </td> -->
-                            <!-- <td>
+                            <!-- <td class="py-0" style="font-size: 25px">
                                                                 <a href="#" class="btn btn-info btn-sm detail-btn" data-id_lhp="<?= $id_lhp ?>" data-id_detail_lhp="<?= $data_detail_lhp[0]['id'] ?>">Detail</a>
                                                             </td> -->
-                            <td>
-                              <?= $data_detail_lhp[0]['mh'] === "" ? $data_detail_lhp[0]['mh'] : $mh[$data_lhp[0]['shift'] - 1]; ?>
+                            <td class="py-0" style="text-align: right; font-size: 25px">
+                              <?= $data_detail_lhp[0]['mh'] !== "" ? $data_detail_lhp[0]['mh'] : $mh[$data_lhp[0]['shift'] - 1]; ?>
                             </td>
-                            <td>
+                            <td class="py-0" style="text-align: right; font-size: 25px">
                               <?= $data_detail_lhp[0]['productivity'] ?>
                             </td>
                             <!-- <td>
@@ -148,25 +154,25 @@ $mh = [8, 7.5, 6.5];
                         } else {
                         ?>
                           <tr>
-                            <td>
+                            <td class="py-0" style="font-size: 25px">
                               <input type="hidden" name="id_detail_lhp_grid[]" id="id_detail_lhp_grid_<?= $d_mesin['nama_mesin'] ?>" value="">
                               <input type="hidden" name="no_machine[]" id="no_machine_<?= $d_mesin['nama_mesin'] ?>" value="<?= $d_mesin['nama_mesin'] ?>" readonly>
                               MC <?= $d_mesin['nama_mesin'] ?>
                               <input type="hidden" name="type_mesin[]" id="type_mesin_<?= $d_mesin['nama_mesin'] ?>" value="<?= $d_mesin['type_mesin'] ?>">
                             </td>
-                            <td>
+                            <td class="py-0" style="font-size: 25px">
                               <?php
                               $pic_grup_mesin = $model->get_pic_grup_mesin($d_mesin['nama_mesin'], $data_lhp[0]['grup']);
                               $pic_grup_mesin[0]['pic']
                               ?>
                             </td>
-                            <td>
+                            <td class="py-0" style="font-size: 25px">
                             </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="py-0" style="font-size: 25px"></td>
+                            <td class="py-0" style="font-size: 25px"></td>
+                            <td class="py-0" style="font-size: 25px"></td>
+                            <td class="py-0" style="font-size: 25px"></td>
+                            <td class="py-0" style="font-size: 25px"></td>
                           </tr>
                       <?php
                         }
@@ -175,14 +181,14 @@ $mh = [8, 7.5, 6.5];
                     </tbody>
                     <tfoot>
                       <tr>
-                        <td colspan="3">
+                        <td colspan="3" class="py-0" style="font-size: 25px">
                           <h3>Total</h3>
                         </td>
-                        <td style="text-align: right;"><?= str_replace(',', '.', number_format($data_lhp[0]['total_jks'])) ?></td>
-                        <td style="text-align: right;"><?= str_replace(',', '.', number_format($data_lhp[0]['total_aktual'])) ?></td>
-                        <td style="text-align: right;"><?= $retVal = (!empty($data_lhp[0]['total_aktual'])) ? number_format(($data_lhp[0]['total_aktual'] / $data_lhp[0]['total_jks']) * 100) : 0; ?></td>
-                        <td style="text-align: right;"><?= $retVal = (!empty($data_lhp[0]['total_mh'])) ? $data_lhp[0]['total_mh'] : 0; ?></td>
-                        <td style="text-align: right;"><?= $retVal = (!empty($data_lhp[0]['total_productivity'])) ? str_replace(',', '.', number_format($data_lhp[0]['total_productivity'])) : 0; ?></td>
+                        <td class="py-0" style="text-align: right; font-size: 25px"><?= str_replace(',', '.', number_format($data_lhp[0]['total_jks'])) ?></td>
+                        <td class="py-0" style="text-align: right; font-size: 25px"><?= str_replace(',', '.', number_format($data_lhp[0]['total_aktual'])) ?></td>
+                        <td class="py-0" style="text-align: right; font-size: 25px"><?= $retVal = (!empty($data_lhp[0]['total_aktual'])) ? number_format(($data_lhp[0]['total_aktual'] / $data_lhp[0]['total_jks']) * 100) : 0; ?></td>
+                        <td class="py-0" style="text-align: right; font-size: 25px"><?= $retVal = (!empty($data_lhp[0]['total_mh'])) ? $data_lhp[0]['total_mh'] : 0; ?></td>
+                        <td class="py-0" style="text-align: right; font-size: 25px"><?= $retVal = (!empty($data_lhp[0]['total_productivity'])) ? str_replace(',', '.', number_format($data_lhp[0]['total_productivity'])) : 0; ?></td>
                         <td></td>
                       </tr>
                     </tfoot>
@@ -208,10 +214,10 @@ $mh = [8, 7.5, 6.5];
                   <table id="data_andon" class="table table-striped mb-0">
                     <thead>
                       <tr>
-                        <th>Nama Mesin</th>
-                        <th>Permasalahan</th>
-                        <th>Tujuan</th>
-                        <th>Total Menit</th>
+                        <th class="py-0" style="font-size: 25px">Nama Mesin</th>
+                        <th class="py-0" style="font-size: 25px">Permasalahan</th>
+                        <th class="py-0" style="font-size: 25px">Tujuan</th>
+                        <th class="py-0" style="font-size: 25px">Total Menit</th>
                       </tr>
                     </thead>
                     <tbody id="tbody_data_andon">
@@ -250,12 +256,12 @@ $mh = [8, 7.5, 6.5];
                   <table id="data_line_stop" class="table table-striped mb-0">
                     <thead>
                       <tr>
-                        <th>Nama Mesin</th>
-                        <th>Jenis Line Stop</th>
-                        <th>Kategori Line Stop</th>
-                        <th>Uraian Line Stop</th>
-                        <th>Total Menit</th>
-                        <th>Action</th>
+                        <th class="py-0" style="font-size: 25px">Nama Mesin</th>
+                        <th class="py-0" style="font-size: 25px">Jenis Line Stop</th>
+                        <th class="py-0" style="font-size: 25px">Kategori Line Stop</th>
+                        <th class="py-0" style="font-size: 25px">Uraian Line Stop</th>
+                        <th class="py-0" style="font-size: 25px">Total Menit</th>
+                        <th class="py-0" style="font-size: 25px">Action</th>
                       </tr>
                     </thead>
                     <tbody id="tbody_data_line_stop">
@@ -320,10 +326,10 @@ $mh = [8, 7.5, 6.5];
                   <table id="data_line_stop" class="table table-striped mb-0">
                     <thead>
                       <tr>
-                        <th>Barcode</th>
-                        <th>QTY</th>
-                        <th>ID Rak</th>
-                        <th>Action</th>
+                        <th class="py-0" style="font-size: 25px">Barcode</th>
+                        <th class="py-0" style="font-size: 25px">QTY</th>
+                        <th class="py-0" style="font-size: 25px">ID Rak</th>
+                        <th class="py-0" style="font-size: 25px">Action</th>
                       </tr>
                     </thead>
                     <tbody id="tbody_data_rak">

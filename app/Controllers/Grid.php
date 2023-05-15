@@ -129,7 +129,7 @@ class Grid extends BaseController
 
                 if (!empty($this->request->getPost('aktual')[$i])) {
                     $total_actual += $this->request->getPost('aktual')[$i];
-                    $total_mh = $this->request->getPost('mh')[$i] * 24;
+                    $total_mh += $this->request->getPost('mh')[$i];
                     $total_productivity += floatval($this->request->getPost('productivity')[$i]);
                 }
             }
