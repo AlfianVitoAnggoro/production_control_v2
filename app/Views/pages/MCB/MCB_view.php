@@ -41,7 +41,7 @@
 													<!-- <td><?=$lhp['no_doc']?></td> -->
 													<td><?=$lhp['tanggal_produksi']?></td>
 													<td><?=$lhp['shift']?></td>
-													<td><?=($lhp['line'] == 10) ? 'MCB' : $lhp['line']?></td>
+													<td><?=($lhp['line'] == 8) ? 'WET A' : (($lhp['line'] == 9) ? 'WET F' : (($lhp['line'] == 10) ? 'MCB' : $lhp['line'])) ?></td>
 													<td><?=$lhp['kasubsie']?></td>
 													<td><?=$lhp['nama_pic']?></td>
 													<!-- <td><?=$retVal = (!empty($lhp['total_aktual']) && !empty($lhp['total_plan'])) ? number_format((float) ($lhp['total_aktual'] / $lhp['total_plan']) * 100, 2, '.', '') : '' ; ?></td> -->

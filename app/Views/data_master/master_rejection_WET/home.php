@@ -28,12 +28,12 @@
 												</tr>
 											</thead>
 											<tbody>
-												<?php foreach($data_reject_utama_amb as $d_reject_utama) : ?>
+												<?php foreach($data_reject_utama_wet as $d_reject_utama) : ?>
 												<tr>
                                                     <td><?=$d_reject_utama['jenis_reject']?></td>
                                                     <td>
                                                         <a href="#" class="btn btn-primary btn-sm edit-btn" data-id="<?=$d_reject_utama['id_reject_utama']?>" data-name="<?=$d_reject_utama['jenis_reject']?>">Edit</a>
-                                                        <a href="<?=base_url()?>reject/delete_reject_utama/<?=$d_reject_utama['id_reject_utama']?>/<?=$d_reject_utama['jenis_reject']?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger btn-sm">Delete</a>
+                                                        <a href="<?=base_url()?>reject_wet/delete_reject_utama/<?=$d_reject_utama['id_reject_utama']?>/<?=$d_reject_utama['jenis_reject']?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger btn-sm">Delete</a>
                                                     </td>
 												</tr>
 												<?php endforeach; ?>
@@ -80,7 +80,7 @@
 													</td>
                                                     <td>
                                                         <a href="#" class="btn btn-primary btn-sm edit-btn-kategori" data-id="<?=$d_reject['id_reject']?>" data-jenis="<?=$d_reject['jenis_reject']?>" data-kategori="<?=$d_reject['kategori_reject']?>" data-dashboard="<?=$d_reject['dashboard']?>">Edit</a>
-                                                        <a href="<?=base_url()?>reject/delete_reject/<?=$d_reject['id_reject']?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger btn-sm">Delete</a>
+                                                        <a href="<?=base_url()?>reject_wet/delete_reject/<?=$d_reject['id_reject']?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger btn-sm">Delete</a>
                                                     </td>
 												</tr>
 												<?php endforeach; ?>
@@ -107,21 +107,21 @@
 				<h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<form action="<?=base_url()?>reject/add_reject_utama" method="post">
+			<form action="<?=base_url()?>reject_wet/add_reject_utama" method="post">
 				<div class="modal-body">
 					<div class="form-group">
-							<label for="Jenis Reject">Jenis Reject</label>
-							<!-- <input type="text" class="form-control" id="jenis_reject_utama" name="jenis_reject_utama" placeholder="Jenis Reject"> -->
-							<div id="form_jenis_reject_utama">
-								<select class="form-select mb-2" id="jenis_reject_utama" name="jenis_reject_utama">
-									<option value="">Pilih Jenis Reject</option>
-									<?php foreach($data_reject_utama as $d_reject_utama) : ?>
-									<option value="<?=$d_reject_utama['jenis_reject']?>"><?=$d_reject_utama['jenis_reject']?></option>
-									<?php endforeach; ?>
-								</select>
-								<button type="button" class="btn btn-sm btn-primary" name="value_btn" value="add" onclick="add_data()">Tambah Data</button>
-							</div>
-					</div>
+                        <label for="Jenis Reject">Jenis Reject</label>
+                        <!-- <input type="text" class="form-control" id="jenis_reject_utama" name="jenis_reject_utama" placeholder="Jenis Reject"> -->
+												<div id="form_jenis_reject_utama">
+													<select class="form-select mb-2" id="jenis_reject_utama" name="jenis_reject_utama">
+														<option value="">Pilih Jenis Reject</option>
+														<?php foreach($data_reject_utama as $d_reject_utama) : ?>
+														<option value="<?=$d_reject_utama['jenis_reject']?>"><?=$d_reject_utama['jenis_reject']?></option>
+														<?php endforeach; ?>
+													</select>
+													<button type="button" class="btn btn-sm btn-primary" name="value_btn" value="add" onclick="add_data()">Tambah Data</button>
+												</div>
+                    </div>
 				</div>
 				<div class="modal-footer" style="float: right;">
 					<!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
@@ -143,7 +143,7 @@
 				<h4 class="modal-title" id="myLargeModalLabel">Edit Master Rejection</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<form action="<?=base_url()?>reject/update_reject_utama" method="post">
+			<form action="<?=base_url()?>reject_wet/update_reject_utama" method="post">
 				<div class="modal-body">
                     <input type="hidden" name="edit_id_reject_utama" id="edit_id_reject_utama">
 					<input type="hidden" class="form-control" id="edit_reject_utama" name="edit_reject_utama">
@@ -172,7 +172,7 @@
 				<h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<form action="<?=base_url()?>reject/add_reject" method="post">
+			<form action="<?=base_url()?>reject_wet/add_reject" method="post">
 				<div class="modal-body">
 					<div class="form-group">
                         <label for="jenis_reject">Jenis Reject</label>
@@ -216,7 +216,7 @@
 				<h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<form action="<?=base_url()?>reject/update_reject" method="post">
+			<form action="<?=base_url()?>reject_wet/update_reject" method="post">
 				<div class="modal-body">
 					<input type="hidden" name="edit_id_ketegori_reject" id="edit_id_ketegori_reject">
 					<div class="form-group">

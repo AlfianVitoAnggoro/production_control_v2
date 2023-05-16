@@ -3,7 +3,7 @@ use CodeIgniter\Model;
 
 
 
-class M_MCB extends Model
+class M_WET extends Model
 {
     public function __construct()
     {
@@ -15,7 +15,7 @@ class M_MCB extends Model
         $this->session = \Config\Services::session();
     }
 
-    public function get_all_lhp_mcb()
+    public function get_all_lhp_wet()
     {
         // $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup ORDER BY tanggal_produksi DESC');
         $builder = $this->db->table('lhp_produksi2');
@@ -39,7 +39,8 @@ class M_MCB extends Model
         $builder = $this->db->table('lhp_produksi2');
         $builder->select('lhp_produksi2.*, master_pic_line.nama_pic');
         $builder->join('master_pic_line', 'master_pic_line.id_pic = lhp_produksi2.grup');
-        $builder->where('line', 10);
+        $builder->where('line', 8);
+        $builder->orWhere('line', 9);
         $builder->where('tanggal_produksi >= ', $start_date);
         $builder->where('tanggal_produksi <= ', $end_date);
         // if ($this->session->get('line') != NULL) {
@@ -70,7 +71,7 @@ class M_MCB extends Model
 
         return $query->getResultArray();
     }
-
+    
     public function get_all_detail_lhp_by_id_lhp($id_lhp)
     {
         $query = $this->db->query('SELECT * FROM detail_lhp_produksi2 WHERE id_lhp_2 = '.$id_lhp);

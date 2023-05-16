@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 
 
 
-class M_Reject extends Model
+class M_RejectMCB extends Model
 {
     public function __construct()
     {
@@ -13,9 +13,9 @@ class M_Reject extends Model
         $this->session = \Config\Services::session();
     }
 
-    public function get_data_reject_utama_amb()
+    public function get_data_reject_utama_mcb()
     {
-        $query = $this->db->query('SELECT * FROM data_reject_utama WHERE AMB=\'1\' ORDER BY jenis_reject ASC');
+        $query = $this->db->query('SELECT * FROM data_reject_utama WHERE MCB=\'1\' ORDER BY jenis_reject ASC');
 
         return $query->getResultArray();
     }
@@ -29,7 +29,7 @@ class M_Reject extends Model
 
     public function get_data_reject()
     {
-        $query = $this->db->query('SELECT * FROM data_reject WHERE AMB=\'1\' ORDER BY jenis_reject ASC, kategori_reject ASC');
+        $query = $this->db->query('SELECT * FROM data_reject WHERE MCB=\'1\' ORDER BY jenis_reject ASC, kategori_reject ASC');
 
         return $query->getResultArray();
     }

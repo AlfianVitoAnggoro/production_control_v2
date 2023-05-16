@@ -2,15 +2,15 @@
 
 namespace App\Controllers;
 
-use App\Models\M_MCB;
+use App\Models\M_WET;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class MCB extends BaseController
+class WET extends BaseController
 {
   public function __construct()
   {
-    $this->M_MCB = new M_MCB();
+    $this->M_WET = new M_WET();
     $this->session = \Config\Services::session();
 
     if ($this->session->get('is_login')) {
@@ -18,13 +18,13 @@ class MCB extends BaseController
     }
   }
 
-  public function mcb_view()
+  public function wet_view()
   {
-    $model = new M_MCB();
-    $data['data_lhp'] = $model->get_all_lhp_mcb();
+    $model = new M_WET();
+    $data['data_lhp'] = $model->get_all_lhp_wet();
     $data['data_line'] = $model->get_line();
     $data['data_grup'] = $model->get_grup();
-    return view('pages/mcb/mcb_view', $data);
+    return view('pages/wet/wet_view', $data);
   }
 
   public function download()
@@ -33,7 +33,7 @@ class MCB extends BaseController
         $start_date = $this->request->getPost('start_date');
         $end_date = $this->request->getPost('end_date');
         // $month = date('F_Y', strtotime($date));
-        $model = new M_MCB();
+        $model = new M_WET();
 
         //data sheet lhp
         $data_lhp = $model->get_all_lhp_by_date($start_date, $end_date);
@@ -150,7 +150,7 @@ class MCB extends BaseController
 
         // Mengatur header respons HTTP
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Data LHP MCB.xlsx"');
+        header('Content-Disposition: attachment;filename="Data LHP WET.xlsx"');
         header('Cache-Control: max-age=0');
 
         ob_end_clean();
