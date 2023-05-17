@@ -127,6 +127,9 @@ $routes->group('grid', ['filter' => 'auth'], function ($routes) {
     $routes->get('get_summary_rework', 'Grid::get_summary_rework');
     $routes->post('add_rak', 'Grid::add_rak');
     $routes->post('delete_rak', 'Grid::delete_rak');
+    $routes->post('qty_material_in', 'Grid::qty_material_in');
+    $routes->post('material_in', 'Grid::material_in');
+    $routes->post('delete_material_in', 'Grid::delete_material_in');
     // $routes->post('add_detail_record_rak', 'Grid::add_detail_record_rak');
 });
 

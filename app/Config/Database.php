@@ -83,6 +83,26 @@ class Database extends Config
         'port'     => 1433,
     ];
 
+    public array $timah = [
+        'DSN'      => '',
+        'hostname' => 'localhost',
+        'username' => 'user',
+        'password' => '12345',
+        'database' => 'timah',
+        'DBDriver' => 'sqlsrv',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port'     => 1433,
+    ];
+
     // public array $default = [
     //     'DSN'      => '',
     //     'hostname' => '10.19.22.102',
