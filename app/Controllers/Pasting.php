@@ -276,6 +276,7 @@ class Pasting extends BaseController
     $data['data_line_stop_casting'] = $model->getListKategoriLineStopCasting();
     $data['data_line_stop_punching'] = $model->getListKategoriLineStopPunching();
     $data['data_reject_pasting'] = $model->getListReject();
+    $data['summary_total_aktual_per_type'] = $model->get_summary_total_aktual_per_type($id);
 
     return view('pages/pasting/pasting_detail_view', $data);
   }

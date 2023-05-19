@@ -534,6 +534,38 @@ $shift
           </div>
         </div>
 
+        <!-- SUMMARY TOTAL PERTYPE -->
+        <div class="row">
+          <div class="col-xl-12 col-12">
+            <div class="box">
+              <div class="box-header with-border">
+                <h4>Summary Total Per Type</h4>
+              </div>
+              <div class="box-body">
+                <div class="table-responsive">
+                  <table class="table table-striped mb-0">
+                    <thead>
+                      <tr>
+                        <th>Type</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <?php foreach($summary_total_aktual_per_type as $d_summary_total_aktual_per_type){ ?>
+                        <tr>
+                          <td><?= $d_summary_total_aktual_per_type['type_grid'] ?></td>
+                          <td><?= $d_summary_total_aktual_per_type['actual'] ?></td>
+                        </tr>
+                      <?php } ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END OF SUMMARY -->
+
         <!-- Detail Line Stop -->
         <div class="row" id="ls_section">
           <div class="col-xl-12 col-12">
