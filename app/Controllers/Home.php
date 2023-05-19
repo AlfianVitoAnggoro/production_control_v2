@@ -301,6 +301,7 @@ class Home extends BaseController
     public function getCT()
     {
         $part_no = $this->request->getPost('part_number');
+        $line = $this->request->getPost('line');
         // Split the string into an array using "-"
         $arr = explode("-", $part_no);
 
@@ -311,7 +312,7 @@ class Home extends BaseController
         $part_no = implode("-", $arr);
 
         $model = new M_Data();
-        echo json_encode($model->getCT($part_no));
+        echo json_encode($model->getCT($part_no, $line));
     }
 
     public function get_proses_breakdown()

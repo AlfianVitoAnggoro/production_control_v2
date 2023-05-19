@@ -61,7 +61,7 @@ class M_Data extends Model
         return $query->getResultArray();
     }
 
-    public function getCT($part_no) {
+    public function getCT($part_no, $line) {
         // $query = $this->db2->query('
         //                             SELECT * FROM cycle_time
         //                             JOIN part_number on part_number.id_kode = cycle_time.id_kode
@@ -69,12 +69,27 @@ class M_Data extends Model
         //                         ');
 
         $partno = "'"."%".$part_no."'";
+        // $query = $this->db->query('
+        //     SELECT * FROM master_cycle_time
+        //     WHERE part_number LIKE '.$partno.' AND line = '.$line.' ORDER BY id DESC
+        // ');
+
         $query = $this->db->query('
-            SELECT * FROM master_cycle_time
-            WHERE part_number LIKE '.$partno.' ORDER BY id DESC
+            SELECT first_cycle_time as cycle_time FROM master_cycle_time
+            WHERE part_number LIKE '.$partno.' AND first_line = \''.$line.'\' ORDER BY id DESC
         ');
 
-        return $query->getResultArray();
+        if ($query->getNumRows() > 0) {
+            return $query->getResultArray();
+        } else {
+            $query = $this->db->query('
+                SELECT second_cycle_time as cycle_time FROM master_cycle_time
+                WHERE part_number LIKE '.$partno.' AND second_line = \''.$line.'\' ORDER BY id DESC
+            ');
+
+            return $query->getResultArray();
+        }
+
     }
 
     public function getListBreakdown()

@@ -687,11 +687,14 @@
 				$.ajax({
 					url: '<?=base_url()?>lhp/getCT',
 					type: 'POST',
-					data: {part_number: data[0].MITM.trim()},
+					data: {
+						part_number: data[0].MITM.trim(), 
+						line: $('#line').val()
+					},
 					dataType: 'json',
 					success: function(data) {
-						$('#ct_'+i).val(data[0].first_cycle_time);
-						var plan_cap = ($('#menit_terpakai_'+i).val() * 60) / data[0].first_cycle_time;
+						$('#ct_'+i).val(data[0].cycle_time);
+						var plan_cap = ($('#menit_terpakai_'+i).val() * 60) / data[0].cycle_time;
 						$('#plan_cap_'+i).val(plan_cap.toFixed(0));
 					}
 				});
