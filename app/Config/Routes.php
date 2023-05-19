@@ -54,6 +54,16 @@ $routes->get('/dashboard/reject/get_detail_rejection', 'DashboardAssyRejection::
 $routes->get('/dashboard/reject_qc', 'DashboardAssyRejection::dashboard_reject_assy_qc');
 $routes->post('/dashboard/reject_qc', 'DashboardAssyRejection::dashboard_reject_assy_qc');
 
+// DASHBOARD REJECT CUTTING
+$routes->get('/dashboard/rejectCutting', 'DashboardCuttingRejection::dashboard_reject_cutting');
+$routes->post('/dashboard/rejectCutting', 'DashboardCuttingRejection::dashboard_reject_cutting');
+$routes->post('/dashboard/rejectCutting/get_detail_rejection', 'DashboardCuttingRejection::get_detail_rejection');
+
+// DASHBOARD REJECT CUTTING
+$routes->get('/dashboard/rejectMCB', 'DashboardMCBRejection::dashboard_reject_mcb');
+$routes->post('/dashboard/rejectMCB', 'DashboardMCBRejection::dashboard_reject_mcb');
+$routes->post('/dashboard/rejectMCB/get_detail_rejection', 'DashboardMCBRejection::get_detail_rejection');
+
 //DASHBOARD EFF GRID
 $routes->get('/dashboardGrid', 'DashboardGrid::index');
 $routes->get('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');

@@ -33,6 +33,10 @@
 			$judul = 'PERFORMANCE';
 		} else if ($uri->getSegment(3) == 'reject') {
 			$judul = 'REJECTION';
+		} else if ($uri->getSegment(3) == 'rejectCutting') {
+			$judul = 'CUTTING REJECTION';
+		} else if ($uri->getSegment(3) == 'rejectMCB') {
+			$judul = 'CUTTING REJECTION';
 		}
 		 ?>
 
