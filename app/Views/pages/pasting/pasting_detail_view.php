@@ -1299,6 +1299,7 @@ $shift
               ${data_type_grid.map((item) => `<option value="${item.type_grid}">${item.type_grid}</option>`)}
           </select>
           <input type="hidden" name="batch[]" id="batch_${i}" value="${i}">
+          <input type="hidden" name="id_detail_lhp_pasting[]" id="id_detail_lhp_pasting_${i}" value="">
       </td>
       <td>
           <input type="text" class="form-control" name="ct[]" id="ct_${i}_${batchNumber}" value="" style="width: 75px" readonly>
