@@ -38,12 +38,32 @@
 		} else {
 			$judul = 'REPORT';
 		}
+
+		if ($uri->getSegment(4) == '') {
+			if ($child_filter == 0) {
+				$sub_judul = '';
+			} else {
+				$sub_judul = '(LINE '.$child_filter.')';
+			}
+		} else if ($uri->getSegment(4) == 'amb1') {
+			if ($child_filter == 0) {
+				$sub_judul = '(AMB 1)';
+			} else {
+				$sub_judul = '(LINE '.$child_filter.')';
+			}
+		} else if ($uri->getSegment(3) == 'amb2') {
+			if ($child_filter == 0) {
+				$sub_judul = '(AMB 2)';
+			} else {
+				$sub_judul = '(LINE '.$child_filter.')';
+			}
+		}
 		 ?>
 
 		<div style="margin-left:-250px; text-align:center; margin-top:-5px;">
 			<h1 class="judul_dashboard"><?=$judul?> DASHBOARD</h1>
 			<!-- <br> -->
-			<span class="sub_judul_dashboard">PRODUCTION 2</span>
+			<span class="sub_judul_dashboard">PRODUCTION 2 <?=$sub_judul?></span>
 		</div>
 
 		<div class="navbar-custom-menu r-side">

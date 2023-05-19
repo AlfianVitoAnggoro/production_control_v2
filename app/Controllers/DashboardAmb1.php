@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\M_Dashboard;
 
-class Dashboard extends BaseController
+class DashboardAmb1 extends BaseController
 {
     public function __construct()
     {
@@ -13,11 +13,6 @@ class Dashboard extends BaseController
     }
 
     public function index()
-    {
-        return view('dashboard/home');
-    }
-
-    public function index2()
     {
         return view('dashboard/dashboard_home');
     }
@@ -94,7 +89,7 @@ class Dashboard extends BaseController
 
         if ($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'average') {
             while (strtotime($start) <= strtotime($now)) {
-                $data_all = $this->M_Dashboard->get_data_all_line_by_date($start);
+                $data_all = $this->M_Dashboard->get_data_all_line_by_date_amb1($start);
                 if (!empty($data_all)) {
                     foreach ($data_all as $da) {
                         $total_plan = $da['total_plan'];
@@ -110,8 +105,8 @@ class Dashboard extends BaseController
             }
         } elseif ($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'line') {
             for ($h=1; $h <= 12; $h++) { 
-                for ($i=1; $i <= 7; $i++) {
-                    $data_all_line_by_month = $this->M_Dashboard->get_data_all_line_by_month($h, $i);
+                for ($i=1; $i <= 3; $i++) {
+                    $data_all_line_by_month = $this->M_Dashboard->get_data_all_line_by_month_amb1($h, $i);
                     if (!empty($data_all_line_by_month)) {
                         foreach ($data_all_line_by_month as $dalm) {
                             $total_plan = $dalm['total_plan'];
@@ -126,7 +121,7 @@ class Dashboard extends BaseController
             }
 
             while (strtotime($start) <= strtotime($now)) {
-                for ($i=1; $i <= 7; $i++) { 
+                for ($i=1; $i <= 3; $i++) { 
                     $data1 = $this->M_Dashboard->get_data_all_line($start, $i);
                     if (!empty($data1)) {
                         foreach ($data1 as $d1) {
@@ -283,8 +278,8 @@ class Dashboard extends BaseController
         $data['data_line_7_current_month'] = [];
 
         //PUSH DATA PER LINE UNTUK BULAN BERJALAN
-        for ($i=1; $i <= 7; $i++) { 
-            $data_all = $this->M_Dashboard->get_data_all_line_by_month($current_date, $i);
+        for ($i=1; $i <= 3; $i++) { 
+            $data_all = $this->M_Dashboard->get_data_all_line_by_month_amb1($current_date, $i);
             if (!empty($data_all)) {
                 foreach($data_all as $d_all) {
                     $total_plan = $d_all['total_plan'];
@@ -307,8 +302,8 @@ class Dashboard extends BaseController
         $data['data_line_7_previous_month'] = [];
 
         //PUSH DATA PER LINE UNTUK BULAN SEBELUMNYA
-        for ($i=1; $i <= 7; $i++) { 
-            $data_all = $this->M_Dashboard->get_data_all_line_by_month($previous_date, $i);
+        for ($i=1; $i <= 3; $i++) { 
+            $data_all = $this->M_Dashboard->get_data_all_line_by_month_amb1($previous_date, $i);
             if (!empty($data_all)) {
                 foreach($data_all as $d_all) {
                     $total_plan = $d_all['total_plan'];
@@ -324,7 +319,7 @@ class Dashboard extends BaseController
 
         $data['data_all_month'] = [];
         for ($i=1; $i <= 12; $i++) { 
-            $data_all = $this->M_Dashboard->get_data_all_line_by_month($i, $child_filter);
+            $data_all = $this->M_Dashboard->get_data_all_line_by_month_amb1($i, $child_filter);
             if (!empty($data_all)) {
                 foreach($data_all as $d_all) {
                     $total_plan = $d_all['total_plan'];
@@ -336,7 +331,7 @@ class Dashboard extends BaseController
                 array_push($data['data_all_month'], 0);
             }
         }
-        $data_year = $this->M_Dashboard->get_data_all_line_by_year($child_filter);
+        $data_year = $this->M_Dashboard->get_data_all_line_by_year_amb1($child_filter);
         $data['data_all_year'] = (!empty($data_year[0]['total_plan']) && !empty($data_year[0]['total_aktual'])) ? (float) number_format(($data_year[0]['total_aktual'] / $data_year[0]['total_plan']) * 100, 2, '.', '') : 0;
 
         $arr_jam = ['08:50:00.0000000'
@@ -366,7 +361,7 @@ class Dashboard extends BaseController
         // $tanggal_berjalan = date('Y-m-d', strtotime('2023-05-05'));
         $tanggal_berjalan = date('Y-m-d');
         foreach ($arr_jam as $jam) {
-            $data_all = $this->M_Dashboard->get_data_all_line_by_jam($child_filter, $jam, $tanggal_berjalan);
+            $data_all = $this->M_Dashboard->get_data_all_line_by_jam_amb1($child_filter, $jam, $tanggal_berjalan);
             if (!empty($data_all)) {
                 foreach($data_all as $d_all) {
                     $total_plan = $d_all['total_plan'];
@@ -379,7 +374,7 @@ class Dashboard extends BaseController
             }
         }
         
-        return view('dashboard/dashboard_lhp_assy', $data);
+        return view('dashboard/dashboard_lhp_assy_amb1', $data);
     }
 
     public function get_data_line_stop() {

@@ -36,6 +36,13 @@ $routes->get('/login', 'Login::index');
 $routes->post('/login/proses_login', 'Login::proses_login');
 $routes->get('/logout', 'Login::logout');
 
+//DASHBOARD VIEW PROD2
+$routes->get('/dashboard/assy/amb1', 'DashboardAmb1::dashboard_lhp_assy');
+$routes->post('/dashboard/assy/amb1', 'DashboardAmb1::dashboard_lhp_assy');
+$routes->get('/dashboard/assy/amb2', 'DashboardAmb2::dashboard_lhp_assy');
+$routes->post('/dashboard/assy/amb2', 'DashboardAmb2::dashboard_lhp_assy');
+$routes->get('/dashboard/assy/home', 'Dashboard::index2');
+
 //DASHBOARD EFF ASSY
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->get('/dashboard/assy', 'Dashboard::dashboard_lhp_assy');

@@ -48,121 +48,11 @@
 	<div class="container-full">
 		<!-- Main content -->
 		<section class="content">
-            <!-- <div class="row">
-                <div class="col-12" style="text-align:center;">
-                    <h1>Performance Dashboard</h1>
-                    <br>
-                </div>
-            </div> -->
-            <!-- <div class="row"> -->
-				<!-- <div class="col-12">														 -->
-					<!-- <div class="box" >
-						<div class="box-header no-border px-0"> -->
-							<!-- <h4 class="box-title">Current Running Courses</h4>	 -->
-                            <!-- <form action="<?=base_url()?>dashboard/assy" method="POST">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <select class="form-select" name="jenis_dashboard" id="jenis_dashboard">
-                                            <option value="1">Efficiency</option>
-                                            <option value="2">Unit / MH</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-3" style="display:flex;">
-                                        <select class="form-select" name="parent_filter" id="parent_filter" style="display:none">
-                                            <option value="line" <?= ($parent_filter == 'line') ? 'selected':''?>>Line</option>
-                                        </select>
-                                        <select class="form-select" name="child_filter" id="child_filter">
-                                            <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>All</option>
-                                            <?php for ($i=1; $i <= 7 ; $i++) { ?>
-                                                <option value="<?=$i?>" <?= ($child_filter == $i) ? 'selected':''?>>Line <?=$i?></option>
-                                            <?php } ?>
-                                        </select>
-                                        &nbsp;
-                                        <select class="form-select" name="baby_filter" id="baby_filter">
-                                            <?php if ($child_filter == 0) { ?>
-                                                <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
-                                            <?php } else { ?>
-                                                <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
-                                                <option value="shift" <?= ($baby_filter == 'shift') ? 'selected':''?>>By Shift</option>
-                                                <option value="grup" <?= ($baby_filter == 'grup') ? 'selected':''?>>By Grup</option>
-                                                <option value="kasubsie" <?= ($baby_filter == 'kasubsie') ? 'selected':''?>>By Kasubsie</option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="col-3" style="display:flex;">
-                                        <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>">
-                                    </div>
-                                    <div class="col-3" style="display: flex; flex-direction: column;">
-                                        <button class="btn btn-sm btn-success"> Filter </button>
-                                    </div>
-                                </div>
-                            </form> -->
-							<!-- <ul class="box-controls pull-right d-md-flex d-none">
-							  <li>
-								<button class="btn btn-primary-light px-10">View All</button>
-							  </li>
-							</ul> -->
-						<!-- </div>
-					</div> -->
-				<!-- </div> -->
-                
-				<!-- <div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-primary rounded">
-								<h5 class="text-white text-center p-10">Year To Date</h5>
-							</div>							
-						</div>
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_year)?>%</h1>
-                        </div>				
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-warning rounded">
-								<h5 class="text-white text-center p-10">Target 2023</h5>
-							</div>							
-						</div>	
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;">85%</h1>
-                        </div>						
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-danger rounded">
-								<h5 class="text-white text-center p-10"><?=date('F', mktime(0, 0, 0, $previous_date, 10))?> Efficiency</h5>
-							</div>								
-						</div>
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>%</h1>
-                        </div>					
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-info rounded">
-								<h5 class="text-white text-center p-10"> <?=date('F', mktime(0, 0, 0, $current_date, 10))?> Efficiency</h5>
-							</div>						
-						</div>	
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>%</h1>
-                        </div>
-					</div>
-				</div> -->
-			<!-- </div> -->
-
             <div class="row">
                     <div class="box bg-transparent">
                         <div class="box-body" style="display:flex">
                             <div class="col-2">
-                                <form action="<?=base_url()?>dashboard/assy" method="POST">
+                                <form action="<?=base_url()?>dashboard/assy/amb1" method="POST">
                                     <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
                                         <option value="1">Efficiency</option>
                                         <option value="2">Unit / MH</option>
@@ -173,10 +63,9 @@
                                     </select>
                                     &nbsp;
                                     <select class="form-select" name="child_filter" id="child_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
-                                        <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>All</option>
-                                        <!-- <option value="amb1" <?= ($child_filter === 'amb1') ? 'selected':''?>>AMB 1</option>
-                                        <option value="amb2" <?= ($child_filter === 'amb2') ? 'selected':''?>>AMB 2</option> -->
-                                        <?php for ($i=1; $i <= 7 ; $i++) { ?>
+                                        <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>AMB 1</option>
+                                        <!-- <option value="amb1" <?= ($child_filter === 'amb1') ? 'selected':''?>>AMB 1</option> -->
+                                        <?php for ($i=1; $i <= 3 ; $i++) { ?>
                                             <option value="<?=$i?>" <?= ($child_filter == $i) ? 'selected':''?>>Line <?=$i?></option>
                                         <?php } ?>
                                     </select>
@@ -258,7 +147,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php for ($i=1; $i <= 7; $i++) { ?>
+                                                    <?php for ($i=1; $i <= 3; $i++) { ?>
                                                         <tr style="line-height: 0px;">
                                                             <td>Line <?=$i?></td>
                                                             <td><?=${'data_line_'.$i.'_previous_month'}[0]?> %</td>
@@ -647,15 +536,6 @@
                 fontSize: '20px'
             }
         },
-        subtitle: {
-            text: 'Source: Laporan Harian Produksi',
-            align: 'center',
-            style: {
-                color: '#ffffff',
-                fontSize: '15px'
-            }
-        },
-
         xAxis: {
             categories: [
                 'Jan',
@@ -730,22 +610,6 @@
                 {
                     name: 'Line 3',
                     data: <?php echo json_encode($data_by_month_line_3); ?>,
-                },
-                {
-                    name: 'Line 4',
-                    data: <?php echo json_encode($data_by_month_line_4); ?>,
-                },
-                {
-                    name: 'Line 5',
-                    data: <?php echo json_encode($data_by_month_line_5); ?>,
-                },
-                {
-                    name: 'Line 6',
-                    data: <?php echo json_encode($data_by_month_line_6); ?>,
-                },
-                {
-                    name: 'Line 7',
-                    data: <?php echo json_encode($data_by_month_line_7); ?>,
                 }
             <?php } else { ?>
                 {
@@ -809,7 +673,7 @@
         },
 
         title: {
-            text: 'Daily Efficiency',
+            text: 'Efficiency',
             align: 'center',
             style: {
                 color: '#ffffff',
@@ -1028,154 +892,6 @@
                         }
                     }
                 },
-                {
-                    name: 'Line 4',
-                    data: <?php echo json_encode($data_line_4); ?>,
-                    point: {
-                        events: {
-                            click: function() {
-                                var date = $('#bulan').val()+'-'+this.category;
-                                var line = 4;
-                                $.ajax({
-                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
-                                    type: "POST",
-                                    data: {
-                                        date: date,
-                                        line: line
-                                    },
-                                    dataType: "json",
-                                    success: function(data) {
-                                        var html = '';
-                                        var i;
-                                        for (i = 0; i < data.length; i++) {
-                                            html += '<tr>' +
-                                                '<td>' + data[i].no_wo + '</td>' +
-                                                '<td>' + data[i].type_battery + '</td>' +
-                                                '<td>' + data[i].jenis_breakdown + '</td>' +
-                                                '<td>' + data[i].proses_breakdown + '</td>' +
-                                                '<td>' + data[i].uraian_breakdown + '</td>' +
-                                                '<td>' + data[i].menit_breakdown + '</td>' +
-                                                '</tr>';
-                                        }
-                                        $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
-                                    }
-                                });
-                            }
-                        }
-                    }
-                },
-                {
-                    name: 'Line 5',
-                    data: <?php echo json_encode($data_line_5); ?>,
-                    point: {
-                        events: {
-                            click: function() {
-                                var date = $('#bulan').val()+'-'+this.category;
-                                var line = 5;
-                                $.ajax({
-                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
-                                    type: "POST",
-                                    data: {
-                                        date: date,
-                                        line: line
-                                    },
-                                    dataType: "json",
-                                    success: function(data) {
-                                        var html = '';
-                                        var i;
-                                        for (i = 0; i < data.length; i++) {
-                                            html += '<tr>' +
-                                                '<td>' + data[i].no_wo + '</td>' +
-                                                '<td>' + data[i].type_battery + '</td>' +
-                                                '<td>' + data[i].jenis_breakdown + '</td>' +
-                                                '<td>' + data[i].proses_breakdown + '</td>' +
-                                                '<td>' + data[i].uraian_breakdown + '</td>' +
-                                                '<td>' + data[i].menit_breakdown + '</td>' +
-                                                '</tr>';
-                                        }
-                                        $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
-                                    }
-                                });
-                            }
-                        }
-                    }
-                },
-                {
-                    name: 'Line 6',
-                    data: <?php echo json_encode($data_line_6); ?>,
-                    point: {
-                        events: {
-                            click: function() {
-                                var date = $('#bulan').val()+'-'+this.category;
-                                var line = 6;
-                                $.ajax({
-                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
-                                    type: "POST",
-                                    data: {
-                                        date: date,
-                                        line: line
-                                    },
-                                    dataType: "json",
-                                    success: function(data) {
-                                        var html = '';
-                                        var i;
-                                        for (i = 0; i < data.length; i++) {
-                                            html += '<tr>' +
-                                                '<td>' + data[i].no_wo + '</td>' +
-                                                '<td>' + data[i].type_battery + '</td>' +
-                                                '<td>' + data[i].jenis_breakdown + '</td>' +
-                                                '<td>' + data[i].proses_breakdown + '</td>' +
-                                                '<td>' + data[i].uraian_breakdown + '</td>' +
-                                                '<td>' + data[i].menit_breakdown + '</td>' +
-                                                '</tr>';
-                                        }
-                                        $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
-                                    }
-                                });
-                            }
-                        }
-                    }
-                },
-                {
-                    name: 'Line 7',
-                    data: <?php echo json_encode($data_line_7); ?>,
-                    point: {
-                        events: {
-                            click: function() {
-                                var date = $('#bulan').val()+'-'+this.category;
-                                var line = 7;
-                                $.ajax({
-                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
-                                    type: "POST",
-                                    data: {
-                                        date: date,
-                                        line: line
-                                    },
-                                    dataType: "json",
-                                    success: function(data) {
-                                        var html = '';
-                                        var i;
-                                        for (i = 0; i < data.length; i++) {
-                                            html += '<tr>' +
-                                                '<td>' + data[i].no_wo + '</td>' +
-                                                '<td>' + data[i].type_battery + '</td>' +
-                                                '<td>' + data[i].jenis_breakdown + '</td>' +
-                                                '<td>' + data[i].proses_breakdown + '</td>' +
-                                                '<td>' + data[i].uraian_breakdown + '</td>' +
-                                                '<td>' + data[i].menit_breakdown + '</td>' +
-                                                '</tr>';
-                                        }
-                                        $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
-                                    }
-                                });
-                            }
-                        }
-                    }
-                }
             <?php } ?>
 
             <?php if ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND ($baby_filter == null OR $baby_filter == 'average')) { ?>
@@ -1466,14 +1182,6 @@
             style: {
                 color: '#ffffff',
                 fontSize: '20px'
-            }
-        },
-        subtitle: {
-            text: 'Source: Laporan Harian Produksi',
-            align: 'center',
-            style: {
-                color: '#ffffff',
-                fontSize: '15px'
             }
         },
         xAxis: {
