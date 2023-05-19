@@ -148,7 +148,7 @@ class DashboardAssyRejection extends BaseController
 
         foreach ($data_line as $d_line) {
             array_push($data['data_reject_by_line'], 'Line '.$d_line['line']);
-            array_push($data['data_total_reject_by_line'], (float) number_format($d_line['persen'], 2, '.', ''));
+            array_push($data['data_total_reject_by_line'], (float) number_format(($d_line['total_reject'] / $d_line['total_aktual']) * 100, 2, '.', ''));
         }
 
         $data_year = $this->M_DashboardAssyRejection->get_year_to_date_rejection($child_filter);
@@ -366,7 +366,7 @@ class DashboardAssyRejection extends BaseController
         }
 
         if ($bulan == null) {
-            $bulan = date('Y-m');
+            $bulan = date('Y-m-d');
         }
 
         if ($bulan != null OR $bulan != $current_month) {
@@ -454,6 +454,16 @@ class DashboardAssyRejection extends BaseController
             }
         }
         
+        // GET DATA PARETO REJECT BY LINE BY DATE
+        $data['data_reject_by_line_by_date'] = [];
+        $data['data_total_reject_by_line_by_date'] = [];
+
+        $data_line_by_date = $this->M_DashboardAssyRejection->get_data_total_reject_line_by_date($bulan);
+
+        foreach ($data_line_by_date as $d_line) {
+            array_push($data['data_reject_by_line_by_date'], 'Line '.$d_line['line']);
+            array_push($data['data_total_reject_by_line_by_date'], (float) number_format(($d_line['total_reject'] / $d_line['total_aktual']) * 100, 2, '.', ''));
+        }
 
         // GET DATA PARETO REJECT BY LINE
         $data['data_reject_by_line'] = [];
@@ -463,7 +473,7 @@ class DashboardAssyRejection extends BaseController
 
         foreach ($data_line as $d_line) {
             array_push($data['data_reject_by_line'], 'Line '.$d_line['line']);
-            array_push($data['data_total_reject_by_line'], (float) number_format($d_line['persen'], 2, '.', ''));
+            array_push($data['data_total_reject_by_line'], (float) number_format(($d_line['total_reject'] / $d_line['total_aktual']) * 100, 2, '.', ''));
         }
 
         $data_year = $this->M_DashboardAssyRejection->get_year_to_date_rejection($child_filter);

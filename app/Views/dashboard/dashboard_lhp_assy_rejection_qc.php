@@ -110,7 +110,7 @@
             <div style="margin-left:-250px; text-align:center; margin-top:-5px;">
                 <h1 class="judul_dashboard">REJECTION DASHBOARD</h1>
                 <!-- <br> -->
-                <!-- <span class="sub_judul_dashboard">PRODUCTION 2</span> -->
+                <span class="sub_judul_dashboard">ASSEMBLING AMB</span>
             </div>
 
             <div class="navbar-custom-menu r-side">
@@ -305,14 +305,14 @@
                                     <?php } ?>
                                 </select>
                                 &nbsp;
-                                <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                <input type="date" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
                                 &nbsp;
                                 <div style="display: flex; flex-direction: column;" >
                                     <button class="btn btn-sm btn-success" style="font-size: 20px;font-weight: 900;width: 250px;"> Filter </button>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-4" style="display:flex; margin-top:35px;">
+                        <div class="col-2" style="display:flex; margin-top:35px;">
                             <div class="col-6">
                                 <div id="year_to_date_chart" style="height:250px;"></div>
                             </div>
@@ -331,7 +331,16 @@
                                 <button class="btn btn-success btn-nav">Overtime</button>
                             </div> -->
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
+                            <div class="box bg-transparent">
+                                <div class="box-body">
+                                    <figure class="highcharts-figure">
+                                        <div id="average_month_chart"></div>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
                             <div class="box bg-transparent">
                                 <div class="box-body">
                                     <figure class="highcharts-figure">
@@ -360,7 +369,7 @@
                         <div class="box bg-transparent">
                             <div class="box-body">
                                 <figure class="highcharts-figure">
-                                    <div id="average_month_chart"></div>
+                                    <div id="pareto_reject_date"></div>
                                 </figure>
                             </div>
                         </div>
@@ -923,6 +932,76 @@
             }
         );
 
+        // DATA PARETO REJECT BY LINE DAILY
+        Highcharts.chart('pareto_reject_date', {
+            chart: {
+                backgroundColor: 'transparent',
+                type: 'column',
+                // backgroundColor: '#0c1a32',
+                
+            },
+            exporting: {
+                enabled: false
+            },
+            title: {
+                text: 'Daily Rejection <?=date('d M Y', strtotime($bulan))?> (%)',
+                style: {
+                    color: '#ffffff',
+                    fontSize: '20px'
+                }
+            },
+            xAxis: {
+                categories: <?php echo json_encode($data_reject_by_line_by_date); ?>,
+                crosshair: true,
+                labels: {
+                    style: {
+                        color: '#ffffff'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '%'
+                }
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function(){
+                            return (this.y!=0)?this.y:"";
+                        },
+                        style: {
+                            color: '#ffffff',
+                            textOutline: 0,
+                            fontSize: 14
+                        },
+                    },
+                    // pointWidth: 30,
+                }
+            },
+            legend: {
+                    enabled: false
+                },
+
+            series: [{
+                // name: 'All Line',
+                data: <?php echo json_encode($data_total_reject_by_line_by_date); ?>,
+                color:'yellow',
+
+            },
+            {
+                type: 'spline',
+                name: 'Target',
+                data: [0.4, 0.4,0.4,0.4,0.4,0.4,0.4],
+                color:'red',
+            }]
+        });
+
+        // DATA PARETO REJECT BY LINE MONTHLY
         Highcharts.chart('pareto_reject', {
             chart: {
                 backgroundColor: 'transparent',
@@ -994,6 +1073,8 @@
         // GENERATE X AXIS DATE
         <?php
             $dates = array();
+            $target_by_date = array();
+            $target_by_month = array();
 
             date_default_timezone_set('Asia/Jakarta');
             $start = date('Y-m-01');
@@ -1007,7 +1088,12 @@
 
             while (strtotime($start) <= strtotime($now)) {
                 array_push($dates, date("d", strtotime($start)));
+                array_push($target_by_date, 0.4);
                 $start = date ("Y-m-d", strtotime("+1 day", strtotime($start)));
+            }
+
+            for ($i=0; $i < 12; $i++) { 
+                array_push($target_by_month, 0.4);
             }
         ?>
 
@@ -1089,7 +1175,8 @@
                         },
                         events: {
                             click : function(e) {
-                                var date = $('#bulan').val() + '-' + e.point.category;
+                                var date = $('#bulan').val();
+                                // var date = $('#bulan').val() + '-' + e.point.category;
                                 var line = <?= $child_filter ?>;
                                 $.ajax({
                                     url: '<?= base_url('dashboard/reject/get_detail_rejection') ?>',
@@ -2095,9 +2182,15 @@
                 colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
                 
                 series: [{
-                    name: 'All Line',
+                    name: '<?=($child_filter == 0) ? 'All Line':'Line '.$child_filter?>',
                     data: <?= json_encode($data_average_reject_by_date_all_line); ?>
-                }
+                },
+                {
+                type: 'spline',
+                name: 'Target',
+                data: <?=json_encode($target_by_date)?>,
+                color:'red',
+            }
                 ],
 
                 responsive: {
@@ -2440,9 +2533,15 @@
                 colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
 
                 series: [{
-                    name: 'All Line',
+                    name: '<?=($child_filter == 0) ? 'All Line':'Line '.$child_filter?>',
                     data: <?= json_encode($data_average_reject_by_month); ?>
-                }
+                },
+                {
+                type: 'spline',
+                name: 'Target',
+                data: <?=json_encode($target_by_month)?>,
+                color:'red',
+            }
                 ],
             });
         <?php } elseif ($baby_filter == 'line') { ?>

@@ -54,6 +54,12 @@ $routes->get('/dashboard/reject/get_detail_rejection', 'DashboardAssyRejection::
 $routes->get('/dashboard/reject_qc', 'DashboardAssyRejection::dashboard_reject_assy_qc');
 $routes->post('/dashboard/reject_qc', 'DashboardAssyRejection::dashboard_reject_assy_qc');
 
+// DASHBOARD LINE STOP ASSY
+$routes->get('/dashboard/line_stop', 'DashboardAssyLineStop::dashboard_line_stop_assy');
+$routes->post('/dashboard/line_stop', 'DashboardAssyLineStop::dashboard_line_stop_assy');
+$routes->post('/dashboard/line_stop/get_detail_line_stop', 'DashboardAssyLineStop::get_detail_line_stop');
+$routes->get('/dashboard/line_stop/get_detail_line_stop', 'DashboardAssyLineStop::get_detail_line_stop');
+
 //DASHBOARD EFF GRID
 $routes->get('/dashboardGrid', 'DashboardGrid::index');
 $routes->get('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');

@@ -164,17 +164,38 @@ class M_DashboardAssyRejection extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_total_reject_line_by_date($tanggal) 
+    {
+        $query = $this->db->query('SELECT	line, SUM(lhp_produksi2.total_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
+                                    FROM	lhp_produksi2
+                                    WHERE tanggal_produksi = \''.$tanggal.'\'
+                                    AND line != 10
+                                    GROUP BY lhp_produksi2.line
+                                    ORDER BY ((SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) DESC
+                                ');
+
+        return $query->getResultArray();
+    }
+
     public function get_data_total_reject_line_by_month($month) 
     {
         $bulan = idate('m', strtotime($month));
-        $query = $this->db->query('SELECT	lhp_produksi2.line, SUM(detail_reject.qty_reject) as qty_reject, SUM(lhp_produksi2.total_aktual) as total_aktual, 
-                                            ((SUM(detail_reject.qty_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) as persen
-                                    FROM	detail_reject
-                                    RIGHT JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
-                                    WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.' 
-                                    AND lhp_produksi2.line != 10
-                                    GROUP BY lhp_produksi2.line
-                                    ORDER BY ((SUM(detail_reject.qty_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) DESC
+        // $query = $this->db->query('SELECT	lhp_produksi2.line, SUM(detail_reject.qty_reject) as qty_reject, SUM(lhp_produksi2.total_aktual) as total_aktual, 
+        //                                     ((SUM(detail_reject.qty_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) as persen
+        //                             FROM	detail_reject
+        //                             RIGHT JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
+        //                             WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.' 
+        //                             AND lhp_produksi2.line != 10
+        //                             GROUP BY lhp_produksi2.line
+        //                             ORDER BY ((SUM(detail_reject.qty_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) DESC
+        //                         ');
+
+        $query = $this->db->query('SELECT	line, SUM(lhp_produksi2.total_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
+                                    FROM	lhp_produksi2
+                                    WHERE MONTH(tanggal_produksi) = '.$bulan.' 
+                                    AND line != 10
+                                    GROUP BY line
+                                    ORDER BY ((SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) DESC
                                 ');
 
         return $query->getResultArray();

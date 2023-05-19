@@ -17,7 +17,7 @@
         $type_chart = 'column';
     }
 
-    $data = $data_reject_by_date;
+    $data = $data_line_stop_by_date;
     $merged = array();
     foreach ($data as $item) {
         $name = $item["name"];
@@ -29,7 +29,7 @@
     }
     $result = array_values($merged);
 
-    $data_daily_persentase = $data_reject_by_date_persentase;
+    $data_daily_persentase = $data_line_stop_by_date_persentase;
     $merged_daily_persentase = array();
     foreach ($data_daily_persentase as $item) {
         $name = $item["name"];
@@ -39,7 +39,7 @@
             array_push($merged_daily_persentase[$name]["data"], $item["data"]);
         }
     }
-    $result_daily_reject_persentase = array_values($merged_daily_persentase);
+    $result_daily_line_stop_persentase = array_values($merged_daily_persentase);
 ?>
 
 <div class="content-wrapper" style="margin-left:0; margin-top:50px;">
@@ -50,9 +50,9 @@
                 <div class="box bg-transparent">
                     <div class="box-body" style="display:flex">
                         <div class="col-2">
-                            <form action="<?=base_url()?>dashboard/reject" method="POST">
+                            <form action="<?=base_url()?>dashboard/line_stop" method="POST">
                                 <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px; display:none;">
-                                    <option value="1">Rejection</option>
+                                    <option value="1">Line Stop</option>
                                     <option value="2">Unit / MH</option>
                                 </select>
                                 &nbsp;
@@ -87,38 +87,38 @@
                             </form>
                         </div>
                         <div class="col-6" style="display:flex; margin-top:35px;">
-                                <div class="col-4">
-                                    <div id="year_to_date_chart" style="height:250px;"></div>
-                                    <div style="text-align: center;margin-top: 60px;">
-                                        <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-outline btn-rounded btn-primary btn-lg btn-nav">Efficiency</a>
-                                    </div>
+                            <div class="col-4">
+                                <div id="year_to_date_chart" style="height:250px;"></div>
+                                <div style="text-align: center;margin-top: 60px;">
+                                    <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-outline btn-rounded btn-primary btn-lg btn-nav">Efficiency</a>
                                 </div>
-                                <div class="col-4">
-                                    <div id="target_chart" style="height:250px;"></div>
-                                    <div style="text-align: center;margin-top: 60px;">
-                                    <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-3">
-                                    <div id="previous_month_chart" style="height:250px;"></div>
-                                </div> -->
-                                <div class="col-4">
-                                    <div id="current_month_chart" style="height:250px;"></div>
-                                    <div style="text-align: center;margin-top: 60px;">
-                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
-                                    <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-outline btn-rounded btn-primary btn-nav">Efficiency</a>
-                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-nav">Line Stop</button>
-                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-nav">Overtime</button>
-                                </div> -->
                             </div>
+                            <!-- <div class="col-4">
+                                <div id="target_chart" style="height:250px;"></div>
+                            </div> -->
+                            <div class="col-4">
+                                <div id="previous_month_chart" style="height:250px;"></div>
+                                <div style="text-align: center;margin-top: 60px;">
+                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</button>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div id="current_month_chart" style="height:250px;"></div>
+                                <div style="text-align: center;margin-top: 60px;">
+                                <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
+                                </div>
+                            </div>
+                            <!-- <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
+                                <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-outline btn-rounded btn-primary btn-nav">Efficiency</a>
+                                <button class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-nav">Line Stop</button>
+                                <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-nav">Overtime</button>
+                            </div> -->
+                        </div>
                         <div class="col-4">
                             <div class="box bg-transparent">
                                 <div class="box-body">
                                     <figure class="highcharts-figure">
-                                        <div id="pareto_reject"></div>
+                                        <div id="pareto_line_stop"></div>
                                     </figure>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@
 					<div class="box bg-transparent">
 						<div class="box-body">
                             <figure class="highcharts-figure">
-                                <div id="daily_rejection_persentase_chart"></div>
+                                <div id="daily_line_stop_persentase_chart"></div>
                             </figure>
 						</div>
 					</div>										
@@ -190,7 +190,7 @@
 					<div class="box bg-transparent">
 						<div class="box-body">
                             <figure class="highcharts-figure">
-                                <div id="monthly_rejection_persentase_chart"></div>
+                                <div id="monthly_line_stop_persentase_chart"></div>
                             </figure>
 						</div>
 					</div>
@@ -229,12 +229,12 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="width:120%;">
             <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">Detail Rejection</h4>
+                <h4 class="modal-title" id="myLargeModalLabel">Detail Line Stop</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div id="detail_pareto_jenis_reject"></div>
-                <div id="detail_pareto_kategori_reject"></div>
+                <div id="detail_pareto_jenis_line_stop"></div>
+                <div id="detail_pareto_kategori_line_stop"></div>
                 <div id="detail_pareto_type_battery"></div>
                 <div id="detail_pareto_grup_shift"></div>
             </div>
@@ -253,12 +253,12 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="width:120%;">
             <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">Detail Rejection</h4>
+                <h4 class="modal-title" id="myLargeModalLabel">Detail Line Stop</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div id="sub_detail_pareto_jenis_reject"></div>
-                <div id="sub_detail_pareto_kategori_reject"></div>
+                <div id="sub_detail_pareto_jenis_line_stop"></div>
+                <div id="sub_detail_pareto_kategori_line_stop"></div>
                 <div id="sub_detail_pareto_type_battery"></div>
                 <div id="sub_detail_pareto_grup_shift"></div>
             </div>
@@ -378,68 +378,12 @@
     );
 
     // PIE CHART TARGET
-    var target_chart = echarts.init(document.getElementById('target_chart'));
-    target_chart.setOption(
-        {
-            title: {
-                text: '0.4%',
-                subtext: 'Batas Rejection',
-                x: 'center',
-                y: 'center',
-                itemGap: 5,
-                textStyle: {
-                    color: '#ffffff',
-                    fontSize: 30,
-                    fontWeight: '700'
-                },
-                subtextStyle: {
-                    color: '#ffffff',
-                    fontSize: 15,
-                    fontWeight: 'normal'
-                }
-
-            },           
-            series: [
-                {
-                    name: '1',
-                    type: 'pie',
-                    clockWise: false,
-                    radius: ['63%', '90%'],
-                    silent: true,
-                    itemStyle: {
-                        normal: {
-                            label: {show: false},
-                            labelLine: {show: false}
-                        }
-                    },
-                    data: [
-                        {
-                            value: 40,
-                            name: 'Monday',
-                            itemStyle: {
-                                color: 'red'
-                            }
-                        },
-                        {
-                            value: 60,
-                            name: 'invisible',
-                            itemStyle: {
-                                color: 'grey'
-                            }
-                        }
-                    ]
-                },
-            ]
-        }
-    );
-
-    // PIE CHART Previous Month
-    // var previous_month_chart = echarts.init(document.getElementById('previous_month_chart'));
-    // previous_month_chart.setOption(
+    // var target_chart = echarts.init(document.getElementById('target_chart'));
+    // target_chart.setOption(
     //     {
     //         title: {
-    //             text: '<?=json_encode($data_reject_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>%',
-    //             subtext: '<?=date('F', mktime(0, 0, 0, $previous_date, 10))?> Rejection',
+    //             text: '0.4%',
+    //             subtext: 'Batas Line Stop',
     //             x: 'center',
     //             y: 'center',
     //             itemGap: 5,
@@ -460,7 +404,7 @@
     //                 name: '1',
     //                 type: 'pie',
     //                 clockWise: false,
-    //                 radius: ['75%', '90%'],
+    //                 radius: ['63%', '90%'],
     //                 silent: true,
     //                 itemStyle: {
     //                     normal: {
@@ -470,14 +414,14 @@
     //                 },
     //                 data: [
     //                     {
-    //                         value: <?=json_encode($data_reject_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?> * 100,
+    //                         value: 40,
     //                         name: 'Monday',
     //                         itemStyle: {
     //                             color: 'red'
     //                         }
     //                     },
     //                     {
-    //                         value: 100 - (<?=json_encode($data_reject_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?> * 100),
+    //                         value: 60,
     //                         name: 'invisible',
     //                         itemStyle: {
     //                             color: 'grey'
@@ -489,13 +433,13 @@
     //     }
     // );
 
-    // PIE CHART Current Month
-    var current_month_chart = echarts.init(document.getElementById('current_month_chart'));
-    current_month_chart.setOption(
+    // PIE CHART Previous Month
+    var previous_month_chart = echarts.init(document.getElementById('previous_month_chart'));
+    previous_month_chart.setOption(
         {
             title: {
-                text: '<?=json_encode($data_reject_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>%',
-                subtext: '<?=date('F', mktime(0, 0, 0, $current_date, 10))?> Rejection',
+                text: '<?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>%',
+                subtext: '<?=date('F', mktime(0, 0, 0, $previous_date, 10))?> Line Stop',
                 x: 'center',
                 y: 'center',
                 itemGap: 5,
@@ -526,14 +470,14 @@
                     },
                     data: [
                         {
-                            value: <?=json_encode($data_reject_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?> * 100,
+                            value: <?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?> * 100,
                             name: 'Monday',
                             itemStyle: {
-                                color: 'orange'
+                                color: 'red'
                             }
                         },
                         {
-                            value: 100 - (<?=json_encode($data_reject_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?> * 100),
+                            value: 100 - (<?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?> * 100),
                             name: 'invisible',
                             itemStyle: {
                                 color: 'grey'
@@ -545,7 +489,63 @@
         }
     );
 
-    Highcharts.chart('pareto_reject', {
+    // PIE CHART Current Month
+    var current_month_chart = echarts.init(document.getElementById('current_month_chart'));
+    current_month_chart.setOption(
+        {
+            title: {
+                text: '<?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>%',
+                subtext: '<?=date('F', mktime(0, 0, 0, $current_date, 10))?> Line Stop',
+                x: 'center',
+                y: 'center',
+                itemGap: 5,
+                textStyle: {
+                    color: '#ffffff',
+                    fontSize: 30,
+                    fontWeight: '700'
+                },
+                subtextStyle: {
+                    color: '#ffffff',
+                    fontSize: 15,
+                    fontWeight: 'normal'
+                }
+
+            },           
+            series: [
+                {
+                    name: '1',
+                    type: 'pie',
+                    clockWise: false,
+                    radius: ['63%', '90%'],
+                    silent: true,
+                    itemStyle: {
+                        normal: {
+                            label: {show: false},
+                            labelLine: {show: false}
+                        }
+                    },
+                    data: [
+                        {
+                            value: <?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?> * 100,
+                            name: 'Monday',
+                            itemStyle: {
+                                color: 'orange'
+                            }
+                        },
+                        {
+                            value: 100 - (<?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?> * 100),
+                            name: 'invisible',
+                            itemStyle: {
+                                color: 'grey'
+                            }
+                        }
+                    ]
+                },
+            ]
+        }
+    );
+
+    Highcharts.chart('pareto_line_stop', {
         chart: {
             backgroundColor: 'transparent',
             type: 'column',
@@ -556,14 +556,14 @@
             enabled: false
         },
         title: {
-            text: '<?=date('F', strtotime($bulan))?> Rejection (%)',
+            text: '<?=date('F', strtotime($bulan))?> Line Stop (%)',
             style: {
                 color: '#ffffff',
                 fontSize: '20px'
             }
         },
         xAxis: {
-            categories: <?php echo json_encode($data_reject_by_line); ?>,
+            categories: <?php echo json_encode($data_line_stop_by_line); ?>,
             crosshair: true,
             labels: {
                 style: {
@@ -601,16 +601,17 @@
 
         series: [{
             // name: 'All Line',
-            data: <?php echo json_encode($data_total_reject_by_line); ?>,
+            data: <?php echo json_encode($data_total_line_stop_by_line); ?>,
             color:'yellow',
 
         },
-        {
-            type: 'spline',
-            name: 'Target',
-            data: [0.4, 0.4,0.4,0.4,0.4,0.4,0.4],
-            color:'red',
-        }]
+        // {
+        //     type: 'spline',
+        //     name: 'Target',
+        //     data: [0.4, 0.4,0.4,0.4,0.4,0.4,0.4],
+        //     color:'red',
+        // }
+    ]
     });
 
     // GENERATE X AXIS DATE
@@ -650,7 +651,7 @@
             },
 
             title: {
-                text: 'Daily Rejection <?=($child_filter == 0) ? 'All Line' : 'Line '.$child_filter?>',
+                text: 'Daily Line Stop <?=($child_filter == 0) ? 'All Line' : 'Line '.$child_filter?>',
                 align: 'center',
                 style: {
                     color: '#ffffff',
@@ -714,7 +715,7 @@
                             var date = $('#bulan').val() + '-' + e.point.category;
                             var line = <?= $child_filter ?>;
                             $.ajax({
-                                url: '<?= base_url('dashboard/reject/get_detail_rejection') ?>',
+                                url: '<?= base_url('dashboard/line_stop/get_detail_line_stop') ?>',
                                 type: 'POST',
                                 data: {
                                     date: date,
@@ -723,20 +724,20 @@
                                 dataType: 'JSON',
                                 success: function(data) {
                                     console.log(data);
-                                    var data_jenis_reject = data['data_jenis_reject'];
+                                    var data_jenis_line_stop = data['data_jenis_line_stop'];
                                     var i;
-                                    var arr_jenis_reject = [];
-                                    var arr_qty_jenis_reject = [];
-                                    for (i = 0; i < data_jenis_reject.length; i++) {
-                                        arr_jenis_reject.push(data_jenis_reject[i].jenis_reject);
-                                        arr_qty_jenis_reject.push(parseFloat(((data_jenis_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                    var arr_jenis_line_stop = [];
+                                    var arr_qty_jenis_line_stop = [];
+                                    for (i = 0; i < data_jenis_line_stop.length; i++) {
+                                        arr_jenis_line_stop.push(data_jenis_line_stop[i].jenis_breakdown);
+                                        arr_qty_jenis_line_stop.push(parseFloat(((data_jenis_line_stop[i].qty / data['total_aktual_by_date'][0]['loading_time']) * 100).toFixed(2)));
                                     }
-                                    console.log(arr_qty_jenis_reject);
-                                    $('#detail_pareto_jenis_reject').html(`<figure class="highcharts-figure">
-                                                                                            <div id="chart_pareto_jenis_reject"></div>
+                                    console.log(arr_qty_jenis_line_stop);
+                                    $('#detail_pareto_jenis_line_stop').html(`<figure class="highcharts-figure">
+                                                                                            <div id="chart_pareto_jenis_line_stop"></div>
                                                                                         </figure>
                                                                                     `);
-                                    Highcharts.chart('chart_pareto_jenis_reject', {
+                                    Highcharts.chart('chart_pareto_jenis_line_stop', {
                                         chart: {
                                                 backgroundColor: 'transparent',
                                                 type: 'column'
@@ -745,14 +746,14 @@
                                                 enabled: false
                                             },
                                             title: {
-                                                text: `Detail Rejection (${date})`,
+                                                text: `Detail Line Stop (${date})`,
                                                 style: {
                                                     color: '#ffffff',
                                                     fontSize: '20px'
                                                 }
                                             },
                                             xAxis: {
-                                                categories: arr_jenis_reject,
+                                                categories: arr_jenis_line_stop,
                                                 crosshair: true,
                                                 labels: {
                                                     style: {
@@ -780,33 +781,33 @@
                                                     },
                                                     events: {
                                                         click: function(event) {
-                                                            var jenis_reject = event.point.category;
+                                                            var jenis_line_stop = event.point.category;
 
                                                             $.ajax({
-                                                                url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                                                url: "<?= base_url('dashboard/line_stop/get_detail_line_stop'); ?>",
                                                                 type: "POST",
                                                                 data: {
                                                                     date: date,
                                                                     line: line,
-                                                                    jenis_reject: jenis_reject
+                                                                    jenis_line_stop: jenis_line_stop
                                                                 },
                                                                 dataType: "json",
                                                                 success: function(data) {
                                                                     console.log(data);
-                                                                    var data_reject_by_jenis_reject = data['data_reject_by_jenis_reject'];
+                                                                    var data_line_stop_by_jenis_line_stop = data['data_line_stop_by_jenis_line_stop'];
                                                                     var i;
-                                                                    var arr_kategori_reject = [];
-                                                                    var arr_qty_kategori_reject = [];
-                                                                    for (i = 0; i < data_reject_by_jenis_reject.length; i++) {
-                                                                        arr_kategori_reject.push(data_reject_by_jenis_reject[i].kategori_reject);
-                                                                        arr_qty_kategori_reject.push(parseFloat(((data_reject_by_jenis_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    var arr_kategori_line_stop = [];
+                                                                    var arr_qty_kategori_line_stop = [];
+                                                                    for (i = 0; i < data_line_stop_by_jenis_line_stop.length; i++) {
+                                                                        arr_kategori_line_stop.push(data_line_stop_by_jenis_line_stop[i].kategori_line_stop);
+                                                                        arr_qty_kategori_line_stop.push(parseFloat(((data_line_stop_by_jenis_line_stop[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                         
                                                                     }
-                                                                    $('#sub_detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_ketegori_reject"></div>
+                                                                    $('#sub_detail_pareto_kategori_line_stop').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_ketegori_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_detail_pareto_ketegori_reject', {
+                                                                    Highcharts.chart('chart_detail_pareto_ketegori_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -815,14 +816,14 @@
                                                                                 enabled: false
                                                                             },
                                                                             title: {
-                                                                                text: 'Detail '+jenis_reject+' Rejection',
+                                                                                text: 'Detail '+jenis_line_stop+' Line Stop',
                                                                                 style: {
                                                                                     color: '#ffffff',
                                                                                     fontSize: '20px'
                                                                                 }
                                                                             },
                                                                             xAxis: {
-                                                                                categories: arr_kategori_reject,
+                                                                                categories: arr_kategori_line_stop,
                                                                                 crosshair: true,
                                                                                 labels: {
                                                                                     style: {
@@ -860,26 +861,26 @@
                                                                             },
                                                                             series: [{
                                                                                 name: 'Total',
-                                                                                data: arr_qty_kategori_reject,
+                                                                                data: arr_qty_kategori_line_stop,
                                                                                 color:'yellow',
 
                                                                             }]
                                                                     });
 
-                                                                    var data_reject_by_type_battery = data['data_reject_by_type_battery'];
+                                                                    var data_line_stop_by_type_battery = data['data_line_stop_by_type_battery'];
                                                                     var i;
                                                                     var arr_type_battery = [];
                                                                     var arr_qty_type_battery = [];
-                                                                    for (i = 0; i < data_reject_by_type_battery.length; i++) {
-                                                                        arr_type_battery.push(data_reject_by_type_battery[i].type_battery);
-                                                                        arr_qty_type_battery.push(parseFloat(((data_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    for (i = 0; i < data_line_stop_by_type_battery.length; i++) {
+                                                                        arr_type_battery.push(data_line_stop_by_type_battery[i].type_battery);
+                                                                        arr_qty_type_battery.push(parseFloat(((data_line_stop_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                         
                                                                     }
                                                                     $('#sub_detail_pareto_type_battery').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_battery_reject"></div>
+                                                                                                                    <div id="chart_detail_pareto_battery_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_detail_pareto_battery_reject', {
+                                                                    Highcharts.chart('chart_detail_pareto_battery_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -888,7 +889,7 @@
                                                                                 enabled: false
                                                                             },
                                                                             title: {
-                                                                                text: 'Detail Type Battery Rejection',
+                                                                                text: 'Detail Type Battery Line Stop',
                                                                                 style: {
                                                                                     color: '#ffffff',
                                                                                     fontSize: '20px'
@@ -934,20 +935,20 @@
                                                                             }]
                                                                     });
 
-                                                                    var data_reject_by_grup = data['data_reject_by_grup'];
+                                                                    var data_line_stop_by_grup = data['data_line_stop_by_grup'];
                                                                     var i;
                                                                     var arr_grup = [];
                                                                     var arr_qty_grup = [];
-                                                                    for (i = 0; i < data_reject_by_grup.length; i++) {
-                                                                        arr_grup.push(data_reject_by_grup[i].nama_pic+' ('+data_reject_by_grup[i].shift+')');
-                                                                        arr_qty_grup.push(parseFloat(((data_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    for (i = 0; i < data_line_stop_by_grup.length; i++) {
+                                                                        arr_grup.push(data_line_stop_by_grup[i].nama_pic+' ('+data_line_stop_by_grup[i].shift+')');
+                                                                        arr_qty_grup.push(parseFloat(((data_line_stop_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                         
                                                                     }
                                                                     $('#sub_detail_pareto_grup_shift').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_grup_reject"></div>
+                                                                                                                    <div id="chart_detail_grup_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_detail_grup_reject', {
+                                                                    Highcharts.chart('chart_detail_grup_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -956,7 +957,7 @@
                                                                                 enabled: false
                                                                             },
                                                                             title: {
-                                                                                text: 'Detail Grup Rejection',
+                                                                                text: 'Detail Grup Line Stop',
                                                                                 style: {
                                                                                     color: '#ffffff',
                                                                                     fontSize: '20px'
@@ -1014,25 +1015,25 @@
                                             },
                                             series: [{
                                                 name: 'Total',
-                                                data: arr_qty_jenis_reject,
+                                                data: arr_qty_jenis_line_stop,
                                                 color:'yellow',
 
                                             }]
                                     });
 
-                                    var data_kategori_reject = data['data_all_detail_kategori_rejection_by_date'];
+                                    var data_kategori_line_stop = data['data_all_detail_kategori_line_stop_by_date'];
                                     var i;
-                                    var arr_kategori_reject = [];
-                                    var arr_qty_kategori_reject = [];
-                                    for (i = 0; i < data_kategori_reject.length; i++) {
-                                        arr_kategori_reject.push(data_kategori_reject[i].kategori_reject);
-                                        arr_qty_kategori_reject.push(parseFloat(((data_kategori_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                    var arr_kategori_line_stop = [];
+                                    var arr_qty_kategori_line_stop = [];
+                                    for (i = 0; i < data_kategori_line_stop.length; i++) {
+                                        arr_kategori_line_stop.push(data_kategori_line_stop[i].kategori_line_stop);
+                                        arr_qty_kategori_line_stop.push(parseFloat(((data_kategori_line_stop[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                     }
-                                    $('#detail_pareto_kategori_reject').html(`<figure class="highcharts-figure">
-                                                                                    <div id="chart_pareto_kategori_reject"></div>
+                                    $('#detail_pareto_kategori_line_stop').html(`<figure class="highcharts-figure">
+                                                                                    <div id="chart_pareto_kategori_line_stop"></div>
                                                                                 </figure>
                                                                             `);
-                                    Highcharts.chart('chart_pareto_kategori_reject', {
+                                    Highcharts.chart('chart_pareto_kategori_line_stop', {
                                         chart: {
                                                 backgroundColor: 'transparent',
                                                 type: 'column'
@@ -1041,14 +1042,14 @@
                                                 enabled: false
                                             },
                                             title: {
-                                                text: `Detail Ketegori Rejection (${date})`,
+                                                text: `Detail Ketegori Line Stop (${date})`,
                                                 style: {
                                                     color: '#ffffff',
                                                     fontSize: '20px'
                                                 }
                                             },
                                             xAxis: {
-                                                categories: arr_kategori_reject,
+                                                categories: arr_kategori_line_stop,
                                                 crosshair: true,
                                                 labels: {
                                                     style: {
@@ -1081,26 +1082,26 @@
                                             },
                                             series: [{
                                                 name: 'Total',
-                                                data: arr_qty_kategori_reject,
+                                                data: arr_qty_kategori_line_stop,
                                                 color:'yellow',
 
                                             }]
                                     });
 
-                                    var data_battery_reject = data['data_all_detail_battery_rejection_by_date'];
+                                    var data_battery_line_stop = data['data_all_detail_battery_line_stop_by_date'];
                                     var i;
-                                    var arr_battery_reject = [];
-                                    var arr_qty_battery_reject = [];
-                                    for (i = 0; i < data_battery_reject.length; i++) {
-                                        arr_battery_reject.push(data_battery_reject[i].type_battery);
-                                        arr_qty_battery_reject.push(parseFloat(((data_battery_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                    var arr_battery_line_stop = [];
+                                    var arr_qty_battery_line_stop = [];
+                                    for (i = 0; i < data_battery_line_stop.length; i++) {
+                                        arr_battery_line_stop.push(data_battery_line_stop[i].type_battery);
+                                        arr_qty_battery_line_stop.push(parseFloat(((data_battery_line_stop[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                         
                                     }
                                     $('#detail_pareto_type_battery').html(`<figure class="highcharts-figure">
-                                                                                    <div id="chart_pareto_battery_reject"></div>
+                                                                                    <div id="chart_pareto_battery_line_stop"></div>
                                                                                 </figure>
                                                                             `);
-                                    Highcharts.chart('chart_pareto_battery_reject', {
+                                    Highcharts.chart('chart_pareto_battery_line_stop', {
                                         chart: {
                                                 backgroundColor: 'transparent',
                                                 type: 'column'
@@ -1109,14 +1110,14 @@
                                                 enabled: false
                                             },
                                             title: {
-                                                text: `Detail Type Battery Rejection (${date})`,
+                                                text: `Detail Type Battery Line Stop (${date})`,
                                                 style: {
                                                     color: '#ffffff',
                                                     fontSize: '20px'
                                                 }
                                             },
                                             xAxis: {
-                                                categories: arr_battery_reject,
+                                                categories: arr_battery_line_stop,
                                                 crosshair: true,
                                                 labels: {
                                                     style: {
@@ -1147,7 +1148,7 @@
                                                             var type_battery = event.point.category;
 
                                                             $.ajax({
-                                                                url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                                                url: "<?= base_url('dashboard/line_stop/get_detail_line_stop'); ?>",
                                                                 type: "POST",
                                                                 data: {
                                                                     date: date,
@@ -1157,20 +1158,20 @@
                                                                 dataType: "json",
                                                                 success: function(data) {
                                                                     console.log(data);
-                                                                    var data_jenis_reject_by_type_battery = data['data_jenis_reject_by_type_battery'];
+                                                                    var data_jenis_line_stop_by_type_battery = data['data_jenis_line_stop_by_type_battery'];
                                                                     var i;
-                                                                    var arr_jenis_reject_battery = [];
-                                                                    var arr_qty_jenis_reject_battery = [];
-                                                                    for (i = 0; i < data_jenis_reject_by_type_battery.length; i++) {
-                                                                        arr_jenis_reject_battery.push(data_jenis_reject_by_type_battery[i].jenis_reject);
-                                                                        arr_qty_jenis_reject_battery.push(parseFloat(((data_jenis_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    var arr_jenis_line_stop_battery = [];
+                                                                    var arr_qty_jenis_line_stop_battery = [];
+                                                                    for (i = 0; i < data_jenis_line_stop_by_type_battery.length; i++) {
+                                                                        arr_jenis_line_stop_battery.push(data_jenis_line_stop_by_type_battery[i].jenis_line_stop);
+                                                                        arr_qty_jenis_line_stop_battery.push(parseFloat(((data_jenis_line_stop_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                     }
 
-                                                                    $('#sub_detail_pareto_jenis_reject').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_jenis_reject"></div>
+                                                                    $('#sub_detail_pareto_jenis_line_stop').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_jenis_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_detail_pareto_jenis_reject', {
+                                                                    Highcharts.chart('chart_detail_pareto_jenis_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -1179,14 +1180,14 @@
                                                                                 enabled: false
                                                                             },
                                                                             title: {
-                                                                                text: 'Detail Rejection',
+                                                                                text: 'Detail Line Stop',
                                                                                 style: {
                                                                                     color: '#ffffff',
                                                                                     fontSize: '20px'
                                                                                 }
                                                                             },
                                                                             xAxis: {
-                                                                                categories: arr_jenis_reject_battery,
+                                                                                categories: arr_jenis_line_stop_battery,
                                                                                 crosshair: true,
                                                                                 labels: {
                                                                                     style: {
@@ -1219,26 +1220,26 @@
                                                                             },
                                                                             series: [{
                                                                                 name: 'Total',
-                                                                                data: arr_qty_jenis_reject_battery,
+                                                                                data: arr_qty_jenis_line_stop_battery,
                                                                                 color:'yellow',
 
                                                                             }]
                                                                     });
 
-                                                                    var data_kategori_reject_by_type_battery = data['data_kategori_reject_by_type_battery'];
+                                                                    var data_kategori_line_stop_by_type_battery = data['data_kategori_line_stop_by_type_battery'];
                                                                     var i;
-                                                                    var arr_kategori_reject_battery = [];
-                                                                    var arr_qty_kategori_reject_battery = [];
-                                                                    for (i = 0; i < data_kategori_reject_by_type_battery.length; i++) {
-                                                                        arr_kategori_reject_battery.push(data_kategori_reject_by_type_battery[i].kategori_reject);
-                                                                        arr_qty_kategori_reject_battery.push(parseFloat(((data_kategori_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    var arr_kategori_line_stop_battery = [];
+                                                                    var arr_qty_kategori_line_stop_battery = [];
+                                                                    for (i = 0; i < data_kategori_line_stop_by_type_battery.length; i++) {
+                                                                        arr_kategori_line_stop_battery.push(data_kategori_line_stop_by_type_battery[i].kategori_line_stop);
+                                                                        arr_qty_kategori_line_stop_battery.push(parseFloat(((data_kategori_line_stop_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                     }
 
-                                                                    $('#sub_detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_kategori_reject"></div>
+                                                                    $('#sub_detail_pareto_kategori_line_stop').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_kategori_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_detail_pareto_kategori_reject', {
+                                                                    Highcharts.chart('chart_detail_pareto_kategori_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -1247,14 +1248,14 @@
                                                                                 enabled: false
                                                                             },
                                                                             title: {
-                                                                                text: 'Detail Kategori Rejection',
+                                                                                text: 'Detail Kategori Line Stop',
                                                                                 style: {
                                                                                     color: '#ffffff',
                                                                                     fontSize: '20px'
                                                                                 }
                                                                             },
                                                                             xAxis: {
-                                                                                categories: arr_kategori_reject_battery,
+                                                                                categories: arr_kategori_line_stop_battery,
                                                                                 crosshair: true,
                                                                                 labels: {
                                                                                     style: {
@@ -1287,7 +1288,7 @@
                                                                             },
                                                                             series: [{
                                                                                 name: 'Total',
-                                                                                data: arr_qty_kategori_reject_battery,
+                                                                                data: arr_qty_kategori_line_stop_battery,
                                                                                 color:'yellow',
 
                                                                             }]
@@ -1297,20 +1298,20 @@
 
                                                                     $('#sub_detail_pareto_type_battery').html(``);
 
-                                                                    var data_grup_reject_by_type_battery = data['data_grup_reject_by_type_battery'];
+                                                                    var data_grup_line_stop_by_type_battery = data['data_grup_line_stop_by_type_battery'];
                                                                     var i;
-                                                                    var arr_grup_reject_battery = [];
-                                                                    var arr_qty_grup_reject_battery = [];
-                                                                    for (i = 0; i < data_grup_reject_by_type_battery.length; i++) {
-                                                                        arr_grup_reject_battery.push(data_grup_reject_by_type_battery[i].nama_pic+' ('+data_grup_reject_by_type_battery[i].shift+')');
-                                                                        arr_qty_grup_reject_battery.push(parseFloat(((data_grup_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    var arr_grup_line_stop_battery = [];
+                                                                    var arr_qty_grup_line_stop_battery = [];
+                                                                    for (i = 0; i < data_grup_line_stop_by_type_battery.length; i++) {
+                                                                        arr_grup_line_stop_battery.push(data_grup_line_stop_by_type_battery[i].nama_pic+' ('+data_grup_line_stop_by_type_battery[i].shift+')');
+                                                                        arr_qty_grup_line_stop_battery.push(parseFloat(((data_grup_line_stop_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                     }
 
                                                                     $('#sub_detail_pareto_grup_shift').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_grup_reject"></div>
+                                                                                                                    <div id="chart_detail_pareto_grup_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_detail_pareto_grup_reject', {
+                                                                    Highcharts.chart('chart_detail_pareto_grup_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -1319,14 +1320,14 @@
                                                                                 enabled: false
                                                                             },
                                                                             title: {
-                                                                                text: 'Detail Grup Shift Rejection',
+                                                                                text: 'Detail Grup Shift Line Stop',
                                                                                 style: {
                                                                                     color: '#ffffff',
                                                                                     fontSize: '20px'
                                                                                 }
                                                                             },
                                                                             xAxis: {
-                                                                                categories: arr_grup_reject_battery,
+                                                                                categories: arr_grup_line_stop_battery,
                                                                                 crosshair: true,
                                                                                 labels: {
                                                                                     style: {
@@ -1359,7 +1360,7 @@
                                                                             },
                                                                             series: [{
                                                                                 name: 'Total',
-                                                                                data: arr_qty_grup_reject_battery,
+                                                                                data: arr_qty_grup_line_stop_battery,
                                                                                 color:'yellow',
 
                                                                             }]
@@ -1379,26 +1380,26 @@
                                             },
                                             series: [{
                                                 name: 'Total',
-                                                data: arr_qty_battery_reject,
+                                                data: arr_qty_battery_line_stop,
                                                 color:'yellow',
 
                                             }]
                                     });
 
-                                    var data_grup_reject = data['data_all_detail_grup_rejection_by_date'];
+                                    var data_grup_line_stop = data['data_all_detail_grup_line_stop_by_date'];
                                     var i;
-                                    var arr_grup_reject = [];
-                                    var arr_qty_grup_reject = [];
-                                    for (i = 0; i < data_grup_reject.length; i++) {
-                                        arr_grup_reject.push(data_grup_reject[i].nama_pic+' ('+data_grup_reject[i].shift+')');
-                                        arr_qty_grup_reject.push(parseFloat(((data_grup_reject[i].total_reject / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                    var arr_grup_line_stop = [];
+                                    var arr_qty_grup_line_stop = [];
+                                    for (i = 0; i < data_grup_line_stop.length; i++) {
+                                        arr_grup_line_stop.push(data_grup_line_stop[i].nama_pic+' ('+data_grup_line_stop[i].shift+')');
+                                        arr_qty_grup_line_stop.push(parseFloat(((data_grup_line_stop[i].total_line_stop / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                         
                                     }
                                     $('#detail_pareto_grup_shift').html(`<figure class="highcharts-figure">
-                                                                                    <div id="chart_pareto_grup_reject"></div>
+                                                                                    <div id="chart_pareto_grup_line_stop"></div>
                                                                                 </figure>
                                                                             `);
-                                    Highcharts.chart('chart_pareto_grup_reject', {
+                                    Highcharts.chart('chart_pareto_grup_line_stop', {
                                         chart: {
                                                 backgroundColor: 'transparent',
                                                 type: 'column'
@@ -1407,14 +1408,14 @@
                                                 enabled: false
                                             },
                                             title: {
-                                                text: `Detail Grup Rejection (${date})`,
+                                                text: `Detail Grup Line Stop (${date})`,
                                                 style: {
                                                     color: '#ffffff',
                                                     fontSize: '20px'
                                                 }
                                             },
                                             xAxis: {
-                                                categories: arr_grup_reject,
+                                                categories: arr_grup_line_stop,
                                                 crosshair: true,
                                                 labels: {
                                                     style: {
@@ -1454,7 +1455,7 @@
                                                             }
 
                                                             $.ajax({
-                                                                url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                                                url: "<?= base_url('dashboard/line_stop/get_detail_line_stop'); ?>",
                                                                 type: "POST",
                                                                 data: {
                                                                     date: date,
@@ -1465,21 +1466,21 @@
                                                                 dataType: "json",
                                                                 success: function(data) {
                                                                     console.log(data);
-                                                                    var data_detail_reject_by_grup = data['data_jenis_reject_by_grup_shift'];
+                                                                    var data_detail_line_stop_by_grup = data['data_jenis_line_stop_by_grup_shift'];
                                                                     var i;
-                                                                    var arr_jenis_reject = [];
-                                                                    var arr_qty_jenis_reject = [];
-                                                                    for (i = 0; i < data_detail_reject_by_grup.length; i++) {
-                                                                        arr_jenis_reject.push(data_detail_reject_by_grup[i].jenis_reject);
-                                                                        arr_qty_jenis_reject.push(parseFloat(((data_detail_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    var arr_jenis_line_stop = [];
+                                                                    var arr_qty_jenis_line_stop = [];
+                                                                    for (i = 0; i < data_detail_line_stop_by_grup.length; i++) {
+                                                                        arr_jenis_line_stop.push(data_detail_line_stop_by_grup[i].jenis_line_stop);
+                                                                        arr_qty_jenis_line_stop.push(parseFloat(((data_detail_line_stop_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                         
                                                                     }
 
-                                                                    $('#sub_detail_pareto_jenis_reject').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_jenis_reject"></div>
+                                                                    $('#sub_detail_pareto_jenis_line_stop').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_jenis_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_detail_pareto_jenis_reject', {
+                                                                    Highcharts.chart('chart_detail_pareto_jenis_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -1488,14 +1489,14 @@
                                                                                 enabled: false
                                                                             },
                                                                             title: {
-                                                                                text: 'Detail Rejection',
+                                                                                text: 'Detail Line Stop',
                                                                                 style: {
                                                                                     color: '#ffffff',
                                                                                     fontSize: '20px'
                                                                                 }
                                                                             },
                                                                             xAxis: {
-                                                                                categories: arr_jenis_reject,
+                                                                                categories: arr_jenis_line_stop,
                                                                                 crosshair: true,
                                                                                 labels: {
                                                                                     style: {
@@ -1533,27 +1534,27 @@
                                                                             },
                                                                             series: [{
                                                                                 name: 'Total',
-                                                                                data: arr_qty_jenis_reject,
+                                                                                data: arr_qty_jenis_line_stop,
                                                                                 color:'yellow',
 
                                                                             }]
                                                                     });
 
-                                                                    var data_kategori_reject_by_grup = data['data_kategori_reject_by_grup_shift'];
+                                                                    var data_kategori_line_stop_by_grup = data['data_kategori_line_stop_by_grup_shift'];
                                                                     var i;
-                                                                    var arr_kategori_reject = [];
-                                                                    var arr_qty_kategori_reject = [];
-                                                                    for (i = 0; i < data_kategori_reject_by_grup.length; i++) {
-                                                                        arr_kategori_reject.push(data_kategori_reject_by_grup[i].kategori_reject);
-                                                                        arr_qty_kategori_reject.push(parseFloat(((data_kategori_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    var arr_kategori_line_stop = [];
+                                                                    var arr_qty_kategori_line_stop = [];
+                                                                    for (i = 0; i < data_kategori_line_stop_by_grup.length; i++) {
+                                                                        arr_kategori_line_stop.push(data_kategori_line_stop_by_grup[i].kategori_line_stop);
+                                                                        arr_qty_kategori_line_stop.push(parseFloat(((data_kategori_line_stop_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                         
                                                                     }
 
-                                                                    $('#sub_detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_kategori_reject"></div>
+                                                                    $('#sub_detail_pareto_kategori_line_stop').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_detail_pareto_kategori_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_detail_pareto_kategori_reject', {
+                                                                    Highcharts.chart('chart_detail_pareto_kategori_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -1562,14 +1563,14 @@
                                                                                 enabled: false
                                                                             },
                                                                             title: {
-                                                                                text: 'Detail Kategori Rejection',
+                                                                                text: 'Detail Kategori Line Stop',
                                                                                 style: {
                                                                                     color: '#ffffff',
                                                                                     fontSize: '20px'
                                                                                 }
                                                                             },
                                                                             xAxis: {
-                                                                                categories: arr_kategori_reject,
+                                                                                categories: arr_kategori_line_stop,
                                                                                 crosshair: true,
                                                                                 labels: {
                                                                                     style: {
@@ -1607,27 +1608,27 @@
                                                                             },
                                                                             series: [{
                                                                                 name: 'Total',
-                                                                                data: arr_qty_kategori_reject,
+                                                                                data: arr_qty_kategori_line_stop,
                                                                                 color:'yellow',
 
                                                                             }]
                                                                     });
 
-                                                                    var data_battery_reject_by_grup = data['data_battery_reject_by_grup_shift'];
+                                                                    var data_battery_line_stop_by_grup = data['data_battery_line_stop_by_grup_shift'];
                                                                     var i;
-                                                                    var arr_battery_reject = [];
-                                                                    var arr_qty_battery_reject = [];
-                                                                    for (i = 0; i < data_battery_reject_by_grup.length; i++) {
-                                                                        arr_battery_reject.push(data_battery_reject_by_grup[i].type_battery);
-                                                                        arr_qty_battery_reject.push(parseFloat(((data_battery_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                    var arr_battery_line_stop = [];
+                                                                    var arr_qty_battery_line_stop = [];
+                                                                    for (i = 0; i < data_battery_line_stop_by_grup.length; i++) {
+                                                                        arr_battery_line_stop.push(data_battery_line_stop_by_grup[i].type_battery);
+                                                                        arr_qty_battery_line_stop.push(parseFloat(((data_battery_line_stop_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                         
                                                                     }
 
                                                                     $('#sub_detail_pareto_type_battery').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_battery_reject"></div>
+                                                                                                                    <div id="chart_detail_pareto_battery_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_detail_pareto_battery_reject', {
+                                                                    Highcharts.chart('chart_detail_pareto_battery_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -1643,7 +1644,7 @@
                                                                                 }
                                                                             },
                                                                             xAxis: {
-                                                                                categories: arr_battery_reject,
+                                                                                categories: arr_battery_line_stop,
                                                                                 crosshair: true,
                                                                                 labels: {
                                                                                     style: {
@@ -1681,7 +1682,7 @@
                                                                             },
                                                                             series: [{
                                                                                 name: 'Total',
-                                                                                data: arr_qty_battery_reject,
+                                                                                data: arr_qty_battery_line_stop,
                                                                                 color:'yellow',
 
                                                                             }]
@@ -1701,7 +1702,7 @@
                                             },
                                             series: [{
                                                 name: 'Total',
-                                                data: arr_qty_grup_reject,
+                                                data: arr_qty_grup_line_stop,
                                                 color:'yellow',
 
                                             }]
@@ -1718,7 +1719,7 @@
             
             series: [{
                 name: 'All Line',
-                data: <?= json_encode($data_average_reject_by_date_all_line); ?>
+                data: <?= json_encode($data_average_line_stop_by_date_all_line); ?>
             }
             ],
 
@@ -1750,7 +1751,7 @@
                 enabled: false
             },
             title: {
-                text: 'Monthly Rejection',
+                text: 'Monthly Line Stop',
                 style: {
                     color: '#ffffff',
                     fontSize: '20px'
@@ -1805,7 +1806,7 @@
                             var line = <?=$child_filter?>;
                             // alert(date);
                             $.ajax({
-                                url: "<?= base_url('dashboard/reject/get_detail_rejection') ?>",
+                                url: "<?= base_url('dashboard/line_stop/get_detail_line_stop') ?>",
                                 type: "post",
                                 data: {
                                     date: date,
@@ -1814,19 +1815,19 @@
                                 dataType: "json",
                                 success: function(data) {
                                     console.log(data);
-                                    var data_jenis_reject = data['data_jenis_reject_by_month'];
+                                    var data_jenis_line_stop = data['data_jenis_line_stop_by_month'];
                                     var i;
-                                    var arr_jenis_reject = [];
-                                    var arr_qty_jenis_reject = [];
-                                    for (i = 0; i < data_jenis_reject.length; i++) {
-                                        arr_jenis_reject.push(data_jenis_reject[i].jenis_reject);
-                                        arr_qty_jenis_reject.push(data_jenis_reject[i].qty);
+                                    var arr_jenis_line_stop = [];
+                                    var arr_qty_jenis_line_stop = [];
+                                    for (i = 0; i < data_jenis_line_stop.length; i++) {
+                                        arr_jenis_line_stop.push(data_jenis_line_stop[i].jenis_line_stop);
+                                        arr_qty_jenis_line_stop.push(data_jenis_line_stop[i].qty);
                                     }
-                                    $('#detail_pareto_jenis_reject').html(`<figure class="highcharts-figure">
-                                                                                            <div id="chart_pareto_jenis_reject"></div>
+                                    $('#detail_pareto_jenis_line_stop').html(`<figure class="highcharts-figure">
+                                                                                            <div id="chart_pareto_jenis_line_stop"></div>
                                                                                         </figure>
                                                                                     `);
-                                    Highcharts.chart('chart_pareto_jenis_reject', {
+                                    Highcharts.chart('chart_pareto_jenis_line_stop', {
                                         chart: {
                                                 backgroundColor: 'transparent',
                                                 type: 'column'
@@ -1835,14 +1836,14 @@
                                                 enabled: false
                                             },
                                             title: {
-                                                text: 'Detail Jenis Rejection',
+                                                text: 'Detail Jenis Line Stop',
                                                 style: {
                                                     color: '#ffffff',
                                                     fontSize: '20px'
                                                 }
                                             },
                                             xAxis: {
-                                                categories: arr_jenis_reject,
+                                                categories: arr_jenis_line_stop,
                                                 crosshair: true,
                                                 labels: {
                                                     style: {
@@ -1870,31 +1871,31 @@
                                                     },
                                                     events: {
                                                         click: function(event) {
-                                                            var jenis_reject = event.point.category;
+                                                            var jenis_line_stop = event.point.category;
                                                             $.ajax({
-                                                                url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                                                url: "<?= base_url('dashboard/line_stop/get_detail_line_stop'); ?>",
                                                                 type: "POST",
                                                                 data: {
                                                                     date: date,
                                                                     line: line,
-                                                                    jenis_reject: jenis_reject
+                                                                    jenis_line_stop: jenis_line_stop
                                                                 },
                                                                 dataType: "json",
                                                                 success: function(data) {
                                                                     console.log(data);
-                                                                    var data_reject_by_jenis_reject = data['data_reject_by_jenis_reject_by_month'];
+                                                                    var data_line_stop_by_jenis_line_stop = data['data_line_stop_by_jenis_line_stop_by_month'];
                                                                     var i;
-                                                                    var arr_kategori_reject = [];
-                                                                    var arr_qty_kategori_reject = [];
-                                                                    for (i = 0; i < data_reject_by_jenis_reject.length; i++) {
-                                                                        arr_kategori_reject.push(data_reject_by_jenis_reject[i].kategori_reject);
-                                                                        arr_qty_kategori_reject.push(data_reject_by_jenis_reject[i].qty);
+                                                                    var arr_kategori_line_stop = [];
+                                                                    var arr_qty_kategori_line_stop = [];
+                                                                    for (i = 0; i < data_line_stop_by_jenis_line_stop.length; i++) {
+                                                                        arr_kategori_line_stop.push(data_line_stop_by_jenis_line_stop[i].kategori_line_stop);
+                                                                        arr_qty_kategori_line_stop.push(data_line_stop_by_jenis_line_stop[i].qty);
                                                                     }
-                                                                    $('#sub_detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_pareto_ketegori_reject"></div>
+                                                                    $('#sub_detail_pareto_kategori_line_stop').html(`  <figure class="highcharts-figure">
+                                                                                                                    <div id="chart_pareto_ketegori_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_pareto_ketegori_reject', {
+                                                                    Highcharts.chart('chart_pareto_ketegori_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -1903,14 +1904,14 @@
                                                                                 enabled: false
                                                                             },
                                                                             title: {
-                                                                                text: 'Detail '+jenis_reject+' Rejection',
+                                                                                text: 'Detail '+jenis_line_stop+' Line Stop',
                                                                                 style: {
                                                                                     color: '#ffffff',
                                                                                     fontSize: '20px'
                                                                                 }
                                                                             },
                                                                             xAxis: {
-                                                                                categories: arr_kategori_reject,
+                                                                                categories: arr_kategori_line_stop,
                                                                                 crosshair: true,
                                                                                 labels: {
                                                                                     style: {
@@ -1948,25 +1949,25 @@
                                                                             },
                                                                             series: [{
                                                                                 name: 'Total',
-                                                                                data: arr_qty_kategori_reject,
+                                                                                data: arr_qty_kategori_line_stop,
                                                                                 color:'yellow',
 
                                                                             }]
                                                                     });
 
-                                                                    var data_reject_by_type_battery = data['data_reject_by_type_battery_by_month'];
+                                                                    var data_line_stop_by_type_battery = data['data_line_stop_by_type_battery_by_month'];
                                                                     var i;
                                                                     var arr_type_battery = [];
                                                                     var arr_qty_type_battery = [];
-                                                                    for (i = 0; i < data_reject_by_type_battery.length; i++) {
-                                                                        arr_type_battery.push(data_reject_by_type_battery[i].type_battery);
-                                                                        arr_qty_type_battery.push(data_reject_by_type_battery[i].qty);
+                                                                    for (i = 0; i < data_line_stop_by_type_battery.length; i++) {
+                                                                        arr_type_battery.push(data_line_stop_by_type_battery[i].type_battery);
+                                                                        arr_qty_type_battery.push(data_line_stop_by_type_battery[i].qty);
                                                                     }
                                                                     $('#sub_detail_pareto_type_battery').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_pareto_battery_reject"></div>
+                                                                                                                    <div id="chart_pareto_battery_line_stop"></div>
                                                                                                                 </figure>`
                                                                                                             );
-                                                                    Highcharts.chart('chart_pareto_battery_reject', {
+                                                                    Highcharts.chart('chart_pareto_battery_line_stop', {
                                                                         chart: {
                                                                                 backgroundColor: 'transparent',
                                                                                 type: 'column'
@@ -1975,7 +1976,7 @@
                                                                                 enabled: false
                                                                             },
                                                                             title: {
-                                                                                text: 'Detail Type Battery Rejection',
+                                                                                text: 'Detail Type Battery Line Stop',
                                                                                 style: {
                                                                                     color: '#ffffff',
                                                                                     fontSize: '20px'
@@ -2034,12 +2035,12 @@
                                             },
                                             series: [{
                                                 name: 'Total',
-                                                data: arr_qty_jenis_reject,
+                                                data: arr_qty_jenis_line_stop,
                                                 color:'yellow',
 
                                             }]
                                     });
-                                    $('#detail_pareto_kategori_reject').html(``);
+                                    $('#detail_pareto_kategori_line_stop').html(``);
                                     $('#detail_pareto_type_battery').html(``);
                                     $('#detail_pareto_grup_shift').html(``);
                                     $('#main_modal').modal('show');
@@ -2065,7 +2066,7 @@
 
             series: [{
                 name: 'All Line',
-                data: <?= json_encode($data_average_reject_by_month); ?>
+                data: <?= json_encode($data_average_line_stop_by_month); ?>
             }
             ],
         });
@@ -2084,7 +2085,7 @@
             },
     
             title: {
-                text: 'Daily Rejection <?=($child_filter == 0) ? 'All Line' : 'Line '.$child_filter?>',
+                text: 'Daily Line Stop <?=($child_filter == 0) ? 'All Line' : 'Line '.$child_filter?>',
                 align: 'center',
                 style: {
                     color: '#ffffff',
@@ -2109,8 +2110,7 @@
                     style: {
                         color: '#ffffff'
                     }
-                },
-                min: 0,
+                }
             },
     
             xAxis: {
@@ -2152,31 +2152,31 @@
             series: [
                 {
                         name: 'Line 1',
-                        data: <?php echo json_encode($data_reject_line_1); ?>
+                        data: <?php echo json_encode($data_line_stop_line_1); ?>
                     },
                     {
                         name: 'Line 2',
-                        data: <?php echo json_encode($data_reject_line_2); ?>
+                        data: <?php echo json_encode($data_line_stop_line_2); ?>
                     },
                     {
                         name: 'Line 3',
-                        data: <?php echo json_encode($data_reject_line_3); ?>
+                        data: <?php echo json_encode($data_line_stop_line_3); ?>
                     },
                     {
                         name: 'Line 4',
-                        data: <?php echo json_encode($data_reject_line_4); ?>
+                        data: <?php echo json_encode($data_line_stop_line_4); ?>
                     },
                     {
                         name: 'Line 5',
-                        data: <?php echo json_encode($data_reject_line_5); ?>
+                        data: <?php echo json_encode($data_line_stop_line_5); ?>
                     },
                     {
                         name: 'Line 6',
-                        data: <?php echo json_encode($data_reject_line_6); ?>
+                        data: <?php echo json_encode($data_line_stop_line_6); ?>
                     },
                     {
                         name: 'Line 7',
-                        data: <?php echo json_encode($data_reject_line_7); ?>
+                        data: <?php echo json_encode($data_line_stop_line_7); ?>
                     }
             ],
     
@@ -2208,7 +2208,7 @@
                 enabled: false
             },
             title: {
-                text: 'Monthly Rejection',
+                text: 'Monthly Line Stop',
                 style: {
                     color: '#ffffff',
                     fontSize: '20px'
@@ -2273,660 +2273,34 @@
             series: [
                 {
                     name: 'Line 1',
-                    data: <?php echo json_encode($data_reject_by_month_line_1); ?>,
+                    data: <?php echo json_encode($data_line_stop_by_month_line_1); ?>,
                 },
                 {
                     name: 'Line 2',
-                    data: <?php echo json_encode($data_reject_by_month_line_2); ?>,
+                    data: <?php echo json_encode($data_line_stop_by_month_line_2); ?>,
                 },
                 {
                     name: 'Line 3',
-                    data: <?php echo json_encode($data_reject_by_month_line_3); ?>,
+                    data: <?php echo json_encode($data_line_stop_by_month_line_3); ?>,
                 },
                 {
                     name: 'Line 4',
-                    data: <?php echo json_encode($data_reject_by_month_line_4); ?>,
+                    data: <?php echo json_encode($data_line_stop_by_month_line_4); ?>,
                 },
                 {
                     name: 'Line 5',
-                    data: <?php echo json_encode($data_reject_by_month_line_5); ?>,
+                    data: <?php echo json_encode($data_line_stop_by_month_line_5); ?>,
                 },
                 {
                     name: 'Line 6',
-                    data: <?php echo json_encode($data_reject_by_month_line_6); ?>,
+                    data: <?php echo json_encode($data_line_stop_by_month_line_6); ?>,
                 },
                 {
                     name: 'Line 7',
-                    data: <?php echo json_encode($data_reject_by_month_line_7); ?>,
+                    data: <?php echo json_encode($data_line_stop_by_month_line_7); ?>,
                 }
             ]
         });
     <?php    }   ?>
-
-    Highcharts.chart('side_chart', {
-        chart: {
-            type: 'column',
-            // backgroundColor: '#0c1a32',
-            backgroundColor: 'transparent',
-            
-        },
-        exporting: {
-            enabled: false
-        },
-        title: {
-            text: 'Monthly Rejection (Unit)',
-            style: {
-                color: '#ffffff',
-                fontSize: '20px'
-            }
-        },
-        xAxis: {
-            // categories: <?php echo json_encode($data_jenis_reject_by_month); ?>,
-            categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec'
-            ],
-            crosshair: true,
-            labels: {
-                style: {
-                    color: '#ffffff'
-                }
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Unit'
-            }
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    formatter: function(){
-                        return (this.y!=0)?this.y:"";
-                    },
-                    style: {
-                        color: '#ffffff',
-                        textOutline: 0,
-                        fontSize: 14
-                    },
-                },
-                // pointWidth: 30,
-            }
-        },
-        legend: {
-                enabled: false
-            },
-
-        series: [{
-            // name: 'All Line',
-            // data: <?php echo json_encode($data_total_reject_by_month); ?>,
-            data: <?php echo json_encode($data_qty_reject_by_month  ); ?>,
-            color:'yellow',
-
-        }]
-    });
-
-    Highcharts.chart('main_chart', {
-        chart: {
-            type: 'column',
-            // backgroundColor: '#0c1a32',
-            backgroundColor: 'transparent',
-        },
-        exporting: {
-            enabled: false
-        },
-
-        title: {
-            text: 'Daily Rejection <?=($child_filter == 0) ? 'All Line' : 'Line '.$child_filter?>',
-            align: 'center',
-            style: {
-                color: '#ffffff',
-                fontSize: '20px',
-                fontWeight: 'bold'
-            }
-        },
-
-        subtitle: {
-            text: 'Source: Laporan Harian Produksi',
-            align: 'center',
-            style: {
-                color: '#ffffff',
-                fontSize: '15px'
-            }
-        },
-
-        xAxis: {
-            categories: <?= json_encode($dates); ?>,
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Unit'
-            },
-            stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                },
-                formatter: function(){
-                    return (this.y!=0)?this.y:"";
-                }
-            },
-            labels: {
-                style: {
-                    color: '#ffffff'
-                }
-            }
-        },
-        legend: {
-            align: 'center',
-            verticalAlign: 'bottom',
-            layout: 'horizontal',
-            itemStyle: {
-                color: '#ffffff'
-            }
-        },
-        tooltip: {
-            headerFormat: '<b>{point.x}</b><br/>',
-            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-        },
-        plotOptions: {
-            column: {
-                stacking: 'normal',
-                dataLabels: {
-                    enabled: true,
-                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                    formatter: function(){
-                        return (this.y!=0)?this.y:"";
-                    }
-                },
-                // events: {
-                //     click: function(event) {
-                //         var date = $('#bulan').val()+'-'+event.point.category;
-                //         var line = <?=$child_filter?>;
-                //         var jenis_reject = this.name;
-
-                //         $.ajax({
-                //             url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
-                //             type: "POST",
-                //             data: {
-                //                 date: date,
-                //                 line: line,
-                //                 jenis_reject: jenis_reject
-                //             },
-                //             dataType: "json",
-                //             success: function(data) {
-                //                 console.log(data);
-                //                 var data_reject_by_jenis_reject = data['data_reject_by_jenis_reject'];
-                //                 var i;
-                //                 var arr_kategori_reject = [];
-                //                 var arr_qty_kategori_reject = [];
-                //                 for (i = 0; i < data_reject_by_jenis_reject.length; i++) {
-                //                     arr_kategori_reject.push(data_reject_by_jenis_reject[i].kategori_reject);
-                //                     arr_qty_kategori_reject.push(data_reject_by_jenis_reject[i].qty);
-                //                 }
-                //                 $('#detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
-                //                                                                 <div id="chart_pareto_ketegori_reject"></div>
-                //                                                             </figure>`
-                //                                                         );
-                //                 Highcharts.chart('chart_pareto_ketegori_reject', {
-                //                     chart: {
-                //                             backgroundColor: 'transparent',
-                //                             type: 'column'
-                //                         },
-                //                         exporting: {
-                //                             enabled: false
-                //                         },
-                //                         title: {
-                //                             text: 'Detail '+jenis_reject+' Rejection',
-                //                             style: {
-                //                                 color: '#ffffff',
-                //                                 fontSize: '20px'
-                //                             }
-                //                         },
-                //                         xAxis: {
-                //                             categories: arr_kategori_reject,
-                //                             crosshair: true,
-                //                             labels: {
-                //                                 style: {
-                //                                     color: '#ffffff'
-                //                                 }
-                //                             }
-                //                         },
-                //                         yAxis: {
-                //                             min: 0,
-                //                             title: {
-                //                                 text: 'Pcs'
-                //                             }
-                //                         },
-                //                         plotOptions: {
-                //                             column: {
-                //                                 pointPadding: 0.2,
-                //                                 borderWidth: 0,
-                //                                 dataLabels: {
-                //                                     enabled: true,
-                //                                     style: {
-                //                                         color: '#ffffff',
-                //                                         textOutline: 0,
-                //                                         fontSize: 14
-                //                                     },
-                //                                 },
-                //                                 events: {
-                //                                     click: function(event) {
-                //                                         $('#sub_modal').modal('show');
-                //                                     }
-                //                                 }
-                //                             }
-                //                         },
-                //                         legend: {
-                //                             enabled: false
-                //                         },
-                //                         series: [{
-                //                             name: 'Total',
-                //                             data: arr_qty_kategori_reject,
-                //                             color:'yellow',
-
-                //                         }]
-                //                 });
-
-                //                 var data_reject_by_type_battery = data['data_reject_by_type_battery'];
-                //                 var i;
-                //                 var arr_type_battery = [];
-                //                 var arr_qty_type_battery = [];
-                //                 for (i = 0; i < data_reject_by_type_battery.length; i++) {
-                //                     arr_type_battery.push(data_reject_by_type_battery[i].type_battery);
-                //                     arr_qty_type_battery.push(data_reject_by_type_battery[i].qty);
-                //                 }
-                //                 $('#detail_pareto_type_battery').html(`  <figure class="highcharts-figure">
-                //                                                                 <div id="chart_pareto_battery_reject"></div>
-                //                                                             </figure>`
-                //                                                         );
-                //                 Highcharts.chart('chart_pareto_battery_reject', {
-                //                     chart: {
-                //                             backgroundColor: 'transparent',
-                //                             type: 'column'
-                //                         },
-                //                         exporting: {
-                //                             enabled: false
-                //                         },
-                //                         title: {
-                //                             text: 'Detail Type Battery Rejection',
-                //                             style: {
-                //                                 color: '#ffffff',
-                //                                 fontSize: '20px'
-                //                             }
-                //                         },
-                //                         xAxis: {
-                //                             categories: arr_type_battery,
-                //                             crosshair: true,
-                //                             labels: {
-                //                                 style: {
-                //                                     color: '#ffffff'
-                //                                 }
-                //                             }
-                //                         },
-                //                         yAxis: {
-                //                             min: 0,
-                //                             title: {
-                //                                 text: 'Pcs'
-                //                             }
-                //                         },
-                //                         plotOptions: {
-                //                             column: {
-                //                                 pointPadding: 0.2,
-                //                                 borderWidth: 0,
-                //                                 dataLabels: {
-                //                                 enabled: true,
-                //                                 style: {
-                //                                     color: '#ffffff',
-                //                                     textOutline: 0,
-                //                                     fontSize: 14
-                //                                 },
-                //                             },
-                //                             }
-                //                         },
-                //                         legend: {
-                //                             enabled: false
-                //                         },
-                //                         series: [{
-                //                             name: 'Total',
-                //                             data: arr_qty_type_battery,
-                //                             color:'yellow',
-
-                //                         }]
-                //                 });
-                //                 $('#main_modal').modal('show');
-                //             }
-                //         });
-                //     }
-                // }
-            }
-        },
-        colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
-        series: <?php echo json_encode($result); ?>,
-    });
-
-    Highcharts.chart('daily_rejection_persentase_chart', {
-        chart: {
-            type: 'column',
-            backgroundColor: 'transparent',
-        },
-        exporting: {
-            enabled: false
-        },
-
-        title: {
-            text: 'Daily Rejection <?=($child_filter == 0) ? 'All Line' : 'Line '.$child_filter?>',
-            align: 'center',
-            style: {
-                color: '#ffffff',
-                fontSize: '20px',
-            }
-        },
-
-        subtitle: {
-            text: 'Source: Laporan Harian Produksi',
-            align: 'center',
-            style: {
-                color: '#ffffff',
-                fontSize: '15px'
-            }
-        },
-
-        xAxis: {
-            categories: <?= json_encode($dates); ?>,
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Unit'
-            },
-            stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                },
-                formatter: function(){
-                    return (this.y!=0)?this.y:"";
-                }
-            },
-            labels: {
-                style: {
-                    color: '#ffffff'
-                }
-            }
-        },
-        legend: {
-            align: 'center',
-            verticalAlign: 'bottom',
-            layout: 'horizontal',
-            itemStyle: {
-                color: '#ffffff'
-            }
-        },
-        tooltip: {
-            headerFormat: '<b>{point.x}</b><br/>',
-            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-        },
-        plotOptions: {
-            column: {
-                stacking: 'normal',
-                dataLabels: {
-                    enabled: true,
-                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                    formatter: function(){
-                        return (this.y!=0)?this.y:"";
-                    }
-                },
-                events: {
-                    click: function(event) {
-                        var date = $('#bulan').val()+'-'+event.point.category;
-                        var line = <?=$child_filter?>;
-                        var jenis_reject = this.name;
-
-                        $.ajax({
-                            url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
-                            type: "POST",
-                            data: {
-                                date: date,
-                                line: line,
-                                jenis_reject: jenis_reject
-                            },
-                            dataType: "json",
-                            success: function(data) {
-                                console.log(data);
-                                var data_reject_by_jenis_reject = data['data_reject_by_jenis_reject'];
-                                var i;
-                                var arr_kategori_reject = [];
-                                var arr_qty_kategori_reject = [];
-                                for (i = 0; i < data_reject_by_jenis_reject.length; i++) {
-                                    arr_kategori_reject.push(data_reject_by_jenis_reject[i].kategori_reject);
-                                    arr_qty_kategori_reject.push(data_reject_by_jenis_reject[i].qty);
-                                }
-                                $('#detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
-                                                                                <div id="chart_pareto_ketegori_reject"></div>
-                                                                            </figure>`
-                                                                        );
-                                Highcharts.chart('chart_pareto_ketegori_reject', {
-                                    chart: {
-                                            backgroundColor: 'transparent',
-                                            type: 'column'
-                                        },
-                                        exporting: {
-                                            enabled: false
-                                        },
-                                        title: {
-                                            text: 'Detail '+jenis_reject+' Rejection',
-                                            style: {
-                                                color: '#ffffff',
-                                                fontSize: '20px'
-                                            }
-                                        },
-                                        xAxis: {
-                                            categories: arr_kategori_reject,
-                                            crosshair: true,
-                                            labels: {
-                                                style: {
-                                                    color: '#ffffff'
-                                                }
-                                            }
-                                        },
-                                        yAxis: {
-                                            min: 0,
-                                            title: {
-                                                text: '%'
-                                            }
-                                        },
-                                        plotOptions: {
-                                            column: {
-                                                pointPadding: 0.2,
-                                                borderWidth: 0,
-                                                dataLabels: {
-                                                enabled: true,
-                                                style: {
-                                                    color: '#ffffff',
-                                                    textOutline: 0,
-                                                    fontSize: 14
-                                                },
-                                            },
-                                            }
-                                        },
-                                        legend: {
-                                            enabled: false
-                                        },
-                                        series: [{
-                                            name: 'Total',
-                                            data: arr_qty_kategori_reject,
-                                            color:'yellow',
-
-                                        }]
-                                });
-
-                                var data_reject_by_type_battery = data['data_reject_by_type_battery'];
-                                var i;
-                                var arr_type_battery = [];
-                                var arr_qty_type_battery = [];
-                                for (i = 0; i < data_reject_by_type_battery.length; i++) {
-                                    arr_type_battery.push(data_reject_by_type_battery[i].type_battery);
-                                    arr_qty_type_battery.push(data_reject_by_type_battery[i].qty);
-                                }
-                                $('#detail_pareto_type_battery').html(`  <figure class="highcharts-figure">
-                                                                                <div id="chart_pareto_battery_reject"></div>
-                                                                            </figure>`
-                                                                        );
-                                Highcharts.chart('chart_pareto_battery_reject', {
-                                    chart: {
-                                            backgroundColor: 'transparent',
-                                            type: 'column'
-                                        },
-                                        exporting: {
-                                            enabled: false
-                                        },
-                                        title: {
-                                            text: 'Detail Type Battery Rejection',
-                                            style: {
-                                                color: '#ffffff',
-                                                fontSize: '20px'
-                                            }
-                                        },
-                                        xAxis: {
-                                            categories: arr_type_battery,
-                                            crosshair: true,
-                                            labels: {
-                                                style: {
-                                                    color: '#ffffff'
-                                                }
-                                            }
-                                        },
-                                        yAxis: {
-                                            min: 0,
-                                            title: {
-                                                text: '%'
-                                            }
-                                        },
-                                        plotOptions: {
-                                            column: {
-                                                pointPadding: 0.2,
-                                                borderWidth: 0,
-                                                dataLabels: {
-                                                enabled: true,
-                                                style: {
-                                                    color: '#ffffff',
-                                                    textOutline: 0,
-                                                    fontSize: 14
-                                                },
-                                            },
-                                            }
-                                        },
-                                        legend: {
-                                            enabled: false
-                                        },
-                                        series: [{
-                                            name: 'Total',
-                                            data: arr_qty_type_battery,
-                                            color:'yellow',
-
-                                        }]
-                                });
-                                $('#main_modal').modal('show');
-                            }
-                        });
-                    }
-                }
-            }
-        },
-        colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
-        series: <?php echo json_encode($result_daily_reject_persentase); ?>,
-    });
-
-    Highcharts.chart('monthly_rejection_persentase_chart', {
-        chart: {
-            type: 'column',
-            // backgroundColor: '#0c1a32',
-            backgroundColor: 'transparent',
-            
-        },
-        exporting: {
-            enabled: false
-        },
-        title: {
-            text: 'Monthly Jenis Rejection (%)',
-            style: {
-                color: '#ffffff',
-                fontSize: '20px'
-            }
-        },
-        xAxis: {
-            categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec'
-            ],
-            crosshair: true,
-            labels: {
-                style: {
-                    color: '#ffffff'
-                }
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Unit'
-            }
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    formatter: function(){
-                        return (this.y!=0)?this.y:"";
-                    },
-                    style: {
-                        color: '#ffffff',
-                        textOutline: 0,
-                        fontSize: 14
-                    },
-                },
-            }
-        },
-        legend: {
-                enabled: false
-            },
-
-        series: [{
-            // name: 'All Line',
-            data: <?php echo json_encode($data_qty_reject_by_month); ?>,
-            color:'yellow',
-
-        }]
-    });
 </script>
 <?= $this->endSection(); ?>
