@@ -64,7 +64,7 @@ $previous_date = date('Y-m-d', strtotime('-1 day', strtotime($current_date)));
 											</div>
 										</div>
 
-										<div class="row">
+										<!-- <div class="row">
 											<div class="col-12 mx-auto">
 												<div class="box">
 													<div class="box-body">
@@ -83,7 +83,7 @@ $previous_date = date('Y-m-d', strtotime('-1 day', strtotime($current_date)));
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 
 
