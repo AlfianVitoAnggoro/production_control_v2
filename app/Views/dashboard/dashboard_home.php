@@ -21,7 +21,7 @@
                                         <a href="<?=base_url()?>dashboard/assy/amb1" target="_blank" class="btn btn-secondary btn-sub-dashboard">AMB 1</a>
                                     </div>
                                     <div class="col-6 mb-15" style="display: grid;">
-                                        <a href="<?=base_url()?>dashboard/assy/amb2" class="btn btn-secondary btn-sub-dashboard">AMB 2</a >
+                                        <a href="<?=base_url()?>dashboard/assy/amb2" target="_blank" class="btn btn-secondary btn-sub-dashboard">AMB 2</a >
                                     </div>
                                 </div>
                             </div>

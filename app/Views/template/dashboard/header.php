@@ -57,6 +57,8 @@
 			} else {
 				$sub_judul = '(LINE '.$child_filter.')';
 			}
+		} else {
+			$sub_judul = '';
 		}
 		 ?>
 
