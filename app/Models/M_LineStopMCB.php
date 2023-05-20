@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 
 
-class M_LineStop extends Model
+class M_LineStopMCB extends Model
 {
   public function __construct()
   {
@@ -17,7 +17,7 @@ class M_LineStop extends Model
 
   public function get_data_breakdown()
   {
-    $query = $this->db->query('SELECT * FROM data_breakdown WHERE AMB=\'1\'');
+    $query = $this->db->query('SELECT * FROM data_breakdown WHERE MCB=\'1\'');
 
     return $query->getResultArray();
   }
@@ -31,21 +31,21 @@ class M_LineStop extends Model
 
   public function get_data_jenis_line_stop()
   {
-    $query = $this->db->query('SELECT DISTINCT jenis_breakdown FROM data_breakdown WHERE AMB=\'1\'');
+    $query = $this->db->query('SELECT DISTINCT jenis_breakdown FROM data_breakdown WHERE MCB=\'1\'');
 
     return $query->getResultArray();
   }
 
   public function get_data_dept_in_charge()
   {
-    $query = $this->db->query('SELECT DISTINCT dept_in_charge FROM data_breakdown WHERE AMB=\'1\'');
+    $query = $this->db->query('SELECT DISTINCT dept_in_charge FROM data_breakdown WHERE MCB=\'1\'');
 
     return $query->getResultArray();
   }
 
   public function get_data_perhitungan()
   {
-    $query = $this->db->query('SELECT DISTINCT perhitungan FROM data_breakdown WHERE AMB=\'1\'');
+    $query = $this->db->query('SELECT DISTINCT perhitungan FROM data_breakdown WHERE MCB=\'1\'');
 
     return $query->getResultArray();
   }
@@ -66,13 +66,8 @@ class M_LineStop extends Model
     return $this->db->affectedRows();
   }
 
-  public function delete_data_breakdown($id_breakdown, $data)
+  public function delete_data_breakdown($id_breakdown)
   {
-    // $this->db->query('DELETE FROM data_breakdown WHERE id_breakdown = ' . $id_breakdown);
-    $builder = $this->db->table('data_breakdown');
-    $builder->where('id_breakdown', $id_breakdown);
-    $builder->update($data);
-
-    return $this->db->affectedRows();
+    $this->db->query('DELETE FROM data_breakdown WHERE id_breakdown = ' . $id_breakdown);
   }
 }

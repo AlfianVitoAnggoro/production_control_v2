@@ -4,20 +4,13 @@ use CodeIgniter\Model;
 
 
 
-class M_Reject extends Model
+class M_RejectWET extends Model
 {
     public function __construct()
     {
         $this->db = \Config\Database::connect();
 
         $this->session = \Config\Services::session();
-    }
-
-    public function get_data_reject_utama_amb()
-    {
-        $query = $this->db->query('SELECT * FROM data_reject_utama WHERE AMB=\'1\' ORDER BY jenis_reject ASC');
-
-        return $query->getResultArray();
     }
 
     public function get_data_reject_utama()
@@ -27,9 +20,16 @@ class M_Reject extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_reject_utama_wet()
+    {
+        $query = $this->db->query('SELECT * FROM data_reject_utama WHERE WET=\'1\' ORDER BY jenis_reject ASC');
+
+        return $query->getResultArray();
+    }
+
     public function get_data_reject()
     {
-        $query = $this->db->query('SELECT * FROM data_reject WHERE AMB=\'1\' ORDER BY jenis_reject ASC, kategori_reject ASC');
+        $query = $this->db->query('SELECT * FROM data_reject WHERE WET=\'1\' ORDER BY jenis_reject ASC, kategori_reject ASC');
 
         return $query->getResultArray();
     }

@@ -48,7 +48,7 @@ class Database extends Config
         'hostname' => 'localhost',
         'username' => 'user',
         'password' => '12345',
-        'database' => 'Pasting',
+        'database' => 'PastingNew',
         'DBDriver' => 'sqlsrv',
         'DBPrefix' => '',
         'pConnect' => false,

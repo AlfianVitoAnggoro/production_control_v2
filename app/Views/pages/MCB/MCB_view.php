@@ -41,7 +41,7 @@
 													<!-- <td><?=$lhp['no_doc']?></td> -->
 													<td><?=$lhp['tanggal_produksi']?></td>
 													<td><?=$lhp['shift']?></td>
-													<td><?=($lhp['line'] == 10) ? 'MCB' : $lhp['line']?></td>
+													<td><?=($lhp['line'] == 8) ? 'WET A' : (($lhp['line'] == 9) ? 'WET F' : (($lhp['line'] == 10) ? 'MCB' : $lhp['line'])) ?></td>
 													<td><?=$lhp['kasubsie']?></td>
 													<td><?=$lhp['nama_pic']?></td>
 													<!-- <td><?=$retVal = (!empty($lhp['total_aktual']) && !empty($lhp['total_plan'])) ? number_format((float) ($lhp['total_aktual'] / $lhp['total_plan']) * 100, 2, '.', '') : '' ; ?></td> -->
@@ -98,9 +98,9 @@
 							<div class="form-group">
 								<label class="form-label">Line</label>
 								<select class="form-select" id="line" name="line" required>
-									<option selected disabled>-- Pilih Data --</option>
+                  <option disabled>-- Pilih Data --</option>
 									<?php foreach($data_line as $line) : ?>
-										<option value="<?=$line['id_line']?>"><?=$line['nama_line']?></option>
+										<option value="<?=$line['id_line']?>" <?php echo ($line['id_line'] === 10) ? 'selected' : '' ?>><?=$line['nama_line']?></option>
 									<?php endforeach; ?>
 								</select>
 							</div>
@@ -192,11 +192,11 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">Download Assy</h4>
+                <h4 class="modal-title" id="myLargeModalLabel">Download MCB</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- <a href="/cos/download" class="btn btn-danger mb-2">Download</a> -->
-            <form action="/lhp/download" method="post">
+            <form action="/mcb/download" method="post">
                 <div class="modal-body">
                     <!-- <label for="date" class="form-label">Bulan</label>
                     <input type="month" class="form-control" id="date" name="date" value="<?= date('Y-m') ?>"> -->
@@ -226,30 +226,59 @@
   <?= $this->section('script'); ?>
   <script>
 	$(document).ready(function() {
-  $('#data_lhp2').DataTable({
-    "order": [],
-    "columnDefs": [{
-      "targets": 2, // target kolom "line"
-      "render": function(data, type, row, meta) {
-        return (data >= 1 && data <= 7) ? data : '';
-      }
-    }],
-    "initComplete": function() {
-      this.api().columns().every(function() {
-        var column = this;
-        var select = $('<select class="form-select"><option value=""></option></select>')
-          .appendTo($(column.footer()).empty())
-          .on('change', function() {
-            var val = $.fn.dataTable.util.escapeRegex($(this).val());
-            column.search(val ? '^' + val + '$' : '', true, false).draw();
-          });
-
-        column.data().unique().sort().each(function(d, j) {
-          select.append('<option value="' + d + '">' + d + '</option>');
-        });
-      });
-    },
-  });
+    $('#data_lhp2').DataTable({
+        "order": [],
+        initComplete: function () {
+            this.api()
+                .columns()
+                .every(function () {
+                    var column = this;
+                    var select = $('<select class="form-select"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        });
+                    
+                    // filter hanya untuk kolom "line" yang memiliki nilai "MCB"
+                    if (column.index() === 2) { // index kolom "line" adalah 1
+                        var options = [];
+                        column.data().unique().sort().each(function (d, j) {
+                            var option = $('<option value="' + d + '">' + d + '</option>');
+                            if (d === "MCB") {
+                                option.prop('selected', true);
+                            }
+                            options.push(option);
+                        });
+                        options.sort(function(a, b) {
+                            if (a.prop('selected')) {
+                                return -1;
+                            }
+                            if (b.prop('selected')) {
+                                return 1;
+                            }
+                            if (a.text() < b.text()) {
+                                return -1;
+                            }
+                            if (a.text() > b.text()) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        select.append(options);
+                        
+                        // sorting secara otomatis pada kolom "line" ketika halaman pertama kali dimuat
+                        if (options.length > 1 && options[0].prop('selected')) {
+                            this.search('MCB').draw();
+                        }
+                    } else {
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        });
+                    }
+                });
+        },
+    });
 		$('.modal .select2').select2({
    		 dropdownParent: $('.modal')
 		});

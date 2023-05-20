@@ -104,6 +104,32 @@ $routes->group('reject', ['filter' => 'auth'], function ($routes) {
     $routes->post('update_reject_utama', 'Reject::update_reject_utama');
 });
 
+//MASTER REJECT
+$routes->group('reject_mcb', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'RejectMCB::index');
+    $routes->post('add_reject', 'RejectMCB::add_reject');
+    $routes->get('delete_reject/(:num)', 'RejectMCB::delete_reject/$1');
+    $routes->post('get_data_reject', 'RejectMCB::get_data_reject');
+    $routes->post('update_reject', 'RejectMCB::update_reject');
+    $routes->post('add_reject_utama', 'RejectMCB::add_reject_utama');
+    $routes->get('delete_reject_utama/(:num)/(:any)', 'RejectMCB::delete_reject_utama/$1/$2');
+    $routes->post('get_data_reject_utama', 'RejectMCB::get_data_reject_utama');
+    $routes->post('update_reject_utama', 'RejectMCB::update_reject_utama');
+});
+
+//MASTER REJECT
+$routes->group('reject_wet', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'RejectWET::index');
+    $routes->post('add_reject', 'RejectWET::add_reject');
+    $routes->get('delete_reject/(:num)', 'RejectWET::delete_reject/$1');
+    $routes->post('get_data_reject', 'RejectWET::get_data_reject');
+    $routes->post('update_reject', 'RejectWET::update_reject');
+    $routes->post('add_reject_utama', 'RejectWET::add_reject_utama');
+    $routes->get('delete_reject_utama/(:num)/(:any)', 'RejectWET::delete_reject_utama/$1/$2');
+    $routes->post('get_data_reject_utama', 'RejectWET::get_data_reject_utama');
+    $routes->post('update_reject_utama', 'RejectWET::update_reject_utama');
+});
+
 //LHP
 $routes->group('lhp', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Home::lhp_view');
@@ -122,6 +148,18 @@ $routes->group('lhp', ['filter' => 'auth'], function ($routes) {
     $routes->get('delete_line_stop/(:num)/(:num)', 'Home::delete_line_stop/$1/$2');
     $routes->get('delete_reject/(:num)/(:num)', 'Home::delete_reject/$1/$2');
     $routes->post('download', 'Home::download');
+});
+
+//MCB
+$routes->group('mcb', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'MCB::mcb_view');
+    $routes->post('download', 'MCB::download');
+});
+
+//WET
+$routes->group('wet', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'WET::wet_view');
+    $routes->post('download', 'WET::download');
 });
 
 
@@ -196,6 +234,24 @@ $routes->group('line_stop', ['filter' => 'auth'], function ($routes) {
     $routes->post('detail_line_stop/edit', 'LineStop::update_data_breakdown');
     $routes->post('detail_line_stop/delete', 'LineStop::delete_data_breakdown');
     $routes->post('add_line_stop', 'LineStop::save');
+});
+
+//MASTER LINE STOP
+$routes->group('line_stop_mcb', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'LineStopMCB::index');
+    $routes->get('detail_line_stop_mcb/(:num)', 'LineStopMCB::edit/$1');
+    $routes->post('detail_line_stop_mcb/edit', 'LineStopMCB::update_data_breakdown');
+    $routes->post('detail_line_stop_mcb/delete', 'LineStopMCB::delete_data_breakdown');
+    $routes->post('add_line_stop_mcb', 'LineStopMCB::save');
+});
+
+//MASTER LINE STOP
+$routes->group('line_stop_wet', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'LineStopWET::index');
+    $routes->get('detail_line_stop_wet/(:num)', 'LineStopWET::edit/$1');
+    $routes->post('detail_line_stop_wet/edit', 'LineStopWET::update_data_breakdown');
+    $routes->post('detail_line_stop_wet/delete', 'LineStopWET::delete_data_breakdown');
+    $routes->post('add_line_stop_wet', 'LineStopWET::save');
 });
 
 //MASTER REJECT PASTING
