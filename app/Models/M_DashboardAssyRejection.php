@@ -506,7 +506,7 @@ class M_DashboardAssyRejection extends Model
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
         } else {
-            $query = $this->db->query('SELECT lhp_produksi2.tanggal_produksi), detail_reject.type_battery, SUM(detail_reject.qty_reject) as qty
+            $query = $this->db->query('SELECT lhp_produksi2.tanggal_produksi, detail_reject.type_battery, SUM(detail_reject.qty_reject) as qty
                                         FROM detail_reject
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
