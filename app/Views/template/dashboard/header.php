@@ -35,13 +35,21 @@
 			$judul = 'REJECTION';
 		} else if ($uri->getSegment(3) == 'line_stop') {
 			$judul = 'LINE STOP';
+		} else if ($uri->getSegment(3) == 'rejectCutting') {
+			$judul = 'CUTTING REJECTION';
+		} else if ($uri->getSegment(3) == 'rejectMCB') {
+			$judul = 'CUTTING REJECTION';
 		} else {
 			$judul = 'REPORT';
 		}
 
 		if ($uri->getSegment(4) == '') {
 			if ($child_filter == 0) {
-				$sub_judul = '';
+				if ($uri->getSegment(3) == 'rejectMCB') {
+					$sub_judul = '(MCB)';
+				} else {
+					$sub_judul = '';
+				}
 			} else {
 				$sub_judul = '(LINE '.$child_filter.')';
 			}
@@ -51,7 +59,7 @@
 			} else {
 				$sub_judul = '(LINE '.$child_filter.')';
 			}
-		} else if ($uri->getSegment(3) == 'amb2') {
+		} else if ($uri->getSegment(4) == 'amb2') {
 			if ($child_filter == 0) {
 				$sub_judul = '(AMB 2)';
 			} else {
@@ -59,7 +67,7 @@
 			}
 		} else {
 			$sub_judul = '';
-		}
+		} 
 		 ?>
 
 		<div style="margin-left:-250px; text-align:center; margin-top:-5px;">
