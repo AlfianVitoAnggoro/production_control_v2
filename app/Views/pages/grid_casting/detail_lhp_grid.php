@@ -76,6 +76,103 @@ $mh = [8, 7.5, 6.5];
                 <div class="row">
                     <div class="col-xl-12 col-12">
                         <div class="box">
+                            <div class="box-header">
+                                <div class="row">
+                                    <h4>Material In</h4>
+                                    <br>
+                                    <div class="col">
+                                        <table class="table">
+                                            <tr>
+                                                <td>
+                                                Conveyor Barat
+                                                <input type="text" class="form-control" name="conveyor_barat" id="conveyor_barat" onchange="material_in_conveyor_barat()">
+                                                </td>
+                                                <td>
+                                                <button type="button" class="btn btn-primary" onclick="add_material_in('barat')">Add</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col">
+                                        <table class="table">
+                                            <tr>
+                                                <td>
+                                                Conveyor Timur
+                                                <input type="text" class="form-control" name="conveyor_timur" id="conveyor_timur" onchange="material_in_conveyor_timur()">
+                                                </td>
+                                                <td>
+                                                <button type="button" class="btn btn-primary" onclick="add_material_in('timur')">Add</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="table-responsive">
+                                            <table id="data_conveyor_barat" class="table table-striped mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2">Material In Conveyor Barat</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_material_in_conveyor_barat">
+                                                <?php $number = 0;
+                                                foreach ($data_conveyor_barat as $d_cb) { ?>
+                                                    <tr class="material_in_conveyor_barat">
+                                                        <td>
+                                                            <input type="text" class="form-control" id="material_in_barat_<?= $number ?>" value="<?= $d_cb['material_in'] ?>" readonly> Kg
+                                                            <input type="hidden" class="form-control" id="id_material_in_barat_<?= $number ?>" value="<?= $d_cb['id_material_in'] ?>" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-danger" onclick="delete_material_in(this, 'barat', <?= $number ?>)">Delete</button>
+                                                        </td>
+                                                    </tr>
+                                                <?php $number++;
+                                                } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="table-responsive">
+                                            <table id="data_conveyor_timur" class="table table-striped mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2">Material In Conveyor Timur</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_material_in_conveyor_timur">
+                                                <?php $number = 0;
+                                                foreach ($data_conveyor_timur as $d_ct) { ?>
+                                                    <tr class="material_in_conveyor_timur">
+                                                        <td>
+                                                            <input type="text" class="form-control" id="material_in_timur_<?= $number ?>" value="<?= $d_ct['material_in'] ?>" readonly> Kg
+                                                            <input type="hidden" class="form-control" id="id_material_in_timur_<?= $number ?>" value="<?= $d_ct['id_material_in'] ?>" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-danger" onclick="delete_material_in(this, 'timur', <?= $number ?>)">Delete</button>
+                                                        </td>
+                                                    </tr>
+                                                <?php $number++;
+                                                } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="box-footer" style="text-align: center;">
+                                <input type="submit" class="btn btn-success" value="Save">
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-12">
+                        <div class="box">
                             <div class="box-body">
                                 <div class="table-responsive">
                                     <table id="" class="table table-striped mb-0">
@@ -702,7 +799,6 @@ $mh = [8, 7.5, 6.5];
             },
             dataType: 'json',
             success: function(data) {
-                console.log(data);
                 if (data.length > 0) {
                     var html = '';
                     var no = 1;
@@ -1012,6 +1108,94 @@ $mh = [8, 7.5, 6.5];
                 ?>
             `;
         }
+    }
+
+    function material_in_conveyor_barat() {
+        document.addEventListener('keyup', function(event) {
+            // event.preventDefault();
+            if (event.keyCode === 9) {
+                qty_material_in('barat');
+            }
+        });
+    }
+
+    function material_in_conveyor_timur() {
+        document.addEventListener('keyup', function(event) {
+            // event.preventDefault();
+            if (event.keyCode === 9) {
+                qty_material_in('timur');
+            }
+        });
+    }
+
+    function qty_material_in(conveyor) {
+        let material_in = document.querySelector('#conveyor_' + conveyor).value;
+        // Memindahkan fokus ke elemen berikutnya
+        $.ajax({
+            url: '<?= base_url() ?>grid/qty_material_in',
+            type: 'POST',
+            data: {
+                material_in: material_in,
+            },
+            dataType: 'json',
+            success: function(data) {
+                if(data.length > 0) {
+                    $('#conveyor_' + conveyor).val(data[0].QTY);
+                }
+            }
+        })
+    }
+
+    function add_material_in(conveyor) {
+        let id_lhp = document.querySelector('#id_lhp').value;
+        let material_in = document.querySelector('#conveyor_' + conveyor).value;
+        let baris = document.querySelectorAll('.material_in_conveyor_' + conveyor).length;
+        $('#loading-modal').modal('show');
+        $.ajax({
+            url: '<?= base_url() ?>grid/material_in',
+            type: 'POST',
+            data: {
+                id_lhp: id_lhp,
+                material_in: material_in,
+                conveyor: conveyor,
+            },
+            dataType: 'json',
+            success: function(data) {
+                if(data > 0) {
+                    $('#tbody_material_in_conveyor_' + conveyor).append(`
+                        <tr class="material_in_conveyor_${conveyor}">
+                            <td>
+                                <input type="text" class="form-control" id="material_in_timur_${baris}" value="${material_in}" readonly> Kg
+                                <input type="hidden" class="form-control" id="id_material_in_timur_${baris}" value="${data}" readonly>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" onclick="delete_material_in(this, 'timur', ${baris})">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                    $('#conveyor_' + conveyor).val('');
+                    $('#loading-modal').modal('hide');
+                    $('#conveyor_' + conveyor).focus();
+                }
+            }
+        })
+    }
+
+    function delete_material_in(e, conveyor, baris) {
+        let id_material_in = $('#id_material_in_' + conveyor + '_' + baris).val();
+        $('#loading-modal').modal('show');
+        $.ajax({
+            url: '<?= base_url() ?>grid/delete_material_in',
+            type: 'POST',
+            data: {
+                id_material_in: id_material_in,
+            },
+            dataType: 'json',
+            success: function(data) {
+                $(e).parent().parent().remove();
+                $('#loading-modal').modal('hide');
+            }
+        });
     }
 </script>
 <?= $this->endSection(); ?>
