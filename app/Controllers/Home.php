@@ -449,6 +449,8 @@ class Home extends BaseController
         $data['data_all_line'] = $model->get_line();
         $data['data_all_grup'] = $model->get_grup();
 
+        $data['total_menit_breakdown'] = $model->get_total_menit_breakdown($id);
+
         $data['data_wo'] = $model->getDataWO($data['data_lhp'][0]['tanggal_produksi'], $data['data_lhp'][0]['line']);
         // $data['data_wo'] = [];
         if($data['data_lhp'][0]['line'] <= 7) {

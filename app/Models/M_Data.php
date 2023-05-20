@@ -370,4 +370,10 @@ class M_Data extends Model
     public function delete_reject($id_reject) {
         $this->db->query('DELETE FROM detail_reject WHERE id_reject = '.$id_reject);
     }
+
+    public function get_total_menit_breakdown ($id_lhp) {
+        $query = $this->db->query('SELECT SUM(menit_breakdown) AS total_menit FROM detail_breakdown WHERE id_lhp = '.$id_lhp);
+
+        return $query->getResultArray();
+    }
 }
