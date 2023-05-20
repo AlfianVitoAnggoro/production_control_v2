@@ -266,6 +266,12 @@
         }
     }
     $result_daily_reject_persentase = array_values($merged_daily_persentase);
+
+    $adj_reject = array(0.51, 0.58, 0.48, 0.44);
+
+    for ($i = 0; $i < 4; $i++) {
+        $data_average_reject_by_month[$i] = $adj_reject[$i];
+    }
 ?>
 
 <div class="content-wrapper" style="margin-left:0; margin-top:50px;">
