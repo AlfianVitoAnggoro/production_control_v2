@@ -131,7 +131,7 @@ class DashboardAssyRejection extends BaseController
                 foreach($data_all as $d_all) {
                     $total_reject = $d_all['total_reject'];
                     $total_aktual = $d_all['total_aktual'];
-                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / $total_aktual) * 100 : 0;
+                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / ($total_aktual+$total_reject)) * 100 : 0;
                     array_push($data['data_reject_all_month'], (float) number_format($eff, 2, '.', ''));
                 }
             } else {
@@ -148,11 +148,11 @@ class DashboardAssyRejection extends BaseController
 
         foreach ($data_line as $d_line) {
             array_push($data['data_reject_by_line'], 'Line '.$d_line['line']);
-            array_push($data['data_total_reject_by_line'], (float) number_format(($d_line['total_reject'] / $d_line['total_aktual']) * 100, 2, '.', ''));
+            array_push($data['data_total_reject_by_line'], (float) number_format(($d_line['total_reject'] / ($d_line['total_aktual']+$d_line['total_reject'])) * 100, 2, '.', ''));
         }
 
         $data_year = $this->M_DashboardAssyRejection->get_year_to_date_rejection($child_filter);
-        $data['data_all_year'] = (!empty($data_year[0]['total_reject']) && !empty($data_year[0]['total_aktual'])) ? (float) number_format(($data_year[0]['total_reject'] / $data_year[0]['total_aktual']) * 100, 2, '.', '') : 0;
+        $data['data_all_year'] = (!empty($data_year[0]['total_reject']) && !empty($data_year[0]['total_aktual'])) ? (float) number_format(($data_year[0]['total_reject'] / ($data_year[0]['total_aktual']+$data_year[0]['total_reject'])) * 100, 2, '.', '') : 0;
 
         // GET DATA AVERAGE REJECT BY DATE ALL LINE
         $data['data_average_reject_by_date_all_line'] = [];
@@ -162,7 +162,7 @@ class DashboardAssyRejection extends BaseController
                 foreach ($data_average_reject_by_date_all_line as $da) {
                     $total_reject = $da['total_reject'];
                     $total_aktual = $da['total_aktual'];
-                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / $total_aktual) * 100 : 0;
+                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / ($total_aktual+$total_reject)) * 100 : 0;
                     array_push($data['data_average_reject_by_date_all_line'], (float) number_format($eff, 2, '.', ''));
                 } 
             } else {
@@ -180,7 +180,7 @@ class DashboardAssyRejection extends BaseController
                 foreach($data_all as $d_all) {
                     $total_reject = $d_all['total_reject'];
                     $total_aktual = $d_all['total_aktual'];
-                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / $total_aktual) * 100 : 0;
+                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / ($total_aktual+$total_reject)) * 100 : 0;
                     array_push($data['data_average_reject_by_month'], (float) number_format($eff, 2, '.', ''));
                 }
             } else {
@@ -220,7 +220,7 @@ class DashboardAssyRejection extends BaseController
                     foreach ($data_reject_per_line_by_date as $d1) {
                         $total_reject = $d1['total_reject'];
                         $total_aktual = $d1['total_aktual'];
-                        $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / $total_aktual) * 100 : 0;
+                        $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / ($total_aktual+$total_reject)) * 100 : 0;
                         array_push($data['data_reject_line_'.$i], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
@@ -247,7 +247,7 @@ class DashboardAssyRejection extends BaseController
                     foreach ($data_reject_all_line_by_month as $dalm) {
                         $total_reject = $dalm['total_reject'];
                         $total_aktual = $dalm['total_aktual'];
-                        $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / $total_aktual) * 100 : 0;
+                        $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / ($total_aktual+$total_reject)) * 100 : 0;
                         array_push($data['data_reject_by_month_line_'.$i], (float) number_format($eff, 1, '.', ''));
                     }
                 } else {
@@ -270,7 +270,7 @@ class DashboardAssyRejection extends BaseController
                         foreach ($data_jenis_reject_by_date_persentase as $d_jenis_reject_by_date) {
                             $data_reject = [
                                 'name' => $d_jenis_reject_by_date['jenis_reject'],
-                                'data' => ($data_reject_per_line_by_date[0]['total_aktual'] == 0) ? 0 : (float) number_format( ((int) $d_jenis_reject_by_date['qty'] / ((int) $data_reject_per_line_by_date[0]['total_aktual'])) * 100, 2, '.', '')
+                                'data' => ($data_reject_per_line_by_date[0]['total_aktual'] == 0) ? 0 : (float) number_format( ((int) ($d_jenis_reject_by_date['qty'] / ((int) $data_reject_per_line_by_date[0]['total_aktual'] + $d_jenis_reject_by_date['qty']))) * 100, 2, '.', '')
                             ];
                             
                             $data['data_reject_by_date_persentase'][] = $data_reject;
@@ -446,7 +446,7 @@ class DashboardAssyRejection extends BaseController
                 foreach($data_all as $d_all) {
                     $total_reject = $d_all['total_reject'];
                     $total_aktual = $d_all['total_aktual'];
-                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / $total_aktual) * 100 : 0;
+                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / ($total_aktual+$total_reject)) * 100 : 0;
                     array_push($data['data_reject_all_month'], (float) number_format($eff, 2, '.', ''));
                 }
             } else {
@@ -462,7 +462,7 @@ class DashboardAssyRejection extends BaseController
 
         foreach ($data_line_by_date as $d_line) {
             array_push($data['data_reject_by_line_by_date'], 'Line '.$d_line['line']);
-            array_push($data['data_total_reject_by_line_by_date'], (float) number_format(($d_line['total_reject'] / $d_line['total_aktual']) * 100, 2, '.', ''));
+            array_push($data['data_total_reject_by_line_by_date'], (float) number_format(($d_line['total_reject'] / ($d_line['total_aktual']+$d_line['total_reject'])) * 100, 2, '.', ''));
         }
 
         // GET DATA PARETO REJECT BY LINE
@@ -473,11 +473,11 @@ class DashboardAssyRejection extends BaseController
 
         foreach ($data_line as $d_line) {
             array_push($data['data_reject_by_line'], 'Line '.$d_line['line']);
-            array_push($data['data_total_reject_by_line'], (float) number_format(($d_line['total_reject'] / $d_line['total_aktual']) * 100, 2, '.', ''));
+            array_push($data['data_total_reject_by_line'], (float) number_format(($d_line['total_reject'] / ($d_line['total_aktual']+$d_line['total_reject'])) * 100, 2, '.', ''));
         }
 
         $data_year = $this->M_DashboardAssyRejection->get_year_to_date_rejection($child_filter);
-        $data['data_all_year'] = (!empty($data_year[0]['total_reject']) && !empty($data_year[0]['total_aktual'])) ? (float) number_format(($data_year[0]['total_reject'] / $data_year[0]['total_aktual']) * 100, 2, '.', '') : 0;
+        $data['data_all_year'] = (!empty($data_year[0]['total_reject']) && !empty($data_year[0]['total_aktual'])) ? (float) number_format(($data_year[0]['total_reject'] / ($data_year[0]['total_aktual']+$data_year[0]['total_reject'])) * 100, 2, '.', '') : 0;
 
         // GET DATA AVERAGE REJECT BY DATE ALL LINE
         $data['data_average_reject_by_date_all_line'] = [];
@@ -487,7 +487,7 @@ class DashboardAssyRejection extends BaseController
                 foreach ($data_average_reject_by_date_all_line as $da) {
                     $total_reject = $da['total_reject'];
                     $total_aktual = $da['total_aktual'];
-                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / $total_aktual) * 100 : 0;
+                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / ($total_aktual+$total_reject)) * 100 : 0;
                     array_push($data['data_average_reject_by_date_all_line'], (float) number_format($eff, 2, '.', ''));
                 } 
             } else {
@@ -505,7 +505,7 @@ class DashboardAssyRejection extends BaseController
                 foreach($data_all as $d_all) {
                     $total_reject = $d_all['total_reject'];
                     $total_aktual = $d_all['total_aktual'];
-                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / $total_aktual) * 100 : 0;
+                    $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / ($total_aktual+$total_reject)) * 100 : 0;
                     array_push($data['data_average_reject_by_month'], (float) number_format($eff, 2, '.', ''));
                 }
             } else {
@@ -545,7 +545,7 @@ class DashboardAssyRejection extends BaseController
                     foreach ($data_reject_per_line_by_date as $d1) {
                         $total_reject = $d1['total_reject'];
                         $total_aktual = $d1['total_aktual'];
-                        $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / $total_aktual) * 100 : 0;
+                        $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / ($total_aktual+$total_reject)) * 100 : 0;
                         array_push($data['data_reject_line_'.$i], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
@@ -572,7 +572,7 @@ class DashboardAssyRejection extends BaseController
                     foreach ($data_reject_all_line_by_month as $dalm) {
                         $total_reject = $dalm['total_reject'];
                         $total_aktual = $dalm['total_aktual'];
-                        $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / $total_aktual) * 100 : 0;
+                        $eff = (!empty($total_reject) && !empty($total_aktual)) ? ($total_reject / ($total_aktual+$total_reject)) * 100 : 0;
                         array_push($data['data_reject_by_month_line_'.$i], (float) number_format($eff, 1, '.', ''));
                     }
                 } else {
@@ -595,7 +595,7 @@ class DashboardAssyRejection extends BaseController
                         foreach ($data_jenis_reject_by_date_persentase as $d_jenis_reject_by_date) {
                             $data_reject = [
                                 'name' => $d_jenis_reject_by_date['jenis_reject'],
-                                'data' => ($data_reject_per_line_by_date[0]['total_aktual'] == 0) ? 0 : (float) number_format( ((int) $d_jenis_reject_by_date['qty'] / (int) $data_reject_per_line_by_date[0]['total_aktual']) * 100, 2, '.', '')
+                                'data' => ($data_reject_per_line_by_date[0]['total_aktual'] == 0) ? 0 : (float) number_format( ((int) $d_jenis_reject_by_date['qty'] / (int) ($data_reject_per_line_by_date[0]['total_aktual'] + $d_jenis_reject_by_date['qty'])) * 100, 2, '.', '')
                             ];
                             
                             $data['data_reject_by_date_persentase'][] = $data_reject;
