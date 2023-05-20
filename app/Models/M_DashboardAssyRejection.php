@@ -359,10 +359,10 @@ class M_DashboardAssyRejection extends Model
     public function get_data_reject_all_line($tanggal, $line)
     {
         if ($line == null || $line == 0) {
-            $query = $this->db->query('SELECT tanggal_produksi, line, SUM(total_reject) AS total_reject, SUM(total_aktual) AS total_aktual
+            $query = $this->db->query('SELECT tanggal_produksi, SUM(total_reject) AS total_reject, SUM(total_aktual) AS total_aktual
                                     FROM		lhp_produksi2
                                     WHERE		tanggal_produksi = \''.$tanggal.'\'
-                                    GROUP BY	tanggal_produksi, line');
+                                    GROUP BY	tanggal_produksi');
         } else {
             $query = $this->db->query('SELECT tanggal_produksi, line, SUM(total_reject) AS total_reject, SUM(total_aktual) AS total_aktual
                                     FROM		lhp_produksi2
