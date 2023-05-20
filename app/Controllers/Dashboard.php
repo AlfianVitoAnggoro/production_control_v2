@@ -17,6 +17,11 @@ class Dashboard extends BaseController
         return view('dashboard/home');
     }
 
+    public function index2()
+    {
+        return view('dashboard/dashboard_home');
+    }
+
     public function dashboard_lhp_assy()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -41,7 +46,7 @@ class Dashboard extends BaseController
 
         if ($child_filter == null) {
             $child_filter = 0;
-        }
+        } 
 
         if ($baby_filter == null) {
             $baby_filter = 'average';
@@ -333,6 +338,46 @@ class Dashboard extends BaseController
         }
         $data_year = $this->M_Dashboard->get_data_all_line_by_year($child_filter);
         $data['data_all_year'] = (!empty($data_year[0]['total_plan']) && !empty($data_year[0]['total_aktual'])) ? (float) number_format(($data_year[0]['total_aktual'] / $data_year[0]['total_plan']) * 100, 2, '.', '') : 0;
+
+        $arr_jam = ['08:50:00.0000000'
+                    ,'09:50:00.0000000'
+                    ,'11:00:00.0000000'
+                    ,'12:00:00.0000000'
+                    ,'14:00:00.0000000'
+                    ,'15:00:00.0000000'
+                    ,'16:15:00.0000000'
+                    ,'16:30:00.0000000'
+                    ,'17:50:00.0000000'
+                    ,'19:35:00.0000000'
+                    ,'20:35:00.0000000'
+                    ,'21:35:00.0000000'
+                    ,'22:45:00.0000000'
+                    ,'23:45:00.0000000'
+                    ,'00:30:00.0000000'
+                    ,'01:50:00.0000000'
+                    ,'02:50:00.0000000'
+                    ,'03:50:00.0000000'
+                    ,'05:20:00.0000000'
+                    ,'06:20:00.0000000'
+                    ,'07:30:00.0000000'
+        ];
+
+        $data['data_all_jam'] = [];
+        // $tanggal_berjalan = date('Y-m-d', strtotime('2023-05-05'));
+        $tanggal_berjalan = date('Y-m-d');
+        foreach ($arr_jam as $jam) {
+            $data_all = $this->M_Dashboard->get_data_all_line_by_jam($child_filter, $jam, $tanggal_berjalan);
+            if (!empty($data_all)) {
+                foreach($data_all as $d_all) {
+                    $total_plan = $d_all['total_plan'];
+                    $total_aktual = $d_all['total_aktual'];
+                    $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                    array_push($data['data_all_jam'], (float) number_format($eff, 2, '.', ''));
+                }
+            } else {
+                array_push($data['data_all_jam'], 0);
+            }
+        }
         
         return view('dashboard/dashboard_lhp_assy', $data);
     }

@@ -53,9 +53,19 @@
 		}
 
 		body {
-			background-image: url("<?= base_url()?>assets/images/bg-dashboard.jpg");
+			/* background-image: url("<?= base_url()?>assets/images/bg-dashboard-new.jpg"); */
+			background-image: url("<?= base_url()?>assets/images/1.jpg");
+			/* background-image: url("<?= base_url()?>assets/images/4.PNG"); */
 			/* background-color: #cccccc; */
-			background-size: cover;
+			<?php 
+			$uri = current_url(true);
+			if ($uri->getSegment(3) == 'assy') {
+				echo 'background-size: cover;';
+			} else if ($uri->getSegment(3) == 'reject') {
+				echo 'background-size: contain;';
+			}
+			?>
+			
 		}
 
 		.main-header {
@@ -67,6 +77,21 @@
 		.btn-nav {
 			font-size: 18px;
 			font-weight: 600;
+		}
+
+		.btn-main-dashboard {
+			font-size: 34px;
+			font-weight: 600;
+		}
+
+		.btn-sub-dashboard {
+			font-size: 24px;
+			font-weight: 600;
+			color: black !important;
+		}
+		
+		.modal {
+			overflow-y:auto;
 		}
 
 	</style>

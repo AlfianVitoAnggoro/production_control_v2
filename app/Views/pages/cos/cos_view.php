@@ -173,8 +173,18 @@
             <!-- <a href="/cos/download" class="btn btn-danger mb-2">Download</a> -->
             <form action="/cos/download" method="post">
                 <div class="modal-body">
-                    <label for="date" class="form-label">Bulan</label>
-                    <input type="month" class="form-control" id="date" name="date" value="<?= date('Y-m') ?>">
+                    <!-- <label for="date" class="form-label">Bulan</label>
+                    <input type="month" class="form-control" id="date" name="date" value="<?= date('Y-m') ?>"> -->
+                    <div class="row">
+                        <div class="col mb-2">
+                            <label for="start_date" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="start_date" name="start_date">
+                        </div>
+                        <div class="col mb-2">
+                            <label for="end_date" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="end_date" name="end_date">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer" style="float: right;">
                     <input type="submit" class="btn btn-primary float-end" value="Download">

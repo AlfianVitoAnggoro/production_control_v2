@@ -63,6 +63,18 @@
 							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
 								<li><a href="<?=base_url()?>cos"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>COS</a></li>
 							<?php } ?>
+							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
+								<li><a href="<?=base_url()?>timbangan_reject"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Laporan Timbangan Reject</a></li>
+							<?php } ?>
+							<?php if (session()->get('seksi') == 'envelope' OR session()->get('seksi') == 'plate_cutting' OR session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
+								<li><a href="<?=base_url()?>saw"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>SAW</a></li>
+							<?php } ?>
+							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
+								<li><a href="<?=base_url()?>mcb"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>MCB</a></li>
+							<?php } ?>
+							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
+								<li><a href="<?=base_url()?>wet"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET</a></li>
+							<?php } ?>
 						</ul>
 					</li>
 					<?php } ?>
@@ -78,7 +90,11 @@
 							<ul class="treeview-menu">
 								<li><a href="<?=base_url()?>cycle_time"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Cycle Time</a></li>
 								<li><a href="<?=base_url()?>line_stop"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Line Stop</a></li>
+								<li><a href="<?=base_url()?>line_stop_mcb"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Line Stop MCB</a></li>
+								<li><a href="<?=base_url()?>line_stop_wet"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Line Stop WET</a></li>
 								<li><a href="<?=base_url()?>reject"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Rejection</a></li>
+								<li><a href="<?=base_url()?>reject_mcb"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Rejection MCB</a></li>
+								<li><a href="<?=base_url()?>reject_wet"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Rejection WET</a></li>
 								<!-- <li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Run Time</a></li> -->
 							</ul>
 						</li>

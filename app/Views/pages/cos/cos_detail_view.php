@@ -83,12 +83,15 @@
                         <th>Type Battery</th>
                         <th>Hasil</th>
                         <th>Tersangkut</th>
-                        <th>Strap Dross</th>
+                        <th>Terbakar</th>
                         <th>Lug Lepas</th>
                         <th>Strap Tipis</th>
                         <th>Dross 1</th>
                         <th>Dross 2</th>
                         <th>Dross 3</th>
+                        <th>Timbangan Strap 1</th>
+                        <th>Timbangan Strap 2</th>
+                        <th>Timbangan Strap 3</th>
                       </tr>
                     </thead>
                     <tbody class="form_cos">
@@ -155,7 +158,7 @@
               <input type="text" class="form-control" name="tersangkut[]" id="tersangkut_${baris}" value="<?= $ddc['tersangkut'] ?>">
           </td>
           <td>
-              <input type="text" class="form-control" name="strap_dross[]" id="strap_dross_${baris}" value="<?= $ddc['strap_dross'] ?>">
+              <input type="text" class="form-control" name="terbakar[]" id="terbakar_${baris}" value="<?= $ddc['terbakar'] ?>">
           </td>
           <td>
               <input type="text" class="form-control" name="lug_lepas[]" id="lug_lepas_${baris}" value="<?= $ddc['lug_lepas'] ?>">
@@ -171,6 +174,15 @@
           </td>
           <td>
               <input type="text" class="form-control" name="dross_3[]" id="dross_3_${baris}" value="<?= $ddc['dross_3'] ?>">
+          </td>
+          <td>
+              <input type="text" class="form-control" name="timbangan_strap_1[]" id="timbangan_strap_1_${baris}" value="<?= $ddc['timbangan_strap_1'] ?>">
+          </td>
+          <td>
+              <input type="text" class="form-control" name="timbangan_strap_2[]" id="timbangan_strap_2_${baris}" value="<?= $ddc['timbangan_strap_2'] ?>">
+          </td>
+          <td>
+              <input type="text" class="form-control" name="timbangan_strap_3[]" id="timbangan_strap_3_${baris}" value="<?= $ddc['timbangan_strap_3'] ?>">
           </td>
       </tr>
 		`);
@@ -207,7 +219,7 @@
                   <input type="text" class="form-control" name="tersangkut[]" id="tersangkut_${baris}" value="">
               </td>
               <td>
-                  <input type="text" class="form-control" name="strap_dross[]" id="strap_dross_${baris}" value="">
+                  <input type="text" class="form-control" name="terbakar[]" id="terbakar_${baris}" value="">
               </td>
               <td>
                   <input type="text" class="form-control" name="lug_lepas[]" id="lug_lepas_${baris}" value="">
@@ -223,6 +235,15 @@
               </td>
               <td>
                   <input type="text" class="form-control" name="dross_3[]" id="dross_3_${baris}" value="">
+              </td>
+              <td>
+                  <input type="text" class="form-control" name="timbangan_strap_1[]" id="timbangan_strap_1_${baris}" value="">
+              </td>
+              <td>
+                  <input type="text" class="form-control" name="timbangan_strap_2[]" id="timbangan_strap_2_${baris}" value="">
+              </td>
+              <td>
+                  <input type="text" class="form-control" name="timbangan_strap_3[]" id="timbangan_strap_3_${baris}" value="">
               </td>
           </tr>
       `);

@@ -69,6 +69,8 @@ class Grid extends BaseController
     {
         $data['id_lhp'] = $id_lhp;
         $data['data_lhp'] = $this->M_Grid->get_data_lhp_grid_by_id($id_lhp);
+        $data['data_conveyor_barat'] = $this->M_Grid->get_data_conveyor_by_id($id_lhp, 'barat');
+        $data['data_conveyor_timur'] = $this->M_Grid->get_data_conveyor_by_id($id_lhp, 'timur');
         $data['data_mesin'] = $this->M_Grid->get_data_mesin_grid();
         $data['data_operator'] = $this->M_Grid->get_data_operator_grid();
         $data['data_type_grid'] = $this->M_Grid->get_data_type_grid();
@@ -388,5 +390,35 @@ class Grid extends BaseController
         $session = \Config\Services::session();
         $data['session'] = $session->get('level');
         return view('pages/grid_casting/detail_lhp_grid_print_view', $data);
+    }
+
+    public function qty_material_in()
+    {
+        $material_in = $this->request->getPost('material_in');
+        $qty_material_in = $this->M_Grid->qty_material_in($material_in);
+        return $qty_material_in;
+    }
+
+    public function material_in()
+    {
+        $id_lhp = $this->request->getPost('id_lhp');
+        $material_in = $this->request->getPost('material_in');
+        $conveyor = $this->request->getPost('conveyor');
+        $data = [
+            'id_lhp_grid' => $id_lhp,
+            'material_in' => $material_in,
+            'keterangan' => $conveyor,
+        ];
+        $id_material_in = $this->M_Grid->add_material_in($data);
+        if($id_material_in !== NULL) return $id_material_in;
+        else return;
+    }
+
+    public function delete_material_in()
+    {
+        $id_material_in = $this->request->getPost('id_material_in');
+        $delete_material_in = $this->M_Grid->delete_material_in($id_material_in);
+
+        return $id_material_in;
     }
 }

@@ -18,15 +18,18 @@
                                     </button>
                                 </div>
                                 <div class="box-body">
-                                    <a href="/envelope/download" class="btn btn-danger mb-2">Download</a>
+                                    <!-- <a href="/envelope/download" class="btn btn-danger mb-2">Download</a> -->
+                                    <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target=".modal_download_envelope">
+                                        Download
+                                    </button>
                                     <div class="table-responsive">
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>No</th>
+                                                    <!-- <th>No</th> -->
                                                     <th style="width: 150px;">Date</th>
-                                                    <th>Line</th>
                                                     <th>Shift</th>
+                                                    <th>Line</th>
                                                     <th>Team</th>
                                                     <th>Status</th>
                                                     <th>Aksi</th>
@@ -44,10 +47,10 @@
                                                         $number++;
                                                     ?>
                                                         <tr>
-                                                            <th><?= $number ?></th>
-                                                            <td style="width: 150px;"><?= $envl['date'] ?></td>
-                                                            <td><?= $envl['line'] ?></td>
+                                                            <!-- <th><?= $number ?></th> -->
+                                                            <td style="width: 150px;"><?= date('Y-m-d', strtotime($envl['date'])) ?></td>
                                                             <td><?= $envl['shift'] ?></td>
+                                                            <td><?= $envl['line'] ?></td>
                                                             <td><?= $envl['team'] ?></td>
                                                             <td>
                                                                 <div>
@@ -85,6 +88,17 @@
                                                     <?php endif ?>
                                                 <?php endforeach ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Date</th>
+                                                    <th>Shift</th>
+                                                    <th>Line</th>
+                                                    <th>Team</th>
+                                                    <th>Status</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
@@ -169,15 +183,79 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<div class="modal fade modal_download_envelope" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">Download Envelope</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- <a href="/envelope/download" class="btn btn-danger mb-2">Download</a> -->
+            <form action="/envelope/download" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col mb-2">
+                            <label for="start_date" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="start_date" name="start_date">
+                        </div>
+                        <div class="col mb-2">
+                            <label for="end_date" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="end_date" name="end_date">
+                        </div>
+                        <!-- <div class="col mb-2">
+                            <label for="month" class="form-label">Bulan</label>
+                            <input type="month" class="form-control" id="month" name="month" required>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="modal-footer" style="float: right;">
+                    <input type="submit" class="btn btn-primary float-end" value="Download">
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <?= $this->endSection(); ?>
 
 <?= $this->section('script'); ?>
 <script>
     $(document).ready(function() {
+        // $('#example5').DataTable({
+		// 	"responsive": true,
+		// 	"autoWidth": false,
+		// 	"order": []
+		// });
         $('#example5').DataTable({
-			"responsive": true,
-			"autoWidth": false,
-			"order": []
+			"order": [],
+			initComplete: function () {
+				this.api()
+					.columns()
+					.every(function () {
+						var column = this;
+						var select = $('<select class="form-select"><option value=""></option></select>')
+							.appendTo($(column.footer()).empty())
+							.on('change', function () {
+								var val = $.fn.dataTable.util.escapeRegex($(this).val());
+	
+								column.search(val ? '^' + val + '$' : '', true, false).draw();
+							});
+	
+						column
+							.data()
+							.unique()
+							.sort()
+							.each(function (d, j) {
+								select.append('<option value="' + d + '">' + d + '</option>');
+							});
+					});
+			},
+		});
+		$('.modal .select2').select2({
+   		 dropdownParent: $('.modal')
 		});
     });
 </script>

@@ -485,7 +485,9 @@ class PlateCutting extends BaseController
 
     public function download()
     {
-        $platecutting = $this->platecuttingModel->findAll();
+        $start_date = $this->request->getPost('start_date');
+        $end_date = $this->request->getPost('end_date');
+        $platecutting = $this->platecuttingModel->where('date >=', $start_date)->where('date <=', $end_date)->findAll();
         $plateinput = $this->plateInputModel->findAll();
         $dates = array_column($platecutting, "date");
         $lines = array_column($platecutting, "line");
@@ -524,8 +526,10 @@ class PlateCutting extends BaseController
         header('Content-Disposition: attachment;filename="data.xlsx"');
         header('Cache-Control: max-age=0');
 
+        ob_end_clean();
         // Membuat objek Writer untuk menulis spreadsheet ke output
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
+        exit();
     }
 }

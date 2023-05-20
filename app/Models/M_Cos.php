@@ -22,11 +22,21 @@ class M_Cos extends Model
         return $query->getResultArray();
     }
 
-    public function get_all_lhp_cos_by_month($bulan)
+    // public function get_all_lhp_cos_by_month($bulan)
+    // {
+    //     $month = idate('m', strtotime($bulan));
+    //     $year = idate('Y', strtotime($bulan));
+    //     $query = $this->db->query('SELECT * FROM lhp_cos WHERE MONTH(tanggal_produksi) = \'' . $month . '\' AND YEAR(tanggal_produksi) = \'' . $year . '\'');
+    //     if(count($query->getResultArray()) > 0) {
+    //         return $query->getResultArray();
+    //     } else {
+    //         return;
+    //     }
+    // }
+
+    public function get_all_lhp_cos_by_date($start_date, $end_date)
     {
-        $month = idate('m', strtotime($bulan));
-        $year = idate('Y', strtotime($bulan));
-        $query = $this->db->query('SELECT * FROM lhp_cos WHERE MONTH(tanggal_produksi) = \'' . $month . '\' AND YEAR(tanggal_produksi) = \'' . $year . '\'');
+        $query = $this->db->query('SELECT * FROM lhp_cos WHERE tanggal_produksi >= \'' . $start_date . '\' AND tanggal_produksi <= \'' . $end_date . '\'');
         if(count($query->getResultArray()) > 0) {
             return $query->getResultArray();
         } else {

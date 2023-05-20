@@ -32,7 +32,7 @@ class SawRepair extends BaseController
     $type_battery = $this->type_batteryModel->findAll();
     $dates = array_column($saw_repair, "date");
     $shift = array_column($saw_repair, "shift");
-    array_multisort($dates, SORT_ASC, $shift, SORT_ASC,  $saw_repair);
+    array_multisort($dates, SORT_DESC, $shift, SORT_ASC,  $saw_repair);
     $status = $session->get('level');
     $data = [
       'saw_repair' => $saw_repair,
@@ -86,6 +86,13 @@ class SawRepair extends BaseController
     $data_old_saw_repair_saw = [];
     $data_new_saw_repair_potong = [];
     $data_old_saw_repair_potong = [];
+    if($id === NULL) {
+      $cek = $this->saw_repairModel->where('date', $date)->where('shift', $shift)->findAll();
+      if(count($cek) > 0) {
+        $id = $cek[0]['id'];
+        return redirect()->to(base_url('saw_repair/add_saw_repair/' . $id));
+      }
+    }
     if ($id === NULL) {
       $data_saw_repair[] = array(
         'date' => $date,

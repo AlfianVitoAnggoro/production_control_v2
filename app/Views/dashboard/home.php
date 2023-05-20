@@ -26,7 +26,8 @@
                     <h3>Realtime Performance</h3>
                 </div>
                 <div class="col-4">
-                    <a href="<?=base_url()?>dashboard/assy" target="_blank">
+                    <!-- <a href="<?=base_url()?>dashboard/assy" target="_blank"> -->
+                    <a href="<?=base_url()?>dashboard/assy/home" target="_blank">
                         <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/daily_report.jpg" alt="" style="width: 30%;">
                         <br>
                         <br>

@@ -193,7 +193,7 @@ class M_Pasting extends Model
 
   public function get_detail_pasting_by_id($id_lhp_pasting)
   {
-    $query = $this->db->query('SELECT * FROM detail_lhp_pasting WHERE id_lhp_pasting = ' . $id_lhp_pasting . ' ORDER BY batch ASC, id_detail_lhp_pasting ASC');
+    $query = $this->db->query('SELECT * FROM detail_lhp_pasting WHERE id_lhp_pasting = ' . $id_lhp_pasting . ' ORDER BY jam_start ASC, id_detail_lhp_pasting ASC');
 
     return $query->getResultArray();
   }
@@ -553,5 +553,16 @@ class M_Pasting extends Model
     $builder = $this->db->table('detail_lhp_pasting');
 
     $builder->delete(['id_detail_lhp_pasting' => $id]);
+  }
+
+  function get_summary_total_aktual_per_type($id_lhp_pasting)
+  {
+      $query = $this->db->query('SELECT type_grid, SUM(actual) AS actual
+                                FROM detail_lhp_pasting
+                                WHERE id_lhp_pasting = \'' . $id_lhp_pasting . '\'
+                                AND type_grid != \'\'
+                                GROUP BY type_grid');
+
+    return $query->getResultArray();
   }
 }

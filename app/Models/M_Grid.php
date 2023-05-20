@@ -10,8 +10,9 @@ class M_Grid extends Model
     {
         $this->db = \Config\Database::connect();
         $this->db3 = \Config\Database::connect('baan');
-        // $this->db4 = \Config\Database::connect('prod_control');
+        $this->db4 = \Config\Database::connect('prod_control');
         $this->db5 = \Config\Database::connect('manajemen_rak');
+        $this->db6 = \Config\Database::connect('timah');
     }
 
     public function get_data_lhp_grid()
@@ -314,5 +315,32 @@ class M_Grid extends Model
                                 ');
 
         return $query->getResultArray();
+    }
+
+    public function get_data_conveyor_by_id($id_lhp, $conveyor)
+    {
+        $query = $this->db->query('SELECT * FROM data_material_in_casting WHERE id_lhp_grid=\'' . $id_lhp . '\' AND keterangan=\'' . $conveyor . '\'');
+
+        return $query->getResultArray();
+    }
+
+    public function qty_material_in($material_in)
+    {
+        $query = $this->db6->query('SELECT actq as QTY FROM data_whfg_timah WHERE barc=\'' . $material_in . '\'');
+
+        return json_encode($query->getResultArray());
+    }
+
+    public function add_material_in($data)
+    {
+        $builder = $this->db->table('data_material_in_casting');
+        $builder->insert($data);
+        return json_encode($this->db->insertID());
+    }
+
+    public function delete_material_in($id)
+    {
+        $builder = $this->db->table('data_material_in_casting');
+        $builder->delete(['id_material_in' => $id]);
     }
 }

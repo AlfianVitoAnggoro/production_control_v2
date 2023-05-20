@@ -307,7 +307,12 @@ class Envelope extends BaseController
 
     public function download()
     {
-        $envelope = $this->envelopeModel->findAll();
+        $start_date = $this->request->getPost('start_date');
+        $end_date = $this->request->getPost('end_date');
+        // $month = $this->request->getPost('month');
+        // $bulan = date('m', strtotime($month));
+        // $envelope = $this->envelopeModel->where('MONTH(date) =', $bulan)->findAll();
+        $envelope = $this->envelopeModel->where('date >=', $start_date)->where('date <=', $end_date)->findAll();
         $envelopeinput = $this->envelopeinputModel->findAll();
         $dates = array_column($envelope, "date");
         $lines = array_column($envelope, "line");
@@ -323,13 +328,11 @@ class Envelope extends BaseController
         );
         $isExist = [];
         foreach ($envelope as $envl) {
-            if ($envl['status'] === 'approved') {
-                if (!array_key_exists($envl['id'], $isExist)) {
-                    foreach ($envelopeinput as $ei) {
-                        if ($envl['id'] === $ei['id_envelope']) {
-                            $isExist[$envl['id']] = $envl['id'];
-                            $data[] = array($envl['date'], $envl['line'], $envl['shift'], $envl['team'], $ei['hasil_produksi'], $ei['separator'], $ei['melintir_bending'], $ei['terpotong'], $ei['rontok'], $ei['tersangkut'], $ei['persentase_reject_akumulatif']);
-                        }
+            if (!array_key_exists($envl['id'], $isExist)) {
+                foreach ($envelopeinput as $ei) {
+                    if ($envl['id'] === $ei['id_envelope']) {
+                        $isExist[$envl['id']] = $envl['id'];
+                        $data[] = array($envl['date'], $envl['line'], $envl['shift'], $envl['team'], $ei['hasil_produksi'], $ei['separator'], $ei['melintir_bending'], $ei['terpotong'], $ei['rontok'], $ei['tersangkut'], $ei['persentase_reject_akumulatif']);
                     }
                 }
             }
@@ -338,14 +341,15 @@ class Envelope extends BaseController
         // Memasukkan data array ke dalam worksheet
         $sheet->fromArray($data);
 
-
         // Mengatur header respons HTTP
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="data.xlsx"');
         header('Cache-Control: max-age=0');
 
+        ob_end_clean();
         // Membuat objek Writer untuk menulis spreadsheet ke output
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
+        exit();
     }
 }

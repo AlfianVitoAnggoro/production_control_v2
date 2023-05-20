@@ -301,6 +301,7 @@ class Home extends BaseController
     public function getCT()
     {
         $part_no = $this->request->getPost('part_number');
+        $line = $this->request->getPost('line');
         // Split the string into an array using "-"
         $arr = explode("-", $part_no);
 
@@ -311,7 +312,7 @@ class Home extends BaseController
         $part_no = implode("-", $arr);
 
         $model = new M_Data();
-        echo json_encode($model->getCT($part_no));
+        echo json_encode($model->getCT($part_no, $line));
     }
 
     public function get_proses_breakdown()
@@ -450,10 +451,16 @@ class Home extends BaseController
 
         $data['data_wo'] = $model->getDataWO($data['data_lhp'][0]['tanggal_produksi'], $data['data_lhp'][0]['line']);
         // $data['data_wo'] = [];
-
-        $data['data_breakdown'] = $model->getListBreakdown();
-        $data['data_reject'] = $model->getListReject();
-
+        if($data['data_lhp'][0]['line'] <= 7) {
+            $data['data_breakdown'] = $model->getListBreakdown('AMB');
+            $data['data_reject'] = $model->getListReject('AMB');
+        } else if($data['data_lhp'][0]['line'] > 7 && $data['data_lhp'][0]['line'] < 10) {
+            $data['data_breakdown'] = $model->getListBreakdown('WET');
+            $data['data_reject'] = $model->getListReject('AMB');
+        } else {
+            $data['data_breakdown'] = $model->getListBreakdown('MCB');
+            $data['data_reject'] = $model->getListReject('AMB');
+        }
         return view('pages/lhp_detail_view', $data);
     }
 
@@ -472,7 +479,8 @@ class Home extends BaseController
             'grup' => $this->request->getPost('grup'),
             'mp' => $this->request->getPost('mp'),
             'absen' => $this->request->getPost('absen'),
-            'cuti' => $this->request->getPost('cuti')
+            'cuti' => $this->request->getPost('cuti'),
+            'kasubsie' => $this->request->getPost('kasubsie')
         ];
 
         // var_dump($data_lhp);
@@ -487,6 +495,14 @@ class Home extends BaseController
         $total_line_stop = 0;
         $total_detail_line_stop = 0;
         $total_reject = 0;
+
+        if ( $this->request->getPost('shift') == 1) {
+            $loading_time = 440;
+        } elseif ( $this->request->getPost('shift') == 2) {
+            $loading_time = 410;
+        } elseif ( $this->request->getPost('shift') == 3) {
+            $loading_time = 370;
+        }
 
         if ($update_data > 0) {
             if (!empty($this->request->getPost('no_wo'))) {
@@ -589,7 +605,8 @@ class Home extends BaseController
             'total_plan' => $total_plan,
             'total_aktual' => $total_actual,
             'total_line_stop' => $total_line_stop,
-            'total_reject' => $total_reject
+            'total_reject' => $total_reject,
+            'loading_time' => $loading_time
         ];
 
         $model->update_lhp($id_lhp, $data_detail);
@@ -642,21 +659,31 @@ class Home extends BaseController
 
     public function download()
     {
-        $date = $this->request->getPost('date');
-        $month = date('F_Y', strtotime($date));
+        // $date = $this->request->getPost('date');
+        $start_date = $this->request->getPost('start_date');
+        $end_date = $this->request->getPost('end_date');
+        // $month = date('F_Y', strtotime($date));
         $model = new M_Data();
 
         //data sheet lhp
-        $data_lhp = $model->get_all_lhp_by_month($date);
+        $data_lhp = $model->get_all_lhp_by_date($start_date, $end_date);
+        // $data_lhp = $model->get_all_lhp_by_month($date);
         if($data_lhp !== NULL) {
             $dates = array_column($data_lhp, "tanggal_produksi");
             $lines = array_column($data_lhp, "line");
             $shift = array_column($data_lhp, "shift");
             array_multisort($dates, SORT_ASC, $shift, SORT_ASC, $lines, SORT_ASC,  $data_lhp);
+            $data_detail_lhp = [];
             foreach ($data_lhp as $dl) {
-                $data_detail_lhp[] = $model->get_all_detail_lhp_by_id_lhp($dl['id_lhp_2']);
+                $temp = $model->get_all_detail_lhp_by_id_lhp($dl['id_lhp_2']);
+                if($temp !== NULL) {
+                    foreach ($temp as $t) {
+                        array_push($data_detail_lhp, $t);
+                    }
+                }
             }
         }
+        // dd($fix_data_detail_lhp);
         // Membuat objek Spreadsheet baru
         $spreadsheet = new Spreadsheet();
 
@@ -670,15 +697,15 @@ class Home extends BaseController
         if($data_lhp !== NULL) {
             foreach ($data_lhp as $dl) {
                 foreach ($data_detail_lhp as $ddl) {
-                    if($ddl !== NULL) {
-                        foreach ($ddl as $dt_ddl) {
-                            if ($dl['id_lhp_2'] === $ddl[0]['id_lhp_2']) {
-                                $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $dt_ddl['jam_start'], $dt_ddl['jam_end'], $dt_ddl['menit_terpakai'], $dt_ddl['no_wo'], $dt_ddl['type_battery'], $dt_ddl['ct'], $dt_ddl['plan_cap'], $dt_ddl['actual'], $dt_ddl['total_menit_breakdown']);
+                    // if($ddl !== NULL) {
+                    //     foreach ($ddl as $dt_ddl) {
+                            if ($dl['id_lhp_2'] === $ddl['id_lhp_2']) {
+                                $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie'], $ddl['jam_start'], $ddl['jam_end'], $ddl['menit_terpakai'], $ddl['no_wo'], $ddl['type_battery'], $ddl['ct'], $ddl['plan_cap'], $ddl['actual'], $ddl['total_menit_breakdown']);
                             };
-                        }
-                    } else {
-                        $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie']);
-                    }
+                    //     }
+                    // } else {
+                    //     $data[] = array($dl['tanggal_produksi'], $dl['shift'], $dl['line'], $dl['nama_pic'], $dl['kasubsie']);
+                    // }
                 }
             }
         }
@@ -753,11 +780,13 @@ class Home extends BaseController
 
         // Mengatur header respons HTTP
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="data_lhp_assy_' . $month . '.xlsx"');
+        header('Content-Disposition: attachment;filename="Data LHP ASSY.xlsx"');
         header('Cache-Control: max-age=0');
 
+        ob_end_clean();
         // Membuat objek Writer untuk menulis spreadsheet ke output
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
+        exit();
     }
 }

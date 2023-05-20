@@ -93,13 +93,13 @@
 						<div class="col-3">
 							<div class="form-group">
 								<label class="form-label">Tanggal Produksi</label>
-								<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" min="<?=$previous_date ?>">
+								<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" min="<?=$previous_date ?>" required>
 							</div>
 						</div>
 						<div class="col-3">
 							<div class="form-group">
 								<label class="form-label">Line</label>
-								<select class="form-select" id="line" name="line">
+								<select class="form-select" id="line" name="line" required>
 									<option selected disabled>-- Pilih Data --</option>
                                     <option value="Casting">Grid Casting</option>
                                     <option value="Punching">Grid Punching</option>
@@ -109,7 +109,7 @@
 						<div class="col-3">
 							<div class="form-group">
 								<label class="form-label">Shift</label>
-								<select class="form-select" id="shift" name="shift">
+								<select class="form-select" id="shift" name="shift" required>
 									<option selected disabled>-- Pilih Data --</option>
 									<option>1</option>
 									<option>2</option>
@@ -120,7 +120,7 @@
 						<div class="col-3">
 							<div class="form-group">
 								<label class="form-label">Kasubsie</label>
-								<select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;">
+								<select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
 									<?php foreach($data_grup_grid as $grup) : ?>
 										<option value="<?=$grup['kasubsie']?>"><?=$grup['kasubsie']?></option>
@@ -133,7 +133,7 @@
 						<div class="col-3">
 							<div class="form-group">
 								<label class="form-label">Grup</label>
-								<select class="form-control select2" id="grup" name="grup" style="width: 100%;">
+								<select class="form-control select2" id="grup" name="grup" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
 									<?php foreach($data_grup_grid as $grup) : ?>
 										<option value="<?=$grup['nama_grup']?>"><?=$grup['nama_grup']?></option>
@@ -144,7 +144,7 @@
 						<div class="col-3">
 							<div class="form-group">
 								<label class="form-label">MP</label>
-								<input type="text" class="form-control" id="mp" name="mp" maxlength='2'>
+								<input type="text" class="form-control" id="mp" name="mp" maxlength='2' required>
 							</div>
 						</div>
 						<div class="col-3">
