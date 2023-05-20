@@ -556,12 +556,12 @@ class M_DashboardAssyRejection extends Model
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
         } else {
-            $query = $this->db->query('SELECT lhp_produksi2.tanggal_produksi, detail_reject.kategori_reject, SUM(detail_reject.qty_reject) as qty
+            $query = $this->db->query('SELECT MONTH(lhp_produksi2.tanggal_produksi), detail_reject.kategori_reject, SUM(detail_reject.qty_reject) as qty
                                         FROM detail_reject
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
-                                        WHERE lhp_produksi2.tanggal_produksi = '.$date.'
+                                        WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
                                         AND lhp_produksi2.line = '.$line.'
-                                        GROUP BY detail_reject.kategori_reject, lhp_produksi2.tanggal_produksi
+                                        GROUP BY detail_reject.kategori_reject, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
         }

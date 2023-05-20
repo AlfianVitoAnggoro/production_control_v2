@@ -1181,7 +1181,7 @@
                         },
                         events: {
                             click : function(e) {
-                                var date = $('#bulan').val();
+                                var date = $('#bulan').val().slice(0, -3)+ '-' + e.point.category;
                                 // var date = $('#bulan').val() + '-' + e.point.category;
                                 var line = <?= $child_filter ?>;
                                 $.ajax({
