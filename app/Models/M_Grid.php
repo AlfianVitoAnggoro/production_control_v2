@@ -319,7 +319,7 @@ class M_Grid extends Model
 
     public function get_data_conveyor_by_id($id_lhp, $conveyor)
     {
-        $query = $this->db->query('SELECT * FROM data_material_in WHERE id_lhp_grid=\'' . $id_lhp . '\' AND keterangan=\'' . $conveyor . '\'');
+        $query = $this->db->query('SELECT * FROM data_material_in_casting WHERE id_lhp_grid=\'' . $id_lhp . '\' AND keterangan=\'' . $conveyor . '\'');
 
         return $query->getResultArray();
     }
@@ -333,14 +333,14 @@ class M_Grid extends Model
 
     public function add_material_in($data)
     {
-        $builder = $this->db->table('data_material_in');
+        $builder = $this->db->table('data_material_in_casting');
         $builder->insert($data);
         return json_encode($this->db->insertID());
     }
 
     public function delete_material_in($id)
     {
-        $builder = $this->db->table('data_material_in');
+        $builder = $this->db->table('data_material_in_casting');
         $builder->delete(['id_material_in' => $id]);
     }
 }
