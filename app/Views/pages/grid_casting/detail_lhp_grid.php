@@ -237,6 +237,9 @@ $mh = [8, 7.5, 6.5];
                                                                     }
                                                                 }
                                                                 ?>
+                                                                <option value="PM" <?php if ('PM' == $data_detail_lhp[0]['type_grid']) {
+                                                                                                                        echo "selected";
+                                                                                                                    } ?>>PM</option>
                                                                 <option value="MESIN OFF" <?php if ('MESIN OFF' == $data_detail_lhp[0]['type_grid']) {
                                                                                                                         echo "selected";
                                                                                                                     } ?>>MESIN OFF</option>
