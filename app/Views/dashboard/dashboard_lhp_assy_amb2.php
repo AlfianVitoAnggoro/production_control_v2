@@ -536,6 +536,14 @@
                 fontSize: '20px'
             }
         },
+        subtitle: {
+            text: 'Source: Laporan Harian Produksi',
+            align: 'center',
+            style: {
+                color: '#ffffff',
+                fontSize: '15px'
+            }
+        },
         xAxis: {
             categories: [
                 'Jan',
