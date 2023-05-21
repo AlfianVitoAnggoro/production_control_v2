@@ -68,10 +68,9 @@ if ($current_date != 12) {
         </div>
       </div>
 
-      <div class="box">
+      <div class="row">
         <div class="box-body">
-          <div class="row" id="efficiency-wrapper">
-            <div class="col-xl-8 col-12">
+            <div class="col-12">
               <div class="box">
                 <div class="box-body">
                   <figure class="highcharts-figure">
@@ -79,6 +78,14 @@ if ($current_date != 12) {
                   </figure>
                 </div>
               </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-body">
+          <div class="row" id="efficiency-wrapper">
+            <div class="col-xl-8 col-12">
               <div class="box">
                 <div class="box-body">
                   <figure class="highcharts-figure">
@@ -90,45 +97,117 @@ if ($current_date != 12) {
             <div class="col-xl-4 col-12">
               <div class="box">
                 <div class="box-body">
-                  <div class="text-center">
-                    <h5>Efficiency Comparison Group Ngadino</h5>
-                  </div>
-                  <div class="row row-cols-2">
-                    <div class="col">
-                      <div id="previous_month_chart_group_a" style="height:250px;"></div>
-                    </div>
-                    <div class="col">
-                      <div id="current_month_chart_group_a" style="height:250px;"></div>
-                    </div>
+                  <div class="table-responsive">
+                    <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
+                      <thead>
+                          <tr>
+                              <td>#</td>
+                              <td><?=date('F', mktime(0, 0, 0, $previous_date, 10))?></td>
+                              <td><?=date('F', mktime(0, 0, 0, $current_date, 10))?></td>
+                              <td>Status</td>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php
+                            $grup_a_previous = (($data_previous_month_group !== 0 && array_key_exists('GRUP A - NGADINO', $data_previous_month_group)) && array_key_exists('GRUP A - NGADINO', $data_previous_month_group)) ? number_format(json_encode($data_previous_month_group['GRUP A - NGADINO']['persentase']), 2) : 0;
+                            $grup_b_previous = (($data_previous_month_group !== 0 && array_key_exists('GRUP B - MASTIKIN', $data_previous_month_group)) && array_key_exists('GRUP B - MASTIKIN', $data_previous_month_group)) ? number_format(json_encode($data_previous_month_group['GRUP B - MASTIKIN']['persentase']), 2) : 0;
+                            $grup_c_previous = (($data_previous_month_group !== 0 && array_key_exists('GRUP C - AGUS SULISTIYO', $data_previous_month_group)) && array_key_exists('GRUP C - AGUS SULISTIYO', $data_previous_month_group)) ? number_format(json_encode($data_previous_month_group['GRUP C - AGUS SULISTIYO']['persentase']), 2) : 0;
+
+                            $grup_a_current = (($data_current_month_group !== 0 && array_key_exists('GRUP A - NGADINO', $data_current_month_group)) && array_key_exists('GRUP A - NGADINO', $data_current_month_group)) ? number_format(json_encode($data_current_month_group['GRUP A - NGADINO']['persentase']), 2) : 0;
+                            $grup_b_current = (($data_current_month_group !== 0 && array_key_exists('GRUP B - MASTIKIN', $data_current_month_group)) && array_key_exists('GRUP B - MASTIKIN', $data_current_month_group)) ? number_format(json_encode($data_current_month_group['GRUP B - MASTIKIN']['persentase']), 2) : 0;
+                            $grup_c_current = (($data_current_month_group !== 0 && array_key_exists('GRUP C - AGUS SULISTIYO', $data_current_month_group)) && array_key_exists('GRUP C - AGUS SULISTIYO', $data_current_month_group)) ? number_format(json_encode($data_current_month_group['GRUP C - AGUS SULISTIYO']['persentase']), 2) : 0;
+                          ?>
+                          <tr>
+                            <td>GRUP A - NGADINO</td>
+                            <td><?= $grup_a_previous ?></td>
+                            <td><?= $grup_a_current ?></td>
+                            <td>
+                              <?php if($grup_a_current > $grup_a_previous) {
+                                  echo '<i class="fa fa-arrow-up" style="color:green"></i>';
+                              } else if($grup_a_current < $grup_a_previous) {
+                                  echo '<i class="fa fa-arrow-down" style="color:red"></i>';
+                              } else if($grup_a_current == $grup_a_previous) {
+                                  echo '<i class="fa fa-minus" style="color:yellow"></i>';
+                              } ?>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>GRUP B - MASTIKIN</td>
+                            <td><?= $grup_b_previous ?></td>
+                            <td><?= $grup_b_current ?></td>
+                            <td>
+                              <?php if($grup_b_current > $grup_b_previous) {
+                                  echo '<i class="fa fa-arrow-up" style="color:green"></i>';
+                              } else if($grup_b_current < $grup_b_previous) {
+                                  echo '<i class="fa fa-arrow-down" style="color:red"></i>';
+                              } else if($grup_b_current == $grup_b_previous) {
+                                  echo '<i class="fa fa-minus" style="color:yellow"></i>';
+                              } ?>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>GRUP C - AGUS SULISTIYO</td>
+                            <td><?= $grup_c_previous ?></td>
+                            <td><?= $grup_c_current ?></td>
+                            <td>
+                              <?php if($grup_c_current > $grup_c_previous) {
+                                  echo '<i class="fa fa-arrow-up" style="color:green"></i>';
+                              } else if($grup_c_current < $grup_c_previous) {
+                                  echo '<i class="fa fa-arrow-down" style="color:red"></i>';
+                              } else if($grup_c_current == $grup_c_previous) {
+                                  echo '<i class="fa fa-minus" style="color:yellow"></i>';
+                              } ?>
+                            </td>
+                          </tr>
+                      </tbody>
+                      </table>
                   </div>
                 </div>
               </div>
-              <div class="box">
-                <div class="box-body">
-                  <div class="text-center">
-                    <h5>Efficiency Comparison Group Mastikin</h5>
-                  </div>
-                  <div class="row row-cols-2">
-                    <div class="col">
-                      <div id="previous_month_chart_group_b" style="height:250px;"></div>
+
+              <div style="display:none">
+                <div class="box">
+                  <div class="box-body">
+                    <div class="text-center">
+                      <h5>Efficiency Comparison Group Ngadino</h5>
                     </div>
-                    <div class="col">
-                      <div id="current_month_chart_group_b" style="height:250px;"></div>
+                    <div class="row row-cols-2">
+                      <div class="col">
+                        <div id="previous_month_chart_group_a" style="height:250px;"></div>
+                      </div>
+                      <div class="col">
+                        <div id="current_month_chart_group_a" style="height:250px;"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="box">
-                <div class="box-body">
-                  <div class="text-center">
-                    <h5>Efficiency Comparison Group Agus</h5>
-                  </div>
-                  <div class="row row-cols-2">
-                    <div class="col">
-                      <div id="previous_month_chart_group_c" style="height:250px;"></div>
+                <div class="box">
+                  <div class="box-body">
+                    <div class="text-center">
+                      <h5>Efficiency Comparison Group Mastikin</h5>
                     </div>
-                    <div class="col">
-                      <div id="current_month_chart_group_c" style="height:250px;"></div>
+                    <div class="row row-cols-2">
+                      <div class="col">
+                        <div id="previous_month_chart_group_b" style="height:250px;"></div>
+                      </div>
+                      <div class="col">
+                        <div id="current_month_chart_group_b" style="height:250px;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="box">
+                  <div class="box-body">
+                    <div class="text-center">
+                      <h5>Efficiency Comparison Group Agus</h5>
+                    </div>
+                    <div class="row row-cols-2">
+                      <div class="col">
+                        <div id="previous_month_chart_group_c" style="height:250px;"></div>
+                      </div>
+                      <div class="col">
+                        <div id="current_month_chart_group_c" style="height:250px;"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -137,6 +216,17 @@ if ($current_date != 12) {
           </div>
         </div>
       </div>
+
+      <div class="col-12">
+        <div class="box">
+          <div class="box-body">
+            <figure class="highcharts-figure">
+              <div id="productivity_per_mp_chart"></div>
+            </figure>
+          </div>
+        </div>
+      </div>
+
       <div class="col-12">
         <div class="box">
           <div class="box-body">
@@ -153,7 +243,7 @@ if ($current_date != 12) {
 <!-- /.content-wrapper -->
 
 <!-- MODAL -->
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;" id="modal_ls">
   <div class="modal-dialog modal-lg">
     <div class="modal-content" style="width:120%;">
       <div class="modal-header">
@@ -173,6 +263,27 @@ if ($current_date != 12) {
 
           </tbody>
         </table>
+      </div>
+      <div class="modal-footer" style="float: right;">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- MODAL PRODUCTIVITY MP-->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;" id="modal_mp">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="width:120%;">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myLargeModalLabel">Detail Productivity MP</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="data_productivity_mp"></div>
       </div>
       <div class="modal-footer" style="float: right;">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -834,7 +945,8 @@ if ($current_date != 12) {
   Highcharts.chart('daily_efficiency_chart', {
     chart: {
       backgroundColor: '#0c1a32',
-      zoomType: 'xy'
+      zoomType: 'xy',
+      type: 'column'
     },
     exporting: {
       enabled: false
@@ -879,12 +991,17 @@ if ($current_date != 12) {
 
     series: [{
       name: 'Efficiency',
-      type: 'line',
       data: <?php echo json_encode($data_all_date); ?>,
       color: 'yellow',
       tooltip: {
         valueSuffix: ' %'
       },
+      dataLabels: {
+          enabled: true,
+          formatter: function(){
+                                return (this.y!=0)?this.y:"";
+                            },
+        },
       point: {
         events: {
           click: function() {
@@ -908,7 +1025,7 @@ if ($current_date != 12) {
                     '</tr>';
                 }
                 $('#data_breakdown').html(html);
-                $('.modal').modal('show');
+                $('#modal_ls').modal('show');
               }
             });
           }
@@ -1111,7 +1228,7 @@ if ($current_date != 12) {
     }, {
       name: 'Target',
       type: 'line',
-      data: [<?php for ($i = 0; $i < count($dates); $i++) {
+      data: [<?php for ($i = 0; $i < count($data_all_mp_by_current_month); $i++) {
                 echo '85,';
               } ?>],
       color: 'red',
@@ -1121,437 +1238,176 @@ if ($current_date != 12) {
     }]
   });
 
+  Highcharts.chart('productivity_per_mp_chart', {
+    chart: {
+      backgroundColor: '#0c1a32',
+      zoomType: 'xy'
+    },
+    exporting: {
+      enabled: false
+    },
+    title: {
+      text: 'Monthly Productivity Per MP',
+      style: {
+        color: '#ffffff',
+        fontSize: '20px'
+      }
+    },
+    xAxis: [{
+      categories: [<?php $isExist = [];
+                    foreach ($productivity_per_mp as $operator_name => $value) {
+                      $isExist[$operator_name] = $operator_name;
+                      echo '\'' . $operator_name . '\',';
+                    } ?>],
+      crosshair: true
+    }],
+    yAxis: [{
+      min: 0,
+      max: 100,
+      title: {
+        text: ''
+      },
+      labels: {
+        format: '{value} %'
+      }
+    }, {
+      title: {
+        text: ''
+      },
+    }],
+    // plotOptions: {
+    //   line: {
+    //     pointPadding: 0.2,
+    //     borderWidth: 0,
+    //     dataLabels: {
+    //       enabled: true,
+    //     }
+    //   },
+    // },
+    legend: {
+      enabled: true
+    },
 
+    series: [{
+      name: '<?= date('F', strtotime($bulan)) ?>',
+      type: 'column',
+      data: [<?php foreach ($productivity_per_mp as $p_per_mp) {
+                echo $p_per_mp['persentase'] . ',';
+              } ?>],
+      color: '#20c997',
+      tooltip: {
+        valueSuffix: ' %'
+      },
+      dataLabels: {
+        enabled: true,
+      },
+      point: {
+        events: {
+          click: function() {
+            get_productivity_all_month_mp(this.category);
+          }
+        }
+      }
+    },{
+      name: 'Target',
+      type: 'line',
+      data: [<?php for ($i = 0; $i < count($productivity_per_mp); $i++) {
+                echo '85,';
+              } ?>],
+      color: 'red',
+      tooltip: {
+        valueSuffix: ' %'
+      }
+    }]
+  });
 
-  // // GENERATE X AXIS DATE
+  function get_productivity_all_month_mp(operator_name) {
+    $.ajax({
+      url: "<?= base_url('dashboardGrid/grid/get_data_productivity_mp'); ?>",
+      type: "POST",
+      data: {
+        operator_name: operator_name,
+      },
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
+        $('#modal_mp').modal('show');
+        $('#data_productivity_mp').html(`<figure class="highcharts-figure">
+                                                        <div id="chart_detail_productivity_mp"></div>
+                                                    </figure>`);
+        Highcharts.chart('chart_detail_productivity_mp', {
+          chart: {
+              backgroundColor: 'transparent',
+              type: 'column'
+          },
+          exporting: {
+              enabled: false
+          },
+          title: {
+              text: 'Detail Productivity '+operator_name,
+              style: {
+                  color: '#ffffff',
+                  fontSize: '20px'
+              }
+          },
+          xAxis: {
+            categories: [
+              'Jan',
+              'Feb',
+              'Mar',
+              'Apr',
+              'May',
+              'Jun',
+              'Jul',
+              'Aug',
+              'Sep',
+              'Oct',
+              'Nov',
+              'Dec'
+            ],
+              crosshair: true,
+              labels: {
+                  style: {
+                      color: '#ffffff'
+                  }
+              }
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: '%'
+              }
+          },
+          plotOptions: {
+              column: {
+                  pointPadding: 0.2,
+                  borderWidth: 0,
+                  dataLabels: {
+                      enabled: true,
+                      formatter: function(){
+                                return (this.y!=0)?this.y:"";
+                            },
+                      style: {
+                          color: '#ffffff',
+                          textOutline: 0,
+                          fontSize: 14
+                      },
+                  }
+              }
+          },
+          legend: {
+              enabled: false
+          },
+          series: [{
+              // name: 'Total',
+              data: data,
+              color:'yellow',
 
-  // Highcharts.chart('main_chart', {
-  //   chart: {
-  //     type: 'column',
-  //     // backgroundColor: '#12213c',
-  //     backgroundColor: '#0c1a32',
-  //     // type: '<?= "" //$type_chart 
-                    ?>'
-  //   },
+          }]
+        });
 
-  //   exporting: {
-  //     enabled: false
-  //   },
-
-  //   title: {
-  //     text: 'Efficiency',
-  //     align: 'center',
-  //     style: {
-  //       color: '#ffffff',
-  //       fontSize: '20px'
-  //     }
-  //   },
-
-  //   subtitle: {
-  //     text: 'Source: Laporan Harian Produksi',
-  //     align: 'center',
-  //     style: {
-  //       color: '#ffffff',
-  //       fontSize: '15px'
-  //     }
-  //   },
-
-  //   yAxis: {
-  //     title: {
-  //       text: '%'
-  //     },
-  //     labels: {
-  //       style: {
-  //         color: '#ffffff'
-  //       }
-  //     }
-  //   },
-
-  //   xAxis: {
-  //     categories: <?= "" //json_encode($dates); 
-                      //                 
-                      ?>,
-  //     labels: {
-  //       style: {
-  //         color: '#ffffff'
-  //       }
-  //     }
-  //   },
-
-  //   legend: {
-  //     layout: 'vertical',
-  //     align: 'right',
-  //     verticalAlign: 'middle',
-  //     itemStyle: {
-  //       color: '#ffffff'
-  //     }
-  //   },
-
-  //   plotOptions: {
-  //     column: {
-  //       dataLabels: {
-  //         enabled: true
-  //       },
-  //     }
-  //   },
-  //   colors: ['yellow', 'red', 'cyan'],
-
-  //   series: [
-  //     <?php "" // if (($parent_filter == 'line' or $parent_filter == null) and ($child_filter == null or $child_filter == 0) and $baby_filter == 'average') { 
-          //     
-          ?> {
-  //       name: 'All Line',
-  //       data: <?php "" // echo json_encode($data_all_line); 
-                  //             
-                  ?>,
-  //       color: 'yellow',
-  //       point: {
-  //         events: {
-  //           click: function() {
-  //             var date = this.category;
-  //             $.ajax({
-  //               url: "<?= base_url('dashboard/grid/get_data_line_stop'); ?>",
-  //               type: "POST",
-  //               data: {
-  //                 date: date,
-  //               },
-  //               dataType: "json",
-  //               success: function(data) {
-  //                 var html = '';
-  //                 var i;
-  //                 for (i = 0; i < data.length; i++) {
-  //                   html += '<tr>' +
-  //                     '<td>' + data[i].no_wo + '</td>' +
-  //                     '<td>' + data[i].type_battery + '</td>' +
-  //                     '<td>' + data[i].jenis_breakdown + '</td>' +
-  //                     '<td>' + data[i].proses_breakdown + '</td>' +
-  //                     '<td>' + data[i].uraian_breakdown + '</td>' +
-  //                     '<td>' + data[i].menit_breakdown + '</td>' +
-  //                     '</tr>';
-  //                 }
-  //                 $('#data_breakdown').html(html);
-  //                 $('.modal').modal('show');
-  //               }
-  //             });
-  //           }
-  //         }
-  //       }
-  //     },
-  //     <?php "" // } 
-          //     
-          ?>
-
-  //     <?php "" // if ($child_filter != null and $child_filter != '0' and $child_filter != 0 and ($baby_filter == null or $baby_filter == 'average')) { 
-          //     
-          ?> {
-  //       name: 'Line <?= "" //$child_filter 
-                        //                   
-                        ?>',
-  //       data: <?php "" // echo json_encode(${'data_line_' . $child_filter}); 
-                  //             
-                  ?>,
-  //       point: {
-  //         events: {
-  //           click: function() {
-  //             var date = this.category;
-  //             var line = <?= "" //$child_filter 
-                            //                         
-                            ?>;
-  //             $.ajax({
-  //               url: "<?= base_url('dashboard/grid/get_data_line_stop'); ?>",
-  //               type: "POST",
-  //               data: {
-  //                 date: date,
-  //                 line: line
-  //               },
-  //               dataType: "json",
-  //               success: function(data) {
-  //                 var html = '';
-  //                 var i;
-  //                 for (i = 0; i < data.length; i++) {
-  //                   html += '<tr>' +
-  //                     '<td>' + data[i].no_wo + '</td>' +
-  //                     '<td>' + data[i].type_battery + '</td>' +
-  //                     '<td>' + data[i].jenis_breakdown + '</td>' +
-  //                     '<td>' + data[i].proses_breakdown + '</td>' +
-  //                     '<td>' + data[i].uraian_breakdown + '</td>' +
-  //                     '<td>' + data[i].menit_breakdown + '</td>' +
-  //                     '</tr>';
-  //                 }
-  //                 $('#data_breakdown').html(html);
-  //                 $('.modal').modal('show');
-  //               }
-  //             });
-  //           }
-  //         }
-  //       }
-  //     },
-  //     <?php "" // } 
-          //     
-          ?>
-
-  //     <?php "" // if ($child_filter != null and $child_filter != '0' and $child_filter != 0 and $baby_filter == 'shift') { 
-          //     
-          ?> {
-  //       name: 'Shift 1',
-  //       data: <?php "" // echo json_encode($data_line_shift_1); 
-                  //             
-                  ?>,
-  //       point: {
-  //         events: {
-  //           click: function() {
-  //             var date = this.category;
-  //             var line = <?= "" //$child_filter 
-                            //                         
-                            ?>;
-  //             var shift = 1;
-  //             $.ajax({
-  //               url: "<?= base_url('dashboard/grid/get_data_line_stop_by_shift'); ?>",
-  //               type: "POST",
-  //               data: {
-  //                 date: date,
-  //                 line: line,
-  //                 shift: shift
-  //               },
-  //               dataType: "json",
-  //               success: function(data) {
-  //                 var html = '';
-  //                 var i;
-  //                 for (i = 0; i < data.length; i++) {
-  //                   html += '<tr>' +
-  //                     '<td>' + data[i].no_wo + '</td>' +
-  //                     '<td>' + data[i].type_battery + '</td>' +
-  //                     '<td>' + data[i].jenis_breakdown + '</td>' +
-  //                     '<td>' + data[i].proses_breakdown + '</td>' +
-  //                     '<td>' + data[i].uraian_breakdown + '</td>' +
-  //                     '<td>' + data[i].menit_breakdown + '</td>' +
-  //                     '</tr>';
-  //                 }
-  //                 $('#data_breakdown').html(html);
-  //                 $('.modal').modal('show');
-  //               }
-  //             });
-  //           }
-  //         }
-  //       }
-  //     },
-  //     {
-  //       name: 'Shift 2',
-  //       data: <?php "" // echo json_encode($data_line_shift_2); 
-                  //             
-                  ?>,
-  //       point: {
-  //         events: {
-  //           click: function() {
-  //             var date = this.category;
-  //             var line = <?= "" //$child_filter 
-                            //                         
-                            ?>;
-  //             var shift = 2;
-  //             $.ajax({
-  //               url: "<?= base_url('dashboard/grid/get_data_line_stop_by_shift'); ?>",
-  //               type: "POST",
-  //               data: {
-  //                 date: date,
-  //                 line: line,
-  //                 shift: shift
-  //               },
-  //               dataType: "json",
-  //               success: function(data) {
-  //                 var html = '';
-  //                 var i;
-  //                 for (i = 0; i < data.length; i++) {
-  //                   html += '<tr>' +
-  //                     '<td>' + data[i].no_wo + '</td>' +
-  //                     '<td>' + data[i].type_battery + '</td>' +
-  //                     '<td>' + data[i].jenis_breakdown + '</td>' +
-  //                     '<td>' + data[i].proses_breakdown + '</td>' +
-  //                     '<td>' + data[i].uraian_breakdown + '</td>' +
-  //                     '<td>' + data[i].menit_breakdown + '</td>' +
-  //                     '</tr>';
-  //                 }
-  //                 $('#data_breakdown').html(html);
-  //                 $('.modal').modal('show');
-  //               }
-  //             });
-  //           }
-  //         }
-  //       }
-  //     },
-  //     {
-  //       name: 'Shift 3',
-  //       data: <?php "" // echo json_encode($data_line_shift_3); 
-                  //             
-                  ?>,
-  //       point: {
-  //         events: {
-  //           click: function() {
-  //             var date = this.category;
-  //             var line = <?= "" //$child_filter 
-                            //                         
-                            ?>;
-  //             var shift = 3;
-  //             $.ajax({
-  //               url: "<?= base_url('dashboard/grid/get_data_line_stop_by_shift'); ?>",
-  //               type: "POST",
-  //               data: {
-  //                 date: date,
-  //                 line: line,
-  //                 shift: shift
-  //               },
-  //               dataType: "json",
-  //               success: function(data) {
-  //                 var html = '';
-  //                 var i;
-  //                 for (i = 0; i < data.length; i++) {
-  //                   html += '<tr>' +
-  //                     '<td>' + data[i].no_wo + '</td>' +
-  //                     '<td>' + data[i].type_battery + '</td>' +
-  //                     '<td>' + data[i].jenis_breakdown + '</td>' +
-  //                     '<td>' + data[i].proses_breakdown + '</td>' +
-  //                     '<td>' + data[i].uraian_breakdown + '</td>' +
-  //                     '<td>' + data[i].menit_breakdown + '</td>' +
-  //                     '</tr>';
-  //                 }
-  //                 $('#data_breakdown').html(html);
-  //                 $('.modal').modal('show');
-  //               }
-  //             });
-  //           }
-  //         }
-  //       }
-  //     },
-  //     <?php "" // } 
-          //     
-          ?>
-
-  //     <?php "" // if ($child_filter != null and $child_filter != '0' and $child_filter != 0 and $baby_filter == 'grup') { foreach ($res_data_line_by_grup as $r_data_line_by_grup) { 
-          //     
-          ?> {
-  //       name: <?= "" //json_encode($r_data_line_by_grup['grup']); 
-                  //             
-                  ?>,
-  //       data: <?php "" // echo json_encode($r_data_line_by_grup['data']); 
-                  //             
-                  ?>,
-  //       point: {
-  //         events: {
-  //           click: function() {
-  //             var date = this.category;
-  //             var line = <?= "" //$child_filter 
-                            //                         
-                            ?>;
-  //             var grup = <?= "" //json_encode($r_data_line_by_grup['grup']); 
-                            //                         
-                            ?>;
-  //             $.ajax({
-  //               url: "<?= base_url('dashboard/grid/get_data_line_stop_by_grup'); ?>",
-  //               type: "POST",
-  //               data: {
-  //                 date: date,
-  //                 line: line,
-  //                 grup: grup
-  //               },
-  //               dataType: "json",
-  //               success: function(data) {
-  //                 var html = '';
-  //                 var i;
-  //                 for (i = 0; i < data.length; i++) {
-  //                   html += '<tr>' +
-  //                     '<td>' + data[i].no_wo + '</td>' +
-  //                     '<td>' + data[i].type_battery + '</td>' +
-  //                     '<td>' + data[i].jenis_breakdown + '</td>' +
-  //                     '<td>' + data[i].proses_breakdown + '</td>' +
-  //                     '<td>' + data[i].uraian_breakdown + '</td>' +
-  //                     '<td>' + data[i].menit_breakdown + '</td>' +
-  //                     '</tr>';
-  //                 }
-  //                 $('#data_breakdown').html(html);
-  //                 $('.modal').modal('show');
-  //               }
-  //             });
-  //           }
-  //         }
-  //       }
-  //     },
-  //     <?php "" // } 
-          //     
-          ?>
-  //     <?php "" // } 
-          //     
-          ?>
-
-  //     <?php "" // if ($child_filter != null and $child_filter != '0' and $child_filter != 0 and $baby_filter == 'kasubsie') { foreach ($res_data_line_by_kss as $r_data_line_by_kss) { 
-          //     
-          ?> {
-  //       name: <?= "" //json_encode($r_data_line_by_kss['kss']); 
-                  //             
-                  ?>,
-  //       data: <?php "" // echo json_encode($r_data_line_by_kss['data']); 
-                  //             
-                  ?>,
-  //       point: {
-  //         events: {
-  //           click: function() {
-  //             var date = this.category;
-  //             var line = <?= "" //$child_filter 
-                            //                         
-                            ?>;
-  //             var kss = <?= "" //json_encode($r_data_line_by_kss['kss']); 
-                            //                       
-                            ?>;
-  //             $.ajax({
-  //               url: "<?= base_url('dashboard/grid/get_data_line_stop_by_kss'); ?>",
-  //               type: "POST",
-  //               data: {
-  //                 date: date,
-  //                 line: line,
-  //                 kss: kss
-  //               },
-  //               dataType: "json",
-  //               success: function(data) {
-  //                 var html = '';
-  //                 var i;
-  //                 for (i = 0; i < data.length; i++) {
-  //                   html += '<tr>' +
-  //                     '<td>' + data[i].no_wo + '</td>' +
-  //                     '<td>' + data[i].type_battery + '</td>' +
-  //                     '<td>' + data[i].jenis_breakdown + '</td>' +
-  //                     '<td>' + data[i].proses_breakdown + '</td>' +
-  //                     '<td>' + data[i].uraian_breakdown + '</td>' +
-  //                     '<td>' + data[i].menit_breakdown + '</td>' +
-  //                     '</tr>';
-  //                 }
-  //                 $('#data_breakdown').html(html);
-  //                 $('.modal').modal('show');
-  //               }
-  //             });
-  //           }
-  //         }
-  //       }
-  //     },
-  //     <?php "" // } 
-          //     
-          ?>
-  //     <?php "" // } 
-          //     
-          ?>
-  //   ],
-
-  //   responsive: {
-  //     rules: [{
-  //       condition: {
-  //         maxWidth: 500
-  //       },
-  //       chartOptions: {
-  //         legend: {
-  //           layout: 'horizontal',
-  //           align: 'center',
-  //           verticalAlign: 'bottom'
-  //         }
-  //       }
-  //     }]
-  //   }
-  // });
+      }
+    });
+  }
 </script>
 <?= $this->endSection(); ?>

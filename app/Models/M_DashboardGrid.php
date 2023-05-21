@@ -128,4 +128,22 @@ class M_DashboardGrid extends Model
 
     return $query->getResultArray();
   }
+
+  public function get_data_fix_mp()
+  {
+    $query = $this->db->query('SELECT anggota FROM data_grup_grid');
+
+    return $query->getResultArray();
+  }
+
+  public function get_data_mp_by_month($month, $operator_name) {
+    $query = $this->db->query('SELECT DISTINCT MONTH(lhp_grid.date_production), detail_lhp_grid.jks AS total_jks, detail_lhp_grid.actual AS total_aktual
+                                FROM detail_lhp_grid
+                                JOIN lhp_grid ON lhp_grid.id = detail_lhp_grid.id_lhp_grid
+                                WHERE MONTH(lhp_grid.date_production) = '.$month.'
+                                AND detail_lhp_grid.operator_name = \'' . $operator_name . '\'
+                              ');
+
+    return $query->getResultArray();
+  }
 }
