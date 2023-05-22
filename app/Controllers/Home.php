@@ -449,12 +449,20 @@ class Home extends BaseController
         $data['data_all_line'] = $model->get_line();
         $data['data_all_grup'] = $model->get_grup();
 
+        $data['total_menit_breakdown'] = $model->get_total_menit_breakdown($id);
+
         $data['data_wo'] = $model->getDataWO($data['data_lhp'][0]['tanggal_produksi'], $data['data_lhp'][0]['line']);
         // $data['data_wo'] = [];
-
-        $data['data_breakdown'] = $model->getListBreakdown();
-        $data['data_reject'] = $model->getListReject();
-
+        if($data['data_lhp'][0]['line'] <= 7) {
+            $data['data_breakdown'] = $model->getListBreakdown('AMB');
+            $data['data_reject'] = $model->getListReject('AMB');
+        } else if($data['data_lhp'][0]['line'] > 7 && $data['data_lhp'][0]['line'] < 10) {
+            $data['data_breakdown'] = $model->getListBreakdown('WET');
+            $data['data_reject'] = $model->getListReject('AMB');
+        } else {
+            $data['data_breakdown'] = $model->getListBreakdown('MCB');
+            $data['data_reject'] = $model->getListReject('AMB');
+        }
         return view('pages/lhp_detail_view', $data);
     }
 

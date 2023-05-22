@@ -79,6 +79,17 @@
 			font-weight: 600;
 		}
 
+		.btn-main-dashboard {
+			font-size: 34px;
+			font-weight: 600;
+		}
+
+		.btn-sub-dashboard {
+			font-size: 24px;
+			font-weight: 600;
+			color: black !important;
+		}
+		
 		.modal {
 			overflow-y:auto;
 		}

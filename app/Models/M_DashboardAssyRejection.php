@@ -166,12 +166,33 @@ class M_DashboardAssyRejection extends Model
 
     public function get_data_total_reject_line_by_date($tanggal) 
     {
-        $query = $this->db->query('SELECT	line, SUM(lhp_produksi2.total_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
-                                    FROM	lhp_produksi2
+        // $query = $this->db->query('SELECT	line, SUM(lhp_produksi2.total_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
+        //                             FROM	lhp_produksi2
+        //                             WHERE tanggal_produksi = \''.$tanggal.'\'
+        //                             AND line != 10
+        //                             GROUP BY lhp_produksi2.line
+        //                             CASE
+        //                                 WHEN SUM(lhp_produksi2.total_aktual) = 0 THEN 0
+        //                                 ((SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100)
+        //                             END DESC
+        //                         ');
+
+        $query = $this->db->query('SELECT line, total_reject, total_aktual
+                                    FROM (
+                                    SELECT
+                                        line,
+                                        SUM(lhp_produksi2.total_reject) as total_reject,
+                                        SUM(lhp_produksi2.total_aktual) as total_aktual,
+                                        CASE
+                                        WHEN SUM(lhp_produksi2.total_aktual) = 0 THEN 0
+                                        ELSE (SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100
+                                        END AS reject_percentage
+                                    FROM lhp_produksi2
                                     WHERE tanggal_produksi = \''.$tanggal.'\'
-                                    AND line != 10
+                                        AND line != 10
                                     GROUP BY lhp_produksi2.line
-                                    ORDER BY ((SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) DESC
+                                    ) AS subquery
+                                    ORDER BY reject_percentage DESC
                                 ');
 
         return $query->getResultArray();
@@ -201,22 +222,42 @@ class M_DashboardAssyRejection extends Model
         return $query->getResultArray();
     }
 
+    // public function get_data_rejection_by_month($bulan, $line)
+    // {
+    //     if ($line == null || $line == 0) {
+    //         $query = $this->db->query('SELECT	MONTH(lhp_produksi2.tanggal_produksi), SUM(detail_reject.qty_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
+    //                                     FROM	detail_reject
+    //                                     RIGHT JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
+    //                                     WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
+    //                                     GROUP BY MONTH(lhp_produksi2.tanggal_produksi)
+    //                                 ');
+    //     } else {
+    //         $query = $this->db->query('SELECT	MONTH(lhp_produksi2.tanggal_produksi), SUM(detail_reject.qty_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
+    //                                     FROM	detail_reject
+    //                                     RIGHT JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
+    //                                     WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
+    //                                     AND lhp_produksi2.line = '.$line.'
+    //                                     GROUP BY MONTH(lhp_produksi2.tanggal_produksi)
+    //                                 ');
+    //     }
+
+    //     return $query->getResultArray();
+    // }
+
     public function get_data_rejection_by_month($bulan, $line)
     {
         if ($line == null || $line == 0) {
-            $query = $this->db->query('SELECT	MONTH(lhp_produksi2.tanggal_produksi), SUM(detail_reject.qty_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
-                                        FROM	detail_reject
-                                        RIGHT JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
-                                        WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
-                                        GROUP BY MONTH(lhp_produksi2.tanggal_produksi)
+            $query = $this->db->query('SELECT	MONTH(tanggal_produksi), SUM(total_reject) as total_reject, SUM(total_aktual) as total_aktual
+                                        FROM	lhp_produksi2
+                                        WHERE MONTH(tanggal_produksi) = '.$bulan.'
+                                        GROUP BY MONTH(tanggal_produksi)
                                     ');
         } else {
-            $query = $this->db->query('SELECT	MONTH(lhp_produksi2.tanggal_produksi), SUM(detail_reject.qty_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
-                                        FROM	detail_reject
-                                        RIGHT JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
-                                        WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
-                                        AND lhp_produksi2.line = '.$line.'
-                                        GROUP BY MONTH(lhp_produksi2.tanggal_produksi)
+            $query = $this->db->query('SELECT	MONTH(tanggal_produksi), SUM(total_reject) as total_reject, SUM(total_aktual) as total_aktual
+                                        FROM	lhp_produksi2
+                                        WHERE MONTH(tanggal_produksi) = '.$bulan.'
+                                        AND line = '.$line.'
+                                        GROUP BY MONTH(tanggal_produksi)
                                     ');
         }
 
@@ -339,10 +380,10 @@ class M_DashboardAssyRejection extends Model
     public function get_data_reject_all_line($tanggal, $line)
     {
         if ($line == null || $line == 0) {
-            $query = $this->db->query('SELECT tanggal_produksi, line, SUM(total_reject) AS total_reject, SUM(total_aktual) AS total_aktual
+            $query = $this->db->query('SELECT tanggal_produksi, SUM(total_reject) AS total_reject, SUM(total_aktual) AS total_aktual
                                     FROM		lhp_produksi2
                                     WHERE		tanggal_produksi = \''.$tanggal.'\'
-                                    GROUP BY	tanggal_produksi, line');
+                                    GROUP BY	tanggal_produksi');
         } else {
             $query = $this->db->query('SELECT tanggal_produksi, line, SUM(total_reject) AS total_reject, SUM(total_aktual) AS total_aktual
                                     FROM		lhp_produksi2
@@ -486,7 +527,7 @@ class M_DashboardAssyRejection extends Model
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
         } else {
-            $query = $this->db->query('SELECT lhp_produksi2.tanggal_produksi), detail_reject.type_battery, SUM(detail_reject.qty_reject) as qty
+            $query = $this->db->query('SELECT lhp_produksi2.tanggal_produksi, detail_reject.type_battery, SUM(detail_reject.qty_reject) as qty
                                         FROM detail_reject
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
@@ -536,12 +577,12 @@ class M_DashboardAssyRejection extends Model
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
         } else {
-            $query = $this->db->query('SELECT lhp_produksi2.tanggal_produksi, detail_reject.kategori_reject, SUM(detail_reject.qty_reject) as qty
+            $query = $this->db->query('SELECT MONTH(lhp_produksi2.tanggal_produksi), detail_reject.kategori_reject, SUM(detail_reject.qty_reject) as qty
                                         FROM detail_reject
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
-                                        WHERE lhp_produksi2.tanggal_produksi = '.$date.'
+                                        WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
                                         AND lhp_produksi2.line = '.$line.'
-                                        GROUP BY detail_reject.kategori_reject, lhp_produksi2.tanggal_produksi
+                                        GROUP BY detail_reject.kategori_reject, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
         }

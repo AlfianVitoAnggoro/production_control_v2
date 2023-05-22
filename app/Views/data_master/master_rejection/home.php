@@ -28,7 +28,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<?php foreach($data_reject_utama as $d_reject_utama) : ?>
+												<?php foreach($data_reject_utama_amb as $d_reject_utama) : ?>
 												<tr>
                                                     <td><?=$d_reject_utama['jenis_reject']?></td>
                                                     <td>
@@ -110,9 +110,18 @@
 			<form action="<?=base_url()?>reject/add_reject_utama" method="post">
 				<div class="modal-body">
 					<div class="form-group">
-                        <label for="Jenis Reject">Jenis Reject</label>
-                        <input type="text" class="form-control" id="jenis_reject_utama" name="jenis_reject_utama" placeholder="Jenis Reject">
-                    </div>
+							<label for="Jenis Reject">Jenis Reject</label>
+							<!-- <input type="text" class="form-control" id="jenis_reject_utama" name="jenis_reject_utama" placeholder="Jenis Reject"> -->
+							<div id="form_jenis_reject_utama">
+								<select class="form-select mb-2" id="jenis_reject_utama" name="jenis_reject_utama">
+									<option value="">Pilih Jenis Reject</option>
+									<?php foreach($data_reject_utama as $d_reject_utama) : ?>
+									<option value="<?=$d_reject_utama['jenis_reject']?>"><?=$d_reject_utama['jenis_reject']?></option>
+									<?php endforeach; ?>
+								</select>
+								<button type="button" class="btn btn-sm btn-primary" name="value_btn" value="add" onclick="add_data()">Tambah Data</button>
+							</div>
+					</div>
 				</div>
 				<div class="modal-footer" style="float: right;">
 					<!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
@@ -288,5 +297,26 @@
 		$('#edit_id_ketegori_reject').val(id);
 		$('.modal_edit_kategori').modal('show');
 	});
+
+	function add_data() {
+		const form_jenis_reject_utamaElement = document.querySelector('#form_jenis_reject_utama');
+		form_jenis_reject_utamaElement.innerHTML = `
+			<input type="text" class="form-control mb-2" id="jenis_reject_utama" name="jenis_reject_utama" placeholder="Jenis Reject">
+			<button type="button" class="btn btn-sm btn-danger" name="value_btn" value="cancel" onclick="cancel()">Batal</button>
+		`;
+	}
+
+	function cancel() {
+		const form_jenis_reject_utamaElement = document.querySelector('#form_jenis_reject_utama');
+		form_jenis_reject_utamaElement.innerHTML = `
+			<select class="form-select mb-2" id="jenis_reject" name="jenis_reject">
+					<option value="">Pilih Jenis Reject</option>
+					<?php foreach($data_reject_utama as $d_reject_utama) : ?>
+					<option value="<?=$d_reject_utama['jenis_reject']?>"><?=$d_reject_utama['jenis_reject']?></option>
+					<?php endforeach; ?>
+			</select>
+			<button type="button" class="btn btn-sm btn-primary" name="value_btn" value="add" onclick="add_data()">Tambah Data</button>
+		`;
+	}
   </script>
   <?= $this->endSection(); ?>

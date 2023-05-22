@@ -15,6 +15,7 @@ class Reject extends BaseController
     public function index()
     {
         $data['data_reject_utama'] = $this->M_Reject->get_data_reject_utama();
+        $data['data_reject_utama_amb'] = $this->M_Reject->get_data_reject_utama_amb();
         $data['data_reject'] = $this->M_Reject->get_data_reject();
         return view('data_master/master_rejection/home', $data);
     }
@@ -22,12 +23,20 @@ class Reject extends BaseController
     public function add_reject_utama() 
     {
         $jenis_reject = $this->request->getPost('jenis_reject_utama');
-
+        $value_btn = $this->request->getPost('value_btn');
         $data = [
-            'jenis_reject' => $jenis_reject
+            'jenis_reject' => strtoupper($jenis_reject),
+            'AMB' => 1
         ];
-
-        $save_data = $this->M_Reject->add_reject_utama($data);
+        if($value_btn === 'add') {
+            $save_data = $this->M_Reject->add_reject_utama($data);
+        } else {
+            $cek_reject = $this->M_Reject->cek_reject(strtoupper($jenis_reject));
+            if(count($cek_reject) > 0)
+                $update = $this->M_Reject->update_reject_utama($data, $cek_reject[0]['id_reject_utama'], $jenis_reject);
+            else
+                $save_data = $this->M_Reject->add_reject_utama($data);
+        }
 
         return redirect()->to(base_url('reject'));
     }
@@ -41,7 +50,8 @@ class Reject extends BaseController
         $data = [
             'jenis_reject' => $jenis_reject,
             'kategori_reject' => $kategori_reject,
-            'dashboard' => $dashboard
+            'dashboard' => $dashboard,
+            'AMB' => 1
         ];
 
         $save_data = $this->M_Reject->add_reject($data);
@@ -74,7 +84,8 @@ class Reject extends BaseController
         $data = [
             'jenis_reject' => $jenis_reject,
             'kategori_reject' => $kategori_reject,
-            'dashboard' => $dashboard
+            'dashboard' => $dashboard,
+            'AMB' => 1
         ];
 
         $save_data = $this->M_Reject->update_reject($data, $id_reject);
@@ -84,7 +95,10 @@ class Reject extends BaseController
 
     public function delete_reject_utama($id_reject_utama, $jenis_reject)
     {
-        $delete_data = $this->M_Reject->delete_reject_utama($id_reject_utama, $jenis_reject);
+        $data = [
+            'AMB' => 0
+        ];
+        $delete_data = $this->M_Reject->delete_reject_utama($id_reject_utama, $jenis_reject, $data);
 
         return redirect()->to(base_url('reject'));
     }

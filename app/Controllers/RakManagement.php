@@ -14,8 +14,21 @@ class RakManagement extends BaseController
         $this->M_RakManagement = new M_RakManagement();
     }
 
+    public function rak_dashboard()
+    {
+        $data['data_rak_management'] = $this->M_RakManagement->get_data_rak_management();
+        return view('pages/rak_management/rak_dashboard', $data);
+    }
+
     public function index()
     {
+        for ($i = 65; $i <= 71; $i++) {
+            $char = chr($i);
+            $data['data_rak_management_gedung'][$char] = $this->M_RakManagement->get_data_rak_management_gedung($char);
+        }
+
+        $data['data_rak_management_status'] = $this->M_RakManagement->get_data_rak_management_status(1);
+        $data['data_record_rak'] = $this->M_RakManagement->get_data_record_rak();
         $data['data_rak_management'] = $this->M_RakManagement->get_data_rak_management();
         return view('pages/rak_management/summary_rak_management', $data);
     }

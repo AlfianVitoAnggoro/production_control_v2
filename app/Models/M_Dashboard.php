@@ -46,6 +46,26 @@ class M_Dashboard extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_all_line_by_date_amb1($tanggal)
+    {
+        $query = $this->db->query('SELECT tanggal_produksi, SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                    FROM		lhp_produksi2
+                                    WHERE		tanggal_produksi = \''.$tanggal.'\' AND (line = 1 OR line = 2 OR line = 3)
+                                    GROUP BY	tanggal_produksi');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_all_line_by_date_amb2($tanggal)
+    {
+        $query = $this->db->query('SELECT tanggal_produksi, SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                    FROM		lhp_produksi2
+                                    WHERE		tanggal_produksi = \''.$tanggal.'\' AND (line = 4 OR line = 5 OR line = 6 OR line = 7)
+                                    GROUP BY	tanggal_produksi');
+
+        return $query->getResultArray();
+    }
+
     public function get_data_all_line_by_month($bulan, $line) 
     {
         if ($line == null || $line == 0) {
@@ -64,8 +84,48 @@ class M_Dashboard extends Model
                                     ');
         }
 
-        
+        return $query->getResultArray();
+    }
 
+    public function get_data_all_line_by_month_amb1($bulan, $line) 
+    {
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT MONTH(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE MONTH(tanggal_produksi) = '.$bulan.' AND (line = 1 OR line = 2 OR line = 3)
+                                        GROUP BY MONTH(tanggal_produksi)
+                                        ORDER BY MONTH(tanggal_produksi)
+                                    ');
+        } else {
+            $query = $this->db->query('SELECT MONTH(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE MONTH(tanggal_produksi) = '.$bulan.' AND line = '.$line.'
+                                        GROUP BY MONTH(tanggal_produksi)
+                                        ORDER BY MONTH(tanggal_produksi)
+                                    ');
+        }
+        
+        return $query->getResultArray();
+    }
+
+    public function get_data_all_line_by_month_amb2($bulan, $line) 
+    {
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT MONTH(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE MONTH(tanggal_produksi) = '.$bulan.' AND (line = 4 OR line = 5 OR line = 6 OR line = 7)
+                                        GROUP BY MONTH(tanggal_produksi)
+                                        ORDER BY MONTH(tanggal_produksi)
+                                    ');
+        } else {
+            $query = $this->db->query('SELECT MONTH(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE MONTH(tanggal_produksi) = '.$bulan.' AND line = '.$line.'
+                                        GROUP BY MONTH(tanggal_produksi)
+                                        ORDER BY MONTH(tanggal_produksi)
+                                    ');
+        }
+        
         return $query->getResultArray();
     }
 
@@ -89,7 +149,51 @@ class M_Dashboard extends Model
                                     ');
         }
 
-        
+        return $query->getResultArray();
+    }
+
+    public function get_data_all_line_by_year_amb1($line) 
+    {
+        $tahun = date('Y');
+
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT YEAR(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE YEAR(tanggal_produksi) = '.$tahun.' AND (line = 1 OR line = 2 OR line = 3)
+                                        GROUP BY YEAR(tanggal_produksi)
+                                        ORDER BY YEAR(tanggal_produksi)
+                                    ');
+        } else {
+            $query = $this->db->query('SELECT YEAR(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE YEAR(tanggal_produksi) = '.$tahun.' AND line = '.$line.'
+                                        GROUP BY YEAR(tanggal_produksi)
+                                        ORDER BY YEAR(tanggal_produksi)
+                                    ');
+        }
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_all_line_by_year_amb2($line) 
+    {
+        $tahun = date('Y');
+
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT YEAR(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE YEAR(tanggal_produksi) = '.$tahun.' AND (line = 4 OR line = 5 OR line = 6 OR line = 7)
+                                        GROUP BY YEAR(tanggal_produksi)
+                                        ORDER BY YEAR(tanggal_produksi)
+                                    ');
+        } else {
+            $query = $this->db->query('SELECT YEAR(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE YEAR(tanggal_produksi) = '.$tahun.' AND line = '.$line.'
+                                        GROUP BY YEAR(tanggal_produksi)
+                                        ORDER BY YEAR(tanggal_produksi)
+                                    ');
+        }
 
         return $query->getResultArray();
     }
@@ -176,6 +280,68 @@ class M_Dashboard extends Model
         $query = $this->db->query('SELECT * FROM lhp_produksi2
                                     JOIN detail_breakdown ON detail_breakdown.id_lhp = lhp_produksi2.id_lhp_2
                                     WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\' AND lhp_produksi2.line = '.$line.' AND lhp_produksi2.kasubsie = \''.$kss.'\'');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_all_line_by_jam($line, $jam, $tanggal)
+    {
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT SUM(detail_lhp_produksi2.plan_cap) AS total_plan, SUM(detail_lhp_produksi2.actual) AS total_aktual FROM detail_lhp_produksi2
+                                    JOIN lhp_produksi2 ON detail_lhp_produksi2.id_lhp_2 = lhp_produksi2.id_lhp_2
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
+                                    AND detail_lhp_produksi2.jam_end = \''.$jam.'\'
+                                ');
+        } else {
+            $query = $this->db->query('SELECT SUM(detail_lhp_produksi2.plan_cap) AS total_plan, SUM(detail_lhp_produksi2.actual) AS total_aktual FROM detail_lhp_produksi2
+                                    JOIN lhp_produksi2 ON detail_lhp_produksi2.id_lhp_2 = lhp_produksi2.id_lhp_2
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
+                                    AND detail_lhp_produksi2.jam_end = \''.$jam.'\' 
+                                    AND lhp_produksi2.line = '.$line);
+        }   
+        
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_all_line_by_jam_amb1($line, $jam, $tanggal)
+    {
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT SUM(detail_lhp_produksi2.plan_cap) AS total_plan, SUM(detail_lhp_produksi2.actual) AS total_aktual FROM detail_lhp_produksi2
+                                    JOIN lhp_produksi2 ON detail_lhp_produksi2.id_lhp_2 = lhp_produksi2.id_lhp_2
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
+                                    AND (lhp_produksi2.line = 1 OR lhp_produksi2.line = 2 OR lhp_produksi2.line = 3)
+                                    AND detail_lhp_produksi2.jam_end = \''.$jam.'\'
+                                ');
+        } else {
+            $query = $this->db->query('SELECT SUM(detail_lhp_produksi2.plan_cap) AS total_plan, SUM(detail_lhp_produksi2.actual) AS total_aktual FROM detail_lhp_produksi2
+                                    JOIN lhp_produksi2 ON detail_lhp_produksi2.id_lhp_2 = lhp_produksi2.id_lhp_2
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
+                                    AND detail_lhp_produksi2.jam_end = \''.$jam.'\' 
+                                    AND lhp_produksi2.line = '.$line);
+        }   
+        
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_all_line_by_jam_amb2($line, $jam, $tanggal)
+    {
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT SUM(detail_lhp_produksi2.plan_cap) AS total_plan, SUM(detail_lhp_produksi2.actual) AS total_aktual FROM detail_lhp_produksi2
+                                    JOIN lhp_produksi2 ON detail_lhp_produksi2.id_lhp_2 = lhp_produksi2.id_lhp_2
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
+                                    AND (lhp_produksi2.line = 4 OR lhp_produksi2.line = 5 OR lhp_produksi2.line = 6 OR lhp_produksi2.line = 7)
+                                    AND detail_lhp_produksi2.jam_end = \''.$jam.'\'
+                                ');
+        } else {
+            $query = $this->db->query('SELECT SUM(detail_lhp_produksi2.plan_cap) AS total_plan, SUM(detail_lhp_produksi2.actual) AS total_aktual FROM detail_lhp_produksi2
+                                    JOIN lhp_produksi2 ON detail_lhp_produksi2.id_lhp_2 = lhp_produksi2.id_lhp_2
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
+                                    AND detail_lhp_produksi2.jam_end = \''.$jam.'\' 
+                                    AND lhp_produksi2.line = '.$line);
+        }   
+        
 
         return $query->getResultArray();
     }

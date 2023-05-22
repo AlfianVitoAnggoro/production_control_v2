@@ -487,6 +487,13 @@
 											}
 											?>
 										</tbody>
+										<tfoot>
+											<tr>
+												<th colspan="6"></th>
+												<td><h3>Total</h3></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_menit_breakdown_aktual" id="total_menit_breakdown_aktual" value="<?=$total_menit_breakdown[0]['total_menit']?>" style="width: 100px" readonly></td>
+											</tr>
+										</tfoot>
 									</table>
 								</div>
 							</div>
@@ -570,6 +577,13 @@
 												}
 												?>
 										</tbody>
+										<tfoot>
+											<tr>
+												<th></th>
+												<td><h3>Total</h3></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_reject" id="total_reject" value="<?=$data_lhp[0]['total_reject']?>" style="width: 100px" readonly></td>
+											</tr>
+										</tfoot>
 									</table>
 								</div>
 							</div>

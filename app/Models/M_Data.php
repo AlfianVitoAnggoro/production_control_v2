@@ -92,16 +92,16 @@ class M_Data extends Model
 
     }
 
-    public function getListBreakdown()
+    public function getListBreakdown($line)
     {
-        $query = $this->db->query('SELECT DISTINCT jenis_breakdown FROM data_breakdown');
+        $query = $this->db->query('SELECT DISTINCT jenis_breakdown FROM data_breakdown WHERE '. $line . '= \'1\'');
 
         return $query->getResultArray();
     }
 
-    public function getListReject()
+    public function getListReject($line)
     {
-        $query = $this->db->query('SELECT DISTINCT jenis_reject FROM data_reject');
+        $query = $this->db->query('SELECT DISTINCT jenis_reject FROM data_reject WHERE '. $line . '= \'1\'');
 
         return $query->getResultArray();
     }
@@ -219,6 +219,8 @@ class M_Data extends Model
         $builder = $this->db->table('lhp_produksi2');
         $builder->select('lhp_produksi2.*, master_pic_line.nama_pic');
         $builder->join('master_pic_line', 'master_pic_line.id_pic = lhp_produksi2.grup');
+        $builder->where('line >= ', 1);
+        $builder->where('line <= ', 7);
         $builder->where('tanggal_produksi >= ', $start_date);
         $builder->where('tanggal_produksi <= ', $end_date);
         // if ($this->session->get('line') != NULL) {
@@ -367,5 +369,11 @@ class M_Data extends Model
 
     public function delete_reject($id_reject) {
         $this->db->query('DELETE FROM detail_reject WHERE id_reject = '.$id_reject);
+    }
+
+    public function get_total_menit_breakdown ($id_lhp) {
+        $query = $this->db->query('SELECT SUM(menit_breakdown) AS total_menit FROM detail_breakdown WHERE id_lhp = '.$id_lhp);
+
+        return $query->getResultArray();
     }
 }

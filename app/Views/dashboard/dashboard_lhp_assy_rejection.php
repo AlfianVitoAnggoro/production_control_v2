@@ -2346,7 +2346,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Unit'
+                text: '%'
             }
         },
         plotOptions: {
@@ -2897,7 +2897,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Unit'
+                text: '%'
             }
         },
         plotOptions: {

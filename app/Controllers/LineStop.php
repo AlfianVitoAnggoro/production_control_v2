@@ -33,7 +33,8 @@ class LineStop extends BaseController
       'proses_breakdown' => $proses_breakdown,
       'dept_in_charge' => $dept_in_charge,
       'perhitungan' => $perhitungan,
-      'status' => 'waiting'
+      'status' => 'waiting',
+      'AMB' => 1
     ];
     $model = new M_LineStop();
     $model->save_data_breakdown($data_breakdown);
@@ -70,7 +71,8 @@ class LineStop extends BaseController
       'proses_breakdown' => $proses_breakdown,
       'dept_in_charge' => $dept_in_charge,
       'perhitungan' => $perhitungan,
-      'status' => $status
+      'status' => $status,
+      'AMB' => 1
     ];
     $model->update_data_breakdown($id_breakdown, $data_breakdown);
     return redirect()->to(base_url('line_stop'));
@@ -80,7 +82,10 @@ class LineStop extends BaseController
   {
     $id_breakdown = $this->request->getPost('id_breakdown');
     $model = new M_LineStop();
-    $model->delete_data_breakdown($id_breakdown);
+    $data = [
+      'AMB' => 0
+    ];
+    $model->delete_data_breakdown($id_breakdown, $data);
 
     return redirect()->to(base_url('line_stop'));
   }

@@ -174,6 +174,8 @@
                                     &nbsp;
                                     <select class="form-select" name="child_filter" id="child_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
                                         <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>All</option>
+                                        <!-- <option value="amb1" <?= ($child_filter === 'amb1') ? 'selected':''?>>AMB 1</option>
+                                        <option value="amb2" <?= ($child_filter === 'amb2') ? 'selected':''?>>AMB 2</option> -->
                                         <?php for ($i=1; $i <= 7 ; $i++) { ?>
                                             <option value="<?=$i?>" <?= ($child_filter == $i) ? 'selected':''?>>Line <?=$i?></option>
                                         <?php } ?>
@@ -202,13 +204,13 @@
                                 <div class="col-4">
                                     <div id="year_to_date_chart" style="height:250px;"></div>
                                     <div style="text-align: center;margin-top: 60px;">
-                                        <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav">Rejection</a>
+                                        <button type="button" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div id="target_chart" style="height:250px;"></div>
                                     <div style="text-align: center;margin-top: 60px;">
-                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</button>
+                                    <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
                                     </div>
 
                                 </div>
@@ -294,24 +296,71 @@
 				</div>
 				<div class="col-xl-4 col-12">
 					<div class="box bg-transparent">
-						<div class="box-body">							
-							<!-- <div class="box no-shadow mb-0"> -->
-								<!-- <div class="box-body px-0 pt-0"> -->
-                                    <figure class="highcharts-figure">
-                                        <div id="side_chart"></div>
-                                    </figure>
-								<!-- </div> -->
-							<!-- </div>							 -->
+						<div class="box-body">
+                            <figure class="highcharts-figure">
+                                <div id="side_chart"></div>
+                            </figure>
 						</div>
 					</div>
 				</div>
 			</div>
+
+            <div class="row">
+                <div class="col-12">
+					<div class="box bg-transparent">
+						<div class="box-body">
+                            <figure class="highcharts-figure">
+                                <div id="chart_per_jam"></div>
+                            </figure>
+						</div>
+					</div>										
+				</div>
+            </div>
 		</section>
 		<!-- /.content -->
 	  </div>
   </div>
   <!-- /.content-wrapper -->
-  
+
+<!-- MODAL REJECTION -->
+<div id="modal_rejection" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Rejection</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="<?=base_url()?>dashboard/reject" class="btn btn-rounded btn-danger btn-nav">Battery Rejection</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="<?=base_url()?>dashboard/rejectCutting" target="_blank" class="btn btn-rounded btn-danger btn-nav">Plate Cutting Rejection</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <!-- MODAL -->
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
 	<div class="modal-dialog modal-lg">
@@ -637,6 +686,15 @@
                 fontSize: '20px'
             }
         },
+        subtitle: {
+            text: 'Source: Laporan Harian Produksi',
+            align: 'center',
+            style: {
+                color: '#ffffff',
+                fontSize: '15px'
+            }
+        },
+
         xAxis: {
             categories: [
                 'Jan',
@@ -731,7 +789,13 @@
             <?php } else { ?>
                 {
                     // name: 'All Line',
-                    data: <?php echo json_encode($data_all_month); ?>
+                    data: <?php echo json_encode($data_all_month); ?>,
+                },{
+                    type: 'spline',
+                    name: 'Target',
+                    dashStyle: 'Dash',
+                    data: [85,85,85,85,85,85,85,85,85,85,85,85],
+                    color:'red',
                 }
             <?php } ?>        
         ]
@@ -745,6 +809,8 @@
         $start = date('Y-m-01');
         $now = date('Y-m-d');
 
+        $target_date = array();
+
         $current_month = date('Y-m');
         if ($bulan != null OR $bulan != $current_month) {
             $start = date('Y-m-01', strtotime($bulan));
@@ -753,6 +819,7 @@
 
         while (strtotime($start) <= strtotime($now)) {
             array_push($dates, date("d", strtotime($start)));
+            array_push($target_date, 85);
             $start = date ("Y-m-d", strtotime("+1 day", strtotime($start)));
         }
 
@@ -781,7 +848,7 @@
         },
 
         title: {
-            text: 'Efficiency',
+            text: 'Daily Efficiency',
             align: 'center',
             style: {
                 color: '#ffffff',
@@ -1147,7 +1214,7 @@
                             }
                         }
                     }
-                }
+                },
             <?php } ?>
 
             <?php if ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND ($baby_filter == null OR $baby_filter == 'average')) { ?>
@@ -1397,6 +1464,13 @@
                     },
                 <?php } ?>
             <?php } ?>
+            {
+                    type: 'spline',
+                    name: 'Target',
+                    dashStyle: 'Dash',
+                    data: <?php echo json_encode($target_date); ?>,
+                    color:'red',
+                }
         ],
 
         responsive: {
@@ -1413,6 +1487,89 @@
                 }
             }]
         }
+    });
+
+    Highcharts.chart('chart_per_jam', {
+        chart: {
+            backgroundColor: 'transparent',
+            type: '<?=$type_chart?>'
+            // type: 'column',
+            // backgroundColor: '#0c1a32',
+            
+        },
+        exporting: {
+            enabled: false
+        },
+        title: {
+            text: 'Hourly Efficiency',
+            style: {
+                color: '#ffffff',
+                fontSize: '20px'
+            }
+        },
+        subtitle: {
+            text: 'Source: Laporan Harian Produksi',
+            align: 'center',
+            style: {
+                color: '#ffffff',
+                fontSize: '15px'
+            }
+        },
+        xAxis: {
+            categories: [
+                '08.50', '09.50', '11.00', '12.00', '14.00', '15.00', '16.15', '16.30', '17.50', '19.35', '20.35', '21.35', '22.45', '23.45', '00.30', '01.50', '02.50', '03.50', '05.20', '06.20', '07.30'
+            ],
+            crosshair: true,
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '%'
+            }
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(){
+                        return (this.y!=0)?this.y:"";
+                    },
+                    style: {
+                        color: '#ffffff',
+                        textOutline: 0,
+                        fontSize: 14
+                    },
+                },
+                // pointWidth: 30,
+            }
+        },
+        legend: {
+            <?php if (($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'line') { ?>
+                align: 'center',
+                verticalAlign: 'bottom',
+                layout: 'horizontal',
+                itemStyle: {
+                    color: '#ffffff'
+                }
+            <?php } else { ?>
+                enabled: false
+            <?php } ?>
+            },
+        colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
+
+        series: [
+            {
+                name: 'All Line',
+                data: <?php echo json_encode($data_all_jam); ?>,
+            }
+        ]
     });
 </script>
 <?= $this->endSection(); ?>

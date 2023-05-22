@@ -13,6 +13,13 @@ class M_Reject extends Model
         $this->session = \Config\Services::session();
     }
 
+    public function get_data_reject_utama_amb()
+    {
+        $query = $this->db->query('SELECT * FROM data_reject_utama WHERE AMB=\'1\' ORDER BY jenis_reject ASC');
+
+        return $query->getResultArray();
+    }
+
     public function get_data_reject_utama()
     {
         $query = $this->db->query('SELECT * FROM data_reject_utama ORDER BY jenis_reject ASC');
@@ -22,7 +29,7 @@ class M_Reject extends Model
 
     public function get_data_reject()
     {
-        $query = $this->db->query('SELECT * FROM data_reject ORDER BY jenis_reject ASC, kategori_reject ASC');
+        $query = $this->db->query('SELECT * FROM data_reject WHERE AMB=\'1\' ORDER BY jenis_reject ASC, kategori_reject ASC');
 
         return $query->getResultArray();
     }
@@ -72,12 +79,12 @@ class M_Reject extends Model
         $builder->update($data);
     }
 
-    public function delete_reject_utama($id_reject_utama, $jenis_reject)
+    public function delete_reject_utama($id_reject_utama, $jenis_reject, $data)
     {
         $builder = $this->db->table('data_reject_utama');
 
         $builder->where('id_reject_utama', $id_reject_utama);
-        $builder->delete();
+        $builder->update($data);
 
         $builder2 = $this->db->table('data_reject');
 
@@ -91,5 +98,11 @@ class M_Reject extends Model
 
         $builder->where('id_reject', $id_reject);
         $builder->delete();
+    }
+
+    public function cek_reject($jenis_reject) {
+        $query = $this->db->query('SELECT id_reject_utama FROM data_reject_utama WHERE jenis_reject = \''.$jenis_reject.'\'');
+
+        return $query->getResultArray();
     }
 }
