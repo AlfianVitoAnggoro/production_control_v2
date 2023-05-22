@@ -940,7 +940,7 @@
                             }
                         }
                     }
-                }
+                },
             <?php } ?>
 
             <?php if ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND ($baby_filter == null OR $baby_filter == 'average')) { ?>
