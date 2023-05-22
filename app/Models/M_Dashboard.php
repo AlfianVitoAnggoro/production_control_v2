@@ -234,12 +234,35 @@ class M_Dashboard extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_grup_by_line_year($month, $line) 
+    {
+        $tahun = date('Y', strtotime($month));
+        $query = $this->db->query('SELECT DISTINCT(master_pic_line.nama_pic)
+                                    FROM		lhp_produksi2
+                                    JOIN        master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup
+                                    WHERE		YEAR(lhp_produksi2.tanggal_produksi) = '.$tahun.' AND lhp_produksi2.line = '.$line.'
+                                    GROUP BY	master_pic_line.nama_pic');
+
+        return $query->getResultArray();
+    }
+
     public function get_data_line_by_grup($tanggal, $line, $grup)
     {
         $query = $this->db->query('SELECT lhp_produksi2.tanggal_produksi, lhp_produksi2.line, master_pic_line.nama_pic ,SUM(lhp_produksi2.total_plan) AS total_plan, SUM(lhp_produksi2.total_aktual) AS total_aktual
                                     FROM		lhp_produksi2
                                     JOIN        master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup
                                     WHERE		lhp_produksi2.tanggal_produksi = \''.$tanggal.'\' AND lhp_produksi2.line = '.$line.' AND master_pic_line.nama_pic = \''.$grup.'\'
+                                    GROUP BY	lhp_produksi2.tanggal_produksi, lhp_produksi2.line, master_pic_line.nama_pic');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_line_by_grup_month($bulan, $line, $grup)
+    {
+        $query = $this->db->query('SELECT MONTH(lhp_produksi2.tanggal_produksi), lhp_produksi2.line, master_pic_line.nama_pic ,SUM(lhp_produksi2.total_plan) AS total_plan, SUM(lhp_produksi2.total_aktual) AS total_aktual
+                                    FROM		lhp_produksi2
+                                    JOIN        master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup
+                                    WHERE		MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.' AND lhp_produksi2.line = '.$line.' AND master_pic_line.nama_pic = \''.$grup.'\'
                                     GROUP BY	lhp_produksi2.tanggal_produksi, lhp_produksi2.line, master_pic_line.nama_pic');
 
         return $query->getResultArray();

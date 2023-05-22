@@ -92,6 +92,8 @@ class Dashboard extends BaseController
         $data['data_line_by_grup'] = [];
         $data['data_line_by_kss'] = [];
 
+        $data['data_line_by_grup_month'] = [];
+
         if ($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'average') {
             while (strtotime($start) <= strtotime($now)) {
                 $data_all = $this->M_Dashboard->get_data_all_line_by_date($start);
@@ -199,6 +201,56 @@ class Dashboard extends BaseController
             }
         } elseif($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter != null OR $child_filter != 0) AND $baby_filter != null AND $baby_filter == 'grup') {
             $data_grup_line = $this->M_Dashboard->get_data_grup_by_line($start, $child_filter);
+
+            $data_grup_line_year = $this->M_Dashboard->get_data_grup_by_line_year($start, $child_filter);
+
+            if (!empty($data_grup_line_year)) {
+                for ($i=1; $i <= 12 ; $i++) { 
+                    $total_plan_grup_month = 0;
+                    $total_aktual_grup_month = 0;
+                    $eff = 0;
+                    foreach ($data_grup_line_year as $d_grup_line) {
+                        $grup_month = $d_grup_line['nama_pic'];
+                        $data_all_grup_month = $this->M_Dashboard->get_data_line_by_grup_month($i, $child_filter, $grup_month);
+
+                        $total_plan_grup_month = 0;
+                        $total_aktual_grup_month = 0;
+                        $eff = 0;
+
+                        if (!empty($data_all_grup_month)) {
+                            foreach ($data_all_grup_month as $d_all_grup) {
+                                $total_plan_grup_month += $d_all_grup['total_plan'];
+                                $total_aktual_grup_month += $d_all_grup['total_aktual'];
+                                // $eff = (!empty($total_plan_grup_month) && !empty($total_aktual_grup_month)) ? ($total_aktual_grup_month / $total_plan_grup_month) * 100 : 0;
+            
+                                // $data_grup_month = [
+                                //     'grup' => $grup_month,
+                                //     'data' => (float) number_format($eff, 1, '.', '')
+                                // ];
+                                // $data['data_line_by_grup_month'][] = $data_grup_month;
+                            } 
+                        } else {
+                            // $data_grup_month = [
+                            //     'grup' => $grup_month,
+                            //     'data' => 0
+                            // ];
+                            // $data['data_line_by_grup_month'][] = $data_grup_month;
+                            $total_plan_grup_month += 0;
+                            $total_aktual_grup_month += 0;
+            
+                        }
+
+                        $eff = (!empty($total_plan_grup_month) && !empty($total_aktual_grup_month)) ? ($total_aktual_grup_month / $total_plan_grup_month) * 100 : 0;
+
+                        $data_grup_month = [
+                            'grup' => $grup_month,
+                            'data' => (float) number_format($eff, 1, '.', '')
+                        ];
+
+                        $data['data_line_by_grup_month'][] = $data_grup_month;
+                    }
+                }
+            }
 
             if (!empty($data_grup_line)) {
                     while (strtotime($start) <= strtotime($now)) {
