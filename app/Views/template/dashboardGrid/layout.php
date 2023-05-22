@@ -46,6 +46,20 @@
 			color: #fff;
 			font-weight:500;	
 		}
+
+		body {
+			/* background-image: url("<?= base_url()?>assets/images/bg-dashboard-new.jpg"); */
+			background-image: url("<?= base_url()?>assets/images/1.jpg");
+			/* background-image: url("<?= base_url()?>assets/images/4.PNG"); */
+			/* background-color: #cccccc; */
+			<?php 
+			$uri = current_url(true);
+			if ($uri->getSegment(3) == 'grid') {
+				echo 'background-size: cover;';
+			}
+			?>
+			
+		}
 	</style>
 </head>
 <body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
