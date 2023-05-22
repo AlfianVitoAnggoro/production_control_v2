@@ -52,7 +52,7 @@
                     <div class="box bg-transparent">
                         <div class="box-body" style="display:flex">
                             <div class="col-2">
-                                <form action="<?=base_url()?>dashboard/assy" method="POST">
+                                <form action="<?=base_url()?>dashboard/assy/amb2" method="POST">
                                     <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
                                         <option value="1">Efficiency</option>
                                         <option value="2">Unit / MH</option>
