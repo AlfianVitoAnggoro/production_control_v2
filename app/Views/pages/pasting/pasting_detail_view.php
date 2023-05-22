@@ -548,15 +548,32 @@ $shift
                       <tr>
                         <th>Type</th>
                         <th>Total</th>
+                        <th>Catatan</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody >
-                      <?php foreach($summary_total_aktual_per_type as $d_summary_total_aktual_per_type){ ?>
-                        <tr>
+                      <?php $index_summary_note = 0; foreach($summary_total_aktual_per_type as $d_summary_total_aktual_per_type){ ?>
+                        <tr class="<?= $d_summary_total_aktual_per_type['type_grid'] ?>">
                           <td><?= $d_summary_total_aktual_per_type['type_grid'] ?></td>
                           <td><?= $d_summary_total_aktual_per_type['actual'] ?></td>
+                          <td>
+                            <?php foreach($summary_detail_note as $sdn){
+                              if(array_key_exists($d_summary_total_aktual_per_type['type_grid'], $sdn)) {
+                                echo $sdn[$d_summary_total_aktual_per_type['type_grid']]['note']; ?>
+                                <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="<?= $sdn[$d_summary_total_aktual_per_type['type_grid']]['id_summary_note'] ?>">
+                            <?php } else {
+                                echo ''; ?>
+                                <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="">
+                            <?php }
+                            }
+                            ?>
+                          </td>
+                          <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".modal_tambah_note_pasting" onclick="add_note('<?= $d_summary_total_aktual_per_type['type_grid'] ?>', <?= $d_summary_total_aktual_per_type['actual'] ?>, <?= $id_lhp_pasting ?>, <?= $index_summary_note ?>)">
+                            Add
+                          </button></td>
                         </tr>
-                      <?php } ?>
+                      <?php $index_summary_note++; } ?>
                     </tbody>
                   </table>
                 </div>
@@ -913,6 +930,29 @@ $shift
     </div>
   </div>
 </div>
+
+<div class="modal fade modal_tambah_note_pasting" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myLargeModalLabel">Tambah Note</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row" id="note_pasting">
+        </div>
+      </div>
+      <div class="modal-footer" style="float: right;" id="add_note_pasting">
+        <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
+        <!-- <button type="button" class="btn btn-primary float-end" onclick="add_note_pasting()">Tambah</button> -->
+        <!-- <input type="button" class="btn btn-primary float-end" onclick="add_note_pasting()" value="Tambah"> -->
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <?= $this->endSection(); ?>
 
@@ -1747,6 +1787,61 @@ $shift
         console.log(data)
         $(e).parent().parent().remove();
         $('#loading-modal').modal('hide');
+      }
+    });
+  }
+
+  function add_note(type_grid, actual, id_lhp_pasting, index) {
+    let note_pastingElement = document.querySelector('#note_pasting');
+    let id_summary_note = document.querySelector('#id_summary_' + index).value;
+    note_pastingElement.innerHTML = `
+      <input type="hidden" name="id_lhp_pasting_note" id="id_lhp_pasting_note" value="${id_lhp_pasting}">
+      <input type="hidden" name="actual_note" id="actual_note" value="${actual}">
+      <input type="hidden" name="type_grid_note" id="type_grid_note" value="${type_grid}">
+      <input type="hidden" name="id_summary_note" id="id_summary_note" value="${id_summary_note}">
+      <input type="hidden" name="index" id="index" value="${index}">
+      <div class="mb-3">
+        <label for="text_note" class="form-label">Note</label>
+        <textarea class="form-control" id="text_note" rows="3"></textarea>
+      </div>
+    `;
+    let add_note_pastingElement = document.querySelector('#add_note_pasting');
+    add_note_pastingElement.innerHTML = `
+      <button type="button" class="btn btn-primary float-end" onclick="add_note_pasting()" data-bs-dismiss="modal">Tambah</button>
+    `;
+  }
+
+  function add_note_pasting() {
+    let id_lhp_pasting_note = $('#id_lhp_pasting_note').val();
+    let actual_note = $('#actual_note').val();
+    let type_grid_note = $('#type_grid_note').val();
+    let text_note = $('#text_note').val();
+    let id_summary_note = $('#id_summary_note').val();
+    let index = $('#index').val();
+    console.log({id_lhp_pasting_note, actual_note, type_grid_note, text_note});
+    $.ajax({
+      url: '<?= base_url() ?>pasting/add_note_pasting',
+      type: 'POST',
+      data: {
+        id_lhp_pasting_note: id_lhp_pasting_note,
+        type_grid_note: type_grid_note,
+        text_note: text_note,
+        id_summary_note: id_summary_note,
+      },
+      dataType: 'json',
+      success: function(data) {
+        console.log(data)
+        document.querySelector('.' + type_grid_note).innerHTML = `
+          <td>${type_grid_note}</td>
+          <td>${actual_note}</td>
+          <td>
+            ${text_note}
+            <input type="hidden" class="form-control" name="id_summary" id="id_summary_${index}" value="${data}">
+          </td>
+          <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".modal_tambah_note_pasting" onclick="add_note(${type_grid_note}, ${actual_note}, ${text_note}, ${index})">
+            Add
+          </button></td>
+        `;
       }
     });
   }

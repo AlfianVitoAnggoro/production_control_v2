@@ -277,6 +277,16 @@ class Pasting extends BaseController
     $data['data_line_stop_punching'] = $model->getListKategoriLineStopPunching();
     $data['data_reject_pasting'] = $model->getListReject();
     $data['summary_total_aktual_per_type'] = $model->get_summary_total_aktual_per_type($id);
+    $data['summary_note'] = $model->get_summary_note($id);
+    $data['summary_detail_note'] = [];
+    foreach ($data['summary_note'] as $note) {
+      $data['summary_detail_note'][] = [
+          $note['type_grid'] => [
+              'id_summary_note' => $note['id_detail_lhp_pasting_note'],
+              'note' => $note['note']
+          ]
+      ];
+    }
 
     return view('pages/pasting/pasting_detail_view', $data);
   }
@@ -756,5 +766,21 @@ class Pasting extends BaseController
     $id_detail_lhp_pasting = $this->request->getPost('id_detail_lhp_pasting');
     $query = $this->M_Pasting->delete_rows($id_detail_lhp_pasting);
     echo json_encode($id_detail_lhp_pasting);
+  }
+
+  public function add_note_pasting() {
+    $id_summary_note = $this->request->getPost('id_summary_note');
+    $id_lhp_pasting_note = $this->request->getPost('id_lhp_pasting_note');
+    $type_grid_note = $this->request->getPost('type_grid_note');
+    $text_note = $this->request->getPost('text_note');
+
+    $data = [
+      'id_lhp_pasting' => $id_lhp_pasting_note,
+      'type_grid' => $type_grid_note,
+      'note' => $text_note,
+    ];
+
+    $query = $this->M_Pasting->add_note_pasting($id_summary_note, $data);
+    echo json_encode($id_summary_note);
   }
 }
