@@ -166,12 +166,33 @@ class M_DashboardAssyRejection extends Model
 
     public function get_data_total_reject_line_by_date($tanggal) 
     {
-        $query = $this->db->query('SELECT	line, SUM(lhp_produksi2.total_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
-                                    FROM	lhp_produksi2
+        // $query = $this->db->query('SELECT	line, SUM(lhp_produksi2.total_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
+        //                             FROM	lhp_produksi2
+        //                             WHERE tanggal_produksi = \''.$tanggal.'\'
+        //                             AND line != 10
+        //                             GROUP BY lhp_produksi2.line
+        //                             CASE
+        //                                 WHEN SUM(lhp_produksi2.total_aktual) = 0 THEN 0
+        //                                 ((SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100)
+        //                             END DESC
+        //                         ');
+
+        $query = $this->db->query('SELECT line, total_reject, total_aktual
+                                    FROM (
+                                    SELECT
+                                        line,
+                                        SUM(lhp_produksi2.total_reject) as total_reject,
+                                        SUM(lhp_produksi2.total_aktual) as total_aktual,
+                                        CASE
+                                        WHEN SUM(lhp_produksi2.total_aktual) = 0 THEN 0
+                                        ELSE (SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100
+                                        END AS reject_percentage
+                                    FROM lhp_produksi2
                                     WHERE tanggal_produksi = \''.$tanggal.'\'
-                                    AND line != 10
+                                        AND line != 10
                                     GROUP BY lhp_produksi2.line
-                                    ORDER BY ((SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) DESC
+                                    ) AS subquery
+                                    ORDER BY reject_percentage DESC
                                 ');
 
         return $query->getResultArray();

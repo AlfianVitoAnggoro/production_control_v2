@@ -462,7 +462,7 @@ class DashboardAssyRejection extends BaseController
 
         foreach ($data_line_by_date as $d_line) {
             array_push($data['data_reject_by_line_by_date'], 'Line '.$d_line['line']);
-            array_push($data['data_total_reject_by_line_by_date'], (float) number_format(($d_line['total_reject'] / ($d_line['total_aktual']+$d_line['total_reject'])) * 100, 2, '.', ''));
+            array_push($data['data_total_reject_by_line_by_date'], (!empty($d_line['total_aktual'])) ? (float) number_format(($d_line['total_reject'] / ($d_line['total_aktual']+$d_line['total_reject'])) * 100, 2, '.', '') : 0);
         }
 
         // GET DATA PARETO REJECT BY LINE
