@@ -23,7 +23,7 @@ if ($current_date != 12) {
               <form action="<?= base_url() ?>dashboardGrid/grid" method="POST">
                 <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
                   <option value="1">Efficiency</option>
-                  <option value="2">Unit / MH</option>
+                  <!-- <option value="2">Unit / MH</option> -->
                 </select>
                 &nbsp;
                 <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
@@ -227,7 +227,7 @@ if ($current_date != 12) {
         </div>
       </div>
 
-      <div class="col-12">
+      <div class="col-12" style="display:none">
         <div class="box">
           <div class="box-body">
             <figure class="highcharts-figure">
@@ -850,7 +850,7 @@ if ($current_date != 12) {
       enabled: false
     },
     title: {
-      text: 'Monthly Efficiency',
+      text: '<?= date('M', strtotime($bulan)) ?> Efficiency',
       style: {
         color: '#ffffff',
         fontSize: '20px'
@@ -1053,7 +1053,7 @@ if ($current_date != 12) {
       enabled: false
     },
     title: {
-      text: 'Efficiency Per Group',
+      text: '<?= date('M', strtotime($bulan)) ?> Efficiency Per Group',
       style: {
         color: '#ffffff',
         fontSize: '20px'
@@ -1064,8 +1064,9 @@ if ($current_date != 12) {
       crosshair: true
     }],
     yAxis: [{
-      min: 0,
-      max: 100,
+      min: 60,
+      max: 110,
+      distance: 10,
       title: {
         text: ''
       },
@@ -1087,7 +1088,13 @@ if ($current_date != 12) {
     //   },
     // },
     legend: {
-      enabled: false
+      enabled: true,
+      align: 'center',
+        verticalAlign: 'bottom',
+        layout: 'horizontal',
+        itemStyle: {
+            color: '#ffffff'
+        }
     },
 
     series: [{
@@ -1247,7 +1254,7 @@ if ($current_date != 12) {
       enabled: false
     },
     title: {
-      text: 'Monthly Productivity Per MP',
+      text: '<?= date('M', strtotime($bulan)) ?> Efficiency Per MP',
       style: {
         color: '#ffffff',
         fontSize: '20px'
