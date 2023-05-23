@@ -17,7 +17,7 @@ if ($current_date != 12) {
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="box">
+        <div class="box bg-transparent">
           <div class="box-body" style="display:flex">
             <div class="col-2">
               <form action="<?= base_url() ?>dashboardGrid/grid" method="POST">
@@ -52,9 +52,9 @@ if ($current_date != 12) {
               </div>
             </div>
             <div class="col-6">
-              <div class="box">
+              <div class="box bg-transparent">
                 <div class="box-body">
-                  <div class="box no-shadow mb-0">
+                  <div class="box no-shadow mb-0 bg-transparent">
                     <div class="box-body px-0 pt-0">
                       <figure class="highcharts-figure">
                         <div id="monthly_efficiency_chart"></div>
@@ -71,7 +71,7 @@ if ($current_date != 12) {
       <div class="row">
         <div class="box-body">
             <div class="col-12">
-              <div class="box">
+              <div class="box bg-transparent">
                 <div class="box-body">
                   <figure class="highcharts-figure">
                     <div id="daily_efficiency_chart"></div>
@@ -82,11 +82,11 @@ if ($current_date != 12) {
         </div>
       </div>
 
-      <div class="box">
+      <div class="box bg-transparent">
         <div class="box-body">
           <div class="row" id="efficiency-wrapper">
             <div class="col-xl-8 col-12">
-              <div class="box">
+              <div class="box bg-transparent">
                 <div class="box-body">
                   <figure class="highcharts-figure">
                     <div id="efficiency_per_group_chart"></div>
@@ -95,7 +95,7 @@ if ($current_date != 12) {
               </div>
             </div>
             <div class="col-xl-4 col-12">
-              <div class="box">
+              <div class="box bg-transparent">
                 <div class="box-body">
                   <div class="table-responsive">
                     <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
@@ -166,7 +166,7 @@ if ($current_date != 12) {
               </div>
 
               <div style="display:none">
-                <div class="box">
+                <div class="box bg-transparent">
                   <div class="box-body">
                     <div class="text-center">
                       <h5>Efficiency Comparison Group Ngadino</h5>
@@ -181,7 +181,7 @@ if ($current_date != 12) {
                     </div>
                   </div>
                 </div>
-                <div class="box">
+                <div class="box bg-transparent">
                   <div class="box-body">
                     <div class="text-center">
                       <h5>Efficiency Comparison Group Mastikin</h5>
@@ -196,7 +196,7 @@ if ($current_date != 12) {
                     </div>
                   </div>
                 </div>
-                <div class="box">
+                <div class="box bg-transparent">
                   <div class="box-body">
                     <div class="text-center">
                       <h5>Efficiency Comparison Group Agus</h5>
@@ -218,7 +218,7 @@ if ($current_date != 12) {
       </div>
 
       <div class="col-12">
-        <div class="box">
+        <div class="box bg-transparent">
           <div class="box-body">
             <figure class="highcharts-figure">
               <div id="productivity_per_mp_chart"></div>
@@ -228,7 +228,7 @@ if ($current_date != 12) {
       </div>
 
       <div class="col-12" style="display:none">
-        <div class="box">
+        <div class="box bg-transparent">
           <div class="box-body">
             <figure class="highcharts-figure">
               <div id="efficiency_per_mp_chart"></div>
@@ -843,7 +843,7 @@ if ($current_date != 12) {
 
   Highcharts.chart('monthly_efficiency_chart', {
     chart: {
-      backgroundColor: '#0c1a32',
+      backgroundColor: 'transparent',
       zoomType: 'xy'
     },
     exporting: {
@@ -944,7 +944,7 @@ if ($current_date != 12) {
 
   Highcharts.chart('daily_efficiency_chart', {
     chart: {
-      backgroundColor: '#0c1a32',
+      backgroundColor: 'transparent',
       zoomType: 'xy',
       type: 'column'
     },
@@ -1046,7 +1046,7 @@ if ($current_date != 12) {
 
   Highcharts.chart('efficiency_per_group_chart', {
     chart: {
-      backgroundColor: '#0c1a32',
+      backgroundColor: 'transparent',
       zoomType: 'xy'
     },
     exporting: {
@@ -1154,7 +1154,7 @@ if ($current_date != 12) {
 
   Highcharts.chart('efficiency_per_mp_chart', {
     chart: {
-      backgroundColor: '#0c1a32',
+      backgroundColor: 'transparent',
       zoomType: 'xy'
     },
     exporting: {
@@ -1247,7 +1247,7 @@ if ($current_date != 12) {
 
   Highcharts.chart('productivity_per_mp_chart', {
     chart: {
-      backgroundColor: '#0c1a32',
+      backgroundColor: 'transparent',
       zoomType: 'xy'
     },
     exporting: {
