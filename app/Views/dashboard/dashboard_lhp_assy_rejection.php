@@ -40,6 +40,27 @@
         }
     }
     $result_daily_reject_persentase = array_values($merged_daily_persentase);
+
+    // REMOVE SETTING PERSENTASE
+    foreach ($result_daily_reject_persentase as $key => $item) {
+        if ($item["name"] === "SETTING ") {
+            unset($result_daily_reject_persentase[$key]);
+            break;
+        }
+    }
+
+    $result_daily_reject_persentase_without_setting = array_values($result_daily_reject_persentase);
+
+    // REMOVE SETTING QTY
+    foreach ($result as $key => $item) {
+        if ($item["name"] === "SETTING ") {
+            unset($result[$key]);
+            break;
+        }
+    }
+
+    $result_without_setting = array_values($result);
+    
 ?>
 
 <div class="content-wrapper" style="margin-left:0; margin-top:50px;">
@@ -2618,7 +2639,7 @@
             }
         },
         colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
-        series: <?php echo json_encode($result); ?>,
+        series: <?php echo json_encode($result_without_setting); ?>,
     });
 
     Highcharts.chart('daily_rejection_persentase_chart', {
@@ -2852,7 +2873,7 @@
             }
         },
         colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
-        series: <?php echo json_encode($result_daily_reject_persentase); ?>,
+        series: <?php echo json_encode($result_daily_reject_persentase_without_setting); ?>,
     });
 
     Highcharts.chart('monthly_rejection_persentase_chart', {
