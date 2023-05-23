@@ -375,7 +375,7 @@
 <!-- /.modal -->
 
 <!-- MODAL -->
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+<div id="modal_detail_ls" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" style="width:120%;">
 			<div class="modal-header">
@@ -975,7 +975,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1015,7 +1015,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1052,7 +1052,7 @@
                                                     '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1089,7 +1089,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1126,7 +1126,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1163,7 +1163,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1200,7 +1200,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1237,7 +1237,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1277,7 +1277,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1319,7 +1319,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1358,7 +1358,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1397,7 +1397,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1440,7 +1440,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
@@ -1484,7 +1484,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_detail_ls').modal('show');
                                     }
                                 });
                             }
