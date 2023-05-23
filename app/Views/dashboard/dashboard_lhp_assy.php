@@ -30,6 +30,19 @@
 
     $res_data_line_by_grup = array_values($arr_data_line_by_grup);
 
+    // FILTER ARRAY BY GRUP MONTHLY
+    $arr_data_line_by_grup_month = array();
+
+    foreach ($data_line_by_grup_month as $item) {
+        if ($item == 0) continue;
+        if (!array_key_exists($item['grup'], $arr_data_line_by_grup_month)) {
+            $arr_data_line_by_grup_month[$item['grup']] = array("grup" => $item['grup'], "data" => array());
+        }
+        $arr_data_line_by_grup_month[$item['grup']]["data"][] = $item['data'];
+    }
+
+    $res_data_line_by_grup_month = array_values($arr_data_line_by_grup_month);
+
     // FILTER ARRAY BY KASUBSIE
     $arr_data_line_by_kss = array();
 
@@ -748,8 +761,16 @@
                 layout: 'horizontal',
                 itemStyle: {
                     color: '#ffffff'
-                }
-            <?php } else { ?>
+                },
+            <?php } elseif ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND $baby_filter == 'grup') { ?>
+                align: 'center',
+                verticalAlign: 'bottom',
+                layout: 'horizontal',
+                itemStyle: {
+                    color: '#ffffff'
+                },
+                enabled: true,
+            <?php } elseif ($baby_filter == 'average') { ?>
                 enabled: false
             <?php } ?>
             },
@@ -786,7 +807,15 @@
                     name: 'Line 7',
                     data: <?php echo json_encode($data_by_month_line_7); ?>,
                 }
-            <?php } else { ?>
+            <?php } elseif ($child_filter != null AND $child_filter != 0 AND $baby_filter == 'grup') {
+                foreach ($res_data_line_by_grup_month as $r_data_line_by_grup) { ?>
+                    {
+                        name: <?= json_encode($r_data_line_by_grup['grup']); ?>,
+                        data: <?php echo json_encode($r_data_line_by_grup['data']); ?>,
+                    },
+                <?php } ?>
+                
+            <?php } elseif ($baby_filter == 'average') { ?>
                 {
                     // name: 'All Line',
                     data: <?php echo json_encode($data_all_month); ?>,

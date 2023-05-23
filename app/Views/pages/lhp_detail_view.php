@@ -4,6 +4,24 @@
 <!-- Content Wrapper. Contains page content -->
 <?php 
 // var_dump($data_detail_breakdown);die;
+date_default_timezone_set('Asia/Jakarta');
+$datetime_now = date('Y-m-d H:i:s');
+
+if ($data_lhp[0]['shift'] == 1) {
+	$jam_selesai = "16:30:00";
+} elseif ($data_lhp[0]['shift'] == 2) {
+	$jam_selesai = "00:30:00";
+} elseif ($data_lhp[0]['shift'] == 3) {
+	$jam_selesai = "07:30:00";
+}
+
+if (date('Y-m-d H:i:s', strtotime($data_lhp[0]['tanggal_produksi'].' '.$jam_selesai)) < $datetime_now) {
+	$readonly = "readonly";
+	$disabled = "disabled";
+} else {
+	$readonly = "";
+	$disabled = "";
+}
 
 ?>
 <div class="content-wrapper">
@@ -540,7 +558,7 @@
 														<input type="text" class="form-control" name="part_number_reject[]" id="part_number_reject_<?=$index_reject?>" value="<?=$d_detail_reject['type_battery']?>" style="width: 250px">
 													</td>
 													<td>
-														<input type="text" class="form-control" name="qty_reject[]" id="qty_reject_<?=$index_reject?>" value="<?=$d_detail_reject['qty_reject']?>" style="width: 100px" required>
+														<input type="text" class="form-control" name="qty_reject[]" id="qty_reject_<?=$index_reject?>" value="<?=$d_detail_reject['qty_reject']?>" style="width: 100px" <?=$readonly?> required>
 													</td>
 													<td>
 														<select class="form-control select2" name="jenis_reject[]" id="jenis_reject_<?=$index_reject?>" onchange="get_kategori_reject(<?=$index_reject?>)" style="width: 200px" required>
@@ -569,7 +587,7 @@
 														<textarea class="form-control" name="remark_reject[]" id="remark_reject_<?=$index_reject?>" cols="20" rows="1" style="width: 200px;"><?=$d_detail_reject['remark_reject']?></textarea>
 													</td>
 													<td>
-														<a type="button" class="btn btn-danger" href="<?=base_url()?>lhp/delete_reject/<?=$d_detail_reject['id_reject']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>	
+														<a type="button" class="btn btn-danger" href="<?=base_url()?>lhp/delete_reject/<?=$d_detail_reject['id_reject']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')" <?=(!empty($disabled)) ? 'style="pointer-events: none;"' : ''?>><i class="fa fa-trash"></i></a>	
 													</td>
 												</tr>
 												<?php
