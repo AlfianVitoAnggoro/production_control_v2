@@ -557,12 +557,32 @@ class M_Pasting extends Model
 
   function get_summary_total_aktual_per_type($id_lhp_pasting)
   {
-      $query = $this->db->query('SELECT type_grid, SUM(actual) AS actual
+    $query = $this->db->query('SELECT type_grid, SUM(actual) AS actual
                                 FROM detail_lhp_pasting
                                 WHERE id_lhp_pasting = \'' . $id_lhp_pasting . '\'
                                 AND type_grid != \'\'
                                 GROUP BY type_grid');
 
     return $query->getResultArray();
+  }
+
+  function get_summary_note($id_lhp_pasting)
+  {
+    $query = $this->db->query('SELECT * FROM detail_lhp_pasting_note WHERE id_lhp_pasting = \'' . $id_lhp_pasting . '\'');
+
+    return $query->getResultArray();
+  }
+
+  function add_note_pasting($id, $data) {
+    $builder = $this->db->table('detail_lhp_pasting_note');
+
+    if ($id != '') {
+      $builder->where('id_detail_lhp_pasting_note', $id);
+      $builder->update($data);
+      return $this->db->affectedRows();
+    } else {
+      $builder->insert($data);
+      return $this->db->insertID();
+    }
   }
 }
