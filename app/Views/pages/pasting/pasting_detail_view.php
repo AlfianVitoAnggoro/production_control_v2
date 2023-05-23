@@ -567,6 +567,10 @@ $shift
                                 <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="">
                             <?php }
                             }
+                            if(count($summary_detail_note) == 0) {
+                                echo ''; ?>
+                                <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="">
+                            <?php }
                             ?>
                           </td>
                           <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".modal_tambah_note_pasting" onclick="add_note('<?= $d_summary_total_aktual_per_type['type_grid'] ?>', <?= $d_summary_total_aktual_per_type['actual'] ?>, <?= $id_lhp_pasting ?>, <?= $index_summary_note ?>)">
