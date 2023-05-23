@@ -117,11 +117,11 @@ if ($current_date != 12) {
                             $grup_b_current = (($data_current_month_group !== 0 && array_key_exists('GRUP B - MASTIKIN', $data_current_month_group)) && array_key_exists('GRUP B - MASTIKIN', $data_current_month_group)) ? number_format(json_encode($data_current_month_group['GRUP B - MASTIKIN']['persentase']), 2) : 0;
                             $grup_c_current = (($data_current_month_group !== 0 && array_key_exists('GRUP C - AGUS SULISTIYO', $data_current_month_group)) && array_key_exists('GRUP C - AGUS SULISTIYO', $data_current_month_group)) ? number_format(json_encode($data_current_month_group['GRUP C - AGUS SULISTIYO']['persentase']), 2) : 0;
                           ?>
-                          <tr>
+                          <tr style="line-height:60px">
                             <td>GRUP A - NGADINO</td>
                             <td><?= $grup_a_previous ?></td>
                             <td><?= $grup_a_current ?></td>
-                            <td>
+                            <td style="text-align:center">
                               <?php if($grup_a_current > $grup_a_previous) {
                                   echo '<i class="fa fa-arrow-up" style="color:green"></i>';
                               } else if($grup_a_current < $grup_a_previous) {
@@ -131,11 +131,11 @@ if ($current_date != 12) {
                               } ?>
                             </td>
                           </tr>
-                          <tr>
+                          <tr style="line-height:60px">
                             <td>GRUP B - MASTIKIN</td>
                             <td><?= $grup_b_previous ?></td>
                             <td><?= $grup_b_current ?></td>
-                            <td>
+                            <td style="text-align:center">
                               <?php if($grup_b_current > $grup_b_previous) {
                                   echo '<i class="fa fa-arrow-up" style="color:green"></i>';
                               } else if($grup_b_current < $grup_b_previous) {
@@ -145,11 +145,11 @@ if ($current_date != 12) {
                               } ?>
                             </td>
                           </tr>
-                          <tr>
+                          <tr style="line-height:60px">
                             <td>GRUP C - AGUS SULISTIYO</td>
                             <td><?= $grup_c_previous ?></td>
                             <td><?= $grup_c_current ?></td>
-                            <td>
+                            <td style="text-align:center">
                               <?php if($grup_c_current > $grup_c_previous) {
                                   echo '<i class="fa fa-arrow-up" style="color:green"></i>';
                               } else if($grup_c_current < $grup_c_previous) {
