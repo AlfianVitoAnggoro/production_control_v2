@@ -657,6 +657,7 @@ $shift
                             <select class="form-control select2" id="jenis_line_stop_<?= $index_breakdown ?>" name="jenis_line_stop[]" style="width: 200px;">
                               <option selected disabled>-- Pilih Jenis Line Stop --</option>
                               <?php
+                              $andon_proses = true;
                               if ($data_lhp_pasting[0]['mesin_pasting'] <= 3) {
                                 $data_jenis_line_stop = $model->getListJenisLineStopCasting($d_detail_breakdown['kategori_line_stop']);
                                 $andon_proses = true;
