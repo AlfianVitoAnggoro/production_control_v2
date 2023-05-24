@@ -33,12 +33,12 @@ if ($current_date != 12) {
                 </div>
               </form>
             </div>
-            <div class="col-4" style="display:flex; margin-top:35px;">
+            <div class="col-4" style="display:flex;">
               <div class="col-6">
                 <div class="col">
                   <div id="year_to_date_chart" style="height:250px;"></div>
                 </div>
-                <div class="col">
+                <div class="col" style="margin-top:-60px;">
                   <div id="previous_month_chart" style="height:250px;"></div>
                 </div>
               </div>
@@ -46,7 +46,7 @@ if ($current_date != 12) {
                 <div class="col">
                   <div id="target_chart" style="height:250px;"></div>
                 </div>
-                <div class="col">
+                <div class="col" style="margin-top:-60px;">
                   <div id="current_month_chart" style="height:250px;"></div>
                 </div>
               </div>
@@ -146,7 +146,7 @@ if ($current_date != 12) {
                             </td>
                           </tr>
                           <tr style="line-height:60px">
-                            <td>GRUP C - AGUS SULISTIYO</td>
+                            <td>GRUP C - AGUS S</td>
                             <td><?= $grup_c_previous ?></td>
                             <td><?= $grup_c_current ?></td>
                             <td style="text-align:center">
@@ -326,7 +326,7 @@ if ($current_date != 12) {
       name: '1',
       type: 'pie',
       clockWise: false,
-      radius: ['75%', '90%'],
+      radius: ['55%', '70%'],
       itemStyle: {
         normal: {
           label: {
@@ -380,7 +380,7 @@ if ($current_date != 12) {
       name: '1',
       type: 'pie',
       clockWise: false,
-      radius: ['75%', '90%'],
+      radius: ['55%', '70%'],
       itemStyle: {
         normal: {
           label: {
@@ -434,7 +434,7 @@ if ($current_date != 12) {
       name: '1',
       type: 'pie',
       clockWise: false,
-      radius: ['75%', '90%'],
+      radius: ['55%', '70%'],
       itemStyle: {
         normal: {
           label: {
@@ -488,7 +488,7 @@ if ($current_date != 12) {
       name: '1',
       type: 'pie',
       clockWise: false,
-      radius: ['75%', '90%'],
+      radius: ['55%', '70%'],
       itemStyle: {
         normal: {
           label: {
@@ -850,7 +850,8 @@ if ($current_date != 12) {
       enabled: false
     },
     title: {
-      text: '<?= date('M', strtotime($bulan)) ?> Efficiency',
+      // text: '<?= date('M', strtotime($bulan)) ?> Efficiency',
+      text: 'Monthly Efficiency',
       style: {
         color: '#ffffff',
         fontSize: '20px'
@@ -893,6 +894,14 @@ if ($current_date != 12) {
         borderWidth: 0,
         dataLabels: {
           enabled: true,
+          formatter: function(){
+            return (this.y!=0)?this.y:"";
+          },
+          style: {
+              color: '#ffffff',
+              textOutline: 0,
+              fontSize: 14
+          },
         }
       },
     },
@@ -960,7 +969,12 @@ if ($current_date != 12) {
     },
     xAxis: [{
       categories: <?= json_encode($dates) ?>,
-      crosshair: true
+      crosshair: true,
+      labels: {
+                style: {
+                    color: '#ffffff'
+                },
+            }
     }],
     yAxis: [{
       min: 0,
@@ -969,22 +983,33 @@ if ($current_date != 12) {
         text: ''
       },
       labels: {
-        format: '{value} %'
+        format: '{value} %',
+        style: {
+                    color: '#ffffff'
+                }
       }
     }, {
       title: {
         text: ''
       },
     }],
-    // plotOptions: {
-    //   line: {
-    //     pointPadding: 0.2,
-    //     borderWidth: 0,
-    //     dataLabels: {
-    //       enabled: true,
-    //     }
-    //   },
-    // },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true,
+          formatter: function(){
+            return (this.y!=0)?this.y:"";
+          },
+          style: {
+              color: '#ffffff',
+              textOutline: 0,
+              fontSize: 14
+          },
+        }
+      },
+    },
     legend: {
       enabled: false
     },
@@ -1053,7 +1078,7 @@ if ($current_date != 12) {
       enabled: false
     },
     title: {
-      text: '<?= date('M', strtotime($bulan)) ?> Efficiency Per Group',
+      text: 'Monthly Efficiency Per Group',
       style: {
         color: '#ffffff',
         fontSize: '20px'
@@ -1061,17 +1086,24 @@ if ($current_date != 12) {
     },
     xAxis: [{
       categories: <?= json_encode($dates) ?>,
-      crosshair: true
+      crosshair: true,
+      labels: {
+                style: {
+                    color: '#ffffff'
+                },
+            }
     }],
     yAxis: [{
-      min: 60,
-      max: 110,
-      distance: 10,
+      min: 0,
+      max: 100,
       title: {
         text: ''
       },
       labels: {
-        format: '{value} %'
+        format: '{value} %',
+        style: {
+                    color: '#ffffff'
+                },
       }
     }, {
       title: {
@@ -1177,7 +1209,10 @@ if ($current_date != 12) {
                       if (!array_key_exists($operator_name, $isExist))
                         echo '\'' . $operator_name . '\',';
                     } ?>],
-      crosshair: true
+      crosshair: true,
+      style: {
+                    color: '#ffffff'
+                },
     }],
     yAxis: [{
       min: 0,
@@ -1186,7 +1221,10 @@ if ($current_date != 12) {
         text: ''
       },
       labels: {
-        format: '{value} %'
+        format: '{value} %',
+        style: {
+                    color: '#ffffff'
+                },
       }
     }, {
       title: {
@@ -1254,7 +1292,7 @@ if ($current_date != 12) {
       enabled: false
     },
     title: {
-      text: '<?= date('M', strtotime($bulan)) ?> Efficiency Per MP',
+      text: 'Monthly Efficiency Per MP',
       style: {
         color: '#ffffff',
         fontSize: '20px'
@@ -1266,7 +1304,12 @@ if ($current_date != 12) {
                       $isExist[$operator_name] = $operator_name;
                       echo '\'' . $operator_name . '\',';
                     } ?>],
-      crosshair: true
+      crosshair: true,
+      labels: {
+                style: {
+                    color: '#ffffff'
+                },
+            }
     }],
     yAxis: [{
       min: 0,
@@ -1275,24 +1318,35 @@ if ($current_date != 12) {
         text: ''
       },
       labels: {
-        format: '{value} %'
+        format: '{value} %',
+        style: {
+                    color: '#ffffff'
+                },
       }
     }, {
       title: {
         text: ''
       },
     }],
-    // plotOptions: {
-    //   line: {
-    //     pointPadding: 0.2,
-    //     borderWidth: 0,
-    //     dataLabels: {
-    //       enabled: true,
-    //     }
-    //   },
-    // },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true,
+          style: {
+                        color: '#ffffff',
+                        textOutline: 0,
+                        fontSize: 14
+                    },
+        }
+      },
+    },
     legend: {
-      enabled: true
+      enabled: true,
+      itemStyle: {
+                color: '#ffffff'
+            }
     },
 
     series: [{
