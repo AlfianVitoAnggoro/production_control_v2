@@ -87,32 +87,32 @@
                             </form>
                         </div>
                         <div class="col-6" style="display:flex; margin-top:35px;">
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div id="year_to_date_chart" style="height:250px;"></div>
-                                <div style="text-align: center;margin-top: 60px;">
+                                <!-- <div style="text-align: center;margin-top: 60px;">
                                     <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-outline btn-rounded btn-primary btn-lg btn-nav">Efficiency</a>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- <div class="col-4">
                                 <div id="target_chart" style="height:250px;"></div>
                             </div> -->
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div id="previous_month_chart" style="height:250px;"></div>
-                                <div style="text-align: center;margin-top: 60px;">
+                                <!-- <div style="text-align: center;margin-top: 60px;">
                                     <button class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</button>
-                                </div>
+                                </div> -->
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div id="current_month_chart" style="height:250px;"></div>
-                                <div style="text-align: center;margin-top: 60px;">
-                                <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
-                                </div>
+                                <!-- <div style="text-align: center;margin-top: 60px;">
+                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
+                                </div> -->
                             </div>
-                            <!-- <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
-                                <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-outline btn-rounded btn-primary btn-nav">Efficiency</a>
-                                <button class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-nav">Line Stop</button>
-                                <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-nav">Overtime</button>
-                            </div> -->
+                            <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
+                                <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-outline btn-rounded btn-primary btn-lg btn-nav">Efficiency</a>
+                                <button class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</button>
+                                <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
+                            </div>
                         </div>
                         <div class="col-4">
                             <div class="box bg-transparent">
@@ -550,6 +550,7 @@
             backgroundColor: 'transparent',
             type: 'column',
             // backgroundColor: '#0c1a32',
+            height: 300
             
         },
         exporting: {
@@ -573,6 +574,7 @@
         },
         yAxis: {
             min: 0,
+            max: 100,
             title: {
                 text: '%'
             }
@@ -669,6 +671,8 @@
             },
 
             yAxis: {
+                min: 0,
+                max: 100,
                 title: {
                     text: '%'
                 },
@@ -1781,6 +1785,7 @@
             },
             yAxis: {
                 min: 0,
+                max: 100,
                 title: {
                     text: '%'
                 }
