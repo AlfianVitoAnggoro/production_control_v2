@@ -110,7 +110,7 @@
                             </div>
                             <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
                                 <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-outline btn-rounded btn-primary btn-lg btn-nav">Efficiency</a>
-                                <button class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</button>
+                                <button type="button" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</button>
                                 <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
                             </div>
                         </div>
@@ -223,6 +223,45 @@
 	  </div>
   </div>
   <!-- /.content-wrapper -->
+
+<!-- MODAL REJECTION -->
+<div id="modal_rejection" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Rejection</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="<?=base_url()?>dashboard/reject" class="btn btn-rounded btn-danger btn-nav">Battery Rejection</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="<?=base_url()?>dashboard/rejectCutting" target="_blank" class="btn btn-rounded btn-danger btn-nav">Plate Cutting Rejection</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <!-- MODAL -->
 <div class="modal fade" id="main_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
@@ -358,14 +397,14 @@
                     },
                     data: [
                         {
-                            value: <?=json_encode($data_all_year)?> * 100,
+                            value: parseFloat(<?=json_encode($data_all_year)?>),
                             name: 'Monday',
                             itemStyle: {
                                 color: 'blue'
                             }
                         },
                         {
-                            value: 100 - (<?=json_encode($data_all_year)?> * 100),
+                            value: 100 - parseFloat(<?=json_encode($data_all_year)?>),
                             name: 'invisible',
                             itemStyle: {
                                 color: 'grey'
@@ -470,14 +509,14 @@
                     },
                     data: [
                         {
-                            value: <?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?> * 100,
+                            value: <?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>,
                             name: 'Monday',
                             itemStyle: {
                                 color: 'red'
                             }
                         },
                         {
-                            value: 100 - (<?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?> * 100),
+                            value: 100 - parseFloat(<?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>),
                             name: 'invisible',
                             itemStyle: {
                                 color: 'grey'
@@ -526,14 +565,14 @@
                     },
                     data: [
                         {
-                            value: <?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?> * 100,
+                            value: <?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>,
                             name: 'Monday',
                             itemStyle: {
                                 color: 'orange'
                             }
                         },
                         {
-                            value: 100 - (<?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?> * 100),
+                            value: 100 - parseFloat(<?=json_encode($data_line_stop_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>),
                             name: 'invisible',
                             itemStyle: {
                                 color: 'grey'
