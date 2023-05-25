@@ -23,7 +23,7 @@ if (date('Y-m-d H:i:s', strtotime($data_lhp[0]['tanggal_produksi'].' '.$jam_sele
 	$disabled = "";
 }
 
-if (session()->get('departemen') == 'quality') {
+if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' || session()->get('departemen') == 'produksi2')) {
 	$readonly = "";
 	$disabled = "";
 }
