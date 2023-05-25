@@ -1072,64 +1072,62 @@
                                         arr_kategori_line_stop.push(data_kategori_line_stop[i].kategori_line_stop);
                                         arr_qty_kategori_line_stop.push(parseFloat(((data_kategori_line_stop[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                     }
-                                    $('#detail_pareto_kategori_line_stop').html(`<figure class="highcharts-figure">
-                                                                                    <div id="chart_pareto_kategori_line_stop"></div>
-                                                                                </figure>
+                                    $('#detail_pareto_kategori_line_stop').html(`
                                                                             `);
-                                    Highcharts.chart('chart_pareto_kategori_line_stop', {
-                                        chart: {
-                                                backgroundColor: 'transparent',
-                                                type: 'column'
-                                            },
-                                            exporting: {
-                                                enabled: false
-                                            },
-                                            title: {
-                                                text: `Detail Ketegori Line Stop (${date})`,
-                                                style: {
-                                                    color: '#ffffff',
-                                                    fontSize: '20px'
-                                                }
-                                            },
-                                            xAxis: {
-                                                categories: arr_kategori_line_stop,
-                                                crosshair: true,
-                                                labels: {
-                                                    style: {
-                                                        color: '#ffffff'
-                                                    }
-                                                }
-                                            },
-                                            yAxis: {
-                                                min: 0,
-                                                title: {
-                                                    text: '%'
-                                                }
-                                            },
-                                            plotOptions: {
-                                                column: {
-                                                    pointPadding: 0.2,
-                                                    borderWidth: 0,
-                                                    dataLabels: {
-                                                        enabled: true,
-                                                        style: {
-                                                            color: '#ffffff',
-                                                            textOutline: 0,
-                                                            fontSize: 14
-                                                        },
-                                                    },
-                                                }
-                                            },
-                                            legend: {
-                                                enabled: false
-                                            },
-                                            series: [{
-                                                name: 'Total',
-                                                data: arr_qty_kategori_line_stop,
-                                                color:'yellow',
+                                    // Highcharts.chart('chart_pareto_kategori_line_stop', {
+                                    //     chart: {
+                                    //             backgroundColor: 'transparent',
+                                    //             type: 'column'
+                                    //         },
+                                    //         exporting: {
+                                    //             enabled: false
+                                    //         },
+                                    //         title: {
+                                    //             text: `Detail Ketegori Line Stop (${date})`,
+                                    //             style: {
+                                    //                 color: '#ffffff',
+                                    //                 fontSize: '20px'
+                                    //             }
+                                    //         },
+                                    //         xAxis: {
+                                    //             categories: arr_kategori_line_stop,
+                                    //             crosshair: true,
+                                    //             labels: {
+                                    //                 style: {
+                                    //                     color: '#ffffff'
+                                    //                 }
+                                    //             }
+                                    //         },
+                                    //         yAxis: {
+                                    //             min: 0,
+                                    //             title: {
+                                    //                 text: '%'
+                                    //             }
+                                    //         },
+                                    //         plotOptions: {
+                                    //             column: {
+                                    //                 pointPadding: 0.2,
+                                    //                 borderWidth: 0,
+                                    //                 dataLabels: {
+                                    //                     enabled: true,
+                                    //                     style: {
+                                    //                         color: '#ffffff',
+                                    //                         textOutline: 0,
+                                    //                         fontSize: 14
+                                    //                     },
+                                    //                 },
+                                    //             }
+                                    //         },
+                                    //         legend: {
+                                    //             enabled: false
+                                    //         },
+                                    //         series: [{
+                                    //             name: 'Total',
+                                    //             data: arr_qty_kategori_line_stop,
+                                    //             color:'yellow',
 
-                                            }]
-                                    });
+                                    //         }]
+                                    // });
 
                                     var data_battery_line_stop = data['data_all_detail_battery_line_stop_by_date'];
                                     var i;
@@ -1140,294 +1138,292 @@
                                         arr_qty_battery_line_stop.push(parseFloat(((data_battery_line_stop[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                         
                                     }
-                                    $('#detail_pareto_type_battery').html(`<figure class="highcharts-figure">
-                                                                                    <div id="chart_pareto_battery_line_stop"></div>
-                                                                                </figure>
+                                    $('#detail_pareto_type_battery').html(`
                                                                             `);
-                                    Highcharts.chart('chart_pareto_battery_line_stop', {
-                                        chart: {
-                                                backgroundColor: 'transparent',
-                                                type: 'column'
-                                            },
-                                            exporting: {
-                                                enabled: false
-                                            },
-                                            title: {
-                                                text: `Detail Type Battery Line Stop (${date})`,
-                                                style: {
-                                                    color: '#ffffff',
-                                                    fontSize: '20px'
-                                                }
-                                            },
-                                            xAxis: {
-                                                categories: arr_battery_line_stop,
-                                                crosshair: true,
-                                                labels: {
-                                                    style: {
-                                                        color: '#ffffff'
-                                                    }
-                                                }
-                                            },
-                                            yAxis: {
-                                                min: 0,
-                                                title: {
-                                                    text: '%'
-                                                }
-                                            },
-                                            plotOptions: {
-                                                column: {
-                                                    pointPadding: 0.2,
-                                                    borderWidth: 0,
-                                                    dataLabels: {
-                                                        enabled: true,
-                                                        style: {
-                                                            color: '#ffffff',
-                                                            textOutline: 0,
-                                                            fontSize: 14
-                                                        },
-                                                    },
-                                                    events : {
-                                                        click: function(event) {
-                                                            var type_battery = event.point.category;
+                                    // Highcharts.chart('chart_pareto_battery_line_stop', {
+                                    //     chart: {
+                                    //             backgroundColor: 'transparent',
+                                    //             type: 'column'
+                                    //         },
+                                    //         exporting: {
+                                    //             enabled: false
+                                    //         },
+                                    //         title: {
+                                    //             text: `Detail Type Battery Line Stop (${date})`,
+                                    //             style: {
+                                    //                 color: '#ffffff',
+                                    //                 fontSize: '20px'
+                                    //             }
+                                    //         },
+                                    //         xAxis: {
+                                    //             categories: arr_battery_line_stop,
+                                    //             crosshair: true,
+                                    //             labels: {
+                                    //                 style: {
+                                    //                     color: '#ffffff'
+                                    //                 }
+                                    //             }
+                                    //         },
+                                    //         yAxis: {
+                                    //             min: 0,
+                                    //             title: {
+                                    //                 text: '%'
+                                    //             }
+                                    //         },
+                                    //         plotOptions: {
+                                    //             column: {
+                                    //                 pointPadding: 0.2,
+                                    //                 borderWidth: 0,
+                                    //                 dataLabels: {
+                                    //                     enabled: true,
+                                    //                     style: {
+                                    //                         color: '#ffffff',
+                                    //                         textOutline: 0,
+                                    //                         fontSize: 14
+                                    //                     },
+                                    //                 },
+                                    //                 events : {
+                                    //                     click: function(event) {
+                                    //                         var type_battery = event.point.category;
 
-                                                            $.ajax({
-                                                                url: "<?= base_url('dashboard/line_stop/get_detail_line_stop'); ?>",
-                                                                type: "POST",
-                                                                data: {
-                                                                    date: date,
-                                                                    line: line,
-                                                                    type_battery: type_battery
-                                                                },
-                                                                dataType: "json",
-                                                                success: function(data) {
-                                                                    console.log(data);
-                                                                    var data_jenis_line_stop_by_type_battery = data['data_jenis_line_stop_by_type_battery'];
-                                                                    var i;
-                                                                    var arr_jenis_line_stop_battery = [];
-                                                                    var arr_qty_jenis_line_stop_battery = [];
-                                                                    for (i = 0; i < data_jenis_line_stop_by_type_battery.length; i++) {
-                                                                        arr_jenis_line_stop_battery.push(data_jenis_line_stop_by_type_battery[i].jenis_line_stop);
-                                                                        arr_qty_jenis_line_stop_battery.push(parseFloat(((data_jenis_line_stop_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
-                                                                    }
+                                    //                         $.ajax({
+                                    //                             url: "<?= base_url('dashboard/line_stop/get_detail_line_stop'); ?>",
+                                    //                             type: "POST",
+                                    //                             data: {
+                                    //                                 date: date,
+                                    //                                 line: line,
+                                    //                                 type_battery: type_battery
+                                    //                             },
+                                    //                             dataType: "json",
+                                    //                             success: function(data) {
+                                    //                                 console.log(data);
+                                    //                                 var data_jenis_line_stop_by_type_battery = data['data_jenis_line_stop_by_type_battery'];
+                                    //                                 var i;
+                                    //                                 var arr_jenis_line_stop_battery = [];
+                                    //                                 var arr_qty_jenis_line_stop_battery = [];
+                                    //                                 for (i = 0; i < data_jenis_line_stop_by_type_battery.length; i++) {
+                                    //                                     arr_jenis_line_stop_battery.push(data_jenis_line_stop_by_type_battery[i].jenis_line_stop);
+                                    //                                     arr_qty_jenis_line_stop_battery.push(parseFloat(((data_jenis_line_stop_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                    //                                 }
 
-                                                                    $('#sub_detail_pareto_jenis_line_stop').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_jenis_line_stop"></div>
-                                                                                                                </figure>`
-                                                                                                            );
-                                                                    Highcharts.chart('chart_detail_pareto_jenis_line_stop', {
-                                                                        chart: {
-                                                                                backgroundColor: 'transparent',
-                                                                                type: 'column'
-                                                                            },
-                                                                            exporting: {
-                                                                                enabled: false
-                                                                            },
-                                                                            title: {
-                                                                                text: 'Detail Line Stop',
-                                                                                style: {
-                                                                                    color: '#ffffff',
-                                                                                    fontSize: '20px'
-                                                                                }
-                                                                            },
-                                                                            xAxis: {
-                                                                                categories: arr_jenis_line_stop_battery,
-                                                                                crosshair: true,
-                                                                                labels: {
-                                                                                    style: {
-                                                                                        color: '#ffffff'
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            yAxis: {
-                                                                                min: 0,
-                                                                                title: {
-                                                                                    text: '%'
-                                                                                }
-                                                                            },
-                                                                            plotOptions: {
-                                                                                column: {
-                                                                                    pointPadding: 0.2,
-                                                                                    borderWidth: 0,
-                                                                                    dataLabels: {
-                                                                                        enabled: true,
-                                                                                        style: {
-                                                                                            color: '#ffffff',
-                                                                                            textOutline: 0,
-                                                                                            fontSize: 14
-                                                                                        },
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            legend: {
-                                                                                enabled: false
-                                                                            },
-                                                                            series: [{
-                                                                                name: 'Total',
-                                                                                data: arr_qty_jenis_line_stop_battery,
-                                                                                color:'yellow',
+                                    //                                 $('#sub_detail_pareto_jenis_line_stop').html(`  <figure class="highcharts-figure">
+                                    //                                                                                 <div id="chart_detail_pareto_jenis_line_stop"></div>
+                                    //                                                                             </figure>`
+                                    //                                                                         );
+                                    //                                 Highcharts.chart('chart_detail_pareto_jenis_line_stop', {
+                                    //                                     chart: {
+                                    //                                             backgroundColor: 'transparent',
+                                    //                                             type: 'column'
+                                    //                                         },
+                                    //                                         exporting: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         title: {
+                                    //                                             text: 'Detail Line Stop',
+                                    //                                             style: {
+                                    //                                                 color: '#ffffff',
+                                    //                                                 fontSize: '20px'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         xAxis: {
+                                    //                                             categories: arr_jenis_line_stop_battery,
+                                    //                                             crosshair: true,
+                                    //                                             labels: {
+                                    //                                                 style: {
+                                    //                                                     color: '#ffffff'
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         yAxis: {
+                                    //                                             min: 0,
+                                    //                                             title: {
+                                    //                                                 text: '%'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         plotOptions: {
+                                    //                                             column: {
+                                    //                                                 pointPadding: 0.2,
+                                    //                                                 borderWidth: 0,
+                                    //                                                 dataLabels: {
+                                    //                                                     enabled: true,
+                                    //                                                     style: {
+                                    //                                                         color: '#ffffff',
+                                    //                                                         textOutline: 0,
+                                    //                                                         fontSize: 14
+                                    //                                                     },
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         legend: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         series: [{
+                                    //                                             name: 'Total',
+                                    //                                             data: arr_qty_jenis_line_stop_battery,
+                                    //                                             color:'yellow',
 
-                                                                            }]
-                                                                    });
+                                    //                                         }]
+                                    //                                 });
 
-                                                                    var data_kategori_line_stop_by_type_battery = data['data_kategori_line_stop_by_type_battery'];
-                                                                    var i;
-                                                                    var arr_kategori_line_stop_battery = [];
-                                                                    var arr_qty_kategori_line_stop_battery = [];
-                                                                    for (i = 0; i < data_kategori_line_stop_by_type_battery.length; i++) {
-                                                                        arr_kategori_line_stop_battery.push(data_kategori_line_stop_by_type_battery[i].kategori_line_stop);
-                                                                        arr_qty_kategori_line_stop_battery.push(parseFloat(((data_kategori_line_stop_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
-                                                                    }
+                                    //                                 var data_kategori_line_stop_by_type_battery = data['data_kategori_line_stop_by_type_battery'];
+                                    //                                 var i;
+                                    //                                 var arr_kategori_line_stop_battery = [];
+                                    //                                 var arr_qty_kategori_line_stop_battery = [];
+                                    //                                 for (i = 0; i < data_kategori_line_stop_by_type_battery.length; i++) {
+                                    //                                     arr_kategori_line_stop_battery.push(data_kategori_line_stop_by_type_battery[i].kategori_line_stop);
+                                    //                                     arr_qty_kategori_line_stop_battery.push(parseFloat(((data_kategori_line_stop_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                    //                                 }
 
-                                                                    $('#sub_detail_pareto_kategori_line_stop').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_kategori_line_stop"></div>
-                                                                                                                </figure>`
-                                                                                                            );
-                                                                    Highcharts.chart('chart_detail_pareto_kategori_line_stop', {
-                                                                        chart: {
-                                                                                backgroundColor: 'transparent',
-                                                                                type: 'column'
-                                                                            },
-                                                                            exporting: {
-                                                                                enabled: false
-                                                                            },
-                                                                            title: {
-                                                                                text: 'Detail Kategori Line Stop',
-                                                                                style: {
-                                                                                    color: '#ffffff',
-                                                                                    fontSize: '20px'
-                                                                                }
-                                                                            },
-                                                                            xAxis: {
-                                                                                categories: arr_kategori_line_stop_battery,
-                                                                                crosshair: true,
-                                                                                labels: {
-                                                                                    style: {
-                                                                                        color: '#ffffff'
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            yAxis: {
-                                                                                min: 0,
-                                                                                title: {
-                                                                                    text: '%'
-                                                                                }
-                                                                            },
-                                                                            plotOptions: {
-                                                                                column: {
-                                                                                    pointPadding: 0.2,
-                                                                                    borderWidth: 0,
-                                                                                    dataLabels: {
-                                                                                        enabled: true,
-                                                                                        style: {
-                                                                                            color: '#ffffff',
-                                                                                            textOutline: 0,
-                                                                                            fontSize: 14
-                                                                                        },
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            legend: {
-                                                                                enabled: false
-                                                                            },
-                                                                            series: [{
-                                                                                name: 'Total',
-                                                                                data: arr_qty_kategori_line_stop_battery,
-                                                                                color:'yellow',
+                                    //                                 $('#sub_detail_pareto_kategori_line_stop').html(`  <figure class="highcharts-figure">
+                                    //                                                                                 <div id="chart_detail_pareto_kategori_line_stop"></div>
+                                    //                                                                             </figure>`
+                                    //                                                                         );
+                                    //                                 Highcharts.chart('chart_detail_pareto_kategori_line_stop', {
+                                    //                                     chart: {
+                                    //                                             backgroundColor: 'transparent',
+                                    //                                             type: 'column'
+                                    //                                         },
+                                    //                                         exporting: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         title: {
+                                    //                                             text: 'Detail Kategori Line Stop',
+                                    //                                             style: {
+                                    //                                                 color: '#ffffff',
+                                    //                                                 fontSize: '20px'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         xAxis: {
+                                    //                                             categories: arr_kategori_line_stop_battery,
+                                    //                                             crosshair: true,
+                                    //                                             labels: {
+                                    //                                                 style: {
+                                    //                                                     color: '#ffffff'
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         yAxis: {
+                                    //                                             min: 0,
+                                    //                                             title: {
+                                    //                                                 text: '%'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         plotOptions: {
+                                    //                                             column: {
+                                    //                                                 pointPadding: 0.2,
+                                    //                                                 borderWidth: 0,
+                                    //                                                 dataLabels: {
+                                    //                                                     enabled: true,
+                                    //                                                     style: {
+                                    //                                                         color: '#ffffff',
+                                    //                                                         textOutline: 0,
+                                    //                                                         fontSize: 14
+                                    //                                                     },
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         legend: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         series: [{
+                                    //                                             name: 'Total',
+                                    //                                             data: arr_qty_kategori_line_stop_battery,
+                                    //                                             color:'yellow',
 
-                                                                            }]
-                                                                    });
-
-                                                                    
-
-                                                                    $('#sub_detail_pareto_type_battery').html(``);
-
-                                                                    var data_grup_line_stop_by_type_battery = data['data_grup_line_stop_by_type_battery'];
-                                                                    var i;
-                                                                    var arr_grup_line_stop_battery = [];
-                                                                    var arr_qty_grup_line_stop_battery = [];
-                                                                    for (i = 0; i < data_grup_line_stop_by_type_battery.length; i++) {
-                                                                        arr_grup_line_stop_battery.push(data_grup_line_stop_by_type_battery[i].nama_pic+' ('+data_grup_line_stop_by_type_battery[i].shift+')');
-                                                                        arr_qty_grup_line_stop_battery.push(parseFloat(((data_grup_line_stop_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
-                                                                    }
-
-                                                                    $('#sub_detail_pareto_grup_shift').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_grup_line_stop"></div>
-                                                                                                                </figure>`
-                                                                                                            );
-                                                                    Highcharts.chart('chart_detail_pareto_grup_line_stop', {
-                                                                        chart: {
-                                                                                backgroundColor: 'transparent',
-                                                                                type: 'column'
-                                                                            },
-                                                                            exporting: {
-                                                                                enabled: false
-                                                                            },
-                                                                            title: {
-                                                                                text: 'Detail Grup Shift Line Stop',
-                                                                                style: {
-                                                                                    color: '#ffffff',
-                                                                                    fontSize: '20px'
-                                                                                }
-                                                                            },
-                                                                            xAxis: {
-                                                                                categories: arr_grup_line_stop_battery,
-                                                                                crosshair: true,
-                                                                                labels: {
-                                                                                    style: {
-                                                                                        color: '#ffffff'
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            yAxis: {
-                                                                                min: 0,
-                                                                                title: {
-                                                                                    text: '%'
-                                                                                }
-                                                                            },
-                                                                            plotOptions: {
-                                                                                column: {
-                                                                                    pointPadding: 0.2,
-                                                                                    borderWidth: 0,
-                                                                                    dataLabels: {
-                                                                                        enabled: true,
-                                                                                        style: {
-                                                                                            color: '#ffffff',
-                                                                                            textOutline: 0,
-                                                                                            fontSize: 14
-                                                                                        },
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            legend: {
-                                                                                enabled: false
-                                                                            },
-                                                                            series: [{
-                                                                                name: 'Total',
-                                                                                data: arr_qty_grup_line_stop_battery,
-                                                                                color:'yellow',
-
-                                                                            }]
-                                                                    });
+                                    //                                         }]
+                                    //                                 });
 
                                                                     
-                                                                    $('#sub_modal').modal('show');
-                                                                }
-                                                            })
-                                                        }
-                                                    }
 
-                                                }
-                                            },
-                                            legend: {
-                                                enabled: false
-                                            },
-                                            series: [{
-                                                name: 'Total',
-                                                data: arr_qty_battery_line_stop,
-                                                color:'yellow',
+                                    //                                 $('#sub_detail_pareto_type_battery').html(``);
 
-                                            }]
-                                    });
+                                    //                                 var data_grup_line_stop_by_type_battery = data['data_grup_line_stop_by_type_battery'];
+                                    //                                 var i;
+                                    //                                 var arr_grup_line_stop_battery = [];
+                                    //                                 var arr_qty_grup_line_stop_battery = [];
+                                    //                                 for (i = 0; i < data_grup_line_stop_by_type_battery.length; i++) {
+                                    //                                     arr_grup_line_stop_battery.push(data_grup_line_stop_by_type_battery[i].nama_pic+' ('+data_grup_line_stop_by_type_battery[i].shift+')');
+                                    //                                     arr_qty_grup_line_stop_battery.push(parseFloat(((data_grup_line_stop_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                    //                                 }
+
+                                    //                                 $('#sub_detail_pareto_grup_shift').html(`  <figure class="highcharts-figure">
+                                    //                                                                                 <div id="chart_detail_pareto_grup_line_stop"></div>
+                                    //                                                                             </figure>`
+                                    //                                                                         );
+                                    //                                 Highcharts.chart('chart_detail_pareto_grup_line_stop', {
+                                    //                                     chart: {
+                                    //                                             backgroundColor: 'transparent',
+                                    //                                             type: 'column'
+                                    //                                         },
+                                    //                                         exporting: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         title: {
+                                    //                                             text: 'Detail Grup Shift Line Stop',
+                                    //                                             style: {
+                                    //                                                 color: '#ffffff',
+                                    //                                                 fontSize: '20px'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         xAxis: {
+                                    //                                             categories: arr_grup_line_stop_battery,
+                                    //                                             crosshair: true,
+                                    //                                             labels: {
+                                    //                                                 style: {
+                                    //                                                     color: '#ffffff'
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         yAxis: {
+                                    //                                             min: 0,
+                                    //                                             title: {
+                                    //                                                 text: '%'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         plotOptions: {
+                                    //                                             column: {
+                                    //                                                 pointPadding: 0.2,
+                                    //                                                 borderWidth: 0,
+                                    //                                                 dataLabels: {
+                                    //                                                     enabled: true,
+                                    //                                                     style: {
+                                    //                                                         color: '#ffffff',
+                                    //                                                         textOutline: 0,
+                                    //                                                         fontSize: 14
+                                    //                                                     },
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         legend: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         series: [{
+                                    //                                             name: 'Total',
+                                    //                                             data: arr_qty_grup_line_stop_battery,
+                                    //                                             color:'yellow',
+
+                                    //                                         }]
+                                    //                                 });
+
+                                                                    
+                                    //                                 $('#sub_modal').modal('show');
+                                    //                             }
+                                    //                         })
+                                    //                     }
+                                    //                 }
+
+                                    //             }
+                                    //         },
+                                    //         legend: {
+                                    //             enabled: false
+                                    //         },
+                                    //         series: [{
+                                    //             name: 'Total',
+                                    //             data: arr_qty_battery_line_stop,
+                                    //             color:'yellow',
+
+                                    //         }]
+                                    // });
 
                                     var data_grup_line_stop = data['data_all_detail_grup_line_stop_by_date'];
                                     var i;
@@ -1438,318 +1434,316 @@
                                         arr_qty_grup_line_stop.push(parseFloat(((data_grup_line_stop[i].total_line_stop / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                         
                                     }
-                                    $('#detail_pareto_grup_shift').html(`<figure class="highcharts-figure">
-                                                                                    <div id="chart_pareto_grup_line_stop"></div>
-                                                                                </figure>
+                                    $('#detail_pareto_grup_shift').html(`
                                                                             `);
-                                    Highcharts.chart('chart_pareto_grup_line_stop', {
-                                        chart: {
-                                                backgroundColor: 'transparent',
-                                                type: 'column'
-                                            },
-                                            exporting: {
-                                                enabled: false
-                                            },
-                                            title: {
-                                                text: `Detail Grup Line Stop (${date})`,
-                                                style: {
-                                                    color: '#ffffff',
-                                                    fontSize: '20px'
-                                                }
-                                            },
-                                            xAxis: {
-                                                categories: arr_grup_line_stop,
-                                                crosshair: true,
-                                                labels: {
-                                                    style: {
-                                                        color: '#ffffff'
-                                                    }
-                                                }
-                                            },
-                                            yAxis: {
-                                                min: 0,
-                                                title: {
-                                                    text: '%'
-                                                }
-                                            },
-                                            plotOptions: {
-                                                column: {
-                                                    pointPadding: 0.2,
-                                                    borderWidth: 0,
-                                                    dataLabels: {
-                                                        enabled: true,
-                                                        style: {
-                                                            color: '#ffffff',
-                                                            textOutline: 0,
-                                                            fontSize: 14
-                                                        },
-                                                    },
-                                                    events : {
-                                                        click: function(event) {
-                                                            var group = event.point.category;
-                                                            var regex = /^(.*?)\s*\((\d+)\)$/;
-                                                            var matches = group.match(regex);
+                                    // Highcharts.chart('chart_pareto_grup_line_stop', {
+                                    //     chart: {
+                                    //             backgroundColor: 'transparent',
+                                    //             type: 'column'
+                                    //         },
+                                    //         exporting: {
+                                    //             enabled: false
+                                    //         },
+                                    //         title: {
+                                    //             text: `Detail Grup Line Stop (${date})`,
+                                    //             style: {
+                                    //                 color: '#ffffff',
+                                    //                 fontSize: '20px'
+                                    //             }
+                                    //         },
+                                    //         xAxis: {
+                                    //             categories: arr_grup_line_stop,
+                                    //             crosshair: true,
+                                    //             labels: {
+                                    //                 style: {
+                                    //                     color: '#ffffff'
+                                    //                 }
+                                    //             }
+                                    //         },
+                                    //         yAxis: {
+                                    //             min: 0,
+                                    //             title: {
+                                    //                 text: '%'
+                                    //             }
+                                    //         },
+                                    //         plotOptions: {
+                                    //             column: {
+                                    //                 pointPadding: 0.2,
+                                    //                 borderWidth: 0,
+                                    //                 dataLabels: {
+                                    //                     enabled: true,
+                                    //                     style: {
+                                    //                         color: '#ffffff',
+                                    //                         textOutline: 0,
+                                    //                         fontSize: 14
+                                    //                     },
+                                    //                 },
+                                    //                 events : {
+                                    //                     click: function(event) {
+                                    //                         var group = event.point.category;
+                                    //                         var regex = /^(.*?)\s*\((\d+)\)$/;
+                                    //                         var matches = group.match(regex);
 
-                                                            if (matches) {
-                                                                var name = matches[1].trim();
-                                                                var shift = matches[2];
-                                                            } else {
-                                                                console.log('Invalid format');
-                                                            }
+                                    //                         if (matches) {
+                                    //                             var name = matches[1].trim();
+                                    //                             var shift = matches[2];
+                                    //                         } else {
+                                    //                             console.log('Invalid format');
+                                    //                         }
 
-                                                            $.ajax({
-                                                                url: "<?= base_url('dashboard/line_stop/get_detail_line_stop'); ?>",
-                                                                type: "POST",
-                                                                data: {
-                                                                    date: date,
-                                                                    line: line,
-                                                                    grup: name,
-                                                                    shift: shift
-                                                                },
-                                                                dataType: "json",
-                                                                success: function(data) {
-                                                                    console.log(data);
-                                                                    var data_detail_line_stop_by_grup = data['data_jenis_line_stop_by_grup_shift'];
-                                                                    var i;
-                                                                    var arr_jenis_line_stop = [];
-                                                                    var arr_qty_jenis_line_stop = [];
-                                                                    for (i = 0; i < data_detail_line_stop_by_grup.length; i++) {
-                                                                        arr_jenis_line_stop.push(data_detail_line_stop_by_grup[i].jenis_line_stop);
-                                                                        arr_qty_jenis_line_stop.push(parseFloat(((data_detail_line_stop_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                    //                         $.ajax({
+                                    //                             url: "<?= base_url('dashboard/line_stop/get_detail_line_stop'); ?>",
+                                    //                             type: "POST",
+                                    //                             data: {
+                                    //                                 date: date,
+                                    //                                 line: line,
+                                    //                                 grup: name,
+                                    //                                 shift: shift
+                                    //                             },
+                                    //                             dataType: "json",
+                                    //                             success: function(data) {
+                                    //                                 console.log(data);
+                                    //                                 var data_detail_line_stop_by_grup = data['data_jenis_line_stop_by_grup_shift'];
+                                    //                                 var i;
+                                    //                                 var arr_jenis_line_stop = [];
+                                    //                                 var arr_qty_jenis_line_stop = [];
+                                    //                                 for (i = 0; i < data_detail_line_stop_by_grup.length; i++) {
+                                    //                                     arr_jenis_line_stop.push(data_detail_line_stop_by_grup[i].jenis_line_stop);
+                                    //                                     arr_qty_jenis_line_stop.push(parseFloat(((data_detail_line_stop_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                         
-                                                                    }
+                                    //                                 }
 
-                                                                    $('#sub_detail_pareto_jenis_line_stop').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_jenis_line_stop"></div>
-                                                                                                                </figure>`
-                                                                                                            );
-                                                                    Highcharts.chart('chart_detail_pareto_jenis_line_stop', {
-                                                                        chart: {
-                                                                                backgroundColor: 'transparent',
-                                                                                type: 'column'
-                                                                            },
-                                                                            exporting: {
-                                                                                enabled: false
-                                                                            },
-                                                                            title: {
-                                                                                text: 'Detail Line Stop',
-                                                                                style: {
-                                                                                    color: '#ffffff',
-                                                                                    fontSize: '20px'
-                                                                                }
-                                                                            },
-                                                                            xAxis: {
-                                                                                categories: arr_jenis_line_stop,
-                                                                                crosshair: true,
-                                                                                labels: {
-                                                                                    style: {
-                                                                                        color: '#ffffff'
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            yAxis: {
-                                                                                min: 0,
-                                                                                title: {
-                                                                                    text: '%'
-                                                                                }
-                                                                            },
-                                                                            plotOptions: {
-                                                                                column: {
-                                                                                    pointPadding: 0.2,
-                                                                                    borderWidth: 0,
-                                                                                    dataLabels: {
-                                                                                        enabled: true,
-                                                                                        style: {
-                                                                                            color: '#ffffff',
-                                                                                            textOutline: 0,
-                                                                                            fontSize: 14
-                                                                                        },
-                                                                                    },
-                                                                                    events: {
-                                                                                        click: function(event) {
-                                                                                            $('#sub_modal').modal('show');
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            legend: {
-                                                                                enabled: false
-                                                                            },
-                                                                            series: [{
-                                                                                name: 'Total',
-                                                                                data: arr_qty_jenis_line_stop,
-                                                                                color:'yellow',
+                                    //                                 $('#sub_detail_pareto_jenis_line_stop').html(`  <figure class="highcharts-figure">
+                                    //                                                                                 <div id="chart_detail_pareto_jenis_line_stop"></div>
+                                    //                                                                             </figure>`
+                                    //                                                                         );
+                                    //                                 Highcharts.chart('chart_detail_pareto_jenis_line_stop', {
+                                    //                                     chart: {
+                                    //                                             backgroundColor: 'transparent',
+                                    //                                             type: 'column'
+                                    //                                         },
+                                    //                                         exporting: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         title: {
+                                    //                                             text: 'Detail Line Stop',
+                                    //                                             style: {
+                                    //                                                 color: '#ffffff',
+                                    //                                                 fontSize: '20px'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         xAxis: {
+                                    //                                             categories: arr_jenis_line_stop,
+                                    //                                             crosshair: true,
+                                    //                                             labels: {
+                                    //                                                 style: {
+                                    //                                                     color: '#ffffff'
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         yAxis: {
+                                    //                                             min: 0,
+                                    //                                             title: {
+                                    //                                                 text: '%'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         plotOptions: {
+                                    //                                             column: {
+                                    //                                                 pointPadding: 0.2,
+                                    //                                                 borderWidth: 0,
+                                    //                                                 dataLabels: {
+                                    //                                                     enabled: true,
+                                    //                                                     style: {
+                                    //                                                         color: '#ffffff',
+                                    //                                                         textOutline: 0,
+                                    //                                                         fontSize: 14
+                                    //                                                     },
+                                    //                                                 },
+                                    //                                                 events: {
+                                    //                                                     click: function(event) {
+                                    //                                                         $('#sub_modal').modal('show');
+                                    //                                                     }
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         legend: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         series: [{
+                                    //                                             name: 'Total',
+                                    //                                             data: arr_qty_jenis_line_stop,
+                                    //                                             color:'yellow',
 
-                                                                            }]
-                                                                    });
+                                    //                                         }]
+                                    //                                 });
 
-                                                                    var data_kategori_line_stop_by_grup = data['data_kategori_line_stop_by_grup_shift'];
-                                                                    var i;
-                                                                    var arr_kategori_line_stop = [];
-                                                                    var arr_qty_kategori_line_stop = [];
-                                                                    for (i = 0; i < data_kategori_line_stop_by_grup.length; i++) {
-                                                                        arr_kategori_line_stop.push(data_kategori_line_stop_by_grup[i].kategori_line_stop);
-                                                                        arr_qty_kategori_line_stop.push(parseFloat(((data_kategori_line_stop_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                    //                                 var data_kategori_line_stop_by_grup = data['data_kategori_line_stop_by_grup_shift'];
+                                    //                                 var i;
+                                    //                                 var arr_kategori_line_stop = [];
+                                    //                                 var arr_qty_kategori_line_stop = [];
+                                    //                                 for (i = 0; i < data_kategori_line_stop_by_grup.length; i++) {
+                                    //                                     arr_kategori_line_stop.push(data_kategori_line_stop_by_grup[i].kategori_line_stop);
+                                    //                                     arr_qty_kategori_line_stop.push(parseFloat(((data_kategori_line_stop_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                         
-                                                                    }
+                                    //                                 }
 
-                                                                    $('#sub_detail_pareto_kategori_line_stop').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_kategori_line_stop"></div>
-                                                                                                                </figure>`
-                                                                                                            );
-                                                                    Highcharts.chart('chart_detail_pareto_kategori_line_stop', {
-                                                                        chart: {
-                                                                                backgroundColor: 'transparent',
-                                                                                type: 'column'
-                                                                            },
-                                                                            exporting: {
-                                                                                enabled: false
-                                                                            },
-                                                                            title: {
-                                                                                text: 'Detail Kategori Line Stop',
-                                                                                style: {
-                                                                                    color: '#ffffff',
-                                                                                    fontSize: '20px'
-                                                                                }
-                                                                            },
-                                                                            xAxis: {
-                                                                                categories: arr_kategori_line_stop,
-                                                                                crosshair: true,
-                                                                                labels: {
-                                                                                    style: {
-                                                                                        color: '#ffffff'
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            yAxis: {
-                                                                                min: 0,
-                                                                                title: {
-                                                                                    text: '%'
-                                                                                }
-                                                                            },
-                                                                            plotOptions: {
-                                                                                column: {
-                                                                                    pointPadding: 0.2,
-                                                                                    borderWidth: 0,
-                                                                                    dataLabels: {
-                                                                                        enabled: true,
-                                                                                        style: {
-                                                                                            color: '#ffffff',
-                                                                                            textOutline: 0,
-                                                                                            fontSize: 14
-                                                                                        },
-                                                                                    },
-                                                                                    events: {
-                                                                                        click: function(event) {
-                                                                                            $('#sub_modal').modal('show');
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            legend: {
-                                                                                enabled: false
-                                                                            },
-                                                                            series: [{
-                                                                                name: 'Total',
-                                                                                data: arr_qty_kategori_line_stop,
-                                                                                color:'yellow',
+                                    //                                 $('#sub_detail_pareto_kategori_line_stop').html(`  <figure class="highcharts-figure">
+                                    //                                                                                 <div id="chart_detail_pareto_kategori_line_stop"></div>
+                                    //                                                                             </figure>`
+                                    //                                                                         );
+                                    //                                 Highcharts.chart('chart_detail_pareto_kategori_line_stop', {
+                                    //                                     chart: {
+                                    //                                             backgroundColor: 'transparent',
+                                    //                                             type: 'column'
+                                    //                                         },
+                                    //                                         exporting: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         title: {
+                                    //                                             text: 'Detail Kategori Line Stop',
+                                    //                                             style: {
+                                    //                                                 color: '#ffffff',
+                                    //                                                 fontSize: '20px'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         xAxis: {
+                                    //                                             categories: arr_kategori_line_stop,
+                                    //                                             crosshair: true,
+                                    //                                             labels: {
+                                    //                                                 style: {
+                                    //                                                     color: '#ffffff'
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         yAxis: {
+                                    //                                             min: 0,
+                                    //                                             title: {
+                                    //                                                 text: '%'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         plotOptions: {
+                                    //                                             column: {
+                                    //                                                 pointPadding: 0.2,
+                                    //                                                 borderWidth: 0,
+                                    //                                                 dataLabels: {
+                                    //                                                     enabled: true,
+                                    //                                                     style: {
+                                    //                                                         color: '#ffffff',
+                                    //                                                         textOutline: 0,
+                                    //                                                         fontSize: 14
+                                    //                                                     },
+                                    //                                                 },
+                                    //                                                 events: {
+                                    //                                                     click: function(event) {
+                                    //                                                         $('#sub_modal').modal('show');
+                                    //                                                     }
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         legend: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         series: [{
+                                    //                                             name: 'Total',
+                                    //                                             data: arr_qty_kategori_line_stop,
+                                    //                                             color:'yellow',
 
-                                                                            }]
-                                                                    });
+                                    //                                         }]
+                                    //                                 });
 
-                                                                    var data_battery_line_stop_by_grup = data['data_battery_line_stop_by_grup_shift'];
-                                                                    var i;
-                                                                    var arr_battery_line_stop = [];
-                                                                    var arr_qty_battery_line_stop = [];
-                                                                    for (i = 0; i < data_battery_line_stop_by_grup.length; i++) {
-                                                                        arr_battery_line_stop.push(data_battery_line_stop_by_grup[i].type_battery);
-                                                                        arr_qty_battery_line_stop.push(parseFloat(((data_battery_line_stop_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                    //                                 var data_battery_line_stop_by_grup = data['data_battery_line_stop_by_grup_shift'];
+                                    //                                 var i;
+                                    //                                 var arr_battery_line_stop = [];
+                                    //                                 var arr_qty_battery_line_stop = [];
+                                    //                                 for (i = 0; i < data_battery_line_stop_by_grup.length; i++) {
+                                    //                                     arr_battery_line_stop.push(data_battery_line_stop_by_grup[i].type_battery);
+                                    //                                     arr_qty_battery_line_stop.push(parseFloat(((data_battery_line_stop_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
                                                                         
-                                                                    }
+                                    //                                 }
 
-                                                                    $('#sub_detail_pareto_type_battery').html(`  <figure class="highcharts-figure">
-                                                                                                                    <div id="chart_detail_pareto_battery_line_stop"></div>
-                                                                                                                </figure>`
-                                                                                                            );
-                                                                    Highcharts.chart('chart_detail_pareto_battery_line_stop', {
-                                                                        chart: {
-                                                                                backgroundColor: 'transparent',
-                                                                                type: 'column'
-                                                                            },
-                                                                            exporting: {
-                                                                                enabled: false
-                                                                            },
-                                                                            title: {
-                                                                                text: 'Detail Type Battery',
-                                                                                style: {
-                                                                                    color: '#ffffff',
-                                                                                    fontSize: '20px'
-                                                                                }
-                                                                            },
-                                                                            xAxis: {
-                                                                                categories: arr_battery_line_stop,
-                                                                                crosshair: true,
-                                                                                labels: {
-                                                                                    style: {
-                                                                                        color: '#ffffff'
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            yAxis: {
-                                                                                min: 0,
-                                                                                title: {
-                                                                                    text: '%'
-                                                                                }
-                                                                            },
-                                                                            plotOptions: {
-                                                                                column: {
-                                                                                    pointPadding: 0.2,
-                                                                                    borderWidth: 0,
-                                                                                    dataLabels: {
-                                                                                        enabled: true,
-                                                                                        style: {
-                                                                                            color: '#ffffff',
-                                                                                            textOutline: 0,
-                                                                                            fontSize: 14
-                                                                                        },
-                                                                                    },
-                                                                                    events: {
-                                                                                        click: function(event) {
-                                                                                            $('#sub_modal').modal('show');
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            },
-                                                                            legend: {
-                                                                                enabled: false
-                                                                            },
-                                                                            series: [{
-                                                                                name: 'Total',
-                                                                                data: arr_qty_battery_line_stop,
-                                                                                color:'yellow',
+                                    //                                 $('#sub_detail_pareto_type_battery').html(`  <figure class="highcharts-figure">
+                                    //                                                                                 <div id="chart_detail_pareto_battery_line_stop"></div>
+                                    //                                                                             </figure>`
+                                    //                                                                         );
+                                    //                                 Highcharts.chart('chart_detail_pareto_battery_line_stop', {
+                                    //                                     chart: {
+                                    //                                             backgroundColor: 'transparent',
+                                    //                                             type: 'column'
+                                    //                                         },
+                                    //                                         exporting: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         title: {
+                                    //                                             text: 'Detail Type Battery',
+                                    //                                             style: {
+                                    //                                                 color: '#ffffff',
+                                    //                                                 fontSize: '20px'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         xAxis: {
+                                    //                                             categories: arr_battery_line_stop,
+                                    //                                             crosshair: true,
+                                    //                                             labels: {
+                                    //                                                 style: {
+                                    //                                                     color: '#ffffff'
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         yAxis: {
+                                    //                                             min: 0,
+                                    //                                             title: {
+                                    //                                                 text: '%'
+                                    //                                             }
+                                    //                                         },
+                                    //                                         plotOptions: {
+                                    //                                             column: {
+                                    //                                                 pointPadding: 0.2,
+                                    //                                                 borderWidth: 0,
+                                    //                                                 dataLabels: {
+                                    //                                                     enabled: true,
+                                    //                                                     style: {
+                                    //                                                         color: '#ffffff',
+                                    //                                                         textOutline: 0,
+                                    //                                                         fontSize: 14
+                                    //                                                     },
+                                    //                                                 },
+                                    //                                                 events: {
+                                    //                                                     click: function(event) {
+                                    //                                                         $('#sub_modal').modal('show');
+                                    //                                                     }
+                                    //                                                 }
+                                    //                                             }
+                                    //                                         },
+                                    //                                         legend: {
+                                    //                                             enabled: false
+                                    //                                         },
+                                    //                                         series: [{
+                                    //                                             name: 'Total',
+                                    //                                             data: arr_qty_battery_line_stop,
+                                    //                                             color:'yellow',
 
-                                                                            }]
-                                                                    });
+                                    //                                         }]
+                                    //                                 });
 
-                                                                    $('#sub_detail_pareto_grup_shift').html(``);
+                                    //                                 $('#sub_detail_pareto_grup_shift').html(``);
 
-                                                                    $('#sub_modal').modal('show');
-                                                                }
-                                                            })
-                                                        }
-                                                    }
-                                                }
-                                            },
-                                            legend: {
-                                                enabled: false
-                                            },
-                                            series: [{
-                                                name: 'Total',
-                                                data: arr_qty_grup_line_stop,
-                                                color:'yellow',
+                                    //                                 $('#sub_modal').modal('show');
+                                    //                             }
+                                    //                         })
+                                    //                     }
+                                    //                 }
+                                    //             }
+                                    //         },
+                                    //         legend: {
+                                    //             enabled: false
+                                    //         },
+                                    //         series: [{
+                                    //             name: 'Total',
+                                    //             data: arr_qty_grup_line_stop,
+                                    //             color:'yellow',
 
-                                            }]
-                                    });
+                                    //         }]
+                                    // });
 
                                     $('#main_modal').modal('show');
                                 }
