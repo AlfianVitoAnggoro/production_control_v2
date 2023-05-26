@@ -736,7 +736,12 @@ if ($current_date != 12) {
         'Nov',
         'Dec'
       ],
-      crosshair: true
+      crosshair: true,
+      labels: {
+        style: {
+          color: '#ffffff'
+        },
+      }
     }],
     yAxis: [{
       min: 0,
@@ -745,7 +750,10 @@ if ($current_date != 12) {
         text: ''
       },
       labels: {
-        format: '{value} %'
+        format: '{value} %',
+        style: {
+          color: '#ffffff'
+        },
       }
     }, {
       title: {
@@ -817,7 +825,12 @@ if ($current_date != 12) {
     },
     xAxis: [{
       categories: arr_grup,
-      crosshair: true
+      crosshair: true,
+      labels: {
+        style: {
+          color: '#ffffff'
+        },
+      }
     }],
     yAxis: [{
       min: 0,
@@ -826,7 +839,10 @@ if ($current_date != 12) {
         text: ''
       },
       labels: {
-        format: '{value} %'
+        format: '{value} %',
+        style: {
+          color: '#ffffff'
+        },
       }
     }, {
       title: {
@@ -843,7 +859,13 @@ if ($current_date != 12) {
       },
     },
     legend: {
-      enabled: false
+      enabled: true,
+      align: 'center',
+      verticalAlign: 'bottom',
+      layout: 'horizontal',
+      itemStyle: {
+        color: '#ffffff'
+      }
     },
 
     series: [{
@@ -905,7 +927,12 @@ if ($current_date != 12) {
     },
     xAxis: [{
       categories: <?= json_encode($dates) ?>,
-      crosshair: true
+      crosshair: true,
+      labels: {
+        style: {
+          color: '#ffffff'
+        },
+      }
     }],
     yAxis: [{
       min: 0,
@@ -914,7 +941,10 @@ if ($current_date != 12) {
         text: ''
       },
       labels: {
-        format: '{value} %'
+        format: '{value} %',
+        style: {
+          color: '#ffffff'
+        },
       }
     }, {
       title: {
@@ -1001,7 +1031,12 @@ if ($current_date != 12) {
     },
     xAxis: [{
       categories: <?= json_encode($dates) ?>,
-      crosshair: true
+      crosshair: true,
+      labels: {
+        style: {
+          color: '#ffffff'
+        },
+      }
     }],
     yAxis: [{
       min: 0,
@@ -1010,7 +1045,10 @@ if ($current_date != 12) {
         text: ''
       },
       labels: {
-        format: '{value} %'
+        format: '{value} %',
+        style: {
+          color: '#ffffff'
+        },
       }
     }, {
       title: {
@@ -1027,7 +1065,13 @@ if ($current_date != 12) {
     //   },
     // },
     legend: {
-      enabled: true
+      enabled: true,
+      align: 'center',
+      verticalAlign: 'bottom',
+      layout: 'horizontal',
+      itemStyle: {
+        color: '#ffffff'
+      }
     },
 
     series: [<?php foreach($data_all_grup as $dag) { ?>
