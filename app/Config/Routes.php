@@ -312,6 +312,8 @@ $routes->group('rak_management', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'RakManagement::index');
     $routes->get('detail_rak_management/(:segment)', 'RakManagement::detail_rak_management/$1');
 });
+$routes->get('rak_management/reset_rak_casting_pasting', 'RakManagement::reset_rak_casting_to_pasting');
+$routes->get('rak_management/update_rak', 'RakManagement::update_rak');
 
 //COS
 $routes->group('cos', ['filter' => 'auth'], function ($routes) {
@@ -346,6 +348,14 @@ $routes->group('saw', ['filter' => 'auth'], function ($routes) {
     $routes->post('detail_saw/delete', 'Saw::delete_saw');
     $routes->post('download', 'Saw::download');
     $routes->post('getPartNo', 'Saw::getPartNo');
+});
+
+//Wide Strip
+$routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'WideStrip::index');
+    $routes->post('add_lhp', 'WideStrip::add_lhp');
+    $routes->get('detail_lhp/(:num)', 'WideStrip::detail_lhp/$1');
+    
 });
 
 // $routes->get('/lhp/test', 'Home::test');
