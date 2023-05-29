@@ -23,7 +23,12 @@ class M_RakManagement extends Model
 
     public function get_data_record_rak()
     {
-        $query = $this->db5->query('SELECT * FROM detail_record_rak ORDER BY id_log ASC');
+        // $query = $this->db5->query('SELECT * FROM detail_record_rak ORDER BY id_log ASC');
+        $query = $this->db5->query('
+                                    SELECT pn_qr, barcode, qty, wh_from, wh_to, supply_time, close_time, status 
+                                    FROM detail_record_rak
+                                    GROUP BY barcode, pn_qr, qty, wh_from, wh_to, supply_time, close_time, status
+                                ');
 
         return $query->getResultArray();
     }
