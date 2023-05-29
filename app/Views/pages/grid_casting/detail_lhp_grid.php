@@ -133,9 +133,7 @@ $mh = [8, 7.5, 6.5];
                                                         <td>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" id="material_in_barat_<?= $number ?>" value="<?= $d_cb['material_in'] ?>" readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
+                                                                <span class="input-group-text">Kg</span>
                                                             </div>
                                                             <input type="hidden" class="form-control" id="id_material_in_barat_<?= $number ?>" value="<?= $d_cb['id_material_in'] ?>" readonly>
                                                         </td>
@@ -164,9 +162,7 @@ $mh = [8, 7.5, 6.5];
                                                         <td>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" id="material_in_timur_<?= $number ?>" value="<?= $d_ct['material_in'] ?>" readonly>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">Kg</span>
-                                                                </div>
+                                                                <span class="input-group-text">Kg</span>
                                                             </div>
                                                             <input type="hidden" class="form-control" id="id_material_in_timur_<?= $number ?>" value="<?= $d_ct['id_material_in'] ?>" readonly>
                                                         </td>
@@ -1188,9 +1184,7 @@ $mh = [8, 7.5, 6.5];
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="material_in_timur_${baris}" value="${material_in}" readonly>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Kg</span>
-                                    </div>
+                                    <span class="input-group-text">Kg</span>
                                 </div>
                                 <input type="hidden" class="form-control" id="id_material_in_timur_${baris}" value="${data}" readonly>
                             </td>
