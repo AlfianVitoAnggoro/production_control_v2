@@ -88,6 +88,10 @@ $mh = [8, 7.5, 6.5];
                                                 <input type="text" class="form-control" name="conveyor_barat" id="conveyor_barat" onchange="material_in_conveyor_barat()">
                                                 </td>
                                                 <td>
+                                                QTY Conveyor Barat
+                                                <input type="text" class="form-control" name="qty_conveyor_barat" id="qty_conveyor_barat" readonly>
+                                                </td>
+                                                <td>
                                                 <button type="button" class="btn btn-primary" onclick="add_material_in('barat')">Add</button>
                                                 </td>
                                             </tr>
@@ -99,6 +103,10 @@ $mh = [8, 7.5, 6.5];
                                                 <td>
                                                 Conveyor Timur
                                                 <input type="text" class="form-control" name="conveyor_timur" id="conveyor_timur" onchange="material_in_conveyor_timur()">
+                                                </td>
+                                                <td>
+                                                QTY Conveyor Timur
+                                                <input type="text" class="form-control" name="qty_conveyor_timur" id="qty_conveyor_timur" readonly>
                                                 </td>
                                                 <td>
                                                 <button type="button" class="btn btn-primary" onclick="add_material_in('timur')">Add</button>
@@ -123,7 +131,12 @@ $mh = [8, 7.5, 6.5];
                                                 foreach ($data_conveyor_barat as $d_cb) { ?>
                                                     <tr class="material_in_conveyor_barat">
                                                         <td>
-                                                            <input type="text" class="form-control" id="material_in_barat_<?= $number ?>" value="<?= $d_cb['material_in'] ?>" readonly> Kg
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="material_in_barat_<?= $number ?>" value="<?= $d_cb['material_in'] ?>" readonly>
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">Kg</span>
+                                                                </div>
+                                                            </div>
                                                             <input type="hidden" class="form-control" id="id_material_in_barat_<?= $number ?>" value="<?= $d_cb['id_material_in'] ?>" readonly>
                                                         </td>
                                                         <td>
@@ -149,7 +162,12 @@ $mh = [8, 7.5, 6.5];
                                                 foreach ($data_conveyor_timur as $d_ct) { ?>
                                                     <tr class="material_in_conveyor_timur">
                                                         <td>
-                                                            <input type="text" class="form-control" id="material_in_timur_<?= $number ?>" value="<?= $d_ct['material_in'] ?>" readonly> Kg
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="material_in_timur_<?= $number ?>" value="<?= $d_ct['material_in'] ?>" readonly>
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">Kg</span>
+                                                                </div>
+                                                            </div>
                                                             <input type="hidden" class="form-control" id="id_material_in_timur_<?= $number ?>" value="<?= $d_ct['id_material_in'] ?>" readonly>
                                                         </td>
                                                         <td>
@@ -1143,7 +1161,7 @@ $mh = [8, 7.5, 6.5];
             dataType: 'json',
             success: function(data) {
                 if(data.length > 0) {
-                    $('#conveyor_' + conveyor).val(data[0].QTY);
+                    $('#qty_conveyor_' + conveyor).val(data[0].QTY);
                 }
             }
         })
@@ -1151,7 +1169,7 @@ $mh = [8, 7.5, 6.5];
 
     function add_material_in(conveyor) {
         let id_lhp = document.querySelector('#id_lhp').value;
-        let material_in = document.querySelector('#conveyor_' + conveyor).value;
+        let material_in = document.querySelector('#qty_conveyor_' + conveyor).value;
         let baris = document.querySelectorAll('.material_in_conveyor_' + conveyor).length;
         $('#loading-modal').modal('show');
         $.ajax({
@@ -1168,7 +1186,12 @@ $mh = [8, 7.5, 6.5];
                     $('#tbody_material_in_conveyor_' + conveyor).append(`
                         <tr class="material_in_conveyor_${conveyor}">
                             <td>
-                                <input type="text" class="form-control" id="material_in_timur_${baris}" value="${material_in}" readonly> Kg
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="material_in_timur_${baris}" value="${material_in}" readonly>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </div>
                                 <input type="hidden" class="form-control" id="id_material_in_timur_${baris}" value="${data}" readonly>
                             </td>
                             <td>
