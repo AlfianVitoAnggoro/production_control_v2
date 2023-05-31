@@ -17,7 +17,8 @@ class WideStrip extends BaseController
     public function index()
     {
         $data['data_lhp_wide_strip'] = $this->M_WideStrip->get_data_lhp_wide_strip();
-        // $data['data_grup_wide_strip'] = $this->M_WideStrip->get_data_grup_grid();
+        $data['data_grup_wide_strip'] = $this->M_WideStrip->get_data_grup_wide_strip();
+        $data['data_type_grid'] = $this->M_WideStrip->get_data_type_grid();
         return view('pages/wide_strip/home', $data);
     }
 
@@ -25,30 +26,33 @@ class WideStrip extends BaseController
     {
         $tanggal_produksi = $this->request->getPost('tanggal_produksi');
         $shift = $this->request->getPost('shift');
+        $kasubsie = $this->request->getPost('kasubsie');
         $grup = $this->request->getPost('grup');
+        $type_grid = $this->request->getPost('type_grid');
         $mp = $this->request->getPost('mp');
         $absen = $this->request->getPost('absen');
         $cuti = $this->request->getPost('cuti');
-        $kasubsie = $this->request->getPost('kasubsie');
 
         $data = [
             'tanggal_produksi' => $tanggal_produksi,
             'shift' => $shift,
+            'kasubsie' => $kasubsie,
             'grup' => $grup,
+            'type_grid' => $type_grid,
             'mp' => $mp,
             'absen' => $absen,
-            'cuti' => $cuti,
-            'kasubsie' => $kasubsie
+            'cuti' => $cuti
         ];
 
         $data_save = [
             'tanggal_produksi' => $tanggal_produksi,
             'shift' => $shift,
+            'kasubsie' => $kasubsie,
             'grup' => $grup,
+            'type_grid' => $type_grid,
             'mp' => $mp,
             'absen' => $absen,
             'cuti' => $cuti,
-            'kasubsie' => $kasubsie,
             'status' => 'waiting'
         ];
         
@@ -67,10 +71,13 @@ class WideStrip extends BaseController
     {
         $data['id_lhp'] = $id_lhp;
         $data['data_lhp'] = $this->M_WideStrip->get_data_lhp_wide_strip_by_id($id_lhp);
+        $data['data_detail_lhp'] = $this->M_WideStrip->get_detail_wide_strip_by_id($id_lhp);
+        $data['data_material_in'] = $this->M_WideStrip->get_data_material_in_by_id($id_lhp);
         $data['data_mesin'] = $this->M_WideStrip->get_data_mesin_grid();
         $data['data_operator'] = $this->M_WideStrip->get_data_operator_grid();
         $data['data_type_grid'] = $this->M_WideStrip->get_data_type_grid();
         $data['data_breakdown'] = $this->M_WideStrip->get_data_breakdown($id_lhp);
+        $data['data_line_stop_ws'] = $this->M_WideStrip->getListKategoriLineStopWS($id_lhp);
         // $data['data_andon'] = $this->M_WideStrip->get_data_andon_by_id($id_lhp);
         $data['data_record_rak'] = $this->M_WideStrip->get_id_data_detail_record_rak_by_id($id_lhp, 'K-CAS');
         // $data['data_all_rak'] = $this->M_WideStrip->get_data_rak_by_id($id_lhp);
@@ -87,63 +94,65 @@ class WideStrip extends BaseController
         $approved = $this->request->getPost('approved');
         $completed = $this->request->getPost('completed');
 
-        $total_data = $this->request->getPost('aktual');
+        $total_data = $this->request->getPost('winder');
         for ($i = 0; $i < count($total_data); $i++) {
             $id_detail_lhp_wide_strip = $this->request->getPost('id_detail_lhp_wide_strip')[$i];
 
-            if ($this->request->getPost('nama_operator')[$i] != null) {
+            // if ($this->request->getPost('nama_operator')[$i] != null) {
                 $data = [
-                    'id_lhp_grid' => $id_lhp,
-                    'no_machine' => $this->request->getPost('no_machine')[$i],
-                    'operator_name' => $this->request->getPost('nama_operator')[$i],
-                    'type_grid' => $this->request->getPost('type_grid')[$i],
-                    'jks' => intval($this->request->getPost('jks')[$i]),
-                    'actual' => intval($this->request->getPost('aktual')[$i]),
-                    'mh' => floatval($this->request->getPost('mh')[$i]),
-                    'productivity' => floatval($this->request->getPost('productivity')[$i]),
-                    'persentase' => floatval($this->request->getPost('persentase')[$i]),
+                    'id_lhp_ws' => $id_lhp,
+                    'urutan_produksi' => $this->request->getPost('urutan_produksi')[$i],
+                    'winder' => $this->request->getPost('winder')[$i],
+                    'temperatur_caster' => $this->request->getPost('temperatur_caster')[$i],
+                    'bending' => $this->request->getPost('bending')[$i] !== NULL ? floatval($this->request->getPost('bending')[$i]) : 0,
+                    'panjang' => $this->request->getPost('panjang')[$i] !== NULL ? floatval($this->request->getPost('panjang')[$i]) : 0,
+                    'tebal' => $this->request->getPost('tebal')[$i] !== NULL ? floatval($this->request->getPost('tebal')[$i]) : 0,
+                    'berat' => $this->request->getPost('berat')[$i] !== NULL ? floatval($this->request->getPost('berat')[$i]) : 0,
                 ];
-                $save_data = $this->M_WideStrip->update_lhp($id_detail_lhp_grid, $data);
+                $save_data = $this->M_WideStrip->update_lhp($id_detail_lhp_wide_strip, $data);
 
-                if (!empty($this->request->getPost('jks')[$i])) {
-                    $total_jks += $this->request->getPost('jks')[$i];
-                }
+                // if (!empty($this->request->getPost('jks')[$i])) {
+                //     $total_jks += $this->request->getPost('jks')[$i];
+                // }
 
-                if (!empty($this->request->getPost('aktual')[$i])) {
-                    $total_actual += $this->request->getPost('aktual')[$i];
-                    $total_mh += $this->request->getPost('mh')[$i];
-                    $total_productivity += floatval($this->request->getPost('productivity')[$i]);
-                }
-            }
+                // if (!empty($this->request->getPost('aktual')[$i])) {
+                //     $total_actual += $this->request->getPost('aktual')[$i];
+                //     $total_mh += $this->request->getPost('mh')[$i];
+                //     $total_productivity += floatval($this->request->getPost('productivity')[$i]);
+                // }
+            // }
         }
 
-        $total_data_breakdown = $this->request->getPost('nama_mesin_breakdown');
+        $total_data_breakdown = $this->request->getPost('urutan_produksi_breakdown');
         $model = new M_WideStrip();
         $data_detail_breakdown = $model->get_data_breakdown($id_lhp);
-        $id_detail_lhp_grid_breakdown_input = $this->request->getPost('id_detail_lhp_grid_breakdown');
-        $id_detail_lhp_grid_breakdown_exist = [];
+        $id_detail_lhp_ws_breakdown_input = $this->request->getPost('id_detail_lhp_ws_breakdown');
+        $id_detail_lhp_ws_breakdown_exist = [];
+        $total_breakdown = 0;
         if (!empty($total_data_breakdown)) {
             for ($i = 0; $i < count($total_data_breakdown); $i++) {
-                $id_detail_lhp_grid_breakdown = $this->request->getPost('id_detail_lhp_grid_breakdown')[$i];
-                $id_detail_lhp_grid_breakdown_exist[$id_detail_lhp_grid_breakdown] = $id_detail_lhp_grid_breakdown;
+                $id_detail_lhp_ws_breakdown = $this->request->getPost('id_detail_lhp_ws_breakdown')[$i];
+                $id_detail_lhp_ws_breakdown_exist[$id_detail_lhp_ws_breakdown] = $id_detail_lhp_ws_breakdown;
 
-                if ($this->request->getPost('nama_mesin_breakdown')[$i] != null) {
+                if ($this->request->getPost('urutan_produksi_breakdown')[$i] != null) {
 
                     $data_breakdown = [
-                        'id_lhp_grid' => $id_lhp,
-                        'no_machine' => $this->request->getPost('nama_mesin_breakdown')[$i],
-                        'uraian_breakdown' => $this->request->getPost('uraian_breakdown_grid')[$i],
-                        'total_menit' => $this->request->getPost('total_menit_breakdown_grid')[$i],
+                        'id_lhp_ws' => $id_lhp,
+                        'urutan_produksi' => $this->request->getPost('urutan_produksi_breakdown')[$i],
+                        'jenis_breakdown' => $this->request->getPost('jenis_breakdown_ws')[$i],
+                        'kategori_breakdown' => $this->request->getPost('kategori_breakdown_ws')[$i],
+                        'uraian_breakdown' => $this->request->getPost('uraian_breakdown_ws')[$i],
+                        'total_menit' => $this->request->getPost('total_menit_breakdown_ws')[$i],
                     ];
 
-                    $save_data_breakdown = $this->M_WideStrip->save_detail_breakdown($id_detail_lhp_grid_breakdown, $data_breakdown);
+                    $save_data_breakdown = $this->M_WideStrip->save_detail_breakdown($id_detail_lhp_ws_breakdown, $data_breakdown);
 
-                    $total_breakdown += $this->request->getPost('total_menit_breakdown_grid')[$i];
+                    $total_breakdown += $this->request->getPost('total_menit_breakdown_ws')[$i];
                 }
             }
             foreach ($data_detail_breakdown as $ddb) {
-                if (!array_key_exists($ddb['id_breakdown_grid'], $id_detail_lhp_grid_breakdown_exist)) {
-                    $this->M_WideStrip->delete_detail_breakdown_by_id_breakdown_grid($ddb['id_breakdown_grid']);
+                if (!array_key_exists($ddb['id_breakdown_ws'], $id_detail_lhp_ws_breakdown_exist)) {
+                    $this->M_WideStrip->delete_detail_breakdown_by_id_breakdown_ws($ddb['id_breakdown_ws']);
                 }
             }
         } else {
@@ -178,16 +187,16 @@ class WideStrip extends BaseController
             $status = 'approved';
         }
         $data_summary_lhp = [
-            'total_jks' => $total_jks,
-            'total_aktual' => $total_actual,
+            // 'total_jks' => $total_jks,
+            // 'total_aktual' => $total_actual,
             'total_breakdown' => $total_breakdown,
-            'total_andon' => $total_andon,
-            'total_mh' => $total_mh,
-            'total_productivity' => $total_productivity,
+            // 'total_andon' => $total_andon,
+            // 'total_mh' => $total_mh,
+            // 'total_productivity' => $total_productivity,
             'status' => $status
         ];
 
-        $this->M_WideStrip->update_lhp_grid($id_lhp, $data_summary_lhp);
+        $this->M_WideStrip->update_lhp_wide_strip($id_lhp, $data_summary_lhp);
 
         // $this->M_WideStrip->delete_data_rak_by_id($id_lhp);
 
@@ -383,11 +392,13 @@ class WideStrip extends BaseController
     {
         $id_lhp = $this->request->getPost('id_lhp');
         $material_in = $this->request->getPost('material_in');
-        $conveyor = $this->request->getPost('conveyor');
+        $qty_material_in = $this->request->getPost('qty_material_in');
+        $qr_rak = $this->request->getPost('qr_rak');
         $data = [
-            'id_lhp_grid' => $id_lhp,
+            'id_lhp_ws' => $id_lhp,
             'material_in' => $material_in,
-            'keterangan' => $conveyor,
+            'qty' => $qty_material_in,
+            'qr_rak' => $qr_rak,
         ];
         $id_material_in = $this->M_WideStrip->add_material_in($data);
         if($id_material_in !== NULL) return $id_material_in;
@@ -400,5 +411,12 @@ class WideStrip extends BaseController
         $delete_material_in = $this->M_WideStrip->delete_material_in($id_material_in);
 
         return $id_material_in;
+    }
+
+    public function get_jenis_line_stop()
+    {
+        $kategori_line_stop = $this->request->getPost('kategori_line_stop');
+        $jenis_line_stop = $this->M_WideStrip->getListJenisLineStopWS($kategori_line_stop);
+        echo json_encode($jenis_line_stop);
     }
 }

@@ -110,6 +110,20 @@
 								<label class="form-label">Kasubsie</label>
 								<select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
+									<?php foreach($data_grup_wide_strip as $grup) : ?>
+										<option value="<?=$grup['kasubsie']?>"><?=$grup['kasubsie']?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Grup</label>
+								<select class="form-control select2" id="grup" name="grup" style="width: 100%;" required>
+									<option selected disabled>-- Pilih Data --</option>
+									<?php foreach($data_grup_wide_strip as $grup) : ?>
+										<option value="<?=$grup['nama_grup']?>"><?=$grup['nama_grup']?></option>
+									<?php endforeach; ?>
 								</select>
 							</div>
 						</div>
@@ -117,9 +131,12 @@
 					<div class="row">
 						<div class="col-3">
 							<div class="form-group">
-								<label class="form-label">Grup</label>
-								<select class="form-control select2" id="grup" name="grup" style="width: 100%;" required>
+								<label class="form-label">Type</label>
+								<select class="form-control select2" id="type_grid" name="type_grid" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
+									<?php foreach ($data_type_grid as $d_type_grid) { ?>
+                  	<option value="<?= $d_type_grid['id_grid'] ?>"><?= $d_type_grid['type_grid'] ?></option>
+                  <?php } ?>
 								</select>
 							</div>
 						</div>
@@ -139,6 +156,26 @@
 							<div class="form-group">
 								<label class="form-label">Cuti</label>
 								<input type="text" class="form-control" id="cuti" name="cuti" maxlength='2'>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4">
+							<div class="form-group">
+								<label class="form-label">Operator 1</label>
+								<input type="text" class="form-control" id="operator_name_1" name="operator_name_1">
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-group">
+								<label class="form-label">Operator 2</label>
+								<input type="text" class="form-control" id="operator_name_2" name="operator_name_2">
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-group">
+								<label class="form-label">Operator 3</label>
+								<input type="text" class="form-control" id="operator_name_3" name="operator_name_3">
 							</div>
 						</div>
 					</div>

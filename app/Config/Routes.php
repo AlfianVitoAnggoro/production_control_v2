@@ -354,8 +354,26 @@ $routes->group('saw', ['filter' => 'auth'], function ($routes) {
 $routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'WideStrip::index');
     $routes->post('add_lhp', 'WideStrip::add_lhp');
+    $routes->post('update_lhp', 'WideStrip::update_lhp');
+    $routes->post('delete_material_in', 'WideStrip::delete_material_in');
+    $routes->post('material_in', 'WideStrip::material_in');
+    $routes->post('qty_material_in', 'WideStrip::qty_material_in');
+    $routes->post('delete_material_in', 'WideStrip::delete_material_in');
     $routes->get('detail_lhp/(:num)', 'WideStrip::detail_lhp/$1');
-    
+    $routes->post('get_jenis_line_stop', 'WideStrip::get_jenis_line_stop');
+});
+
+//Grid Punching
+$routes->group('punching', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Punching::index');
+    $routes->post('add_lhp', 'Punching::add_lhp');
+    $routes->post('update_lhp', 'Punching::update_lhp');
+    $routes->post('delete_material_in', 'Punching::delete_material_in');
+    $routes->post('material_in', 'Punching::material_in');
+    $routes->post('qty_material_in', 'Punching::qty_material_in');
+    $routes->post('delete_material_in', 'Punching::delete_material_in');
+    $routes->get('detail_lhp/(:num)', 'Punching::detail_lhp/$1');
+    $routes->post('get_jenis_line_stop', 'Punching::get_jenis_line_stop');
 });
 
 // $routes->get('/lhp/test', 'Home::test');

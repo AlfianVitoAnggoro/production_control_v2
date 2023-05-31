@@ -34,15 +34,24 @@ $mh = [8, 7.5, 6.5];
                             <div class="col-3">
                                 <div class="form-group">
                                     <label class="form-label">Kasubsie</label>
-                                    <input type="text" class="form-control" id="grup" name="grup" value="<?= $data_lhp[0]['kasubsie'] ?>" readonly>
+                                    <input type="text" class="form-control" id="kasubsie" name="kasubsie" value="<?= $data_lhp[0]['kasubsie'] ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label class="form-label">Grup</label>
+                                    <input type="text" class="form-control" id="grup" name="grup" value="<?= $data_lhp[0]['grup'] ?>" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label class="form-label">Grup</label>
-                                    <input type="text" class="form-control" id="grup" name="grup" value="<?= $data_lhp[0]['grup'] ?>" readonly>
+                                    <label class="form-label">Type</label>
+                                    <input type="text" class="form-control" id="type_grid" name="type_grid"
+                                        <?php foreach ($data_type_grid as $d_type_grid) { 
+                                            if ($d_type_grid['id_grid'] == $data_lhp[0]['type_grid']) echo 'value="' . $d_type_grid['type_grid'] . '"';
+                                        } ?> readonly>
                                 </div>
                             </div>
                             <div class="col-3">
@@ -66,8 +75,84 @@ $mh = [8, 7.5, 6.5];
                         </div>
                     </div>
                 </div>
-
-                
+                <div class="row">
+                    <div class="col-xl-12 col-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <div class="row">
+                                    <h4>Material In</h4>
+                                    <br>
+                                    <div class="col">
+                                        <table class="table">
+                                            <tr>
+                                                <td>
+                                                    Barcode
+                                                    <input type="text" class="form-control" name="material_in" id="material_in" onchange="barcode_material_in()">
+                                                </td>
+                                                <td>
+                                                    QTY
+                                                    <input type="text" class="form-control" name="qty_material_in" id="qty_material_in" readonly>
+                                                </td>
+                                                <td>
+                                                    QR Rak
+                                                    <input type="text" class="form-control" name="qr_rak" id="qr_rak">
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" onclick="add_material_in()">Add</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="table-responsive">
+                                            <table id="data" class="table table-striped mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Barcode</th>
+                                                        <th>QTY</th>
+                                                        <th>QR Rak</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_material_in">
+                                                <?php $number = 0;
+                                                foreach ($data_material_in as $d_ct) { ?>
+                                                    <tr class="material_in">
+                                                        <td>
+                                                            <input type="text" class="form-control" id="material_in_<?= $number ?>" value="<?= $d_ct['material_in'] ?>" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="qty_material_in_<?= $number ?>" value="<?= $d_ct['qty'] ?>" readonly>
+                                                                <span class="input-group-text">Kg</span>
+                                                            </div>
+                                                            <input type="hidden" class="form-control" id="id_material_in_<?= $number ?>" value="<?= $d_ct['id_material_in'] ?>" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" id="qr_rak_<?= $number ?>" value="<?= $d_ct['qr_rak'] ?>" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-danger" onclick="delete_material_in(this, <?= $number ?>)">Delete</button>
+                                                        </td>
+                                                    </tr>
+                                                <?php $number++;
+                                                } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="box-footer" style="text-align: center;">
+                                <input type="submit" class="btn btn-success" value="Save">
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-xl-12 col-12">
                         <div class="box">
@@ -81,26 +166,27 @@ $mh = [8, 7.5, 6.5];
                                                 <th>Temperatur Caster</th>
                                                 <th>Bending</th>
                                                 <th>Panjang</th>
-                                                <th>Lebar</th>
+                                                <th>Tebal</th>
                                                 <th>Berat</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tbody">
-                                            <?php for ($i=1; $i <= 12; $i++) { ?>
+                                            <?php for ($i=1; $i <= 12; $i++) { $j = $i -1; ?>
                                                 <tr>
                                                     <th><input class="form-control" type="text" name="urutan_produksi[]" id="urutan_produksi<?=$i?>" value="<?=$i?>" readonly></th>
                                                     <th>
                                                         <select class="form-select" name="winder[]" id="winder<?=$i?>">
                                                             <option value="">--Pilih Data--</option>
-                                                            <option value="1">1</option>
+                                                            <option value="1" <?= array_key_exists($j, $data_detail_lhp) ? ($data_detail_lhp[$j]['id'] === 1 ? 'selected' : '') : '' ?>>1</option>
                                                             <option value="2">2</option>
                                                         </select>
+                                                        <input type="hidden" name="id_detail_lhp_wide_strip[]" id="id_detail_lhp_wide_strip<?= $i ?>" value="<?= (array_key_exists($j, $data_detail_lhp) ? $data_detail_lhp[$j]['id'] : '') ?>">
                                                     </th>
-                                                    <th><input class="form-control" type="text" name="temperatur_caster[]" id="temperatur_caster<?=$i?>"></th>
-                                                    <th><input class="form-control" type="text" name="bending[]" id="bending<?=$i?>"></th>
-                                                    <th><input class="form-control" type="text" name="panjang[]" id="panjang<?=$i?>"></th>
-                                                    <th><input class="form-control" type="text" name="lebar[]" id="lebar<?=$i?>"></th>
-                                                    <th><input class="form-control" type="text" name="berat[]" id="berat<?=$i?>"></th>
+                                                    <th><input class="form-control" type="text" name="temperatur_caster[]" id="temperatur_caster<?=$i?>" value="<?= array_key_exists($j, $data_detail_lhp) ? $data_detail_lhp[$j]['temperatur_caster'] : '' ?>"></th>
+                                                    <th><input class="form-control" type="text" name="bending[]" id="bending<?=$i?>" value="<?= array_key_exists($j, $data_detail_lhp) ? $data_detail_lhp[$j]['bending'] : '' ?>"></th>
+                                                    <th><input class="form-control" type="text" name="panjang[]" id="panjang<?=$i?>" value="<?= array_key_exists($j, $data_detail_lhp) ? $data_detail_lhp[$j]['panjang'] : '' ?>"></th>
+                                                    <th><input class="form-control" type="text" name="tebal[]" id="tebal<?=$i?>" value="<?= array_key_exists($j, $data_detail_lhp) ? $data_detail_lhp[$j]['tebal'] : '' ?>"></th>
+                                                    <th><input class="form-control" type="text" name="berat[]" id="berat<?=$i?>" value="<?= array_key_exists($j, $data_detail_lhp) ? $data_detail_lhp[$j]['berat'] : '' ?>"></th>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -157,9 +243,9 @@ $mh = [8, 7.5, 6.5];
                                     <table id="data_line_stop" class="table table-striped mb-0">
                                         <thead>
                                             <tr>
-                                                <th>Nama Mesin</th>
-                                                <!-- <th>Jenis Line Stop</th> -->
-                                                <!-- <th>Kategori Line Stop</th> -->
+                                                <th>Urutan Produksi</th>
+                                                <th>Jenis Line Stop</th>
+                                                <th>Kategori Line Stop</th>
                                                 <th>Uraian Line Stop</th>
                                                 <th>Total Menit</th>
                                                 <th>Action</th>
@@ -168,26 +254,30 @@ $mh = [8, 7.5, 6.5];
                                         <tbody id="tbody_data_line_stop">
                                             <?php
                                             foreach ($data_breakdown as $d_breakdown) { ?>
-                                                <tr>
+                                                <tr class="row_line_stop">
                                                     <td>
-                                                        <select name="nama_mesin_breakdown[]" class="form-select select2" style="width: 150px">
-                                                            <option value="">-- Pilih Mesin --</option>
+                                                        <select name="urutan_produksi_breakdown[]" class="form-select select2" style="width: 150px">
+                                                            <option value="">-- Pilih Urutan --</option>
                                                             <?php
-                                                            foreach ($data_mesin as $d_mesin) { ?>
-                                                                <option value="<?= $d_mesin['nama_mesin'] ?>" <?php if ($d_mesin['nama_mesin'] == $d_breakdown['no_machine']) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>>MC <?= $d_mesin['nama_mesin'] ?></option>
+                                                            for ($i = 1; $i <= 12; $i++) { ?>
+                                                                <option value="<?= $i ?>" <?php if ($i == $d_breakdown['urutan_produksi']) echo "selected"; ?>><?= $i ?></option>
                                                             <?php
                                                             }
                                                             ?>
                                                         </select>
-                                                        <input type="hidden" name="id_detail_lhp_grid_breakdown[]" value="<?= $d_breakdown['id_breakdown_grid'] ?>">
+                                                        <input type="hidden" name="id_detail_lhp_ws_breakdown[]" value="<?= $d_breakdown['id_breakdown_ws'] ?>">
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control" name="uraian_breakdown_grid[]" id="uraian_breakdown_grid_<?= $d_breakdown['no_machine'] ?>" value="<?= $d_breakdown['uraian_breakdown'] ?>" style="width: 300px">
+                                                        <input type="text" class="form-control" name="jenis_breakdown_ws[]" id="jenis_breakdown_ws_<?= $d_breakdown['urutan_produksi'] ?>" value="<?= $d_breakdown['jenis_breakdown'] ?>" style="width: 300px">
                                                     </td>
                                                     <td>
-                                                        <input type="number" name="total_menit_breakdown_grid[]" id="total_menit_breakdown_grid_<?= $d_breakdown['no_machine'] ?>" class="form-control" value="<?= $d_breakdown['total_menit'] ?>" style="width: 75px">
+                                                        <input type="text" class="form-control" name="kategori_breakdown_ws[]" id="kategori_breakdown_ws_<?= $d_breakdown['urutan_produksi'] ?>" value="<?= $d_breakdown['kategori_breakdown'] ?>" style="width: 300px">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="uraian_breakdown_ws[]" id="uraian_breakdown_ws_<?= $d_breakdown['urutan_produksi'] ?>" value="<?= $d_breakdown['uraian_breakdown'] ?>" style="width: 300px">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="total_menit_breakdown_ws[]" id="total_menit_breakdown_ws_<?= $d_breakdown['urutan_produksi'] ?>" class="form-control" value="<?= $d_breakdown['total_menit'] ?>" style="width: 75px">
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-danger" onclick="delete_breakdown(this)">Delete</button>
@@ -588,23 +678,46 @@ $mh = [8, 7.5, 6.5];
     }
 
     function add_breakdown() {
-        var data_mesin = <?= json_encode($data_mesin) ?>;
+        let data_line_stop = <?= json_encode($data_line_stop_ws) ?>;
+        let row = document.querySelectorAll('.row_line_stop').length;
         $('#tbody_data_line_stop').append(`
-            <tr>
+            <tr class="row_line_stop">
                 <td>
-                    <select name="nama_mesin_breakdown[]" id="nama_mesin" class="form-select select2" style="width: 150px">
-                        <option value="">-- Pilih Mesin --</option>
-                        ${data_mesin.map((item) => {
-                            return `<option value="${item.nama_mesin}">MC ${item.nama_mesin}</option>`
-                        })}
+                    <select name="urutan_produksi_breakdown[]" id="urutan_produksi_breakdown_ws_${row}" class="form-select select2" style="width: 150px">
+                        <option value="">-- Pilih Urutan --</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
                     </select>
-                    <input type="hidden" name="id_detail_lhp_grid_breakdown[]">
+                    <input type="hidden" name="id_detail_lhp_ws_breakdown[]">
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="uraian_breakdown_grid[]" id="uraian_breakdown_grid" class="form-control" style="width: 300px">
+                    <select class="form-control select2" name="jenis_breakdown_ws[]" id="jenis_breakdown_ws_${row}" onchange="get_jenis_line_stop(${row})" style="width: 200px">
+						<option value="">Pilih Kategori Line Stop</option>
+						${data_line_stop.map((item) => {
+							return `<option value="${item.kategori_line_stop}">${item.kategori_line_stop}</option>`;
+						}).join('')}
+					</select>
+                <td>
+					<select class="form-control select2" id="kategori_breakdown_ws_${row}" name="kategori_breakdown_ws[]" style="width: 200px;">
+                        <option selected disabled>-- Pilih Jenis Line Stop --</option>
+                    </select>
+				</td>
+				</td>
+                <td>
+                    <input type="text" class="form-control" name="uraian_breakdown_ws[]" id="uraian_breakdown_ws_${row}" class="form-control" style="width: 300px">
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="total_menit_breakdown_grid[]" id="total_menit_breakdown_grid" class="form-control" style="width: 75px">
+                    <input type="text" class="form-control" name="total_menit_breakdown_ws[]" id="total_menit_breakdown_ws_${row}" class="form-control" style="width: 75px">
                 </td>
                 <td>
                     <button type="button" class="btn btn-danger" onclick="delete_breakdown(this)">Delete</button>
@@ -613,6 +726,27 @@ $mh = [8, 7.5, 6.5];
         `);
 
         $('.select2').select2();
+    }
+
+    function get_jenis_line_stop(i) {
+        let kategori_line_stop = $('#jenis_breakdown_ws_' + i).val();
+        $.ajax({
+            url: '<?= base_url() ?>wide_strip/get_jenis_line_stop',
+            type: 'POST',
+            data: {
+                kategori_line_stop: kategori_line_stop
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                $('#kategori_breakdown_ws_' + i).html(`
+                    <option selected disabled>-- Pilih Jenis Line Stop --</option>
+                    ${data.map((item) => `<option value="${item.jenis_line_stop}">${item.jenis_line_stop}</option>`)}
+                `);
+                $('#uraian_breakdown_' + i).val('');
+                $('#menit_breakdown_' + i).val('');
+            }
+        });
     }
 
     function delete_breakdown(e) {
@@ -868,29 +1002,21 @@ $mh = [8, 7.5, 6.5];
         }
     }
 
-    function material_in_conveyor_barat() {
+    function barcode_material_in() {
         document.addEventListener('keyup', function(event) {
             // event.preventDefault();
             if (event.keyCode === 9) {
-                qty_material_in('barat');
+                qty_material_in();
             }
         });
     }
 
-    function material_in_conveyor_timur() {
-        document.addEventListener('keyup', function(event) {
-            // event.preventDefault();
-            if (event.keyCode === 9) {
-                qty_material_in('timur');
-            }
-        });
-    }
-
-    function qty_material_in(conveyor) {
-        let material_in = document.querySelector('#conveyor_' + conveyor).value;
+    function qty_material_in() {
+        let material_in = document.querySelector('#material_in').value;
+        console.log(material_in);
         // Memindahkan fokus ke elemen berikutnya
         $.ajax({
-            url: '<?= base_url() ?>grid/qty_material_in',
+            url: '<?= base_url() ?>wide_strip/qty_material_in',
             type: 'POST',
             data: {
                 material_in: material_in,
@@ -898,52 +1024,64 @@ $mh = [8, 7.5, 6.5];
             dataType: 'json',
             success: function(data) {
                 if(data.length > 0) {
-                    $('#conveyor_' + conveyor).val(data[0].QTY);
+                    $('#qty_material_in').val(data[0].QTY);
                 }
             }
         })
     }
 
-    function add_material_in(conveyor) {
+    function add_material_in() {
         let id_lhp = document.querySelector('#id_lhp').value;
-        let material_in = document.querySelector('#conveyor_' + conveyor).value;
-        let baris = document.querySelectorAll('.material_in_conveyor_' + conveyor).length;
+        let material_in = document.querySelector('#material_in').value;
+        let qty_material_in = document.querySelector('#qty_material_in').value;
+        let qr_rak = document.querySelector('#qr_rak').value;
+        let baris = document.querySelectorAll('.material_in').length;
         $('#loading-modal').modal('show');
         $.ajax({
-            url: '<?= base_url() ?>grid/material_in',
+            url: '<?= base_url() ?>wide_strip/material_in',
             type: 'POST',
             data: {
                 id_lhp: id_lhp,
                 material_in: material_in,
-                conveyor: conveyor,
+                qty_material_in: qty_material_in,
+                qr_rak: qr_rak,
             },
             dataType: 'json',
             success: function(data) {
                 if(data > 0) {
-                    $('#tbody_material_in_conveyor_' + conveyor).append(`
-                        <tr class="material_in_conveyor_${conveyor}">
+                    $('#tbody_material_in').append(`
+                        <tr class="material_in">
                             <td>
-                                <input type="text" class="form-control" id="material_in_timur_${baris}" value="${material_in}" readonly> Kg
-                                <input type="hidden" class="form-control" id="id_material_in_timur_${baris}" value="${data}" readonly>
+                                <input type="text" class="form-control" id="material_in_${baris}" value="${material_in}" readonly>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger" onclick="delete_material_in(this, 'timur', ${baris})">Delete</button>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="qty_material_in_${baris}" value="${qty_material_in}" readonly>
+                                    <span class="input-group-text">Kg</span>
+                                </div>
+                                <input type="hidden" class="form-control" id="id_material_in_${baris}" value="${data}" readonly>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="qr_rak_${baris}" value="${qr_rak}" readonly>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" onclick="delete_material_in(this, ${baris})">Delete</button>
                             </td>
                         </tr>
                     `);
-                    $('#conveyor_' + conveyor).val('');
+                    $('#material_in').val('');
                     $('#loading-modal').modal('hide');
-                    $('#conveyor_' + conveyor).focus();
+                    $('#material_in').focus();
                 }
             }
         })
     }
 
-    function delete_material_in(e, conveyor, baris) {
-        let id_material_in = $('#id_material_in_' + conveyor + '_' + baris).val();
+    function delete_material_in(e, baris) {
+        let id_material_in = $('#id_material_in_' + baris).val();
         $('#loading-modal').modal('show');
         $.ajax({
-            url: '<?= base_url() ?>grid/delete_material_in',
+            url: '<?= base_url() ?>wide_strip/delete_material_in',
             type: 'POST',
             data: {
                 id_material_in: id_material_in,

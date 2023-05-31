@@ -22,6 +22,13 @@ class M_WideStrip extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_grup_wide_strip()
+    {
+        $query = $this->db->query('SELECT DISTINCT nama_grup, kasubsie FROM data_grup_grid');
+
+        return $query->getResultArray();
+    }
+
     public function add_lhp($data)
     {
         $query = $this->db->table('lhp_wide_strip')->insert($data);
@@ -40,7 +47,7 @@ class M_WideStrip extends Model
     {
         $builder = $this->db->table('lhp_wide_strip');
 
-        $builder->where('id', $id_lhp);
+        $builder->where('id_lhp_ws', $id_lhp);
         $builder->update($data);
         return $id_lhp;
     }
@@ -87,9 +94,9 @@ class M_WideStrip extends Model
         }
     }
 
-    public function get_detail_lhp_by_id($id_lhp, $no_machine)
+    public function get_detail_wide_strip_by_id($id_lhp)
     {
-        $query = $this->db->query('SELECT * FROM detail_lhp_wide_strip WHERE id_lhp_wide_strip = \'' . $id_lhp . '\' AND no_machine = \'' . $no_machine . '\'');
+        $query = $this->db->query('SELECT * FROM detail_lhp_wide_strip WHERE id_lhp_ws = \'' . $id_lhp . '\'');
 
         return $query->getResultArray();
     }
@@ -103,10 +110,10 @@ class M_WideStrip extends Model
 
     public function save_detail_breakdown($id_detail_lhp_wide_strip_breakdown, $data)
     {
-        $builder = $this->db->table('detail_breakdown_grid');
+        $builder = $this->db->table('detail_breakdown_wide_strip');
 
         if ($id_detail_lhp_wide_strip_breakdown != '') {
-            $builder->where('id_breakdown_grid', $id_detail_lhp_wide_strip_breakdown);
+            $builder->where('id_breakdown_ws', $id_detail_lhp_wide_strip_breakdown);
             $builder->update($data);
             return $id_detail_lhp_wide_strip_breakdown;
         } else {
@@ -117,16 +124,16 @@ class M_WideStrip extends Model
 
     public function delete_detail_breakdown_by_id_lhp($id_lhp_wide_strip)
     {
-        $builder = $this->db->table('detail_breakdown_grid');
+        $builder = $this->db->table('detail_breakdown_wide_strip');
 
-        $builder->delete(['id_lhp_wide_strip' => $id_lhp_wide_strip]);
+        $builder->delete(['id_lhp_ws' => $id_lhp_wide_strip]);
     }
 
-    public function delete_detail_breakdown_by_id_breakdown_grid($id_breakdown_grid)
+    public function delete_detail_breakdown_by_id_breakdown_ws($id_breakdown_ws)
     {
-        $builder = $this->db->table('detail_breakdown_grid');
+        $builder = $this->db->table('detail_breakdown_wide_strip');
 
-        $builder->delete(['id_breakdown_grid' => $id_breakdown_grid]);
+        $builder->delete(['id_breakdown_ws' => $id_breakdown_ws]);
     }
 
     public function get_data_breakdown($id_lhp_wide_strip)
@@ -161,8 +168,8 @@ class M_WideStrip extends Model
     {
         $this->db->query('DELETE FROM lhp_wide_strip WHERE id = ' . $id_lhp);
         $this->db->query('DELETE FROM detail_lhp_wide_strip WHERE id_lhp_wide_strip = ' . $id_lhp);
-        $this->db->query('DELETE FROM detail_breakdown_andon_grid WHERE id_lhp_wide_strip = ' . $id_lhp);
-        $this->db->query('DELETE FROM detail_breakdown_grid WHERE id_lhp_wide_strip = ' . $id_lhp);
+        $this->db->query('DELETE FROM detail_breakdown_andon_wide_strip WHERE id_lhp_wide_strip = ' . $id_lhp);
+        $this->db->query('DELETE FROM detail_breakdown_wide_strip WHERE id_lhp_wide_strip = ' . $id_lhp);
     }
 
     function get_pic_grup_mesin($type_mesin, $grup)
@@ -310,9 +317,9 @@ class M_WideStrip extends Model
         return $query->getResultArray();
     }
 
-    public function get_data_conveyor_by_id($id_lhp, $conveyor)
+    public function get_data_material_in_by_id($id_lhp)
     {
-        $query = $this->db->query('SELECT * FROM data_material_in_casting WHERE id_lhp_wide_strip=\'' . $id_lhp . '\' AND keterangan=\'' . $conveyor . '\'');
+        $query = $this->db->query('SELECT * FROM data_material_in_wide_strip WHERE id_lhp_ws=\'' . $id_lhp . '\'');
 
         return $query->getResultArray();
     }
@@ -326,14 +333,28 @@ class M_WideStrip extends Model
 
     public function add_material_in($data)
     {
-        $builder = $this->db->table('data_material_in_casting');
+        $builder = $this->db->table('data_material_in_wide_strip');
         $builder->insert($data);
         return json_encode($this->db->insertID());
     }
 
     public function delete_material_in($id)
     {
-        $builder = $this->db->table('data_material_in_casting');
+        $builder = $this->db->table('data_material_in_wide_strip');
         $builder->delete(['id_material_in' => $id]);
+    }
+
+    public function getListKategoriLineStopWS()
+    {
+        $query = $this->db->query('SELECT DISTINCT kategori_line_stop FROM master_line_stop_wide_strip');
+
+        return $query->getResultArray();
+    }
+
+    public function getListJenisLineStopWS($kategori_line_stop)
+    {
+        $query = $this->db->query('SELECT * FROM master_line_stop_wide_strip WHERE kategori_line_stop = \'' . $kategori_line_stop . '\'');
+
+        return $query->getResultArray();
     }
 }
