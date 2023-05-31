@@ -368,4 +368,48 @@ class M_Dashboard extends Model
 
         return $query->getResultArray();
     }
+
+    public function get_data_top_grup_amb1($bulan)
+    {
+        $query = $this->db->query('SELECT master_pic_line.nama_pic, (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100 AS persen
+                                    FROM lhp_produksi2
+                                    JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup
+                                    WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.' AND (master_pic_line.id_line = 1 OR master_pic_line.id_line = 2 OR master_pic_line.id_line = 3)
+                                    GROUP BY master_pic_line.nama_pic
+                                    ORDER BY (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100 DESC
+                                ');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_top_grup_amb2($bulan)
+    {
+        $query = $this->db->query('SELECT master_pic_line.nama_pic, (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100 AS persen
+                                    FROM lhp_produksi2
+                                    JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup
+                                    WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.' AND (master_pic_line.id_line = 4 OR master_pic_line.id_line = 5 OR master_pic_line.id_line = 6 OR master_pic_line.id_line = 7)
+                                    GROUP BY master_pic_line.nama_pic
+                                    ORDER BY (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100 DESC
+                                ');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_top_grup_amb2_daily($tanggal)
+    {
+        $query = $this->db->query('SELECT master_pic_line.nama_pic, 
+                                        CASE
+                                        WHEN SUM(lhp_produksi2.total_aktual) = 0 THEN 0
+                                        ELSE (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100
+                                        END AS persen
+                                -- (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100 AS persen
+                                    FROM lhp_produksi2
+                                    JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\' AND (master_pic_line.id_line = 4 OR master_pic_line.id_line = 5 OR master_pic_line.id_line = 6 OR master_pic_line.id_line = 7)
+                                    GROUP BY master_pic_line.nama_pic
+                                    ORDER BY persen DESC
+                                ');
+
+        return $query->getResultArray();
+    }
 }

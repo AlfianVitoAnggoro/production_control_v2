@@ -373,6 +373,23 @@ class DashboardAmb2 extends BaseController
                 array_push($data['data_all_jam'], 0);
             }
         }
+
+        // VARIABLE TOP GRUP UNTUK BULAN BERJALAN
+        // $data['top_grup_current_month'] = [];
+
+        //PUSH TOP GRUP UNTUK BULAN BERJALAN
+        $data_top_grup_current_month = $this->M_Dashboard->get_data_top_grup_amb2($current_date);
+        $data['top_grup_current_month'] = $data_top_grup_current_month;
+
+        // VARIABLE TOP GRUP UNTUK BULAN SEBELUMNYA
+        $data['top_grup_previous_month'] = [];
+
+        //PUSH TOP GRUP UNTUK BULAN SEBELUMNYA 
+        $data_top_grup_previous_month = $this->M_Dashboard->get_data_top_grup_amb2($previous_date);
+
+        //PUSH TOP GRUP UNTUK BULAN BERJALAN
+        $data_top_grup_daily = $this->M_Dashboard->get_data_top_grup_amb2_daily(date('Y-m-d'));
+        $data['top_grup_daily'] = $data_top_grup_daily;
         
         return view('dashboard/dashboard_lhp_assy_amb2', $data);
     }

@@ -53,7 +53,7 @@
                         <div class="box-body" style="display:flex">
                             <div class="col-2">
                                 <form action="<?=base_url()?>dashboard/assy/amb2" method="POST">
-                                    <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                    <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
                                         <option value="1">Efficiency</option>
                                         <option value="2">Unit / MH</option>
                                     </select>
@@ -62,7 +62,7 @@
                                         <option value="line" <?= ($parent_filter == 'line') ? 'selected':''?>>Line</option>
                                     </select>
                                     &nbsp;
-                                    <select class="form-select" name="child_filter" id="child_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                    <select class="form-select" name="child_filter" id="child_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
                                         <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>AMB 2</option>
                                         <!-- <option value="amb2" <?= ($child_filter === 'amb1') ? 'selected':''?>>AMB 2</option> -->
                                         <?php for ($i=4; $i <= 7 ; $i++) { ?>
@@ -70,7 +70,7 @@
                                         <?php } ?>
                                     </select>
                                     &nbsp;
-                                    <select class="form-select" name="baby_filter" id="baby_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                    <select class="form-select" name="baby_filter" id="baby_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
                                         <?php if ($child_filter == 0) { ?>
                                             <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
                                             <option value="line" <?= ($baby_filter == 'line') ? 'selected':''?>>By Line</option>
@@ -82,15 +82,20 @@
                                         <?php } ?>
                                     </select>
                                     &nbsp;
-                                    <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                    <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
                                     &nbsp;
                                     <div style="display: flex; flex-direction: column;" >
-                                        <button class="btn btn-sm btn-success" style="font-size: 20px;font-weight: 900;width: 250px;"> Filter </button>
+                                        <button class="btn btn-sm btn-success" style="font-size: 20px;font-weight: 900;width: 175px;"> Filter </button>
                                     </div>
                                 </form>
                             </div>
                             <div class="col-6" style="display:flex; margin-top:40px;">
-                                <div class="col-3">
+                                <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around; margin-left:-140px; margin-top:-65px;">
+                                    <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
+                                    <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
+                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
+                                </div>
+                                <div class="col-3" style="margin-left:85px">
                                     <div id="year_to_date_chart" style="height:250px;"></div>
                                     <!-- <div style="text-align: center;margin-top: 60px;">
                                         <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
@@ -112,13 +117,8 @@
                                         <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
                                     </div> -->
                                 </div>
-                                <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
-                                    <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
-                                    <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
-                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
-                                </div>
                             </div>
-                            <div class="col-4" style="text-align:center">
+                            <div class="col-4" style="text-align:center; margin-top:10px">
                                 <!-- <div class="row">
                                     <div class="col-12" style="text-align:center">
                                         <button class="btn btn-danger">Rejection</button>
@@ -127,45 +127,97 @@
                                     </div>
                                 </div> -->
                                 <div class="row">
-                                    <div class="col-12">
-                                        <br>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-12" style="text-align:center">
-                                        <div>
-                                            <h4 style="font-weight: 500;color: yellow;">Production Performance Review </h4>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
-                                                <thead>
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td><?=date('F', mktime(0, 0, 0, $previous_date, 10))?></td>
-                                                        <td><?=date('F', mktime(0, 0, 0, $current_date, 10))?></td>
-                                                        <td>Status</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php for ($i=4; $i <= 7; $i++) { ?>
-                                                        <tr style="line-height: 0px;">
-                                                            <td>Line <?=$i?></td>
-                                                            <td><?=${'data_line_'.$i.'_previous_month'}[0]?> %</td>
-                                                            <td><?=${'data_line_'.$i.'_current_month'}[0]?> %</td>
-                                                            <td>
-                                                                <?php if(${'data_line_'.$i.'_current_month'}[0] > ${'data_line_'.$i.'_previous_month'}[0]) {
-                                                                    echo '<i class="fa fa-arrow-up" style="color:green"></i>';
-                                                                } else if(${'data_line_'.$i.'_current_month'}[0] < ${'data_line_'.$i.'_previous_month'}[0]) {
-                                                                    echo '<i class="fa fa-arrow-down" style="color:red"></i>';
-                                                                } else if(${'data_line_'.$i.'_current_month'}[0] == ${'data_line_'.$i.'_previous_month'}[0]) {
-                                                                    echo '<i class="fa fa-minus" style="color:yellow"></i>';
-                                                                } ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        </div>                                        
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs customtab2" role="tablist">
+                                            <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#production_review" role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span class="hidden-xs-down">Production Review</span></a> </li>
+                                            <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#monthly_top_grup" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down">Top Group Monthly</span></a> </li>
+                                            <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#daily_top_grup" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down">Top Group Daily</span></a> </li>
+                                        </ul>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="production_review" role="tabpanel">
+                                                <div class="p-15">
+                                                    <div>
+                                                        <h4 style="font-weight: 500;color: yellow;">Production Performance Review </h4>
+                                                    </div>
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td>#</td>
+                                                                    <td><?=date('F', mktime(0, 0, 0, $previous_date, 10))?></td>
+                                                                    <td><?=date('F', mktime(0, 0, 0, $current_date, 10))?></td>
+                                                                    <td>Status</td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php for ($i=4; $i <= 7; $i++) { ?>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>Line <?=$i?></td>
+                                                                        <td><?=${'data_line_'.$i.'_previous_month'}[0]?> %</td>
+                                                                        <td><?=${'data_line_'.$i.'_current_month'}[0]?> %</td>
+                                                                        <td>
+                                                                            <?php if(${'data_line_'.$i.'_current_month'}[0] > ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                                echo '<i class="fa fa-arrow-up" style="color:green"></i>';
+                                                                            } else if(${'data_line_'.$i.'_current_month'}[0] < ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                                echo '<i class="fa fa-arrow-down" style="color:red"></i>';
+                                                                            } else if(${'data_line_'.$i.'_current_month'}[0] == ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                                echo '<i class="fa fa-minus" style="color:yellow"></i>';
+                                                                            } ?>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>     
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="monthly_top_grup" role="tabpanel">
+                                                <div class="p-15">
+                                                    <!-- <div>
+                                                        <h4 style="font-weight: 500;color: yellow;">Top Group Performance </h4>
+                                                    </div> -->
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
+                                                            
+                                                            <tbody>
+                                                                <?php $no=1; foreach ($top_grup_current_month as $t_grup_current_month) { ?>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td style="text-align:left"><?=$no.'. '.$t_grup_current_month['nama_pic']?></td>
+                                                                        <!-- <td></td> -->
+                                                                        <td style="text-align:right"><?=number_format($t_grup_current_month['persen'], 2)?> %</td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                <?php $no++; } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="daily_top_grup" role="tabpanel">
+                                                <div class="p-15">
+                                                    <!-- <div>
+                                                        <h4 style="font-weight: 500;color: yellow;">Top Group Performance </h4>
+                                                    </div> -->
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
+                                                            
+                                                            <tbody>
+                                                                <?php $no=1; foreach ($top_grup_daily as $t_grup_daily) { ?>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td style="text-align:left"><?=$no.'. '.$t_grup_daily['nama_pic']?></td>
+                                                                        <!-- <td></td> -->
+                                                                        <td style="text-align:right"><?=number_format($t_grup_daily['persen'], 2)?> %</td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                <?php $no++; } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                        </div>                                                                           
                                     </div>
                                 </div>
                             </div>
