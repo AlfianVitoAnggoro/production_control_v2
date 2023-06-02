@@ -244,19 +244,19 @@ $mh = [8, 7.5, 6.5];
                                         <thead>
                                             <tr>
                                                 <th>Urutan Produksi</th>
-                                                <th>Jenis Line Stop</th>
                                                 <th>Kategori Line Stop</th>
+                                                <th>Jenis Line Stop</th>
                                                 <th>Uraian Line Stop</th>
                                                 <th>Total Menit</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tbody_data_line_stop">
-                                            <?php
+                                            <?php $index_breakdown = 0;
                                             foreach ($data_breakdown as $d_breakdown) { ?>
                                                 <tr class="row_line_stop">
                                                     <td>
-                                                        <select name="urutan_produksi_breakdown[]" class="form-select select2" style="width: 150px">
+                                                        <!-- <select name="urutan_produksi_breakdown[]" class="form-select select2" style="width: 150px" disabled>
                                                             <option value="">-- Pilih Urutan --</option>
                                                             <?php
                                                             for ($i = 1; $i <= 12; $i++) { ?>
@@ -264,26 +264,27 @@ $mh = [8, 7.5, 6.5];
                                                             <?php
                                                             }
                                                             ?>
-                                                        </select>
-                                                        <input type="hidden" name="id_detail_lhp_ws_breakdown[]" value="<?= $d_breakdown['id_breakdown_ws'] ?>">
+                                                        </select> -->
+                                                        <input type="text" class="form-control" name="urutan_produksi_breakdown[]" id="urutan_produksi_breakdown_<?= $index_breakdown ?>" value="<?= $d_breakdown['urutan_produksi'] ?>" style="width: 150px" readonly>
+                                                        <input type="hidden" name="id_detail_lhp_ws_breakdown[]" id="id_detail_lhp_ws_breakdown_<?= $index_breakdown ?>" value="<?= $d_breakdown['id_breakdown_ws'] ?>">
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control" name="jenis_breakdown_ws[]" id="jenis_breakdown_ws_<?= $d_breakdown['urutan_produksi'] ?>" value="<?= $d_breakdown['jenis_breakdown'] ?>" style="width: 300px">
+                                                        <input type="text" class="form-control" name="kategori_breakdown_ws[]" id="kategori_breakdown_ws_<?= $index_breakdown ?>" value="<?= $d_breakdown['kategori_breakdown'] ?>" style="width: 200px" readonly>
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control" name="kategori_breakdown_ws[]" id="kategori_breakdown_ws_<?= $d_breakdown['urutan_produksi'] ?>" value="<?= $d_breakdown['kategori_breakdown'] ?>" style="width: 300px">
+                                                        <input type="text" class="form-control" name="jenis_breakdown_ws[]" id="jenis_breakdown_ws_<?= $index_breakdown ?>" value="<?= $d_breakdown['jenis_breakdown'] ?>" style="width: 200px" readonly>
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="form-control" name="uraian_breakdown_ws[]" id="uraian_breakdown_ws_<?= $d_breakdown['urutan_produksi'] ?>" value="<?= $d_breakdown['uraian_breakdown'] ?>" style="width: 300px">
+                                                        <input type="text" class="form-control" name="uraian_breakdown_ws[]" id="uraian_breakdown_ws_<?= $index_breakdown ?>" value="<?= $d_breakdown['uraian_breakdown'] ?>" style="width: 300px" readonly>
                                                     </td>
                                                     <td>
-                                                        <input type="number" name="total_menit_breakdown_ws[]" id="total_menit_breakdown_ws_<?= $d_breakdown['urutan_produksi'] ?>" class="form-control" value="<?= $d_breakdown['total_menit'] ?>" style="width: 75px">
+                                                        <input type="number" name="total_menit_breakdown_ws[]" id="total_menit_breakdown_ws_<?= $index_breakdown ?>" class="form-control" value="<?= $d_breakdown['total_menit'] ?>" style="width: 75px" readonly>
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-danger" onclick="delete_breakdown(this)">Delete</button>
                                                     </td>
                                                 </tr>
-                                            <?php
+                                            <?php $index_breakdown++;
                                             }
                                             ?>
                                         </tbody>
@@ -701,14 +702,14 @@ $mh = [8, 7.5, 6.5];
                     <input type="hidden" name="id_detail_lhp_ws_breakdown[]">
                 </td>
                 <td>
-                    <select class="form-control select2" name="jenis_breakdown_ws[]" id="jenis_breakdown_ws_${row}" onchange="get_jenis_line_stop(${row})" style="width: 200px">
+                    <select class="form-control select2" name="kategori_breakdown_ws[]" id="kategori_breakdown_ws_${row}" onchange="get_jenis_line_stop(${row})" style="width: 200px">
 						<option value="">Pilih Kategori Line Stop</option>
 						${data_line_stop.map((item) => {
 							return `<option value="${item.kategori_line_stop}">${item.kategori_line_stop}</option>`;
 						}).join('')}
 					</select>
                 <td>
-					<select class="form-control select2" id="kategori_breakdown_ws_${row}" name="kategori_breakdown_ws[]" style="width: 200px;">
+					<select class="form-control select2" id="jenis_breakdown_ws_${row}" name="jenis_breakdown_ws[]" style="width: 200px;">
                         <option selected disabled>-- Pilih Jenis Line Stop --</option>
                     </select>
 				</td>
@@ -729,7 +730,7 @@ $mh = [8, 7.5, 6.5];
     }
 
     function get_jenis_line_stop(i) {
-        let kategori_line_stop = $('#jenis_breakdown_ws_' + i).val();
+        let kategori_line_stop = $('#kategori_breakdown_ws_' + i).val();
         $.ajax({
             url: '<?= base_url() ?>wide_strip/get_jenis_line_stop',
             type: 'POST',
@@ -739,7 +740,7 @@ $mh = [8, 7.5, 6.5];
             dataType: 'json',
             success: function(data) {
                 console.log(data);
-                $('#kategori_breakdown_ws_' + i).html(`
+                $('#jenis_breakdown_ws_' + i).html(`
                     <option selected disabled>-- Pilih Jenis Line Stop --</option>
                     ${data.map((item) => `<option value="${item.jenis_line_stop}">${item.jenis_line_stop}</option>`)}
                 `);
