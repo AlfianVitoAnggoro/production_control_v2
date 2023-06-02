@@ -1137,7 +1137,17 @@
                     }
                 },
 
-                yAxis: {
+                yAxis: [{
+                    title: {
+                        text: 'Pcs'
+                    },
+                    labels: {
+                        style: {
+                            color: '#ffffff'
+                        }
+                    },
+                    opposite: true
+                },{
                     title: {
                         text: '%'
                     },
@@ -1146,7 +1156,7 @@
                             color: '#ffffff'
                         }
                     }
-                },
+                }],
 
                 xAxis: {
                     categories: <?php echo json_encode($dates); ?>,
@@ -1198,9 +1208,11 @@
                                         var i;
                                         var arr_jenis_reject = [];
                                         var arr_qty_jenis_reject = [];
+                                        var arr_qty_jenis_reject_pcs = [];
                                         for (i = 0; i < data_jenis_reject.length; i++) {
                                             arr_jenis_reject.push(data_jenis_reject[i].jenis_reject);
                                             arr_qty_jenis_reject.push(parseFloat(((data_jenis_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                            arr_qty_jenis_reject_pcs.push(parseInt(((data_jenis_reject[i].qty))));
                                         }
                                         console.log(arr_qty_jenis_reject);
                                         $('#detail_pareto_jenis_reject').html(`<figure class="highcharts-figure">
@@ -1231,12 +1243,18 @@
                                                         }
                                                     }
                                                 },
-                                                yAxis: {
+                                                yAxis: [{
+                                                    min: 0,
+                                                    title: {
+                                                        text: 'Pcs'
+                                                    },
+                                                    opposite: true,
+                                                },{
                                                     min: 0,
                                                     title: {
                                                         text: '%'
                                                     }
-                                                },
+                                                }],
                                                 plotOptions: {
                                                     column: {
                                                         pointPadding: 0.2,
@@ -1268,9 +1286,11 @@
                                                                         var i;
                                                                         var arr_kategori_reject = [];
                                                                         var arr_qty_kategori_reject = [];
+                                                                        var arr_qty_kategori_reject_pcs = [];
                                                                         for (i = 0; i < data_reject_by_jenis_reject.length; i++) {
                                                                             arr_kategori_reject.push(data_reject_by_jenis_reject[i].kategori_reject);
                                                                             arr_qty_kategori_reject.push(parseFloat(((data_reject_by_jenis_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                            arr_qty_kategori_reject_pcs.push(parseFloat(((data_reject_by_jenis_reject[i].qty))));
                                                                             
                                                                         }
                                                                         $('#sub_detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
@@ -1301,12 +1321,18 @@
                                                                                         }
                                                                                     }
                                                                                 },
-                                                                                yAxis: {
+                                                                                yAxis: [{
+                                                                                    min: 0,
+                                                                                    title: {
+                                                                                        text: 'Pcs'
+                                                                                    },
+                                                                                    opposite: true
+                                                                                },{
                                                                                     min: 0,
                                                                                     title: {
                                                                                         text: '%'
                                                                                     }
-                                                                                },
+                                                                                }],
                                                                                 plotOptions: {
                                                                                     column: {
                                                                                         pointPadding: 0.2,
@@ -1329,11 +1355,20 @@
                                                                                 legend: {
                                                                                     enabled: false
                                                                                 },
+                                                                                tooltip: {
+                                                                                    shared: true,
+                                                                                },
                                                                                 series: [{
-                                                                                    name: 'Total',
+                                                                                    name: 'Persentasi',
+                                                                                    type: 'column',
                                                                                     data: arr_qty_kategori_reject,
                                                                                     color:'yellow',
-
+                                                                                    yAxis: 1,
+                                                                                },{
+                                                                                    name: 'Pcs',
+                                                                                    type: 'spline',
+                                                                                    data: arr_qty_kategori_reject_pcs,
+                                                                                    color:'red',
                                                                                 }]
                                                                         });
 
@@ -1341,10 +1376,11 @@
                                                                         var i;
                                                                         var arr_type_battery = [];
                                                                         var arr_qty_type_battery = [];
+                                                                        var arr_qty_type_battery_pcs = [];
                                                                         for (i = 0; i < data_reject_by_type_battery.length; i++) {
                                                                             arr_type_battery.push(data_reject_by_type_battery[i].type_battery);
                                                                             arr_qty_type_battery.push(parseFloat(((data_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
-                                                                            
+                                                                            arr_qty_type_battery_pcs.push(parseInt(((data_reject_by_type_battery[i].qty))));                                                                            
                                                                         }
                                                                         $('#sub_detail_pareto_type_battery').html(`  <figure class="highcharts-figure">
                                                                                                                         <div id="chart_detail_pareto_battery_reject"></div>
@@ -1374,12 +1410,18 @@
                                                                                         }
                                                                                     }
                                                                                 },
-                                                                                yAxis: {
+                                                                                yAxis: [{
+                                                                                    min: 0,
+                                                                                    title: {
+                                                                                        text: 'Pcs'
+                                                                                    },
+                                                                                    opposite: true
+                                                                                },{
                                                                                     min: 0,
                                                                                     title: {
                                                                                         text: '%'
                                                                                     }
-                                                                                },
+                                                                                }],
                                                                                 plotOptions: {
                                                                                     column: {
                                                                                         pointPadding: 0.2,
@@ -1397,11 +1439,20 @@
                                                                                 legend: {
                                                                                     enabled: false
                                                                                 },
+                                                                                tooltip: {
+                                                                                    shared: true,
+                                                                                },
                                                                                 series: [{
-                                                                                    name: 'Total',
+                                                                                    name: 'Persentasi',
+                                                                                    type: 'column',
                                                                                     data: arr_qty_type_battery,
                                                                                     color:'yellow',
-
+                                                                                    yAxis: 1,
+                                                                                },{
+                                                                                    name: 'Pcs',
+                                                                                    type: 'spline',
+                                                                                    data: arr_qty_type_battery_pcs,
+                                                                                    color:'red',
                                                                                 }]
                                                                         });
 
@@ -1409,9 +1460,11 @@
                                                                         var i;
                                                                         var arr_grup = [];
                                                                         var arr_qty_grup = [];
+                                                                        var arr_qty_grup_pcs = [];
                                                                         for (i = 0; i < data_reject_by_grup.length; i++) {
                                                                             arr_grup.push(data_reject_by_grup[i].nama_pic+' ('+data_reject_by_grup[i].shift+')');
                                                                             arr_qty_grup.push(parseFloat(((data_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                            arr_qty_grup_pcs.push(parseInt(((data_reject_by_grup[i].qty))));
                                                                             
                                                                         }
                                                                         $('#sub_detail_pareto_grup_shift').html(`  <figure class="highcharts-figure">
@@ -1442,12 +1495,18 @@
                                                                                         }
                                                                                     }
                                                                                 },
-                                                                                yAxis: {
+                                                                                yAxis: [{
+                                                                                    min: 0,
+                                                                                    title: {
+                                                                                        text: 'Pcs'
+                                                                                    },
+                                                                                    opposite: true
+                                                                                },{
                                                                                     min: 0,
                                                                                     title: {
                                                                                         text: '%'
                                                                                     }
-                                                                                },
+                                                                                }],
                                                                                 plotOptions: {
                                                                                     column: {
                                                                                         pointPadding: 0.2,
@@ -1465,11 +1524,20 @@
                                                                                 legend: {
                                                                                     enabled: false
                                                                                 },
+                                                                                tooltip: {
+                                                                                    shared: true,
+                                                                                },
                                                                                 series: [{
-                                                                                    name: 'Total',
+                                                                                    name: 'Persentasi',
+                                                                                    type: 'column',
                                                                                     data: arr_qty_grup,
                                                                                     color:'yellow',
-
+                                                                                    yAxis: 1,
+                                                                                },{
+                                                                                    name: 'Pcs',
+                                                                                    type: 'spline',
+                                                                                    data: arr_qty_grup_pcs,
+                                                                                    color:'red',
                                                                                 }]
                                                                         });
 
@@ -1483,11 +1551,20 @@
                                                 legend: {
                                                     enabled: false
                                                 },
+                                                tooltip: {
+                                                    shared: true,
+                                                },
                                                 series: [{
-                                                    name: 'Total',
+                                                    name: 'Persentasi',
+                                                    type: 'column',
                                                     data: arr_qty_jenis_reject,
                                                     color:'yellow',
-
+                                                    yAxis: 1,
+                                                },{
+                                                    name: 'Pcs',
+                                                    type: 'spline',
+                                                    data: arr_qty_jenis_reject_pcs,
+                                                    color:'red',
                                                 }]
                                         });
 
@@ -1495,9 +1572,11 @@
                                         var i;
                                         var arr_kategori_reject = [];
                                         var arr_qty_kategori_reject = [];
+                                        var arr_qty_kategori_reject_pcs = [];
                                         for (i = 0; i < data_kategori_reject.length; i++) {
                                             arr_kategori_reject.push(data_kategori_reject[i].kategori_reject);
                                             arr_qty_kategori_reject.push(parseFloat(((data_kategori_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                            arr_qty_kategori_reject_pcs.push(parseInt(((data_kategori_reject[i].qty))));
                                         }
                                         $('#detail_pareto_kategori_reject').html(`<figure class="highcharts-figure">
                                                                                         <div id="chart_pareto_kategori_reject"></div>
@@ -1527,12 +1606,18 @@
                                                         }
                                                     }
                                                 },
-                                                yAxis: {
+                                                yAxis: [{
+                                                    min: 0,
+                                                    title: {
+                                                        text: 'Pcs'
+                                                    },
+                                                    opposite: true
+                                                },{
                                                     min: 0,
                                                     title: {
                                                         text: '%'
                                                     }
-                                                },
+                                                }],
                                                 plotOptions: {
                                                     column: {
                                                         pointPadding: 0.2,
@@ -1550,11 +1635,21 @@
                                                 legend: {
                                                     enabled: false
                                                 },
+                                                tooltip: {
+                                                    shared: true,
+                                                },
                                                 series: [{
-                                                    name: 'Total',
+                                                    name: 'Persentasi',
+                                                    type: 'column',
                                                     data: arr_qty_kategori_reject,
                                                     color:'yellow',
+                                                    yAxis: 1,
 
+                                                },{
+                                                    name: 'Pcs',
+                                                    type: 'spline',
+                                                    data: arr_qty_kategori_reject_pcs,
+                                                    color:'red',
                                                 }]
                                         });
 
@@ -1562,9 +1657,11 @@
                                         var i;
                                         var arr_battery_reject = [];
                                         var arr_qty_battery_reject = [];
+                                        var arr_qty_battery_reject_pcs = [];
                                         for (i = 0; i < data_battery_reject.length; i++) {
                                             arr_battery_reject.push(data_battery_reject[i].type_battery);
                                             arr_qty_battery_reject.push(parseFloat(((data_battery_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                            arr_qty_battery_reject_pcs.push(parseInt(((data_battery_reject[i].qty))));
                                             
                                         }
                                         $('#detail_pareto_type_battery').html(`<figure class="highcharts-figure">
@@ -1595,12 +1692,18 @@
                                                         }
                                                     }
                                                 },
-                                                yAxis: {
+                                                yAxis: [{
+                                                    min: 0,
+                                                    title: {
+                                                        text: 'Pcs'
+                                                    },
+                                                    opposite: true
+                                                },{
                                                     min: 0,
                                                     title: {
                                                         text: '%'
                                                     }
-                                                },
+                                                }],
                                                 plotOptions: {
                                                     column: {
                                                         pointPadding: 0.2,
@@ -1632,9 +1735,11 @@
                                                                         var i;
                                                                         var arr_jenis_reject_battery = [];
                                                                         var arr_qty_jenis_reject_battery = [];
+                                                                        var arr_qty_jenis_reject_battery_pcs = [];
                                                                         for (i = 0; i < data_jenis_reject_by_type_battery.length; i++) {
                                                                             arr_jenis_reject_battery.push(data_jenis_reject_by_type_battery[i].jenis_reject);
                                                                             arr_qty_jenis_reject_battery.push(parseFloat(((data_jenis_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                            arr_qty_jenis_reject_battery_pcs.push(parseInt(((data_jenis_reject_by_type_battery[i].qty))));
                                                                         }
 
                                                                         $('#sub_detail_pareto_jenis_reject').html(`  <figure class="highcharts-figure">
@@ -1665,12 +1770,18 @@
                                                                                         }
                                                                                     }
                                                                                 },
-                                                                                yAxis: {
+                                                                                yAxis: [{
+                                                                                    min: 0,
+                                                                                    title: {
+                                                                                        text: 'Pcs'
+                                                                                    },
+                                                                                    opposite: true
+                                                                                },{
                                                                                     min: 0,
                                                                                     title: {
                                                                                         text: '%'
                                                                                     }
-                                                                                },
+                                                                                }],
                                                                                 plotOptions: {
                                                                                     column: {
                                                                                         pointPadding: 0.2,
@@ -1688,11 +1799,21 @@
                                                                                 legend: {
                                                                                     enabled: false
                                                                                 },
+                                                                                tooltip: {
+                                                                                    shared: true,
+                                                                                },
                                                                                 series: [{
-                                                                                    name: 'Total',
+                                                                                    name: 'Persentasi',
+                                                                                    type: 'column',
                                                                                     data: arr_qty_jenis_reject_battery,
                                                                                     color:'yellow',
+                                                                                    yAxis: 1,
 
+                                                                                },{
+                                                                                    name: 'Pcs',
+                                                                                    type: 'spline',
+                                                                                    data: arr_qty_jenis_reject_battery_pcs,
+                                                                                    color:'red',
                                                                                 }]
                                                                         });
 
@@ -1700,9 +1821,11 @@
                                                                         var i;
                                                                         var arr_kategori_reject_battery = [];
                                                                         var arr_qty_kategori_reject_battery = [];
+                                                                        var arr_qty_kategori_reject_battery_pcs = [];
                                                                         for (i = 0; i < data_kategori_reject_by_type_battery.length; i++) {
                                                                             arr_kategori_reject_battery.push(data_kategori_reject_by_type_battery[i].kategori_reject);
                                                                             arr_qty_kategori_reject_battery.push(parseFloat(((data_kategori_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                            arr_qty_kategori_reject_battery_pcs.push(parseInt(((data_kategori_reject_by_type_battery[i].qty))));
                                                                         }
 
                                                                         $('#sub_detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
@@ -1733,12 +1856,18 @@
                                                                                         }
                                                                                     }
                                                                                 },
-                                                                                yAxis: {
+                                                                                yAxis: [{
+                                                                                    min: 0,
+                                                                                    title: {
+                                                                                        text: 'Pcs'
+                                                                                    },
+                                                                                    opposite: true
+                                                                                },{
                                                                                     min: 0,
                                                                                     title: {
                                                                                         text: '%'
                                                                                     }
-                                                                                },
+                                                                                }],
                                                                                 plotOptions: {
                                                                                     column: {
                                                                                         pointPadding: 0.2,
@@ -1756,11 +1885,20 @@
                                                                                 legend: {
                                                                                     enabled: false
                                                                                 },
+                                                                                tooltip: {
+                                                                                    shared: true,
+                                                                                },
                                                                                 series: [{
-                                                                                    name: 'Total',
+                                                                                    name: 'Persentasi',
+                                                                                    type: 'column',
                                                                                     data: arr_qty_kategori_reject_battery,
                                                                                     color:'yellow',
-
+                                                                                    yAxis: 1,
+                                                                                },{
+                                                                                    name: 'Pcs',
+                                                                                    type: 'spline',
+                                                                                    data: arr_qty_kategori_reject_battery_pcs,
+                                                                                    color:'red',
                                                                                 }]
                                                                         });
 
@@ -1772,9 +1910,11 @@
                                                                         var i;
                                                                         var arr_grup_reject_battery = [];
                                                                         var arr_qty_grup_reject_battery = [];
+                                                                        var arr_qty_grup_reject_battery_pcs = [];
                                                                         for (i = 0; i < data_grup_reject_by_type_battery.length; i++) {
                                                                             arr_grup_reject_battery.push(data_grup_reject_by_type_battery[i].nama_pic+' ('+data_grup_reject_by_type_battery[i].shift+')');
                                                                             arr_qty_grup_reject_battery.push(parseFloat(((data_grup_reject_by_type_battery[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                            arr_qty_grup_reject_battery_pcs.push(parseInt(((data_grup_reject_by_type_battery[i].qty))));
                                                                         }
 
                                                                         $('#sub_detail_pareto_grup_shift').html(`  <figure class="highcharts-figure">
@@ -1805,12 +1945,18 @@
                                                                                         }
                                                                                     }
                                                                                 },
-                                                                                yAxis: {
+                                                                                yAxis: [{
+                                                                                    min: 0,
+                                                                                    title: {
+                                                                                        text: 'Pcs'
+                                                                                    },
+                                                                                    opposite: true
+                                                                                },{
                                                                                     min: 0,
                                                                                     title: {
                                                                                         text: '%'
                                                                                     }
-                                                                                },
+                                                                                }],
                                                                                 plotOptions: {
                                                                                     column: {
                                                                                         pointPadding: 0.2,
@@ -1828,11 +1974,20 @@
                                                                                 legend: {
                                                                                     enabled: false
                                                                                 },
+                                                                                tooltip: {
+                                                                                    shared: true,
+                                                                                },
                                                                                 series: [{
-                                                                                    name: 'Total',
+                                                                                    name: 'Persentasi',
+                                                                                    type: 'column',
                                                                                     data: arr_qty_grup_reject_battery,
                                                                                     color:'yellow',
-
+                                                                                    yAxis: 1,
+                                                                                },{
+                                                                                    name: 'Pcs',
+                                                                                    type: 'spline',
+                                                                                    data: arr_qty_grup_reject_battery_pcs,
+                                                                                    color:'red',
                                                                                 }]
                                                                         });
 
@@ -1848,11 +2003,20 @@
                                                 legend: {
                                                     enabled: false
                                                 },
+                                                tooltip: {
+                                                    shared: true,
+                                                },
                                                 series: [{
-                                                    name: 'Total',
+                                                    name: 'Persentasi',
+                                                    type: 'column',
                                                     data: arr_qty_battery_reject,
                                                     color:'yellow',
-
+                                                    yAxis: 1,
+                                                },{
+                                                    name: 'Pcs',
+                                                    type: 'spline',
+                                                    data: arr_qty_battery_reject_pcs,
+                                                    color:'red',
                                                 }]
                                         });
 
@@ -1860,9 +2024,11 @@
                                         var i;
                                         var arr_grup_reject = [];
                                         var arr_qty_grup_reject = [];
+                                        var arr_qty_grup_reject_pcs = [];
                                         for (i = 0; i < data_grup_reject.length; i++) {
                                             arr_grup_reject.push(data_grup_reject[i].nama_pic+' ('+data_grup_reject[i].shift+')');
                                             arr_qty_grup_reject.push(parseFloat(((data_grup_reject[i].total_reject / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                            arr_qty_grup_reject_pcs.push(parseInt(((data_grup_reject[i].total_reject))));
                                             
                                         }
                                         $('#detail_pareto_grup_shift').html(`<figure class="highcharts-figure">
@@ -1893,12 +2059,18 @@
                                                         }
                                                     }
                                                 },
-                                                yAxis: {
+                                                yAxis: [{
+                                                    min: 0,
+                                                    title: {
+                                                        text: 'Pcs'
+                                                    },
+                                                    opposite: true
+                                                },{
                                                     min: 0,
                                                     title: {
                                                         text: '%'
                                                     }
-                                                },
+                                                }],
                                                 plotOptions: {
                                                     column: {
                                                         pointPadding: 0.2,
@@ -1940,9 +2112,11 @@
                                                                         var i;
                                                                         var arr_jenis_reject = [];
                                                                         var arr_qty_jenis_reject = [];
+                                                                        var arr_qty_jenis_reject_pcs = [];
                                                                         for (i = 0; i < data_detail_reject_by_grup.length; i++) {
                                                                             arr_jenis_reject.push(data_detail_reject_by_grup[i].jenis_reject);
                                                                             arr_qty_jenis_reject.push(parseFloat(((data_detail_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                            arr_qty_jenis_reject_pcs.push(parseInt(((data_detail_reject_by_grup[i].qty))));
                                                                             
                                                                         }
 
@@ -1974,12 +2148,18 @@
                                                                                         }
                                                                                     }
                                                                                 },
-                                                                                yAxis: {
+                                                                                yAxis: [{
+                                                                                    min: 0,
+                                                                                    title: {
+                                                                                        text: 'Pcs'
+                                                                                    },
+                                                                                    opposite: true
+                                                                                },{
                                                                                     min: 0,
                                                                                     title: {
                                                                                         text: '%'
                                                                                     }
-                                                                                },
+                                                                                }],
                                                                                 plotOptions: {
                                                                                     column: {
                                                                                         pointPadding: 0.2,
@@ -2002,11 +2182,20 @@
                                                                                 legend: {
                                                                                     enabled: false
                                                                                 },
+                                                                                tooltip: {
+                                                                                    shared: true,
+                                                                                },
                                                                                 series: [{
-                                                                                    name: 'Total',
+                                                                                    name: 'Persentasi',
+                                                                                    type: 'column',
                                                                                     data: arr_qty_jenis_reject,
                                                                                     color:'yellow',
-
+                                                                                    yAxis: 1,
+                                                                                },{
+                                                                                    name: 'Pcs',
+                                                                                    type: 'spline',
+                                                                                    data: arr_qty_jenis_reject_pcs,
+                                                                                    color:'red',
                                                                                 }]
                                                                         });
 
@@ -2014,10 +2203,11 @@
                                                                         var i;
                                                                         var arr_kategori_reject = [];
                                                                         var arr_qty_kategori_reject = [];
+                                                                        var arr_qty_kategori_reject_pcs = [];
                                                                         for (i = 0; i < data_kategori_reject_by_grup.length; i++) {
                                                                             arr_kategori_reject.push(data_kategori_reject_by_grup[i].kategori_reject);
                                                                             arr_qty_kategori_reject.push(parseFloat(((data_kategori_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
-                                                                            
+                                                                            arr_qty_kategori_reject_pcs.push(parseInt(((data_kategori_reject_by_grup[i].qty))));
                                                                         }
 
                                                                         $('#sub_detail_pareto_kategori_reject').html(`  <figure class="highcharts-figure">
@@ -2048,12 +2238,18 @@
                                                                                         }
                                                                                     }
                                                                                 },
-                                                                                yAxis: {
+                                                                                yAxis: [{
+                                                                                    min: 0,
+                                                                                    title: {
+                                                                                        text: 'Pcs'
+                                                                                    },
+                                                                                    opposite: true
+                                                                                },{
                                                                                     min: 0,
                                                                                     title: {
                                                                                         text: '%'
                                                                                     }
-                                                                                },
+                                                                                }],
                                                                                 plotOptions: {
                                                                                     column: {
                                                                                         pointPadding: 0.2,
@@ -2076,11 +2272,20 @@
                                                                                 legend: {
                                                                                     enabled: false
                                                                                 },
+                                                                                tooltip: {
+                                                                                    shared: true,
+                                                                                },
                                                                                 series: [{
-                                                                                    name: 'Total',
+                                                                                    name: 'Persentasi',
+                                                                                    type: 'column',
                                                                                     data: arr_qty_kategori_reject,
                                                                                     color:'yellow',
-
+                                                                                    yAxis: 1,
+                                                                                },{
+                                                                                    name: 'Pcs',
+                                                                                    type: 'spline',
+                                                                                    data: arr_qty_kategori_reject_pcs,
+                                                                                    color:'red',
                                                                                 }]
                                                                         });
 
@@ -2088,9 +2293,11 @@
                                                                         var i;
                                                                         var arr_battery_reject = [];
                                                                         var arr_qty_battery_reject = [];
+                                                                        var arr_qty_battery_reject_pcs = [];
                                                                         for (i = 0; i < data_battery_reject_by_grup.length; i++) {
                                                                             arr_battery_reject.push(data_battery_reject_by_grup[i].type_battery);
                                                                             arr_qty_battery_reject.push(parseFloat(((data_battery_reject_by_grup[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                                                            arr_qty_battery_reject_pcs.push(parseInt(((data_battery_reject_by_grup[i].qty))));
                                                                             
                                                                         }
 
@@ -2122,12 +2329,18 @@
                                                                                         }
                                                                                     }
                                                                                 },
-                                                                                yAxis: {
+                                                                                yAxis: [{
+                                                                                    min: 0,
+                                                                                    title: {
+                                                                                        text: 'Pcs'
+                                                                                    },
+                                                                                    opposite: true
+                                                                                },{
                                                                                     min: 0,
                                                                                     title: {
                                                                                         text: '%'
                                                                                     }
-                                                                                },
+                                                                                }],
                                                                                 plotOptions: {
                                                                                     column: {
                                                                                         pointPadding: 0.2,
@@ -2150,11 +2363,20 @@
                                                                                 legend: {
                                                                                     enabled: false
                                                                                 },
+                                                                                tooltip: {
+                                                                                    shared: true,
+                                                                                },
                                                                                 series: [{
-                                                                                    name: 'Total',
+                                                                                    name: 'Persentasi',
+                                                                                    type: 'column',
                                                                                     data: arr_qty_battery_reject,
                                                                                     color:'yellow',
-
+                                                                                    yAxis: 1,
+                                                                                },{
+                                                                                    name: 'Pcs',
+                                                                                    type: 'spline',
+                                                                                    data: arr_qty_battery_reject_pcs,
+                                                                                    color:'red',
                                                                                 }]
                                                                         });
 
@@ -2170,11 +2392,20 @@
                                                 legend: {
                                                     enabled: false
                                                 },
+                                                tooltip: {
+                                                    shared: true,
+                                                },
                                                 series: [{
-                                                    name: 'Total',
+                                                    name: 'Persentasi',
+                                                    type: 'column',
                                                     data: arr_qty_grup_reject,
                                                     color:'yellow',
-
+                                                    yAxis: 1,
+                                                },{
+                                                    name: 'Pcs',
+                                                    type: 'spline',
+                                                    data: arr_qty_grup_reject_pcs,
+                                                    color:'red',
                                                 }]
                                         });
 
@@ -2186,16 +2417,29 @@
                     }
                 },
                 colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
+                tooltip: {
+                    shared: true,
+                },
                 
                 series: [{
-                    name: '<?=($child_filter == 0) ? 'All Line':'Line '.$child_filter?>',
-                    data: <?= json_encode($data_average_reject_by_date_all_line); ?>
+                    // name: '<?=($child_filter == 0) ? 'All Line':'Line '.$child_filter?>',
+                    name: 'Persentasi',
+                    type: 'column',
+                    data: <?= json_encode($data_average_reject_by_date_all_line); ?>,
+                    yAxis: 1,
+                },
+                {
+                    name: 'Pcs',
+                    type: 'spline',
+                    data: <?= json_encode($data_average_reject_by_date_all_line_pcs); ?>,
+                    color: 'green'
                 },
                 {
                 type: 'spline',
                 name: 'Target',
                 data: <?=json_encode($target_by_date)?>,
                 color:'red',
+                yAxis: 1,
             }
                 ],
 
@@ -2255,12 +2499,20 @@
                         }
                     }
                 },
-                yAxis: {
+                yAxis: [
+                //     {
+                //     min: 0,
+                //     title: {
+                //         text: 'Pcs'
+                //     },
+                //     opposite: true
+                // },
+                {
                     min: 0,
                     title: {
                         text: '%'
                     }
-                },
+                }],
                 plotOptions: {
                     column: {
                         pointPadding: 0.2,
@@ -2539,14 +2791,25 @@
                 colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
 
                 series: [{
-                    name: '<?=($child_filter == 0) ? 'All Line':'Line '.$child_filter?>',
-                    data: <?= json_encode($data_average_reject_by_month); ?>
+                    // name: '<?=($child_filter == 0) ? 'All Line':'Line '.$child_filter?>',
+                    name: 'Persentasi',
+                    type: 'column',                    
+                    data: <?= json_encode($data_average_reject_by_month); ?>,
+                    color:'yellow',
+                    // yAxis: 1,
                 },
+                // {
+                //     name: 'Pcs',
+                //     type: 'spline',
+                //     data: <?= json_encode($data_average_reject_by_month_pcs); ?>,
+                //     color:'green',
+                // },
                 {
                 type: 'spline',
                 name: 'Target',
                 data: <?=json_encode($target_by_month)?>,
                 color:'red',
+                // yAxis: 1,
             }
                 ],
             });
