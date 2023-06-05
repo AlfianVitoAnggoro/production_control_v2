@@ -100,8 +100,8 @@
 							<div class="form-group">
 								<label class="form-label">Line</label>
 								<select class="form-select" id="line" name="line" required>
-									<option selected disabled>-- Pilih Data --</option>
-                                    <option value="Casting">Grid Casting</option>
+									<option disabled>-- Pilih Data --</option>
+                                    <option value="Casting" selected>Grid Casting</option>
                                     <option value="Punching">Grid Punching</option>
 								</select>
 							</div>

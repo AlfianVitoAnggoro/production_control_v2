@@ -402,11 +402,15 @@ class Grid extends BaseController
     public function material_in()
     {
         $id_lhp = $this->request->getPost('id_lhp');
+        $barcode = $this->request->getPost('barcode');
         $material_in = $this->request->getPost('material_in');
+        $item = $this->request->getPost('item');
         $conveyor = $this->request->getPost('conveyor');
         $data = [
             'id_lhp_grid' => $id_lhp,
+            'barcode' => $barcode,
             'material_in' => $material_in,
+            'item' => $item,
             'keterangan' => $conveyor,
         ];
         $id_material_in = $this->M_Grid->add_material_in($data);

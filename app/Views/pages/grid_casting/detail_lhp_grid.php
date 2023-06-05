@@ -84,12 +84,16 @@ $mh = [8, 7.5, 6.5];
                                         <table class="table">
                                             <tr>
                                                 <td>
-                                                Conveyor Barat
+                                                Barcode Conveyor Barat
                                                 <input type="text" class="form-control" name="conveyor_barat" id="conveyor_barat" onchange="material_in_conveyor_barat()">
                                                 </td>
                                                 <td>
                                                 QTY Conveyor Barat
                                                 <input type="text" class="form-control" name="qty_conveyor_barat" id="qty_conveyor_barat" readonly>
+                                                </td>
+                                                <td>
+                                                Item Conveyor Barat
+                                                <input type="text" class="form-control" name="item_conveyor_barat" id="item_conveyor_barat" readonly>
                                                 </td>
                                                 <td>
                                                 <button type="button" class="btn btn-primary" onclick="add_material_in('barat')">Add</button>
@@ -109,6 +113,10 @@ $mh = [8, 7.5, 6.5];
                                                 <input type="text" class="form-control" name="qty_conveyor_timur" id="qty_conveyor_timur" readonly>
                                                 </td>
                                                 <td>
+                                                Item Conveyor Timur
+                                                <input type="text" class="form-control" name="item_conveyor_timur" id="item_conveyor_timur" readonly>
+                                                </td>
+                                                <td>
                                                 <button type="button" class="btn btn-primary" onclick="add_material_in('timur')">Add</button>
                                                 </td>
                                             </tr>
@@ -123,7 +131,7 @@ $mh = [8, 7.5, 6.5];
                                             <table id="data_conveyor_barat" class="table table-striped mb-0">
                                                 <thead>
                                                     <tr>
-                                                        <th colspan="2">Material In Conveyor Barat</th>
+                                                        <th colspan="4">Material In Conveyor Barat</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_material_in_conveyor_barat">
@@ -131,11 +139,17 @@ $mh = [8, 7.5, 6.5];
                                                 foreach ($data_conveyor_barat as $d_cb) { ?>
                                                     <tr class="material_in_conveyor_barat">
                                                         <td>
+                                                            <input type="text" class="form-control" id="barcode_material_in_barat_<?= $number ?>" value="<?= $d_cb['barcode'] ?>" readonly>
+                                                        </td>
+                                                        <td>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" id="material_in_barat_<?= $number ?>" value="<?= $d_cb['material_in'] ?>" readonly>
                                                                 <span class="input-group-text">Kg</span>
                                                             </div>
                                                             <input type="hidden" class="form-control" id="id_material_in_barat_<?= $number ?>" value="<?= $d_cb['id_material_in'] ?>" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" id="item_material_in_barat_<?= $number ?>" value="<?= $d_cb['item'] ?>" readonly>
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-danger" onclick="delete_material_in(this, 'barat', <?= $number ?>)">Delete</button>
@@ -152,7 +166,7 @@ $mh = [8, 7.5, 6.5];
                                             <table id="data_conveyor_timur" class="table table-striped mb-0">
                                                 <thead>
                                                     <tr>
-                                                        <th colspan="2">Material In Conveyor Timur</th>
+                                                        <th colspan="4">Material In Conveyor Timur</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_material_in_conveyor_timur">
@@ -160,11 +174,17 @@ $mh = [8, 7.5, 6.5];
                                                 foreach ($data_conveyor_timur as $d_ct) { ?>
                                                     <tr class="material_in_conveyor_timur">
                                                         <td>
+                                                            <input type="text" class="form-control" id="barcode_material_in_timur_<?= $number ?>" value="<?= $d_ct['barcode'] ?>" readonly>
+                                                        </td>
+                                                        <td>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" id="material_in_timur_<?= $number ?>" value="<?= $d_ct['material_in'] ?>" readonly>
                                                                 <span class="input-group-text">Kg</span>
                                                             </div>
                                                             <input type="hidden" class="form-control" id="id_material_in_timur_<?= $number ?>" value="<?= $d_ct['id_material_in'] ?>" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" id="item_material_in_timur_<?= $number ?>" value="<?= $d_ct['item'] ?>" readonly>
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-danger" onclick="delete_material_in(this, 'timur', <?= $number ?>)">Delete</button>
@@ -1158,6 +1178,7 @@ $mh = [8, 7.5, 6.5];
             success: function(data) {
                 if(data.length > 0) {
                     $('#qty_conveyor_' + conveyor).val(data[0].QTY);
+                    $('#item_conveyor_' + conveyor).val(data[0].item);
                 }
             }
         })
@@ -1165,7 +1186,9 @@ $mh = [8, 7.5, 6.5];
 
     function add_material_in(conveyor) {
         let id_lhp = document.querySelector('#id_lhp').value;
+        let barcode = document.querySelector('#conveyor_' + conveyor).value;
         let material_in = document.querySelector('#qty_conveyor_' + conveyor).value;
+        let item = document.querySelector('#item_conveyor_' + conveyor).value;
         let baris = document.querySelectorAll('.material_in_conveyor_' + conveyor).length;
         $('#loading-modal').modal('show');
         $.ajax({
@@ -1173,7 +1196,9 @@ $mh = [8, 7.5, 6.5];
             type: 'POST',
             data: {
                 id_lhp: id_lhp,
+                barcode: barcode,
                 material_in: material_in,
+                item: item,
                 conveyor: conveyor,
             },
             dataType: 'json',
@@ -1182,18 +1207,26 @@ $mh = [8, 7.5, 6.5];
                     $('#tbody_material_in_conveyor_' + conveyor).append(`
                         <tr class="material_in_conveyor_${conveyor}">
                             <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="material_in_timur_${baris}" value="${material_in}" readonly>
-                                    <span class="input-group-text">Kg</span>
-                                </div>
-                                <input type="hidden" class="form-control" id="id_material_in_timur_${baris}" value="${data}" readonly>
+                                <input type="text" class="form-control" id="barcode_material_in_${conveyor}_${baris}" value="${barcode}" readonly>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger" onclick="delete_material_in(this, 'timur', ${baris})">Delete</button>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="material_in_${conveyor}_${baris}" value="${material_in}" readonly>
+                                    <span class="input-group-text">Kg</span>
+                                </div>
+                                <input type="hidden" class="form-control" id="id_material_in_${conveyor}_${baris}" value="${data}" readonly>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="item_material_in_${conveyor}_${baris}" value="${item}" readonly>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" onclick="delete_material_in(this, '${conveyor}', ${baris})">Delete</button>
                             </td>
                         </tr>
                     `);
                     $('#conveyor_' + conveyor).val('');
+                    $('#qty_conveyor_' + conveyor).val('');
+                    $('#item_conveyor_' + conveyor).val('');
                     $('#loading-modal').modal('hide');
                     $('#conveyor_' + conveyor).focus();
                 }

@@ -326,7 +326,7 @@ class M_Grid extends Model
 
     public function qty_material_in($material_in)
     {
-        $query = $this->db6->query('SELECT actq as QTY FROM data_whfg_timah WHERE barc=\'' . $material_in . '\'');
+        $query = $this->db6->query('SELECT actq as QTY, item FROM data_whfg_timah WHERE barc=\'' . $material_in . '\'');
 
         return json_encode($query->getResultArray());
     }
