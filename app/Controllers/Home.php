@@ -260,7 +260,7 @@ class Home extends BaseController
             'kasubsie' => $kasubsie
         ];
 
-        $data['data_wo'] = $model->getDataWO($tanggal_produksi, $line);
+        // $data['data_wo'] = $model->getDataWO($tanggal_produksi, $line);
         // $data['data_wo'] = [];
         // $data['data_breakdown'] = $model->getListBreakdown();
         // var_dump($data['data_breakdown']); die;

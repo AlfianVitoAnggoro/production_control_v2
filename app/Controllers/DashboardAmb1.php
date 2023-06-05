@@ -373,6 +373,16 @@ class DashboardAmb1 extends BaseController
                 array_push($data['data_all_jam'], 0);
             }
         }
+
+        //PUSH TOP GRUP UNTUK BULAN BERJALAN
+        $data_top_grup_current_month = $this->M_Dashboard->get_data_top_grup_amb1($current_date);
+        $data['top_grup_current_month'] = $data_top_grup_current_month;
+
+
+        //PUSH TOP GRUP UNTUK BULAN BERJALAN
+        $data_top_grup_daily = $this->M_Dashboard->get_data_top_grup_amb1_daily(date('Y-m-d'));
+        $data['top_grup_daily'] = $data_top_grup_daily;
+
         
         return view('dashboard/dashboard_lhp_assy_amb1', $data);
     }

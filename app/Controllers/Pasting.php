@@ -348,8 +348,8 @@ class Pasting extends BaseController
           ];
   
           if ($this->request->getPost('actual')[$i] != null) {
-            $total_jks += $this->request->getPost('jks')[$i];
-            $total_actual += $this->request->getPost('actual')[$i];
+            $total_jks += (int) $this->request->getPost('jks')[$i];
+            $total_actual += (int) $this->request->getPost('actual')[$i];
           }
   
           // if ($this->request->getPost('total_menit_breakdown')[$i] != null) {

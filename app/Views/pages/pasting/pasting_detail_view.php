@@ -1539,6 +1539,8 @@ $shift
     }
     let menit_terpakai = hours * 60 + minutes;
     $('#menit_terpakai_' + i + '_' + j).val(menit_terpakai);
+
+    update_jks(i, j);
   }
 
   function time_start(i) {

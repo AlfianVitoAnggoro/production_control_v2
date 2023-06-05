@@ -24,13 +24,23 @@ class M_Data extends Model
     public function getDataWO($tanggal_produksi,$line)
     {
 
-        $tanggal = date('Ymd', strtotime('-14 days', strtotime($tanggal_produksi)));
+        $tanggal = date('Ymd', strtotime('-5 days', strtotime($tanggal_produksi)));
+
+        $ka = "'"."KA%"."'";
+
+        // $query = $this->db3->query('
+        //                             SELECT t$prto as rfq,t$prdt as tgl_prod,t$pdno as pdno,t$mitm as mitm,t$cwar as cwar, t$qrdr as qty,t$prcd as line, t$osta as status 
+        //                             FROM baan.ttisfc001777 
+        //                             WHERE (to_number(to_char(t$prdt + (7/24),\'YYYYMMDD\'))) >= '.$tanggal.' order by t$pdno asc
+        //                         ');
 
         $query = $this->db3->query('
-                                    SELECT t$prto as rfq,t$prdt as tgl_prod,t$pdno as pdno,t$mitm as mitm,t$cwar as cwar, t$qrdr as qty,t$prcd as line, t$osta as status 
-                                    FROM baan.ttisfc001777 
-                                    WHERE (to_number(to_char(t$prdt + (7/24),\'YYYYMMDD\'))) >= '.$tanggal.' order by t$pdno asc
-                                ');
+                                SELECT t$pdno as pdno
+                                FROM baan.ttisfc001777 
+                                WHERE (to_number(to_char(t$prdt + (7/24),\'YYYYMMDD\'))) >= '.$tanggal.'
+                                AND t$pdno LIKE '.$ka.'
+                                ORDER BY t$pdno asc
+                            ');
                                 // WHERE t$prcd = '.$line.' and (to_number(to_char(t$prdt + (7/24),\'ddmmyyyy\'))) = '.$tanggal.' and (t$osta = 5 or t$osta = 7) order by t$pdno asc
                                 // WHERE t$prcd = '.$line.' and (to_number(to_char(t$prdt + (7/24),\'ddmmyyyy\'))) = '.$tanggal.' order by t$pdno asc
         return $query->getResultArray();

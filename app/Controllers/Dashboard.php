@@ -68,6 +68,7 @@ class Dashboard extends BaseController
         $data['bulan'] = $bulan;
 
         $data['data_all_line'] = [];
+        $data['data_all_line_pcs'] = [];
 
         $data['data_line_1'] = [];
         $data['data_line_2'] = [];
@@ -76,6 +77,14 @@ class Dashboard extends BaseController
         $data['data_line_5'] = [];
         $data['data_line_6'] = [];
         $data['data_line_7'] = [];
+
+        $data['data_line_1_pcs'] = [];
+        $data['data_line_2_pcs'] = [];
+        $data['data_line_3_pcs'] = [];
+        $data['data_line_4_pcs'] = [];
+        $data['data_line_5_pcs'] = [];
+        $data['data_line_6_pcs'] = [];
+        $data['data_line_7_pcs'] = [];
 
         $data['data_by_month_line_1'] = [];
         $data['data_by_month_line_2'] = [];
@@ -103,9 +112,11 @@ class Dashboard extends BaseController
                         $total_aktual = $da['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
                         array_push($data['data_all_line'], (float) number_format($eff, 1, '.', ''));
+                        array_push($data['data_all_line_pcs'], (int) $total_aktual);
                     } 
                 } else {
                     array_push($data['data_all_line'], 0);
+                    array_push($data['data_all_line_pcs'], 0);
                 }
     
                 $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
@@ -153,9 +164,12 @@ class Dashboard extends BaseController
                         $total_aktual = $d1['total_aktual'];
                         $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
                         array_push($data['data_line_'.$child_filter], (float) number_format($eff, 1, '.', ''));
+                        array_push($data['data_line_'.$child_filter.'_pcs'], (int) $total_aktual);
                     } 
                 } else {
                     array_push($data['data_line_'.$child_filter], 0);
+                    array_push($data['data_line_'.$child_filter.'_pcs'], 0);
+
                 }
                 $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
             }

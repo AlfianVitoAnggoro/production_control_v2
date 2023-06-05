@@ -211,12 +211,30 @@ class M_DashboardAssyRejection extends Model
         //                             ORDER BY ((SUM(detail_reject.qty_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) DESC
         //                         ');
 
-        $query = $this->db->query('SELECT	line, SUM(lhp_produksi2.total_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
-                                    FROM	lhp_produksi2
-                                    WHERE MONTH(tanggal_produksi) = '.$bulan.' 
-                                    AND line != 10
-                                    GROUP BY line
-                                    ORDER BY ((SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) DESC
+        // $query = $this->db->query('SELECT	line, SUM(lhp_produksi2.total_reject) as total_reject, SUM(lhp_produksi2.total_aktual) as total_aktual
+        //                             FROM	lhp_produksi2
+        //                             WHERE MONTH(tanggal_produksi) = '.$bulan.' 
+        //                             AND line != 10
+        //                             GROUP BY line
+        //                             ORDER BY ((SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100) DESC
+        //                         ');
+
+        $query = $this->db->query('SELECT line, total_reject, total_aktual
+                                    FROM (
+                                    SELECT
+                                        line,
+                                        SUM(lhp_produksi2.total_reject) as total_reject,
+                                        SUM(lhp_produksi2.total_aktual) as total_aktual,
+                                        CASE
+                                        WHEN SUM(lhp_produksi2.total_aktual) = 0 THEN 0
+                                        ELSE (SUM(lhp_produksi2.total_reject) / CAST(SUM(lhp_produksi2.total_aktual) as float)) * 100
+                                        END AS reject_percentage
+                                    FROM lhp_produksi2
+                                    WHERE MONTH(tanggal_produksi) = '.$bulan.'
+                                        AND line != 10
+                                    GROUP BY lhp_produksi2.line
+                                    ) AS subquery
+                                    ORDER BY reject_percentage DESC
                                 ');
 
         return $query->getResultArray();

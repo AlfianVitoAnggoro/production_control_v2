@@ -34,7 +34,10 @@ class M_TimbanganReject extends Model
 
     public function get_all_detail_lhp_timbangan_reject_by_id_lhp_timbangan_reject($id_lhp_timbangan_reject)
     {
-        $query = $this->db->query('SELECT * FROM detail_lhp_timbangan_reject WHERE id_lhp_timbangan_reject = \'' . $id_lhp_timbangan_reject . '\'');
+        $query = $this->db->query('SELECT lhp_timbangan_reject.tanggal, detail_lhp_timbangan_reject.*
+                                    FROM detail_lhp_timbangan_reject
+                                    JOIN lhp_timbangan_reject ON lhp_timbangan_reject.id_lhp_timbangan_reject = detail_lhp_timbangan_reject.id_lhp_timbangan_reject 
+                                    WHERE detail_lhp_timbangan_reject.id_lhp_timbangan_reject = \'' . $id_lhp_timbangan_reject . '\'');
         if(count($query->getResultArray()) > 0) {
             return $query->getResultArray();
         } else {

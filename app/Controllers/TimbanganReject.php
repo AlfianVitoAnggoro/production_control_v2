@@ -163,17 +163,17 @@ class TimbanganReject extends BaseController
     );
     $isExist = [];
     if($data_timbangan_reject !== NULL) {
-        foreach ($data_timbangan_reject as $dtr) {
+        // foreach ($data_timbangan_reject as $dtr) {
             foreach ($data_detail_lhp_timbangan_reject as $ddltr) {
                 if($ddltr !== NULL) {
                   foreach ($ddltr as $dltr) {
                     // if ($dtr['id_lhp_timbangan_reject'] === $dltr['id_lhp_timbangan_reject']) {
-                        $data[] = array($dtr['tanggal'], $dltr['shift_plate'], $dltr['berat_can_plate'], $dltr['berat_limbah_plate'], $dltr['original_plate'], $dltr['shift_battery'], $dltr['berat_can_battery'], $dltr['berat_limbah_battery'], $dltr['original_battery']);
+                        $data[] = array($dltr['tanggal'], $dltr['shift_plate'], $dltr['berat_can_plate'], $dltr['berat_limbah_plate'], $dltr['original_plate'], $dltr['shift_battery'], $dltr['berat_can_battery'], $dltr['berat_limbah_battery'], $dltr['original_battery']);
                     // };
                   }
                 }
             }
-        }
+        // }
     }
 
     // Memasukkan data array ke dalam worksheet
