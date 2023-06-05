@@ -900,33 +900,51 @@
                 fontSize: '15px'
             }
         },
-
-        yAxis: [{
-            title: {
-                text: 'Qty',
-                style: {
-                    color: '#ffffff'
-                }
-            },
-            labels: {
-                style: {
-                    color: '#ffffff'
-                }
-            },
-            opposite: true,
-        },{
-            title: {
-                text: '%',
-                style: {
-                    color: '#ffffff'
-                }
-            },
-            labels: {
-                style: {
-                    color: '#ffffff'
-                }
-            }
-        }],
+            <?php if ($baby_filter != 'line') { ?>
+                yAxis: 
+                    [{
+                        title: {
+                            text: 'Qty',
+                            style: {
+                                color: '#ffffff'
+                            }
+                        },
+                        labels: {
+                            style: {
+                                color: '#ffffff'
+                            }
+                        },
+                        opposite: true,
+                    },{
+                        title: {
+                            text: '%',
+                            style: {
+                                color: '#ffffff'
+                            }
+                        },
+                        labels: {
+                            style: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }],
+        <?php } else { ?>
+            yAxis: 
+                {
+                    title: {
+                        text: '%',
+                        style: {
+                            color: '#ffffff'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            color: '#ffffff'
+                        }
+                    }
+                },
+        <?php } ?>
+        
 
         xAxis: {
             categories: <?= json_encode($dates); ?>,
@@ -1538,7 +1556,9 @@
                     dashStyle: 'Dash',
                     data: <?php echo json_encode($target_date); ?>,
                     color:'red',
-                    yAxis: 1,
+                    <?php if($baby_filter != 'line') { ?>
+                        yAxis: 1,
+                    <?php } ?>                    
                     tooltip: {
                         valueSuffix: ' %'
                     }
