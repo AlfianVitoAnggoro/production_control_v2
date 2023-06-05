@@ -597,7 +597,15 @@
             min: 0,
             max: 0.8,
             title: {
-                text: '%'
+                text: '%',
+                style: {
+                    color: '#ffffff'
+                }
+            },
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
             }
         },
         plotOptions: {
@@ -700,7 +708,10 @@
             yAxis: [{
                         gridLineWidth: 0,
                         title: {
-                            text: 'Pcs'
+                            text: 'Qty',
+                            style: {
+                                color: '#ffffff'
+                            }
                         },
                         labels: {
                             style: {
@@ -710,7 +721,10 @@
                         opposite: true
                     },{
                         title: {
-                            text: '%'
+                            text: '%',
+                            style: {
+                                color: '#ffffff'
+                            }
                         },
                         labels: {
                             style: {
@@ -770,9 +784,11 @@
                                     var arr_qty_jenis_reject = [];
                                     var arr_qty_jenis_reject_pcs = [];
                                     for (i = 0; i < data_jenis_reject.length; i++) {
-                                        arr_jenis_reject.push(data_jenis_reject[i].jenis_reject);
-                                        arr_qty_jenis_reject.push(parseFloat(((data_jenis_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
-                                        arr_qty_jenis_reject_pcs.push(parseInt(data_jenis_reject[i].qty));
+                                        // if (data_jenis_reject[i].jenis_reject != 'SETTING ') {
+                                            arr_jenis_reject.push(data_jenis_reject[i].jenis_reject);
+                                            arr_qty_jenis_reject.push(parseFloat(((data_jenis_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                            arr_qty_jenis_reject_pcs.push(parseInt(data_jenis_reject[i].qty));
+                                        // }
                                     }
                                     console.log(arr_qty_jenis_reject);
                                     $('#detail_pareto_jenis_reject').html(`<figure class="highcharts-figure">
@@ -807,14 +823,25 @@
                                                 {
                                                 min: 0,
                                                 title: {
-                                                    text: 'Pcs'
+                                                    text: 'Qty',
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
                                                 },
                                                 opposite: true
                                             },
                                                 {
                                                 min: 0,
                                                 title: {
-                                                    text: '%'
+                                                    text: '%',
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
+                                                },
+                                                labels: {
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
                                                 }
                                             }],
                                             plotOptions: {
@@ -886,15 +913,30 @@
                                                                             yAxis: [{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: 'Qty',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 },
-                                                                                opposite: true
+                                                                                opposite: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
                                                                             },{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 },
-                                                                                
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
                                                                             }],
                                                                             plotOptions: {
                                                                                 column: {
@@ -977,13 +1019,29 @@
                                                                             yAxis: [{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: 'Qty',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 },
-                                                                                opposite: true
+                                                                                opposite: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
                                                                             },{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                },
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 }
                                                                             }],
                                                                             plotOptions: {
@@ -1063,13 +1121,24 @@
                                                                             yAxis: [{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: 'Qty',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 },
                                                                                 opposite: true
                                                                             },{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                },
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 }
                                                                             }],
                                                                             plotOptions: {
@@ -1176,13 +1245,29 @@
                                             yAxis: [{
                                                 min: 0,
                                                 title: {
-                                                    text: 'Pcs'
+                                                    text: 'Qty',
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
                                                 },
-                                                opposite: true
+                                                opposite: true,
+                                                labels: {
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
+                                                }
                                             },{
                                                 min: 0,
                                                 title: {
-                                                    text: '%'
+                                                    text: '%',
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
+                                                },
+                                                labels: {
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
                                                 }
                                             }],
                                             plotOptions: {
@@ -1261,13 +1346,29 @@
                                             yAxis: [{
                                                 min: 0,
                                                 title: {
-                                                    text: 'Pcs'
+                                                    text: 'Qty',
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
                                                 },
-                                                opposite: true
+                                                opposite: true,
+                                                labels: {
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
+                                                }
                                             },{
                                                 min: 0,
                                                 title: {
-                                                    text: '%'
+                                                    text: '%',
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
+                                                },
+                                                labels: {
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
                                                 }
                                             }],
                                             plotOptions: {
@@ -1339,13 +1440,29 @@
                                                                             yAxis: [{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: 'Qty',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 },
-                                                                                opposite: true
+                                                                                opposite: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
                                                                             },{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                },
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 }
                                                                             }],
                                                                             plotOptions: {
@@ -1423,13 +1540,24 @@
                                                                             yAxis: [{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: 'Qty',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 },
                                                                                 opposite: true
                                                                             },{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                },
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 }
                                                                             }],
                                                                             plotOptions: {
@@ -1513,13 +1641,29 @@
                                                                             yAxis: [{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: 'Qty',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 },
-                                                                                opposite: true
+                                                                                opposite: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
                                                                             },{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                },
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 }
                                                                             }],
                                                                             plotOptions: {
@@ -1630,13 +1774,29 @@
                                             yAxis: [{
                                                 min: 0,
                                                 title: {
-                                                    text: 'Pcs'
+                                                    text: 'Qty',
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
                                                 },
-                                                opposite: true
+                                                opposite: true,
+                                                labels: {
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
+                                                }
                                             },{
                                                 min: 0,
                                                 title: {
-                                                    text: '%'
+                                                    text: '%',
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
+                                                },
+                                                labels: {
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
                                                 }
                                             }],
                                             plotOptions: {
@@ -1718,13 +1878,29 @@
                                                                             yAxis: [{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: 'Qty',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 },
-                                                                                opposite: true
+                                                                                opposite: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
                                                                             },{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                },
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 }
                                                                             }],
                                                                             plotOptions: {
@@ -1810,13 +1986,29 @@
                                                                             yAxis: [{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: 'Qty',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 },
-                                                                                opposite: true
+                                                                                opposite: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
                                                                             },{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                },
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 }
                                                                             }],
                                                                             
@@ -1903,13 +2095,29 @@
                                                                             yAxis: [{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: 'Pcs'
+                                                                                    text: 'Qty',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 },
-                                                                                opposite: true
+                                                                                opposite: true,
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                }
                                                                             },{
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                },
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 }
                                                                             }],
                                                                             plotOptions: {
@@ -2072,7 +2280,15 @@
             yAxis: {
                 min: 0,
                 title: {
-                    text: '%'
+                    text: '%',
+                    style: {
+                        color: '#ffffff'
+                    }
+                },
+                labels: {
+                    style: {
+                        color: '#ffffff'
+                    }
                 }
             },
             plotOptions: {
@@ -2144,7 +2360,15 @@
                                             yAxis: {
                                                 min: 0,
                                                 title: {
-                                                    text: '%'
+                                                    text: '%',
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
+                                                },
+                                                labels: {
+                                                    style: {
+                                                        color: '#ffffff'
+                                                    }
                                                 }
                                             },
                                             plotOptions: {
@@ -2212,7 +2436,15 @@
                                                                             yAxis: {
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                },
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 }
                                                                             },
                                                                             plotOptions: {
@@ -2284,7 +2516,15 @@
                                                                             yAxis: {
                                                                                 min: 0,
                                                                                 title: {
-                                                                                    text: '%'
+                                                                                    text: '%',
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
+                                                                                },
+                                                                                labels: {
+                                                                                    style: {
+                                                                                        color: '#ffffff'
+                                                                                    }
                                                                                 }
                                                                             },
                                                                             plotOptions: {
@@ -2394,7 +2634,10 @@
     
             yAxis: {
                 title: {
-                    text: '%'
+                    text: '%',
+                    style: {
+                        color: '#ffffff'
+                    }
                 },
                 labels: {
                     style: {
@@ -2530,7 +2773,15 @@
             yAxis: {
                 min: 0,
                 title: {
-                    text: '%'
+                    text: '%',
+                    style: {
+                        color: '#ffffff'
+                    }
+                },
+                labels: {
+                    style: {
+                        color: '#ffffff'
+                    }
                 }
             },
             plotOptions: {
@@ -2637,7 +2888,15 @@
         yAxis: {
             min: 0,
             title: {
-                text: '%'
+                text: '%',
+                style: {
+                    color: '#ffffff'
+                }
+            },
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
             }
         },
         plotOptions: {
@@ -2706,7 +2965,10 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Unit'
+                text: 'Unit',
+                style: {
+                    color: '#ffffff'
+                }
             },
             stackLabels: {
                 enabled: true,
@@ -2945,7 +3207,10 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Unit'
+                text: 'Unit',
+                style: {
+                    color: '#ffffff',
+                }
             },
             stackLabels: {
                 enabled: true,
@@ -3041,7 +3306,15 @@
                                         yAxis: {
                                             min: 0,
                                             title: {
-                                                text: '%'
+                                                text: '%',
+                                                style: {
+                                                    color: '#ffffff'
+                                                }
+                                            },
+                                            labels: {
+                                                style: {
+                                                    color: '#ffffff'
+                                                }
                                             }
                                         },
                                         plotOptions: {
@@ -3108,7 +3381,15 @@
                                         yAxis: {
                                             min: 0,
                                             title: {
-                                                text: '%'
+                                                text: '%',
+                                                style: {
+                                                    color: '#ffffff'
+                                                }
+                                            },
+                                            labels: {
+                                                style: {
+                                                    color: '#ffffff'
+                                                }
                                             }
                                         },
                                         plotOptions: {
@@ -3188,7 +3469,15 @@
         yAxis: {
             min: 0,
             title: {
-                text: '%'
+                text: '%',
+                style: {
+                    color: '#ffffff'
+                }
+            },
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
             }
         },
         plotOptions: {

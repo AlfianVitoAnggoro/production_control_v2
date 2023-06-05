@@ -257,7 +257,7 @@
                                 <div class="row">
                                     <div class="col-12" style="text-align:center">
                                         <div>
-                                            <h4 style="font-weight: 500;color: yellow;">Production Performance Review </h4>
+                                            <h4 style="font-weight: 500;color: yellow;">Performance Comparison </h4>
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
@@ -732,7 +732,15 @@
         yAxis: {
             min: 0,
             title: {
-                text: '%'
+                text: '%',
+                style: {
+                    color: '#ffffff'
+                }
+            },
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
             }
         },
         plotOptions: {
@@ -893,16 +901,32 @@
             }
         },
 
-        yAxis: {
+        yAxis: [{
             title: {
-                text: '%'
+                text: 'Qty',
+                style: {
+                    color: '#ffffff'
+                }
+            },
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
+            },
+            opposite: true,
+        },{
+            title: {
+                text: '%',
+                style: {
+                    color: '#ffffff'
+                }
             },
             labels: {
                 style: {
                     color: '#ffffff'
                 }
             }
-        },
+        }],
 
         xAxis: {
             categories: <?= json_encode($dates); ?>,
@@ -946,7 +970,7 @@
         series: [
             <?php if (($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'average') { ?>
                 {
-                    name: 'All Line',
+                    name: 'Persentase',
                     data: <?php echo json_encode($data_all_line); ?>,
                     color:'yellow',
                     point: {
@@ -979,7 +1003,14 @@
                                 });
                             }
                         }
-                    }
+                    },
+                    type: 'column',
+                    yAxis: 1,
+                },{
+                    name: 'Qty',
+                    type: 'spline',
+                    data: <?php echo json_encode($data_all_line_pcs); ?>,
+                    color:'green',
                 },
             <?php } ?>
 
@@ -1247,7 +1278,10 @@
 
             <?php if ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND ($baby_filter == null OR $baby_filter == 'average')) { ?>
                 {
-                    name: 'Line <?=$child_filter?>',
+                    // name: 'Line <?=$child_filter?>',
+                    name: 'Persentase',
+                    type: 'column',
+                    yAxis: 1,
                     data: <?php echo json_encode(${'data_line_'.$child_filter}); ?>,
                     point: {
                         events: {
@@ -1282,6 +1316,12 @@
                             }
                         }
                     }
+                },
+                {
+                    name: 'Qty',
+                    data: <?php echo json_encode(${'data_line_'.$child_filter.'_pcs'}); ?>,
+                    color: 'green',
+                    type: 'spline',
                 },
             <?php } ?>
 
@@ -1498,8 +1538,16 @@
                     dashStyle: 'Dash',
                     data: <?php echo json_encode($target_date); ?>,
                     color:'red',
+                    yAxis: 1,
+                    tooltip: {
+                        valueSuffix: ' %'
+                    }
                 }
         ],
+
+        tooltip: {
+            shared: true
+        },
 
         responsive: {
             rules: [{
@@ -1557,7 +1605,15 @@
         yAxis: {
             min: 0,
             title: {
-                text: '%'
+                text: '%',
+                style: {
+                    color: '#ffffff'
+                }
+            },
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
             }
         },
         plotOptions: {
