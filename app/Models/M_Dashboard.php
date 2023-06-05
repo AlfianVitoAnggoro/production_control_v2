@@ -395,6 +395,24 @@ class M_Dashboard extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_top_grup_amb1_daily($tanggal)
+    {
+        $query = $this->db->query('SELECT master_pic_line.nama_pic, 
+                                        CASE
+                                        WHEN SUM(lhp_produksi2.total_aktual) = 0 THEN 0
+                                        ELSE (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100
+                                        END AS persen
+                                -- (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100 AS persen
+                                    FROM lhp_produksi2
+                                    JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\' AND (master_pic_line.id_line = 1 OR master_pic_line.id_line = 2 OR master_pic_line.id_line = 3)
+                                    GROUP BY master_pic_line.nama_pic
+                                    ORDER BY persen DESC
+                                ');
+
+        return $query->getResultArray();
+    }
+
     public function get_data_top_grup_amb2_daily($tanggal)
     {
         $query = $this->db->query('SELECT master_pic_line.nama_pic, 

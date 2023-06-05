@@ -132,39 +132,92 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12" style="text-align:center">
-                                        <div>
-                                            <h4 style="font-weight: 500;color: yellow;">Production Performance Review </h4>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
-                                                <thead>
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td><?=date('F', mktime(0, 0, 0, $previous_date, 10))?></td>
-                                                        <td><?=date('F', mktime(0, 0, 0, $current_date, 10))?></td>
-                                                        <td>Status</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php for ($i=1; $i <= 3; $i++) { ?>
-                                                        <tr style="line-height: 0px;">
-                                                            <td>Line <?=$i?></td>
-                                                            <td><?=${'data_line_'.$i.'_previous_month'}[0]?> %</td>
-                                                            <td><?=${'data_line_'.$i.'_current_month'}[0]?> %</td>
-                                                            <td>
-                                                                <?php if(${'data_line_'.$i.'_current_month'}[0] > ${'data_line_'.$i.'_previous_month'}[0]) {
-                                                                    echo '<i class="fa fa-arrow-up" style="color:green"></i>';
-                                                                } else if(${'data_line_'.$i.'_current_month'}[0] < ${'data_line_'.$i.'_previous_month'}[0]) {
-                                                                    echo '<i class="fa fa-arrow-down" style="color:red"></i>';
-                                                                } else if(${'data_line_'.$i.'_current_month'}[0] == ${'data_line_'.$i.'_previous_month'}[0]) {
-                                                                    echo '<i class="fa fa-minus" style="color:yellow"></i>';
-                                                                } ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        </div>                                        
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs customtab2" role="tablist">
+                                            <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#production_review" role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span class="hidden-xs-down">Production Review</span></a> </li>
+                                            <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#monthly_top_grup" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down">Top Group Monthly</span></a> </li>
+                                            <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#daily_top_grup" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down">Top Group Daily</span></a> </li>
+                                        </ul>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="production_review" role="tabpanel">
+                                                <div class="p-15">
+                                                    <div>
+                                                        <h4 style="font-weight: 500;color: yellow;">Performance Comparison </h4>
+                                                    </div>
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td>#</td>
+                                                                    <td><?=date('F', mktime(0, 0, 0, $previous_date, 10))?></td>
+                                                                    <td><?=date('F', mktime(0, 0, 0, $current_date, 10))?></td>
+                                                                    <td>Status</td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php for ($i=1; $i <= 3; $i++) { ?>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td>Line <?=$i?></td>
+                                                                        <td><?=${'data_line_'.$i.'_previous_month'}[0]?> %</td>
+                                                                        <td><?=${'data_line_'.$i.'_current_month'}[0]?> %</td>
+                                                                        <td>
+                                                                            <?php if(${'data_line_'.$i.'_current_month'}[0] > ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                                echo '<i class="fa fa-arrow-up" style="color:green"></i>';
+                                                                            } else if(${'data_line_'.$i.'_current_month'}[0] < ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                                echo '<i class="fa fa-arrow-down" style="color:red"></i>';
+                                                                            } else if(${'data_line_'.$i.'_current_month'}[0] == ${'data_line_'.$i.'_previous_month'}[0]) {
+                                                                                echo '<i class="fa fa-minus" style="color:yellow"></i>';
+                                                                            } ?>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane" id="monthly_top_grup" role="tabpanel">
+                                                <div class="p-15">
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
+                                                            
+                                                            <tbody>
+                                                                <?php $no=1; foreach ($top_grup_current_month as $t_grup_current_month) { ?>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td style="text-align:left"><?=$no.'. '.$t_grup_current_month['nama_pic']?></td>
+                                                                        <!-- <td></td> -->
+                                                                        <td style="text-align:right"><?=number_format($t_grup_current_month['persen'], 2)?> %</td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                <?php $no++; } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane" id="daily_top_grup" role="tabpanel">
+                                                <div class="p-15">
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
+                                                            
+                                                            <tbody>
+                                                                <?php $no=1; foreach ($top_grup_daily as $t_grup_daily) { ?>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td style="text-align:left"><?=$no.'. '.$t_grup_daily['nama_pic']?></td>
+                                                                        <!-- <td></td> -->
+                                                                        <td style="text-align:right"><?=number_format($t_grup_daily['persen'], 2)?> %</td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                <?php $no++; } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
                                     </div>
                                 </div>
                             </div>

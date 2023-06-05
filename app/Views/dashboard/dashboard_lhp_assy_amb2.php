@@ -139,7 +139,7 @@
                                             <div class="tab-pane active" id="production_review" role="tabpanel">
                                                 <div class="p-15">
                                                     <div>
-                                                        <h4 style="font-weight: 500;color: yellow;">Production Performance Review </h4>
+                                                        <h4 style="font-weight: 500;color: yellow;">Performance Comparison </h4>
                                                     </div>
                                                     <div class="table-responsive">
                                                         <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
