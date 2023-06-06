@@ -75,7 +75,8 @@
 								<li><a href="<?=base_url()?>mcb"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>MCB</a></li>
 							<?php } ?>
 							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
-								<li><a href="<?=base_url()?>wet"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET</a></li>
+								<li><a href="<?=base_url()?>wet_loading/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Loading</a></li>
+								<li><a href="<?=base_url()?>wet_finishing/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Finishing</a></li>
 							<?php } ?>
 						</ul>
 					</li>

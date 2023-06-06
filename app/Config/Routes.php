@@ -169,9 +169,9 @@ $routes->group('mcb', ['filter' => 'auth'], function ($routes) {
 });
 
 //WET
-$routes->group('wet', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'WET::wet_view');
-    $routes->post('download', 'WET::download');
+$routes->group('wet_finishing', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'WET_Finishing::wet_view');
+    $routes->post('download', 'WET_Finishing::download');
 });
 
 
@@ -235,6 +235,7 @@ $routes->group('pasting', ['filter' => 'auth'], function ($routes) {
     $routes->post('pilih_andon', 'Pasting::pilih_andon');
     $routes->get('hapus_pasting/(:num)', 'Pasting::hapus_pasting/$1');
     $routes->post('get_qty_rak', 'Pasting::get_qty_rak');
+    $routes->get('get_qty_rak', 'Pasting::get_qty_rak');
     $routes->post('add_rak_in', 'Pasting::add_rak_in');
     $routes->post('add_rak_out', 'Pasting::add_rak_out');
     $routes->post('delete_rak', 'Pasting::delete_rak');
