@@ -777,7 +777,7 @@
                     color: '#ffffff'
                 },
                 enabled: true,
-            <?php } elseif ($baby_filter == 'average') { ?>
+            <?php } else { ?>
                 enabled: false
             <?php } ?>
             },
@@ -822,7 +822,7 @@
                     },
                 <?php } ?>
                 
-            <?php } elseif ($baby_filter == 'average') { ?>
+            <?php } else { ?>
                 {
                     // name: 'All Line',
                     data: <?php echo json_encode($data_all_month); ?>,
