@@ -900,7 +900,7 @@
                 fontSize: '15px'
             }
         },
-            <?php if ($baby_filter != 'line') { ?>
+            <?php if ($baby_filter == 'average') { ?>
                 yAxis: 
                     [{
                         title: {
@@ -1556,7 +1556,7 @@
                     dashStyle: 'Dash',
                     data: <?php echo json_encode($target_date); ?>,
                     color:'red',
-                    <?php if($baby_filter != 'line') { ?>
+                    <?php if($baby_filter == 'average') { ?>
                         yAxis: 1,
                     <?php } ?>                    
                     tooltip: {
