@@ -53,7 +53,7 @@
                         <div class="box-body" style="display:flex">
                             <div class="col-2">
                                 <form action="<?=base_url()?>dashboard/assy/amb1" method="POST">
-                                    <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                    <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
                                         <option value="1">Efficiency</option>
                                         <option value="2">Unit / MH</option>
                                     </select>
@@ -62,7 +62,7 @@
                                         <option value="line" <?= ($parent_filter == 'line') ? 'selected':''?>>Line</option>
                                     </select>
                                     &nbsp;
-                                    <select class="form-select" name="child_filter" id="child_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                    <select class="form-select" name="child_filter" id="child_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
                                         <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>AMB 1</option>
                                         <!-- <option value="amb1" <?= ($child_filter === 'amb1') ? 'selected':''?>>AMB 1</option> -->
                                         <?php for ($i=1; $i <= 3 ; $i++) { ?>
@@ -70,7 +70,7 @@
                                         <?php } ?>
                                     </select>
                                     &nbsp;
-                                    <select class="form-select" name="baby_filter" id="baby_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                    <select class="form-select" name="baby_filter" id="baby_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
                                         <?php if ($child_filter == 0) { ?>
                                             <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
                                             <option value="line" <?= ($baby_filter == 'line') ? 'selected':''?>>By Line</option>
@@ -82,15 +82,20 @@
                                         <?php } ?>
                                     </select>
                                     &nbsp;
-                                    <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 250px;">
+                                    <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
                                     &nbsp;
                                     <div style="display: flex; flex-direction: column;" >
-                                        <button class="btn btn-sm btn-success" style="font-size: 20px;font-weight: 900;width: 250px;"> Filter </button>
+                                        <button class="btn btn-sm btn-success" style="font-size: 20px;font-weight: 900;width: 175px;"> Filter </button>
                                     </div>
                                 </form>
                             </div>
                             <div class="col-6" style="display:flex; margin-top:40px;">
-                                <div class="col-3">
+                                <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around; margin-left:-140px; margin-top:-65px;">
+                                    <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
+                                    <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
+                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
+                                </div>
+                                <div class="col-3" style="margin-left:85px">
                                     <div id="year_to_date_chart" style="height:250px;"></div>
                                     <!-- <div style="text-align: center;margin-top: 60px;">
                                         <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
@@ -110,11 +115,6 @@
                                     <!-- <div style="text-align: center;margin-top: 60px;">
                                         <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
                                     </div> -->
-                                </div>
-                                <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around;">
-                                    <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
-                                    <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
-                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
                                 </div>
                             </div>
                             <div class="col-4" style="text-align:center">
