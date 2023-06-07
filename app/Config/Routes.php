@@ -145,6 +145,7 @@ $routes->group('reject_wet', ['filter' => 'auth'], function ($routes) {
 //LHP
 $routes->group('lhp', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Home::lhp_view');
+    $routes->get('month/(:any)', 'Home::lhp_view/$1');
     $routes->post('add_lhp', 'Home::add_lhp');
     $routes->get('delete_lhp/(:num)', 'Home::delete_lhp/$1');
     $routes->post('getPartNo', 'Home::getPartNo');
