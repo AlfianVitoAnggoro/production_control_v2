@@ -361,6 +361,8 @@ $routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
     $routes->post('delete_material_in', 'WideStrip::delete_material_in');
     $routes->get('detail_lhp/(:num)', 'WideStrip::detail_lhp/$1');
     $routes->post('get_jenis_line_stop', 'WideStrip::get_jenis_line_stop');
+    $routes->post('material_in_mlr', 'WideStrip::material_in_mlr');
+    $routes->post('delete_material_in_mlr', 'WideStrip::delete_material_in_mlr');
 });
 
 //Grid Punching
@@ -374,6 +376,19 @@ $routes->group('punching', ['filter' => 'auth'], function ($routes) {
     $routes->post('delete_material_in', 'Punching::delete_material_in');
     $routes->get('detail_lhp/(:num)', 'Punching::detail_lhp/$1');
     $routes->post('get_jenis_line_stop', 'Punching::get_jenis_line_stop');
+    $routes->post('get_jks', 'Punching::get_jks');
+    $routes->post('get_qty_rak', 'Punching::get_qty_rak');
+    $routes->post('add_rak_in', 'Punching::add_rak_in');
+    $routes->post('add_rak_out', 'Punching::add_rak_out');
+    $routes->post('delete_rak', 'Punching::delete_rak');
+    $routes->post('delete_rak_out', 'Punching::delete_rak_out');
+    $routes->post('delete_rows', 'Punching::delete_rows');
+    $routes->post('add_note_punching', 'Punching::add_note_punching');
+    $routes->post('get_data_coil', 'Punching::get_data_coil');
+    $routes->post('get_data_coil_output_product', 'Punching::get_data_coil_output_product');
+    $routes->post('add_wide_strip', 'Punching::add_wide_strip');
+    $routes->post('add_wide_strip_sisa', 'Punching::add_wide_strip_sisa');
+    $routes->post('add_output_product', 'Punching::add_output_product');
 });
 
 // $routes->get('/lhp/test', 'Home::test');

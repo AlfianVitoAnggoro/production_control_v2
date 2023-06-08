@@ -52,6 +52,19 @@ class M_WideStrip extends Model
         return $id_lhp;
     }
 
+    public function update_level_melting_pot($id_lhp, $data)
+    {
+        $builder = $this->db->table('detail_level_melting_pot_wide_strip');
+        if ($id_lhp != '') {
+            $builder->where('id_lhp_ws', $id_lhp);
+            $builder->update($data);
+            return $id_lhp;
+        } else {
+            $builder->insert($data);
+            return $this->db->insertID();
+        }
+    }
+
     public function get_data_mesin_grid()
     {
         $query = $this->db->query('SELECT * FROM data_mesin_grid');
@@ -66,9 +79,16 @@ class M_WideStrip extends Model
         return $query->getResultArray();
     }
 
-    public function get_data_type_grid()
+    // public function get_data_type_grid()
+    // {
+    //     $query = $this->db->query('SELECT * FROM data_grid WHERE type_mesin = \'casting\'');
+
+    //     return $query->getResultArray();
+    // }
+
+    public function get_data_coil_code()
     {
-        $query = $this->db->query('SELECT * FROM data_grid WHERE type_mesin = \'casting\'');
+        $query = $this->db->query('SELECT * FROM data_coil_wide_strip');
 
         return $query->getResultArray();
     }
@@ -85,7 +105,21 @@ class M_WideStrip extends Model
         $builder = $this->db->table('detail_lhp_wide_strip');
 
         if ($id_lhp != '') {
-            $builder->where('id', $id_lhp);
+            $builder->where('id_detail_lhp_wide_strip', $id_lhp);
+            $builder->update($data);
+            return $id_lhp;
+        } else {
+            $builder->insert($data);
+            return $this->db->insertID();
+        }
+    }
+
+    public function update_output_product($id_lhp, $data)
+    {
+        $builder = $this->db5->table('detail_record_coil');
+
+        if ($id_lhp != '') {
+            $builder->where('id_log', $id_lhp);
             $builder->update($data);
             return $id_lhp;
         } else {
@@ -96,7 +130,7 @@ class M_WideStrip extends Model
 
     public function get_detail_wide_strip_by_id($id_lhp)
     {
-        $query = $this->db->query('SELECT * FROM detail_lhp_wide_strip WHERE id_lhp_ws = \'' . $id_lhp . '\'');
+        $query = $this->db->query('SELECT * FROM detail_lhp_wide_strip WHERE id_lhp_ws = \'' . $id_lhp . '\' ORDER BY batch ASC');
 
         return $query->getResultArray();
     }
@@ -207,9 +241,9 @@ class M_WideStrip extends Model
     //     }
     // }
 
-    function get_id_data_detail_record_rak_by_id($id_lhp_wide_strip, $wh_from)
+    function get_id_data_detail_record_rak_by_id($id_lhp_wide_strip, $wh_from, $wh_to)
     {
-        $query = $this->db5->query('SELECT * FROM detail_record_rak WHERE id_lhp_wh_start = \'' . $id_lhp_wide_strip . '\' AND wh_from = \'' . $wh_from . '\'');
+        $query = $this->db5->query('SELECT * FROM detail_record_rak WHERE id_lhp_wh_start = \'' . $id_lhp_wide_strip . '\' AND wh_from = \'' . $wh_from . '\' AND wh_to = \'' . $wh_to . '\'');
 
         return $query->getResultArray();
     }
@@ -324,9 +358,23 @@ class M_WideStrip extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_material_in_mlr_by_id($id_lhp)
+    {
+        $query = $this->db->query('SELECT * FROM data_material_in_mlr_wide_strip WHERE id_lhp_ws=\'' . $id_lhp . '\'');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_level_melting_pot_by_id($id_lhp)
+    {
+        $query = $this->db->query('SELECT * FROM detail_level_melting_pot_wide_strip WHERE id_lhp_ws=\'' . $id_lhp . '\'');
+
+        return $query->getResultArray();
+    }
+
     public function qty_material_in($material_in)
     {
-        $query = $this->db6->query('SELECT actq as QTY FROM data_whfg_timah WHERE barc=\'' . $material_in . '\'');
+        $query = $this->db6->query('SELECT actq as QTY, item FROM data_whfg_timah WHERE barc=\'' . $material_in . '\'');
 
         return json_encode($query->getResultArray());
     }
@@ -338,10 +386,23 @@ class M_WideStrip extends Model
         return json_encode($this->db->insertID());
     }
 
+    public function add_material_in_mlr($data)
+    {
+        $builder = $this->db->table('data_material_in_mlr_wide_strip');
+        $builder->insert($data);
+        return json_encode($this->db->insertID());
+    }
+
     public function delete_material_in($id)
     {
         $builder = $this->db->table('data_material_in_wide_strip');
         $builder->delete(['id_material_in' => $id]);
+    }
+
+    public function delete_material_in_mlr($id)
+    {
+        $builder = $this->db->table('data_material_in_mlr_wide_strip');
+        $builder->delete(['id' => $id]);
     }
 
     public function getListKategoriLineStopWS()
@@ -354,6 +415,26 @@ class M_WideStrip extends Model
     public function getListJenisLineStopWS($kategori_line_stop)
     {
         $query = $this->db->query('SELECT * FROM master_line_stop_wide_strip WHERE kategori_line_stop = \'' . $kategori_line_stop . '\'');
+
+        return $query->getResultArray();
+    }
+
+    function get_output_product($id_lhp_ws)
+    {
+        $query = $this->db->query('SELECT coil_code, type_wist, SUM(actual) AS actual
+                                    FROM detail_lhp_wide_strip
+                                    WHERE id_lhp_ws = \'' . $id_lhp_ws . '\'
+                                    AND coil_code != \'\'
+                                    GROUP BY coil_code, type_wist');
+
+        return $query->getResultArray();
+    }
+
+    function get_data_output_product($id_lhp, $coil_code, $type)
+    {
+        $query = $this->db5->query('SELECT * FROM detail_record_coil
+                                    WHERE id_lhp_wh_start = \'' . $id_lhp . '\' AND coil_code = \'' . $coil_code . '\' AND type = \'' . $type . '\'
+                                    AND wh_from = \'K-WS\'');
 
         return $query->getResultArray();
     }
