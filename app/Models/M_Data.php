@@ -173,12 +173,13 @@ class M_Data extends Model
         }
     }
 
-    public function get_all_lhp()
+    public function get_all_lhp($bulan)
     {
         // $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup ORDER BY tanggal_produksi DESC');
         $builder = $this->db->table('lhp_produksi2');
         $builder->select('lhp_produksi2.*, master_pic_line.nama_pic');
         $builder->join('master_pic_line', 'master_pic_line.id_pic = lhp_produksi2.grup');
+        $builder->where('MONTH(tanggal_produksi) =', $bulan);
 
         if ($this->session->get('line') != NULL) {
             $builder->where('line', $this->session->get('line'));

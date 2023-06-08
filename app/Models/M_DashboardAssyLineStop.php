@@ -190,7 +190,7 @@ class M_DashboardAssyLineStop extends Model
                                         GROUP BY MONTH(lhp_produksi2.tanggal_produksi)
                                     ');
         } else {
-            $query = $this->db->query('SELECT	MONTH(lhp_produksi2.tanggal_produksi), SUMlhp_produksi2.total_line_stop) as total_line_stop, SUM(lhp_produksi2.loading_time) as loading_time
+            $query = $this->db->query('SELECT	MONTH(lhp_produksi2.tanggal_produksi), SUM(lhp_produksi2.total_line_stop) as total_line_stop, SUM(lhp_produksi2.loading_time) as loading_time
                                         FROM	detail_breakdown
                                         RIGHT JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'

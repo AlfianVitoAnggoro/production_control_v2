@@ -75,7 +75,8 @@
 								<li><a href="<?=base_url()?>mcb"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>MCB</a></li>
 							<?php } ?>
 							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
-								<li><a href="<?=base_url()?>wet"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET</a></li>
+								<li><a href="<?=base_url()?>wet_loading/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Loading</a></li>
+								<li><a href="<?=base_url()?>wet_finishing/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Finishing</a></li>
 							<?php } ?>
 						</ul>
 					</li>
@@ -113,6 +114,98 @@
 							</a>
 							<ul class="treeview-menu">
 								<li><a href="<?=base_url()?>rak_management"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Data Rak</a></li>
+							</ul>
+						</li>
+					<?php } ?>
+
+					<?php if (session()->get('username') == 'admin') { ?>
+						<li class="treeview">
+							<a href="#">
+								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+								<span>PPC</span>
+								<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Planning</a></li>
+							</ul>
+						</li>
+
+						<li class="treeview">
+							<a href="#">
+								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+								<span>WAREHOUSE</span>
+								<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Incoming</a></li>
+								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Rack FG</a></li>
+							</ul>
+						</li>
+
+						<li class="treeview">
+							<a href="#">
+								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+								<span>EHS</span>
+								<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>MLR</a></li>
+							</ul>
+						</li>
+
+						<li class="treeview">
+							<a href="#">
+								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+								<span>QA</span>
+								<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="treeview">
+									<a href="#">
+										<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span>Produksi 1</span>
+										<span class="pull-right-container">
+										<i class="fa fa-angle-right pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li>
+									</ul>
+								</li>
+
+								<li class="treeview">
+									<a href="#">
+										<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span>Produksi 2</span>
+										<span class="pull-right-container">
+										<i class="fa fa-angle-right pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<!-- <li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li> -->
+									</ul>
+								</li>
+
+								<li class="treeview">
+									<a href="#">
+										<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span>Lab</span>
+										<span class="pull-right-container">
+										<i class="fa fa-angle-right pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<!-- <li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li> -->
+									</ul>
+								</li>
 							</ul>
 						</li>
 					<?php } ?>

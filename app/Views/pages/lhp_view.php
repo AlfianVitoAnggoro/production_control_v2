@@ -18,9 +18,25 @@
 									</button>
 								</div>
 								<div class="box-body">
-									<button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target=".modal_download_lhp">
-										Download
-									</button>
+									<div class="row">
+										<div class="col-6">
+											<button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target=".modal_download_lhp">
+												Download
+											</button>
+										</div>
+										<div class="col-4"></div>
+										<div class="col-2" style="float:right;">
+											<?php
+												$bulan = date('Y-m');
+												$uri = current_url(true);
+												if ($uri->setSilent()->getSegment(4) != NULL) {
+													$bulan = $uri->getSegment(4);
+												}
+											?>
+											<input type="month" class="form-control" name="filter_month" id="filter_month" onchange="filter_month()" value="<?=$bulan?>">
+										</div>
+									</div>
+									
 									<div class="row">
 										<div class="col-3">
 											<div class="form-group">
@@ -340,6 +356,12 @@
 	// 		dropdownParent: $('.modal')
 	// 	});
 	// });
+
+	function filter_month() {
+		var bulan = $('#filter_month').val();
+
+        window.location.replace(window.location.origin+'/lhp/month/'+bulan);
+	}
 </script>
 
 

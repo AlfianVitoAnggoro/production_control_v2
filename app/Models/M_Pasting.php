@@ -12,7 +12,7 @@ class M_Pasting extends Model
   {
     $this->db = \Config\Database::connect();
     // $this->db2 = \Config\Database::connect('sqlsrv');
-    // $this->db3 = \Config\Database::connect('baan');
+    $this->db3 = \Config\Database::connect('baan');
     $this->db4 = \Config\Database::connect('prod_control');
     $this->db5 = \Config\Database::connect('manajemen_rak');
   }
@@ -350,9 +350,15 @@ class M_Pasting extends Model
     $this->db->query('DELETE FROM detail_reject_pasting WHERE id_lhp_pasting = ' . $id);
   }
 
-  function get_qty_rak($barcode)
-  {
-    $query = $this->db5->query('SELECT * FROM data_barcode WHERE t$note = \'' . $barcode . '\'');
+  // function get_qty_rak($barcode)
+  // {
+  //   $query = $this->db5->query('SELECT * FROM data_barcode WHERE t$note = \'' . $barcode . '\'');
+
+  //   return $query->getResultArray();
+  // }
+
+  function get_qty_rak($barcode) {
+    $query = $this->db3->query('SELECT * FROM baan.tcbinh985777 WHERE t$note = \''.$barcode.'\'');
 
     return $query->getResultArray();
   }

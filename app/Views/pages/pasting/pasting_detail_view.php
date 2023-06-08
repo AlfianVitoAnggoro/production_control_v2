@@ -1689,14 +1689,14 @@ $shift
         if (data.length > 0) {
           document.querySelector('.qty').innerHTML = '';
           $('.qty').append(`
-              <input type="hidden" class="form-control" name="item" id="item" class="form-control" value="${data[0]['t$item'].trim()}">
-              <input type="hidden" class="form-control" name="dsca" id="dsca" class="form-control" value="${data[0]['t$dsca']}">
-              <input type="hidden" class="form-control" name="cuni" id="cuni" class="form-control" value="${data[0]['t$cuni']}">
-              <input type="hidden" class="form-control" name="endt" id="endt" class="form-control" value="${data[0]['t$endt']}">
-              <input type="hidden" class="form-control" name="orno" id="orno" class="form-control" value="${data[0]['t$orno']}">
-              <input type="hidden" class="form-control" name="mach" id="mach" class="form-control" value="${data[0]['t$mach']}">
+              <input type="hidden" class="form-control" name="item" id="item" class="form-control" value="${data[0]['T$ITEM'].trim()}">
+              <input type="hidden" class="form-control" name="dsca" id="dsca" class="form-control" value="${data[0]['T$DSCA']}">
+              <input type="hidden" class="form-control" name="cuni" id="cuni" class="form-control" value="${data[0]['T$CUNI']}">
+              <input type="hidden" class="form-control" name="endt" id="endt" class="form-control" value="${data[0]['T$ENDT']}">
+              <input type="hidden" class="form-control" name="orno" id="orno" class="form-control" value="${data[0]['T$ORNO']}">
+              <input type="hidden" class="form-control" name="mach" id="mach" class="form-control" value="${data[0]['T$MACH']}">
           `);
-          $('#start_qty_out').val(data[0].t$actq);
+          $('#start_qty_out').val(data[0].T$ACTQ);
           $('#loading-modal').modal('hide');
           $('#start_rak_out').focus();
         } else {
