@@ -2,269 +2,82 @@
 
 namespace App\Controllers;
 
-use App\Models\DataGrup;
-use App\Models\Jks;
-use CodeIgniter\Controller;
+use App\Models\M_WET_Finishing;
 use App\Models\M_Data;
-use App\Models\ProductionReport;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class Home extends BaseController
+class WET_Finishing extends BaseController
 {
-    public function __construct()
-    {
-        $this->M_Data = new M_Data();
-        $this->session = \Config\Services::session();
+  public function __construct()
+  {
+    $this->M_WET_Finishing = new M_WET_Finishing();
+    $this->session = \Config\Services::session();
 
-        if($this->session->get('is_login')){
-            return redirect()->to('login');
-        }
+    if ($this->session->get('is_login')) {
+      return redirect()->to('login');
     }
-    public function test() {
-        $model = new M_Data();
-        $data = $model->test();
-        return var_dump($data);
+  }
+
+  public function wet_view()
+  {
+    $model = new M_WET_Finishing();
+    $data['data_lhp'] = $model->get_all_lhp_wet();
+    $data['data_line'] = $model->get_line();
+    $data['data_grup'] = $model->get_grup();
+    return view('pages/wet_finishing/wet_view', $data);
+  }
+
+  public function add_lhp()
+{
+    $tanggal_produksi = $this->request->getPost('tanggal_produksi');
+    $line = $this->request->getPost('line');
+    $shift = $this->request->getPost('shift');
+    $grup = $this->request->getPost('grup');
+    $mp = $this->request->getPost('mp');
+    $absen = $this->request->getPost('absen');
+    $cuti = $this->request->getPost('cuti');
+    $kasubsie = $this->request->getPost('kasubsie');
+
+    $model = new M_Data();
+    $data_line = $model->get_data_line($line);
+    $data_grup = $model->get_data_grup_pic($grup);
+
+    $data = [
+        'tanggal_produksi' => $tanggal_produksi,
+        'id_line' => $line,
+        'line' => $data_line[0]['nama_line'],
+        'shift' => $shift,
+        'id_pic' => $grup,
+        'grup' => $data_grup[0]['nama_pic'],
+        'mp' => $mp,
+        'absen' => $absen,
+        'cuti' => $cuti,
+        'kasubsie' => $kasubsie
+    ];
+
+    $data_lhp = [
+        'tanggal_produksi' => $tanggal_produksi,
+        'line' => $line,
+        'shift' => $shift,
+        'grup' => $grup,
+        'mp' => $mp,
+        'absen' => $absen,
+        'cuti' => $cuti,
+        'kasubsie' => $kasubsie
+    ];
+
+    $cek = $model->cek_lhp($tanggal_produksi, $line, $shift, $grup);
+    if (count($cek) > 0) {
+        $id_lhp = $cek[0]['id_lhp_2'];
+        return redirect()->to(base_url('wet_finishing/detail_lhp/'.$id_lhp));
+    } else {
+
+        $save_data = $model->save_lhp($data_lhp);
+
+        return redirect()->to(base_url('wet_finishing/detail_lhp/'.$save_data));
     }
-
-    public function index()
-    {
-        return view('welcome_message');
-    }
-
-    public function lhp_view($bulan = null)
-    {
-        if ($bulan == null) {
-            $bulan = date('m');
-        } else {
-            $bulan = idate('m',strtotime($bulan));
-        }
-
-        $model = new M_Data();
-        $data['data_lhp'] = $model->get_all_lhp($bulan);
-        $data['data_line'] = $model->get_line();
-        $data['data_grup'] = $model->get_grup();
-
-        return view('pages/lhp_view',$data);
-    }
-
-    public function lhp_add_view()
-    {
-        return view('pages/add_lhp');
-    }
-
-    public function add_lhp()
-    {
-        $tanggal_produksi = $this->request->getPost('tanggal_produksi');
-        $line = $this->request->getPost('line');
-        $shift = $this->request->getPost('shift');
-        $grup = $this->request->getPost('grup');
-        $mp = $this->request->getPost('mp');
-        $absen = $this->request->getPost('absen');
-        $cuti = $this->request->getPost('cuti');
-        $kasubsie = $this->request->getPost('kasubsie');
-
-        $model = new M_Data();
-        $data_line = $model->get_data_line($line);
-        $data_grup = $model->get_data_grup_pic($grup);
-
-        $data = [
-            'tanggal_produksi' => $tanggal_produksi,
-            'id_line' => $line,
-            'line' => $data_line[0]['nama_line'],
-            'shift' => $shift,
-            'id_pic' => $grup,
-            'grup' => $data_grup[0]['nama_pic'],
-            'mp' => $mp,
-            'absen' => $absen,
-            'cuti' => $cuti,
-            'kasubsie' => $kasubsie
-        ];
-
-        $data_lhp = [
-            'tanggal_produksi' => $tanggal_produksi,
-            'line' => $line,
-            'shift' => $shift,
-            'grup' => $grup,
-            'mp' => $mp,
-            'absen' => $absen,
-            'cuti' => $cuti,
-            'kasubsie' => $kasubsie
-        ];
-
-        // $data['data_wo'] = $model->getDataWO($tanggal_produksi, $line);
-        // $data['data_wo'] = [];
-        // $data['data_breakdown'] = $model->getListBreakdown();
-        // var_dump($data['data_breakdown']); die;
-
-        $cek = $model->cek_lhp($tanggal_produksi, $line, $shift, $grup);
-        if (count($cek) > 0) {
-            $id_lhp = $cek[0]['id_lhp_2'];
-            return redirect()->to(base_url('lhp/detail_lhp/'.$id_lhp));
-        } else {
-
-            $save_data = $model->save_lhp($data_lhp);
-            // var_dump($data); die;
-
-            return redirect()->to(base_url('lhp/detail_lhp/'.$save_data));
-        }
-    }
-
-    public function delete_lhp($id) {
-        $id = $this->request->getPost('id');
-
-        $model = new M_Data();
-
-        $delete = $model->delete_lhp($id);
-
-        if($delete > 0) {
-           $this->lhp_view();
-        }
-    }
-
-    public function getPartNo()
-    {
-        $no_wo = $this->request->getPost('no_wo');
-
-        $model = new M_Data();
-        echo json_encode($model->getPartNo($no_wo));
-    }
-
-    public function getCT()
-    {
-        $part_no = $this->request->getPost('part_number');
-        $line = $this->request->getPost('line');
-        // Split the string into an array using "-"
-        $arr = explode("-", $part_no);
-
-        // Remove the first two elements from the array
-        $arr = array_slice($arr, 2);
-
-        // Join the remaining elements back into a string using "-"
-        $part_no = implode("-", $arr);
-
-        $model = new M_Data();
-        echo json_encode($model->getCT($part_no, $line));
-    }
-
-    public function get_proses_breakdown()
-    {
-        $jenis_breakdown = $this->request->getPost('jenis_breakdown');
-
-        $model = new M_Data();
-        echo json_encode($model->getProsesBreakdown($jenis_breakdown));
-
-    }
-
-    public function get_kategori_reject()
-    {
-        $jenis_reject = $this->request->getPost('jenis_reject');
-
-        $model = new M_Data();
-        echo json_encode($model->getKategoriReject($jenis_reject));
-    }
-
-    // public function save_lhp()
-    // {
-    //     // var_dump($this->request->getPost('jenis_breakdown')); die;
-    //     $data_lhp = [
-    //         'tanggal_produksi' => $this->request->getPost('tanggal_produksi'),
-    //         'line' => $this->request->getPost('id_line'),
-    //         'shift' => $this->request->getPost('shift'),
-    //         'grup' => $this->request->getPost('id_pic'),
-    //         'mp' => $this->request->getPost('mp'),
-    //         'absen' => $this->request->getPost('absen'),
-    //         'cuti' => $this->request->getPost('cuti')
-    //     ];
-
-    //     // var_dump($data_lhp); die;
-
-    //     $model = new M_Data();
-
-    //     $save_data = $model->save_lhp($data_lhp);
-
-    //     if ($save_data != '') {
-    //         $total_data = count($this->request->getPost('part_number'));
-    //         for ($i = 0; $i < $total_data; $i++) {
-    //             if ($this->request->getPost('part_number')[$i] != '') {
-    //                 $data_detail_lhp = [
-    //                     'id_lhp_2' => $save_data,
-    //                     'batch' => $this->request->getPost('batch')[$i],
-    //                     'jam_start' => $this->request->getPost('start')[$i],
-    //                     'jam_end' => $this->request->getPost('stop')[$i],
-    //                     'menit_terpakai' => $this->request->getPost('menit_terpakai')[$i],
-    //                     'no_wo' => $this->request->getPost('no_wo')[$i],
-    //                     'type_battery' => $this->request->getPost('part_number')[$i],
-    //                     'ct' => $this->request->getPost('ct')[$i],
-    //                     'plan_cap' => $this->request->getPost('plan_cap')[$i],
-    //                     'actual' => $this->request->getPost('actual')[$i],
-    //                     'act_vs_plan' => $this->request->getPost('act_vs_plan')[$i],
-    //                     'efficiency_time' => $this->request->getPost('efficiency_time')[$i],
-    //                     'total_menit_breakdown' => $this->request->getPost('total_menit_breakdown')[$i]
-    //                 ];
-    //                 $save_detail = $model->save_detail_lhp($data_detail_lhp);
-
-    //                 if ($save_detail != '') {
-    //                     $index_jenis_breakdown = $this->request->getPost('index_jenis_breakdown')[$i];
-
-    //                     if ($this->request->getPost('jenis_breakdown') != null) {
-    //                     $total_breakdown = count($this->request->getPost('jenis_breakdown')[$index_jenis_breakdown]);
-    //                         for ($j = 0; $j < $total_breakdown; $j++) {
-    //                             if ($this->request->getPost('jenis_breakdown')[$index_jenis_breakdown][$j] != '') {
-    
-    //                                 if ($this->request->getPost('jenis_breakdown')[$index_jenis_breakdown][$j] == 'ANDON') {
-    //                                     $string_ticket = $this->request->getPost('proses_breakdown')[$index_jenis_breakdown][$j];
-    //                                     $arr = explode("-", $string_ticket);
-    //                                     $ticket = $arr[0];
-    //                                     $proses_breakdown = $string_ticket;
-    //                                 } else {
-    //                                     $ticket = '';
-    //                                     $proses_breakdown = $this->request->getPost('proses_breakdown')[$index_jenis_breakdown][$j];
-    //                                 }
-                                    
-    //                                 $data_breakdown = [
-    //                                     'id_detail_lhp' => $save_detail,
-    //                                     'no_wo' => $this->request->getPost('no_wo')[$i],
-    //                                     'jenis_breakdown' => $this->request->getPost('jenis_breakdown')[$index_jenis_breakdown][$j],
-    //                                     'tiket_andon' => $ticket,
-    //                                     'proses_breakdown' => $proses_breakdown,
-    //                                     'uraian_breakdown' => $this->request->getPost('uraian_breakdown')[$index_jenis_breakdown][$j],
-    //                                     'menit_breakdown' => $this->request->getPost('menit_breakdown')[$index_jenis_breakdown][$j]
-    //                                 ];
-    //                                 $model->save_detail_breakdown($data_breakdown);
-    //                             }
-    //                         }
-    //                     }
-
-    //                     if (!empty($this->request->getPost('jenis_reject')[$index_jenis_breakdown])) {
-
-    //                         $total_rejection = count($this->request->getPost('jenis_reject')[$index_jenis_breakdown]);
-                        
-    //                         for ($j = 0; $j < $total_rejection; $j++) {
-    //                             // print_r($this->request->getPost('jenis_breakdown')[$index_jenis_breakdown][$j]);
-    //                             if ($this->request->getPost('jenis_reject')[$index_jenis_breakdown][$j] != '') {
-        
-    //                                 $id_reject = $this->request->getPost('id_reject')[$index_jenis_breakdown][$j];
-        
-    //                                 $data_reject = [
-    //                                     'id_detail_lhp' => $save_detail,
-    //                                     'no_wo' => $this->request->getPost('no_wo')[$i],
-    //                                     'qty_reject' => $this->request->getPost('reject_qty')[$index_jenis_breakdown][$j],
-    //                                     'jenis_reject' => $this->request->getPost('jenis_reject')[$index_jenis_breakdown][$j],
-    //                                     'remark_reject' => $this->request->getPost('remark_reject')[$index_jenis_breakdown][$j]
-    //                                 ];
-    //                                 // var_dump ($data_reject);
-    //                                 $model->save_detail_reject($data_reject);                                    
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         };
-    //     }
-
-    //     return redirect()->to(base_url('lhp/detail_lhp/'.$save_data));
-    // }
+}
 
     public function detail_lhp($id)
     {
@@ -274,6 +87,7 @@ class Home extends BaseController
         $data['data_detail_lhp'] = $model->get_detail_lhp_by_id($id);
         $data['data_detail_breakdown'] = $model->get_detail_breakdown_by_id($id);
         $data['data_detail_reject'] = $model->get_detail_reject_by_id($id);
+        $data['data_detail_pending'] = $this->M_WET_Finishing->get_detail_pending_by_id($id);
 
         $data['data_line'] = $model->get_data_line($data['data_lhp'][0]['line']);
         $data['data_grup'] = $model->get_data_grup_pic($data['data_lhp'][0]['grup']);
@@ -290,20 +104,19 @@ class Home extends BaseController
             $data['data_reject'] = $model->getListReject('AMB');
         } else if($data['data_lhp'][0]['line'] > 7 && $data['data_lhp'][0]['line'] < 10) {
             $data['data_breakdown'] = $model->getListBreakdown('WET');
-            $data['data_reject'] = $model->getListReject('AMB');
+            $data['data_reject'] = $model->getListReject('WET');
+            $data['data_pending'] = $this->M_WET_Finishing->get_pending();
         } else {
             $data['data_breakdown'] = $model->getListBreakdown('MCB');
-            $data['data_reject'] = $model->getListReject('AMB');
+            $data['data_reject'] = $model->getListReject('MCB');
         }
-        return view('pages/lhp_detail_view', $data);
+
+        return view('pages/wet_finishing/lhp_detail_view_new', $data);
     }
 
     public function update_lhp()
     {
-        // var_dump($this->request->getPost('id_breakdown'));
-        // var_dump($this->request->getPost('id_detail_lhp'));
-
-        // die;
+        
         $id_lhp = $this->request->getPost('id_lhp');
 
         $data_lhp = [
@@ -316,19 +129,17 @@ class Home extends BaseController
             'cuti' => $this->request->getPost('cuti'),
             'kasubsie' => $this->request->getPost('kasubsie')
         ];
-
-        // var_dump($data_lhp);
         
         $model = new M_Data();
 
         $update_data = $model->update_lhp($id_lhp, $data_lhp);
-        // var_dump($update_data);
-
+        
         $total_plan = 0;
         $total_actual = 0;
         $total_line_stop = 0;
         $total_detail_line_stop = 0;
         $total_reject = 0;
+        $total_pending = 0;
 
         if ( $this->request->getPost('shift') == 1) {
             $loading_time = 440;
@@ -355,8 +166,6 @@ class Home extends BaseController
                             'ct' => $this->request->getPost('ct')[$i],
                             'plan_cap' => $this->request->getPost('plan_cap')[$i],
                             'actual' => $this->request->getPost('actual')[$i],
-                            // 'act_vs_plan' => $this->request->getPost('act_vs_plan')[$i],
-                            // 'efficiency_time' => $this->request->getPost('efficiency_time')[$i],
                             'total_menit_breakdown' => $this->request->getPost('total_menit_breakdown')[$i]
                         ];
 
@@ -374,8 +183,6 @@ class Home extends BaseController
                 }
             }
         }
-
-        // var_dump($this->request->getPost('no_wo_breakdown')); die;
 
         $total_data_breakdown = $this->request->getPost('no_wo_breakdown');
         if (!empty($total_data_breakdown)) {
@@ -445,27 +252,35 @@ class Home extends BaseController
 
         $model->update_lhp($id_lhp, $data_detail);
 
-        return redirect()->to(base_url('lhp/detail_lhp/'.$id_lhp));
-    }
+        $total_data_pending = $this->request->getPost('no_wo_pending');
 
-    public function get_data_andon() 
-    {
-        $tanggal_produksi = $this->request->getPost('tanggal_produksi');
-        $line = $this->request->getPost('line');
-        $shift = $this->request->getPost('shift');
+        if (!empty($total_data_pending)) {
+            for ($i=0; $i < count($total_data_pending); $i++) { 
+                $id_pending = $this->request->getPost('id_pending')[$i];
 
-        $model = new M_Data();
-        $data = $model->get_data_andon($tanggal_produksi, $line, $shift);
-        echo json_encode($data);
-    }
+                $data_detail_pending = [
+                    'id_lhp' => $id_lhp,
+                    'no_wo' => $this->request->getPost('no_wo_pending')[$i],
+                    'type_battery' => $this->request->getPost('part_number_pending')[$i],
+                    'jenis_pending' => $this->request->getPost('jenis_pending')[$i],
+                    'kategori_pending' => $this->request->getPost('kategori_pending')[$i],
+                    'qty_pending' => $this->request->getPost('qty_pending')[$i],
+                ];
+
+                $total_pending += $this->request->getPost('qty_pending')[$i];
     
-    public function pilih_andon()
-    {
-        $id_ticket = $this->request->getPost('id_ticket');
+                $this->M_WET_Finishing->save_detail_pending($id_pending, $data_detail_pending);
+            }
+        }
 
-        $model = new M_Data();
-        $data = $model->pilih_andon($id_ticket);
-        echo json_encode($data);
+        return redirect()->to(base_url('wet_finishing/detail_lhp/'.$id_lhp));
+    }
+
+    public function get_kategori_pending()
+    {
+        $jenis_pending = $this->request->getPost('jenis_pending');
+        
+        echo json_encode($this->M_WET_Finishing->getKategoriPending($jenis_pending));
     }
 
     public function hapus_lhp($id_lhp)
@@ -473,23 +288,7 @@ class Home extends BaseController
         $model = new M_Data();
         $model->hapus_lhp($id_lhp);
 
-        return redirect()->to(base_url('lhp'));
-    }
-
-    public function delete_line_stop($id_line_stop, $id_lhp)
-    {
-        $model = new M_Data();
-        $model->delete_line_stop($id_line_stop);
-
-        return redirect()->to(base_url('lhp/detail_lhp/'.$id_lhp));
-    }
-
-    public function delete_reject($id_reject, $id_lhp)
-    {
-        $model = new M_Data();
-        $model->delete_reject($id_reject);
-
-        return redirect()->to(base_url('lhp/detail_lhp/'.$id_lhp));
+        return redirect()->to(base_url('wet_finishing'));
     }
 
     public function download()
@@ -498,7 +297,7 @@ class Home extends BaseController
         $start_date = $this->request->getPost('start_date');
         $end_date = $this->request->getPost('end_date');
         // $month = date('F_Y', strtotime($date));
-        $model = new M_Data();
+        $model = new M_WET_Finishing();
 
         //data sheet lhp
         $data_lhp = $model->get_all_lhp_by_date($start_date, $end_date);
@@ -615,7 +414,7 @@ class Home extends BaseController
 
         // Mengatur header respons HTTP
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Data LHP ASSY.xlsx"');
+        header('Content-Disposition: attachment;filename="Data LHP WET.xlsx"');
         header('Cache-Control: max-age=0');
 
         ob_end_clean();

@@ -27,6 +27,7 @@ class M_Data extends Model
         $tanggal = date('Ymd', strtotime('-5 days', strtotime($tanggal_produksi)));
 
         $ka = "'"."KA%"."'";
+        $kl = "'"."KL%"."'";
 
         // $query = $this->db3->query('
         //                             SELECT t$prto as rfq,t$prdt as tgl_prod,t$pdno as pdno,t$mitm as mitm,t$cwar as cwar, t$qrdr as qty,t$prcd as line, t$osta as status 
@@ -38,7 +39,7 @@ class M_Data extends Model
                                 SELECT t$pdno as pdno
                                 FROM baan.ttisfc001777 
                                 WHERE (to_number(to_char(t$prdt + (7/24),\'YYYYMMDD\'))) >= '.$tanggal.'
-                                AND t$pdno LIKE '.$ka.'
+                                AND (t$pdno LIKE '.$ka.' OR t$pdno LIKE '.$kl.')
                                 ORDER BY t$pdno asc
                             ');
                                 // WHERE t$prcd = '.$line.' and (to_number(to_char(t$prdt + (7/24),\'ddmmyyyy\'))) = '.$tanggal.' and (t$osta = 5 or t$osta = 7) order by t$pdno asc
@@ -305,8 +306,8 @@ class M_Data extends Model
         return $query->getResultArray();
     }
 
-    public function get_data_andon($tanggal_produksi, $line) {
-        $query = $this->db4->query('SELECT * FROM ticket_assy WHERE tanggal_produksi = \''.$tanggal_produksi.'\' AND id_line = \''.$line.'\'');
+    public function get_data_andon($tanggal_produksi, $line, $shift) {
+        $query = $this->db4->query('SELECT * FROM ticket_assy WHERE tanggal_produksi = \''.$tanggal_produksi.'\' AND id_line = \''.$line.'\' AND shift = \''.$shift.'\'');
 
         return $query->getResultArray();
     }

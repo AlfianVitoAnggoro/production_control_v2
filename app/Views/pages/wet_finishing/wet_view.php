@@ -46,8 +46,8 @@
 													<td><?=$lhp['nama_pic']?></td>
 													<!-- <td><?=$retVal = (!empty($lhp['total_aktual']) && !empty($lhp['total_plan'])) ? number_format((float) ($lhp['total_aktual'] / $lhp['total_plan']) * 100, 2, '.', '') : '' ; ?></td> -->
 													<td>
-														<a href="<?=base_url()?>lhp/detail_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-primary btn-sm" target="_blank">Detail</a>
-														<a href="<?=base_url()?>lhp/hapus_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
+														<a href="<?=base_url()?>wet_finishing/detail_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-primary btn-sm" target="_blank">Detail</a>
+														<a href="<?=base_url()?>wet_finishing/hapus_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
 													</td>
 												</tr>
 												<?php endforeach; ?>
@@ -85,7 +85,7 @@
 				<h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<form action="<?=base_url()?>lhp/add_lhp" method="post">
+			<form action="<?=base_url()?>wet_finishing/add_lhp" method="post">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-4">

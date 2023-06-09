@@ -169,10 +169,23 @@ $routes->group('mcb', ['filter' => 'auth'], function ($routes) {
     $routes->post('download', 'MCB::download');
 });
 
-//WET
+//WET FINISHING
 $routes->group('wet_finishing', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'WET_Finishing::wet_view');
+    $routes->post('add_lhp', 'WET_Finishing::add_lhp');
+    $routes->get('detail_lhp/(:num)', 'WET_Finishing::detail_lhp/$1');
+    $routes->post('get_kategori_pending', 'WET_Finishing::get_kategori_pending');
+    $routes->post('update_lhp', 'WET_Finishing::update_lhp');
+    $routes->get('hapus_lhp/(:num)', 'WET_Finishing::hapus_lhp/$1');
     $routes->post('download', 'WET_Finishing::download');
+});
+
+//WET LOADING
+$routes->group('wet_loading', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'WET_Loading::wet_view');
+    $routes->post('download', 'WET_Loading::download');
+    $routes->post('add_lhp', 'WET_Loading::add_lhp');
+    $routes->get('detail_lhp/(:num)', 'WET_Loading::detail_lhp/$1');
 });
 
 
