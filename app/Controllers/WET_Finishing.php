@@ -111,7 +111,7 @@ class WET_Finishing extends BaseController
             $data['data_reject'] = $model->getListReject('MCB');
         }
 
-        return view('pages/wet_finishing/lhp_detail_view_new', $data);
+        return view('pages/wet_finishing/lhp_detail_view', $data);
     }
 
     public function update_lhp()
