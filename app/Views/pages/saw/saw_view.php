@@ -59,7 +59,7 @@
                                                     <?php //if ($session['level'] ) : ?>
                                                         <td>
                                                             <div class="d-flex">
-                                                                <a href="/saw/detail_saw/<?= $ds['id_lhp_saw'] ?>" class="btn btn-primary btn-sm">Detail</a>
+                                                                <a href="<?=base_url()?>saw/detail_saw/<?= $ds['id_lhp_saw'] ?>" class="btn btn-primary btn-sm">Detail</a>
                                                                 &nbsp
                                                                 <form action="<?php base_url() ?>saw/detail_saw/delete" method="POST">
                                                                     <input type="hidden" name="id" id="id" value="<?= $ds['id_lhp_saw'] ?>">
@@ -98,7 +98,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel">Tambah SAW</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/saw/save" method="post">
+            <form action="<?=base_url()?>saw/save" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-3">
@@ -166,7 +166,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- <a href="/saw/download" class="btn btn-danger mb-2">Download</a> -->
-            <form action="/saw/download" method="post">
+            <form action="<?=base_url()?>saw/download" method="post">
                 <div class="modal-body">
                     <!-- <label for="date" class="form-label">Bulan</label>
                     <input type="month" class="form-control" id="date" name="date" value="<?= date('Y-m') ?>"> -->

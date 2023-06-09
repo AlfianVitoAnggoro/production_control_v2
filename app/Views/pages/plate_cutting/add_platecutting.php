@@ -13,7 +13,7 @@
                             <h4>Detail Rejection Plate Cutting</h4>
                         </div>
                         <div class="box-body">
-                            <form action="/platecutting/save" method="post">
+                            <form action="<?=base_url()?>platecutting/save" method="post">
                                 <div class="row">
                                     <input type="hidden" name="id" value="<?= $platecutting['id']; ?>">
                                     <div class="col">
@@ -71,7 +71,7 @@
                                     <?php if ($platecutting['status'] === 'pending') : ?>
                                         <button type="submit" class="btn btn-primary" id="submit-form" style="width: 200px">Save</button>
                                     <?php else : ?>
-                                        <a href="/platecutting" class="btn btn-primary">Back</a>
+                                        <a href="<?=base_url()?>platecutting" class="btn btn-primary">Back</a>
                                     <?php endif ?>
                                 </div>
                                 <h2>Plate POS</h2>
@@ -226,7 +226,7 @@
                                     <?php if ($platecutting['status'] === 'pending') : ?>
                                         <button type="submit" class="btn btn-primary" id="submit-form" style="width: 200px">Save</button>
                                     <?php else : ?>
-                                        <a href="/platecutting" class="btn btn-primary">Back</a>
+                                        <a href="<?=base_url()?>platecutting" class="btn btn-primary">Back</a>
                                     <?php endif ?>
                                 </div>
                                 <h2>Plate NEG</h2>
@@ -379,7 +379,7 @@
                                     <?php if ($platecutting['status'] === 'pending') : ?>
                                         <button type="submit" class="btn btn-primary" id="submit-form" style="width: 200px">Save</button>
                                     <?php else : ?>
-                                        <a href="/platecutting" class="btn btn-primary">Back</a>
+                                        <a href="<?=base_url()?>platecutting" class="btn btn-primary">Back</a>
                                     <?php endif ?>
                                 </div>
                             </form>

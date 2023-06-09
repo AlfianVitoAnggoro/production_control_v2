@@ -13,7 +13,7 @@
               <h4>Detail COS</h4>
             </div>
             <div class="box-body">
-              <form action="/cos/detail_cos/edit" method="post">
+              <form action="<?=base_url()?>cos/detail_cos/edit" method="post">
                 <div class="row">
                   <input type="hidden" name="id" value="<?= $data_lhp_cos[0]['id_lhp_cos']; ?>">
                   <div class="col">

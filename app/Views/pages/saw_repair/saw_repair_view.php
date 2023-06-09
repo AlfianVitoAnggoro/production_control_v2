@@ -42,7 +42,7 @@
                                                         <td><?= $sr['shift'] ?></td>
                                                         <td>
                                                             <div class="d-flex">
-                                                                <a href="/saw_repair/add_saw_repair/<?= trim($sr['id']) ?>" class="btn btn-sm btn-primary">Detail</a>
+                                                                <a href="<?=base_url()?>saw_repair/add_saw_repair/<?= trim($sr['id']) ?>" class="btn btn-sm btn-primary">Detail</a>
                                                                 &nbsp
                                                                 <form action="<?php base_url() ?>saw_repair/detail_saw_repair/delete" method="POST">
                                                                     <input type="hidden" name="id_saw_repair" id="id_saw_repair" value="<?= trim($sr['id']) ?>">
@@ -74,7 +74,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/saw_repair/save" method="post">
+            <form action="<?=base_url()?>saw_repair/save" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
