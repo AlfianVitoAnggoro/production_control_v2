@@ -2,7 +2,7 @@
 $host = $_SERVER['HTTP_HOST'];
 $http_https = isset($_SERVER['HTTPS']) ? "https://" : "http://";
 $baseURL = $http_https . $host;
-defined('BASE_URL', $baseURL);
+define('BASE_URL', $baseURL);
 /*
  | --------------------------------------------------------------------
  | App Namespace
