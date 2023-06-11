@@ -49,6 +49,16 @@
       </div>
       <div class="row" style="text-align:center;">
         <div class="col-6">
+          <a href="http://10.19.16.30/views/DataBeratGrid/Dashboard1" target="_blank">
+            <span class="fa-stack fa-lg fa-5x" style="color: #000000">
+              <i class="fa fa-square-o fa-stack-2x"></i>
+              <i class="fa fa-window-maximize fa-stack-1x" aria-hidden="true"></i>
+            </span>
+            <br>
+            <h3>Berat Grid</h3>
+          </a>
+        </div>
+        <div class="col-6">
           <a href="http://10.19.16.30/views/DataTebalWideStrip/Dashboard1" target="_blank">
             <span class="fa-stack fa-lg fa-5x" style="color: #000000">
               <i class="fa fa-square-o fa-stack-2x"></i>
