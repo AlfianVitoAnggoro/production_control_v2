@@ -108,6 +108,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 												<option value="Masruri" <?php if($data_lhp[0]['kasubsie'] == "Masruri"){echo "selected";} ?>>Masruri</option>
 												<option value="Parwadi"  <?php if($data_lhp[0]['kasubsie'] == "Parwadi"){echo "selected";} ?>>Parwadi</option>
 												<option value="Iim Arwisman" <?php if($data_lhp[0]['kasubsie'] == "Iim Arwisman"){echo "selected";} ?>>Iim Arwisman</option>
+												<option value="Dika Pratama" <?php if($data_lhp[0]['kasubsie'] == "Dika Pratama"){echo "selected";} ?>>Dika Pratama</option>
 											</select>
 										</div>
 									</div>

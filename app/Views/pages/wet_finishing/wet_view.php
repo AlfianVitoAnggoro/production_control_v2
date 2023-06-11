@@ -98,10 +98,11 @@
 							<div class="form-group">
 								<label class="form-label">Line</label>
 								<select class="form-select" id="line" name="line" required>
-                  <option disabled>-- Pilih Data --</option>
-									<?php foreach($data_line as $line) : ?>
-										<option value="<?=$line['id_line']?>" <?php echo ($line['id_line'] === 8) ? 'selected' : '' ?>><?=$line['nama_line']?></option>
-									<?php endforeach; ?>
+                  					<option selected disabled>-- Pilih Data --</option>
+									<?php foreach($data_line as $line) : 
+										if ($line['id_line'] == 8 || $line['id_line'] == 9) { ?>
+											<option value="<?=$line['id_line']?>"><?=$line['nama_line']?></option>
+									<?php } endforeach; ?>
 								</select>
 							</div>
 						</div>
@@ -136,12 +137,7 @@
 								<label class="form-label">Kasubsie</label>
 								<select class="form-select" id="kasubsie" name="kasubsie" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
-									<option value="Yusuf Slamet Pelita">Yusuf Slamet Pelita</option>
-									<option value="Edi Suwito">Edi Suwito</option>
-									<option value="Masruri">Masruri</option>
-									<option value="Parwadi">Parwadi</option>
-									<option value="Iim Arwisman">Iim Arwisman</option>
-									<option value="Supianto">Supianto</option>
+									<option value="Dika Pratama">Dika Pratama</option>
 								</select>
 							</div>
 						</div>
@@ -150,9 +146,11 @@
 								<label class="form-label">Grup</label>
 								<select class="form-select" id="grup" name="grup" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
-									<?php foreach($data_grup as $grup) : ?>
-										<option value="<?=$grup['id_pic']?>"><?=$grup['nama_pic']?></option>
-									<?php endforeach; ?>
+									<?php foreach($data_grup as $grup) : 
+										if ($grup['id_line'] == 8 OR $grup['id_line'] == 9) { ?>
+											<option value="<?=$grup['id_pic']?>"><?=$grup['nama_pic']?></option>
+									<?php }
+										 endforeach; ?>
 								</select>
 							</div>
 						</div>
