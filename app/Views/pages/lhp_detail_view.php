@@ -925,10 +925,11 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 	function get_data_andon(j) {
 		var tanggal_produksi = $('#tanggal_produksi').val();
 		var line = <?=$data_lhp[0]['line']?>;
+		var shift = <?=$data_lhp[0]['shift']?>;
 		$.ajax({
 			url: '<?=base_url()?>lhp/get_data_andon',
 			type: 'POST',
-			data: {tanggal_produksi: tanggal_produksi, line: line},
+			data: {tanggal_produksi: tanggal_produksi, line: line, shift: shift},
 			dataType: 'json',
 			success: function(data) {
 				$('#tbody_andon').html('');
