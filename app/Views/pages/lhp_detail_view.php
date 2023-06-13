@@ -358,7 +358,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																	<option selected disabled>-- Pilih No WO --</option>
 																	<?php
 																		foreach ($data_wo as $dw) { 
-																			if (strpos($dw['PDNO'], 'KAB') !== false OR strpos($dw['PDNO'], 'KAS' OR strpos($dw['PDNO'], 'KAV') !== false) { ?>
+																			if (strpos($dw['PDNO'], 'KAB') !== false OR strpos($dw['PDNO'], 'KAS' OR strpos($dw['PDNO'], 'KAV') !== false)) { ?>
 																			<option value="<?=$dw['PDNO']?>"><?=$dw['PDNO']?></option>
 																	<?php
 																		}
