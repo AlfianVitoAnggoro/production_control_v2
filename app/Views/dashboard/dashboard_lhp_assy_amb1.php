@@ -303,7 +303,7 @@
 <!-- /.modal -->
   
 <!-- MODAL -->
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;" id="modal_ls">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" style="width:120%;">
 			<div class="modal-header">
@@ -314,6 +314,7 @@
                 <table class="table" id="tbl_breakdown" width="100%">
                     <thead>
                         <tr>
+                            <td>Batch Jam</td>
                             <td>No WO</td>
                             <td>Type Battery</td>
                             <td>Jenis Line Stop</td>
@@ -861,6 +862,7 @@
                                         var i;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                     '<td>' + data[i].no_wo + '</td>' +
                                                     '<td>' + data[i].type_battery + '</td>' +
                                                     '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -870,7 +872,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -901,6 +903,7 @@
                                         var i;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                     '<td>' + data[i].no_wo + '</td>' +
                                                     '<td>' + data[i].type_battery + '</td>' +
                                                     '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -910,7 +913,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -938,6 +941,7 @@
                                         var i;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                        '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                         '<td>' + data[i].no_wo + '</td>' +
                                                         '<td>' + data[i].type_battery + '</td>' +
                                                         '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -947,7 +951,7 @@
                                                     '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -975,6 +979,7 @@
                                         var i;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -984,7 +989,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1015,6 +1020,7 @@
                                         var i;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1024,7 +1030,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1057,6 +1063,7 @@
                                         var i;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1066,7 +1073,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1096,6 +1103,7 @@
                                         var i;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1105,7 +1113,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1135,6 +1143,7 @@
                                         var i;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1144,7 +1153,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1178,6 +1187,7 @@
                                         var i;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1187,7 +1197,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1222,6 +1232,7 @@
                                         var i;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1231,7 +1242,7 @@
                                                 '</tr>';
                                         }
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
