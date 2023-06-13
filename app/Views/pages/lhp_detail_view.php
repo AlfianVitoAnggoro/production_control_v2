@@ -277,7 +277,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																<?php
 																	$cek_wo = true;
 																	foreach ($data_wo as $dw) { 
-																		if (strpos($dw['PDNO'], 'KAB') !== false OR strpos($dw['PDNO'], 'KAB') !== false) {
+																		if (strpos($dw['PDNO'], 'KAB') !== false OR strpos($dw['PDNO'], 'KAS') !== false) {
 																			$selected = ($dw['PDNO'] == $data_detail_lhp[$i]['no_wo']) ? 'selected' : '' ;
 																			$cek_wo = ($dw['PDNO'] == $data_detail_lhp[$i]['no_wo']) ? false : true ; ?>
 																			<option value="<?=$dw['PDNO']?>" <?=$selected?>><?=$dw['PDNO']?></option>
@@ -358,7 +358,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																	<option selected disabled>-- Pilih No WO --</option>
 																	<?php
 																		foreach ($data_wo as $dw) { 
-																			if (strpos($dw['PDNO'], 'KAB') !== false OR strpos($dw['PDNO'], 'KAB') !== false) { ?>
+																			if (strpos($dw['PDNO'], 'KAB') !== false OR strpos($dw['PDNO'], 'KAS') !== false) { ?>
 																			<option value="<?=$dw['PDNO']?>"><?=$dw['PDNO']?></option>
 																	<?php
 																		}
