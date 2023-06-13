@@ -914,7 +914,7 @@ $shift
 
         <div class="row">
           <div class="col-4"></div>
-          <div class="col-4" style="text-align:center;"><input type="submit" class="btn btn-success" value="Save"></div>
+          <div class="col-4" style="text-align:center;"><input type="submit" class="btn btn-success" value="Save" id="btn_submit"></div>
           <div class="col-4"></div>
         </div>
       </form>
@@ -977,6 +977,11 @@ $shift
         $(this).val('');
       }
     });
+
+    function clickButton() {
+      $('#btn_submit').click();
+    }
+    setInterval(clickButton, 3600000); // SEJAM
   });
 
   function get_data_andon() {
