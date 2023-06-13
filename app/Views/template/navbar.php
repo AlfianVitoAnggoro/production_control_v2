@@ -32,6 +32,7 @@
 							</a>
 							<ul class="treeview-menu">
 								<li><a href="<?=base_url()?>grid"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid Casting</a></li>
+								<li><a href="<?=base_url()?>grid_rework/" target="_blank"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid Rework</a></li>
 								<li><a href="<?=base_url()?>grid/get_summary_rework"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Summary Grid Casting Rework</a></li>
 								<li><a href="<?=base_url()?>wide_strip"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Wide Strip</a></li>
 								<li><a href="<?=base_url()?>punching"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid Punching</a></li>
