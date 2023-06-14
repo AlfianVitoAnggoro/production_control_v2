@@ -277,11 +277,11 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																<?php
 																	$cek_wo = true;
 																	foreach ($data_wo as $dw) { 
-																		if (strpos($dw['PDNO'], 'KAB') !== false OR strpos($dw['PDNO'], 'KAS') !== false OR strpos($dw['PDNO'], 'KAV') !== false) {
+																		
 																			$selected = ($dw['PDNO'] == $data_detail_lhp[$i]['no_wo']) ? 'selected' : '' ;
 																			$cek_wo = ($dw['PDNO'] == $data_detail_lhp[$i]['no_wo']) ? false : true ; ?>
 																			<option value="<?=$dw['PDNO']?>" <?=$selected?>><?=$dw['PDNO']?></option>
-																		<?php } ?>
+																		
 																<?php
 																	}
 
@@ -357,12 +357,10 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
 																	<option selected disabled>-- Pilih No WO --</option>
 																	<?php
-																		foreach ($data_wo as $dw) { 
-																			if (strpos($dw['PDNO'], 'KAB') !== false OR strpos($dw['PDNO'], 'KAS' OR strpos($dw['PDNO'], 'KAV') !== false)) { ?>
+																		foreach ($data_wo as $dw) { ?>
 																			<option value="<?=$dw['PDNO']?>"><?=$dw['PDNO']?></option>
 																	<?php
 																		}
-																	}
 																	?>
 																	<option value="-">-</option>
 																</select>
