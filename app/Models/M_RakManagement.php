@@ -77,4 +77,55 @@ class M_RakManagement extends Model
 
         return $query->getResultArray();
     }
+
+    public function get_data_rak_to_aging()
+    {
+        $query = $this->db5->query('SELECT data_master_rak.pn_qr, detail_barcode_rak.item, SUM(detail_record_rak.qty) AS qty, detail_barcode_rak.entry_date
+                                    FROM data_master_rak
+                                    JOIN detail_record_rak ON detail_record_rak.pn_qr = data_master_rak.pn_qr
+                                    JOIN detail_barcode_rak ON detail_record_rak.barcode = detail_barcode_rak.barcode
+                                    WHERE data_master_rak.status = 1 AND detail_record_rak.status = \'open\'
+                                    GROUP BY data_master_rak.pn_qr, detail_barcode_rak.item, detail_barcode_rak.entry_date');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_rak_management_by_id($qr_rak)
+    {
+        $query = $this->db5->query('SELECT data_master_rak.pn_qr, detail_barcode_rak.item, SUM(detail_record_rak.qty) AS qty, detail_barcode_rak.entry_date
+                                    FROM data_master_rak
+                                    JOIN detail_record_rak ON detail_record_rak.pn_qr = data_master_rak.pn_qr
+                                    JOIN detail_barcode_rak ON detail_record_rak.barcode = detail_barcode_rak.barcode
+                                    WHERE data_master_rak.status = 1 AND detail_record_rak.status = \'open\' AND data_master_rak.pn_qr = \'' . $qr_rak . '\'
+                                    GROUP BY data_master_rak.pn_qr, detail_barcode_rak.item, detail_barcode_rak.entry_date');
+
+        return $query->getResultArray();
+    }
+
+    public function insert_data_rak_to_aging($id, $data)
+    {
+        if (empty($id)) {
+            $query = $this->db5->table('data_rak_aging')->insert($data);
+        }        
+    }
+
+    public function get_data_rak_at_aging($mesin)
+    {
+        $nama_mesin = "'"."%".$mesin."'";
+
+        $query = $this->db5->query('SELECT * FROM data_rak_aging WHERE nama_mesin LIKE ' . $nama_mesin . ' AND stop_aging IS NULL');
+
+        return $query->getResultArray();
+    }
+
+    public function delete_rak_aging($id)
+    {
+        $query = $this->db5->table('data_rak_aging')->delete(array('id' => $id));
+    }
+
+    public function update_rak_aging()
+    {
+        $date_now = date('Y-m-d H:i:s');
+        $query = $this->db5->query('UPDATE data_rak_aging SET stop_aging = \'' . $date_now . '\' WHERE stop_aging IS NULL');
+    }
 }

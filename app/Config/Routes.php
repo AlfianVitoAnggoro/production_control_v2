@@ -185,6 +185,8 @@ $routes->group('wet_loading', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'WET_Loading::wet_view');
     $routes->post('download', 'WET_Loading::download');
     $routes->post('add_lhp', 'WET_Loading::add_lhp');
+    $routes->post('getSeries', 'WET_Loading::get_series');
+    $routes->post('getType', 'WET_Loading::get_type_battery');
     $routes->get('detail_lhp/(:num)', 'WET_Loading::detail_lhp/$1');
 });
 
@@ -342,7 +344,7 @@ $routes->group('cos', ['filter' => 'auth'], function ($routes) {
     $routes->post('getPartNo', 'Cos::getPartNo');
 });
 
-//COS
+//TIMBANGAN REJECT
 $routes->group('timbangan_reject', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'TimbanganReject::timbangan_reject_view');
     $routes->get('add_timbangan_reject/(:segment)', 'TimbanganReject::add_timbangan_reject/$1');
@@ -372,6 +374,14 @@ $routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
     $routes->get('detail_lhp/(:num)', 'WideStrip::detail_lhp/$1');
     
 });
+
+// INTERLOCK AGING
+$routes->get('interlock_aging/', 'InterlockAging::index');
+$routes->get('interlock_aging/list_aging/(:any)', 'InterlockAging::list_aging/$1');
+$routes->post('interlock_aging/get_qty_rak', 'InterlockAging::get_qty_rak');
+$routes->post('interlock_aging/add_rak', 'InterlockAging::add_rak');
+$routes->get('interlock_aging/delete_rak_aging/(:any)/(:any)', 'InterlockAging::delete_rak_aging/$1/$2');
+$routes->get('interlock_aging/update_rak_aging/(:any)', 'InterlockAging::update_rak_aging/$1');
 
 // $routes->get('/lhp/test', 'Home::test');
 
