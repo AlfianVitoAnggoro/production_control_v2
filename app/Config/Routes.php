@@ -360,6 +360,44 @@ $routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
     
 });
 
+//Master Man Power
+$routes->group('master_man_power', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'MasterManPower::index');
+    $routes->post('add_man_power', 'MasterManPower::add_man_power');
+    $routes->get('detail_man_power/(:num)', 'MasterManPower::detail_man_power/$1');
+    $routes->post('detail_man_power/edit', 'MasterManPower::update_data_man_power');
+    $routes->post('detail_man_power/delete', 'MasterManPower::delete_data_man_power');
+    $routes->get('calendar', 'MasterManPower::calendar');
+    $routes->post('get_data_master_man_power', 'MasterManPower::get_data_master_man_power');
+});
+
+//Master Man Power Kasubsie
+$routes->group('master_man_power_kasubsie', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'MasterManPowerKasubsie::index');
+    $routes->post('add_man_power', 'MasterManPowerKasubsie::add_man_power');
+    $routes->get('detail_man_power/(:num)', 'MasterManPowerKasubsie::detail_man_power/$1');
+    $routes->post('detail_man_power/edit', 'MasterManPowerKasubsie::update_data_man_power');
+    $routes->post('detail_man_power/delete', 'MasterManPowerKasubsie::delete_data_man_power');
+    $routes->post('get_data_master_man_power', 'MasterManPowerKasubsie::get_data_master_man_power');
+});
+
+//Master Group Man Power
+$routes->group('master_group_man_power', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'MasterGroupManPower::index');
+    $routes->post('add_group_man_power', 'MasterGroupManPower::add_group_man_power');
+    $routes->get('detail_group_man_power/(:num)', 'MasterGroupManPower::detail_group_man_power/$1');
+    $routes->post('detail_group_man_power/edit', 'MasterGroupManPower::update_data_group_man_power');
+    $routes->post('detail_group_man_power/delete', 'MasterGroupManPower::delete_data_group_man_power');
+    $routes->get('calendar', 'MasterGroupManPower::calendar');
+});
+
+//Dashboard Man Power
+$routes->group('dashboard_man_power', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'DashboardManPower::index');
+    $routes->get('filter', 'DashboardManPower::index');
+    $routes->get('detail_dashboard_man_power/(:num)', 'DashboardManPower::detail_dashboard_man_power/$1');
+});
+
 // $routes->get('/lhp/test', 'Home::test');
 
 /*

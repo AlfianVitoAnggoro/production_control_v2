@@ -23,6 +23,7 @@
 	<!-- Style-->
 	<link rel="stylesheet" href="<?= base_url() ?>assets/template/main/css/style.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/template/main/css/skin_color.css">
+	<?= $this->renderSection('style') ?>
 </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
