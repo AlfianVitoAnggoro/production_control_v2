@@ -5,14 +5,25 @@
 	    <div class="container-full">
             <section class="content">
                 <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-3">
-                        <a href="<?=base_url()?>interlock_aging/list_aging/B" class="btn btn-primary">Mesin Aging B</a>
+                    <div class="col-4">
+
                     </div>
-                    <div class="col-3">
-                        <a href="<?=base_url()?>interlock_aging/list_aging/B" class="btn btn-primary">Mesin Aging E</a>
+                    <div class="col-4" style="text-align:center;">
+                        <a href="https://portal2.incoe.astra.co.id/e-wip/order_plate/activity_supply" class="btn btn-success">Portal E-WIP</a>
                     </div>
-                    <div class="col-3"></div>
+                    <div class="col-4">
+                        
+                    </div>
+                </div>
+                <br>
+                
+                <div class="row">
+                    <div class="col-6" style="text-align:center;">
+                        <a href="<?=base_url()?>interlock_aging/list_aging/B" class="btn btn-lg btn-primary">Mesin Aging B</a>
+                    </div>
+                    <div class="col-6" style="text-align:center;">
+                        <a href="<?=base_url()?>interlock_aging/list_aging/B" class="btn btn-lg btn-primary">Mesin Aging E</a>
+                    </div>
                 </div>
 
             </section>

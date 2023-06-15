@@ -54,7 +54,11 @@
                     <div class="col-xl-12 col-12">
                         <div class="box">
                             <div class="box-header">
-                                <h4>Input QR Rak Aging</h4>
+                                <a href="https://portal2.incoe.astra.co.id/e-wip/order_plate/activity_supply" class="btn btn-success">Portal E-WIP</a>
+                                <br>
+                                <br>
+                                <br>
+                                <h4>Input QR Rak Aging Mesin <?=$mesin?></h4>
                                 <br>
                                 <table class="table">
                                     <tr>
@@ -121,11 +125,17 @@
                                                 ?>
                                             </tbody>
                                         </table>
-                                        <?php if (count($data_rak_at_aging) < 3) { ?>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        <?php } else { ?>
-                                            <a href="<?=base_url()?>interlock_aging/update_rak_aging/<?=$mesin?>" class="btn btn-danger">Bongkar</a>
-                                        <?php } ?>
+                                        <br>
+                                        <br>
+                                        <div style="text-align:center;">
+                                            <a href="<?=base_url()?>interlock_aging/" class="btn btn-secondary">Kembali</a>
+                                            &nbsp;&nbsp;
+                                            <?php if (count($data_rak_at_aging) < 3) { ?>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            <?php } else { ?>
+                                                <a href="<?=base_url()?>interlock_aging/update_rak_aging/<?=$mesin?>" class="btn btn-danger">Bongkar</a>
+                                            <?php } ?>
+                                        </div>
                                     </form>
                                 </div>
 
