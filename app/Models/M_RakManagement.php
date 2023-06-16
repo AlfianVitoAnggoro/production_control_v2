@@ -84,7 +84,7 @@ class M_RakManagement extends Model
                                     FROM data_master_rak
                                     JOIN detail_record_rak ON detail_record_rak.pn_qr = data_master_rak.pn_qr
                                     JOIN detail_barcode_rak ON detail_record_rak.barcode = detail_barcode_rak.barcode
-                                    WHERE data_master_rak.status = 1 AND detail_record_rak.status = \'open\'
+                                    WHERE data_master_rak.status = 1 AND detail_record_rak.status = \'open\' AND detail_record_rak.supply_time >= \'2023-06-16 00:00:00.000\'
                                     GROUP BY data_master_rak.pn_qr, detail_barcode_rak.item, detail_barcode_rak.entry_date');
 
         return $query->getResultArray();

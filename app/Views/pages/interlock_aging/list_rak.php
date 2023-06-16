@@ -4,7 +4,11 @@
     <div class="content-wrapper">
 	    <div class="container-full">
             <section class="content">
-                <div class="row" style="display:none">
+                <div class="row" style="display:block">
+                    <a href="https://portal2.incoe.astra.co.id/e-wip/order_plate/activity_supply" class="btn btn-success">Portal E-WIP</a>
+                    <br>
+                    <br>
+                    <br>
                     <div class="col-6">
                         <h4 class="box-title">List Rak Tersedia</h4>
                         <table id="table_rak_tersedia" class="table table-bordered table-striped" style="width:100%">
@@ -14,7 +18,7 @@
                                     <th>Item</th>
                                     <th>Qty</th>
                                     <th>Tanggal Produksi</th>
-                                    <th>Action</th>
+                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -24,15 +28,15 @@
                                         <td><?= $row['item']; ?></td>
                                         <td><?= $row['qty']; ?></td>
                                         <td><?= $row['entry_date']; ?></td>
-                                        <td>
+                                        <!-- <td>
                                             <a href="#" class="btn btn-primary btn-xs move-row"><i class="fa fa-plus"></i></a>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6"  style="display:none">
                         <h4 class="box-title">List Rak Akan Agging</h4>
                         <table id="table_rak_tersimpan" class="table table-bordered table-striped" style="width:100%">
                             <thead>
@@ -49,15 +53,13 @@
                         </table>
                     </div>
                 </div>
-
+                <br>
+                <br>
+                <br>
                 <div class="row">
                     <div class="col-xl-12 col-12">
                         <div class="box">
                             <div class="box-header">
-                                <a href="https://portal2.incoe.astra.co.id/e-wip/order_plate/activity_supply" class="btn btn-success">Portal E-WIP</a>
-                                <br>
-                                <br>
-                                <br>
                                 <h4>Input QR Rak Aging Mesin <?=$mesin?></h4>
                                 <br>
                                 <table class="table">
@@ -154,6 +156,9 @@
 <?= $this->section('script'); ?>
     <script>
         $(document).ready(function() {
+            $('#table_rak_tersedia').DataTable({
+            "pageLength": 5
+            });
             
         });
 
