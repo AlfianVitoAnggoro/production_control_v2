@@ -37,7 +37,7 @@
 								<li><a href="<?=base_url()?>wide_strip"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Wide Strip</a></li>
 								<li><a href="<?=base_url()?>punching"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid Punching</a></li>
 								<li><a href="<?=base_url()?>pasting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Pasting</a></li>
-								<li><a href="<?=base_url()?>interlock_aging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Interlock Aging</a></li>
+								<li><a href="<?=base_url()?>interlock_aging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Aging</a></li>
 							</ul>
 						</li>
 					<?php } ?>
