@@ -22,7 +22,7 @@
                         <a href="<?=base_url()?>interlock_aging/list_aging/B" class="btn btn-lg btn-primary">Mesin Aging B</a>
                     </div>
                     <div class="col-6" style="text-align:center;">
-                        <a href="<?=base_url()?>interlock_aging/list_aging/B" class="btn btn-lg btn-primary">Mesin Aging E</a>
+                        <a href="<?=base_url()?>interlock_aging/list_aging/E" class="btn btn-lg btn-primary">Mesin Aging E</a>
                     </div>
                 </div>
 

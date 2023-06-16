@@ -130,7 +130,7 @@
                                         <div style="text-align:center;">
                                             <a href="<?=base_url()?>interlock_aging/" class="btn btn-secondary">Kembali</a>
                                             &nbsp;&nbsp;
-                                            <?php if (count($data_rak_at_aging) < 3) { ?>
+                                            <?php if (count($data_rak_at_aging) < 12) { ?>
                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                             <?php } else { ?>
                                                 <a href="<?=base_url()?>interlock_aging/update_rak_aging/<?=$mesin?>" class="btn btn-danger">Bongkar</a>
@@ -224,7 +224,7 @@
             });
 
             if (!found) {
-                if (baris < 3) {
+                if (baris < 12) {
                     $('#tbody_data_rak').append(`
                         <tr class="rak">
                             <td>
