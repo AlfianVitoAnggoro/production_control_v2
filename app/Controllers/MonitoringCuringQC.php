@@ -27,6 +27,7 @@ class MonitoringCuringQC extends BaseController
 
   public function update_curing()
   {
+    date_default_timezone_set('Asia/Jakarta');
     $id_curing = $this->request->getPost('id_curing');
     $qc = $this->request->getPost('qc');
     if($qc === '')

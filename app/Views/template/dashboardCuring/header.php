@@ -29,7 +29,7 @@
 		</div>
 
 		<div style="margin-left:-270px; text-align:center; margin-top:-25px;">
-				<a class="btn btn-success" href="#">Portal</a>
+				<a class="btn btn-success" href="https://portal2.incoe.astra.co.id/e-wip/order_plate/activity_supply">Portal</a>
 		</div>
 
 		<div class="navbar-custom-menu r-side">
