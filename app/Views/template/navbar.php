@@ -38,6 +38,8 @@
 								<li><a href="<?=base_url()?>punching"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid Punching</a></li>
 								<li><a href="<?=base_url()?>pasting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Pasting</a></li>
 								<li><a href="<?=base_url()?>interlock_aging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Aging</a></li>
+								<li><a href="<?=base_url()?>monitoring_curing"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li>
+								<li><a href="<?=base_url()?>monitoring_curing_qc"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing QC</a></li>
 							</ul>
 						</li>
 					<?php } ?>

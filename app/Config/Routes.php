@@ -373,7 +373,20 @@ $routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'WideStrip::index');
     $routes->post('add_lhp', 'WideStrip::add_lhp');
     $routes->get('detail_lhp/(:num)', 'WideStrip::detail_lhp/$1');
+});
     
+$routes->group('monitoring_curing_qc', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'MonitoringCuringQC::monitoring_curing_qc_view');
+    $routes->post('update_curing', 'MonitoringCuringQC::update_curing');
+});
+
+$routes->group('monitoring_curing', function ($routes) {
+    $routes->get('/', 'MonitoringCuring::monitoring_curing_view');
+});
+
+$routes->group('curing', function ($routes) {
+    $routes->get('/', 'Curing::curing_view');
+    $routes->post('update_curing', 'Curing::update_curing');
 });
 
 // INTERLOCK AGING

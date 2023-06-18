@@ -22,9 +22,6 @@
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="7"></th>
-                                                </tr>
-                                                <tr>
                                                     <!-- <th>No</th> -->
                                                     <th>Date</th>
                                                     <th>Shift</th>
@@ -53,6 +50,13 @@
                                                     </tr>
                                                 <?php endforeach ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Shift</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
@@ -112,8 +116,30 @@
 <script>
     $(document).ready(function() {
         $('#example5').DataTable({
-            "order":[]
-        });
+			"order": [],
+			initComplete: function () {
+				this.api()
+					.columns()
+					.every(function () {
+						var column = this;
+						var select = $('<select class="form-select"><option value=""></option></select>')
+							.appendTo($(column.footer()).empty())
+							.on('change', function () {
+								var val = $.fn.dataTable.util.escapeRegex($(this).val());
+	
+								column.search(val ? '^' + val + '$' : '', true, false).draw();
+							});
+	
+						column
+							.data()
+							.unique()
+							.sort()
+							.each(function (d, j) {
+								select.append('<option value="' + d + '">' + d + '</option>');
+							});
+					});
+			},
+		});
     });
 </script>
 <?= $this->endSection(); ?>

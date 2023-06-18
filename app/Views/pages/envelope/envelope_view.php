@@ -90,7 +90,6 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>No</th>
                                                     <th>Date</th>
                                                     <th>Shift</th>
                                                     <th>Line</th>
