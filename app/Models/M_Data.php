@@ -27,7 +27,7 @@ class M_Data extends Model
         $tanggal = date('Ymd', strtotime('-5 days', strtotime($tanggal_produksi)));
 
         $ka = "'"."KA%"."'";
-        $kl = "'"."KL%"."'";
+        $kl = "'"."%KLC%"."'";
 
         // $query = $this->db3->query('
         //                             SELECT t$prto as rfq,t$prdt as tgl_prod,t$pdno as pdno,t$mitm as mitm,t$cwar as cwar, t$qrdr as qty,t$prcd as line, t$osta as status 
@@ -390,7 +390,7 @@ class M_Data extends Model
     }
 
     public function get_all_tiket_andon() {
-        $query = $this->db->query('SELECT tiket_andon FROM detail_breakdown WHERE jenis_breakdown = \'ANDON\' AND kategori_andon IS NULL');
+        $query = $this->db->query('SELECT tiket_andon FROM detail_breakdown WHERE jenis_breakdown = \'ANDON\' AND (kategori_andon IS NULL OR kategori_andon = \'\')');
 
         return $query->getResultArray();
     }
