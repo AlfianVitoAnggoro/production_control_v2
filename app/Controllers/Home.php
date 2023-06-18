@@ -384,7 +384,11 @@ class Home extends BaseController
                     $string_ticket = $this->request->getPost('proses_breakdown')[$i];
                     $arr = explode("-", $string_ticket);
                     $ticket = $arr[0];
-                    $kategori_andon = $arr[2];
+                    if ($arr[2] == 'DANDORI' OR $arr[2] == 'DT' OR $arr[2] == 'NDT') {
+                        $kategori_andon = $arr[2];
+                    } else {
+                        $kategori_andon = '';
+                    }
                     $proses_breakdown = implode('-', array_slice($arr, 2));
                     // $proses_breakdown = $string_ticket;
                 } else {
