@@ -959,7 +959,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 			dataType: 'json',
 			success: function(data) {
 				$('#proses_breakdown_'+i).html(`
-					${data.map((item) => `<option value="${item.id_ticket}-${item.tujuan}-${item.nama_mesin}" selected>${item.id_ticket}-${item.tujuan}-${item.nama_mesin}</option>`)}
+					${data.map((item) => `<option value="${item.id_ticket}-${item.tujuan}-${item.kategori_perbaikan}-${item.nama_mesin}" selected>${item.id_ticket}-${item.tujuan}-${item.kategori_perbaikan}-${item.nama_mesin}</option>`)}
 				`);
 
 				$('#uraian_breakdown_'+i).val(data[0].permasalahan);

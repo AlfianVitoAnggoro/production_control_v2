@@ -388,4 +388,18 @@ class M_Data extends Model
 
         return $query->getResultArray();
     }
+
+    public function get_all_tiket_andon() {
+        $query = $this->db->query('SELECT tiket_andon FROM detail_breakdown WHERE jenis_breakdown = \'ANDON\' AND kategori_andon IS NULL');
+
+        return $query->getResultArray();
+    }
+
+    public function update_kategori_andon($id,$data) {
+        $builder = $this->db->table('detail_breakdown');
+        $builder->where('tiket_andon', $id);
+        $builder->update($data);
+
+        return $this->db->affectedRows();
+    }
 }

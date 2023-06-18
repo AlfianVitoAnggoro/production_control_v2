@@ -161,6 +161,7 @@ $routes->group('lhp', ['filter' => 'auth'], function ($routes) {
     $routes->get('delete_line_stop/(:num)/(:num)', 'Home::delete_line_stop/$1/$2');
     $routes->get('delete_reject/(:num)/(:num)', 'Home::delete_reject/$1/$2');
     $routes->post('download', 'Home::download');
+    $routes->get('update_kategori_andon', 'Home::get_kategori_andon');
 });
 
 //MCB
