@@ -227,7 +227,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- <a href="/cos/download" class="btn btn-danger mb-2">Download</a> -->
-            <form action="/lhp/download" method="post">
+            <form action="<?=base_url()?>lhp/download" method="post">
                 <div class="modal-body">
                     <!-- <label for="date" class="form-label">Bulan</label>
                     <input type="month" class="form-control" id="date" name="date" value="<?= date('Y-m') ?>"> -->
