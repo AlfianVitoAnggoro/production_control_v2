@@ -421,4 +421,14 @@ class Grid extends BaseController
 
         return $id_material_in;
     }
+
+    public function cek_rak()
+    {
+        $barcode = $this->request->getPost('barcode');
+        $rak = $this->request->getPost('rak');
+
+        $cek_rak = $this->M_Grid->cek_rak($barcode, $rak);
+
+        echo json_encode($cek_rak);
+    }
 }

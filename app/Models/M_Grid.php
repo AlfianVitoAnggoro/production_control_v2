@@ -343,4 +343,11 @@ class M_Grid extends Model
         $builder = $this->db->table('data_material_in_casting');
         $builder->delete(['id_material_in' => $id]);
     }
+
+    public function cek_rak($barcode, $rak)
+    {
+        $query = $this->db5->query('SELECT * FROM detail_record_rak WHERE barcode=\'' . $barcode . '\' AND pn_qr=\'' . $rak . '\' AND status = \'open\'');
+
+        return $query->getResultArray();
+    }
 }

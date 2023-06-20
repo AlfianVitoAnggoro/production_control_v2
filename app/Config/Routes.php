@@ -211,6 +211,8 @@ $routes->group('grid', ['filter' => 'auth'], function ($routes) {
     $routes->post('material_in', 'Grid::material_in');
     $routes->post('delete_material_in', 'Grid::delete_material_in');
     // $routes->post('add_detail_record_rak', 'Grid::add_detail_record_rak');
+    $routes->post('cek_rak', 'Grid::cek_rak');
+    $routes->get('cek_rak', 'Grid::cek_rak');
 });
 
 //PLATECUTTING
