@@ -59,9 +59,11 @@
                     <div class="col-6" style="margin-left:-100px;">
                         <div class="row">
                             <div class="col-6" style="text-align:center">
-                                <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/realtime_performance.png" alt="" style="width: 30%;">
-                                <br>
-                                <h3>Realtime Performance</h3>
+                                <a href="<?=base_url()?>dashboard/rejectCutting" target="_blank">
+                                    <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/realtime_performance.png" alt="" style="width: 30%;">
+                                    <br>
+                                    <h3>Reject Plate Dashboard</h3>
+                                </a>
                             </div>
                             <div class="col-6"  style="text-align:center">
                                 <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/henkaten_man_power.png" alt="" style="width: 30%;">
