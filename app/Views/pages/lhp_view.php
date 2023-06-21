@@ -19,25 +19,6 @@
 								</div>
 								<div class="box-body">
 									<div class="row">
-										<div class="col-6">
-											<button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target=".modal_download_lhp">
-												Download
-											</button>
-										</div>
-										<div class="col-4"></div>
-										<div class="col-2" style="float:right;">
-											<?php
-												$bulan = date('Y-m');
-												$uri = current_url(true);
-												if ($uri->setSilent()->getSegment(4) != NULL) {
-													$bulan = $uri->getSegment(4);
-												}
-											?>
-											<input type="month" class="form-control" name="filter_month" id="filter_month" onchange="filter_month()" value="<?=$bulan?>">
-										</div>
-									</div>
-									
-									<div class="row">
 										<div class="col-3">
 											<div class="form-group">
 												<label for="date" class="form-label">Start Date</label>
@@ -50,18 +31,36 @@
 												<input type="text" name="max" id="max" class="form-control my-2 mr-sm-2" style="width: 200px">
 											</div>
 										</div>
+										<div class="col-4" style="text-align:right;">
+											<button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target=".modal_download_lhp">
+												Download
+											</button>
+										</div>
+										<div class="col-2" style="float:right;">
+											<?php
+												$bulan = date('Y-m');
+												$uri = current_url(true);
+												if ($uri->setSilent()->getSegment(4) != NULL) {
+													$bulan = $uri->getSegment(4);
+												}
+											?>
+											<input type="month" class="form-control" name="filter_month" id="filter_month" onchange="filter_month()" value="<?=$bulan?>">
+										</div>
 									</div>
+
+									<br>
+									<br>
+
 									<div class="table-responsive">
 										<table id="data_lhp2" class="table table-bordered table-striped" style="width:100%">
 											<thead>
 												<tr>
-													<!-- <th>No Doc</th> -->
 													<th>Tanggal</th>
 													<th>Shift</th>
 													<th>Line</th>
 													<th>Kasubsie</th>
 													<th>Grup</th>
-													<!-- <th>Efficiency (%)</th> -->
+													<th>Status Menit Line Stop</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -69,13 +68,22 @@
 												<?php foreach($data_lhp as $lhp) : 
 													if ($lhp['line'] != 8 && $lhp['line'] != 9) { ?>
 														<tr>
-															<!-- <td><?=$lhp['no_doc']?></td> -->
 															<td><?=$lhp['tanggal_produksi']?></td>
 															<td><?=$lhp['shift']?></td>
 															<td><?=($lhp['line'] == 10) ? 'MCB' : $lhp['line']?></td>
 															<td><?=$lhp['kasubsie']?></td>
 															<td><?=$lhp['nama_pic']?></td>
-															<!-- <td><?=$retVal = (!empty($lhp['total_aktual']) && !empty($lhp['total_plan'])) ? number_format((float) ($lhp['total_aktual'] / $lhp['total_plan']) * 100, 2, '.', '') : '' ; ?></td> -->
+															<td style="text-align:center;">
+																<?php if ($lhp['total_line_stop'] > $lhp['detail_line_stop']) { ?>
+																	<span class="badge badge-warning">Menit Line Stop < Aktual</span>
+																<?php } else if ($lhp['total_line_stop'] < $lhp['detail_line_stop']) { ?>
+																	<span class="badge badge-danger">Menit Line Stop > Aktual</span>
+
+																<?php } else { ?>
+																	<span class="badge badge-success">Menit Line Stop = Aktual</span>
+
+																<?php } ?>
+															</td>
 															<td>
 																<a href="<?=base_url()?>lhp/detail_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-primary btn-sm" target="_blank">Detail</a>
 																<a href="<?=base_url()?>lhp/hapus_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
@@ -85,13 +93,12 @@
 											</tbody>
 											<tfoot>
 												<tr>
-													<!-- <th>No Doc</th> -->
 													<th>Tanggal</th>
 													<th>Shift</th>
 													<th>Line</th>
 													<th>Kasubsie</th>
 													<th>Grup</th>
-													<!-- <th>Efficiency (%)</th> -->
+													<th>Status Menit Line Stop</th>
 													<th>Action</th>
 												</tr>
 											</tfoot>
