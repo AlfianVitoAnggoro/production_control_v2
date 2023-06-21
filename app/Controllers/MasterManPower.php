@@ -22,13 +22,17 @@ class MasterManPower extends BaseController
   {
     $nama = $this->request->getPost('nama');
     $npk = $this->request->getPost('npk');
-
-    $data_man_power = [
-      'nama' => $nama,
-      'npk' => $npk,
-    ];
-    $save_data = $this->M_MasterManPower->save_data_man_power($data_man_power);
-    return redirect()->to(base_url('master_man_power/detail_man_power/' . $save_data));
+    $cek_npk_man_power = $this->M_MasterManPower->get_data_man_power($npk);
+    if(count($cek_npk_man_power) > 0)
+      return redirect()->to(base_url('master_man_power/detail_man_power/' . $cek_npk_man_power[0]['id_man_power']));
+    else {
+      $data_man_power = [
+        'nama' => $nama,
+        'npk' => $npk,
+      ];
+      $save_data = $this->M_MasterManPower->save_data_man_power($data_man_power);
+      return redirect()->to(base_url('master_man_power/detail_man_power/' . $save_data));
+    }
   }
 
   public function detail_man_power($id_man_power)

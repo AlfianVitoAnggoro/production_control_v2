@@ -23,6 +23,13 @@ class M_MasterManPowerKasubsie extends Model
     return $query->getResultArray();
   }
 
+  public function get_data_man_power_kasubsie()
+  {
+    $query = $this->db2->query('SELECT id_man_power FROM master_data_man_power_kasubsie');
+
+    return $query->getResultArray();
+  }
+
   public function get_data_master_man_power_kasubsie_by_id($id_man_power)
   {
     $query = $this->db2->query('SELECT * FROM master_data_man_power_kasubsie WHERE id_man_power = \'' . $id_man_power . '\'');

@@ -23,22 +23,23 @@
                     <table id="data_group_man_power" class="table table-bordered table-striped" style="width:100%">
                       <thead>
                         <tr>
-                          <th>Line</th>
-                          <!-- <th>Group</th> -->
+                          <!-- <th>Sub Bagian</th> -->
+                          <th>Sub Bagian</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php foreach ($data_group_man_power as $d_mp) : ?>
                           <tr>
-                            <td><?= $d_mp['line'] ?></td>
+                            <!-- <td><?= ""//$d_mp['sub_bagian'] ?></td> -->
+                            <td><?= $d_mp['sub_bagian'] ?></td>
                             <td>
                               <div class="d-flex">
-                                <a href="<?= base_url() ?>master_group_man_power/detail_group_man_power/<?= $d_mp['id_group'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="<?= base_url() ?>master_group_man_power/detail_group_man_power/<?= $d_mp['id_group'] ?>" class="btn btn-primary">Edit</a>
                                 &nbsp
                                 <form action="<?= base_url() ?>master_group_man_power/detail_group_man_power/delete" method="POST">
                                   <input type="hidden" name="id_group_man_power" value="<?= $d_mp['id_group'] ?>">
-                                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</button>
+                                  <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?')">Hapus</button>
                                 </form>
                               </div>
                             </td>
@@ -69,8 +70,21 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
+                <label class="form-label">Sub Bagian</label>
+                <select name="sub_bagian" class="form-select" id="sub_bagian">
+                  <option value="" selected>-- Pilih Sub Bagian --</option>
+                  <option value="AMB-1">AMB-1</option>
+                  <option value="AMB-2">AMB-2</option>
+                  <option value="WET-A">WET-A</option>
+                  <option value="WET-F">WET-F</option>
+                  <option value="MCB">MCB</option>
+                </select>
+              </div>
+            </div>
+            <!-- <div class="col">
+              <div class="form-group">
                 <label class="form-label">Line</label>
-                <!-- <input type="number" class="form-control" id="line" name="line"> -->
+                <input type="number" class="form-control" id="line" name="line">
                 <select name="line" class="form-select" id="line">
                   <option value="" selected>-- Pilih Line --</option>
                   <option value="1">1</option>
@@ -85,7 +99,7 @@
                   <option value="10">MCB</option> // MCB = 10
                 </select>
               </div>
-            </div>
+            </div> -->
             <!-- <div class="col-6">
               <div class="form-group">
                 <label class="form-label">Group</label>

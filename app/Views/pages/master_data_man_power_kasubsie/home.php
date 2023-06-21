@@ -15,7 +15,7 @@
                 <div class="box-header with-border">
                   <div class="d-flex justify-content-between">
                     <div>
-                      <h4 class="box-title">Data Master Man Power</h4>
+                      <h4 class="box-title">Data Master Man Power Kasubsie</h4>
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".modal_tambah_man_power">
                         Tambah Data
                       </button>
@@ -84,7 +84,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myLargeModalLabel">Tambah Man Power</h4>
+        <h4 class="modal-title" id="myLargeModalLabel">Tambah Man Power Kasubsie</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form action="<?= base_url() ?>master_man_power_kasubsie/add_man_power" method="post">

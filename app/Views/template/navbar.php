@@ -102,6 +102,22 @@
 							</ul>
 						</li>
 					<?php } ?>
+					<?php if (session()->get('level') == 1) { ?>
+						<li class="treeview">
+							<a href="#">
+								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+								<span>Data Master Man Power</span>
+								<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="<?=base_url()?>master_man_power"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Man Power</a></li>
+								<li><a href="<?=base_url()?>master_man_power_kasubsie"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Kasubsie</a></li>
+								<li><a href="<?=base_url()?>master_group_man_power"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Group Man Power</a></li>
+							</ul>
+						</li>
+					<?php } ?>
 
 					<?php if (session()->get('departemen') == 'isd' OR session()->get('username') == 'admin') { ?>
 						<li class="treeview">

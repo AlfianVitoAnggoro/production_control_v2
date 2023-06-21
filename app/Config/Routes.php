@@ -394,8 +394,11 @@ $routes->group('master_group_man_power', ['filter' => 'auth'], function ($routes
 //Dashboard Man Power
 $routes->group('dashboard_man_power', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'DashboardManPower::index');
+    $routes->get('(:segment)', 'DashboardManPower::dashboard/$1');
     $routes->get('filter', 'DashboardManPower::index');
     $routes->get('detail_dashboard_man_power/(:num)', 'DashboardManPower::detail_dashboard_man_power/$1');
+    $routes->post('changeGroup', 'DashboardManPower::changeGroup');
+    $routes->post('get_detail_man_power', 'DashboardManPower::get_detail_man_power');
 });
 
 // $routes->get('/lhp/test', 'Home::test');

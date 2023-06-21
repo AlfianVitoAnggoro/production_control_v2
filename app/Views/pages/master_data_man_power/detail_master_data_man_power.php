@@ -279,11 +279,11 @@
         // else if(4 <= choose_lineVal && choose_lineVal <= 7)
         //   mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
         else if(choose_lineVal == 10)
-          mesin = ['Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+          mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
         else if(choose_lineVal >= 8 && choose_lineVal <= 9)
-          mesin = ['Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+          mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
         else
-          mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'INFOR'];
+          mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply', 'Printing', 'Repair Battery', 'INFOR'];
         tbody_data_skillElement.innerHTML = '';
         if(data.length > 0) {
           if (choose_lineVal !== '') {
@@ -338,11 +338,11 @@
               // else if($j >= 3 && $j <= 6)
               //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
               else if($j === 9)
-                $mesin = ['Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+                $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
               else if($j >= 7 && $j <= 8)
-                $mesin = ['Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+                $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
               else
-                $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'INFOR'];
+                $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply', 'Printing', 'Repair Battery', 'INFOR'];
               ?>
                 <?php for ($i = 0; $i < count($mesin); $i++) { ?>
                 <tr class="data_skill">
@@ -355,7 +355,7 @@
                   <td>
                     <input type="hidden" class="form-control" name="skill[]" id="skill_<?= $j ?>_<?= $i ?>" value="${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill !== '') ? newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill : '') : 1) : 1}">
                     <button type="button" class="btn p-0" value="0" id="skill_<?= $j ?>_<?= $i ?>_0" onclick="choose_skill(<?= $j ?>, <?= $i ?>, 0)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #000000; background-color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 0) ? '#000000' : '') : '') : ''}; color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 0) ? '#ffffff' : '') : '') : ''}; --hover-background-color: #000000; --hover-color: #ffffff">0%</button>
-                    <button type="button" class="btn p-0" value="1" id="skill_<?= $j ?>_<?= $i ?>_1" onclick="choose_skill(<?= $j ?>, <?= $i ?>, 1)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #ff0000; background-color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 1) ? '#ff0000' : '') : '#ff0000') : '#ff0000'}; color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 1) ? '#ffffff' : '') : '') : ''}; --hover-background-color: #ff0000; --hover-color: #ffffff">25%</button>
+                    <button type="button" class="btn p-0" value="1" id="skill_<?= $j ?>_<?= $i ?>_1" onclick="choose_skill(<?= $j ?>, <?= $i ?>, 1)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #ff0000; background-color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 1) ? '#ff0000' : '') : '#ff0000') : '#ff0000'}; color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 1) ? '#ffffff' : '') : '#ffffff') : '#ffffff'}; --hover-background-color: #ff0000; --hover-color: #ffffff">25%</button>
                     <button type="button" class="btn p-0" value="2" id="skill_<?= $j ?>_<?= $i ?>_2" onclick="choose_skill(<?= $j ?>, <?= $i ?>, 2)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #ffff00; background-color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 2) ? '#ffff00' : '') : '') : ''}; color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 2) ? '#000000' : '') : '') : ''}; --hover-background-color: #ffff00; --hover-color: #000000">50%</button>
                     <button type="button" class="btn p-0" value="3" id="skill_<?= $j ?>_<?= $i ?>_3" onclick="choose_skill(<?= $j ?>, <?= $i ?>, 3)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #0000ff; background-color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 3) ? '#0000ff' : '') : '') : ''}; color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 3) ? '#ffffff' : '') : '') : ''}; --hover-background-color: #0000ff; --hover-color: #ffffff">75%</button>
                     <button type="button" class="btn p-0" value="4" id="skill_<?= $j ?>_<?= $i ?>_4" onclick="choose_skill(<?= $j ?>, <?= $i ?>, 4)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #00aa00; background-color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 4) ? '#00aa00' : '') : '') : ''}; color: ${(newData.hasOwnProperty(<?= $j + 1 ?>)) ? ((newData[<?= $j + 1 ?>].hasOwnProperty('<?= $mesin[$i] ?>')) ? ((newData[<?= $j + 1 ?>]['<?= $mesin[$i] ?>'].skill === 4) ? '#ffffff' : '') : '') : ''}; --hover-background-color: #00aa00; --hover-color: #ffffff">100%</button>
@@ -373,11 +373,11 @@
                       // else if($j >= 3 && $j <= 6)
                       //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
                       else if($j === 9)
-                        $mesin = ['Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+                        $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
                       else if($j >= 7 && $j <= 8)
-                        $mesin = ['Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+                        $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
                       else
-                        $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'INFOR'];
+                        $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply', 'Printing', 'Repair Battery', 'INFOR'];
                     ?>
                     <td style="font-size: 20px" class="fw-bold">
                       <?= $line[$j] ?>
@@ -404,7 +404,7 @@
                   <td class="border"></td>
                   <td colspan="3" style="border-bottom: solid 1px black"></td>
                 </tr>
-                <?php if($j == 6 || $j == 8 || $j == 9) {
+                <?php if($j == 2 || $j == 6 || $j == 8 || $j == 9) {
                     continue;
                   } else {
                     $j = $j + 1;
@@ -466,11 +466,11 @@
                 // else if($j >= 3 && $j <= 6)
                 //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
                 else if($j === 9)
-                  $mesin = ['Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+                  $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
                 else if($j >= 7 && $j <= 8)
-                  $mesin = ['Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+                  $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
                 else
-                  $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'INFOR']
+                  $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply', 'Printing', 'Repair Battery', 'INFOR'];
               ?>
                 <?php for ($i = 0; $i < count($mesin); $i++) { ?>
                 <tr class="data_skill">
@@ -501,11 +501,11 @@
                     // else if($j >= 3 && $j <= 6)
                     //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
                     else if($j === 9)
-                      $mesin = ['Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+                      $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
                     else if($j >= 7 && $j <= 8)
-                      $mesin = ['Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+                      $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
                     else
-                      $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'INFOR']
+                      $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply', 'Printing', 'Repair Battery', 'INFOR'];
                   ?>
                   <td style="font-size: 20px" class="fw-bold">
                     <?= $line[$j] ?>
@@ -532,7 +532,7 @@
                   <td class="border"></td>
                   <td colspan="3" style="border-bottom: solid 1px black"></td>
                 </tr>
-                <?php if($j == 6 || $j == 8 || $j == 9) {
+                <?php if($j == 2 || $j == 6 || $j == 8 || $j == 9) {
                     continue;
                   } else {
                     $j = $j + 1;
