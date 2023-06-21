@@ -109,7 +109,7 @@
                         </div>
                         <div class="col-6" style="display:flex; margin-top:35px;">
                             <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around; margin-left:-70px; margin-top:-65px;">
-                                <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-outline btn-rounded btn-primary btn-lg btn-nav">Efficiency</a>
+                                <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Efficiency</a>
                                 <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-rounded btn-danger btn-lg btn-nav">Rejection</a>
                                 <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
                                 <!-- <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button> -->

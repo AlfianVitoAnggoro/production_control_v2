@@ -13,15 +13,15 @@
                             <div class="col-6" style="margin:auto">
                                 <div class="row">
                                     <div class="col-12 mb-15" style="display: grid;">
-                                        <a href="<?=base_url()?>dashboard/assy" target="_blank" class="btn btn-primary btn-lg btn-main-dashboard">AMB</a >
+                                        <a href="<?=base_url()?>dashboard/assy" target="_blank" class="btn btn-primary btn-lg btn-main-dashboard">Assy AMB</a >
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6 mb-15" style="display: grid;">
-                                        <a href="<?=base_url()?>dashboard/assy/amb1" target="_blank" class="btn btn-secondary btn-sub-dashboard">AMB 1</a>
+                                        <a href="<?=base_url()?>dashboard/assy/amb1" target="_blank" class="btn btn-secondary btn-sub-dashboard">Assy AMB 1</a>
                                     </div>
                                     <div class="col-6 mb-15" style="display: grid;">
-                                        <a href="<?=base_url()?>dashboard/assy/amb2" target="_blank" class="btn btn-secondary btn-sub-dashboard">AMB 2</a >
+                                        <a href="<?=base_url()?>dashboard/assy/amb2" target="_blank" class="btn btn-secondary btn-sub-dashboard">Assy AMB 2</a >
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                             <div class="col-6" style="margin:auto">
                                 <div class="row">
                                     <div class="col-12 mb-0" style="display: grid;">
-                                        <a  class="btn btn-info btn-lg btn-main-dashboard">MCB</a >
+                                        <a  class="btn btn-info btn-lg btn-main-dashboard">Assy MCB</a >
                                     </div>
                                 </div>
                             </div>

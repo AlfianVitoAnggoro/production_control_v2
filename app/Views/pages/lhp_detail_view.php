@@ -762,7 +762,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 		var stop_breakdown = $('#stop_'+i).val();
 		var no_wo_breakdown = $('#no_wo_'+i).val();
 		var part_number_breakdown = $('#part_number_'+i).val();
-		var menit_breakdown = $('#total_menit_breakdown_'+i).val();
+		// var menit_breakdown = $('#total_menit_breakdown_'+i).val();
 
 
 		var tbody = document.getElementById('tbody_line_stop');
@@ -802,7 +802,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 					<textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_${j}" cols="20" rows="1" style="width: 200px;"></textarea>
 				</td>
 				<td>
-					<input type="text" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" value="${menit_breakdown}" style="width: 100px" required>
+					<input type="text" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" style="width: 100px" required>
 				</td>
 				<td>
 					<button type="button" class="btn btn-danger" onclick="delete_breakdown(${j})"><i class="fa fa-trash"></i></button>	
