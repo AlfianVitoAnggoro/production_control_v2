@@ -229,11 +229,12 @@ $mh = [8, 7.5, 6.5];
                                                                 <?php
                                                                 if($data_detail_lhp[0]['operator_name'] !== 'NO MP') {
                                                                     foreach ($data_type_grid as $d_type_grid) {
-                                                                    ?>
-                                                                        <option value="<?= $d_type_grid['id_grid'] ?>" <?php if ($d_type_grid['id_grid'] == $data_detail_lhp[0]['type_grid']) {
+                                                                        if ($d_type_grid['type_grid'] != 'M87' && $d_type_grid['type_grid'] != 'CG85 NEG' && $d_type_grid['type_grid'] != 'CG79' && $d_type_grid['type_grid'] != 'M87 NEG') { ?>
+                                                                            <option value="<?= $d_type_grid['id_grid'] ?>" <?php if ($d_type_grid['id_grid'] == $data_detail_lhp[0]['type_grid']) {
                                                                                                                             echo "selected";
                                                                                                                         } ?>><?= $d_type_grid['type_grid'] ?></option>
                                                                     <?php
+                                                                        }
                                                                     }
                                                                 }
                                                                 ?>
@@ -304,9 +305,11 @@ $mh = [8, 7.5, 6.5];
                                                                 <option value="">-- Pilih Type Grid --</option>
                                                                 <?php
                                                                 foreach ($data_type_grid as $d_type_grid) {
+                                                                    if ($d_type_grid['type_grid'] != 'M87' && $d_type_grid['type_grid'] != 'CG85 NEG' && $d_type_grid['type_grid'] != 'CG79' && $d_type_grid['type_grid'] != 'M87 NEG') {
                                                                 ?>
                                                                     <option value="<?= $d_type_grid['id_grid'] ?>"><?= $d_type_grid['type_grid'] ?></option>
                                                                 <?php
+                                                                    }
                                                                 }
                                                                 ?>
                                                                 <option value="MESIN OFF">MESIN OFF</option>
@@ -1151,9 +1154,11 @@ $mh = [8, 7.5, 6.5];
                 <option value="">-- Pilih Type Grid --</option>
                 <?php
                 foreach ($data_type_grid as $d_type_grid) {
+                    if ($d_type_grid['type_grid'] != 'M87' && $d_type_grid['type_grid'] != 'CG85 NEG' && $d_type_grid['type_grid'] != 'CG79' && $d_type_grid['type_grid'] != 'M87 NEG') {
                 ?>
                     <option value="<?= $d_type_grid['id_grid'] ?>"><?= $d_type_grid['type_grid'] ?></option>
                 <?php
+                    }
                 }
                 ?>
             `;
