@@ -125,6 +125,13 @@ class PlateCutting extends BaseController
         $persentase_reject_internal_neg = $this->request->getVar('persentase_reject_internal_neg');
         $persentase_reject_eksternal_neg = $this->request->getVar('persentase_reject_eksternal_neg');
         $persentase_reject_akumulatif_neg = $this->request->getVar('persentase_reject_akumulatif_neg');
+        $barcode_pos = $this->request->getVar('barcode_pos');
+        $act_pos = $this->request->getVar('act_pos');
+        $deviasi_pos = $this->request->getVar('deviasi_pos');
+        $barcode_neg = $this->request->getVar('barcode_neg');
+        $act_neg = $this->request->getVar('act_neg');
+        $deviasi_neg = $this->request->getVar('deviasi_neg');
+        
         $plateinputnew = [];
         $data_plate_new_pos = [];
         $data_plate_new_neg = [];
@@ -156,6 +163,9 @@ class PlateCutting extends BaseController
                         $data_plate_new_pos[] = array(
                             'id_platecutting' => $id,
                             'plate' => $plate_pos[$i],
+                            'barcode' => ($barcode_pos[$i] !== NULL ? $barcode_pos[$i] !== NULL : 0) ? $barcode_pos[$i] : 0,
+                            'act' => ($act_pos[$i] !== NULL ? $act_pos[$i] !== NULL : 0) ? $act_pos[$i] : 0,
+                            'deviasi' => ($deviasi_pos[$i] !== NULL ? $deviasi_pos[$i] !== NULL : 0) ? $deviasi_pos[$i] : 0,
                             'hasil_produksi' => ($hasil_produksi_pos[$i] !== NULL ? $hasil_produksi_pos[$i] !== NULL : 0) ? $hasil_produksi_pos[$i] : 0,
                             'terpotong_panel' => ($terpotong_panel_pos[$i] !== NULL ? $terpotong_panel_pos[$i] !== NULL : 0) ? $terpotong_panel_pos[$i] : 0,
                             'tersangkut_panel' => ($tersangkut_panel_pos[$i] !== NULL ? $tersangkut_panel_pos[$i] !== NULL : 0)  ? $tersangkut_panel_pos[$i] : 0,
@@ -186,6 +196,9 @@ class PlateCutting extends BaseController
                         $data_plate_old_pos[] = array(
                             'id' => $id_plateinputDBPOS[$i],
                             'plate' => $plate_pos[$i],
+                            'barcode' => ($barcode_pos[$i] !== NULL ? $barcode_pos[$i] !== NULL : 0) ? $barcode_pos[$i] : 0,
+                            'act' => ($act_pos[$i] !== NULL ? $act_pos[$i] !== NULL : 0) ? $act_pos[$i] : 0,
+                            'deviasi' => ($deviasi_pos[$i] !== NULL ? $deviasi_pos[$i] !== NULL : 0) ? $deviasi_pos[$i] : 0,
                             'hasil_produksi' => ($hasil_produksi_pos[$i] !== NULL ? $hasil_produksi_pos[$i] !== NULL : 0) ? $hasil_produksi_pos[$i] : 0,
                             'terpotong_panel' => ($terpotong_panel_pos[$i] !== NULL ? $terpotong_panel_pos[$i] !== NULL : 0) ? $terpotong_panel_pos[$i] : 0,
                             'tersangkut_panel' => ($tersangkut_panel_pos[$i] !== NULL ? $tersangkut_panel_pos[$i] !== NULL : 0)  ? $tersangkut_panel_pos[$i] : 0,
