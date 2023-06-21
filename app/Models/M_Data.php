@@ -178,13 +178,15 @@ class M_Data extends Model
     {
         // $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup ORDER BY tanggal_produksi DESC');
         $builder = $this->db->table('lhp_produksi2');
-        $builder->select('lhp_produksi2.*, master_pic_line.nama_pic');
+        $builder->select('lhp_produksi2.id_lhp_2, lhp_produksi2.tanggal_produksi, lhp_produksi2.shift, lhp_produksi2.line, lhp_produksi2.kasubsie, master_pic_line.nama_pic, lhp_produksi2.total_line_stop, SUM(detail_breakdown.menit_breakdown) as detail_line_stop');
         $builder->join('master_pic_line', 'master_pic_line.id_pic = lhp_produksi2.grup');
+        $builder->join('detail_breakdown', 'detail_breakdown.id_lhp = lhp_produksi2.id_lhp_2', 'left');
         $builder->where('MONTH(tanggal_produksi) =', $bulan);
 
         if ($this->session->get('line') != NULL) {
             $builder->where('line', $this->session->get('line'));
         }
+        $builder->groupBy('lhp_produksi2.id_lhp_2, lhp_produksi2.tanggal_produksi, lhp_produksi2.shift, lhp_produksi2.line, lhp_produksi2.kasubsie, master_pic_line.nama_pic, lhp_produksi2.total_line_stop');
         
         $builder->orderBy('tanggal_produksi', 'DESC');
 
@@ -199,31 +201,6 @@ class M_Data extends Model
 
         return $query->getResultArray();
     }
-
-    // public function get_all_lhp_by_month($bulan)
-    // {
-    //     // $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup ORDER BY tanggal_produksi DESC');
-    //     $month = idate('m', strtotime($bulan));
-    //     $year = idate('Y', strtotime($bulan));
-    //     $builder = $this->db->table('lhp_produksi2');
-    //     $builder->select('lhp_produksi2.*, master_pic_line.nama_pic');
-    //     $builder->join('master_pic_line', 'master_pic_line.id_pic = lhp_produksi2.grup');
-    //     $builder->where('MONTH(tanggal_produksi)', $month);
-    //     $builder->where('YEAR(tanggal_produksi)', $year);
-    //     // if ($this->session->get('line') != NULL) {
-    //     //     $builder->where('line', $this->session->get('line'));
-    //     // }
-        
-    //     // $builder->orderBy('tanggal_produksi', 'DESC');
-
-    //     $query = $builder->get();
-
-    //     if(count($query->getResultArray()) > 0) {
-    //         return $query->getResultArray();
-    //     } else {
-    //         return;
-    //     }
-    // }
 
     public function get_all_lhp_by_date($start_date, $end_date)
     {
