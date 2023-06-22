@@ -92,6 +92,7 @@
                         <th>Timbangan Strap 1</th>
                         <th>Timbangan Strap 2</th>
                         <th>Timbangan Strap 3</th>
+                        <th>Timbangan Strap 4</th>
                       </tr>
                     </thead>
                     <tbody class="form_cos">
@@ -184,6 +185,9 @@
           <td>
               <input type="text" class="form-control" name="timbangan_strap_3[]" id="timbangan_strap_3_${baris}" value="<?= $ddc['timbangan_strap_3'] ?>">
           </td>
+          <td>
+              <input type="text" class="form-control" name="timbangan_strap_4[]" id="timbangan_strap_4_${baris}" value="<?= $ddc['timbangan_strap_4'] ?>">
+          </td>
       </tr>
 		`);
     <?php } ?>
@@ -244,6 +248,9 @@
               </td>
               <td>
                   <input type="text" class="form-control" name="timbangan_strap_3[]" id="timbangan_strap_3_${baris}" value="">
+              </td>
+              <td>
+                  <input type="text" class="form-control" name="timbangan_strap_4[]" id="timbangan_strap_4_${baris}" value="">
               </td>
           </tr>
       `);

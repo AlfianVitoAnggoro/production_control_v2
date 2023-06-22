@@ -75,6 +75,7 @@ class Cos extends BaseController
     $timbangan_strap_1 = $this->request->getPost('timbangan_strap_1');
     $timbangan_strap_2 = $this->request->getPost('timbangan_strap_2');
     $timbangan_strap_3 = $this->request->getPost('timbangan_strap_3');
+    $timbangan_strap_4 = $this->request->getPost('timbangan_strap_4');
     $id_detail_lhp_cos_Exist = [];
     $model = new M_Cos();
     $all_id_detail_lhp_cos = $model->get_id_detail_lhp_cos_by_id_lhp_cos($id);
@@ -105,6 +106,7 @@ class Cos extends BaseController
             'timbangan_strap_1' => $timbangan_strap_1[$i] !== NULL ? $timbangan_strap_1[$i] : 0,
             'timbangan_strap_2' => $timbangan_strap_2[$i] !== NULL ? $timbangan_strap_2[$i] : 0,
             'timbangan_strap_3' => $timbangan_strap_3[$i] !== NULL ? $timbangan_strap_3[$i] : 0,
+            'timbangan_strap_4' => $timbangan_strap_4[$i] !== NULL ? $timbangan_strap_4[$i] : 0,
           );
           $update_data = $model->update_detail_lhp_cos($id_detail_cos[$i], $data_detail_lhp_cos);
       }
