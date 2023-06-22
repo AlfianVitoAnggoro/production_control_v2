@@ -869,7 +869,8 @@ $shift
     let type_grid = $('#type_grid_' + i + '_' + j).val();
     console.log(type_grid);
     <?php foreach ($data_type_grid as $dtg) { ?>
-      if (type_grid.toString() == "<?= str_replace(' ', '', trim($dtg['type_grid'])) ?>") {
+      // if (type_grid.toString() == "<?= str_replace(' ', '', trim($dtg['type_grid'])) ?>") {
+      if (type_grid.toString() == "<?= $dtg['type_grid'] ?>") {
         $('#ct_' + i + '_' + j).val(<?= trim($dtg['ct']) ?>);
         console.log(<?= floatval($dtg['ct']) ?>)
         $('#jks_' + i + '_' + j).val(Math.floor((menit_terpakai * 60) / <?= floatval(trim($dtg['ct'])) ?>))
