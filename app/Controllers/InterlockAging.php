@@ -43,14 +43,14 @@ class InterlockAging extends BaseController
         $qr_rak = $this->request->getPost('qr_code_rak')[$i];
         $item = $this->request->getPost('item_rak')[$i];
         $qty = $this->request->getPost('qty_rak')[$i];
-        $tanggal_produksi = $this->request->getPost('tanggal_produksi_rak')[$i];
+        // $tanggal_produksi = $this->request->getPost('tanggal_produksi_rak')[$i];
         $nama_mesin = $this->request->getPost('nama_mesin')[$i];
 
         $data = [
           'pn_qr' => $qr_rak,
           'item' => $item,
           'qty' => $qty,
-          'tanggal_produksi' => $tanggal_produksi,
+          // 'tanggal_produksi' => $tanggal_produksi,
           'nama_mesin' => $nama_mesin,
           'start_aging' => date('Y-m-d H:i:s')
         ];

@@ -184,7 +184,7 @@
                     if (data.length > 0) {
                         $('#item').val(data[0].item);
                         $('#qty').val(data[0].qty);
-                        $('#tanggal_produksi').val(data[0].entry_date);
+                        // $('#tanggal_produksi').val(data[0].entry_date);
                         $('#loading-modal').modal('hide');
                     } else {
                         alert('Data Tidak Ditemukan');
