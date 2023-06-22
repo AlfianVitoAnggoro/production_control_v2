@@ -104,7 +104,7 @@
                                                 <th>Plate</th>
                                                 <th>Barcode</th>
                                                 <th>Actual</th>
-                                                <th>🔺</th>
+                                                <th><i class="fa fa-caret-up fa-2x" aria-hidden="true"></i></th>
                                                 <th>Hasil Produksi</th>
                                                 <th>Terpotong</th>
                                                 <th>Tersangkut</th>
@@ -260,7 +260,7 @@
                                                 <th>Plate</th>
                                                 <th>Barcode</th>
                                                 <th>Actual</th>
-                                                <th>🔺</th>
+                                                <th><i class="fa fa-caret-up fa-2x" aria-hidden="true"></i></th>
                                                 <th>Hasil Produksi</th>
                                                 <th>Terpotong</th>
                                                 <th>Tersangkut</th>
@@ -547,7 +547,7 @@
                     <input type="text" class="form-control" name="act_pos[]" id="act_${baris}_pos" onkeyup="deviasi(${baris}, 'pos')" value="<?= trim($pp['act']) ?>" style="width: 100px">
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="deviasi_pos[]" id="deviasi_${baris}_pos" value="<?= trim($pp['deviasi']) ?>" style="width: 100px" readonly>
+                    <input type="text" class="form-control" name="deviasi_pos[]" id="deviasi_${baris}_pos" value="<?= trim($pp['deviasi']) ?>" style="width: 100px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
                     <input type="text" class="form-control" name="hasil_produksi_pos[]" id="hasil_produksi_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['hasil_produksi']) ?>" style="width: 100px">
@@ -667,7 +667,7 @@
                     <input type="text" class="form-control" name="act_neg[]" id="act_${baris}_neg" onkeyup="deviasi(${baris}, 'neg')" value="<?= trim($pn['act']) ?>" style="width: 100px">
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="deviasi_neg[]" id="deviasi_${baris}_neg" value="<?= trim($pn['deviasi']) ?>" style="width: 100px" readonly>
+                    <input type="text" class="form-control" name="deviasi_neg[]" id="deviasi_${baris}_neg" value="<?= trim($pn['deviasi']) ?>" style="width: 100px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
                     <input type="text" class="form-control" name="hasil_produksi_neg[]" id="hasil_produksi_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['hasil_produksi']) ?>" style="width: 100px">
@@ -776,7 +776,7 @@
                     <input type="text" class="form-control" name="act_pos[]" value="" id="act_${baris}_pos" onkeyup="deviasi(${baris}, 'pos')" style="width: 100px">
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="deviasi_pos[]" value="" id="deviasi_${baris}_pos" style="width: 100px" readonly>
+                    <input type="text" class="form-control" name="deviasi_pos[]" value="" id="deviasi_${baris}_pos" style="width: 100px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
                     <input type="text" class="form-control" name="hasil_produksi_pos[]" value="" id="hasil_produksi_${baris}_pos" onkeyup="panel_pos(${baris})" style="width: 100px">
@@ -883,7 +883,7 @@
                     <input type="text" class="form-control" name="act_neg[]" value="" id="act_${baris}_neg" onkeyup="deviasi(${baris}, 'neg')" style="width: 100px">
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="deviasi_neg[]" value="" id="deviasi_${baris}_neg" style="width: 100px" readonly>
+                    <input type="text" class="form-control" name="deviasi_neg[]" value="" id="deviasi_${baris}_neg" style="width: 100px; background-color: #E8E2E2;" readonly>
                 </td>
                 <td>
                     <input type="text" class="form-control" name="hasil_produksi_neg[]" id="hasil_produksi_${baris}_neg" onkeyup="panel_neg(${baris})" style="width: 100px">
@@ -978,7 +978,7 @@
         let barcode = document.querySelector('#barcode_' + baris + '_' + type);
         let act = document.querySelector('#act_' + baris + '_' + type);
         let deviasi = document.querySelector('#deviasi_' + baris + '_' + type);
-        let total = barcode.value - act.value;
+        let total = act.value - barcode.value;
         deviasi.value = (total >= 0) ? '+ ' + total : '- ' + total * -1;
     }
 </script>
