@@ -53,7 +53,7 @@
                         <div class="box-body" style="display:flex">
                             <div class="col-2">
                                 <form action="<?=base_url()?>dashboard/assy/amb2" method="POST">
-                                    <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
+                                    <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px; display:none;">
                                         <option value="1">Efficiency</option>
                                         <option value="2">Unit / MH</option>
                                     </select>
@@ -91,9 +91,11 @@
                             </div>
                             <div class="col-6" style="display:flex; margin-top:40px;">
                                 <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around; margin-left:-140px; margin-top:-65px;">
-                                    <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
+                                <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-rounded btn-success btn-lg btn-nav">Efficiency</a>
+                                    <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-rounded btn-outline btn-danger btn-lg btn-nav">Rejection</a>
+                                    <!-- <button type="button" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</button> -->
                                     <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
-                                    <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
+                                    <!-- <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button> -->
                                 </div>
                                 <div class="col-3" style="margin-left:85px">
                                     <div id="year_to_date_chart" style="height:250px;"></div>
@@ -303,7 +305,7 @@
 <!-- /.modal -->
   
 <!-- MODAL -->
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;" id="modal_ls">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" style="width:120%;">
 			<div class="modal-header">
@@ -314,6 +316,7 @@
                 <table class="table" id="tbl_breakdown" width="100%">
                     <thead>
                         <tr>
+                            <td>Batch Jam</td>
                             <td>No WO</td>
                             <td>Type Battery</td>
                             <td>Jenis Line Stop</td>
@@ -863,8 +866,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                     '<td>' + data[i].no_wo + '</td>' +
                                                     '<td>' + data[i].type_battery + '</td>' +
                                                     '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -872,9 +877,14 @@
                                                     '<td>' + data[i].uraian_breakdown + '</td>' +
                                                     '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -903,8 +913,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -912,9 +924,14 @@
                                                 '<td>' + data[i].uraian_breakdown + '</td>' +
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -940,8 +957,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -949,9 +968,14 @@
                                                 '<td>' + data[i].uraian_breakdown + '</td>' +
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -977,8 +1001,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -986,9 +1012,14 @@
                                                 '<td>' + data[i].uraian_breakdown + '</td>' +
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1014,8 +1045,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1023,9 +1056,14 @@
                                                 '<td>' + data[i].uraian_breakdown + '</td>' +
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1054,8 +1092,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1063,9 +1103,14 @@
                                                 '<td>' + data[i].uraian_breakdown + '</td>' +
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1096,8 +1141,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1105,9 +1152,14 @@
                                                 '<td>' + data[i].uraian_breakdown + '</td>' +
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1135,8 +1187,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1144,9 +1198,14 @@
                                                 '<td>' + data[i].uraian_breakdown + '</td>' +
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1174,8 +1233,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1183,9 +1244,14 @@
                                                 '<td>' + data[i].uraian_breakdown + '</td>' +
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1217,8 +1283,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1226,9 +1294,14 @@
                                                 '<td>' + data[i].uraian_breakdown + '</td>' +
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1261,8 +1334,10 @@
                                     success: function(data) {
                                         var html = '';
                                         var i;
+                                        var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1270,9 +1345,14 @@
                                                 '<td>' + data[i].uraian_breakdown + '</td>' +
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                        }
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('.modal').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }

@@ -32,10 +32,14 @@
 							</a>
 							<ul class="treeview-menu">
 								<li><a href="<?=base_url()?>grid"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid Casting</a></li>
+								<li><a href="<?=base_url()?>grid_rework/" target="_blank"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid Rework</a></li>
 								<li><a href="<?=base_url()?>grid/get_summary_rework"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Summary Grid Casting Rework</a></li>
 								<li><a href="<?=base_url()?>wide_strip"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Wide Strip</a></li>
 								<li><a href="<?=base_url()?>punching"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid Punching</a></li>
 								<li><a href="<?=base_url()?>pasting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Pasting</a></li>
+								<li><a href="<?=base_url()?>interlock_aging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Aging</a></li>
+								<li><a href="<?=base_url()?>monitoring_curing" target="_blank"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li>
+								<li><a href="<?=base_url()?>monitoring_curing_qc"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing QC</a></li>
 							</ul>
 						</li>
 					<?php } ?>
@@ -74,7 +78,7 @@
 							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
 								<li><a href="<?=base_url()?>mcb"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>MCB</a></li>
 							<?php } ?>
-							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == NULL) { ?>
+							<?php if (session()->get('seksi') == 'amb' OR session()->get('seksi') == 'wet' OR session()->get('seksi') == NULL) { ?>
 								<li><a href="<?=base_url()?>wet_loading/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Loading</a></li>
 								<li><a href="<?=base_url()?>wet_finishing/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Finishing</a></li>
 							<?php } ?>

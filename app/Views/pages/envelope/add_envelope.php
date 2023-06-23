@@ -13,7 +13,7 @@
                             <h4>Detail Envelope</h4>
                         </div>
                         <div class="box-body">
-                            <form action="/envelope/save" method="post">
+                            <form action="<?=base_url()?>envelope/save" method="post">
                                 <div class="row">
                                     <input type="hidden" name="id_envelope" value="<?= $envelope['id']; ?>">
                                     <div class="col">

@@ -46,8 +46,8 @@
 													<td><?=$lhp['nama_pic']?></td>
 													<!-- <td><?=$retVal = (!empty($lhp['total_aktual']) && !empty($lhp['total_plan'])) ? number_format((float) ($lhp['total_aktual'] / $lhp['total_plan']) * 100, 2, '.', '') : '' ; ?></td> -->
 													<td>
-														<a href="<?=base_url()?>lhp/detail_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-primary btn-sm" target="_blank">Detail</a>
-														<a href="<?=base_url()?>lhp/hapus_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
+														<a href="<?=base_url()?>wet_finishing/detail_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-primary btn-sm" target="_blank">Detail</a>
+														<a href="<?=base_url()?>wet_finishing/hapus_lhp/<?=$lhp['id_lhp_2']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
 													</td>
 												</tr>
 												<?php endforeach; ?>
@@ -85,7 +85,7 @@
 				<h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<form action="<?=base_url()?>lhp/add_lhp" method="post">
+			<form action="<?=base_url()?>wet_finishing/add_lhp" method="post">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-4">
@@ -98,10 +98,11 @@
 							<div class="form-group">
 								<label class="form-label">Line</label>
 								<select class="form-select" id="line" name="line" required>
-                  <option disabled>-- Pilih Data --</option>
-									<?php foreach($data_line as $line) : ?>
-										<option value="<?=$line['id_line']?>" <?php echo ($line['id_line'] === 8) ? 'selected' : '' ?>><?=$line['nama_line']?></option>
-									<?php endforeach; ?>
+                  					<option selected disabled>-- Pilih Data --</option>
+									<?php foreach($data_line as $line) : 
+										if ($line['id_line'] == 8 || $line['id_line'] == 9) { ?>
+											<option value="<?=$line['id_line']?>"><?=$line['nama_line']?></option>
+									<?php } endforeach; ?>
 								</select>
 							</div>
 						</div>
@@ -136,12 +137,7 @@
 								<label class="form-label">Kasubsie</label>
 								<select class="form-select" id="kasubsie" name="kasubsie" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
-									<option value="Yusuf Slamet Pelita">Yusuf Slamet Pelita</option>
-									<option value="Edi Suwito">Edi Suwito</option>
-									<option value="Masruri">Masruri</option>
-									<option value="Parwadi">Parwadi</option>
-									<option value="Iim Arwisman">Iim Arwisman</option>
-									<option value="Supianto">Supianto</option>
+									<option value="Dika Pratama">Dika Pratama</option>
 								</select>
 							</div>
 						</div>
@@ -150,9 +146,11 @@
 								<label class="form-label">Grup</label>
 								<select class="form-select" id="grup" name="grup" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
-									<?php foreach($data_grup as $grup) : ?>
-										<option value="<?=$grup['id_pic']?>"><?=$grup['nama_pic']?></option>
-									<?php endforeach; ?>
+									<?php foreach($data_grup as $grup) : 
+										if ($grup['id_line'] == 8 OR $grup['id_line'] == 9) { ?>
+											<option value="<?=$grup['id_pic']?>"><?=$grup['nama_pic']?></option>
+									<?php }
+										 endforeach; ?>
 								</select>
 							</div>
 						</div>

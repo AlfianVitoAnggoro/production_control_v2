@@ -27,7 +27,7 @@ $previous_date = date('Y-m-d', strtotime('-1 day', strtotime($current_date)));
 
 									<div style="margin-top: 25px;">
 										<div class="row justify-content-around align-items-center">
-											<div class="col-lg-3 col-9">
+											<div class="col-lg-3 col-9" style="display:none">
 												<div class="box box-inverse box-primary">
 													<div class="box-header with-border d-flex align-items-center justify-content-between">
 														<h5 class="box-title mb-0"><strong>Rak Tersedia : <span style="padding-left: 5px;"><?= count($data_rak_management) ?></span> Rak</strong></h5>
@@ -52,6 +52,18 @@ $previous_date = date('Y-m-d', strtotime('-1 day', strtotime($current_date)));
 											</div>
 
 											<div class="col-lg-3 col-9">
+												<div class="box box-inverse box-danger">
+													<div class="box-header with-border d-flex align-items-center justify-content-between">
+														<h5 class="box-title mb-0"><strong>Rak Abnormality : <span style="padding-left: 5px;">-</span> &nbsp;&nbsp;Rak</strong></h5>
+														<div class="box-tools pull-right">
+															<ul class="box-controls">
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-lg-3 col-9" style="display:none">
 												<div class="box box-inverse box-warning">
 													<div class="box-header with-border d-flex align-items-center justify-content-between">
 														<h5 class="box-title mb-0"><strong>Rak Kosong : <span style="padding-left: 5px;"><?= count($data_rak_management) - count($data_rak_management_status) ?></span> Rak</strong></h5>

@@ -13,15 +13,15 @@
                             <div class="col-6" style="margin:auto">
                                 <div class="row">
                                     <div class="col-12 mb-15" style="display: grid;">
-                                        <a href="<?=base_url()?>dashboard/assy" target="_blank" class="btn btn-primary btn-lg btn-main-dashboard">AMB</a >
+                                        <a href="<?=base_url()?>dashboard/assy" target="_blank" class="btn btn-primary btn-lg btn-main-dashboard">Assy AMB</a >
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6 mb-15" style="display: grid;">
-                                        <a href="<?=base_url()?>dashboard/assy/amb1" target="_blank" class="btn btn-secondary btn-sub-dashboard">AMB 1</a>
+                                        <a href="<?=base_url()?>dashboard/assy/amb1" target="_blank" class="btn btn-secondary btn-sub-dashboard">Assy AMB 1</a>
                                     </div>
                                     <div class="col-6 mb-15" style="display: grid;">
-                                        <a href="<?=base_url()?>dashboard/assy/amb2" target="_blank" class="btn btn-secondary btn-sub-dashboard">AMB 2</a >
+                                        <a href="<?=base_url()?>dashboard/assy/amb2" target="_blank" class="btn btn-secondary btn-sub-dashboard">Assy AMB 2</a >
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                             <div class="col-6" style="margin:auto">
                                 <div class="row">
                                     <div class="col-12 mb-0" style="display: grid;">
-                                        <a  class="btn btn-info btn-lg btn-main-dashboard">MCB</a >
+                                        <a  class="btn btn-info btn-lg btn-main-dashboard">Assy MCB</a >
                                     </div>
                                 </div>
                             </div>
@@ -59,9 +59,11 @@
                     <div class="col-6" style="margin-left:-100px;">
                         <div class="row">
                             <div class="col-6" style="text-align:center">
-                                <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/realtime_performance.png" alt="" style="width: 30%;">
-                                <br>
-                                <h3>Realtime Performance</h3>
+                                <a href="<?=base_url()?>dashboard/rejectCutting" target="_blank">
+                                    <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/realtime_performance.png" alt="" style="width: 30%;">
+                                    <br>
+                                    <h3>Reject Plate Dashboard</h3>
+                                </a>
                             </div>
                             <div class="col-6"  style="text-align:center">
                                 <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/henkaten_man_power.png" alt="" style="width: 30%;">
@@ -77,9 +79,11 @@
                         </div>
                         <div class="row">
                             <div class="col-6" style="text-align:center">
-                                <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/parameter_data.jpg" alt="" style="width: 30%;">
-                                <br>
-                                <h3>Parameter Data</h3>
+                                <a href="<?=base_url()?>dashboard_npdt/assy/" target="_blank">
+                                    <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/parameter_data.jpg" alt="" style="width: 30%;">
+                                    <br>
+                                    <h3>Efficiency Murni</h3>
+                                </a>
                             </div>
                             <div class="col-6" style="text-align:center">
                                 <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/pica.png" alt="" style="width: 30%;">

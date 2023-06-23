@@ -229,11 +229,12 @@ $mh = [8, 7.5, 6.5];
                                                                 <?php
                                                                 if($data_detail_lhp[0]['operator_name'] !== 'NO MP') {
                                                                     foreach ($data_type_grid as $d_type_grid) {
-                                                                    ?>
-                                                                        <option value="<?= $d_type_grid['id_grid'] ?>" <?php if ($d_type_grid['id_grid'] == $data_detail_lhp[0]['type_grid']) {
+                                                                        if ($d_type_grid['type_grid'] != 'M87' && $d_type_grid['type_grid'] != 'CG85 NEG' && $d_type_grid['type_grid'] != 'CG79' && $d_type_grid['type_grid'] != 'M87 NEG') { ?>
+                                                                            <option value="<?= $d_type_grid['id_grid'] ?>" <?php if ($d_type_grid['id_grid'] == $data_detail_lhp[0]['type_grid']) {
                                                                                                                             echo "selected";
                                                                                                                         } ?>><?= $d_type_grid['type_grid'] ?></option>
                                                                     <?php
+                                                                        }
                                                                     }
                                                                 }
                                                                 ?>
@@ -304,9 +305,11 @@ $mh = [8, 7.5, 6.5];
                                                                 <option value="">-- Pilih Type Grid --</option>
                                                                 <?php
                                                                 foreach ($data_type_grid as $d_type_grid) {
+                                                                    if ($d_type_grid['type_grid'] != 'M87' && $d_type_grid['type_grid'] != 'CG85 NEG' && $d_type_grid['type_grid'] != 'CG79' && $d_type_grid['type_grid'] != 'M87 NEG') {
                                                                 ?>
                                                                     <option value="<?= $d_type_grid['id_grid'] ?>"><?= $d_type_grid['type_grid'] ?></option>
                                                                 <?php
+                                                                    }
                                                                 }
                                                                 ?>
                                                                 <option value="MESIN OFF">MESIN OFF</option>
@@ -940,7 +943,7 @@ $mh = [8, 7.5, 6.5];
         $('#data_rak tbody tr').each(function() {
             $(this).find('td').each(function() {
             var cellText = $('#barcode_rak_'+i).val();
-            console.log(cellText);
+            // console.log(cellText);
             if (cellText.includes(searchTerm)) {
                 found = true;
                 return false; // Break out of inner loop
@@ -961,53 +964,72 @@ $mh = [8, 7.5, 6.5];
 
         if (!found) {
             $.ajax({
-                url: '<?= base_url() ?>grid/add_rak',
+                url: '<?= base_url() ?>grid/cek_rak',
                 type: 'POST',
                 data: {
-                    id_lhp: id_lhp,
                     barcode: barcode,
-                    qty: qty,
-                    rak: rak,
-                    wh_from: 'K-CAS',
-                    wh_to: 'K-PAS',
-                    item: item,
-                    descrp: descrp,
-                    satuan: satuan,
-                    mesin: mesin,
-                    entry_date: entry_date,
-                    no_wo: no_wo,
+                    rak: rak
                 },
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data)
-                    if(data['id_log_detail_record_rak'] === '') {
-                        $('#start_barcode').val('');
-                        $('#start_qty').val('');
-                        $('#start_rak').val('');
-                        $('#loading-modal').modal('hide');
+                    if (data.length === 0) {
+                        $.ajax({
+                            url: '<?= base_url() ?>grid/add_rak',
+                            type: 'POST',
+                            data: {
+                                id_lhp: id_lhp,
+                                barcode: barcode,
+                                qty: qty,
+                                rak: rak,
+                                wh_from: 'K-CAS',
+                                wh_to: 'K-PAS',
+                                item: item,
+                                descrp: descrp,
+                                satuan: satuan,
+                                mesin: mesin,
+                                entry_date: entry_date,
+                                no_wo: no_wo,
+                            },
+                            dataType: 'json',
+                            success: function(data) {
+                                console.log(data)
+                                if(data['id_log_detail_record_rak'] === '') {
+                                    $('#start_barcode').val('');
+                                    $('#start_qty').val('');
+                                    $('#start_rak').val('');
+                                    $('#loading-modal').modal('hide');
+                                } else {
+                                    $('#tbody_data_rak').append(`
+                                        <tr class="rak">
+                                            <td>
+                                                <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_${baris}" class="form-control" value="${barcode}" readonly>
+                                                <input type="hidden" class="form-control" name="id_log_detail_record_rak[]" id="id_log_detail_record_rak_${baris}" class="form-control" value="${data['id_log_detail_record_rak']}">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_${baris}" class="form-control" value="${qty}" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" name="id_rak[]" id="id_rak_${baris}" class="form-control" value="${rak}" readonly>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger" onclick="delete_detail_rak(this, ${baris})">Delete</button>
+                                            </td>
+                                        </tr>
+                                    `);
+                    
+                                    $('#start_barcode').val('');
+                                    $('#start_qty').val('');
+                                    $('#start_rak').val('');
+                                    $('#loading-modal').modal('hide');
+                                }
+                            }
+                        });
                     } else {
-                        $('#tbody_data_rak').append(`
-                            <tr class="rak">
-                                <td>
-                                    <input type="text" class="form-control" name="barcode_rak[]" id="barcode_rak_${baris}" class="form-control" value="${barcode}" readonly>
-                                    <input type="hidden" class="form-control" name="id_log_detail_record_rak[]" id="id_log_detail_record_rak_${baris}" class="form-control" value="${data['id_log_detail_record_rak']}">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="qty_rak[]" id="qty_rak_${baris}" class="form-control" value="${qty}" readonly>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="id_rak[]" id="id_rak_${baris}" class="form-control" value="${rak}" readonly>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger" onclick="delete_detail_rak(this, ${baris})">Delete</button>
-                                </td>
-                            </tr>
-                        `);
-        
+                        alert('Barcode Sudah Di Scan !!!');
                         $('#start_barcode').val('');
                         $('#start_qty').val('');
                         $('#start_rak').val('');
-                        $('#loading-modal').modal('hide');
+                        $('#start_barcode').focus();
                     }
                 }
             });
@@ -1132,9 +1154,11 @@ $mh = [8, 7.5, 6.5];
                 <option value="">-- Pilih Type Grid --</option>
                 <?php
                 foreach ($data_type_grid as $d_type_grid) {
+                    if ($d_type_grid['type_grid'] != 'M87' && $d_type_grid['type_grid'] != 'CG85 NEG' && $d_type_grid['type_grid'] != 'CG79' && $d_type_grid['type_grid'] != 'M87 NEG') {
                 ?>
                     <option value="<?= $d_type_grid['id_grid'] ?>"><?= $d_type_grid['type_grid'] ?></option>
                 <?php
+                    }
                 }
                 ?>
             `;

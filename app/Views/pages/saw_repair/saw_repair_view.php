@@ -22,9 +22,6 @@
                                         <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="7"></th>
-                                                </tr>
-                                                <tr>
                                                     <!-- <th>No</th> -->
                                                     <th>Date</th>
                                                     <th>Shift</th>
@@ -42,7 +39,7 @@
                                                         <td><?= $sr['shift'] ?></td>
                                                         <td>
                                                             <div class="d-flex">
-                                                                <a href="/saw_repair/add_saw_repair/<?= trim($sr['id']) ?>" class="btn btn-sm btn-primary">Detail</a>
+                                                                <a href="<?=base_url()?>saw_repair/add_saw_repair/<?= trim($sr['id']) ?>" class="btn btn-sm btn-primary">Detail</a>
                                                                 &nbsp
                                                                 <form action="<?php base_url() ?>saw_repair/detail_saw_repair/delete" method="POST">
                                                                     <input type="hidden" name="id_saw_repair" id="id_saw_repair" value="<?= trim($sr['id']) ?>">
@@ -53,6 +50,13 @@
                                                     </tr>
                                                 <?php endforeach ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Shift</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
@@ -74,7 +78,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/saw_repair/save" method="post">
+            <form action="<?=base_url()?>saw_repair/save" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
@@ -112,8 +116,30 @@
 <script>
     $(document).ready(function() {
         $('#example5').DataTable({
-            "order":[]
-        });
+			"order": [],
+			initComplete: function () {
+				this.api()
+					.columns()
+					.every(function () {
+						var column = this;
+						var select = $('<select class="form-select"><option value=""></option></select>')
+							.appendTo($(column.footer()).empty())
+							.on('change', function () {
+								var val = $.fn.dataTable.util.escapeRegex($(this).val());
+	
+								column.search(val ? '^' + val + '$' : '', true, false).draw();
+							});
+	
+						column
+							.data()
+							.unique()
+							.sort()
+							.each(function (d, j) {
+								select.append('<option value="' + d + '">' + d + '</option>');
+							});
+					});
+			},
+		});
     });
 </script>
 <?= $this->endSection(); ?>

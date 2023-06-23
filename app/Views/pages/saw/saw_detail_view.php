@@ -13,7 +13,7 @@
               <h4>Detail SAW</h4>
             </div>
             <div class="box-body">
-              <form action="/saw/detail_saw/edit" method="post">
+              <form action="<?=base_url()?>saw/detail_saw/edit" method="post">
                 <div class="row">
                   <input type="hidden" name="id" value="<?= $data_lhp_saw[0]['id_lhp_saw']; ?>">
                   <div class="col">

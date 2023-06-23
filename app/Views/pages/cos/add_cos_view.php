@@ -13,7 +13,7 @@
                             <h4>Detail COS</h4>
                         </div>
                         <div class="box-body">
-                            <form action="/cos/save" method="post">
+                            <form action="<?=base_url()?>cos/save" method="post">
                                 <div class="row">
                                     <input type="hidden" name="id" value="<?= $data_lhp_cos['id_lhp_cos']; ?>">
                                     <div class="col">
@@ -71,7 +71,7 @@
                                     <?php if ($data_lhp_cos['status'] === 'pending') : ?>
                                         <button type="submit" class="btn btn-primary" id="submit-form" style="width: 200px">Save</button>
                                     <?php else : ?>
-                                        <a href="/cos" class="btn btn-primary">Back</a>
+                                        <a href="<?=base_url()?>cos" class="btn btn-primary">Back</a>
                                     <?php endif ?>
                                 </div>
                                 <h2>COS</h2>

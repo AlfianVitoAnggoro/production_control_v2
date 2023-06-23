@@ -13,7 +13,7 @@
                             <h4>Detail Envelope</h4>
                         </div>
                         <div class="box-body">
-                            <form action="/envelope/detail_envelope/edit" method="post">
+                            <form action="<?=base_url()?>envelope/detail_envelope/edit" method="post">
                                 <div class="row">
                                     <input type="hidden" name="id_envelope" value="<?= trim($envelope['id']); ?>">
                                     <div class="col">
@@ -81,7 +81,7 @@
                                         <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
                                         <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>
                                     <?php else : ?>
-                                        <a href="/envelope" class="btn btn-primary">Back</a>
+                                        <a href="<?=base_url()?>envelope" class="btn btn-primary">Back</a>
                                     <?php endif ?>
                                 </div>
                             </form>

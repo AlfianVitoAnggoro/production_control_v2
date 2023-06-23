@@ -52,6 +52,15 @@ $routes->post('/dashboard/assy/get_data_line_stop_by_shift', 'Dashboard::get_dat
 $routes->post('/dashboard/assy/get_data_line_stop_by_grup', 'Dashboard::get_data_line_stop_by_grup');
 $routes->post('/dashboard/assy/get_data_line_stop_by_kss', 'Dashboard::get_data_line_stop_by_kss');
 
+//DASHBOARD EFF ASSY NPDT
+$routes->get('/dashboard_npdt', 'Dashboard_npdt::index');
+$routes->get('/dashboard_npdt/assy', 'Dashboard_npdt::dashboard_lhp_assy');
+$routes->post('/dashboard_npdt/assy', 'Dashboard_npdt::dashboard_lhp_assy');
+$routes->post('/dashboard_npdt/assy/get_data_line_stop', 'Dashboard_npdt::get_data_line_stop');
+$routes->post('/dashboard_npdt/assy/get_data_line_stop_by_shift', 'Dashboard_npdt::get_data_line_stop_by_shift');
+$routes->post('/dashboard_npdt/assy/get_data_line_stop_by_grup', 'Dashboard_npdt::get_data_line_stop_by_grup');
+$routes->post('/dashboard_npdt/assy/get_data_line_stop_by_kss', 'Dashboard_npdt::get_data_line_stop_by_kss');
+
 // DASHBOARD REJECT
 $routes->get('/dashboard/reject', 'DashboardAssyRejection::dashboard_reject_assy');
 $routes->post('/dashboard/reject', 'DashboardAssyRejection::dashboard_reject_assy');
@@ -81,7 +90,6 @@ $routes->post('/dashboard/rejectMCB/get_detail_rejection', 'DashboardMCBRejectio
 $routes->get('/dashboardGrid', 'DashboardGrid::index');
 $routes->get('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
 $routes->post('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
-
 
 //DASHBOARD EFF GRID
 $routes->get('/dashboardGrid', 'DashboardGrid::index');
@@ -161,6 +169,7 @@ $routes->group('lhp', ['filter' => 'auth'], function ($routes) {
     $routes->get('delete_line_stop/(:num)/(:num)', 'Home::delete_line_stop/$1/$2');
     $routes->get('delete_reject/(:num)/(:num)', 'Home::delete_reject/$1/$2');
     $routes->post('download', 'Home::download');
+    $routes->get('update_kategori_andon', 'Home::get_kategori_andon');
 });
 
 //MCB
@@ -169,10 +178,30 @@ $routes->group('mcb', ['filter' => 'auth'], function ($routes) {
     $routes->post('download', 'MCB::download');
 });
 
-//WET
+//WET FINISHING
 $routes->group('wet_finishing', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'WET_Finishing::wet_view');
+    $routes->post('add_lhp', 'WET_Finishing::add_lhp');
+    $routes->get('detail_lhp/(:num)', 'WET_Finishing::detail_lhp/$1');
+    $routes->post('get_kategori_pending', 'WET_Finishing::get_kategori_pending');
+    $routes->post('update_lhp', 'WET_Finishing::update_lhp');
+    $routes->get('hapus_lhp/(:num)', 'WET_Finishing::hapus_lhp/$1');
     $routes->post('download', 'WET_Finishing::download');
+});
+
+//WET LOADING
+$routes->group('wet_loading', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'WET_Loading::wet_view');
+    $routes->post('download', 'WET_Loading::download');
+    $routes->post('add_lhp', 'WET_Loading::add_lhp');
+    $routes->post('getSeries', 'WET_Loading::get_series');
+    $routes->post('getType', 'WET_Loading::get_type_battery');
+    $routes->post('getCT', 'WET_Loading::get_ct');
+    $routes->get('detail_lhp/(:num)', 'WET_Loading::detail_lhp/$1');
+    $routes->post('update_lhp', 'WET_Loading::update_lhp');
+    $routes->get('delete_line_stop/(:num)/(:num)', 'WET_Loading::delete_line_stop/$1/$2');
+    $routes->get('hapus_lhp/(:num)', 'WET_Loading::hapus_lhp/$1');
+    $routes->get('delete_reject/(:num)/(:num)', 'WET_Loading::delete_reject/$1/$2');
 });
 
 
@@ -195,6 +224,8 @@ $routes->group('grid', ['filter' => 'auth'], function ($routes) {
     $routes->post('material_in', 'Grid::material_in');
     $routes->post('delete_material_in', 'Grid::delete_material_in');
     // $routes->post('add_detail_record_rak', 'Grid::add_detail_record_rak');
+    $routes->post('cek_rak', 'Grid::cek_rak');
+    $routes->get('cek_rak', 'Grid::cek_rak');
 });
 
 //PLATECUTTING
@@ -329,7 +360,7 @@ $routes->group('cos', ['filter' => 'auth'], function ($routes) {
     $routes->post('getPartNo', 'Cos::getPartNo');
 });
 
-//COS
+//TIMBANGAN REJECT
 $routes->group('timbangan_reject', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'TimbanganReject::timbangan_reject_view');
     $routes->get('add_timbangan_reject/(:segment)', 'TimbanganReject::add_timbangan_reject/$1');
@@ -357,7 +388,11 @@ $routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'WideStrip::index');
     $routes->post('add_lhp', 'WideStrip::add_lhp');
     $routes->get('detail_lhp/(:num)', 'WideStrip::detail_lhp/$1');
-    
+});
+
+$routes->group('monitoring_curing_qc', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'MonitoringCuringQC::monitoring_curing_qc_view');
+    $routes->post('update_curing', 'MonitoringCuringQC::update_curing');
 });
 
 //Master Man Power
@@ -402,6 +437,22 @@ $routes->group('dashboard_man_power', ['filter' => 'auth'], function ($routes) {
     $routes->post('get_data_detail_man_power', 'DashboardManPower::get_data_detail_man_power');
     $routes->post('save_record_man_power', 'DashboardManPower::save_record_man_power');
 });
+$routes->group('monitoring_curing', function ($routes) {
+    $routes->get('/', 'MonitoringCuring::monitoring_curing_view');
+});
+
+$routes->group('curing', function ($routes) {
+    $routes->get('/', 'Curing::curing_view');
+    $routes->post('update_curing', 'Curing::update_curing');
+});
+
+// INTERLOCK AGING
+$routes->get('interlock_aging/', 'InterlockAging::index');
+$routes->get('interlock_aging/list_aging/(:any)', 'InterlockAging::list_aging/$1');
+$routes->post('interlock_aging/get_qty_rak', 'InterlockAging::get_qty_rak');
+$routes->post('interlock_aging/add_rak', 'InterlockAging::add_rak');
+$routes->get('interlock_aging/delete_rak_aging/(:any)/(:any)', 'InterlockAging::delete_rak_aging/$1/$2');
+$routes->get('interlock_aging/update_rak_aging/(:any)', 'InterlockAging::update_rak_aging/$1');
 
 // $routes->get('/lhp/test', 'Home::test');
 

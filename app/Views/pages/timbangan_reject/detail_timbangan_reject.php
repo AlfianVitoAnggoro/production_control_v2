@@ -13,7 +13,7 @@
               <h4>Detail Laporan Timbangan Reject</h4>
             </div>
             <div class="box-body">
-              <form action="/timbangan_reject/detail_timbangan_reject/edit" method="post">
+              <form action="<?=base_url()?>timbangan_reject/detail_timbangan_reject/edit" method="post">
                 <div class="row">
                   <input type="hidden" name="id" value="<?= $data_lhp_timbangan_reject[0]['id_lhp_timbangan_reject']; ?>">
                   <div class="col">

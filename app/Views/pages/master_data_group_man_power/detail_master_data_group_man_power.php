@@ -317,7 +317,7 @@
       $.ajax({
         url: '<?= base_url() ?>master_group_man_power/detail_group_man_power/edit',
         type: 'POST',
-        data: [
+        data: {
           nama_1: nama_1,
           nama_2: nama_2,
           nama_3: nama_3,
@@ -327,7 +327,7 @@
           group_1: group_1,
           group_2: group_2,
           group_3: group_3,
-        ],
+        },
         dataType: 'json',
         success: function(data) {
           console.log(data);

@@ -13,7 +13,7 @@
               <h4>Detail Plate Cutting</h4>
             </div>
             <div class="box-body">
-              <form action="/platecutting/detail_platecutting/edit" method="post">
+              <form action="<?=base_url()?>platecutting/detail_platecutting/edit" method="post">
                 <div class="row">
                   <input type="hidden" name="id_platecutting" value="<?= trim($platecutting['id']); ?>">
                   <div class="col">
@@ -173,7 +173,7 @@
                     <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
                     <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>
                   <?php else : ?>
-                    <a href="/platecutting" class="btn btn-primary">Back</a>
+                    <a href="<?=base_url()?>platecutting" class="btn btn-primary">Back</a>
                   <?php endif ?>
                 </div>
               </form>

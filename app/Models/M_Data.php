@@ -27,6 +27,7 @@ class M_Data extends Model
         $tanggal = date('Ymd', strtotime('-5 days', strtotime($tanggal_produksi)));
 
         $ka = "'"."KA%"."'";
+        $kl = "'"."%KLC%"."'";
 
         // $query = $this->db3->query('
         //                             SELECT t$prto as rfq,t$prdt as tgl_prod,t$pdno as pdno,t$mitm as mitm,t$cwar as cwar, t$qrdr as qty,t$prcd as line, t$osta as status 
@@ -38,7 +39,7 @@ class M_Data extends Model
                                 SELECT t$pdno as pdno
                                 FROM baan.ttisfc001777 
                                 WHERE (to_number(to_char(t$prdt + (7/24),\'YYYYMMDD\'))) >= '.$tanggal.'
-                                AND t$pdno LIKE '.$ka.'
+                                AND (t$pdno LIKE '.$ka.' OR t$pdno LIKE '.$kl.')
                                 ORDER BY t$pdno asc
                             ');
                                 // WHERE t$prcd = '.$line.' and (to_number(to_char(t$prdt + (7/24),\'ddmmyyyy\'))) = '.$tanggal.' and (t$osta = 5 or t$osta = 7) order by t$pdno asc
@@ -177,13 +178,15 @@ class M_Data extends Model
     {
         // $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup ORDER BY tanggal_produksi DESC');
         $builder = $this->db->table('lhp_produksi2');
-        $builder->select('lhp_produksi2.*, master_pic_line.nama_pic');
+        $builder->select('lhp_produksi2.id_lhp_2, lhp_produksi2.tanggal_produksi, lhp_produksi2.shift, lhp_produksi2.line, lhp_produksi2.kasubsie, master_pic_line.nama_pic, lhp_produksi2.total_line_stop, SUM(detail_breakdown.menit_breakdown) as detail_line_stop');
         $builder->join('master_pic_line', 'master_pic_line.id_pic = lhp_produksi2.grup');
+        $builder->join('detail_breakdown', 'detail_breakdown.id_lhp = lhp_produksi2.id_lhp_2', 'left');
         $builder->where('MONTH(tanggal_produksi) =', $bulan);
 
         if ($this->session->get('line') != NULL) {
             $builder->where('line', $this->session->get('line'));
         }
+        $builder->groupBy('lhp_produksi2.id_lhp_2, lhp_produksi2.tanggal_produksi, lhp_produksi2.shift, lhp_produksi2.line, lhp_produksi2.kasubsie, master_pic_line.nama_pic, lhp_produksi2.total_line_stop');
         
         $builder->orderBy('tanggal_produksi', 'DESC');
 
@@ -198,31 +201,6 @@ class M_Data extends Model
 
         return $query->getResultArray();
     }
-
-    // public function get_all_lhp_by_month($bulan)
-    // {
-    //     // $query = $this->db->query('SELECT * FROM lhp_produksi2 JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup ORDER BY tanggal_produksi DESC');
-    //     $month = idate('m', strtotime($bulan));
-    //     $year = idate('Y', strtotime($bulan));
-    //     $builder = $this->db->table('lhp_produksi2');
-    //     $builder->select('lhp_produksi2.*, master_pic_line.nama_pic');
-    //     $builder->join('master_pic_line', 'master_pic_line.id_pic = lhp_produksi2.grup');
-    //     $builder->where('MONTH(tanggal_produksi)', $month);
-    //     $builder->where('YEAR(tanggal_produksi)', $year);
-    //     // if ($this->session->get('line') != NULL) {
-    //     //     $builder->where('line', $this->session->get('line'));
-    //     // }
-        
-    //     // $builder->orderBy('tanggal_produksi', 'DESC');
-
-    //     $query = $builder->get();
-
-    //     if(count($query->getResultArray()) > 0) {
-    //         return $query->getResultArray();
-    //     } else {
-    //         return;
-    //     }
-    // }
 
     public function get_all_lhp_by_date($start_date, $end_date)
     {
@@ -305,8 +283,8 @@ class M_Data extends Model
         return $query->getResultArray();
     }
 
-    public function get_data_andon($tanggal_produksi, $line) {
-        $query = $this->db4->query('SELECT * FROM ticket_assy WHERE tanggal_produksi = \''.$tanggal_produksi.'\' AND id_line = \''.$line.'\'');
+    public function get_data_andon($tanggal_produksi, $line, $shift) {
+        $query = $this->db4->query('SELECT * FROM ticket_assy WHERE tanggal_produksi = \''.$tanggal_produksi.'\' AND id_line = \''.$line.'\' AND shift = \''.$shift.'\'');
 
         return $query->getResultArray();
     }
@@ -386,5 +364,19 @@ class M_Data extends Model
         $query = $this->db->query('SELECT SUM(menit_breakdown) AS total_menit FROM detail_breakdown WHERE id_lhp = '.$id_lhp);
 
         return $query->getResultArray();
+    }
+
+    public function get_all_tiket_andon() {
+        $query = $this->db->query('SELECT tiket_andon FROM detail_breakdown WHERE jenis_breakdown = \'ANDON\' AND (kategori_andon IS NULL OR kategori_andon = \'\')');
+
+        return $query->getResultArray();
+    }
+
+    public function update_kategori_andon($id,$data) {
+        $builder = $this->db->table('detail_breakdown');
+        $builder->where('tiket_andon', $id);
+        $builder->update($data);
+
+        return $this->db->affectedRows();
     }
 }

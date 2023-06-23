@@ -68,7 +68,7 @@
                                                             <?php if ($session['level'] === 1) : ?>
                                                                 <td>
                                                                     <div class="d-flex">
-                                                                        <a href="/platecutting/detail_platecutting/<?= trim($pc['id']) ?>" class="btn btn-primary btn-sm">Detail</a>
+                                                                        <a href="<?=base_url()?>platecutting/detail_platecutting/<?= trim($pc['id']) ?>" class="btn btn-primary btn-sm">Detail</a>
                                                                         &nbsp
                                                                         <form action="<?php base_url() ?>platecutting/detail_platecutting/delete" method="POST">
                                                                             <input type="hidden" name="id_platecutting" id="id_platecutting" value="<?= trim($pc['id']) ?>">
@@ -79,7 +79,7 @@
                                                             <?php else : ?>
                                                                 <td>
                                                                     <div>
-                                                                        <a href="/platecutting/add_platecutting/<?= trim($pc['id']) ?>" class="btn btn-primary">Detail</a>
+                                                                        <a href="<?=base_url()?>platecutting/add_platecutting/<?= trim($pc['id']) ?>" class="btn btn-primary">Detail</a>
                                                                     </div>
                                                                 </td>
                                                             <?php endif ?>
@@ -119,7 +119,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/platecutting/save" method="post">
+            <form action="<?=base_url()?>platecutting/save" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-3">
@@ -192,7 +192,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- <a href="/cos/download" class="btn btn-danger mb-2">Download</a> -->
-            <form action="/platecutting/download" method="post">
+            <form action="<?=base_url()?>platecutting/download" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col mb-2">

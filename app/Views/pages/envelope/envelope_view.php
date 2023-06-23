@@ -69,7 +69,7 @@
                                                             <?php if ($session['level'] === 1) : ?>
                                                                 <td>
                                                                     <div class="d-flex">
-                                                                        <a href="/envelope/detail_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary btn-sm">Detail</a>
+                                                                        <a href="<?=base_url()?>envelope/detail_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary btn-sm">Detail</a>
                                                                         &nbsp
                                                                         <form action="<?php base_url() ?>envelope/detail_envelope/delete" method="POST">
                                                                             <input type="hidden" name="id_envelope" id="id_envelope" value="<?= trim($envl['id']) ?>">
@@ -80,7 +80,7 @@
                                                             <?php else : ?>
                                                                 <td>
                                                                     <div>
-                                                                        <a href="/envelope/add_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary">Detail</a>
+                                                                        <a href="<?=base_url()?>envelope/add_envelope/<?= trim($envl['id']) ?>" class="btn btn-primary">Detail</a>
                                                                     </div>
                                                                 </td>
                                                             <?php endif ?>
@@ -90,7 +90,6 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>No</th>
                                                     <th>Date</th>
                                                     <th>Shift</th>
                                                     <th>Line</th>
@@ -120,7 +119,7 @@
                 <h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Produksi 2</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/envelope/save" method="post">
+            <form action="<?=base_url()?>envelope/save" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-3">
@@ -192,7 +191,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- <a href="/envelope/download" class="btn btn-danger mb-2">Download</a> -->
-            <form action="/envelope/download" method="post">
+            <form action="<?=base_url()?>envelope/download" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col mb-2">

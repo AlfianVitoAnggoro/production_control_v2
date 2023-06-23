@@ -1,5 +1,8 @@
 <?php
-
+$host = $_SERVER['HTTP_HOST'];
+$http_https = isset($_SERVER['HTTPS']) ? "https://" : "http://";
+$baseURL = $http_https . $host;
+define('BASE_URL', $baseURL);
 /*
  | --------------------------------------------------------------------
  | App Namespace

@@ -2,19 +2,24 @@
 
 namespace App\Controllers;
 
-use App\Models\M_Dashboard;
+use App\Models\M_Dashboard_npdt;
 
-class Dashboard extends BaseController
+class Dashboard_npdt extends BaseController
 {
     public function __construct()
     {
-        $this->M_Dashboard = new M_Dashboard();
+        $this->M_Dashboard = new M_Dashboard_npdt();
         $this->session = \Config\Services::session();
     }
 
     public function index()
     {
         return view('dashboard/home');
+    }
+
+    public function index2()
+    {
+        return view('dashboard/dashboard_home');
     }
 
     public function dashboard_lhp_assy()
@@ -63,6 +68,7 @@ class Dashboard extends BaseController
         $data['bulan'] = $bulan;
 
         $data['data_all_line'] = [];
+        $data['data_all_line_pcs'] = [];
 
         $data['data_line_1'] = [];
         $data['data_line_2'] = [];
@@ -71,6 +77,14 @@ class Dashboard extends BaseController
         $data['data_line_5'] = [];
         $data['data_line_6'] = [];
         $data['data_line_7'] = [];
+
+        $data['data_line_1_pcs'] = [];
+        $data['data_line_2_pcs'] = [];
+        $data['data_line_3_pcs'] = [];
+        $data['data_line_4_pcs'] = [];
+        $data['data_line_5_pcs'] = [];
+        $data['data_line_6_pcs'] = [];
+        $data['data_line_7_pcs'] = [];
 
         $data['data_by_month_line_1'] = [];
         $data['data_by_month_line_2'] = [];
@@ -87,6 +101,8 @@ class Dashboard extends BaseController
         $data['data_line_by_grup'] = [];
         $data['data_line_by_kss'] = [];
 
+        $data['data_line_by_grup_month'] = [];
+
         if ($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'average') {
             while (strtotime($start) <= strtotime($now)) {
                 $data_all = $this->M_Dashboard->get_data_all_line_by_date($start);
@@ -94,11 +110,14 @@ class Dashboard extends BaseController
                     foreach ($data_all as $da) {
                         $total_loading_time = $da['total_loading_time'];
                         $total_line_stop = $da['total_line_stop'];
+                        $total_aktual = $da['total_aktual'];
                         $eff = (!empty($total_loading_time) && !empty($total_line_stop)) ? (($total_loading_time - $total_line_stop) / $total_loading_time) * 100 : 0;
                         array_push($data['data_all_line'], (float) number_format($eff, 1, '.', ''));
+                        array_push($data['data_all_line_pcs'], (int) $total_aktual);
                     } 
                 } else {
                     array_push($data['data_all_line'], 0);
+                    array_push($data['data_all_line_pcs'], 0);
                 }
     
                 $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
@@ -125,9 +144,9 @@ class Dashboard extends BaseController
                     $data1 = $this->M_Dashboard->get_data_all_line($start, $i);
                     if (!empty($data1)) {
                         foreach ($data1 as $d1) {
-                            $total_plan = $d1['total_plan'];
-                            $total_aktual = $d1['total_aktual'];
-                            $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                            $total_loading_time = $d1['total_loading_time'];
+                            $total_line_stop = $d1['total_line_stop'];
+                            $eff = (!empty($total_loading_time) && !empty($total_line_stop)) ? (($total_loading_time - $total_line_stop) / $total_loading_time) * 100 : 0;
                             array_push($data['data_line_'.$i], (float) number_format($eff, 1, '.', ''));
                         } 
                     } else {
@@ -142,13 +161,17 @@ class Dashboard extends BaseController
                 $data1 = $this->M_Dashboard->get_data_all_line($start, $child_filter);
                 if (!empty($data1)) {
                     foreach ($data1 as $d1) {
-                        $total_plan = $d1['total_plan'];
+                        $total_loading_time = $d1['total_loading_time'];
+                        $total_line_stop = $d1['total_line_stop'];
                         $total_aktual = $d1['total_aktual'];
-                        $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                        $eff = (!empty($total_loading_time) && !empty($total_line_stop)) ? (($total_loading_time - $total_line_stop) / $total_loading_time) * 100 : 0;
                         array_push($data['data_line_'.$child_filter], (float) number_format($eff, 1, '.', ''));
+                        array_push($data['data_line_'.$child_filter.'_pcs'], (int) $total_aktual);
                     } 
                 } else {
                     array_push($data['data_line_'.$child_filter], 0);
+                    array_push($data['data_line_'.$child_filter.'_pcs'], 0);
+
                 }
                 $start = date ("Y-m-d", strtotime("+1 days", strtotime($start)));
             }
@@ -157,9 +180,9 @@ class Dashboard extends BaseController
                 $data1 = $this->M_Dashboard->get_data_line($start, $child_filter, 1);
                 if (!empty($data1)) {
                     foreach ($data1 as $d1) {
-                        $total_plan = $d1['total_plan'];
-                        $total_aktual = $d1['total_aktual'];
-                        $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                        $total_loading_time = $d1['total_loading_time'];
+                        $total_line_stop = $d1['total_line_stop'];
+                        $eff = (!empty($total_loading_time) && !empty($total_line_stop)) ? (($total_loading_time - $total_line_stop) / $total_loading_time) * 100 : 0;
                         array_push($data['data_line_shift_1'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
@@ -169,9 +192,9 @@ class Dashboard extends BaseController
                 $data2 = $this->M_Dashboard->get_data_line($start, $child_filter, 2);
                 if (!empty($data2)) {
                     foreach ($data2 as $d2) {
-                        $total_plan = $d2['total_plan'];
-                        $total_aktual = $d2['total_aktual'];
-                        $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                        $total_loading_time = $d2['total_loading_time'];
+                        $total_line_stop = $d2['total_line_stop'];
+                        $eff = (!empty($total_loading_time) && !empty($total_line_stop)) ? (($total_loading_time - $total_line_stop) / $total_loading_time) * 100 : 0;
                         array_push($data['data_line_shift_2'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
@@ -181,9 +204,9 @@ class Dashboard extends BaseController
                 $data3 = $this->M_Dashboard->get_data_line($start, $child_filter, 3);
                 if (!empty($data3)) {
                     foreach ($data3 as $d3) {
-                        $total_plan = $d3['total_plan'];
-                        $total_aktual = $d3['total_aktual'];
-                        $eff = (!empty($total_plan) && !empty($total_aktual)) ? ($total_aktual / $total_plan) * 100 : 0;
+                        $total_loading_time = $d3['total_loading_time'];
+                        $total_line_stop = $d3['total_line_stop'];
+                        $eff = (!empty($total_loading_time) && !empty($total_line_stop)) ? (($total_loading_time - $total_line_stop) / $total_loading_time) * 100 : 0;
                         array_push($data['data_line_shift_3'], (float) number_format($eff, 1, '.', ''));
                     } 
                 } else {
@@ -195,6 +218,44 @@ class Dashboard extends BaseController
         } elseif($jenis_dashboard == 1 AND ($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter != null OR $child_filter != 0) AND $baby_filter != null AND $baby_filter == 'grup') {
             $data_grup_line = $this->M_Dashboard->get_data_grup_by_line($start, $child_filter);
 
+            $data_grup_line_year = $this->M_Dashboard->get_data_grup_by_line_year($start, $child_filter);
+
+            if (!empty($data_grup_line_year)) {
+                for ($i=1; $i <= 12 ; $i++) { 
+                    $total_loading_time_grup_month = 0;
+                    $total_line_stop_grup_month = 0;
+                    $eff = 0;
+                    foreach ($data_grup_line_year as $d_grup_line) {
+                        $grup_month = $d_grup_line['nama_pic'];
+                        $data_all_grup_month = $this->M_Dashboard->get_data_line_by_grup_month($i, $child_filter, $grup_month);
+
+                        $total_loading_time_grup_month = 0;
+                        $total_line_stop_grup_month = 0;
+                        $eff = 0;
+
+                        if (!empty($data_all_grup_month)) {
+                            foreach ($data_all_grup_month as $d_all_grup) {
+                                $total_loading_time_grup_month += $d_all_grup['total_loading_time'];
+                                $total_line_stop_grup_month += $d_all_grup['total_line_stop'];
+                            } 
+                        } else {
+                            $total_loading_time_grup_month += 0;
+                            $total_line_stop_grup_month += 0;
+            
+                        }
+
+                        $eff = (!empty($total_loading_time_grup_month) && !empty($total_line_stop_grup_month)) ? (($total_loading_time_grup_month - $total_line_stop_grup_month) / $total_loading_time_grup_month) * 100 : 0;
+
+                        $data_grup_month = [
+                            'grup' => $grup_month,
+                            'data' => (float) number_format($eff, 1, '.', '')
+                        ];
+
+                        $data['data_line_by_grup_month'][] = $data_grup_month;
+                    }
+                }
+            }
+
             if (!empty($data_grup_line)) {
                     while (strtotime($start) <= strtotime($now)) {
                         foreach ($data_grup_line as $d_grup_line) {
@@ -202,9 +263,9 @@ class Dashboard extends BaseController
                             $data_all_grup = $this->M_Dashboard->get_data_line_by_grup($start, $child_filter, $grup);
                             if (!empty($data_all_grup)) {
                                 foreach ($data_all_grup as $d_all_grup) {
-                                    $total_plan_grup = $d_all_grup['total_plan'];
-                                    $total_aktual_grup = $d_all_grup['total_aktual'];
-                                    $eff = (!empty($total_plan_grup) && !empty($total_aktual_grup)) ? ($total_aktual_grup / $total_plan_grup) * 100 : 0;
+                                    $total_loading_time_grup = $d_all_grup['total_loading_time'];
+                                    $total_line_stop_grup = $d_all_grup['total_line_stop'];
+                                    $eff = (!empty($total_loading_time_grup) && !empty($total_line_stop_grup)) ? (($total_loading_time_grup - $total_line_stop_grup) / $total_loading_time_grup) * 100 : 0;
                 
                                     $data_grup = [
                                         'grup' => $grup,
@@ -236,9 +297,9 @@ class Dashboard extends BaseController
                             $data_all_kss = $this->M_Dashboard->get_data_line_by_kss($start, $child_filter, $kss);
                             if (!empty($data_all_kss)) {
                                 foreach ($data_all_kss as $d_all_kss) {
-                                    $total_plan_kss = $d_all_kss['total_plan'];
-                                    $total_aktual_kss = $d_all_kss['total_aktual'];
-                                    $eff = (!empty($total_plan_kss) && !empty($total_aktual_kss)) ? ($total_aktual_kss / $total_plan_kss) * 100 : 0;
+                                    $total_loading_time_kss = $d_all_kss['total_loading_time'];
+                                    $total_line_stop_kss = $d_all_kss['total_line_stop'];
+                                    $eff = (!empty($total_loading_time_kss) && !empty($total_line_stop_kss)) ? (($total_loading_time_kss - $total_line_stop_kss) / $total_loading_time_kss) * 100 : 0;
                 
                                     $data_kss = [
                                         'kss' => $kss,
@@ -332,9 +393,49 @@ class Dashboard extends BaseController
             }
         }
         $data_year = $this->M_Dashboard->get_data_all_line_by_year($child_filter);
-        $data['data_all_year'] = (!empty($data_year[0]['total_plan']) && !empty($data_year[0]['total_aktual'])) ? (float) number_format(($data_year[0]['total_aktual'] / $data_year[0]['total_plan']) * 100, 2, '.', '') : 0;
+        $data['data_all_year'] = (!empty($data_year[0]['total_loading_time']) && !empty($data_year[0]['total_line_stop'])) ? (float) number_format((($data_year[0]['total_loading_time'] - $data_year[0]['total_line_stop']) / $data_year[0]['total_loading_time']) * 100, 2, '.', '') : 0;
         
-        return view('dashboard/dashboard_lhp_assy', $data);
+        $arr_jam = ['08:50:00.0000000'
+                    ,'09:50:00.0000000'
+                    ,'11:00:00.0000000'
+                    ,'12:00:00.0000000'
+                    ,'14:00:00.0000000'
+                    ,'15:00:00.0000000'
+                    ,'16:15:00.0000000'
+                    ,'16:30:00.0000000'
+                    ,'17:50:00.0000000'
+                    ,'19:35:00.0000000'
+                    ,'20:35:00.0000000'
+                    ,'21:35:00.0000000'
+                    ,'22:45:00.0000000'
+                    ,'23:45:00.0000000'
+                    ,'00:30:00.0000000'
+                    ,'01:50:00.0000000'
+                    ,'02:50:00.0000000'
+                    ,'03:50:00.0000000'
+                    ,'05:20:00.0000000'
+                    ,'06:20:00.0000000'
+                    ,'07:30:00.0000000'
+        ];
+
+        $data['data_all_jam'] = [];
+        // $tanggal_berjalan = date('Y-m-d', strtotime('2023-05-05'));
+        $tanggal_berjalan = date('Y-m-d');
+        foreach ($arr_jam as $jam) {
+            $data_all = $this->M_Dashboard->get_data_all_line_by_jam($child_filter, $jam, $tanggal_berjalan);
+            if (!empty($data_all)) {
+                foreach($data_all as $d_all) {
+                    $menit_terpakai = $d_all['menit_terpakai'];
+                    $total_menit_breakdown = $d_all['total_menit_breakdown'];
+                    $eff = (!empty($menit_terpakai) && !empty($total_menit_breakdown)) ? (($menit_terpakai - $total_menit_breakdown) / $total_menit_breakdown) * 100 : 0;
+                    array_push($data['data_all_jam'], (float) number_format($eff, 2, '.', ''));
+                }
+            } else {
+                array_push($data['data_all_jam'], 0);
+            }
+        }
+        
+        return view('dashboard/dashboard_lhp_assy_npdt', $data);
     }
 
     public function get_data_line_stop() {

@@ -375,7 +375,7 @@ class Home extends BaseController
             }
         }
 
-        // var_dump($this->request->getPost('no_wo_breakdown')); die;
+        // var_dump($this->request->getPost('proses_breakdown')); die;
 
         $total_data_breakdown = $this->request->getPost('no_wo_breakdown');
         if (!empty($total_data_breakdown)) {
@@ -384,9 +384,16 @@ class Home extends BaseController
                     $string_ticket = $this->request->getPost('proses_breakdown')[$i];
                     $arr = explode("-", $string_ticket);
                     $ticket = $arr[0];
-                    $proses_breakdown = $string_ticket;
+                    if ($arr[2] == 'DANDORI' OR $arr[2] == 'DT' OR $arr[2] == 'NDT') {
+                        $kategori_andon = $arr[2];
+                    } else {
+                        $kategori_andon = '';
+                    }
+                    $proses_breakdown = implode('-', array_slice($arr, 2));
+                    // $proses_breakdown = $string_ticket;
                 } else {
                     $ticket = '';
+                    $kategori_andon = '';
                     $proses_breakdown = $this->request->getPost('proses_breakdown')[$i];
                 }
 
@@ -400,6 +407,7 @@ class Home extends BaseController
                     'type_battery' => $this->request->getPost('part_number_breakdown')[$i],
                     'jenis_breakdown' => $this->request->getPost('jenis_breakdown')[$i],
                     'tiket_andon' => $ticket,
+                    'kategori_andon' => $kategori_andon,
                     'proses_breakdown' => $this->request->getPost('proses_breakdown')[$i],
                     'uraian_breakdown' => $this->request->getPost('uraian_breakdown')[$i],
                     'menit_breakdown' => $this->request->getPost('menit_breakdown')[$i]
@@ -452,9 +460,10 @@ class Home extends BaseController
     {
         $tanggal_produksi = $this->request->getPost('tanggal_produksi');
         $line = $this->request->getPost('line');
+        $shift = $this->request->getPost('shift');
 
         $model = new M_Data();
-        $data = $model->get_data_andon($tanggal_produksi, $line);
+        $data = $model->get_data_andon($tanggal_produksi, $line, $shift);
         echo json_encode($data);
     }
     
@@ -622,5 +631,19 @@ class Home extends BaseController
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
         exit();
+    }
+
+    public function get_kategori_andon()
+    {
+        $model = new M_Data();
+        $data_tiket = $model->get_all_tiket_andon();
+
+        foreach ($data_tiket as $dt) {
+            $kategori_andon = $model->pilih_andon($dt['tiket_andon']);
+            $data = [
+                'kategori_andon' => $kategori_andon[0]['kategori_perbaikan']
+            ];
+            $model->update_kategori_andon($dt['tiket_andon'], $data);
+        }
     }
 }
