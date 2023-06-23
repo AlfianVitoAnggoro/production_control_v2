@@ -131,4 +131,10 @@ class M_WET_Finishing extends Model
 
         return $query->getResultArray();
     }
+
+    public function get_total_pending ($id_lhp) {
+        $query = $this->db->query('SELECT SUM(qty_pending) AS total_pending FROM detail_pending_wet_finishing WHERE id_lhp = '.$id_lhp);
+
+        return $query->getResultArray();
+    }
 }

@@ -33,7 +33,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 	  <div class="container-full">
 		<!-- Main content -->
 		<section class="content">
-			<form action="<?=base_url()?>wet_finishing/update_lhp" method="post">
+			<form action="<?=base_url()?>wet_loading/update_lhp" method="post">
 				<input type="hidden" name="id_lhp" id="id_lhp" value="<?=$id_lhp?>">
 				<div class="box">
 					<div class="box-header with-border">
@@ -152,11 +152,17 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 												<th>Jam Start</th>
 												<th>Jam End</th>
 												<th>Menit Terpakai</th>
-												<th>No WO</th>
-												<th>Type Battery</th>
+												<th>Series</th>
+												<th>Type</th>
+												<th>Jenis</th>
+												<!-- <th>Pallet 1</th>
+												<th>Pallet 2</th>
+												<th>Pallet 3</th>
+												<th>Pallet 4</th>
+												<th>Pallet 5</th> -->
 												<th>CT</th>
 												<th>Plan Cap</th>
-												<th>Actual</th>
+												<th>Total</th>
 												<th>Total Menit Line Stop</th>
 												<th>Pending</th>
 												<th>Line Stop</th>
@@ -224,46 +230,48 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 														?>
 														
 														<td>
-															<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px">
+															<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px" readonly>
 														</td>
 														<td>
-															<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
-																<option selected disabled>-- Pilih No WO --</option>
+															<select class="form-control select2" id="series_<?=$i?>" name="series[]" onchange="getType(<?=$i?>)" style="width: 150px;">
+																<option selected disabled>-- Pilih Series --</option>
 																<?php
-																	$cek_wo = true;
-																	foreach ($data_wo as $dw) { 
-																		if (strpos($dw['PDNO'], 'KLC') !== false) {
-																			$selected = ($dw['PDNO'] == $data_detail_lhp[$i]['no_wo']) ? 'selected' : '' ;
-																			$cek_wo = ($dw['PDNO'] == $data_detail_lhp[$i]['no_wo']) ? false : true ; ?>
-																			<option value="<?=$dw['PDNO']?>" <?=$selected?>><?=$dw['PDNO']?></option>
-																		<?php } ?>
+																	foreach ($data_series_battery as $d_series_battery) { ?>
+																	<option value="<?=$d_series_battery['series_battery']?>" <?=($d_series_battery['series_battery'] == $data_detail_lhp[$i]['series_battery']) ? 'selected' : '' ?>><?=$d_series_battery['series_battery']?></option>
+																<?php  } ?>
+															</select>
+														</td>
+														<td>
+															<select class="form-control select2" id="type_battery_<?=$i?>" name="type_battery[]" style="width: 150px;">
+																<option selected disabled>-- Pilih Type --</option>
 																<?php
-																	}
-
-																	if ($cek_wo) { ?>
-																		<option value="<?=$data_detail_lhp[$i]['no_wo']?>" selected><?=$data_detail_lhp[$i]['no_wo']?></option>
+																	foreach ($data_type_battery as $d_type_battery) { ?>
+																	<option value="<?=$d_type_battery['type_battery']?>" <?=($d_type_battery['type_battery'] == $data_detail_lhp[$i]['type_battery']) ? 'selected' : '' ?>><?=$d_type_battery['type_battery']?></option>
+																<?php  } ?>
+															</select>
+														</td>
+														<td>
+															<select class="form-control select2" id="jenis_battery_<?=$i?>" name="jenis_battery[]" style="width: 150px;">
+																<option selected disabled>-- Pilih Jenis --</option>
 																<?php
-																	}
-																?>
-																<option value="-">-</option>
+																	foreach ($data_jenis_battery as $d_jenis_battery) { ?>
+																	<option value="<?=$d_jenis_battery['jenis_battery']?>" <?=($d_jenis_battery['jenis_battery'] == $data_detail_lhp[$i]['jenis_battery']) ? 'selected' : '' ?>><?=$d_jenis_battery['jenis_battery']?></option>
+																<?php  } ?>
 															</select>
 															<input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$data_detail_lhp[$i]['batch']?>">
-															<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp<?=$i?>" value="<?=$data_detail_lhp[$i]['id_detail_lhp']?>">
+															<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp<?=$i?>" value="<?=$data_detail_lhp[$i]['id_lhp_wet_loading']?>">
 														</td>
 														<td>
-															<input type="text" class="form-control" name="part_number[]" id="part_number_<?=$i?>" value="<?=$data_detail_lhp[$i]['type_battery']?>" style="width: 250px" readonly>
+															<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" value="<?=$data_detail_lhp[$i]['ct']?>" style="width: 75px" readonly>
 														</td>
 														<td>
-															<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" value="<?=$data_detail_lhp[$i]['ct']?>" style="width: 100px" readonly>
+															<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" value="<?=$data_detail_lhp[$i]['plan_cap']?>" style="width: 75px" readonly>
 														</td>
 														<td>
-															<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" value="<?=$data_detail_lhp[$i]['plan_cap']?>" style="width: 100px" readonly>
+															<input type="text" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" value="<?=$data_detail_lhp[$i]['actual']?>" style="width: 75px">
 														</td>
 														<td>
-															<input type="text" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" value="<?=$data_detail_lhp[$i]['actual']?>" style="width: 100px">
-														</td>
-														<td>
-															<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" value="<?=$data_detail_lhp[$i]['total_menit_breakdown']?>" style="width: 100px" readonly>
+															<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" value="<?=$data_detail_lhp[$i]['total_menit_breakdown']?>" style="width: 75px" readonly>
 														</td>
 														<td>
 															<button type="button"class="btn btn-sm btn-primary" id="add_pending_<?=$i?>" onclick="add_pending(<?=$i?>)">Add</button>
@@ -298,38 +306,59 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																</div>
 															</td>
 															<td>
-																<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$menit_aktual[$j]?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px">
+																<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$menit_aktual[$j]?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px" readonly>
 															</td>
 															<td>
-																<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
-																	<option selected disabled>-- Pilih No WO --</option>
+																<select class="form-control select2" id="series_<?=$i?>" name="series[]" onchange="getType(<?=$i?>)" style="width: 150px;">
+																	<option selected disabled>-- Pilih Series --</option>
 																	<?php
-																		foreach ($data_wo as $dw) {  
-																			if (strpos($dw['PDNO'], 'KLC') !== false) { ?>
-																			<option value="<?=$dw['PDNO']?>"><?=$dw['PDNO']?></option>
+																		foreach ($data_series_battery as $d_series_battery) { ?>
+																		<option value="<?=$d_series_battery['series_battery']?>"><?=$d_series_battery['series_battery']?></option>
+																	<?php  } ?>
+																</select>
+															</td>
+															<td>
+																<select class="form-control select2" id="type_battery_<?=$i?>" name="type_battery[]" style="width: 150px;">
+																	<option selected disabled>-- Pilih Type --</option>
+																</select>
+															</td>
+															<td>
+																<select class="form-control select2" id="jenis_battery_<?=$i?>" name="jenis_battery[]" style="width: 150px;">
+																	<option selected disabled>-- Pilih Jenis --</option>
 																	<?php
-																		}
-																	}
-																	?>
-																	<option value="-">-</option>
+																		foreach ($data_jenis_battery as $d_jenis_battery) { ?>
+																		<option value="<?=$d_jenis_battery['jenis_battery']?>"><?=$d_jenis_battery['jenis_battery']?></option>
+																	<?php  } ?>
 																</select>
 																<input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$j+1?>">
 																<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp<?=$i?>" value="">
 															</td>
-															<td>
-																<input type="text" class="form-control" name="part_number[]" id="part_number_<?=$i?>" style="width: 250px" readonly>
+															<!-- <td>
+																<input type="text" class="form-control" name="pallet_1[]" id="pallet_1_<?=$i?>" onkeyup="sum_total(<?=$i?>)" style="width: 75px">
 															</td>
 															<td>
-																<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" style="width: 100px" readonly>
+																<input type="text" class="form-control" name="pallet_2[]" id="pallet_2_<?=$i?>" onkeyup="sum_total(<?=$i?>)" style="width: 75px">
+															</td>
+                              								<td>
+																<input type="text" class="form-control" name="pallet_3[]" id="pallet_3_<?=$i?>" onkeyup="sum_total(<?=$i?>)" style="width: 75px">
+															</td>
+                              								<td>
+																<input type="text" class="form-control" name="pallet_4[]" id="pallet_4_<?=$i?>" onkeyup="sum_total(<?=$i?>)" style="width: 75px">
+															</td>
+                              								<td>
+																<input type="text" class="form-control" name="pallet_5[]" id="pallet_5_<?=$i?>" onkeyup="sum_total(<?=$i?>)" style="width: 75px">
+															</td> -->
+															<td>
+																<input type="text" class="form-control" name="ct[]" id="ct_<?=$i?>" style="width: 75px" readonly>
 															</td>
 															<td>
-																<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" style="width: 100px" readonly>
+																<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" style="width: 75px" readonly>
+															</td>
+                              								<td>
+																<input type="text" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" style="width: 75px">
 															</td>
 															<td>
-																<input type="text" class="form-control" name="actual[]" id="actual_<?=$i?>" onkeyup="presentase_actual(<?=$i?>)" style="width: 100px">
-															</td>
-															<td>
-																<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" style="width: 100px" readonly>
+																<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" style="width: 75px" readonly>
 															</td>
 															<td>
 																<button type="button"class="btn btn-sm btn-primary" id="add_pending_<?=$i?>" onclick="add_pending(<?=$i?>)">Add</button>
@@ -347,15 +376,13 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 											?>
 										</tbody>
 										<tfoot>
-                                            <tr>
-                                                <td colspan="6"></td>
-                                                <td><h3>Total</h3></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?=$data_lhp[0]['total_plan']?>" style="width: 100px" readonly></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=$data_lhp[0]['total_aktual']?>" style="width: 100px" readonly></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_presentase" id="" value="<?=$data_lhp[0]['total_line_stop']?>" style="width: 100px" readonly></td>
-                                                <td></td>
-                                            </tr>
-                                        </tfoot>
+											<tr>
+												<td colspan="8"></td>
+												<td><h3>Total</h3></td>
+												<td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=$data_lhp[0]['total_aktual']?>" style="width: 75px" readonly></td>
+												<td></td>
+											</tr>
+										</tfoot>
 									</table>
 								</div>
 								
@@ -376,8 +403,9 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 									<table id="" class="table table-striped mb-0">
 										<thead>
 											<tr>
-												<th>No WO</th>
+												<th>Series</th>
 												<th>Type Battery</th>
+												<th>Jenis</th>
 												<th>Jenis Pending</th>
 												<th>Kategori Pending</th>
 												<th>Qty</th>
@@ -387,15 +415,18 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 										<tbody id="tbody_pending">
 											<?php
 												$index_pending = 0;
-												$this->M_WET_Finishing = new App\Models\M_WET_Finishing;
+												$this->M_WET_Loading = new App\Models\M_WET_Loading;
 												foreach ($data_detail_pending as $d_detail_pending) { ?>
 												<tr>
 													<td>
-														<input type="text" class="form-control" name="no_wo_pending[]" id="no_wo_pending_<?=$index_pending?>" value="<?=$d_detail_pending['no_wo']?>" style="width: 200px" readonly> 
-														<input type="hidden" name="id_pending[]" id="id_pending_<?=$index_pending?>" value="<?=$d_detail_pending['id_pending']?>">
+														<input type="text" class="form-control" name="series_pending[]" id="series_pending_<?=$index_pending?>" value="<?=$d_detail_pending['series_battery']?>" style="width: 200px" readonly> 
+														<input type="hidden" name="id_pending[]" id="id_pending_<?=$index_pending?>" value="<?=$d_detail_pending['id_pending_wet_loading']?>">
 													</td>
 													<td>
-														<input type="text" class="form-control" name="part_number_pending[]" id="part_number_pending_<?=$index_pending?>" value="<?=$d_detail_pending['type_battery']?>" style="width: 250px" readonly>
+														<input type="text" class="form-control" name="type_battery_pending[]" id="type_battery_pending_<?=$index_pending?>" value="<?=$d_detail_pending['type_battery']?>" style="width: 250px" readonly>
+													</td>
+													<td>
+														<input type="text" class="form-control" name="jenis_battery_pending[]" id="jenis_battery_pending_<?=$index_pending?>" value="<?=$d_detail_pending['jenis_battery']?>" style="width: 250px" readonly>
 													</td>
 													<td>
 														<select class="form-control select2" name="jenis_pending[]" id="jenis_pending_<?=$index_pending?>" onchange="get_kategori_pending(<?=$index_pending?>)" style="width: 200px" required>
@@ -412,7 +443,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 														<select class="form-control select2" id="kategori_pending_<?=$index_pending?>" name="kategori_pending[]" style="width: 250px;" required>
 															<option selected disabled>-- Pilih Kategori Pending --</option>
 															<?php
-															$data_kategori_pending = $this->M_WET_Finishing->getKategoriPending($d_detail_pending['jenis_pending']);
+															$data_kategori_pending = $this->M_WET_Loading->getKategoriPending($d_detail_pending['jenis_pending']);
 															foreach ($data_kategori_pending as $d_kategori_pending) { ?>
 																<option value="<?=$d_kategori_pending['kategori_pending']?>" <?php if($d_kategori_pending['kategori_pending'] == $d_detail_pending['kategori_pending']){echo "selected";} ?>><?=$d_kategori_pending['kategori_pending']?></option>
 															<?php
@@ -424,7 +455,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 														<input type="text" class="form-control" name="qty_pending[]" id="qty_pending_<?=$index_pending?>" value="<?=$d_detail_pending['qty_pending']?>" style="width: 100px" required>
 													</td>
 													<td>
-														<a type="button" class="btn btn-danger" href="<?=base_url()?>lhp/delete_pending/<?=$d_detail_pending['id_pending']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')" <?=(!empty($disabled)) ? 'style="pointer-events: none;"' : ''?>><i class="fa fa-trash"></i></a>	
+														<a type="button" class="btn btn-danger" href="<?=base_url()?>wet_loading/delete_pending/<?=$d_detail_pending['id_pending_wet_loading']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')" <?=(!empty($disabled)) ? 'style="pointer-events: none;"' : ''?>><i class="fa fa-trash"></i></a>	
 													</td>
 												</tr>
 												<?php
@@ -434,9 +465,9 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 										</tbody>
 										<tfoot>
 											<tr>
-												<th colspan="3"></th>
+												<th colspan="4"></th>
 												<td><h3>Total</h3></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_pending" id="total_pending" value="<?=$total_pending[0]['total_pending']?>" style="width: 100px" readonly></td>
+                        						<td style="text-align: right;"><input type="text" class="form-control" name="total_pending" id="total_pending" value="<?=$total_pending[0]['total_pending']?>" style="width: 100px" readonly></td>
 											</tr>
 										</tfoot>
 									</table>
@@ -462,8 +493,9 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 											<tr>
 												<th>Jam Start</th>
 												<th>Jam Stop</th>
-												<th>No WO</th>
+												<th>Series</th>
 												<th>Type Battery</th>
+												<th>Jenis</th>
 												<th>Line Stop Jenis</th>
 												<th>Line Stop Proses</th>
 												<th>Line Stop Uraian</th>
@@ -484,11 +516,14 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 														<input type="time" class="form-control" name="stop_breakdown[]" id="stop_breakdown_<?=$index_breakdown?>" value="<?=date("H:i", strtotime($d_detail_breakdown['jam_end']))?>" style="width: 100px;">
 													</td>
 													<td>
-														<input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['no_wo']?>" style="width: 125px">
-														<input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['id_breakdown']?>" style="width: 250px">
+														<input type="text" class="form-control" name="series_breakdown[]" id="no_wo_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['series_battery']?>" style="width: 125px">
+														<input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['id_breakdown_wet_loading']?>" style="width: 250px">
 													</td>
 													<td>
-														<input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['type_battery']?>" style="width: 225px">
+														<input type="text" class="form-control" name="type_battery_breakdown[]" id="part_number_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['type_battery']?>" style="width: 225px">
+													</td>
+													<td>
+														<input type="text" class="form-control" name="jenis_battery_breakdown[]" id="part_number_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['jenis_battery']?>" style="width: 225px">
 													</td>
 													<td>
 														<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_<?=$index_breakdown?>" onchange="get_proses_breakdown(<?=$index_breakdown?>)" style="width: 200px">
@@ -531,7 +566,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 														<input type="text" class="form-control" name="menit_breakdown[]" id="menit_breakdown_<?=$index_breakdown?>" value="<?=$d_detail_breakdown['menit_breakdown']?>" style="width: 100px" required>
 													</td>
 													<td>
-														<a type="button" class="btn btn-danger" href="<?=base_url()?>lhp/delete_line_stop/<?=$d_detail_breakdown['id_breakdown']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+														<a type="button" class="btn btn-danger" href="<?=base_url()?>wet_loading/delete_line_stop/<?=$d_detail_breakdown['id_breakdown_wet_loading']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 
@@ -542,16 +577,15 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 										</tbody>
 										<tfoot>
 											<tr>
-												<th colspan="6"></th>
+												<th colspan="7"></th>
 												<td><h3>Total</h3></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_menit_breakdown_aktual" id="total_menit_breakdown_aktual" value="<?=$total_menit_breakdown[0]['total_menit']?>" style="width: 100px" readonly></td>
+                        						<td style="text-align: right;"><input type="text" class="form-control" name="total_menit_breakdown_aktual" id="total_menit_breakdown_aktual" value="<?=$total_menit_breakdown[0]['total_menit']?>" style="width: 100px" readonly></td>
 											</tr>
 										</tfoot>
 									</table>
 								</div>
 							</div>
 							<div class="box-footer" style="text-align: center;">
-								<!-- <input type="submit" class="btn btn-success" value="Save"> -->
 							</div>
 						</div>				
 					</div>
@@ -569,8 +603,9 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 									<table id="" class="table table-striped mb-0">
 										<thead>
 											<tr>
-												<th>No WO</th>
+												<th>Series</th>
 												<th>Type Battery</th>
+												<th>Jenis</th>
 												<th>Reject QTY</th>
 												<th>Reject Jenis</th>
 												<th>Reject Kategori</th>
@@ -584,11 +619,14 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 												foreach ($data_detail_reject as $d_detail_reject) { ?>
 												<tr>
 													<td>
-														<input type="text" class="form-control" name="no_wo_reject[]" id="no_wo_reject_<?=$index_reject?>" value="<?=$d_detail_reject['no_wo']?>" style="width: 200px">
-														<input type="hidden" name="id_reject[]" id="id_reject_<?=$index_reject?>" value="<?=$d_detail_reject['id_reject']?>">
+														<input type="text" class="form-control" name="series_reject[]" id="series_reject_<?=$index_reject?>" value="<?=$d_detail_reject['series_battery']?>" style="width: 200px" readonly>
+														<input type="hidden" name="id_reject[]" id="id_reject_<?=$index_reject?>" value="<?=$d_detail_reject['id_reject_wet_loading']?>">
 													</td>
 													<td>
-														<input type="text" class="form-control" name="part_number_reject[]" id="part_number_reject_<?=$index_reject?>" value="<?=$d_detail_reject['type_battery']?>" style="width: 250px">
+														<input type="text" class="form-control" name="type_battery_reject[]" id="part_number_reject_<?=$index_reject?>" value="<?=$d_detail_reject['type_battery']?>" style="width: 250px" readonly>
+													</td>
+													<td>
+														<input type="text" class="form-control" name="jenis_battery_reject[]" id="part_number_reject_<?=$index_reject?>" value="<?=$d_detail_reject['jenis_battery']?>" style="width: 250px" readonly>
 													</td>
 													<td>
 														<input type="text" class="form-control" name="qty_reject[]" id="qty_reject_<?=$index_reject?>" value="<?=$d_detail_reject['qty_reject']?>" style="width: 100px" <?=$readonly?> required>
@@ -620,7 +658,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 														<textarea class="form-control" name="remark_reject[]" id="remark_reject_<?=$index_reject?>" cols="20" rows="1" style="width: 200px;"><?=$d_detail_reject['remark_reject']?></textarea>
 													</td>
 													<td>
-														<a type="button" class="btn btn-danger" href="<?=base_url()?>lhp/delete_reject/<?=$d_detail_reject['id_reject']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')" <?=(!empty($disabled)) ? 'style="pointer-events: none;"' : ''?>><i class="fa fa-trash"></i></a>	
+														<a type="button" class="btn btn-danger" href="<?=base_url()?>wet_loading/delete_reject/<?=$d_detail_reject['id_reject_wet_loading']?>/<?=$id_lhp?>" onclick="return confirm('Apakah anda yakin?')" <?=(!empty($disabled)) ? 'style="pointer-events: none;"' : ''?>><i class="fa fa-trash"></i></a>	
 													</td>
 												</tr>
 												<?php
@@ -630,9 +668,9 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 										</tbody>
 										<tfoot>
 											<tr>
-												<th></th>
+												<th colspan='2'></th>
 												<td><h3>Total</h3></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_reject" id="total_reject" value="<?=$data_lhp[0]['total_reject']?>" style="width: 100px" readonly></td>
+                        <td style="text-align: right;"><input type="text" class="form-control" name="total_reject" id="total_reject" value="<?=$data_lhp[0]['total_reject']?>" style="width: 100px" readonly></td>
 											</tr>
 										</tfoot>
 									</table>
@@ -734,32 +772,57 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 		$('#unit_mh').text(unit_mh.toFixed(2));
 	}
 
-	function getPartNo(i) {
-		var no_wo = $('#no_wo_'+i).val();
+	// function getSeries(i) {
+	// 	var id_jenis = $('#jenis_battery_'+i).val();
+
+	// 	$.ajax({
+	// 		url: '<?=base_url()?>wet_loading/getSeries',
+	// 		type: 'POST',
+	// 		data: {id_jenis: id_jenis},
+	// 		dataType: 'json',
+	// 		success: function(data) {
+    //     	$('#series_'+i).html(`
+	// 				<option selected disabled>-- Pilih Series --</option>
+	// 				${data.map((item) => `<option value="${item.series_battery}">${item.series_battery}</option>`)}
+	// 			`);
+	// 		}
+	// 	});
+	// }
+
+  function getType(i) {
+		var series = $('#series_'+i).val();
+		var line = $('#line').val();
+
 		$('#total_menit_breakdown_'+i).val($('#menit_terpakai_'+i).val());
 		$.ajax({
-			url: '<?=base_url()?>lhp/getPartNo',
+			url: '<?=base_url()?>wet_loading/getType',
 			type: 'POST',
-			data: {no_wo: no_wo},
+			data: {series: series},
 			dataType: 'json',
 			success: function(data) {
-				$('#part_number_'+i).val(data[0].MITM.trim());
-				$('#plan_cap_'+i).val(data[0].QTY);
+        		$('#type_battery_'+i).html(`
+					<option selected disabled>-- Pilih Type --</option>
+					${data.map((item) => `<option value="${item.type_battery}">${item.type_battery}</option>`)}
+				`);
+			}
+		});
 
-				$.ajax({
-					url: '<?=base_url()?>lhp/getCT',
-					type: 'POST',
-					data: {
-						part_number: data[0].MITM.trim(), 
-						line: $('#line').val()
-					},
-					dataType: 'json',
-					success: function(data) {
-						$('#ct_'+i).val(data[0].cycle_time);
-						var plan_cap = ($('#menit_terpakai_'+i).val() * 60) / data[0].cycle_time;
-						$('#plan_cap_'+i).val(plan_cap.toFixed(0));
-					}
-				});
+		$.ajax({
+			url: '<?=base_url()?>wet_loading/getCT',
+			type: 'POST',
+			data: {
+				series: series,
+				line: line
+			},
+			dataType: 'json',
+			success: function(data) {
+				if (data.length == 0) {
+					$('#ct_'+i).val('');
+				} else {
+					$('#ct_'+i).val(data[0]['cycle_time']);
+					var plan_cap = ($('#menit_terpakai_'+i).val() * 60) / parseFloat(data[0]['cycle_time']);
+					$('#plan_cap_'+i).val(plan_cap.toFixed(0));
+				}
 			}
 		});
 	}
@@ -784,10 +847,12 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 
 		var start_breakdown = $('#start_'+i).val();
 		var stop_breakdown = $('#stop_'+i).val();
-		var no_wo_breakdown = $('#no_wo_'+i).val();
-		var part_number_breakdown = $('#part_number_'+i).val();
-		var menit_breakdown = $('#total_menit_breakdown_'+i).val();
 
+		var jenis_battery_breakdown = $('#jenis_battery_'+i+' option:selected').text();
+		var series_breakdown = $('#series_'+i).val();
+		var type_battery_breakdown = $('#type_battery_'+i).val();
+
+		var menit_breakdown = $('#total_menit_breakdown_'+i).val();
 
 		var tbody = document.getElementById('tbody_line_stop');
 
@@ -803,11 +868,14 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 					<input type="time" class="form-control" name="stop_breakdown[]" id="stop_breakdown_${j}" value="${stop_breakdown}" style="width: 100px;">
 				</td>
 				<td>
-					<input type="text" class="form-control" name="no_wo_breakdown[]" id="no_wo_breakdown_${j}" value="${no_wo_breakdown}" style="width: 125px" readonly>
-					<input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_${j}" value="" style="width: 100px">
+					<input type="text" class="form-control" name="series_breakdown[]" id="series_breakdown_${j}" value="${series_breakdown}" style="width: 125px" readonly>
+				</td>
+        		<td>
+					<input type="text" class="form-control" name="type_battery_breakdown[]" id="type_battery_breakdown_${j}" value="${type_battery_breakdown}" style="width: 125px" readonly>
 				</td>
 				<td>
-					<input type="text" class="form-control" name="part_number_breakdown[]" id="part_number_breakdown_${j}" value="${part_number_breakdown}" style="width: 225px" readonly>
+					<input type="text" class="form-control" name="jenis_battery_breakdown[]" id="jenis_battery_breakdown_${j}" value="${jenis_battery_breakdown}" style="width: 125px" readonly>
+					<input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_${j}" value="" style="width: 100px">
 				</td>
 				<td>
 					<select class="form-control select2" name="jenis_breakdown[]" id="jenis_breakdown_${j}" onchange="get_proses_breakdown(${j})" style="width: 200px" required>
@@ -826,7 +894,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 					<textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_${j}" cols="20" rows="1" style="width: 200px;"></textarea>
 				</td>
 				<td>
-					<input type="text" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" value="${menit_breakdown}" style="width: 100px" required>
+					<input type="text" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" value="" style="width: 100px" required>
 				</td>
 				<td>
 					<button type="button" class="btn btn-danger" onclick="delete_breakdown(${j})"><i class="fa fa-trash"></i></button>	
@@ -845,11 +913,9 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 	function add_reject(i) {
 		var data_reject = <?= json_encode($data_reject); ?>;
 
-		var start_reject = $('#start_'+i).val();
-		var stop_reject = $('#stop_'+i).val();
-		var no_wo_reject = $('#no_wo_'+i).val();
-		var part_number_reject = $('#part_number_'+i).val();
-
+		var jenis_battery_reject = $('#jenis_battery_'+i+' option:selected').text();
+		var series_reject = $('#series_'+i).val();
+		var type_battery_reject = $('#type_battery_'+i).val();
 
 		var tbody = document.getElementById('tbody_reject');
 
@@ -858,11 +924,14 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 		$('#tbody_reject').append(`
 			<tr>
 				<td>
-					<input type="text" class="form-control" name="no_wo_reject[]" id="no_wo_reject_${j}" value="${no_wo_reject}" style="width: 150px" readonly>
+					<input type="text" class="form-control" name="series_reject[]" id="series_reject_${j}" value="${series_reject}" style="width: 150px" readonly>
 					<input type="hidden" class="form-control" name="id_reject[]" id="id_reject_${j}" value="" style="width: 100px">
 				</td>
 				<td>
-					<input type="text" class="form-control" name="part_number_reject[]" id="part_number_reject_${j}" value="${part_number_reject}" style="width: 250px" readonly>
+					<input type="text" class="form-control" name="type_battery_reject[]" id="type_battery_reject_${j}" value="${type_battery_reject}" style="width: 250px" readonly>
+				</td>
+				<td>
+					<input type="text" class="form-control" name="jenis_battery_reject[]" id="jenis_reject_reject_${j}" value="${jenis_battery_reject}" style="width: 250px" readonly>
 				</td>
 				<td>
 					<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_${j}" style="width: 100px">
@@ -993,7 +1062,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 	}
 
 	function add_rows_batch(i) {
-		var data_wo = <?php echo json_encode($data_wo); ?>;
+
 		var data_breakdown = <?php echo json_encode($data_breakdown); ?>;
 
 		var tbody = document.getElementById('tbody'), row, k;
@@ -1017,24 +1086,13 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 				<td><button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(${j})">Remove</button></td>
 				<td><input type="time" class="form-control" name="start[]" id="start_(${j})" value="${jam_stop}" style="width: 100px;"></td>
 				<td><input type="time" class="form-control" name="stop[]" id="stop_(${j})" value="${jam_start}" style="width: 100px;"></td>
-				<!--
 				
-				<td></td>
-				<td></td>
-				<td></td>
-				
-				
-				-->
 				<td>
-					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" onkeyup="update_plan(${k})" value="" style="width: 100px">
+					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" onkeyup="update_plan(${k})" value="" style="width: 100px" readonly>
 				</td>
 				<td>
-					<select class="form-control select2" id="no_wo_${k}" name="no_wo[]" onchange="getPartNo(${k})" style="width: 200px;">
-						<option selected disabled>-- Pilih No WO --</option>
-						${data_wo.map((item) => `<option value="${item.PDNO}">${item.PDNO}</option>`)}
-						<option value="-">-</option>
+					<select class="form-control select2" id="no_wo_${k}" name="no_wo[]" style="width: 200px;">
 					</select>
-					<input type="hidden" name="batch[]" id="batch_${k}" value="${i == 0 ? i+1 : i}">
 				</td>
 				<td>
 					<input type="text" class="form-control" name="part_number[]" id="part_number_${k}" style="width: 250px" readonly>
@@ -1110,23 +1168,25 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 	function add_pending(i) {
 		var data_pending = <?= json_encode($data_pending); ?>;
 
-		var no_wo_pending = $('#no_wo_'+i).val();
-		var part_number_pending = $('#part_number_'+i).val();
-
+		var jenis_battery_pending = $('#jenis_battery_'+i+' option:selected').text();
+		var series_pending = $('#series_'+i).val();
+		var type_battery_pending = $('#type_battery_'+i).val();
 
 		var tbody = document.getElementById('tbody_pending');
 
 		var j = tbody.rows.length;
 
-
 		$('#tbody_pending').append(`
 			<tr>
 				<td>
-					<input type="text" class="form-control" name="no_wo_pending[]" id="no_wo_pending_${j}" value="${no_wo_pending}" style="width: 125px" readonly>
-					<input type="hidden" class="form-control" name="id_pending[]" id="id_pending_${j}" value="" style="width: 100px">
+          			<input type="text" class="form-control" name="series_pending[]" id="series_pending_${j}" value="${series_pending}" style="width: 125px" readonly>
 				</td>
 				<td>
-					<input type="text" class="form-control" name="part_number_pending[]" id="part_number_pending_${j}" value="${part_number_pending}" style="width: 225px" readonly>
+					<input type="text" class="form-control" name="type_battery_pending[]" id="type_battery_pending_${j}" value="${type_battery_pending}" style="width: 125px" readonly>
+				</td>
+				<td>
+					<input type="text" class="form-control" name="jenis_battery_pending[]" id="jenis_battery_pending_${j}" value="${jenis_battery_pending}" style="width: 125px" readonly>
+					<input type="hidden" class="form-control" name="id_pending[]" id="id_pending_${j}" value="" style="width: 100px">
 				</td>
 				<td>
 					<select class="form-control select2" name="jenis_pending[]" id="jenis_pending_${j}" onchange="get_kategori_pending(${j})" style="width: 200px" required>
@@ -1168,7 +1228,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 			dataType: 'json',
 			success: function(data) {
 				$('#kategori_pending_'+i).html(`
-					<option selected disabled>-- Pilih Kategori pending --</option>
+					<option selected disabled>-- Pilih Kategori Pending --</option>
 					${data.map((item) => `<option value="${item.kategori_pending}">${item.kategori_pending}</option>`)}
 				`);
 			}
@@ -1179,6 +1239,47 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 		var tbody = document.getElementById('tbody_pending');
 		tbody.deleteRow(i);
 	}
+
+  function sum_total(i) {
+    var total = 0;
+    var pallet_1 = $('#pallet_1_'+i).val();
+    var pallet_2 = $('#pallet_2_'+i).val();
+    var pallet_3 = $('#pallet_3_'+i).val();
+    var pallet_4 = $('#pallet_4_'+i).val();
+    var pallet_5 = $('#pallet_5_'+i).val();
+
+    if (pallet_1 != '' && pallet_1 != null) {
+      total += parseInt(pallet_1);
+    } else {
+      total += 0;
+    }
+
+    if (pallet_2 != '' && pallet_2 != null) {
+      total += parseInt(pallet_2);
+    } else {
+      total += 0;
+    }
+
+    if (pallet_3 != '' && pallet_3 != null) {
+      total += parseInt(pallet_3);
+    } else {
+      total += 0;
+    }
+
+    if (pallet_4 != '' && pallet_4 != null) {
+      total += parseInt(pallet_4);
+    } else {
+      total += 0;
+    }
+
+    if (pallet_5 != '' && pallet_5 != null) {
+      total += parseInt(pallet_5);
+    } else {
+      total += 0;
+    }
+
+    $('#total_'+i).val(total);
+  }
 
 </script>
 <?= $this->endSection(); ?>

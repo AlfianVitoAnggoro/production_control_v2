@@ -2,16 +2,15 @@
 
 namespace App\Controllers;
 
-use App\Models\M_WET_Finishing;
-use App\Models\M_Data;
+use App\Models\M_WET_Loading;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class WET_Finishing extends BaseController
+class WET_Loading extends BaseController
 {
   public function __construct()
   {
-    $this->M_WET_Finishing = new M_WET_Finishing();
+    $this->M_WET_Loading = new M_WET_Loading();
     $this->session = \Config\Services::session();
 
     if ($this->session->get('is_login')) {
@@ -21,15 +20,13 @@ class WET_Finishing extends BaseController
 
   public function wet_view()
   {
-    $model = new M_WET_Finishing();
-    $data['data_lhp'] = $model->get_all_lhp_wet();
-    $data['data_line'] = $model->get_line();
-    $data['data_grup'] = $model->get_grup();
-    return view('pages/wet_finishing/wet_view', $data);
+    $data['data_lhp'] = $this->M_WET_Loading->get_all_lhp_wet();
+    $data['data_line'] = $this->M_WET_Loading->get_line();
+    $data['data_grup'] = $this->M_WET_Loading->get_grup();
+    return view('pages/wet_loading/wet_view', $data);
   }
 
-  public function add_lhp()
-{
+  public function add_lhp() {
     $tanggal_produksi = $this->request->getPost('tanggal_produksi');
     $line = $this->request->getPost('line');
     $shift = $this->request->getPost('shift');
@@ -38,23 +35,6 @@ class WET_Finishing extends BaseController
     $absen = $this->request->getPost('absen');
     $cuti = $this->request->getPost('cuti');
     $kasubsie = $this->request->getPost('kasubsie');
-
-    $model = new M_Data();
-    $data_line = $model->get_data_line($line);
-    $data_grup = $model->get_data_grup_pic($grup);
-
-    $data = [
-        'tanggal_produksi' => $tanggal_produksi,
-        'id_line' => $line,
-        'line' => $data_line[0]['nama_line'],
-        'shift' => $shift,
-        'id_pic' => $grup,
-        'grup' => $data_grup[0]['nama_pic'],
-        'mp' => $mp,
-        'absen' => $absen,
-        'cuti' => $cuti,
-        'kasubsie' => $kasubsie
-    ];
 
     $data_lhp = [
         'tanggal_produksi' => $tanggal_produksi,
@@ -67,52 +47,99 @@ class WET_Finishing extends BaseController
         'kasubsie' => $kasubsie
     ];
 
-    $cek = $model->cek_lhp($tanggal_produksi, $line, $shift, $grup);
+    $cek = $this->M_WET_Loading->cek_lhp($tanggal_produksi, $line, $shift, $grup);
     if (count($cek) > 0) {
-        $id_lhp = $cek[0]['id_lhp_2'];
-        return redirect()->to(base_url('wet_finishing/detail_lhp/'.$id_lhp));
+        $id_lhp = $cek[0]['id_lhp_wet_loading'];
+        
+        return redirect()->to(base_url('wet_loading/detail_lhp/'.$id_lhp));
     } else {
+        $save_data = $this->M_WET_Loading->save_lhp($data_lhp);
 
-        $save_data = $model->save_lhp($data_lhp);
-
-        return redirect()->to(base_url('wet_finishing/detail_lhp/'.$save_data));
+        return redirect()->to(base_url('wet_loading/detail_lhp/'.$save_data));
     }
-}
+  }
+
+    public function get_proses_breakdown()
+    {
+        $jenis_breakdown = $this->request->getPost('jenis_breakdown');
+
+        $model = new M_Data();
+        echo json_encode($model->getProsesBreakdown($jenis_breakdown));
+
+    }
+
+    public function get_kategori_reject()
+    {
+        $jenis_reject = $this->request->getPost('jenis_reject');
+
+        $model = new M_Data();
+        echo json_encode($model->getKategoriReject($jenis_reject));
+    }
 
     public function detail_lhp($id)
     {
-        $model = new M_Data();
         $data['id_lhp'] = $id;
-        $data['data_lhp'] = $model->get_lhp_by_id($id);
-        $data['data_detail_lhp'] = $model->get_detail_lhp_by_id($id);
-        $data['data_detail_breakdown'] = $model->get_detail_breakdown_by_id($id);
-        $data['data_detail_reject'] = $model->get_detail_reject_by_id($id);
-        $data['data_detail_pending'] = $this->M_WET_Finishing->get_detail_pending_by_id($id);
+        $data['data_lhp'] = $this->M_WET_Loading->get_lhp_by_id($id);
+        $data['data_detail_lhp'] = $this->M_WET_Loading->get_detail_lhp_by_id($id);
+        $data['data_detail_breakdown'] = $this->M_WET_Loading->get_detail_breakdown_by_id($id);
+        $data['data_detail_reject'] = $this->M_WET_Loading->get_detail_reject_by_id($id);
+        $data['data_detail_pending'] = $this->M_WET_Loading->get_detail_pending_by_id($id);
 
-        $data['data_line'] = $model->get_data_line($data['data_lhp'][0]['line']);
-        $data['data_grup'] = $model->get_data_grup_pic($data['data_lhp'][0]['grup']);
 
-        $data['data_all_line'] = $model->get_line();
-        $data['data_all_grup'] = $model->get_grup();
+        $data['data_line'] = $this->M_WET_Loading->get_data_line($data['data_lhp'][0]['line']);
+        $data['data_grup'] = $this->M_WET_Loading->get_data_grup_pic($data['data_lhp'][0]['grup']);
 
-        $data['total_menit_breakdown'] = $model->get_total_menit_breakdown($id);
-        $data['total_pending'] = $this->M_WET_Finishing->get_total_pending($id);
+        $data['data_all_line'] = $this->M_WET_Loading->get_line();
+        $data['data_all_grup'] = $this->M_WET_Loading->get_grup();
 
-        $data['data_wo'] = $model->getDataWO($data['data_lhp'][0]['tanggal_produksi'], $data['data_lhp'][0]['line']);
-        // $data['data_wo'] = [];
+        $data['total_menit_breakdown'] = $this->M_WET_Loading->get_total_menit_breakdown($id);
+        $data['total_pending'] = $this->M_WET_Loading->get_total_pending($id);
+
+
+        $data['data_jenis_battery'] = $this->M_WET_Loading->get_jenis_battery();
+        $data['data_series_battery'] = $this->M_WET_Loading->get_series_battery();
+        $data['data_type_battery'] = $this->M_WET_Loading->get_all_type_battery();
+
         if($data['data_lhp'][0]['line'] <= 7) {
-            $data['data_breakdown'] = $model->getListBreakdown('AMB');
-            $data['data_reject'] = $model->getListReject('AMB');
+            $data['data_breakdown'] = $this->M_WET_Loading->getListBreakdown('AMB');
+            $data['data_reject'] = $this->M_WET_Loading->getListReject('AMB');
         } else if($data['data_lhp'][0]['line'] > 7 && $data['data_lhp'][0]['line'] < 10) {
-            $data['data_breakdown'] = $model->getListBreakdown('WET');
-            $data['data_reject'] = $model->getListReject('WET');
-            $data['data_pending'] = $this->M_WET_Finishing->get_pending();
+            $data['data_breakdown'] = $this->M_WET_Loading->getListBreakdown('WET');
+            $data['data_reject'] = $this->M_WET_Loading->getListReject('WET');
+            $data['data_pending'] = $this->M_WET_Loading->get_pending();
         } else {
-            $data['data_breakdown'] = $model->getListBreakdown('MCB');
-            $data['data_reject'] = $model->getListReject('MCB');
+            $data['data_breakdown'] = $this->M_WET_Loading->getListBreakdown('MCB');
+            $data['data_reject'] = $this->M_WET_Loading->getListReject('AMB');
         }
+        return view('pages/wet_loading/lhp_detail_view', $data);
+    }
 
-        return view('pages/wet_finishing/lhp_detail_view', $data);
+    public function get_series()
+    {
+        $id_jenis = $this->request->getPost('id_jenis');
+
+        $data = $this->M_WET_Loading->get_series($id_jenis);
+
+        echo json_encode($data);
+    }
+
+    public function get_type_battery()
+    {
+        $series = $this->request->getPost('series');
+
+        $data = $this->M_WET_Loading->get_type_battery($series);
+
+        echo json_encode($data);
+    }
+
+    public function get_ct()
+    {
+        $series = $this->request->getPost('series');
+        $line = $this->request->getPost('line');
+
+        $data = $this->M_WET_Loading->get_ct($series, $line);
+
+        echo json_encode($data);
     }
 
     public function update_lhp()
@@ -130,17 +157,15 @@ class WET_Finishing extends BaseController
             'cuti' => $this->request->getPost('cuti'),
             'kasubsie' => $this->request->getPost('kasubsie')
         ];
-        
-        $model = new M_Data();
 
-        $update_data = $model->update_lhp($id_lhp, $data_lhp);
+        $update_data = $this->M_WET_Loading->update_lhp($id_lhp, $data_lhp);
         
         $total_plan = 0;
         $total_actual = 0;
-        $total_line_stop = 0;
         $total_detail_line_stop = 0;
         $total_reject = 0;
         $total_pending = 0;
+        $total_line_stop = 0;
 
         if ( $this->request->getPost('shift') == 1) {
             $loading_time = 440;
@@ -151,19 +176,20 @@ class WET_Finishing extends BaseController
         }
 
         if ($update_data > 0) {
-            if (!empty($this->request->getPost('no_wo'))) {
-                $total_data = count($this->request->getPost('no_wo'));
+            if (!empty($this->request->getPost('jenis_battery'))) {
+                $total_data = count($this->request->getPost('jenis_battery'));
                 for ($i = 0; $i < $total_data; $i++) {
-                    if ($this->request->getPost('no_wo')[$i] != '') {
+                    if ($this->request->getPost('jenis_battery')[$i] != '') {
                         $id_detail_lhp = $this->request->getPost('id_detail_lhp')[$i];
                         $data_detail_lhp = [
-                            'id_lhp_2' => $id_lhp,
+                            'id_lhp_wet_loading' => $id_lhp,
                             'batch' => $this->request->getPost('batch')[$i],
                             'jam_start' => $this->request->getPost('start')[$i],
                             'jam_end' => $this->request->getPost('stop')[$i],
                             'menit_terpakai' => $this->request->getPost('menit_terpakai')[$i],
-                            'no_wo' => $this->request->getPost('no_wo')[$i],
-                            'type_battery' => $this->request->getPost('part_number')[$i],
+                            'series_battery' => $this->request->getPost('series')[$i],
+                            'type_battery' => $this->request->getPost('type_battery')[$i],
+                            'jenis_battery' => $this->request->getPost('jenis_battery')[$i],
                             'ct' => $this->request->getPost('ct')[$i],
                             'plan_cap' => $this->request->getPost('plan_cap')[$i],
                             'actual' => $this->request->getPost('actual')[$i],
@@ -171,7 +197,6 @@ class WET_Finishing extends BaseController
                         ];
 
                         if ($this->request->getPost('actual')[$i] != null) {
-                            $total_plan += $this->request->getPost('plan_cap')[$i];
                             $total_actual += $this->request->getPost('actual')[$i];
                         }
 
@@ -179,35 +204,43 @@ class WET_Finishing extends BaseController
                             $total_line_stop += $this->request->getPost('total_menit_breakdown')[$i];
                         }
 
-                        $update_detail = $model->update_detail_lhp($id_detail_lhp, $data_detail_lhp);
+                        $update_detail = $this->M_WET_Loading->update_detail_lhp($id_detail_lhp, $data_detail_lhp);
                     }
                 }
             }
         }
 
-        $total_data_breakdown = $this->request->getPost('no_wo_breakdown');
+        $total_data_breakdown = $this->request->getPost('jenis_battery_breakdown');
         if (!empty($total_data_breakdown)) {
             for ($i=0; $i < count($total_data_breakdown); $i++) { 
                 if ($this->request->getPost('jenis_breakdown')[$i] == 'ANDON') {
                     $string_ticket = $this->request->getPost('proses_breakdown')[$i];
                     $arr = explode("-", $string_ticket);
                     $ticket = $arr[0];
-                    $proses_breakdown = $string_ticket;
+                    if ($arr[2] == 'DANDORI' OR $arr[2] == 'DT' OR $arr[2] == 'NDT') {
+                        $kategori_andon = $arr[2];
+                    } else {
+                        $kategori_andon = '';
+                    }
+                    $proses_breakdown = implode('-', array_slice($arr, 2));
                 } else {
                     $ticket = '';
+                    $kategori_andon = '';
                     $proses_breakdown = $this->request->getPost('proses_breakdown')[$i];
                 }
 
                 $id_breakdown = $this->request->getPost('id_breakdown')[$i];
 
                 $data_detail_breakdown = [
-                    'id_lhp' => $id_lhp,
+                    'id_lhp_wet_loading' => $id_lhp,
                     'jam_start' => $this->request->getPost('start_breakdown')[$i],
                     'jam_end' => $this->request->getPost('stop_breakdown')[$i],
-                    'no_wo' => $this->request->getPost('no_wo_breakdown')[$i],
-                    'type_battery' => $this->request->getPost('part_number_breakdown')[$i],
+                    'series_battery' => $this->request->getPost('series_breakdown')[$i],
+                    'type_battery' => $this->request->getPost('type_battery_breakdown')[$i],
+                    'jenis_battery' => $this->request->getPost('jenis_battery_breakdown')[$i],
                     'jenis_breakdown' => $this->request->getPost('jenis_breakdown')[$i],
                     'tiket_andon' => $ticket,
+                    'kategori_andon' => $kategori_andon,
                     'proses_breakdown' => $this->request->getPost('proses_breakdown')[$i],
                     'uraian_breakdown' => $this->request->getPost('uraian_breakdown')[$i],
                     'menit_breakdown' => $this->request->getPost('menit_breakdown')[$i]
@@ -217,20 +250,21 @@ class WET_Finishing extends BaseController
                     $total_detail_line_stop += (int) $this->request->getPost('menit_breakdown')[$i];
                 }
     
-                $model->save_detail_breakdown($id_breakdown, $data_detail_breakdown);
+                $this->M_WET_Loading->save_detail_breakdown($id_breakdown, $data_detail_breakdown);
             } 
         }
 
-        $total_data_reject = $this->request->getPost('no_wo_reject');
+        $total_data_reject = $this->request->getPost('series_reject');
 
         if (!empty($total_data_reject)) {
             for ($i=0; $i < count($total_data_reject); $i++) { 
                 $id_reject = $this->request->getPost('id_reject')[$i];
 
                 $data_detail_reject = [
-                    'id_lhp' => $id_lhp,
-                    'no_wo' => $this->request->getPost('no_wo_reject')[$i],
-                    'type_battery' => $this->request->getPost('part_number_reject')[$i],
+                    'id_lhp_wet_loading' => $id_lhp,
+                    'series_battery' => $this->request->getPost('series_reject')[$i],
+                    'type_battery' => $this->request->getPost('type_battery_reject')[$i],
+                    'jenis_battery' => $this->request->getPost('jenis_battery_reject')[$i],
                     'qty_reject' => $this->request->getPost('qty_reject')[$i],
                     'jenis_reject' => $this->request->getPost('jenis_reject')[$i],
                     'kategori_reject' => $this->request->getPost('kategori_reject')[$i],
@@ -239,7 +273,7 @@ class WET_Finishing extends BaseController
 
                 $total_reject += $this->request->getPost('qty_reject')[$i];
     
-                $model->save_detail_reject($id_reject, $data_detail_reject);
+                $this->M_WET_Loading->save_detail_reject($id_reject, $data_detail_reject);
             }
         }
 
@@ -251,18 +285,19 @@ class WET_Finishing extends BaseController
             'loading_time' => $loading_time
         ];
 
-        $model->update_lhp($id_lhp, $data_detail);
+        $this->M_WET_Loading->update_lhp($id_lhp, $data_detail);
 
-        $total_data_pending = $this->request->getPost('no_wo_pending');
+        $total_data_pending = $this->request->getPost('series_pending');
 
         if (!empty($total_data_pending)) {
             for ($i=0; $i < count($total_data_pending); $i++) { 
                 $id_pending = $this->request->getPost('id_pending')[$i];
 
                 $data_detail_pending = [
-                    'id_lhp' => $id_lhp,
-                    'no_wo' => $this->request->getPost('no_wo_pending')[$i],
-                    'type_battery' => $this->request->getPost('part_number_pending')[$i],
+                    'id_lhp_wet_loading' => $id_lhp,
+                    'series_battery' => $this->request->getPost('series_pending')[$i],
+                    'type_battery' => $this->request->getPost('type_battery_pending')[$i],
+                    'jenis_battery' => $this->request->getPost('jenis_battery_pending')[$i],
                     'jenis_pending' => $this->request->getPost('jenis_pending')[$i],
                     'kategori_pending' => $this->request->getPost('kategori_pending')[$i],
                     'qty_pending' => $this->request->getPost('qty_pending')[$i],
@@ -270,26 +305,33 @@ class WET_Finishing extends BaseController
 
                 $total_pending += $this->request->getPost('qty_pending')[$i];
     
-                $this->M_WET_Finishing->save_detail_pending($id_pending, $data_detail_pending);
+                $this->M_WET_Loading->save_detail_pending($id_pending, $data_detail_pending);
             }
         }
 
-        return redirect()->to(base_url('wet_finishing/detail_lhp/'.$id_lhp));
-    }
-
-    public function get_kategori_pending()
-    {
-        $jenis_pending = $this->request->getPost('jenis_pending');
-        
-        echo json_encode($this->M_WET_Finishing->getKategoriPending($jenis_pending));
+        return redirect()->to(base_url('wet_loading/detail_lhp/'.$id_lhp));
     }
 
     public function hapus_lhp($id_lhp)
     {
-        $model = new M_Data();
-        $model->hapus_lhp($id_lhp);
+        
+        $this->M_WET_Loading->hapus_lhp($id_lhp);
 
-        return redirect()->to(base_url('wet_finishing'));
+        return redirect()->to(base_url('wet_loading'));
+    }
+
+    public function delete_line_stop($id_line_stop, $id_lhp)
+    {
+        $this->M_WET_Loading->delete_line_stop($id_line_stop);
+
+        return redirect()->to(base_url('wet_loading/detail_lhp/'.$id_lhp));
+    }
+
+    public function delete_reject($id_reject, $id_lhp)
+    {
+        $this->M_WET_Loading->delete_reject($id_reject);
+
+        return redirect()->to(base_url('wet_loading/detail_lhp/'.$id_lhp));
     }
 
     public function download()
@@ -298,7 +340,7 @@ class WET_Finishing extends BaseController
         $start_date = $this->request->getPost('start_date');
         $end_date = $this->request->getPost('end_date');
         // $month = date('F_Y', strtotime($date));
-        $model = new M_WET_Finishing();
+        $model = new M_WET();
 
         //data sheet lhp
         $data_lhp = $model->get_all_lhp_by_date($start_date, $end_date);

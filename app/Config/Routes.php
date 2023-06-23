@@ -198,6 +198,10 @@ $routes->group('wet_loading', ['filter' => 'auth'], function ($routes) {
     $routes->post('getType', 'WET_Loading::get_type_battery');
     $routes->post('getCT', 'WET_Loading::get_ct');
     $routes->get('detail_lhp/(:num)', 'WET_Loading::detail_lhp/$1');
+    $routes->post('update_lhp', 'WET_Loading::update_lhp');
+    $routes->get('delete_line_stop/(:num)/(:num)', 'WET_Loading::delete_line_stop/$1/$2');
+    $routes->get('hapus_lhp/(:num)', 'WET_Loading::hapus_lhp/$1');
+    $routes->get('delete_reject/(:num)/(:num)', 'WET_Loading::delete_reject/$1/$2');
 });
 
 
