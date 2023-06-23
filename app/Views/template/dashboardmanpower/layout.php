@@ -35,7 +35,7 @@
 
 		.judul_dashboard {
 			/* font-family: azonix; */
-			font-size: 24px;
+			font-size: 48px;
 			color: #000;
 			font-weight:600;	
 		}
@@ -50,8 +50,8 @@
 		body {
 			/* background-image: url("<?= base_url()?>assets/images/bg-dashboard-new.jpg"); */
 			/* background-image: url("<?= base_url()?>assets/images/1.jpg"); */
-			/* background-image: url("<?= base_url()?>assets/images/4.PNG"); */
-			/* background-color: #cccccc; */
+			/* background-image: url("<?= base_url()?>assets/images/dashboardhenkaten.jpg"); */
+			background-color: #0C134F;
       background-size: cover;
 			<?php 
 			// $uri = current_url(true);

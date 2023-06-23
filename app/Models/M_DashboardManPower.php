@@ -239,4 +239,14 @@ class M_DashboardManPower extends Model
     
     return $query->getResultArray();
   }
+
+  public function get_data_detail_man_power($id_man_power)
+  {
+    $query = $this->db->query('SELECT * FROM master_data_man_power mdmp
+                            -- JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
+                            WHERE mdmp.id_man_power = \'' . $id_man_power . '\'
+                            ');
+    
+    return $query->getResultArray();
+  }
 }

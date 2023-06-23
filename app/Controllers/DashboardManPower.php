@@ -102,4 +102,15 @@ class DashboardManPower extends BaseController
     $detail_man_power = $this->M_DashboardManPower->get_detail_man_power($edit_man_power, $requirement);
     return json_encode($detail_man_power);
   }
+
+  public function get_data_detail_man_power() {
+    $nama_man_power = $this->request->getPost('nama_man_power');
+    $detail_man_power = $this->M_DashboardManPower->get_data_detail_man_power($nama_man_power);
+    return json_encode($detail_man_power);
+  }
+
+  public function save_record_man_power() {
+    $sub_bagian = $this->request->getPost('sub_bagian');
+    return redirect()->to('dashboard_man_power/' . $sub_bagian);
+  }
 }
