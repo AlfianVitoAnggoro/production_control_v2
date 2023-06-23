@@ -52,6 +52,15 @@ $routes->post('/dashboard/assy/get_data_line_stop_by_shift', 'Dashboard::get_dat
 $routes->post('/dashboard/assy/get_data_line_stop_by_grup', 'Dashboard::get_data_line_stop_by_grup');
 $routes->post('/dashboard/assy/get_data_line_stop_by_kss', 'Dashboard::get_data_line_stop_by_kss');
 
+//DASHBOARD EFF ASSY NPDT
+$routes->get('/dashboard_npdt', 'Dashboard_npdt::index');
+$routes->get('/dashboard_npdt/assy', 'Dashboard_npdt::dashboard_lhp_assy');
+$routes->post('/dashboard_npdt/assy', 'Dashboard_npdt::dashboard_lhp_assy');
+$routes->post('/dashboard_npdt/assy/get_data_line_stop', 'Dashboard_npdt::get_data_line_stop');
+$routes->post('/dashboard_npdt/assy/get_data_line_stop_by_shift', 'Dashboard_npdt::get_data_line_stop_by_shift');
+$routes->post('/dashboard_npdt/assy/get_data_line_stop_by_grup', 'Dashboard_npdt::get_data_line_stop_by_grup');
+$routes->post('/dashboard_npdt/assy/get_data_line_stop_by_kss', 'Dashboard_npdt::get_data_line_stop_by_kss');
+
 // DASHBOARD REJECT
 $routes->get('/dashboard/reject', 'DashboardAssyRejection::dashboard_reject_assy');
 $routes->post('/dashboard/reject', 'DashboardAssyRejection::dashboard_reject_assy');
@@ -81,7 +90,6 @@ $routes->post('/dashboard/rejectMCB/get_detail_rejection', 'DashboardMCBRejectio
 $routes->get('/dashboardGrid', 'DashboardGrid::index');
 $routes->get('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
 $routes->post('/dashboardGrid/grid', 'DashboardGrid::dashboard_lhp_grid');
-
 
 //DASHBOARD EFF GRID
 $routes->get('/dashboardGrid', 'DashboardGrid::index');
@@ -188,6 +196,7 @@ $routes->group('wet_loading', ['filter' => 'auth'], function ($routes) {
     $routes->post('add_lhp', 'WET_Loading::add_lhp');
     $routes->post('getSeries', 'WET_Loading::get_series');
     $routes->post('getType', 'WET_Loading::get_type_battery');
+    $routes->post('getCT', 'WET_Loading::get_ct');
     $routes->get('detail_lhp/(:num)', 'WET_Loading::detail_lhp/$1');
 });
 

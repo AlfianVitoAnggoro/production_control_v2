@@ -92,12 +92,12 @@ class M_RakManagement extends Model
 
     public function get_data_rak_management_by_id($qr_rak)
     {
-        $query = $this->db5->query('SELECT data_master_rak.pn_qr, detail_barcode_rak.item, SUM(detail_record_rak.qty) AS qty, detail_barcode_rak.entry_date
+        $query = $this->db5->query('SELECT data_master_rak.pn_qr, detail_barcode_rak.item, SUM(detail_record_rak.qty) AS qty
                                     FROM data_master_rak
                                     JOIN detail_record_rak ON detail_record_rak.pn_qr = data_master_rak.pn_qr
                                     JOIN detail_barcode_rak ON detail_record_rak.barcode = detail_barcode_rak.barcode
                                     WHERE data_master_rak.status = 1 AND detail_record_rak.status = \'open\' AND data_master_rak.pn_qr = \'' . $qr_rak . '\'
-                                    GROUP BY data_master_rak.pn_qr, detail_barcode_rak.item, detail_barcode_rak.entry_date');
+                                    GROUP BY data_master_rak.pn_qr, detail_barcode_rak.item');
 
         return $query->getResultArray();
     }

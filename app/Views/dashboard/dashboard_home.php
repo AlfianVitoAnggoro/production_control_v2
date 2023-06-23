@@ -79,9 +79,11 @@
                         </div>
                         <div class="row">
                             <div class="col-6" style="text-align:center">
-                                <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/parameter_data.jpg" alt="" style="width: 30%;">
-                                <br>
-                                <h3>Parameter Data</h3>
+                                <a href="<?=base_url()?>dashboard_npdt/assy/" target="_blank">
+                                    <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/parameter_data.jpg" alt="" style="width: 30%;">
+                                    <br>
+                                    <h3>Efficiency Murni</h3>
+                                </a>
                             </div>
                             <div class="col-6" style="text-align:center">
                                 <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/pica.png" alt="" style="width: 30%;">
