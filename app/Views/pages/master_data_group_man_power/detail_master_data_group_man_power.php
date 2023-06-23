@@ -1,23 +1,24 @@
 <?= $this->extend('template/layout'); ?>
 <?= $this->section('style') ?>
-  <style>
-  </style>
+<style>
+</style>
 <?= $this->endSection() ?>
 <?= $this->section('content'); ?>
-<?php //$mesin = ['Hoist', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'Punch Hole', 'PW', 'HSM', 'AUTO PB', 'ALT & datacode', 'Dry Sealer Packing', 'Klem Battery', 'BAAN']; ?>
+<?php //$mesin = ['Hoist', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'Punch Hole', 'PW', 'HSM', 'AUTO PB', 'ALT & datacode', 'Dry Sealer Packing', 'Klem Battery', 'BAAN']; 
+?>
 <?php $line = [1, 2, 3, 4, 5, 6, 7, 'WET A', 'WET F', 'MCB']; ?>
 <?php $color = ['', '#ff0000', '#ffff00', '#0000ff', '#00aa00']; ?>
 <?php $value = ['', '25%', '50%', '75%', '100%']; ?>
 <?php $group_mp = ['', 'A', 'B', 'C']; ?>
-<?php if(strcasecmp($data_group_man_power[0]['sub_bagian'], 'amb-1') === 0) {
+<?php if (strcasecmp($data_group_man_power[0]['sub_bagian'], 'amb-1') === 0) {
   $line_val = [1, 2, 3];
-} else if(strcasecmp($data_group_man_power[0]['sub_bagian'], 'amb-2') === 0) {
+} else if (strcasecmp($data_group_man_power[0]['sub_bagian'], 'amb-2') === 0) {
   $line_val = [4, 5, 6, 7];
-} else if(strcasecmp($data_group_man_power[0]['sub_bagian'], 'wet-a') === 0) {
+} else if (strcasecmp($data_group_man_power[0]['sub_bagian'], 'wet-a') === 0) {
   $line_val = [8];
-} else if(strcasecmp($data_group_man_power[0]['sub_bagian'], 'wet-f') === 0) {
+} else if (strcasecmp($data_group_man_power[0]['sub_bagian'], 'wet-f') === 0) {
   $line_val = [9];
-} else if(strcasecmp($data_group_man_power[0]['sub_bagian'], 'mcb') === 0) {
+} else if (strcasecmp($data_group_man_power[0]['sub_bagian'], 'mcb') === 0) {
   $line_val = [10];
 } ?>
 <!-- Content Wrapper. Contains page content -->
@@ -49,21 +50,22 @@
                     <tbody>
                       <?php $model = new App\Models\M_MasterGroupManPower();
                       $indirect = $model->get_data_master_mesin_indirect_sub_bagian(strtolower(str_replace('-', '_', $data_group_man_power[0]['sub_bagian'])));
-                      $index_mesin = 0; foreach ($indirect as $ind) { ?>
+                      $index_mesin = 0;
+                      foreach ($indirect as $ind) { ?>
                         <tr>
                           <th style="font-size: 20px">
                             <?= $ind['mesin'] ?>
                             <input type="hidden" class="form-control" name="mesin_indirect[]" value="<?= $ind['mesin'] ?>">
                           </th>
-                          <?php for ($i=1; $i <= 3; $i++) { ?>
+                          <?php for ($i = 1; $i <= 3; $i++) { ?>
                             <td>
                               <div class="d-flex align-items-center justify-content-center">
                                 <select style="width: 400px" name="nama_indirect_<?= $i ?>[]" id="nama_indirect_<?= $i ?>_<?= $index_mesin ?>" class="form-select select2">
                                   <option value="" selected>-- Pilih Man Power --</option>
-                                  <?php if (strcasecmp($ind['requirement'], 'Tidak Baca') === 0)
-                                      $data_man_power= $model->get_data_master_man_power_kasubsie();
+                                  <?php if (strpos($ind['mesin'], 'Kasubsie') === 0)
+                                    $data_man_power = $model->get_data_master_man_power_kasubsie();
                                   else
-                                      $data_man_power= $model->get_data_master_man_power();
+                                    $data_man_power = $model->get_data_master_man_power();
                                   ?>
                                   <?php //$data_man_power= $model->get_data_master_man_power($data_group_man_power[0]['line'], $ind['mesin']);
                                   foreach ($data_man_power as $d_mp) { ?>
@@ -77,7 +79,8 @@
                             </td>
                           <?php } ?>
                         </tr>
-                      <?php $index_mesin++; } ?>
+                      <?php $index_mesin++;
+                      } ?>
                     </tbody>
                   </table>
                 </div>
@@ -89,21 +92,25 @@
                           <tr>
                             <th style="font-size: 20px">Line</th>
                             <td>
-                              <input type="text" class="form-control" value="<?= ""//$line[$data_group_man_power[0]['line'] - 1] ?>" style="width: 250px;" readonly>
-                              <input type="hidden" class="form-control" name="line" value="<?= ""//$data_group_man_power[0]['line'] ?>">
+                              <input type="text" class="form-control" value="<?= "" //$line[$data_group_man_power[0]['line'] - 1] 
+                                                                              ?>" style="width: 250px;" readonly>
+                              <input type="hidden" class="form-control" name="line" value="<?= "" //$data_group_man_power[0]['line'] 
+                                                                                            ?>">
                               <input type="hidden" class="form-control" name="id_group" id="id_group" value="<?= $data_group_man_power[0]['id_group'] ?>">
                             </td>
                           </tr>
                           <tr>
                             <th style="font-size: 20px">Group</th>
                             <td>
-                              <input type="text" class="form-control" name="group_mp" value="<?= ""//$data_group_man_power[0]['group_mp'] ?>" style="width: 250px;" readonly>
+                              <input type="text" class="form-control" name="group_mp" value="<?= "" //$data_group_man_power[0]['group_mp'] 
+                                                                                              ?>" style="width: 250px;" readonly>
                             </td>
                           </tr>
                           <tr>
                             <th style="font-size: 20px">Bulan</th>
                             <td>
-                              <input type="month" class="form-control" name="bulan" value="<?= ""//date('Y-m', strtotime($data_group_man_power[0]['bulan'])) ?>" style="width: 250px;" readonly>
+                              <input type="month" class="form-control" name="bulan" value="<?= "" //date('Y-m', strtotime($data_group_man_power[0]['bulan'])) 
+                                                                                            ?>" style="width: 250px;" readonly>
                             </td>
                           </tr>
                         </tbody>
@@ -152,98 +159,109 @@
         <div class="row">
           <div class="col-xl-12 col-12">
             <div class="box">
-              <?php $index_lv = 0; foreach ($line_val as $lv) { ?>
-              <div class="box-header with-border">
-                <div>
-                  <h4><?= ($lv > 7) ? $line[$lv - 1] : 'Line ' . $lv ?></h4>
-                  <!-- <div class="form-group" style="font-size: 20px">
+              <?php $index_lv = 0;
+              foreach ($line_val as $lv) { ?>
+                <div class="box-header with-border">
+                  <div>
+                    <h4><?= ($lv > 7) ? $line[$lv - 1] : 'Line ' . $lv ?></h4>
+                    <!-- <div class="form-group" style="font-size: 20px">
                     <label class="form-label fw-bold">Line</label>
-                    <input type="text" class="form-control" value="<?= ""//$line[$data_group_man_power[0]['line'] - 1] ?>" style="width: 200px" readonly>
+                    <input type="text" class="form-control" value="<?= "" //$line[$data_group_man_power[0]['line'] - 1] 
+                                                                    ?>" style="width: 200px" readonly>
                   </div> -->
-                  <input type="hidden" class="form-control" name="line[]" value="<?= $lv ?>">
-                  <input type="hidden" class="form-control" name="id_group" id="id_group" value="<?= $data_group_man_power[0]['id_group'] ?>">
+                    <input type="hidden" class="form-control" name="line[]" value="<?= $lv ?>">
+                    <input type="hidden" class="form-control" name="id_group" id="id_group" value="<?= $data_group_man_power[0]['id_group'] ?>">
+                  </div>
+                  <h4 style="font-size: 28px">Position</h4>
                 </div>
-                <h4 style="font-size: 28px">Position</h4>
-              </div>
-              <div class="box-body">
-                <!-- <select name="choose_shift" class="form-select" id="choose_shift" onchange="check_shift()" style="width: 200px;">
+                <div class="box-body">
+                  <!-- <select name="choose_shift" class="form-select" id="choose_shift" onchange="check_shift()" style="width: 200px;">
                   <option value="">-- Pilih Shift --</option>
                   <option value="">All</option>
                   <option value="1" selected>1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                 </select> -->
-                <div class="table-responsive">
-                  <table id="table_group_man_power" class="table">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th class="text-center">A</th>
-                        <th class="text-center">B</th>
-                        <th class="text-center">C</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                        $mesin = $model->get_data_master_mesin($lv)//$data_group_man_power[0]['line']);
-                      // if($data_group_man_power[0]['line'] === 1) {
-                      //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing 1', 'Mearing 2', 'Mearing 3', 'Loading', 'Unloading', 'PW', 'HSM/APB', 'ALT/Packing'];
-                      // } else if($data_group_man_power[0]['line'] <= 3) {
-                      //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing 1', 'Mearing 2', 'Mearing 3', 'Loading', 'PW/Punch', 'HSM/APB', 'ALT/Packing'];
-                      // } else if($data_group_man_power[0]['line'] === 4) {
-                      //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope 1', 'Envelope 2', 'Mearing 1', 'Mearing 2', 'Mearing 3', 'COS', 'PW & Supply Komponen', 'HSM', 'Pole Burning', 'Packing'];
-                      // } else if($data_group_man_power[0]['line'] <= 6) {
-                      //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope 1', 'Envelope 2', 'COS', 'HSM', 'Packing'];
-                      // } else if($data_group_man_power[0]['line'] === 7) {
-                      //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'Mearing & Burning 1', 'Burning 1', 'Inserting & Mearing (Big Type)', 'PW + Punch Hole + (Dandori PW)', 'HSM + (Dandori PH, Polarity, Short Test & HSM)', 'Pole Burning + Packing + (Dandori IRT, Short Test, Laser, ALT)', 'Packing'];
-                      // } else if($data_group_man_power[0]['line'] === 8) {
-                      //   $mesin = ['Acid Filling', 'Loading', 'Unloading', 'Levelling - HSM - ALT', 'Packing 1', 'Packing 2'];
-                      // } else if($data_group_man_power[0]['line'] === 9) {
-                      //   $mesin = ['Acid Filling', 'Loading', 'Unloading', 'Levelling - HSM - ALT', 'Packing 1', 'Packing 2', 'Clamping'];
-                      // } else if($data_group_man_power[0]['line'] === 10) {
-                      //   $mesin = [];
-                      // }
-                      ?>
-                      <?php foreach ($mesin as $msn) { ?>
+                  <div class="table-responsive">
+                    <table id="table_group_man_power" class="table">
+                      <thead>
                         <tr>
-                          <th style="font-size: 20px">
-                            <?= $msn['mesin'] ?>
-                            <input type="hidden" class="form-control" name="mesin_<?= $index_lv ?>[]" value="<?= $msn['mesin'] ?>">
-                          </th>
-                          <?php for ($i=1; $i <= 3; $i++) { ?>
-                            <td>
-                              <div class="d-flex align-items-center justify-content-center">
-                                <select style="width: 400px" name="nama_<?= $index_lv ?>_<?= $i ?>[]" id="nama_<?= $index_lv ?>_<?= $i ?>_<?= $index_mesin ?>" class="form-select select2">
-                                  <option value="" selected>-- Pilih Man Power --</option>
-                                  <?php $data_man_power= $model->get_data_master_man_power();
-                                  foreach ($data_man_power as $d_mp) { ?>
-                                    <option value="<?= $d_mp['id_man_power'] ?>" <?= (count($data_detail_group_man_power) > 0) ? ((array_key_exists($lv, $data_detail_group_man_power)) ? ((array_key_exists($group_mp[$i], $data_detail_group_man_power[$lv])) ? ((array_key_exists($msn['mesin'], $data_detail_group_man_power[$lv][$group_mp[$i]])) ? (($data_detail_group_man_power[$lv][$group_mp[$i]][$msn['mesin']]['nama'] == $d_mp['id_man_power']) ? 'selected' : '') : '') : '') : '') : '' ?>><?= $d_mp['nama'] ?></option>
-                                  <?php } ?>
+                          <th></th>
+                          <th class="text-center">A</th>
+                          <th class="text-center">B</th>
+                          <th class="text-center">C</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $mesin = $model->get_data_master_mesin($lv) //$data_group_man_power[0]['line']);
+                        // if($data_group_man_power[0]['line'] === 1) {
+                        //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing 1', 'Mearing 2', 'Mearing 3', 'Loading', 'Unloading', 'PW', 'HSM/APB', 'ALT/Packing'];
+                        // } else if($data_group_man_power[0]['line'] <= 3) {
+                        //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing 1', 'Mearing 2', 'Mearing 3', 'Loading', 'PW/Punch', 'HSM/APB', 'ALT/Packing'];
+                        // } else if($data_group_man_power[0]['line'] === 4) {
+                        //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope 1', 'Envelope 2', 'Mearing 1', 'Mearing 2', 'Mearing 3', 'COS', 'PW & Supply Komponen', 'HSM', 'Pole Burning', 'Packing'];
+                        // } else if($data_group_man_power[0]['line'] <= 6) {
+                        //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope 1', 'Envelope 2', 'COS', 'HSM', 'Packing'];
+                        // } else if($data_group_man_power[0]['line'] === 7) {
+                        //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'Mearing & Burning 1', 'Burning 1', 'Inserting & Mearing (Big Type)', 'PW + Punch Hole + (Dandori PW)', 'HSM + (Dandori PH, Polarity, Short Test & HSM)', 'Pole Burning + Packing + (Dandori IRT, Short Test, Laser, ALT)', 'Packing'];
+                        // } else if($data_group_man_power[0]['line'] === 8) {
+                        //   $mesin = ['Acid Filling', 'Loading', 'Unloading', 'Levelling - HSM - ALT', 'Packing 1', 'Packing 2'];
+                        // } else if($data_group_man_power[0]['line'] === 9) {
+                        //   $mesin = ['Acid Filling', 'Loading', 'Unloading', 'Levelling - HSM - ALT', 'Packing 1', 'Packing 2', 'Clamping'];
+                        // } else if($data_group_man_power[0]['line'] === 10) {
+                        //   $mesin = [];
+                        // }
+                        ?>
+                        <?php foreach ($mesin as $msn) { ?>
+                          <tr>
+                            <th style="font-size: 20px">
+                              <?= $msn['mesin'] ?>
+                              <input type="hidden" class="form-control" name="mesin_<?= $index_lv ?>[]" value="<?= $msn['mesin'] ?>">
+                            </th>
+                            <?php for ($i = 1; $i <= 3; $i++) { ?>
+                              <td>
+                                <div class="d-flex align-items-center justify-content-center">
+                                  <select style="width: 400px" name="nama_<?= $index_lv ?>_<?= $i ?>[]" id="nama_<?= $index_lv ?>_<?= $i ?>_<?= $index_mesin ?>" class="form-select select2">
+                                    <option value="" selected>-- Pilih Man Power --</option>
+                                    <?php $data_man_power = $model->get_data_master_man_power();
+                                    foreach ($data_man_power as $d_mp) { ?>
+                                      <option value="<?= $d_mp['id_man_power'] ?>" <?= (count($data_detail_group_man_power) > 0) ? ((array_key_exists($lv, $data_detail_group_man_power)) ? ((array_key_exists($group_mp[$i], $data_detail_group_man_power[$lv])) ? ((array_key_exists($msn['mesin'], $data_detail_group_man_power[$lv][$group_mp[$i]])) ? (($data_detail_group_man_power[$lv][$group_mp[$i]][$msn['mesin']]['nama'] == $d_mp['id_man_power']) ? 'selected' : '') : '') : '') : '') : '' ?>><?= $d_mp['nama'] ?></option>
+                                    <?php } ?>
                                   </select>
                                   <input type="hidden" class="form-control" name="id_detail_group_man_power_<?= $index_lv ?>_<?= $i ?>[]" id="id_detail_group_man_power_<?= $index_lv ?>_<?= $i ?>_<?= $index_mesin ?>" value="<?= $data_detail_group_man_power[$lv][$group_mp[$i]][$msn['mesin']]['id_detail_group'] ?? '' ?>">
                                   <input type="hidden" class="form-control" name="group_mp_<?= $index_lv ?>_<?= $i ?>[]" value="<?= $group_mp[$i] ?>">
-                                <!-- <input type="text" class="form-control" name="nama[]" value="" style="width: 250px;"> -->
-                                <?php //$bg_color = '' ?>
-                                <?php //$skill_value = '' ?>
-                                <?php //foreach ($data_man_power as $d_mp) { ?>
+                                  <!-- <input type="text" class="form-control" name="nama[]" value="" style="width: 250px;"> -->
+                                  <?php //$bg_color = '' 
+                                  ?>
+                                  <?php //$skill_value = '' 
+                                  ?>
+                                  <?php //foreach ($data_man_power as $d_mp) { 
+                                  ?>
                                   <?php //if(count($data_detail_group_man_power) > 0 && array_key_exists($i, $data_detail_group_man_power) && array_key_exists($msn['mesin'], $data_detail_group_man_power)) {
                                   //   if ($data_detail_group_man_power[$msn['mesin']]['nama'] == $d_mp['id_man_power']) {
                                   //     $bg_color = $color[$d_mp['skill']];
                                   //     $skill_value = $value[$d_mp['skill']];
                                   //   }
-                                  //  } ?>
-                                <?php //} ?>
-                                <!-- <div class="p-0 d-flex justify-content-center align-items-center" id="skill_value_<?= $index_mesin ?>" style="width: 34px; height: 34px; border-radius: 50%; background-color: <?= ""//$bg_color ?>"><?= ""//$skill_value ?></div> -->
-                              </div>
-                            </td>
-                          <?php } ?>
-                        </tr>
-                      <?php $index_mesin++; } ?>
-                    </tbody>
-                  </table>
+                                  //  } 
+                                  ?>
+                                  <?php //} 
+                                  ?>
+                                  <!-- <div class="p-0 d-flex justify-content-center align-items-center" id="skill_value_<?= $index_mesin ?>" style="width: 34px; height: 34px; border-radius: 50%; background-color: <?= "" //$bg_color 
+                                                                                                                                                                                                                      ?>"><?= "" //$skill_value 
+                                                                                                                                                                                                                          ?></div> -->
+                                </div>
+                              </td>
+                            <?php } ?>
+                          </tr>
+                        <?php $index_mesin++;
+                        } ?>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
-              <?php $index_lv++; } ?>
+              <?php $index_lv++;
+              } ?>
             </div>
           </div>
         </div>
@@ -267,7 +285,7 @@
 <script>
   function confirmation() {
     let confirmationValue = confirm('Apakah Anda Yakin?');
-    if(confirmationValue) {
+    if (confirmationValue) {
       let mesin = [];
       temp_mesin = document.getElementsByName('mesin[]');
       temp_mesin.forEach(tempVal => {
@@ -282,7 +300,7 @@
       let group_1 = [];
       let group_2 = [];
       let group_3 = [];
-      <?php for ($index=1; $index <= 3; $index++) { ?>
+      <?php for ($index = 1; $index <= 3; $index++) { ?>
         temp_nama_<?= $index ?> = document.getElementsByName('nama_<?= $index ?>[]');
         temp_nama_<?= $index ?>.forEach(tempVal => {
           nama_<?= $index ?>.push(tempVal.value);

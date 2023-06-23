@@ -42,18 +42,18 @@ class M_DashboardManPower extends Model
   public function get_data_master_mesin($sub_bagian)
   {
     $query = [];
-    if(strcasecmp($sub_bagian, 'amb-1') === 0) {
-      for ($i=1; $i <= 3; $i++) { 
+    if (strcasecmp($sub_bagian, 'amb-1') === 0) {
+      for ($i = 1; $i <= 3; $i++) {
         $temp_query = $this->db->query('SELECT * FROM data_master_mesin WHERE line_' . $i . ' > 0 ORDER BY line_' . $i . ' ASC');
         $query = array_merge($temp_query->getResultArray(), $query);
       }
-    } else if(strcasecmp($sub_bagian, 'amb-2') === 0) {
-      for ($i=4; $i <= 7; $i++) { 
+    } else if (strcasecmp($sub_bagian, 'amb-2') === 0) {
+      for ($i = 4; $i <= 7; $i++) {
         $temp_query = $this->db->query('SELECT * FROM data_master_mesin WHERE line_' . $i . ' > 0 ORDER BY line_' . $i . ' ASC');
       }
-    } else if(strcasecmp($sub_bagian, 'wet-1') === 0) {
+    } else if (strcasecmp($sub_bagian, 'wet-1') === 0) {
       $temp_query = $this->db->query('SELECT * FROM data_master_mesin WHERE wet_a > 0 ORDER BY wet_a ASC');
-    } else if(strcasecmp($sub_bagian, 'wet-2') === 0) {
+    } else if (strcasecmp($sub_bagian, 'wet-2') === 0) {
       $temp_query = $this->db->query('SELECT * FROM data_master_mesin WHERE wet_f > 0 ORDER BY wet_f ASC');
     } else {
       $temp_query = $this->db->query('SELECT * FROM data_master_mesin WHERE mcb > 0 ORDER BY mcb ASC');
@@ -63,13 +63,13 @@ class M_DashboardManPower extends Model
 
   public function get_data_mesin($line)
   {
-    if($line <= 7)
+    if ($line <= 7)
       $query = $this->db->query('SELECT * FROM data_master_mesin WHERE line_' . $line . ' > 0 ORDER BY line_' . $line . ' ASC');
-    else if($line === 8)
+    else if ($line === 8)
       $query = $this->db->query('SELECT * FROM data_master_mesin WHERE wet_a > 0 ORDER BY wet_a ASC');
-    else if($line === 9)
+    else if ($line === 9)
       $query = $this->db->query('SELECT * FROM data_master_mesin WHERE wet_f > 0 ORDER BY wet_f ASC');
-    else if($line === 10)
+    else if ($line === 10)
       $query = $this->db->query('SELECT * FROM data_master_mesin WHERE mcb > 0 ORDER BY mcb ASC');
 
     return $query->getResultArray();
@@ -90,7 +90,7 @@ class M_DashboardManPower extends Model
     //                         JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
     //                         JOIN detail_master_data_group_man_power dmdgmp ON dmdgmp.nama = mdmp.id_man_power
     //                         JOIN master_data_group_man_power mdgmp ON mdgmp.line = dmdmp.line AND mdgmp.id_group = dmdgmp.id_group
-		// 					              JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
+    // 					              JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
     //                         WHERE mdgmp.line <= 3
     //                         ');
     // } else if(strcasecmp($sub_bagian, 'amb-2') === 0) {
@@ -99,7 +99,7 @@ class M_DashboardManPower extends Model
     //                         JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
     //                         JOIN detail_master_data_group_man_power dmdgmp ON dmdgmp.nama = mdmp.id_man_power
     //                         JOIN master_data_group_man_power mdgmp ON mdgmp.line = dmdmp.line AND mdgmp.id_group = dmdgmp.id_group
-		// 					              JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
+    // 					              JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
     //                         WHERE mdgmp.line >= 4 AND mdgmp.line <= 7
     //                         ');
     // } else if(strcasecmp($sub_bagian, 'wet') === 0) {
@@ -108,7 +108,7 @@ class M_DashboardManPower extends Model
     //                         JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
     //                         JOIN detail_master_data_group_man_power dmdgmp ON dmdgmp.nama = mdmp.id_man_power
     //                         JOIN master_data_group_man_power mdgmp ON mdgmp.line = dmdmp.line AND mdgmp.id_group = dmdgmp.id_group
-		// 					              JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
+    // 					              JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
     //                         WHERE mdgmp.line >= 8 AND mdgmp.line <= 9
     //                         ');
     // } else if(strcasecmp($sub_bagian, 'mcb') === 0) {
@@ -117,7 +117,7 @@ class M_DashboardManPower extends Model
     //                         JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
     //                         JOIN detail_master_data_group_man_power dmdgmp ON dmdgmp.nama = mdmp.id_man_power
     //                         JOIN master_data_group_man_power mdgmp ON mdgmp.line = dmdmp.line AND mdgmp.id_group = dmdgmp.id_group
-		// 					              JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
+    // 					              JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
     //                         WHERE mdgmp.line = 10
     //                         ');
     // }
@@ -129,7 +129,7 @@ class M_DashboardManPower extends Model
                             JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
                             WHERE mdgmp.sub_bagian = \'' . $sub_bagian . '\'
                             ');
-    
+
 
     return $query->getResultArray();
   }
@@ -144,7 +144,7 @@ class M_DashboardManPower extends Model
                             JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
                             WHERE mdgmp.sub_bagian = \'' . $sub_bagian . '\' AND dmdgmp.line = \'' . $line . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
                             ');
-    
+
 
     return $query->getResultArray();
   }
@@ -158,7 +158,7 @@ class M_DashboardManPower extends Model
                             JOIN data_master_mesin dmm ON dmdgmpi.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
 							              WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
                             ');
-							              // WHERE dmdmp.mesin = \'' . $mesin . '\' AND dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
+    // WHERE dmdmp.mesin = \'' . $mesin . '\' AND dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
 
     return $query->getResultArray();
   }
@@ -172,7 +172,7 @@ class M_DashboardManPower extends Model
                             JOIN data_master_mesin dmm ON dmdgmpi.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
                             WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\' AND dmdgmpi.group_mp = \'' . $group_mp . '\'
                             ');
-							              // WHERE dmdmp.mesin = \'' . $mesin . '\' AND dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
+    // WHERE dmdmp.mesin = \'' . $mesin . '\' AND dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
 
     return $query->getResultArray();
   }
@@ -217,7 +217,7 @@ class M_DashboardManPower extends Model
 
   public function get_data_master_man_power()
   {
-    $query = $this->db->query('SELECT nama, id_man_power FROM master_data_man_power ORDER BY nama ASC');
+    $query = $this->db->query('SELECT nama, npk, id_man_power FROM master_data_man_power ORDER BY nama ASC');
     // $query = $this->db->query('SELECT * FROM master_data_man_power JOIN detail_master_data_man_power on detail_master_data_man_power.id_man_power = master_data_man_power.id_man_power WHERE detail_master_data_man_power.line = \'' . $line . '\' AND detail_master_data_man_power.mesin = \'' . $mesin . '\'');
 
     return $query->getResultArray();
@@ -236,7 +236,7 @@ class M_DashboardManPower extends Model
                             JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
                             WHERE mdmp.id_man_power = \'' . $id_man_power . '\' AND dmdmp.mesin = \'' . $requirement . '\'
                             ');
-    
+
     return $query->getResultArray();
   }
 
@@ -246,7 +246,48 @@ class M_DashboardManPower extends Model
                             -- JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
                             WHERE mdmp.id_man_power = \'' . $id_man_power . '\'
                             ');
-    
+
+    return $query->getResultArray();
+  }
+
+  public function get_data_mp($npk)
+  {
+    $query = $this->db->query('SELECT id_man_power FROM master_data_man_power
+                            WHERE npk = \'' . $npk . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
+  public function save_record_man_power($id_record, $data)
+  {
+    $query = $this->db->table('detail_record_master_group_man_power');
+    if (count($id_record) > 0) {
+      $query->where('id_record', $id_record[0]['id_record']);
+      $query->update($data);
+      return $id_record;
+    } else {
+      $query->insert($data);
+      return $this->db->insertID();
+    }
+  }
+
+  public function get_daily_record_man_power($sub_bagian, $tanggal, $line, $shift, $mesin)
+  {
+    $query = $this->db->query('SELECT id_record FROM detail_record_master_group_man_power
+                            WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $tanggal . '\' AND line = \'' . $line . '\' AND shift = \'' . $shift . '\' AND mesin = \'' . $mesin . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
+  public function get_data_daily_record_man_power($sub_bagian, $tanggal, $shift)
+  {
+    $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, dmdmp.skill, mdmp.foto, drmgmp.mesin, drmgmp.line, drmgmp.group_mp
+                            FROM master_data_man_power mdmp
+                            JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
+							              JOIN detail_record_master_group_man_power drmgmp ON drmgmp.nama = mdmp.id_man_power
+                            JOIN data_master_mesin dmm ON drmgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
+                            WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $tanggal . '\' AND shift = \'' . $shift . '\'
+                            ');
     return $query->getResultArray();
   }
 }
