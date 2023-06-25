@@ -176,10 +176,10 @@ class WET_Loading extends BaseController
         }
 
         if ($update_data > 0) {
-            if (!empty($this->request->getPost('jenis_battery'))) {
-                $total_data = count($this->request->getPost('jenis_battery'));
+            if (!empty($this->request->getPost('series') && !empty($this->request->getPost('jenis_battery')))) {
+                $total_data = count($this->request->getPost('series'));
                 for ($i = 0; $i < $total_data; $i++) {
-                    if ($this->request->getPost('jenis_battery')[$i] != '') {
+                    if ($this->request->getPost('series')[$i] != '') {
                         $id_detail_lhp = $this->request->getPost('id_detail_lhp')[$i];
                         $data_detail_lhp = [
                             'id_lhp_wet_loading' => $id_lhp,

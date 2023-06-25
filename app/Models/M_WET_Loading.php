@@ -163,7 +163,7 @@ class M_WET_Loading extends Model
         $builder = $this->db->table('detail_pending_wet_loading');
 
         if ($id != '') {
-            $builder->where('id_lhp_wet_loading', $id);
+            $builder->where('id_pending_wet_loading', $id);
             $builder->update($data);
             return $id;
         } else {
@@ -249,7 +249,7 @@ class M_WET_Loading extends Model
         $builder = $this->db->table('detail_lhp_wet_loading');
 
         if ($id_detail_lhp != '') {
-            $builder->where('id_lhp_wet_loading', $id_detail_lhp);
+            $builder->where('id_detail_lhp_wet_loading', $id_detail_lhp);
             $builder->update($data);
             return $id_detail_lhp;
         } else {
