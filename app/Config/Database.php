@@ -85,9 +85,9 @@ class Database extends Config
 
     public array $henkaten = [
         'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => 'user',
-        'password' => '12345',
+        'hostname' => '10.19.16.27',
+        'username' => 'sa',
+        'password' => 'User@new1',
         'database' => 'henkaten',
         'DBDriver' => 'sqlsrv',
         'DBPrefix' => '',
