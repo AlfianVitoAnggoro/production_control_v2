@@ -77,6 +77,7 @@ class Grid extends BaseController
         $data['data_breakdown'] = $this->M_Grid->get_data_breakdown($id_lhp);
         $data['data_andon'] = $this->M_Grid->get_data_andon_by_id($id_lhp);
         $data['data_record_rak'] = $this->M_Grid->get_id_data_detail_record_rak_by_id($id_lhp, 'K-CAS');
+        $data['sum_qty_rak'] = $this->M_Grid->sum_qty_detail_record_rak_by_id($id_lhp);
         // $data['data_all_rak'] = $this->M_Grid->get_data_rak_by_id($id_lhp);
         $session = \Config\Services::session();
         $data['session'] = $session->get('level');

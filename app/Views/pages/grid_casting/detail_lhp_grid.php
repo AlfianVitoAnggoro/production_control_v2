@@ -517,6 +517,15 @@ $mh = [8, 7.5, 6.5];
                                             }
                                             ?>
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>
+                                                    <h3>Total</h3>
+                                                </td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_qty_rak" id="" value="<?= str_replace(',', '.', number_format($sum_qty_rak[0]['qty'])) ?>" readonly></td>
+                                                
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
 

@@ -214,6 +214,13 @@ class M_Grid extends Model
         return $query->getResultArray();
     }
 
+    function sum_qty_detail_record_rak_by_id($id_lhp_grid)
+    {
+        $query = $this->db5->query('SELECT SUM(qty) as qty FROM detail_record_rak WHERE id_lhp_wh_start = \'' . $id_lhp_grid . '\'');
+
+        return $query->getResultArray();
+    }
+
     function add_detail_barcode_rak($data)
     {
         $builder = $this->db5->table('detail_barcode_rak');
