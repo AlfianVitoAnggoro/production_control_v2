@@ -251,7 +251,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 															</select>
 														</td>
 														<td>
-															<select class="form-control select2" id="jenis_battery_<?=$i?>" name="jenis_battery[]" style="width: 150px;">
+															<select class="form-control select2" id="jenis_battery_<?=$i?>" name="jenis_battery[]" style="width: 150px;" required>
 																<option selected disabled>-- Pilih Jenis --</option>
 																<?php
 																	foreach ($data_jenis_battery as $d_jenis_battery) { ?>
@@ -323,7 +323,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																</select>
 															</td>
 															<td>
-																<select class="form-control select2" id="jenis_battery_<?=$i?>" name="jenis_battery[]" style="width: 150px;">
+																<select class="form-control select2" id="jenis_battery_<?=$i?>" name="jenis_battery[]" style="width: 150px;" required>
 																	<option selected disabled>-- Pilih Jenis --</option>
 																	<?php
 																		foreach ($data_jenis_battery as $d_jenis_battery) { ?>
@@ -1111,7 +1111,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 					</select>
 				</td>
 				<td>
-					<select class="form-control select2" id="jenis_battery_${k}" name="jenis_battery[]" style="width: 150px;">
+					<select class="form-control select2" id="jenis_battery_${k}" name="jenis_battery[]" style="width: 150px;" required>
 						<option selected disabled>-- Pilih Jenis --</option>
 						${data_jenis_baterry.map((item) => `<option value="${item.jenis}">${item.jenis}</option>`)}
 					</select>

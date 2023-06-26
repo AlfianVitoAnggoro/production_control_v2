@@ -102,8 +102,8 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Plate</th>
-                                                <th>Barcode</th>
-                                                <th>Actual</th>
+                                                <th>Qty Barcode</th>
+                                                <th>Qty Actual</th>
                                                 <th><i class="fa fa-caret-up fa-2x" aria-hidden="true"></i></th>
                                                 <th>Hasil Produksi</th>
                                                 <th>Terpotong</th>
@@ -258,8 +258,8 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Plate</th>
-                                                <th>Barcode</th>
-                                                <th>Actual</th>
+                                                <th>Qty Barcode</th>
+                                                <th>Qty Actual</th>
                                                 <th><i class="fa fa-caret-up fa-2x" aria-hidden="true"></i></th>
                                                 <th>Hasil Produksi</th>
                                                 <th>Terpotong</th>
