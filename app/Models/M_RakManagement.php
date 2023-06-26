@@ -128,4 +128,11 @@ class M_RakManagement extends Model
         $date_now = date('Y-m-d H:i:s');
         $query = $this->db5->query('UPDATE data_rak_aging SET stop_aging = \'' . $date_now . '\' WHERE stop_aging IS NULL');
     }
+
+    public function count_rak_isi()
+    {
+        $query = $this->db5->query('select distinct(pn_qr) from detail_record_rak where status = \'open\'');
+
+        return $query->getResultArray();
+    }
 }
