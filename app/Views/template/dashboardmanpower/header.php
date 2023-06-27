@@ -113,11 +113,11 @@
 			<?php } ?>
 		</div>
 		<div style="width: 40%">
-			<h1 class="judul_dashboard text-center m-0" style="color: white">HENKATEN MAN POWER <?= strtoupper($sub_bagian) ?></h1>
+			<h1 class="judul_dashboard text-center m-0" style="color: white">MAN POWER HENKATEN BOARD ASSY <?= strtoupper($sub_bagian) ?></h1>
 		</div>
 		<div style="width: 30%; color: white" class="justify-content-end align-items-center pe-3 d-flex">
 			<h1 class="text-center m-0 pe-2" style="font-size: 24px"><?= date('d F Y') ?> Shift</h1>
-			<select name="shift" id="shift" class="form-select p-0 ps-5 me-3" style="width: 50px; font-size: 16px">
+			<select name="shift" id="shift" class="form-select p-0 ps-5 me-3" style="width: 50px; font-size: 16px" onchange="changeShift()">
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
