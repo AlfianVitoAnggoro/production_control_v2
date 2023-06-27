@@ -27,7 +27,8 @@ class RakManagement extends BaseController
             $data['data_rak_management_gedung'][$char] = $this->M_RakManagement->get_data_rak_management_gedung($char);
         }
 
-        $data['data_rak_management_status'] = $this->M_RakManagement->get_data_rak_management_status(1);
+        // $data['data_rak_management_status'] = $this->M_RakManagement->get_data_rak_management_status(1);
+        $data['data_rak_management_status'] = $this->M_RakManagement->count_rak_isi();
         $data['data_record_rak'] = $this->M_RakManagement->get_data_record_rak();
         $data['data_rak_management'] = $this->M_RakManagement->get_data_rak_management();
         return view('pages/rak_management/summary_rak_management', $data);

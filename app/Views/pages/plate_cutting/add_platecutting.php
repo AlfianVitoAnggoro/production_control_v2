@@ -86,13 +86,13 @@
                                     <table id="" class="table table-striped mb-0">
                                         <thead>
                                             <tr>
-                                                <th colspan="3"></th>
+                                                <th colspan="6"></th>
                                                 <th colspan="10" class="text-center">Jumlah NG (Kilogram)</th>
                                                 <th colspan="10" class="text-center">Jumlah NG (Panel)</th>
                                                 <th colspan="3"></th>
                                             </tr>
                                             <tr>
-                                                <th colspan="3"></th>
+                                                <th colspan="6"></th>
                                                 <th colspan="3" class="text-center bg-primary">Internal</th>
                                                 <th colspan="7" class="text-center bg-info">Eksternal</th>
                                                 <th colspan="3" class="text-center bg-primary">Internal</th>
@@ -102,6 +102,9 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Plate</th>
+                                                <th>Qty Barcode</th>
+                                                <th>Qty Actual</th>
+                                                <th><i class="fa fa-caret-up fa-2x" aria-hidden="true"></i></th>
                                                 <th>Hasil Produksi</th>
                                                 <th>Terpotong</th>
                                                 <th>Tersangkut</th>
@@ -239,13 +242,13 @@
                                     <table id="" class="table table-striped mb-0">
                                         <thead>
                                             <tr>
-                                                <th colspan="3"></th>
+                                                <th colspan="6"></th>
                                                 <th colspan="10" class="text-center">Jumlah NG (Kilogram)</th>
                                                 <th colspan="10" class="text-center">Jumlah NG (Panel)</th>
                                                 <th colspan="3"></th>
                                             </tr>
                                             <tr>
-                                                <th colspan="3"></th>
+                                                <th colspan="6"></th>
                                                 <th colspan="3" class="text-center bg-primary">Internal</th>
                                                 <th colspan="7" class="text-center bg-info">Eksternal</th>
                                                 <th colspan="3" class="text-center bg-primary">Internal</th>
@@ -255,6 +258,9 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Plate</th>
+                                                <th>Qty Barcode</th>
+                                                <th>Qty Actual</th>
+                                                <th><i class="fa fa-caret-up fa-2x" aria-hidden="true"></i></th>
                                                 <th>Hasil Produksi</th>
                                                 <th>Terpotong</th>
                                                 <th>Tersangkut</th>
@@ -535,6 +541,15 @@
                     </select>
                 </td>
                 <td>
+                    <input type="text" class="form-control" name="barcode_pos[]" id="barcode_${baris}_pos" onkeyup="deviasi(${baris}, 'pos')" value="<?= trim($pp['barcode']) ?>" style="width: 100px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="act_pos[]" id="act_${baris}_pos" onkeyup="deviasi(${baris}, 'pos')" value="<?= trim($pp['act']) ?>" style="width: 100px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="deviasi_pos[]" id="deviasi_${baris}_pos" value="<?= trim($pp['deviasi']) ?>" style="width: 100px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
                     <input type="text" class="form-control" name="hasil_produksi_pos[]" id="hasil_produksi_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['hasil_produksi']) ?>" style="width: 100px">
                 </td>
                 <td>
@@ -646,6 +661,15 @@
                     </select>
                 </td>
                 <td>
+                    <input type="text" class="form-control" name="barcode_neg[]" id="barcode_${baris}_neg" onkeyup="deviasi(${baris}, 'neg')" value="<?= trim($pn['barcode']) ?>" style="width: 100px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="act_neg[]" id="act_${baris}_neg" onkeyup="deviasi(${baris}, 'neg')" value="<?= trim($pn['act']) ?>" style="width: 100px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="deviasi_neg[]" id="deviasi_${baris}_neg" value="<?= trim($pn['deviasi']) ?>" style="width: 100px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
                     <input type="text" class="form-control" name="hasil_produksi_neg[]" id="hasil_produksi_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['hasil_produksi']) ?>" style="width: 100px">
                 </td>
                 <td>
@@ -746,6 +770,15 @@
                     </select>
                 </td>
                 <td>
+                    <input type="text" class="form-control" name="barcode_pos[]" value="" id="barcode_${baris}_pos" onkeyup="deviasi(${baris}, 'pos')" style="width: 100px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="act_pos[]" value="" id="act_${baris}_pos" onkeyup="deviasi(${baris}, 'pos')" style="width: 100px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="deviasi_pos[]" value="" id="deviasi_${baris}_pos" style="width: 100px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
                     <input type="text" class="form-control" name="hasil_produksi_pos[]" value="" id="hasil_produksi_${baris}_pos" onkeyup="panel_pos(${baris})" style="width: 100px">
                 </td>
                 <td>
@@ -844,6 +877,15 @@
                     </select>
                 </td>
                 <td>
+                    <input type="text" class="form-control" name="barcode_neg[]" value="" id="barcode_${baris}_neg" onkeyup="deviasi(${baris}, 'neg')" style="width: 100px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="act_neg[]" value="" id="act_${baris}_neg" onkeyup="deviasi(${baris}, 'neg')" style="width: 100px">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="deviasi_neg[]" value="" id="deviasi_${baris}_neg" style="width: 100px; background-color: #E8E2E2;" readonly>
+                </td>
+                <td>
                     <input type="text" class="form-control" name="hasil_produksi_neg[]" id="hasil_produksi_${baris}_neg" onkeyup="panel_neg(${baris})" style="width: 100px">
                 </td>
                 <td>
@@ -930,6 +972,14 @@
         const baris = document.querySelectorAll('.form_neg');
         const element = document.getElementById('form_' + (baris.length - 1) + '_neg');
         element.parentNode.removeChild(element);
+    }
+
+    function deviasi(baris, type) {
+        let barcode = document.querySelector('#barcode_' + baris + '_' + type);
+        let act = document.querySelector('#act_' + baris + '_' + type);
+        let deviasi = document.querySelector('#deviasi_' + baris + '_' + type);
+        let total = act.value - barcode.value;
+        deviasi.value = (total >= 0) ? '+ ' + total : '- ' + total * -1;
     }
 </script>
 <?= $this->endSection(); ?>

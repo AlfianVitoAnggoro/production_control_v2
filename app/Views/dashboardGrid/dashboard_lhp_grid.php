@@ -908,7 +908,10 @@ if ($current_date != 12) {
     legend: {
       enabled: false
     },
-
+    <?php
+      $data_all_month[0] = 72.77;
+      $data_all_month[1] = 73.75;
+    ?>
     series: [{
       name: 'Efficiency',
       type: 'column',

@@ -162,7 +162,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 												<th>Pallet 5</th> -->
 												<th>CT</th>
 												<th>Plan Cap</th>
-												<th>Total</th>
+												<th>Actual</th>
 												<th>Total Menit Line Stop</th>
 												<th>Pending</th>
 												<th>Line Stop</th>
@@ -251,7 +251,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 															</select>
 														</td>
 														<td>
-															<select class="form-control select2" id="jenis_battery_<?=$i?>" name="jenis_battery[]" style="width: 150px;">
+															<select class="form-control select2" id="jenis_battery_<?=$i?>" name="jenis_battery[]" style="width: 150px;" required>
 																<option selected disabled>-- Pilih Jenis --</option>
 																<?php
 																	foreach ($data_jenis_battery as $d_jenis_battery) { ?>
@@ -259,7 +259,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																<?php  } ?>
 															</select>
 															<input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$data_detail_lhp[$i]['batch']?>">
-															<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp<?=$i?>" value="<?=$data_detail_lhp[$i]['id_lhp_wet_loading']?>">
+															<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp<?=$i?>" value="<?=$data_detail_lhp[$i]['id_detail_lhp_wet_loading']?>">
 														</td>
 														<td>
 															<input type="text" class="form-control" size="4" name="ct[]" id="ct_<?=$i?>" value="<?=$data_detail_lhp[$i]['ct']?>" style="width: 75px" readonly>
@@ -323,7 +323,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																</select>
 															</td>
 															<td>
-																<select class="form-control select2" id="jenis_battery_<?=$i?>" name="jenis_battery[]" style="width: 150px;">
+																<select class="form-control select2" id="jenis_battery_<?=$i?>" name="jenis_battery[]" style="width: 150px;" required>
 																	<option selected disabled>-- Pilih Jenis --</option>
 																	<?php
 																		foreach ($data_jenis_battery as $d_jenis_battery) { ?>
@@ -1080,22 +1080,43 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 		// uniqid untuk id jenis_breakdown dan proses_breakdown
 		var k = count_row * 2;
 
+		var data_series_battery = <?php echo json_encode($data_series_battery); ?>;
+		var data_jenis_battery = <?php echo json_encode($data_jenis_battery); ?>;
+
 		row = tbody.insertRow(j);
 		row.innerHTML = `
 			<tr>
-				<td><button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(${j})">Remove</button></td>
-				<td><input type="time" class="form-control" name="start[]" id="start_(${j})" value="${jam_stop}" style="width: 100px;"></td>
-				<td><input type="time" class="form-control" name="stop[]" id="stop_(${j})" value="${jam_start}" style="width: 100px;"></td>
+				<td>
+					<button type="button" class="btn btn-sm btn-danger" onclick="delete_rows(${j})">Remove</button>
+				</td>
+				<td>
+					<input type="time" class="form-control" name="start[]" id="start_(${j})" value="${jam_stop}" style="width: 100px;">
+				</td>
+				<td>
+					<input type="time" class="form-control" name="stop[]" id="stop_(${j})" value="${jam_start}" style="width: 100px;">
+				</td>
 				
 				<td>
 					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" onkeyup="update_plan(${k})" value="" style="width: 100px" readonly>
 				</td>
 				<td>
-					<select class="form-control select2" id="no_wo_${k}" name="no_wo[]" style="width: 200px;">
+					<select class="form-control select2" id="series_${k}" name="series[]" onchange="getType(<?=$i?>)" style="width: 150px;">
+						<option selected disabled>-- Pilih Series --</option>
+						${data_series_battery.map((item) => `<option value="${item.series}">${item.series}</option>`)}
 					</select>
 				</td>
 				<td>
-					<input type="text" class="form-control" name="part_number[]" id="part_number_${k}" style="width: 250px" readonly>
+					<select class="form-control select2" id="type_battery_${k}" name="type_battery[]" style="width: 150px;">
+						<option selected disabled>-- Pilih Type --</option>
+					</select>
+				</td>
+				<td>
+					<select class="form-control select2" id="jenis_battery_${k}" name="jenis_battery[]" style="width: 150px;" required>
+						<option selected disabled>-- Pilih Jenis --</option>
+						${data_jenis_baterry.map((item) => `<option value="${item.jenis}">${item.jenis}</option>`)}
+					</select>
+					<input type="hidden" name="batch[]" id="batch_${k}" value="<?=$j+1?>">
+					<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp${k}" value="">
 				</td>
 				<td>
 					<input type="text" class="form-control" size="4" name="ct[]" id="ct_${k}" style="width: 100px" readonly>
@@ -1108,6 +1129,9 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 				</td>
 				<td>
 					<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_${k}" style="width: 100px" readonly>
+				</td>
+				<td>
+					<button type="button"class="btn btn-sm btn-primary" id="add_pending_${k}" onclick="add_pending(${k})">Add</button>
 				</td>
 				<td>
 					<button type="button"class="btn btn-sm btn-primary" id="add_breakdown_${k}" onclick="add_breakdown(${k})">Add</button>
