@@ -2,7 +2,7 @@
 	<!-- <header class="main-header" style="background-color: transparent"> -->
 	<!-- &nbsp; -->
 	<!-- Header Navbar -->
-	<nav class="navbar navbar-static-top d-flex justify-content-around align-items-center p-0">
+	<nav class="navbar navbar-static-top d-flex justify-content-between align-items-center p-0">
 		<!-- Sidebar toggle button-->
 		<!-- <div class="app-menu">
 			<ul class="header-megamenu nav">
@@ -29,7 +29,7 @@
 			</ul>
 		</div> -->
 		<!-- <div style="margin-left:-250px; text-align:center; margin-top:-25px;"> -->
-		<div class="d-flex" style="margin-left: 96px">
+		<div class="d-flex" style="margin-left: 127px">
 			<div class="box mb-2 mx-1" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; width: 140px">
 				<div class="fx-card-item">
 					<div class="fx-card-content">
@@ -43,7 +43,7 @@
 						</div>
 					</div>
 					<div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-						<img src="<?= base_url() ?>uploads/kadept.jpg" alt="" style="max-width: 100%; height: 125px" id="foto_kadept">
+						<img src="<?= base_url() ?>uploads/1100.jpg" alt="" style="max-width: 100%; height: 125px" id="foto_kadept">
 					</div>
 					<div class="fx-card-footer px-3 py-1">
 						<div class="d-flex justify-content-between align-items-center">
@@ -56,7 +56,7 @@
 					</div>
 				</div>
 			</div>
-			<?php if ($sub_bagian === 'amb-1') { ?>
+			<?php if (strtolower($sub_bagian) === 'amb-1') { ?>
 				<div class="box mb-2 mx-1" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; width: 140px">
 					<div class="fx-card-item">
 						<div class="fx-card-content">
@@ -70,11 +70,11 @@
 							</div>
 						</div>
 						<div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-							<img src="<?= base_url() ?>uploads/kadept.jpg" alt="" style="max-width: 100%; height: 125px" id="foto_kadept">
+							<img src="<?= base_url() ?>uploads/3012.jpg" alt="" style="max-width: 100%; height: 125px" id="foto_kasie">
 						</div>
 						<div class="fx-card-footer px-3 py-1">
 							<div class="d-flex justify-content-between align-items-center">
-								<h5 class="m-0" style="font-size: 10px" id="npk_kadept">3012</h5>
+								<h5 class="m-0" style="font-size: 10px" id="npk_kasie">3012</h5>
 								<!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower()">Edit</button> -->
 							</div>
 							<!-- <div class="d-flex justify-content-between align-items-center">
@@ -83,7 +83,7 @@
 						</div>
 					</div>
 				</div>
-			<?php } else if ($sub_bagian === 'amb-2') { ?>
+			<?php } else if (strtolower($sub_bagian) === 'amb-2') { ?>
 				<div class="box mb-2 mx-1" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; width: 140px">
 					<div class="fx-card-item">
 						<div class="fx-card-content">
@@ -115,9 +115,10 @@
 		<div style="width: 40%">
 			<h1 class="judul_dashboard text-center m-0" style="color: white">MAN POWER HENKATEN BOARD ASSY <?= strtoupper($sub_bagian) ?></h1>
 		</div>
-		<div style="width: 30%; color: white" class="justify-content-end align-items-center pe-3 d-flex">
-			<h1 class="text-center m-0 pe-2" style="font-size: 24px"><?= date('d F Y') ?> Shift</h1>
-			<select name="shift" id="shift" class="form-select p-0 ps-5 me-3" style="width: 50px; font-size: 16px" onchange="changeShift()">
+		<div style="width: 30%; color: white; margin-right: 23px" class="justify-content-end align-items-center d-flex">
+			<input type="date" name="date" id="date" class="form-control" value="<?= date('Y-m-d') ?>" style="width: 125px; margin-right: 10px" onchange="changeShift('<?= $sub_bagian ?>')">
+			<h1 class="text-center m-0 pe-2" style="font-size: 24px">Shift</h1>
+			<select name="shift" id="shift" class="form-select p-0 ps-5 me-3" style="width: 50px; font-size: 16px" onchange="changeShift('<?= $sub_bagian ?>')">
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>

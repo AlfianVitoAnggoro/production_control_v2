@@ -132,6 +132,76 @@ class DashboardManPower extends BaseController
     return json_encode($data);
   }
 
+  public function changeShift()
+  {
+    $sub_bagian = $this->request->getPost('sub_bagian');
+    $date = $this->request->getPost('date');
+    $shift = $this->request->getPost('shift');
+    $line = $this->request->getPost('line');
+    foreach ($line as $ln) {
+      $data['data_mesin'][$ln] = $this->M_DashboardManPower->get_data_mesin($ln);
+    }
+    $temp_data_group_man_power = $this->M_DashboardManPower->get_data_group_man_power($sub_bagian);
+    if (count($temp_data_group_man_power) > 0) {
+      foreach ($temp_data_group_man_power as $tdgmp) {
+        $data['data_group_man_power'][$tdgmp['line']][$tdgmp['group_mp']][$tdgmp['mesin']] = $tdgmp;
+      }
+    } else
+      $data['data_group_man_power'] = [];
+    $temp_data_group_man_power_indirect = $this->M_DashboardManPower->get_data_group_man_power_indirect($sub_bagian);
+    if (count($temp_data_group_man_power_indirect) > 0) {
+      foreach ($temp_data_group_man_power_indirect as $tdgmpi) {
+        $data['data_group_man_power_indirect'][$tdgmpi['group_mp']][$tdgmpi['mesin']] = $tdgmpi;
+      }
+    } else
+      $data['data_group_man_power_indirect'] = [];
+    $temp_data_group_man_power_kasubsie = $this->M_DashboardManPower->get_data_group_man_power_kasubsie($sub_bagian);
+    if (count($temp_data_group_man_power_kasubsie) > 0) {
+      foreach ($temp_data_group_man_power_kasubsie as $tdgmpk) {
+        $data['data_group_man_power_kasubsie'][$tdgmpk['group_mp']][$tdgmpk['mesin']] = $tdgmpk;
+      }
+    } else
+      $data['data_group_man_power_kasubsie'] = [];
+    $temp_detail_record_man_power = $this->M_DashboardManPower->get_data_daily_record_man_power($sub_bagian, $date, $shift);
+    if (count($temp_detail_record_man_power) > 0) {
+      foreach ($temp_detail_record_man_power as $tdrmp) {
+        $data['detail_record_man_power'][$tdrmp['line']][$tdrmp['group_mp']][$tdrmp['mesin']] = $tdrmp;
+      }
+    } else
+      $data['detail_record_man_power'] = [];
+    $temp_detail_record_man_power_kasubsie = $this->M_DashboardManPower->get_data_daily_record_man_power_kasubsie($sub_bagian, $date, $shift);
+    if (count($temp_detail_record_man_power_kasubsie) > 0) {
+      foreach ($temp_detail_record_man_power_kasubsie as $tdrmpk) {
+        $data['detail_record_man_power_kasubsie'][$tdrmpk['mesin']][$tdrmpk['group_mp']] = $tdrmpk;
+      }
+    } else
+      $data['detail_record_man_power_kasubsie'] = [];
+    $temp_detail_record_man_power_indirect = $this->M_DashboardManPower->get_data_daily_record_man_power_indirect($sub_bagian, $date, $shift);
+    if (count($temp_detail_record_man_power_indirect) > 0) {
+      foreach ($temp_detail_record_man_power_indirect as $tdrmpi) {
+        $data['detail_record_man_power_indirect'][$tdrmpi['mesin']][$tdrmpi['group_mp']] = $tdrmpi;
+      }
+    } else
+      $data['detail_record_man_power_indirect'] = [];
+    $temp_data_mp_tidak_hadir = $this->M_DashboardManPower->get_data_mp_tidak_hadir($sub_bagian, $date, $shift);
+    if (count($temp_data_mp_tidak_hadir) > 0) {
+      foreach ($temp_data_mp_tidak_hadir as $tdmth) {
+        $data['data_mp_tidak_hadir'][$tdmth['line']][] = $tdmth;
+      }
+    } else
+      $data['data_mp_tidak_hadir'] = [];
+    $temp_data_mp_tidak_hadir_indirect = $this->M_DashboardManPower->get_data_mp_tidak_hadir_indirect($sub_bagian, $date, $shift);
+    if (count($temp_data_mp_tidak_hadir_indirect) > 0) {
+      foreach ($temp_data_mp_tidak_hadir_indirect as $tdmth) {
+        $data['data_mp_tidak_hadir_indirect'][] = $tdmth;
+      }
+    } else
+      $data['data_mp_tidak_hadir_indirect'] = [];
+    $data['data_indirect'] = $this->M_DashboardManPower->get_data_indirect(str_replace('-', '_', $sub_bagian));
+    return json_encode($data);
+    // return view('pages/dashboard_man_power/dashboard_man_power', $data);
+  }
+
   public function get_detail_man_power()
   {
     $edit_man_power = $this->request->getPost('edit_man_power');
@@ -187,6 +257,7 @@ class DashboardManPower extends BaseController
             'shift' => $shift,
             'group_mp' => $group_mp[$index_line],
             'mesin' => $nama_mesin[$ln][$i],
+            'nama' => NULL,
           ];
         }
         $this->M_DashboardManPower->save_record_man_power($cek_record, $data_record_man_power);
@@ -242,6 +313,7 @@ class DashboardManPower extends BaseController
           'shift' => $shift,
           'group_mp' => $group_mp_indirect[$k],
           'mesin' => $nama_mesin_indirect[$k],
+          'nama' => NULL
         ];
       }
       $this->M_DashboardManPower->save_record_man_power_indirect($cek_record_indirect, $data_record_man_power_indirect);

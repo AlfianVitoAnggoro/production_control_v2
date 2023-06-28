@@ -427,16 +427,28 @@ $routes->group('master_group_man_power', ['filter' => 'auth'], function ($routes
 });
 
 //Dashboard Man Power
-$routes->group('dashboard_man_power', ['filter' => 'auth'], function ($routes) {
+$routes->group('dashboard_man_power', function ($routes) {
     $routes->get('/', 'DashboardManPower::index');
     $routes->get('(:segment)', 'DashboardManPower::dashboard/$1');
     $routes->get('filter', 'DashboardManPower::index');
     $routes->get('detail_dashboard_man_power/(:num)', 'DashboardManPower::detail_dashboard_man_power/$1');
     $routes->post('changeGroup', 'DashboardManPower::changeGroup');
+    $routes->post('changeShift', 'DashboardManPower::changeShift');
     $routes->post('get_detail_man_power', 'DashboardManPower::get_detail_man_power');
     $routes->post('get_data_detail_man_power', 'DashboardManPower::get_data_detail_man_power');
     $routes->post('save_record_man_power', 'DashboardManPower::save_record_man_power');
 });
+
+//Daily Record Cuti
+$routes->group('daily_record_cuti', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'DailyRecordMP::index_cuti');
+});
+
+//Daily Record Absen
+$routes->group('daily_record_absen', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'DailyRecordMP::index_absen');
+});
+
 $routes->group('monitoring_curing', function ($routes) {
     $routes->get('/', 'MonitoringCuring::monitoring_curing_view');
 });

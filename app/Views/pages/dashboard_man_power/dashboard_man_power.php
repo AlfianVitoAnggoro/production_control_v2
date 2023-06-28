@@ -12,7 +12,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   $line = [10];
 ?>
 <?php $group = 'A' ?>
-<?php $lineAct = ['', 1, 2, 3, 4, 5, 6, 7, 'WET A', 'WET F', 'MCB']; ?>
+<?php $lineAct = ['', 1, 2, 3, 4, 5, 6, 7, 'WET A', 'WET F', 'MCB'] ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="container-full">
   <!-- Main content -->
@@ -49,7 +49,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           foreach ($data_mesin as $msn) { ?>
             <?php if (count($detail_record_man_power) > 0) { ?>
               <!-- <div class="col"> -->
-              <div class="box mb-2 mx-1" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; width: 140px" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
+              <div class="box mb-2 mx-1" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; width: 140px; background-color: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['nama'] === '') ? '#850000' : '') : '#850000') : '#850000') : '#850000') : '#850000' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
                 <div class="fx-card-item">
                   <div class="fx-card-content">
                     <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -148,7 +148,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 <th style="font-size: 12px" class="py-1 px-0 text-center">Keterangan</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="data_mp_tidak_hadir_<?= $line[$i] ?>">
               <?php if (array_key_exists($line[$i], $data_mp_tidak_hadir) ? count($data_mp_tidak_hadir[$line[$i]]) : 0) {
                 $temp_index_add = 0;
                 foreach ($data_mp_tidak_hadir[$line[$i]] as $dmth) { ?>
@@ -396,7 +396,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               <th style="font-size: 12px" class="py-1 px-0 text-center">Keterangan</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="data_mp_tidak_hadir_indirect">
             <?php if (count($data_mp_tidak_hadir_indirect) > 0) {
               $temp_index_add = 0;
               foreach ($data_mp_tidak_hadir_indirect as $dmth) { ?>
@@ -503,28 +503,164 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   let colorSkill = ['#000000', '#ff0000', '#ffff00', '#0000ff', '#00aa00'];
 
   function changeShift(sub_bagian) {
+    let line = <?= json_encode($line) ?>;
+    let shift = document.querySelector('#shift');
+    let date = document.querySelector('#date');
+    $('#loading-modal').modal('show');
     $.ajax({
       url: '<?= base_url() ?>dashboard_man_power/changeShift',
       type: 'POST',
       data: {
-        sub_bagian: sub_bagian
+        sub_bagian: sub_bagian,
+        date: date.value,
+        shift: shift.value,
+        line: line,
       },
       dataType: 'json',
       success: function(data) {
-        let index_mesin = 0;
         let skill = '';
         let status = '';
-        data.data_mesin.forEach(msn => {
-          document.querySelector(`#nama_mp_${line}_${index_mesin}`).value = data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['nama'] ?? '';
-          document.querySelector(`#foto_${line}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['foto'] ?? '';
-          document.querySelector(`#npk_${line}_${index_mesin}`).innerHTML = String(data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
-          skill = document.querySelector(`#skill_${line}_${index_mesin}`);
-          skill.style.backgroundColor = (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill']) ? colorSkill[data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill']] : 'transparent';
-          status = document.querySelector(`#status_${line}_${index_mesin}`);
-          status.innerHTML = (msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol';
-          status.style.color = (msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
-          index_mesin++;
-        });
+        if (Object.keys(data.detail_record_man_power).length > 0) {
+          line.forEach(ln => {
+            let index_mesin = 0;
+            data?.data_mesin?.[ln].forEach(msn => {
+              // console.log(Object.keys(data.detail_record_man_power?.[ln])[0]);
+              document.querySelector(`#group_${ln}`).value = Object.keys(data.detail_record_man_power?.[ln])[0];
+              document.querySelector(`#nama_mp_${ln}_${index_mesin}`).value = data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['nama'] ?? '';
+              document.querySelector(`#foto_${ln}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['foto'] ?? '';
+              document.querySelector(`#npk_${ln}_${index_mesin}`).innerHTML = String(data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
+              skill = document.querySelector(`#skill_${ln}_${index_mesin}`);
+              skill.style.backgroundColor = (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']) ? colorSkill[data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']] : 'transparent';
+              status = document.querySelector(`#status_${ln}_${index_mesin}`);
+              status.innerHTML = (msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol';
+              status.style.color = (msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
+              index_mesin++;
+            });
+            let temp_index_add = 0;
+            document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML = '';
+            if (data?.data_mp_tidak_hadir.hasOwnProperty(ln)) {
+              data?.data_mp_tidak_hadir?.[ln].forEach(dmth => {
+                document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML += `
+                <tr id="add_mp_tidak_masuk_${ln}_${temp_index_add}" style="border-bottom: ${temp_index_add === 5 ? 'transparent' : ''};" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}', ${temp_index_add})">
+                  <td class="p-0" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
+                    ${dmth['nama']}
+                    <input type="hidden" name="nama_mp_tidak_hadir_${ln}[]" value="${dmth['id_man_power']}">
+                    <input type="hidden" name="id_cuti_mp_tidak_hadir_${ln}[]" id="id_cuti_mp_tidak_hadir_${ln}_${temp_index_add}" value="${dmth['id_cuti']}">
+                  </td>
+                  <td class="p-0 text-center">${String(dmth['npk']).padStart(4, '0')}</td>
+                  <td class="p-0 text-center" name="keterangan_mp_tidak_hadir_${ln}[]">${dmth['keterangan']}</td>
+                </tr>
+              `;
+                temp_index_add++;
+              });
+            }
+            if (temp_index_add < 6) {
+              for (let index_add = temp_index_add; index_add < 6; index_add++) {
+                document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML += `
+                  <tr id="add_mp_tidak_masuk_${ln}_${index_add}" style="border-bottom: ${index_add === 5 ? 'transparent' : ''};">
+                    <td colspan="3" class="text-center p-0">
+                      <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${ln}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}',${index_add})">Add</button>
+                    </td>
+                  </tr>
+                `;
+              }
+            }
+            let temp_index_add_indirect = 0;
+            document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML = ``;
+            if (data?.data_mp_tidak_hadir_indirect.length > 0) {
+              data?.data_mp_tidak_hadir_indirect.forEach(dmthi => {
+                document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML += `
+                  <tr id="add_mp_tidak_masuk_indirect_${temp_index_add_indirect}" style="border-bottom: ${temp_index_add === 5 ? 'transparent' : ''};" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', ${temp_index_add_indirect})">
+                    <td class="p-0" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
+                      ${dmthi['nama']}
+                      <input type="hidden" name="nama_mp_tidak_hadir_indirect[]" value="${dmthi['id_man_power']}">
+                      <input type="hidden" name="id_cuti_mp_tidak_hadir_indirect[]" id="id_cuti_mp_tidak_hadir_indirect_${temp_index_add_indirect}" value="${dmthi['id_cuti']}">
+                    </td>
+                    <td class="p-0 text-center">${String(dmthi['npk']).padStart(4, '0')}</td>
+                    <td class="p-0 text-center" name="keterangan_mp_tidak_hadir_indirect[]">${dmthi['keterangan']}</td>
+                  </tr>
+                `;
+              });
+            }
+            if (temp_index_add_indirect < 6) {
+              for (let index_add = temp_index_add_indirect; index_add < 6; index_add++) {
+                document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML += `
+                  <tr id="add_mp_tidak_masuk_indirect_${index_add}" style="border-bottom: ${index_add === 5 ? 'transparent' : ''};">
+                    <td colspan="3" class="text-center p-0">
+                      <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_indirect_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect',${index_add})">Add</button>
+                    </td>
+                  </tr>
+                `;
+              }
+            }
+          });
+          let index = 0;
+          data?.data_indirect.forEach(di => {
+            if (di.mesin.includes('Kasubsie')) {
+              document.querySelector(`#nama_mp_indirect_${index}`).value = data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? '';
+              document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['foto'] ?? '';
+              document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0');
+              index++;
+            } else {
+              document.querySelector(`#nama_mp_indirect_${index}`).value = data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? '';
+              document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['foto'] ?? '';
+              document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0');
+              index++;
+            }
+          });
+        } else {
+          line.forEach(ln => {
+            let index_mesin = 0;
+            data?.data_mesin?.[ln].forEach(msn => {
+              // console.log(Object.keys(data.data_group_man_power?.[ln])[0]);
+              document.querySelector(`#group_${ln}`).value = Object.keys(data.data_group_man_power?.[ln])[0];
+              document.querySelector(`#nama_mp_${ln}_${index_mesin}`).value = data?.data_group_man_power?.[ln]?.[Object.keys(data.data_group_man_power?.[ln])[0]]?.[msn.mesin]?.['nama'] ?? '';
+              document.querySelector(`#foto_${ln}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power?.[ln]?.[Object.keys(data.data_group_man_power?.[ln])[0]]?.[msn.mesin]?.['foto'] ?? '';
+              document.querySelector(`#npk_${ln}_${index_mesin}`).innerHTML = String(data?.data_group_man_power?.[ln]?.[Object.keys(data.data_group_man_power?.[ln])[0]]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
+              skill = document.querySelector(`#skill_${ln}_${index_mesin}`);
+              skill.style.backgroundColor = (data?.data_group_man_power?.[ln]?.[Object.keys(data.data_group_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']) ? colorSkill[data?.data_group_man_power?.[ln]?.[Object.keys(data.data_group_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']] : 'transparent';
+              status = document.querySelector(`#status_${ln}_${index_mesin}`);
+              status.innerHTML = (msn.min_skill <= (data?.data_group_man_power?.[ln]?.[Object.keys(data.data_group_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol';
+              status.style.color = (msn.min_skill <= (data?.data_group_man_power?.[ln]?.[Object.keys(data.data_group_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
+              index_mesin++;
+            });
+            document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML = ``;
+            for (let index_add = 0; index_add < 6; index_add++) {
+              document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML += `
+                <tr id="add_mp_tidak_masuk_${ln}_${index_add}" style="border-bottom: ${index_add === 5 ? 'transparent' : ''};">
+                  <td colspan="3" class="text-center p-0">
+                    <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${ln}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}',${index_add})">Add</button>
+                  </td>
+                </tr>
+              `;
+            }
+          });
+          let index = 0;
+          data?.data_indirect.forEach(di => {
+            if (di.mesin.includes('Kasubsie')) {
+              document.querySelector(`#nama_mp_indirect_${index}`).value = data?.data_group_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? '';
+              document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['foto'] ?? '';
+              document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.data_group_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0');
+              index++;
+            } else {
+              document.querySelector(`#nama_mp_indirect_${index}`).value = data?.data_group_man_power_indirect?.[di.mesin]?.[Object.keys(data?.data_group_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? '';
+              document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power_indirect?.[di.mesin]?.[Object.keys(data?.data_group_man_power_indirect?.[di.mesin])[0]]?.['foto'] ?? '';
+              document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.data_group_man_power_indirect?.[di.mesin]?.[Object.keys(data?.data_group_man_power_indirect?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0');
+              index++;
+            }
+          });
+          document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML = ``;
+          for (let index_add = 0; index_add < 6; index_add++) {
+            document.querySelector(`#data_mp_tidak_hadir_indirect`).innerHTML += `
+              <tr id="add_mp_tidak_masuk_indirect_${index_add}" style="border-bottom: ${index_add === 5 ? 'transparent' : ''};">
+                <td colspan="3" class="text-center p-0">
+                  <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_indirect_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect',${index_add})">Add</button>
+                </td>
+              </tr>
+            `;
+          }
+        }
+        $('#loading-modal').modal('hide');
       }
     });
   }
@@ -757,7 +893,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   }
 
   function save_record_man_power() {
-    // $('#loading-modal').modal('show');
+    $('#loading-modal').modal('show');
     let date = <?= json_encode(date('Y-m-d')) ?>;
     let sum_line = <?= json_encode($line) ?>;
     let sub_bagian = <?= json_encode($sub_bagian) ?>;

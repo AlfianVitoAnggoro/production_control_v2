@@ -149,6 +149,21 @@ class M_DashboardManPower extends Model
     return $query->getResultArray();
   }
 
+  public function get_data_group_mp_all($sub_bagian)
+  {
+    $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, dmdmp.skill, mdmp.foto, dmdgmp.mesin, dmdgmp.line, dmdgmp.group_mp
+                            FROM master_data_man_power mdmp
+                            JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
+                            JOIN detail_master_data_group_man_power dmdgmp ON dmdgmp.nama = mdmp.id_man_power
+                            JOIN master_data_group_man_power mdgmp ON mdgmp.id_group = dmdgmp.id_group
+                            JOIN data_master_mesin dmm ON dmdgmp.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
+                            WHERE mdgmp.sub_bagian = \'' . $sub_bagian . '\'
+                            ');
+
+
+    return $query->getResultArray();
+  }
+
   public function get_data_group_man_power_indirect($sub_bagian)
   {
     $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, mdmp.foto, dmdmp.skill, dmdgmpi.mesin, dmdgmpi.group_mp
@@ -159,23 +174,56 @@ class M_DashboardManPower extends Model
 							              WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
                             ');
     // WHERE dmdmp.mesin = \'' . $mesin . '\' AND dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
-
-    return $query->getResultArray();
-  }
-
-  public function get_data_group_mp_indirect($sub_bagian, $group_mp)
-  {
-    $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, mdmp.foto, dmdmp.skill, dmdgmpi.mesin, dmdgmpi.group_mp
+    $query_non_skill = $this->db->query('SELECT mdmp.nama, mdmp.npk, mdmp.foto, dmdgmpi.mesin, dmdgmpi.group_mp
                             FROM master_data_man_power mdmp
-                            JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
                             JOIN detail_master_data_group_man_power_indirect dmdgmpi ON dmdgmpi.nama = mdmp.id_man_power
-                            JOIN data_master_mesin dmm ON dmdgmpi.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
-                            WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\' AND dmdgmpi.group_mp = \'' . $group_mp . '\'
+                            JOIN data_master_mesin dmm ON dmdgmpi.mesin = dmm.mesin AND dmm.requirement = \'Tidak Baca\'
+                            WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
                             ');
-    // WHERE dmdmp.mesin = \'' . $mesin . '\' AND dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
+    return array_merge($query->getResultArray(), $query_non_skill->getResultArray());
+  }
 
+  public function get_data_group_mp_indirect($sub_bagian, $group_mp, $mesin)
+  {
+    if (strpos($mesin, 'Improvement') === 0) {
+      $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, mdmp.foto, dmdgmpi.mesin, dmdgmpi.group_mp
+                              FROM master_data_man_power mdmp
+                              JOIN detail_master_data_group_man_power_indirect dmdgmpi ON dmdgmpi.nama = mdmp.id_man_power
+                              JOIN data_master_mesin dmm ON dmdgmpi.mesin = dmm.mesin AND \'Tidak Baca\' = dmm.requirement
+                              WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\' AND dmdgmpi.group_mp = \'' . $group_mp . '\' AND dmdgmpi.mesin = \'' . $mesin . '\'
+                              ');
+    } else {
+      $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, mdmp.foto, dmdmp.skill, dmdgmpi.mesin, dmdgmpi.group_mp
+                              FROM master_data_man_power mdmp
+                              JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
+                              JOIN detail_master_data_group_man_power_indirect dmdgmpi ON dmdgmpi.nama = mdmp.id_man_power
+                              JOIN data_master_mesin dmm ON dmdgmpi.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
+                              WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\' AND dmdgmpi.group_mp = \'' . $group_mp . '\' AND dmdgmpi.mesin = \'' . $mesin . '\'
+                              ');
+    }
     return $query->getResultArray();
   }
+
+  // public function get_data_group_mp_all_indirect($sub_bagian)
+  // {
+  //   if (strpos($mesin, 'Improvement') === 0) {
+  //     $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, mdmp.foto, dmdgmpi.mesin, dmdgmpi.group_mp
+  //                             FROM master_data_man_power mdmp
+  //                             JOIN detail_master_data_group_man_power_indirect dmdgmpi ON dmdgmpi.nama = mdmp.id_man_power
+  //                             JOIN data_master_mesin dmm ON dmdgmpi.mesin = dmm.mesin AND \'Tidak Baca\' = dmm.requirement
+  //                             WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
+  //                             ');
+  //   } else {
+  //     $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, mdmp.foto, dmdmp.skill, dmdgmpi.mesin, dmdgmpi.group_mp
+  //                             FROM master_data_man_power mdmp
+  //                             JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
+  //                             JOIN detail_master_data_group_man_power_indirect dmdgmpi ON dmdgmpi.nama = mdmp.id_man_power
+  //                             JOIN data_master_mesin dmm ON dmdgmpi.mesin = dmm.mesin AND dmdmp.mesin = dmm.requirement
+  //                             WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
+  //                             ');
+  //   }
+  //   return $query->getResultArray();
+  // }
 
   public function get_data_group_man_power_kasubsie($sub_bagian)
   {
@@ -188,12 +236,23 @@ class M_DashboardManPower extends Model
     return $query->getResultArray();
   }
 
-  public function get_data_group_mp_kasubsie($sub_bagian, $group_mp)
+  public function get_data_group_mp_kasubsie($sub_bagian, $group_mp, $mesin)
   {
     $query = $this->db->query('SELECT mdmpk.nama, mdmpk.npk, mdmpk.foto, dmdgmpi.mesin, dmdgmpi.group_mp
                             FROM master_data_man_power_kasubsie mdmpk
                             JOIN detail_master_data_group_man_power_indirect dmdgmpi ON dmdgmpi.nama = mdmpk.id_man_power
-							              WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\' AND dmdgmpi.group_mp = \'' . $group_mp . '\'
+							              WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\' AND dmdgmpi.group_mp = \'' . $group_mp . '\' AND dmdgmpi.mesin = \'' . $mesin . '\'
+                            ');
+
+    return $query->getResultArray();
+  }
+
+  public function get_data_group_mp_all_kasubsie($sub_bagian)
+  {
+    $query = $this->db->query('SELECT mdmpk.nama, mdmpk.npk, mdmpk.foto, dmdgmpi.mesin, dmdgmpi.group_mp
+                            FROM master_data_man_power_kasubsie mdmpk
+                            JOIN detail_master_data_group_man_power_indirect dmdgmpi ON dmdgmpi.nama = mdmpk.id_man_power
+							              WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
                             ');
 
     return $query->getResultArray();
@@ -218,9 +277,10 @@ class M_DashboardManPower extends Model
   public function get_data_master_man_power()
   {
     $query = $this->db->query('SELECT nama, npk, id_man_power FROM master_data_man_power ORDER BY nama ASC');
+    $query_gmt = $this->db->query('SELECT nama, npk, id_man_power FROM master_data_man_power_gmt ORDER BY nama ASC');
     // $query = $this->db->query('SELECT * FROM master_data_man_power JOIN detail_master_data_man_power on detail_master_data_man_power.id_man_power = master_data_man_power.id_man_power WHERE detail_master_data_man_power.line = \'' . $line . '\' AND detail_master_data_man_power.mesin = \'' . $mesin . '\'');
 
-    return $query->getResultArray();
+    return array_merge($query->getResultArray(), $query_gmt->getResultArray());
   }
 
   public function get_data_master_man_power_kasubsie()
@@ -232,10 +292,16 @@ class M_DashboardManPower extends Model
 
   public function get_detail_man_power($id_man_power, $requirement)
   {
-    $query = $this->db->query('SELECT * FROM master_data_man_power mdmp
-                            JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
-                            WHERE mdmp.id_man_power = \'' . $id_man_power . '\' AND dmdmp.mesin = \'' . $requirement . '\'
-                            ');
+    if ($requirement !== 'undefined') {
+      $query = $this->db->query('SELECT * FROM master_data_man_power mdmp
+                              JOIN detail_master_data_man_power dmdmp ON mdmp.id_man_power = dmdmp.id_man_power
+                              WHERE mdmp.id_man_power = \'' . $id_man_power . '\' AND dmdmp.mesin = \'' . $requirement . '\'
+                              ');
+    } else {
+      $query = $this->db->query('SELECT * FROM master_data_man_power_kasubsie
+                              WHERE id_man_power = \'' . $id_man_power . '\'
+                              ');
+    }
 
     return $query->getResultArray();
   }
@@ -258,6 +324,14 @@ class M_DashboardManPower extends Model
     return $query->getResultArray();
   }
 
+  public function get_data_mp_kasubsie($npk)
+  {
+    $query = $this->db->query('SELECT id_man_power FROM master_data_man_power_kasubsie
+                            WHERE npk = \'' . $npk . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
   public function save_record_man_power($id_record, $data)
   {
     $query = $this->db->table('detail_record_master_group_man_power');
@@ -265,6 +339,45 @@ class M_DashboardManPower extends Model
       $query->where('id_record', $id_record[0]['id_record']);
       $query->update($data);
       return $id_record;
+    } else {
+      $query->insert($data);
+      return $this->db->insertID();
+    }
+  }
+
+  public function save_record_man_power_indirect($id_record, $data)
+  {
+    $query = $this->db->table('detail_record_master_group_man_power_indirect');
+    if (count($id_record) > 0) {
+      $query->where('id_record', $id_record[0]['id_record']);
+      $query->update($data);
+      return $id_record;
+    } else {
+      $query->insert($data);
+      return $this->db->insertID();
+    }
+  }
+
+  public function save_record_man_power_tidak_hadir($id_cuti, $data)
+  {
+    $query = $this->db->table('detail_record_cuti');
+    if ($id_cuti !== '') {
+      $query->where('id_cuti', $id_cuti);
+      $query->update($data);
+      return $id_cuti;
+    } else {
+      $query->insert($data);
+      return $this->db->insertID();
+    }
+  }
+
+  public function save_record_man_power_tidak_hadir_indirect($id_cuti, $data)
+  {
+    $query = $this->db->table('detail_record_cuti_indirect');
+    if ($id_cuti !== '') {
+      $query->where('id_cuti', $id_cuti);
+      $query->update($data);
+      return $id_cuti;
     } else {
       $query->insert($data);
       return $this->db->insertID();
@@ -279,6 +392,22 @@ class M_DashboardManPower extends Model
     return $query->getResultArray();
   }
 
+  public function get_daily_record_man_power_indirect($sub_bagian, $tanggal, $shift, $mesin)
+  {
+    $query = $this->db->query('SELECT id_record FROM detail_record_master_group_man_power_indirect
+                            WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $tanggal . '\' AND shift = \'' . $shift . '\' AND mesin = \'' . $mesin . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
+  public function get_daily_record_man_power_cuti($sub_bagian, $tanggal, $line, $shift)
+  {
+    $query = $this->db->query('SELECT id_cuti FROM detail_record_cuti
+                            WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $tanggal . '\' AND line = \'' . $line . '\' AND shift = \'' . $shift . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
   public function get_data_daily_record_man_power($sub_bagian, $tanggal, $shift)
   {
     $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, dmdmp.skill, mdmp.foto, drmgmp.mesin, drmgmp.line, drmgmp.group_mp
@@ -289,5 +418,73 @@ class M_DashboardManPower extends Model
                             WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $tanggal . '\' AND shift = \'' . $shift . '\'
                             ');
     return $query->getResultArray();
+  }
+
+  public function get_data_daily_record_man_power_indirect($sub_bagian, $tanggal, $shift)
+  {
+    $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, mdmp.foto, drmgmp.mesin, drmgmp.group_mp
+                            FROM master_data_man_power mdmp
+							              JOIN detail_record_master_group_man_power_indirect drmgmp ON drmgmp.nama = mdmp.id_man_power
+                            WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $tanggal . '\' AND shift = \'' . $shift . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
+  public function get_data_daily_record_man_power_kasubsie($sub_bagian, $tanggal, $shift)
+  {
+    $query = $this->db->query('SELECT mdmp.nama, mdmp.npk, mdmp.foto, drmgmp.mesin, drmgmp.group_mp
+                            FROM master_data_man_power_kasubsie mdmp
+							              JOIN detail_record_master_group_man_power_indirect drmgmp ON drmgmp.nama = mdmp.id_man_power
+                            WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $tanggal . '\' AND shift = \'' . $shift . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
+  public function get_data_mp_tidak_hadir($sub_bagian, $tanggal, $shift)
+  {
+    $query = $this->db->query('SELECT DISTINCT mdmp.id_man_power, mdmp.nama, mdmp.npk, drc.keterangan, drc.id_cuti, drc.line
+                            FROM master_data_man_power mdmp
+                            JOIN detail_record_cuti drc ON drc.nama = mdmp.id_man_power
+                            WHERE drc.sub_bagian = \'' . $sub_bagian . '\' AND drc.tanggal = \'' . $tanggal . '\' AND drc.shift = \'' . $shift . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
+  public function get_data_mp_tidak_hadir_indirect($sub_bagian, $tanggal, $shift)
+  {
+    $query = $this->db->query('SELECT DISTINCT mdmp.id_man_power, mdmp.nama, mdmp.npk, drci.keterangan, drci.id_cuti, drci.line
+                            FROM master_data_man_power mdmp
+                            JOIN detail_record_cuti_indirect drci ON drci.nama = mdmp.id_man_power
+                            WHERE drci.sub_bagian = \'' . $sub_bagian . '\' AND drci.tanggal = \'' . $tanggal . '\' AND drci.shift = \'' . $shift . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
+  public function delete_mp_tidak_hadir($sub_bagian, $tanggal, $shift)
+  {
+    $this->db->query('DELETE FROM detail_record_cuti
+                            WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $tanggal . '\' AND shift = \'' . $shift . '\'
+                            ');
+  }
+
+  public function delete_mp_tidak_hadir_by_id($id_cuti)
+  {
+    $this->db->query('DELETE FROM detail_record_cuti
+                            WHERE id_cuti = \'' . $id_cuti . '\'
+                            ');
+  }
+
+  public function delete_mp_tidak_hadir_indirect($sub_bagian, $tanggal, $shift)
+  {
+    $this->db->query('DELETE FROM detail_record_cuti_indirect
+                            WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $tanggal . '\' AND shift = \'' . $shift . '\'
+                            ');
+  }
+
+  public function delete_mp_tidak_hadir_indirect_by_id($id_cuti)
+  {
+    $this->db->query('DELETE FROM detail_record_cuti_indirect
+                            WHERE id_cuti = \'' . $id_cuti . '\'
+                            ');
   }
 }
