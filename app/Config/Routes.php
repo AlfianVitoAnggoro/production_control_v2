@@ -52,6 +52,20 @@ $routes->post('/dashboard/assy/get_data_line_stop_by_shift', 'Dashboard::get_dat
 $routes->post('/dashboard/assy/get_data_line_stop_by_grup', 'Dashboard::get_data_line_stop_by_grup');
 $routes->post('/dashboard/assy/get_data_line_stop_by_kss', 'Dashboard::get_data_line_stop_by_kss');
 
+//DASHBOARD EFF WET FINISHING
+$routes->get('/dashboard', 'Dashboard::index');
+$routes->get('/dashboard/wet_finishing', 'DashboardWetFinishing::dashboard_lhp_wet_finishing');
+$routes->post('/dashboard/wet_finishing', 'DashboardWetFinishing::dashboard_lhp_wet_finishing');
+$routes->post('/dashboard/wet_finishing/get_data_line_stop', 'DashboardWetFinishing::get_data_line_stop');
+$routes->post('/dashboard/wet_finishing/get_data_line_stop_by_shift', 'DashboardWetFinishing::get_data_line_stop_by_shift');
+$routes->post('/dashboard/wet_finishing/get_data_line_stop_by_grup', 'DashboardWetFinishing::get_data_line_stop_by_grup');
+$routes->post('/dashboard/wet_finishing/get_data_line_stop_by_kss', 'DashboardWetFinishing::get_data_line_stop_by_kss');
+
+$routes->get('/dashboard/wet_finishing/wet_a', 'DashboardWetFinishingA::dashboard_lhp_wet_finishing');
+$routes->post('/dashboard/wet_finishing/wet_a', 'DashboardWetFinishingA::dashboard_lhp_wet_finishing');
+$routes->get('/dashboard/wet_finishing/wet_f', 'DashboardWetFinishingF::dashboard_lhp_wet_finishing');
+$routes->post('/dashboard/wet_finishing/wet_f', 'DashboardWetFinishingF::dashboard_lhp_wet_finishing');
+
 //DASHBOARD EFF ASSY NPDT
 $routes->get('/dashboard_npdt', 'Dashboard_npdt::index');
 $routes->get('/dashboard_npdt/assy', 'Dashboard_npdt::dashboard_lhp_assy');

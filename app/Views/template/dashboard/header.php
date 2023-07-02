@@ -39,6 +39,8 @@
 			$judul = 'CUTTING REJECTION';
 		} else if ($uri->getSegment(3) == 'rejectMCB') {
 			$judul = 'CUTTING REJECTION';
+		} else if ($uri->getSegment(3) == 'wet_finishing') {
+			$judul = 'PERFORMANCE';
 		} else {
 			$judul = 'REPORT';
 		}
@@ -65,6 +67,10 @@
 			} else {
 				$sub_judul = '(LINE '.$child_filter.')';
 			}
+		} else if ($uri->getSegment(4) == 'wet_a') {
+			$sub_judul = '(WET A)';
+		} else if ($uri->getSegment(4) == 'wet_f') {
+			$sub_judul = '(WET F)';
 		} else {
 			$sub_judul = '';
 		} 
