@@ -82,42 +82,21 @@
                             </div>
                             <div class="col-6" style="display:flex; margin-top:40px;">
                                 <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around; margin-left:-140px; margin-top:-65px;">
-                                    <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-rounded btn-success btn-lg btn-nav">Efficiency</a>
-                                    <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-rounded btn-outline btn-danger btn-lg btn-nav">Rejection</a>
-                                    <!-- <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a> -->
-                                    <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
-                                    <!-- <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button> -->
+                                    <a href="#" class="waves-effect waves-light btn btn-rounded btn-success btn-lg btn-nav">Efficiency</a>
+                                    <a href="#" class="waves-effect waves-light btn btn-rounded btn-outline btn-danger btn-lg btn-nav">Rejection</a>
+                                    <a href="#" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
                                 </div>
                                 <div class="col-3" style="margin-left:85px">
                                     <div id="year_to_date_chart" style="height:250px;"></div>
-                                    <!-- <div style="text-align: center;margin-top: 60px;">
-                                        <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
-                                    </div> -->
                                 </div>
                                 <div class="col-3">
                                     <div id="target_chart" style="height:250px;"></div>
-                                    <!-- <div style="text-align: center;margin-top: 60px;">
-                                        <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
-                                    </div> -->
                                 </div>
-                                <!-- <div class="col-3">
-                                    <div id="previous_month_chart" style="height:250px;"></div>
-                                </div> -->
                                 <div class="col-3">
                                     <div id="current_month_chart" style="height:250px;"></div>
-                                    <!-- <div style="text-align: center;margin-top: 60px;">
-                                        <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
-                                    </div> -->
                                 </div>
                             </div>
                             <div class="col-4" style="text-align:center">
-                                <!-- <div class="row">
-                                    <div class="col-12" style="text-align:center">
-                                        <button class="btn btn-danger">Rejection</button>
-                                        <button class="btn btn-info">Line Stop</button>
-                                        <button class="btn btn-success">Overtime</button>
-                                    </div>
-                                </div> -->
                                 <div class="row">
                                     <div class="col-12">
                                         <br>
