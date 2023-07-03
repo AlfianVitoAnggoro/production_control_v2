@@ -387,13 +387,13 @@
                 <table class="table" id="tbl_breakdown" width="100%">
                     <thead>
                         <tr>
-                            <td>Batch Jam</td>
-                            <td>No WO</td>
-                            <td>Type Battery</td>
-                            <td>Jenis Line Stop</td>
-                            <td>Proses Line Stop</td>
-                            <td>Uraian</td>
-                            <td>Total Menit</td>
+                            <th style="width: 23%">Batch Jam</th>
+                            <th style="width: 10%">No WO</th>
+                            <th style="width: 55%">Type Battery</th>
+                            <th style="width: 5%">Jenis Line Stop</th>
+                            <th style="width: 2%">Kategori Line Stop</th>
+                            <th style="width: 5%">Uraian</th>
+                            <th style="width: 2%">Total Menit</th>
                         </tr>
                     </thead>
                     <tbody id="data_breakdown">
@@ -1011,7 +1011,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                     '<td>' + data[i].no_wo + '</td>' +
                                                     '<td>' + data[i].type_battery + '</td>' +
                                                     '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1067,7 +1067,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                     '<td>' + data[i].no_wo + '</td>' +
                                                     '<td>' + data[i].type_battery + '</td>' +
                                                     '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1112,7 +1112,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                        '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                        '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                         '<td>' + data[i].no_wo + '</td>' +
                                                         '<td>' + data[i].type_battery + '</td>' +
                                                         '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1156,7 +1156,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1201,7 +1201,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1245,7 +1245,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1289,7 +1289,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1333,7 +1333,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1384,7 +1384,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1439,7 +1439,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1485,7 +1485,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1531,7 +1531,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1581,7 +1581,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1632,7 +1632,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
