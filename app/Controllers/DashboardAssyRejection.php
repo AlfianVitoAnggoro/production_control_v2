@@ -332,6 +332,8 @@ class DashboardAssyRejection extends BaseController
         $data['data_all_detail_battery_rejection_by_month'] = $this->M_DashboardAssyRejection->get_all_detail_battery_rejection_by_month(idate('m',strtotime($date)), $line);
         $data['data_all_detail_grup_rejection_by_month'] = $this->M_DashboardAssyRejection->get_all_detail_grup_rejection_by_month(idate('m',strtotime($date)), $line);
 
+        $data['detail_summary_rejection'] = $this->M_DashboardAssyRejection->get_detail_summary_rejection($jenis_reject, $date, $line);
+
         echo json_encode($data);    
     }
 

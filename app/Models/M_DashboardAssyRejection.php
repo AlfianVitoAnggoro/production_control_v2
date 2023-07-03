@@ -911,4 +911,33 @@ class M_DashboardAssyRejection extends Model
 
         return $query->getResultArray();
     }
+
+    public function get_detail_summary_rejection($jenis_reject, $date, $line)
+    {
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT lhp_produksi2.tanggal_produksi, detail_reject.kategori_reject, detail_reject.type_battery,master_pic_line.nama_pic, lhp_produksi2.shift, SUM(detail_reject.qty_reject) as qty
+                                        FROM detail_reject
+                                        JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
+                                        JOIN master_pic_line on master_pic_line.id_pic = lhp_produksi2.grup
+                                        WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
+                                        AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
+                                        AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
+                                        GROUP BY detail_reject.type_battery, detail_reject.kategori_reject, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi,master_pic_line.nama_pic, lhp_produksi2.shift
+                                        ORDER BY detail_reject.kategori_reject ASC, SUM(detail_reject.qty_reject) DESC
+                                    ');
+        } else {
+            $query = $this->db->query('SELECT lhp_produksi2.tanggal_produksi, detail_reject.kategori_reject, detail_reject.type_battery,master_pic_line.nama_pic, lhp_produksi2.shift, SUM(detail_reject.qty_reject) as qty
+                                        FROM detail_reject
+                                        JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
+                                        JOIN master_pic_line on master_pic_line.id_pic = lhp_produksi2.grup
+                                        WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
+                                        AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
+                                        AND lhp_produksi2.line = '.$line.'
+                                        GROUP BY detail_reject.type_battery, detail_reject.kategori_reject, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi,master_pic_line.nama_pic, lhp_produksi2.shift
+                                        ORDER BY detail_reject.kategori_reject ASC, SUM(detail_reject.qty_reject) DESC
+                                    ');
+        }
+
+        return $query->getResultArray();
+    }
 }

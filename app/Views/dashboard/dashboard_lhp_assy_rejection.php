@@ -283,6 +283,21 @@
                 <div id="sub_detail_pareto_kategori_reject"></div>
                 <div id="sub_detail_pareto_type_battery"></div>
                 <div id="sub_detail_pareto_grup_shift"></div>
+                <br><br>
+                <div id="detail_table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Kategori Reject</th>
+                                <th>Type Battery</th>
+                                <th>PIC</th>
+                                <th>Shift</th>
+                                <th>Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detail_summary_rejection"></tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer" style="float: right;">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1176,6 +1191,26 @@
                                                                                 color:'red',
                                                                             }]
                                                                     });
+
+                                                                    var detail_summary_rejection = data['detail_summary_rejection'];
+                                                                    var add_table = '';
+                                                                    var i;
+                                                                    var total_detail_reject = 0;
+                                                                    for (i = 0; i < detail_summary_rejection.length; i++) {
+                                                                        total_detail_reject += parseInt(detail_summary_rejection[i].qty);
+                                                                        add_table += `<tr>
+                                                                                            <td>`+detail_summary_rejection[i].kategori_reject+`</td>
+                                                                                            <td>`+detail_summary_rejection[i].type_battery+`</td>
+                                                                                            <td>`+detail_summary_rejection[i].nama_pic+`</td>
+                                                                                            <td>`+detail_summary_rejection[i].shift+`</td>
+                                                                                            <td>`+detail_summary_rejection[i].qty+`</td>
+                                                                                        </tr>`;
+                                                                    }
+                                                                    add_table += `<tr>
+                                                                                        <th colspan="4" style="text-align: center;"><b>Total</b></th>
+                                                                                        <th>`+total_detail_reject+`</th>
+                                                                                    </tr>`;
+                                                                    $('#detail_summary_rejection').html(add_table);
 
                                                                     $('#sub_modal').modal('show');
                                                                 }
