@@ -66,6 +66,16 @@ class M_Dashboard extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_all_line_by_date_mcb($tanggal)
+    {
+        $query = $this->db->query('SELECT tanggal_produksi, SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                    FROM		lhp_produksi2
+                                    WHERE		tanggal_produksi = \''.$tanggal.'\' AND line = 10
+                                    GROUP BY	tanggal_produksi');
+
+        return $query->getResultArray();
+    }
+
     public function get_data_all_line_by_month($bulan, $line) 
     {
         if ($line == null || $line == 0) {
@@ -115,6 +125,27 @@ class M_Dashboard extends Model
             $query = $this->db->query('SELECT MONTH(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
                                         FROM lhp_produksi2 
                                         WHERE MONTH(tanggal_produksi) = '.$bulan.' AND (line = 4 OR line = 5 OR line = 6 OR line = 7)
+                                        GROUP BY MONTH(tanggal_produksi)
+                                        ORDER BY MONTH(tanggal_produksi)
+                                    ');
+        } else {
+            $query = $this->db->query('SELECT MONTH(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE MONTH(tanggal_produksi) = '.$bulan.' AND line = '.$line.'
+                                        GROUP BY MONTH(tanggal_produksi)
+                                        ORDER BY MONTH(tanggal_produksi)
+                                    ');
+        }
+        
+        return $query->getResultArray();
+    }
+
+    public function get_data_all_line_by_month_mcb($bulan, $line) 
+    {
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT MONTH(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE MONTH(tanggal_produksi) = '.$bulan.' AND line = 10
                                         GROUP BY MONTH(tanggal_produksi)
                                         ORDER BY MONTH(tanggal_produksi)
                                     ');
@@ -185,6 +216,29 @@ class M_Dashboard extends Model
             $query = $this->db->query('SELECT YEAR(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
                                         FROM lhp_produksi2 
                                         WHERE YEAR(tanggal_produksi) = '.$tahun.' AND (line = 4 OR line = 5 OR line = 6 OR line = 7)
+                                        GROUP BY YEAR(tanggal_produksi)
+                                        ORDER BY YEAR(tanggal_produksi)
+                                    ');
+        } else {
+            $query = $this->db->query('SELECT YEAR(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE YEAR(tanggal_produksi) = '.$tahun.' AND line = '.$line.'
+                                        GROUP BY YEAR(tanggal_produksi)
+                                        ORDER BY YEAR(tanggal_produksi)
+                                    ');
+        }
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_all_line_by_year_mcb($line) 
+    {
+        $tahun = date('Y');
+
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT YEAR(tanggal_produksi) AS month,SUM(total_plan) AS total_plan, SUM(total_aktual) AS total_aktual
+                                        FROM lhp_produksi2 
+                                        WHERE YEAR(tanggal_produksi) = '.$tahun.' AND line = 10
                                         GROUP BY YEAR(tanggal_produksi)
                                         ORDER BY YEAR(tanggal_produksi)
                                     ');
@@ -382,6 +436,27 @@ class M_Dashboard extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_all_line_by_jam_mcb($line, $jam, $tanggal)
+    {
+        if ($line == null || $line == 0) {
+            $query = $this->db->query('SELECT SUM(detail_lhp_produksi2.plan_cap) AS total_plan, SUM(detail_lhp_produksi2.actual) AS total_aktual FROM detail_lhp_produksi2
+                                    JOIN lhp_produksi2 ON detail_lhp_produksi2.id_lhp_2 = lhp_produksi2.id_lhp_2
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
+                                    AND lhp_produksi2.line = 10
+                                    AND detail_lhp_produksi2.jam_end = \''.$jam.'\'
+                                ');
+        } else {
+            $query = $this->db->query('SELECT SUM(detail_lhp_produksi2.plan_cap) AS total_plan, SUM(detail_lhp_produksi2.actual) AS total_aktual FROM detail_lhp_produksi2
+                                    JOIN lhp_produksi2 ON detail_lhp_produksi2.id_lhp_2 = lhp_produksi2.id_lhp_2
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
+                                    AND detail_lhp_produksi2.jam_end = \''.$jam.'\' 
+                                    AND lhp_produksi2.line = '.$line);
+        }   
+        
+
+        return $query->getResultArray();
+    }
+
     // public function get_data_top_grup_amb1($bulan)
     // {
     //     $query = $this->db->query('SELECT master_pic_line.nama_pic, (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100 AS persen
@@ -443,6 +518,30 @@ class M_Dashboard extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_top_grup_mcb($bulan)
+    {
+        $query = $this->db->query('SELECT
+                                        master_pic_line.nama_pic,
+                                        CASE
+                                        WHEN SUM(lhp_produksi2.total_aktual) = 0 THEN 0
+                                        WHEN SUM(lhp_produksi2.total_plan) = 0 THEN 0
+                                        ELSE (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100
+                                        END AS persen
+                                    FROM
+                                        lhp_produksi2
+                                    JOIN
+                                        master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup
+                                    WHERE
+                                        MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.' AND master_pic_line.id_line = 10
+                                    GROUP BY
+                                    master_pic_line.nama_pic
+                                    ORDER BY
+                                    persen DESC
+                                ');
+
+        return $query->getResultArray();
+    }
+
     public function get_data_top_grup_amb1_daily($tanggal)
     {
         $query = $this->db->query('SELECT master_pic_line.nama_pic, 
@@ -472,6 +571,24 @@ class M_Dashboard extends Model
                                     FROM lhp_produksi2
                                     JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup
                                     WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\' AND (master_pic_line.id_line = 4 OR master_pic_line.id_line = 5 OR master_pic_line.id_line = 6 OR master_pic_line.id_line = 7)
+                                    GROUP BY master_pic_line.nama_pic
+                                    ORDER BY persen DESC
+                                ');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_top_grup_mcb_daily($tanggal)
+    {
+        $query = $this->db->query('SELECT master_pic_line.nama_pic, 
+                                        CASE
+                                        WHEN SUM(lhp_produksi2.total_aktual) = 0 THEN 0
+                                        ELSE (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100
+                                        END AS persen
+                                -- (SUM(lhp_produksi2.total_aktual) / CAST(SUM(lhp_produksi2.total_plan) as float)) * 100 AS persen
+                                    FROM lhp_produksi2
+                                    JOIN master_pic_line ON master_pic_line.id_pic = lhp_produksi2.grup
+                                    WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\' AND master_pic_line.id_line = 10
                                     GROUP BY master_pic_line.nama_pic
                                     ORDER BY persen DESC
                                 ');

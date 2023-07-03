@@ -67,6 +67,8 @@
 			} else {
 				$sub_judul = '(LINE '.$child_filter.')';
 			}
+		} else if ($uri->getSegment(4) == 'mcb') {
+			$sub_judul = '(MCB)';
 		} else if ($uri->getSegment(4) == 'wet_a') {
 			$sub_judul = '(WET A)';
 		} else if ($uri->getSegment(4) == 'wet_f') {
