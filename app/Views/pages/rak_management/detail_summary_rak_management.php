@@ -32,6 +32,7 @@
 													<th>Supply Time</th>
 													<th>Close Time</th>
 													<th>Status</th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -47,6 +48,16 @@
 													<td><?=$drr['supply_time']?></td>
 													<td><?=$drr['close_time']?></td>
 													<td><?=$drr['status']?></td>
+													<td>
+														<?php
+															if ($drr['status'] == 'open') { ?>
+																<a href="<?=base_url('rak_management/detail_rak_management/force_close/'.$drr['pn_qr'].'/'.$drr['barcode'])?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin?')">Force Close</a>
+														<?php
+															} else {
+																echo '-';
+															}
+														?>
+													</td>
 												</tr>
 												<?php } endforeach; ?>
 											</tbody>

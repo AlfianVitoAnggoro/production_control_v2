@@ -360,6 +360,7 @@ $routes->group('saw_repair', ['filter' => 'auth'], function ($routes) {
 $routes->group('rak_management', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'RakManagement::index');
     $routes->get('detail_rak_management/(:segment)', 'RakManagement::detail_rak_management/$1');
+    $routes->get('detail_rak_management/force_close/(:any)/(:any)', 'RakManagement::force_close/$1/$2');
 });
 $routes->get('rak_management/reset_rak_casting_pasting', 'RakManagement::reset_rak_casting_to_pasting');
 $routes->get('rak_management/update_rak', 'RakManagement::update_rak');
