@@ -269,7 +269,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 														?>
 														
 														<td>
-															<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px" readonly>
+															<input type="number" class="form-control menit_terpakai" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px" readonly>
 														</td>
 														<td>
 															<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
@@ -351,7 +351,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																</div>
 															</td>
 															<td>
-																<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$menit_aktual[$j]?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px" readonly>
+																<input type="number" class="form-control menit_terpakai" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$menit_aktual[$j]?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px" readonly>
 															</td>
 															<td>
 																<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
@@ -695,7 +695,24 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 	});
 
 	function hitung_mh() {
-		var total_menit = <?= array_sum($menit_aktual) ?>;
+		// var total_menit = <?= array_sum($menit_aktual) ?>;
+
+		var inps = document.querySelectorAll('.menit_terpakai');
+		var totals = {};
+
+		//Sum calculation
+		for (var i = 0; i <inps.length; i++)
+		{
+		totals[inps[i].name] = (totals[inps[i].name] || 0) + Number(inps[i].value);
+		}
+
+		//Result display
+		for (var key in totals) {
+			if (totals.hasOwnProperty(key)) {
+				var total_menit = totals[key];
+			}
+		}
+
 		var mp = <?= $data_lhp[0]['mp'] ?>;
 		// var absen = <?= $data_lhp[0]['absen'] ?>;
 		// var cuti = <?= $data_lhp[0]['cuti'] ?>;
@@ -737,6 +754,18 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 				});
 			}
 		});
+
+		var menit_aktual = <?=json_encode($menit_aktual)?>;
+
+		if (no_wo == '-') {
+			$('#menit_terpakai_'+i).val(0);
+			$('#part_number_'+i).val('');
+			$('#plan_cap_'+i).val(0);
+			$('#total_menit_breakdown_'+i).val(0);
+			$('#ct_'+i).val(0);
+		} else {
+			$('#menit_terpakai_'+i).val(menit_aktual[i]);
+		}
 	}
 
 	function presentase_actual(i) {
@@ -1004,7 +1033,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 				
 				-->
 				<td>
-					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" onkeyup="update_plan(${k})" value="" style="width: 100px" readonly>
+					<input type="number" class="form-control menit_terpakai" name="menit_terpakai[]" id="menit_terpakai_${k}" onkeyup="update_plan(${k})" value="" style="width: 100px" readonly>
 				</td>
 				<td>
 					<select class="form-control select2" id="no_wo_${k}" name="no_wo[]" onchange="getPartNo(${k})" style="width: 200px;">
