@@ -84,8 +84,12 @@ $mh = [8, 7.5, 6.5];
                                         <table class="table">
                                             <tr>
                                                 <td>
-                                                Conveyor Barat
-                                                <input type="text" class="form-control" name="conveyor_barat" id="conveyor_barat" onchange="material_in_conveyor_barat()">
+                                                    QR Code Material Conveyor Barat
+                                                    <input type="text" class="form-control" name="qr_code_conveyor_barat" id="qr_code_conveyor_barat" onchange="material_in_conveyor_barat()">
+                                                </td>
+                                                <td>
+                                                    QTY Material Conveyor Barat
+                                                    <input type="text" class="form-control" name="conveyor_barat" id="conveyor_barat" readonly>
                                                 </td>
                                                 <td>
                                                 <button type="button" class="btn btn-primary" onclick="add_material_in('barat')">Add</button>
@@ -97,8 +101,12 @@ $mh = [8, 7.5, 6.5];
                                         <table class="table">
                                             <tr>
                                                 <td>
-                                                Conveyor Timur
-                                                <input type="text" class="form-control" name="conveyor_timur" id="conveyor_timur" onchange="material_in_conveyor_timur()">
+                                                    QR Code Material Conveyor Timur
+                                                    <input type="text" class="form-control" name="qr_code_conveyor_timur" id="qr_code_conveyor_timur" onchange="material_in_conveyor_timur()">
+                                                </td>
+                                                <td>
+                                                    Conveyor Material Timur
+                                                    <input type="text" class="form-control" name="conveyor_timur" id="conveyor_timur" readonly>
                                                 </td>
                                                 <td>
                                                 <button type="button" class="btn btn-primary" onclick="add_material_in('timur')">Add</button>
@@ -115,7 +123,12 @@ $mh = [8, 7.5, 6.5];
                                             <table id="data_conveyor_barat" class="table table-striped mb-0">
                                                 <thead>
                                                     <tr>
-                                                        <th colspan="2">Material In Conveyor Barat</th>
+                                                        <th colspan="3">Material In Conveyor Barat</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>QR Code</th>
+                                                        <th>Qty</th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_material_in_conveyor_barat">
@@ -123,8 +136,15 @@ $mh = [8, 7.5, 6.5];
                                                 foreach ($data_conveyor_barat as $d_cb) { ?>
                                                     <tr class="material_in_conveyor_barat">
                                                         <td>
-                                                            <input type="text" class="form-control" id="material_in_barat_<?= $number ?>" value="<?= $d_cb['material_in'] ?>" readonly> Kg
+                                                            <input type="text" class="form-control" id="qr_code_barat_<?= $number ?>" value="<?= $d_cb['barc'] ?>" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <!-- <input type="text" class="form-control" id="material_in_barat_<?= $number ?>" value="<?= $d_cb['material_in'] ?>" readonly> Kg -->
                                                             <input type="hidden" class="form-control" id="id_material_in_barat_<?= $number ?>" value="<?= $d_cb['id_material_in'] ?>" readonly>
+                                                            <div class="input-group bootstrap-touchspin">
+                                                                <input type="text" id="material_in_barat_<?= $number ?>" value="<?= $d_cb['material_in'] ?>" readonly data-bts-button-down-class="btn btn-secondary" data-bts-button-up-class="btn btn-secondary" class="form-control" style="display: block;">
+                                                                <span class="input-group-addon bootstrap-touchspin-postfix">Kg</span>
+                                                            </div>
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-danger" onclick="delete_material_in(this, 'barat', <?= $number ?>)">Delete</button>
@@ -141,7 +161,12 @@ $mh = [8, 7.5, 6.5];
                                             <table id="data_conveyor_timur" class="table table-striped mb-0">
                                                 <thead>
                                                     <tr>
-                                                        <th colspan="2">Material In Conveyor Timur</th>
+                                                        <th colspan="3">Material In Conveyor Timur</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>QR Code</th>
+                                                        <th>Qty</th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_material_in_conveyor_timur">
@@ -149,8 +174,15 @@ $mh = [8, 7.5, 6.5];
                                                 foreach ($data_conveyor_timur as $d_ct) { ?>
                                                     <tr class="material_in_conveyor_timur">
                                                         <td>
-                                                            <input type="text" class="form-control" id="material_in_timur_<?= $number ?>" value="<?= $d_ct['material_in'] ?>" readonly> Kg
+                                                            <input type="text" class="form-control" id="qr_code_timur_<?= $number ?>" value="<?= $d_ct['barc'] ?>" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <!-- <input type="text" class="form-control" id="material_in_timur_<?= $number ?>" value="<?= $d_ct['material_in'] ?>" readonly> Kg -->
                                                             <input type="hidden" class="form-control" id="id_material_in_timur_<?= $number ?>" value="<?= $d_ct['id_material_in'] ?>" readonly>
+                                                            <div class="input-group bootstrap-touchspin">
+                                                                <input type="text" id="material_in_timur_<?= $number ?>" value="<?= $d_ct['material_in'] ?>" readonly data-bts-button-down-class="btn btn-secondary" data-bts-button-up-class="btn btn-secondary" class="form-control" style="display: block;">
+                                                                <span class="input-group-addon bootstrap-touchspin-postfix">Kg</span>
+                                                            </div>
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-danger" onclick="delete_material_in(this, 'timur', <?= $number ?>)">Delete</button>
@@ -181,6 +213,7 @@ $mh = [8, 7.5, 6.5];
                                                 <th>Nama Mesin</th>
                                                 <th>Nama Operator</th>
                                                 <th>Type Grid</th>
+                                                <th style="width:20%;">Dandori</th>
                                                 <th>JKS (Panel)</th>
                                                 <th>Aktual (Panel)</th>
                                                 <th>Persentase (%)</th>
@@ -250,6 +283,14 @@ $mh = [8, 7.5, 6.5];
                                                             </select>
                                                         </td>
                                                         <td>
+                                                            <select name="dandori[]" id="dandori_<?= $d_mesin['nama_mesin'] ?>" class="form-select" onchange="decrease_jks(<?= $d_mesin['nama_mesin'] ?>)">
+                                                                <option value="-" <?=('-' == $data_detail_lhp[0]['status_dandori']) ? "selected" : "" ?>>-</option>
+                                                                <option value="DANDORI MOLD" <?=('DANDORI MOLD' == $data_detail_lhp[0]['status_dandori']) ? "selected" : "" ?>>DANDORI MOLD</option>
+                                                                <option value="DANDORI TRIMDIES" <?=('DANDORI TRIMDIES' == $data_detail_lhp[0]['status_dandori']) ? "selected" : "" ?>>DANDORI TRIMDIES</option>
+                                                                <option value="GANTI MATERIAL" <?=('GANTI MATERIAL' == $data_detail_lhp[0]['status_dandori']) ? "selected" : "" ?>>GANTI MATERIAL</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
                                                             <input type="number" name="jks[]" id="jks_<?= $d_mesin['nama_mesin'] ?>" class="form-control" value="<?= $data_detail_lhp[0]['jks'] ?>" readonly>
                                                         </td>
                                                         <td>
@@ -316,6 +357,14 @@ $mh = [8, 7.5, 6.5];
                                                                 <option value="NO WO">NO WO</option>
                                                             </select>
                                                         </td>
+                                                        <td>
+                                                            <select name="dandori[]" id="dandori_<?= $d_mesin['nama_mesin'] ?>" class="form-select" onchange="decrease_jks(<?= $d_mesin['nama_mesin'] ?>)">
+                                                                <option value="-">-</option>
+                                                                <option value="DANDORI MOLD">DANDORI MOLD</option>
+                                                                <option value="DANDORI TRIMDIES">DANDORI TRIMDIES</option>
+                                                                <option value="GANTI MATERIAL">GANTI MATERIAL</option>
+                                                            </select>
+                                                        </td>
                                                         <td><input type="text" class="form-control" name="jks[]" id="jks_<?= $d_mesin['nama_mesin'] ?>" readonly></td>
                                                         <td><input type="text" class="form-control" name="aktual[]" id="aktual_<?= $d_mesin['nama_mesin'] ?>" onkeyup="count_persentase(<?= $d_mesin['nama_mesin'] ?>)"></td>
                                                         <td><input type="text" class="form-control" name="persentase[]" id="persentase_<?= $d_mesin['nama_mesin'] ?>" readonly></td>
@@ -330,7 +379,7 @@ $mh = [8, 7.5, 6.5];
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colspan="3">
+                                                <td colspan="4">
                                                     <h3>Total</h3>
                                                 </td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_jks" id="" value="<?= str_replace(',', '.', number_format($data_lhp[0]['total_jks'])) ?>" readonly></td>
@@ -1193,7 +1242,7 @@ $mh = [8, 7.5, 6.5];
     }
 
     function qty_material_in(conveyor) {
-        let material_in = document.querySelector('#conveyor_' + conveyor).value;
+        let material_in = document.querySelector('#qr_code_conveyor_' + conveyor).value;
         // Memindahkan fokus ke elemen berikutnya
         $.ajax({
             url: '<?= base_url() ?>grid/qty_material_in',
@@ -1212,6 +1261,7 @@ $mh = [8, 7.5, 6.5];
 
     function add_material_in(conveyor) {
         let id_lhp = document.querySelector('#id_lhp').value;
+        let qr_code = document.querySelector('#qr_code_conveyor_' + conveyor).value;
         let material_in = document.querySelector('#conveyor_' + conveyor).value;
         let baris = document.querySelectorAll('.material_in_conveyor_' + conveyor).length;
         $('#loading-modal').modal('show');
@@ -1220,6 +1270,7 @@ $mh = [8, 7.5, 6.5];
             type: 'POST',
             data: {
                 id_lhp: id_lhp,
+                barc: qr_code,
                 material_in: material_in,
                 conveyor: conveyor,
             },
@@ -1229,8 +1280,14 @@ $mh = [8, 7.5, 6.5];
                     $('#tbody_material_in_conveyor_' + conveyor).append(`
                         <tr class="material_in_conveyor_${conveyor}">
                             <td>
-                                <input type="text" class="form-control" id="material_in_timur_${baris}" value="${material_in}" readonly> Kg
+                                <input type="text" class="form-control" id="barc_timur_${baris}" value="${qr_code}" readonly>
+                            </td>
+                            <td>
                                 <input type="hidden" class="form-control" id="id_material_in_timur_${baris}" value="${data}" readonly>
+                                <div class="input-group bootstrap-touchspin">
+                                    <input type="text" id="material_in_timur_${baris}" value="${material_in}" readonly data-bts-button-down-class="btn btn-secondary" data-bts-button-up-class="btn btn-secondary" class="form-control" style="display: block;">
+                                    <span class="input-group-addon bootstrap-touchspin-postfix">Kg</span>
+                                </div>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger" onclick="delete_material_in(this, 'timur', ${baris})">Delete</button>
@@ -1238,8 +1295,9 @@ $mh = [8, 7.5, 6.5];
                         </tr>
                     `);
                     $('#conveyor_' + conveyor).val('');
+                    $('#qr_code_conveyor_' + conveyor).val('');
                     $('#loading-modal').modal('hide');
-                    $('#conveyor_' + conveyor).focus();
+                    $('#qr_code_conveyor_' + conveyor).focus();
                 }
             }
         })
@@ -1260,6 +1318,33 @@ $mh = [8, 7.5, 6.5];
                 $('#loading-modal').modal('hide');
             }
         });
+    }
+
+    function decrease_jks(i) {
+        var loading_time = 0;
+        if ($('#shift').val() == '1') {
+            loading_time = 440;
+        } else if ($('#shift').val() == '2') {
+            loading_time = 410;
+        } else if ($('#shift').val() == '3') {
+            loading_time = 370;
+        }
+
+        var jks_before = $('#jks_' + i).val();
+        var jks_after = 0;
+
+        if ($('#dandori_' + i).val() == 'DANDORI MOLD') {
+            jks_after = Math.ceil((jks_before - (120/loading_time) * jks_before));
+            $('#jks_' + i).val(jks_after);
+        } else if ($('#dandori_' + i).val() == 'DANDORI TRIMDIES') {
+            jks_after = Math.ceil((jks_before - (240/loading_time) * jks_before));
+            $('#jks_' + i).val(jks_after);
+        } else if ($('#dandori_' + i).val() == 'GANTI MATERIAL') {
+            jks_after = Math.ceil((jks_before - (loading_time/loading_time) * jks_before));
+            $('#jks_' + i).val(jks_after);
+        } else {
+            get_jks(i);
+        }
     }
 </script>
 <?= $this->endSection(); ?>

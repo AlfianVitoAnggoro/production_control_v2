@@ -118,6 +118,7 @@ class Grid extends BaseController
                     'no_machine' => $this->request->getPost('no_machine')[$i],
                     'operator_name' => $this->request->getPost('nama_operator')[$i],
                     'type_grid' => $this->request->getPost('type_grid')[$i],
+                    'status_dandori' => $this->request->getPost('dandori')[$i],
                     'jks' => intval($this->request->getPost('jks')[$i]),
                     'actual' => intval($this->request->getPost('aktual')[$i]),
                     'mh' => floatval($this->request->getPost('mh')[$i]),
@@ -405,8 +406,10 @@ class Grid extends BaseController
         $id_lhp = $this->request->getPost('id_lhp');
         $material_in = $this->request->getPost('material_in');
         $conveyor = $this->request->getPost('conveyor');
+        $barc = $this->request->getPost('barc');
         $data = [
             'id_lhp_grid' => $id_lhp,
+            'barc' => $barc,
             'material_in' => $material_in,
             'keterangan' => $conveyor,
         ];
