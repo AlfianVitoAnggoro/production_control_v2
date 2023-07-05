@@ -68,6 +68,15 @@
                                             Qr Rak<input type="text" class="form-control" name="qr_rak" id="qr_rak" onchange="scanQr()" class="form-control">
                                         </td>
                                         <td>
+                                            <button type="button" class="btn btn-primary" onclick="get_qty_rak()">
+                                                <!-- <i class="fa fa-check"></i> -->
+                                                Add
+                                            </button>
+                                            <input type="hidden" class="form-control" name="item" id="item" class="form-control" readonly>
+                                            <input type="hidden" class="form-control" name="qty" id="qty" class="form-control" readonly>
+                                            <input type="hidden" class="form-control" name="tanggal_produksi" id="tanggal_produksi" class="form-control" readonly>
+                                        </td>
+                                        <!-- <td>
                                             Item <input type="text" class="form-control" name="item" id="item" class="form-control" readonly>
                                         </td>
                                         <td>
@@ -78,7 +87,7 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-primary" onclick="add_rak()">Add</button>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </table>
                             </div>
@@ -91,7 +100,7 @@
                                                     <th>QR Rak</th>
                                                     <th>Item</th>
                                                     <th>Qty</th>
-                                                    <th>Tanggal Produksi</th>
+                                                    <!-- <th>Tanggal Produksi</th> -->
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -112,9 +121,9 @@
                                                         <td>
                                                             <input type="text" class="form-control" name="qty_rak[]" id="qty_<?=$i?>" class="form-control" value="<?=$d_rak_at_aging['qty']?>" readonly>
                                                         </td>
-                                                        <td>
+                                                        <!-- <td>
                                                             <input type="text" class="form-control" name="tanggal_produksi_rak[]" id="tanggal_produksi_<?=$i?>" class="form-control" value="<?=$d_rak_at_aging['tanggal_produksi']?>" readonly>
-                                                        </td>
+                                                        </td> -->
                                                         <td>
                                                             <a href="<?=base_url()?>interlock_aging/delete_rak_aging/<?=$d_rak_at_aging['id']?>/<?=$mesin?>" class="btn btn-danger">Delete</button>
                                                         </td>
@@ -157,7 +166,8 @@
     <script>
         $(document).ready(function() {
             $('#table_rak_tersedia').DataTable({
-            "pageLength": 5
+            "pageLength": 5,
+            "ordering": false,
             });
             
         });
@@ -186,6 +196,10 @@
                         $('#qty').val(data[0].qty);
                         // $('#tanggal_produksi').val(data[0].entry_date);
                         $('#loading-modal').modal('hide');
+                        // $("#btn_add").click()
+                        if (data[0].item && data[0].qty && $('#qr_rak').val() !== '') {
+                            add_rak();
+                        }
                     } else {
                         alert('Data Tidak Ditemukan');
                         $('#loading-modal').modal('hide');

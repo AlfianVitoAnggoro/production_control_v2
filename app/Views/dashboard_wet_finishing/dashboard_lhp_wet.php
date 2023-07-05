@@ -61,121 +61,11 @@
 	<div class="container-full">
 		<!-- Main content -->
 		<section class="content">
-            <!-- <div class="row">
-                <div class="col-12" style="text-align:center;">
-                    <h1>Performance Dashboard</h1>
-                    <br>
-                </div>
-            </div> -->
-            <!-- <div class="row"> -->
-				<!-- <div class="col-12">														 -->
-					<!-- <div class="box" >
-						<div class="box-header no-border px-0"> -->
-							<!-- <h4 class="box-title">Current Running Courses</h4>	 -->
-                            <!-- <form action="<?=base_url()?>dashboard/assy" method="POST">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <select class="form-select" name="jenis_dashboard" id="jenis_dashboard">
-                                            <option value="1">Efficiency</option>
-                                            <option value="2">Unit / MH</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-3" style="display:flex;">
-                                        <select class="form-select" name="parent_filter" id="parent_filter" style="display:none">
-                                            <option value="line" <?= ($parent_filter == 'line') ? 'selected':''?>>Line</option>
-                                        </select>
-                                        <select class="form-select" name="child_filter" id="child_filter">
-                                            <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>All</option>
-                                            <?php for ($i=1; $i <= 7 ; $i++) { ?>
-                                                <option value="<?=$i?>" <?= ($child_filter == $i) ? 'selected':''?>>Line <?=$i?></option>
-                                            <?php } ?>
-                                        </select>
-                                        &nbsp;
-                                        <select class="form-select" name="baby_filter" id="baby_filter">
-                                            <?php if ($child_filter == 0) { ?>
-                                                <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
-                                            <?php } else { ?>
-                                                <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
-                                                <option value="shift" <?= ($baby_filter == 'shift') ? 'selected':''?>>By Shift</option>
-                                                <option value="grup" <?= ($baby_filter == 'grup') ? 'selected':''?>>By Grup</option>
-                                                <option value="kasubsie" <?= ($baby_filter == 'kasubsie') ? 'selected':''?>>By Kasubsie</option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="col-3" style="display:flex;">
-                                        <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>">
-                                    </div>
-                                    <div class="col-3" style="display: flex; flex-direction: column;">
-                                        <button class="btn btn-sm btn-success"> Filter </button>
-                                    </div>
-                                </div>
-                            </form> -->
-							<!-- <ul class="box-controls pull-right d-md-flex d-none">
-							  <li>
-								<button class="btn btn-primary-light px-10">View All</button>
-							  </li>
-							</ul> -->
-						<!-- </div>
-					</div> -->
-				<!-- </div> -->
-                
-				<!-- <div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-primary rounded">
-								<h5 class="text-white text-center p-10">Year To Date</h5>
-							</div>							
-						</div>
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_year)?>%</h1>
-                        </div>				
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-warning rounded">
-								<h5 class="text-white text-center p-10">Target 2023</h5>
-							</div>							
-						</div>	
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;">85%</h1>
-                        </div>						
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-danger rounded">
-								<h5 class="text-white text-center p-10"><?=date('F', mktime(0, 0, 0, $previous_date, 10))?> Efficiency</h5>
-							</div>								
-						</div>
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>%</h1>
-                        </div>					
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-info rounded">
-								<h5 class="text-white text-center p-10"> <?=date('F', mktime(0, 0, 0, $current_date, 10))?> Efficiency</h5>
-							</div>						
-						</div>	
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>%</h1>
-                        </div>
-					</div>
-				</div> -->
-			<!-- </div> -->
-
             <div class="row">
                     <div class="box bg-transparent">
                         <div class="box-body" style="display:flex">
                             <div class="col-2">
-                                <form action="<?=base_url()?>dashboard/assy" method="POST">
+                                <form action="<?=base_url()?>dashboard/wet_finishing" method="POST">
                                     <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px; display:none;">
                                         <option value="1">Efficiency</option>
                                         <option value="2">Unit / MH</option>
@@ -187,11 +77,8 @@
                                     &nbsp;
                                     <select class="form-select" name="child_filter" id="child_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
                                         <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>All</option>
-                                        <!-- <option value="amb1" <?= ($child_filter === 'amb1') ? 'selected':''?>>AMB 1</option>
-                                        <option value="amb2" <?= ($child_filter === 'amb2') ? 'selected':''?>>AMB 2</option> -->
-                                        <?php for ($i=1; $i <= 7 ; $i++) { ?>
-                                            <option value="<?=$i?>" <?= ($child_filter == $i) ? 'selected':''?>>Line <?=$i?></option>
-                                        <?php } ?>
+                                        <option value="8" <?= ($child_filter == "8") ? 'selected':''?>>WET A</option>
+                                        <option value="9" <?= ($child_filter == "9") ? 'selected':''?>>WET F</option>
                                     </select>
                                     &nbsp;
                                     <select class="form-select" name="baby_filter" id="baby_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
@@ -202,7 +89,7 @@
                                             <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
                                             <option value="shift" <?= ($baby_filter == 'shift') ? 'selected':''?>>By Shift</option>
                                             <option value="grup" <?= ($baby_filter == 'grup') ? 'selected':''?>>By Grup</option>
-                                            <option value="kasubsie" <?= ($baby_filter == 'kasubsie') ? 'selected':''?>>By Kasubsie</option>
+                                            <!-- <option value="kasubsie" <?= ($baby_filter == 'kasubsie') ? 'selected':''?>>By Kasubsie</option> -->
                                         <?php } ?>
                                     </select>
                                     &nbsp;
@@ -215,42 +102,21 @@
                             </div>
                             <div class="col-6" style="display:flex; margin-top:40px;">
                                 <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around; margin-left:-140px; margin-top:-65px;">
-                                    <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-rounded btn-success btn-lg btn-nav">Efficiency</a>
-                                    <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-rounded btn-outline btn-danger btn-lg btn-nav">Rejection</a>
-                                    <!-- <button type="button" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</button> -->
-                                    <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
-                                    <!-- <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button> -->
+                                    <a href="#" class="waves-effect waves-light btn btn-rounded btn-success btn-lg btn-nav">Efficiency</a>
+                                    <a href="#" class="waves-effect waves-light btn btn-rounded btn-outline btn-danger btn-lg btn-nav">Rejection</a>
+                                    <a href="#" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
                                 </div>
                                 <div class="col-3">
                                     <div id="year_to_date_chart" style="height:250px;"></div>
-                                    <!-- <div style="text-align: center;margin-top: 60px;">
-                                        <button type="button" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
-                                    </div> -->
                                 </div>
                                 <div class="col-3">
                                     <div id="target_chart" style="height:250px;"></div>
-                                    <!-- <div style="text-align: center;margin-top: 60px;">
-                                        <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
-                                    </div> -->
                                 </div>
-                                <!-- <div class="col-3">
-                                    <div id="previous_month_chart" style="height:250px;"></div>
-                                </div> -->
                                 <div class="col-3">
                                     <div id="current_month_chart" style="height:250px;"></div>
-                                    <!-- <div style="text-align: center;margin-top: 60px;">
-                                        <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
-                                    </div> -->
                                 </div>
                             </div>
                             <div class="col-4" style="text-align:center">
-                                <!-- <div class="row">
-                                    <div class="col-12" style="text-align:center">
-                                        <button class="btn btn-danger">Rejection</button>
-                                        <button class="btn btn-info">Line Stop</button>
-                                        <button class="btn btn-success">Overtime</button>
-                                    </div>
-                                </div> -->
                                 <div class="row">
                                     <div class="col-12">
                                         <br>
@@ -272,9 +138,9 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php for ($i=1; $i <= 7; $i++) { ?>
+                                                    <?php for ($i=8; $i <= 9; $i++) { ?>
                                                         <tr style="line-height: 0px;">
-                                                            <td>Line <?=$i?></td>
+                                                            <td><?=($i == 8) ? 'WET A' : 'WET F'?></td>
                                                             <td><?=${'data_line_'.$i.'_previous_month'}[0]?> %</td>
                                                             <td><?=${'data_line_'.$i.'_current_month'}[0]?> %</td>
                                                             <td>
@@ -387,13 +253,13 @@
                 <table class="table" id="tbl_breakdown" width="100%">
                     <thead>
                         <tr>
-                            <th style="width: 23%">Batch Jam</th>
-                            <th style="width: 10%">No WO</th>
-                            <th style="width: 55%">Type Battery</th>
-                            <th style="width: 5%">Jenis Line Stop</th>
-                            <th style="width: 2%">Kategori Line Stop</th>
-                            <th style="width: 5%">Uraian</th>
-                            <th style="width: 2%">Total Menit</th>
+                            <td>Batch Jam</td>
+                            <td>No WO</td>
+                            <td>Type Battery</td>
+                            <td>Jenis Line Stop</td>
+                            <td>Proses Line Stop</td>
+                            <td>Uraian</td>
+                            <td>Total Menit</td>
                         </tr>
                     </thead>
                     <tbody id="data_breakdown">
@@ -1011,7 +877,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                     '<td>' + data[i].no_wo + '</td>' +
                                                     '<td>' + data[i].type_battery + '</td>' +
                                                     '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1067,7 +933,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                     '<td>' + data[i].no_wo + '</td>' +
                                                     '<td>' + data[i].type_battery + '</td>' +
                                                     '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1112,7 +978,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                        '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                        '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                         '<td>' + data[i].no_wo + '</td>' +
                                                         '<td>' + data[i].type_battery + '</td>' +
                                                         '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1156,7 +1022,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1201,7 +1067,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1245,7 +1111,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1289,7 +1155,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1333,7 +1199,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1384,7 +1250,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1439,7 +1305,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1485,7 +1351,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1531,7 +1397,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1581,7 +1447,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1632,7 +1498,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +

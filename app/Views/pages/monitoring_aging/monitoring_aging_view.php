@@ -17,7 +17,7 @@
 						<div class="col-12 col-xl-12">
 							<div class="box">
 								<div class="box-header with-border">
-									<h4 class="box-title">Laporan Manajemen Rak</h4>
+									<h4 class="box-title">Data Rak Aging</h4>
 								</div>
 								<div class="box-body">
 									<div class="table-responsive">
@@ -25,41 +25,25 @@
 											<thead>
 												<tr>
 													<th>PN QR</th>
-													<th>Barcode</th>
+													<th>Item</th>
 													<th>Qty</th>
-													<th>WH From</th>
-													<th>WH To</th>
-													<th>Supply Time</th>
-													<th>Close Time</th>
-													<th>Status</th>
-													<th>Action</th>
+													<th>Mesin</th>
+													<th>Start Aging</th>
+													<th>Stop Aging</th>
 												</tr>
 											</thead>
 											<tbody>
-												<?php foreach($data_record_rak as $drr) :
-                        if($drr['pn_qr'] === $id_rak) {
+												<?php foreach($data_rak_aging as $dra) {
 												?>
 												<tr>
-													<td><?=$drr['pn_qr']?></td>
-													<td><?=$drr['barcode']?></td>
-													<td><?=$drr['qty']?></td>
-													<td><?=$drr['wh_from']?></td>
-													<td><?=$drr['wh_to']?></td>
-													<td><?=$drr['supply_time']?></td>
-													<td><?=$drr['close_time']?></td>
-													<td><?=$drr['status']?></td>
-													<td>
-														<?php
-															if ($drr['status'] == 'open') { ?>
-																<a href="<?=base_url('rak_management/detail_rak_management/force_close/'.$drr['pn_qr'].'/'.$drr['barcode'])?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin?')">Force Close</a>
-														<?php
-															} else {
-																echo '-';
-															}
-														?>
-													</td>
+													<td><?=$dra['pn_qr']?></td>
+													<td><?=$dra['item']?></td>
+													<td><?=$dra['qty']?></td>
+													<td><?=$dra['nama_mesin']?></td>
+													<td><?=$dra['start_aging']?></td>
+													<td><?=$dra['stop_aging']?></td>
 												</tr>
-												<?php } endforeach; ?>
+												<?php } ?>
 											</tbody>
 										</table>
 									</div>

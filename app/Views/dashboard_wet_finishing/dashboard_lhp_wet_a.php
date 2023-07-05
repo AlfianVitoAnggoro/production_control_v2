@@ -30,19 +30,6 @@
 
     $res_data_line_by_grup = array_values($arr_data_line_by_grup);
 
-    // FILTER ARRAY BY GRUP MONTHLY
-    $arr_data_line_by_grup_month = array();
-
-    foreach ($data_line_by_grup_month as $item) {
-        if ($item == 0) continue;
-        if (!array_key_exists($item['grup'], $arr_data_line_by_grup_month)) {
-            $arr_data_line_by_grup_month[$item['grup']] = array("grup" => $item['grup'], "data" => array());
-        }
-        $arr_data_line_by_grup_month[$item['grup']]["data"][] = $item['data'];
-    }
-
-    $res_data_line_by_grup_month = array_values($arr_data_line_by_grup_month);
-
     // FILTER ARRAY BY KASUBSIE
     $arr_data_line_by_kss = array();
 
@@ -61,121 +48,11 @@
 	<div class="container-full">
 		<!-- Main content -->
 		<section class="content">
-            <!-- <div class="row">
-                <div class="col-12" style="text-align:center;">
-                    <h1>Performance Dashboard</h1>
-                    <br>
-                </div>
-            </div> -->
-            <!-- <div class="row"> -->
-				<!-- <div class="col-12">														 -->
-					<!-- <div class="box" >
-						<div class="box-header no-border px-0"> -->
-							<!-- <h4 class="box-title">Current Running Courses</h4>	 -->
-                            <!-- <form action="<?=base_url()?>dashboard/assy" method="POST">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <select class="form-select" name="jenis_dashboard" id="jenis_dashboard">
-                                            <option value="1">Efficiency</option>
-                                            <option value="2">Unit / MH</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-3" style="display:flex;">
-                                        <select class="form-select" name="parent_filter" id="parent_filter" style="display:none">
-                                            <option value="line" <?= ($parent_filter == 'line') ? 'selected':''?>>Line</option>
-                                        </select>
-                                        <select class="form-select" name="child_filter" id="child_filter">
-                                            <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>All</option>
-                                            <?php for ($i=1; $i <= 7 ; $i++) { ?>
-                                                <option value="<?=$i?>" <?= ($child_filter == $i) ? 'selected':''?>>Line <?=$i?></option>
-                                            <?php } ?>
-                                        </select>
-                                        &nbsp;
-                                        <select class="form-select" name="baby_filter" id="baby_filter">
-                                            <?php if ($child_filter == 0) { ?>
-                                                <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
-                                            <?php } else { ?>
-                                                <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
-                                                <option value="shift" <?= ($baby_filter == 'shift') ? 'selected':''?>>By Shift</option>
-                                                <option value="grup" <?= ($baby_filter == 'grup') ? 'selected':''?>>By Grup</option>
-                                                <option value="kasubsie" <?= ($baby_filter == 'kasubsie') ? 'selected':''?>>By Kasubsie</option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="col-3" style="display:flex;">
-                                        <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>">
-                                    </div>
-                                    <div class="col-3" style="display: flex; flex-direction: column;">
-                                        <button class="btn btn-sm btn-success"> Filter </button>
-                                    </div>
-                                </div>
-                            </form> -->
-							<!-- <ul class="box-controls pull-right d-md-flex d-none">
-							  <li>
-								<button class="btn btn-primary-light px-10">View All</button>
-							  </li>
-							</ul> -->
-						<!-- </div>
-					</div> -->
-				<!-- </div> -->
-                
-				<!-- <div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-primary rounded">
-								<h5 class="text-white text-center p-10">Year To Date</h5>
-							</div>							
-						</div>
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_year)?>%</h1>
-                        </div>				
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-warning rounded">
-								<h5 class="text-white text-center p-10">Target 2023</h5>
-							</div>							
-						</div>	
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;">85%</h1>
-                        </div>						
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-danger rounded">
-								<h5 class="text-white text-center p-10"><?=date('F', mktime(0, 0, 0, $previous_date, 10))?> Efficiency</h5>
-							</div>								
-						</div>
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $previous_date, 10)) - 1])?>%</h1>
-                        </div>					
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6 col-12">
-					<div class="box pull-up">
-						<div class="box-body">	
-							<div class="bg-info rounded">
-								<h5 class="text-white text-center p-10"> <?=date('F', mktime(0, 0, 0, $current_date, 10))?> Efficiency</h5>
-							</div>						
-						</div>	
-                        <div class="box-body text-center">
-                            <h1 class="countnm fs-50" style="margin-top: -30px;"><?=json_encode($data_all_month[date('n', mktime(0, 0, 0, $current_date, 10)) - 1])?>%</h1>
-                        </div>
-					</div>
-				</div> -->
-			<!-- </div> -->
-
             <div class="row">
                     <div class="box bg-transparent">
                         <div class="box-body" style="display:flex">
                             <div class="col-2">
-                                <form action="<?=base_url()?>dashboard/assy" method="POST">
+                                <form action="<?=base_url()?>dashboard/wet_finishing/wet_a" method="POST">
                                     <select class="form-select" name="jenis_dashboard" id="jenis_dashboard" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px; display:none;">
                                         <option value="1">Efficiency</option>
                                         <option value="2">Unit / MH</option>
@@ -186,24 +63,14 @@
                                     </select>
                                     &nbsp;
                                     <select class="form-select" name="child_filter" id="child_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
-                                        <option value="0" <?= ($child_filter == '0') ? 'selected':''?>>All</option>
-                                        <!-- <option value="amb1" <?= ($child_filter === 'amb1') ? 'selected':''?>>AMB 1</option>
-                                        <option value="amb2" <?= ($child_filter === 'amb2') ? 'selected':''?>>AMB 2</option> -->
-                                        <?php for ($i=1; $i <= 7 ; $i++) { ?>
-                                            <option value="<?=$i?>" <?= ($child_filter == $i) ? 'selected':''?>>Line <?=$i?></option>
-                                        <?php } ?>
+                                        <option value="8" <?= ($child_filter == "8") ? 'selected':''?>>WET A</option>
                                     </select>
                                     &nbsp;
                                     <select class="form-select" name="baby_filter" id="baby_filter" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
-                                        <?php if ($child_filter == 0) { ?>
-                                            <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
-                                            <option value="line" <?= ($baby_filter == 'line') ? 'selected':''?>>By Line</option>
-                                        <?php } else { ?>
                                             <option value="average" <?= ($baby_filter == 'average') ? 'selected':''?>>By Average</option>
                                             <option value="shift" <?= ($baby_filter == 'shift') ? 'selected':''?>>By Shift</option>
                                             <option value="grup" <?= ($baby_filter == 'grup') ? 'selected':''?>>By Grup</option>
-                                            <option value="kasubsie" <?= ($baby_filter == 'kasubsie') ? 'selected':''?>>By Kasubsie</option>
-                                        <?php } ?>
+                                            <!-- <option value="kasubsie" <?= ($baby_filter == 'kasubsie') ? 'selected':''?>>By Kasubsie</option> -->
                                     </select>
                                     &nbsp;
                                     <input type="month" class="form-control" name="bulan" id="bulan" value="<?= $bulan ?>" style="border-width: thick;border: wh;font-size: 20px;font-weight: 900;width: 175px;">
@@ -215,42 +82,21 @@
                             </div>
                             <div class="col-6" style="display:flex; margin-top:40px;">
                                 <div class="col-3" style="display:flex;text-align:center;flex-direction: column;align-items: center;flex-wrap: nowrap;justify-content: space-around; margin-left:-140px; margin-top:-65px;">
-                                    <a href="<?=base_url()?>dashboard/assy" class="waves-effect waves-light btn btn-rounded btn-success btn-lg btn-nav">Efficiency</a>
-                                    <a href="<?=base_url()?>dashboard/reject" class="waves-effect waves-light btn btn-rounded btn-outline btn-danger btn-lg btn-nav">Rejection</a>
-                                    <!-- <button type="button" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</button> -->
-                                    <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
-                                    <!-- <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button> -->
+                                    <a href="#" class="waves-effect waves-light btn btn-rounded btn-success btn-lg btn-nav">Efficiency</a>
+                                    <a href="#" class="waves-effect waves-light btn btn-rounded btn-outline btn-danger btn-lg btn-nav">Rejection</a>
+                                    <a href="#" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-3" style="margin-left:85px">
                                     <div id="year_to_date_chart" style="height:250px;"></div>
-                                    <!-- <div style="text-align: center;margin-top: 60px;">
-                                        <button type="button" class="waves-effect waves-light btn btn-outline btn-rounded btn-danger btn-lg btn-nav" data-bs-toggle="modal" data-bs-target="#modal_rejection">Rejection</a>
-                                    </div> -->
                                 </div>
                                 <div class="col-3">
                                     <div id="target_chart" style="height:250px;"></div>
-                                    <!-- <div style="text-align: center;margin-top: 60px;">
-                                        <a href="<?=base_url()?>dashboard/line_stop" class="waves-effect waves-light btn btn-outline btn-rounded btn-warning btn-lg btn-nav">Line Stop</a>
-                                    </div> -->
                                 </div>
-                                <!-- <div class="col-3">
-                                    <div id="previous_month_chart" style="height:250px;"></div>
-                                </div> -->
                                 <div class="col-3">
                                     <div id="current_month_chart" style="height:250px;"></div>
-                                    <!-- <div style="text-align: center;margin-top: 60px;">
-                                        <button class="waves-effect waves-light btn btn-outline btn-rounded btn-success btn-lg btn-nav">Overtime</button>
-                                    </div> -->
                                 </div>
                             </div>
                             <div class="col-4" style="text-align:center">
-                                <!-- <div class="row">
-                                    <div class="col-12" style="text-align:center">
-                                        <button class="btn btn-danger">Rejection</button>
-                                        <button class="btn btn-info">Line Stop</button>
-                                        <button class="btn btn-success">Overtime</button>
-                                    </div>
-                                </div> -->
                                 <div class="row">
                                     <div class="col-12">
                                         <br>
@@ -258,39 +104,53 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12" style="text-align:center">
-                                        <div>
-                                            <h4 style="font-weight: 500;color: yellow;">Performance Comparison </h4>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
-                                                <thead>
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td><?=date('F', mktime(0, 0, 0, $previous_date, 10))?></td>
-                                                        <td><?=date('F', mktime(0, 0, 0, $current_date, 10))?></td>
-                                                        <td>Status</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php for ($i=1; $i <= 7; $i++) { ?>
-                                                        <tr style="line-height: 0px;">
-                                                            <td>Line <?=$i?></td>
-                                                            <td><?=${'data_line_'.$i.'_previous_month'}[0]?> %</td>
-                                                            <td><?=${'data_line_'.$i.'_current_month'}[0]?> %</td>
-                                                            <td>
-                                                                <?php if(${'data_line_'.$i.'_current_month'}[0] > ${'data_line_'.$i.'_previous_month'}[0]) {
-                                                                    echo '<i class="fa fa-arrow-up" style="color:green"></i>';
-                                                                } else if(${'data_line_'.$i.'_current_month'}[0] < ${'data_line_'.$i.'_previous_month'}[0]) {
-                                                                    echo '<i class="fa fa-arrow-down" style="color:red"></i>';
-                                                                } else if(${'data_line_'.$i.'_current_month'}[0] == ${'data_line_'.$i.'_previous_month'}[0]) {
-                                                                    echo '<i class="fa fa-minus" style="color:yellow"></i>';
-                                                                } ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        </div>                                        
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs customtab2" role="tablist">
+                                            <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#monthly_top_grup" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down">Top Group Monthly</span></a> </li>
+                                            <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#daily_top_grup" role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span class="hidden-xs-down">Top Group Daily</span></a> </li>
+                                        </ul>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="monthly_top_grup" role="tabpanel">
+                                                <div class="p-15">
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
+                                                            
+                                                            <tbody>
+                                                                <?php $no=1; foreach ($top_grup_current_month as $t_grup_current_month) { ?>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td style="text-align:left"><?=$no.'. '.$t_grup_current_month['nama_pic']?></td>
+                                                                        <!-- <td></td> -->
+                                                                        <td style="text-align:right"><?=number_format($t_grup_current_month['persen'], 2)?> %</td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                <?php $no++; } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane" id="daily_top_grup" role="tabpanel">
+                                                <div class="p-15">
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="width: 100%; margin: 0 auto; color:white; font-weight:700; font-size:18px;">
+                                                            
+                                                            <tbody>
+                                                                <?php $no=1; foreach ($top_grup_daily as $t_grup_daily) { ?>
+                                                                    <tr style="line-height: 0px;">
+                                                                        <td style="text-align:left"><?=$no.'. '.$t_grup_daily['nama_pic']?></td>
+                                                                        <!-- <td></td> -->
+                                                                        <td style="text-align:right"><?=number_format($t_grup_daily['persen'], 2)?> %</td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                <?php $no++; } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
                                     </div>
                                 </div>
                             </div>
@@ -374,9 +234,9 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
+  
 <!-- MODAL -->
-<div id="modal_detail_ls" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;" id="modal_ls">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" style="width:120%;">
 			<div class="modal-header">
@@ -387,13 +247,13 @@
                 <table class="table" id="tbl_breakdown" width="100%">
                     <thead>
                         <tr>
-                            <th style="width: 23%">Batch Jam</th>
-                            <th style="width: 10%">No WO</th>
-                            <th style="width: 55%">Type Battery</th>
-                            <th style="width: 5%">Jenis Line Stop</th>
-                            <th style="width: 2%">Kategori Line Stop</th>
-                            <th style="width: 5%">Uraian</th>
-                            <th style="width: 2%">Total Menit</th>
+                            <td>Batch Jam</td>
+                            <td>No WO</td>
+                            <td>Type Battery</td>
+                            <td>Jenis Line Stop</td>
+                            <td>Proses Line Stop</td>
+                            <td>Uraian</td>
+                            <td>Total Menit</td>
                         </tr>
                     </thead>
                     <tbody id="data_breakdown">
@@ -709,7 +569,6 @@
                 fontSize: '15px'
             }
         },
-
         xAxis: {
             categories: [
                 'Jan',
@@ -735,15 +594,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: '%',
-                style: {
-                    color: '#ffffff'
-                }
-            },
-            labels: {
-                style: {
-                    color: '#ffffff'
-                }
+                text: '%'
             }
         },
         plotOptions: {
@@ -771,15 +622,7 @@
                 layout: 'horizontal',
                 itemStyle: {
                     color: '#ffffff'
-                },
-            <?php } elseif ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND $baby_filter == 'grup') { ?>
-                align: 'center',
-                verticalAlign: 'bottom',
-                layout: 'horizontal',
-                itemStyle: {
-                    color: '#ffffff'
-                },
-                enabled: true,
+                }
             <?php } else { ?>
                 enabled: false
             <?php } ?>
@@ -800,31 +643,7 @@
                 {
                     name: 'Line 3',
                     data: <?php echo json_encode($data_by_month_line_3); ?>,
-                },
-                {
-                    name: 'Line 4',
-                    data: <?php echo json_encode($data_by_month_line_4); ?>,
-                },
-                {
-                    name: 'Line 5',
-                    data: <?php echo json_encode($data_by_month_line_5); ?>,
-                },
-                {
-                    name: 'Line 6',
-                    data: <?php echo json_encode($data_by_month_line_6); ?>,
-                },
-                {
-                    name: 'Line 7',
-                    data: <?php echo json_encode($data_by_month_line_7); ?>,
                 }
-            <?php } elseif ($child_filter != null AND $child_filter != 0 AND $baby_filter == 'grup') {
-                foreach ($res_data_line_by_grup_month as $r_data_line_by_grup) { ?>
-                    {
-                        name: <?= json_encode($r_data_line_by_grup['grup']); ?>,
-                        data: <?php echo json_encode($r_data_line_by_grup['data']); ?>,
-                    },
-                <?php } ?>
-                
             <?php } else { ?>
                 {
                     // name: 'All Line',
@@ -887,7 +706,7 @@
         },
 
         title: {
-            text: 'Daily Efficiency',
+            text: 'Efficiency',
             align: 'center',
             style: {
                 color: '#ffffff',
@@ -903,51 +722,17 @@
                 fontSize: '15px'
             }
         },
-            <?php if ($baby_filter == 'average') { ?>
-                yAxis: 
-                    [{
-                        title: {
-                            text: 'Qty',
-                            style: {
-                                color: '#ffffff'
-                            }
-                        },
-                        labels: {
-                            style: {
-                                color: '#ffffff'
-                            }
-                        },
-                        opposite: true,
-                    },{
-                        title: {
-                            text: '%',
-                            style: {
-                                color: '#ffffff'
-                            }
-                        },
-                        labels: {
-                            style: {
-                                color: '#ffffff'
-                            }
-                        }
-                    }],
-        <?php } else { ?>
-            yAxis: 
-                {
-                    title: {
-                        text: '%',
-                        style: {
-                            color: '#ffffff'
-                        }
-                    },
-                    labels: {
-                        style: {
-                            color: '#ffffff'
-                        }
-                    }
-                },
-        <?php } ?>
-        
+
+        yAxis: {
+            title: {
+                text: '%'
+            },
+            labels: {
+                style: {
+                    color: '#ffffff'
+                }
+            }
+        },
 
         xAxis: {
             categories: <?= json_encode($dates); ?>,
@@ -991,7 +776,7 @@
         series: [
             <?php if (($parent_filter == 'line' OR $parent_filter == null) AND ($child_filter == null OR $child_filter == 0) AND $baby_filter == 'average') { ?>
                 {
-                    name: 'Persentase',
+                    name: 'All Line',
                     data: <?php echo json_encode($data_all_line); ?>,
                     color:'yellow',
                     point: {
@@ -1011,7 +796,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                     '<td>' + data[i].no_wo + '</td>' +
                                                     '<td>' + data[i].type_battery + '</td>' +
                                                     '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1019,28 +804,19 @@
                                                     '<td>' + data[i].uraian_breakdown + '</td>' +
                                                     '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-                                            
-                                            total_breakdown += parseInt(data[i].menit_breakdown);
-                                        }
-                                        html += '<tr>' +
-                                                    '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
-                                                    '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
-                                                '</tr>';
-                                        
+                                                total_breakdown += parseInt(data[i].menit_breakdown);
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
                         }
-                    },
-                    type: 'column',
-                    yAxis: 1,
-                },{
-                    name: 'Qty',
-                    type: 'spline',
-                    data: <?php echo json_encode($data_all_line_pcs); ?>,
-                    color:'green',
+                    }
                 },
             <?php } ?>
 
@@ -1067,7 +843,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                    '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                     '<td>' + data[i].no_wo + '</td>' +
                                                     '<td>' + data[i].type_battery + '</td>' +
                                                     '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1075,7 +851,6 @@
                                                     '<td>' + data[i].uraian_breakdown + '</td>' +
                                                     '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
-
                                                 total_breakdown += parseInt(data[i].menit_breakdown);
                                             }
                                             html += '<tr>' +
@@ -1083,7 +858,7 @@
                                                         '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
                                                     '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1112,7 +887,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                        '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                        '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                         '<td>' + data[i].no_wo + '</td>' +
                                                         '<td>' + data[i].type_battery + '</td>' +
                                                         '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1127,7 +902,7 @@
                                                         '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
                                                     '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1156,52 +931,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
-                                                '<td>' + data[i].no_wo + '</td>' +
-                                                '<td>' + data[i].type_battery + '</td>' +
-                                                '<td>' + data[i].jenis_breakdown + '</td>' +
-                                                '<td>' + data[i].proses_breakdown + '</td>' +
-                                                '<td>' + data[i].uraian_breakdown + '</td>' +
-                                                '<td>' + data[i].menit_breakdown + '</td>' +
-                                                '</tr>';
-
-                                                    total_breakdown += parseInt(data[i].menit_breakdown);
-                                            }
-                                            html += '<tr>' +
-                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
-                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
-                                                    '</tr>';
-                                        $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
-                                    }
-                                });
-                            }
-                        }
-                    }
-                },
-                {
-                    name: 'Line 4',
-                    data: <?php echo json_encode($data_line_4); ?>,
-                    point: {
-                        events: {
-                            click: function() {
-                                var date = $('#bulan').val()+'-'+this.category;
-                                var line = 4;
-                                $.ajax({
-                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
-                                    type: "POST",
-                                    data: {
-                                        date: date,
-                                        line: line
-                                    },
-                                    dataType: "json",
-                                    success: function(data) {
-                                        var html = '';
-                                        var i;
-                                        var total_breakdown = 0;
-                                        for (i = 0; i < data.length; i++) {
-                                            html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1216,140 +946,7 @@
                                                         '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
                                                     '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
-                                    }
-                                });
-                            }
-                        }
-                    }
-                },
-                {
-                    name: 'Line 5',
-                    data: <?php echo json_encode($data_line_5); ?>,
-                    point: {
-                        events: {
-                            click: function() {
-                                var date = $('#bulan').val()+'-'+this.category;
-                                var line = 5;
-                                $.ajax({
-                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
-                                    type: "POST",
-                                    data: {
-                                        date: date,
-                                        line: line
-                                    },
-                                    dataType: "json",
-                                    success: function(data) {
-                                        var html = '';
-                                        var i;
-                                        var total_breakdown = 0;
-                                        for (i = 0; i < data.length; i++) {
-                                            html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
-                                                '<td>' + data[i].no_wo + '</td>' +
-                                                '<td>' + data[i].type_battery + '</td>' +
-                                                '<td>' + data[i].jenis_breakdown + '</td>' +
-                                                '<td>' + data[i].proses_breakdown + '</td>' +
-                                                '<td>' + data[i].uraian_breakdown + '</td>' +
-                                                '<td>' + data[i].menit_breakdown + '</td>' +
-                                                '</tr>';
-                                                total_breakdown += parseInt(data[i].menit_breakdown);
-                                            }
-                                            html += '<tr>' +
-                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
-                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
-                                                    '</tr>';
-                                        $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
-                                    }
-                                });
-                            }
-                        }
-                    }
-                },
-                {
-                    name: 'Line 6',
-                    data: <?php echo json_encode($data_line_6); ?>,
-                    point: {
-                        events: {
-                            click: function() {
-                                var date = $('#bulan').val()+'-'+this.category;
-                                var line = 6;
-                                $.ajax({
-                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
-                                    type: "POST",
-                                    data: {
-                                        date: date,
-                                        line: line
-                                    },
-                                    dataType: "json",
-                                    success: function(data) {
-                                        var html = '';
-                                        var i;
-                                        var total_breakdown = 0;
-                                        for (i = 0; i < data.length; i++) {
-                                            html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
-                                                '<td>' + data[i].no_wo + '</td>' +
-                                                '<td>' + data[i].type_battery + '</td>' +
-                                                '<td>' + data[i].jenis_breakdown + '</td>' +
-                                                '<td>' + data[i].proses_breakdown + '</td>' +
-                                                '<td>' + data[i].uraian_breakdown + '</td>' +
-                                                '<td>' + data[i].menit_breakdown + '</td>' +
-                                                '</tr>';
-                                                total_breakdown += parseInt(data[i].menit_breakdown);
-                                            }
-                                            html += '<tr>' +
-                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
-                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
-                                                    '</tr>';
-                                        $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
-                                    }
-                                });
-                            }
-                        }
-                    }
-                },
-                {
-                    name: 'Line 7',
-                    data: <?php echo json_encode($data_line_7); ?>,
-                    point: {
-                        events: {
-                            click: function() {
-                                var date = $('#bulan').val()+'-'+this.category;
-                                var line = 7;
-                                $.ajax({
-                                    url: "<?= base_url('dashboard/assy/get_data_line_stop'); ?>",
-                                    type: "POST",
-                                    data: {
-                                        date: date,
-                                        line: line
-                                    },
-                                    dataType: "json",
-                                    success: function(data) {
-                                        var html = '';
-                                        var i;
-                                        var total_breakdown = 0;
-                                        for (i = 0; i < data.length; i++) {
-                                            html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
-                                                '<td>' + data[i].no_wo + '</td>' +
-                                                '<td>' + data[i].type_battery + '</td>' +
-                                                '<td>' + data[i].jenis_breakdown + '</td>' +
-                                                '<td>' + data[i].proses_breakdown + '</td>' +
-                                                '<td>' + data[i].uraian_breakdown + '</td>' +
-                                                '<td>' + data[i].menit_breakdown + '</td>' +
-                                                '</tr>';
-                                                total_breakdown += parseInt(data[i].menit_breakdown);
-                                            }
-                                            html += '<tr>' +
-                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
-                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
-                                                    '</tr>';
-
-                                        $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1360,10 +957,7 @@
 
             <?php if ($child_filter != null AND $child_filter != '0' AND $child_filter != 0 AND ($baby_filter == null OR $baby_filter == 'average')) { ?>
                 {
-                    // name: 'Line <?=$child_filter?>',
-                    name: 'Persentase',
-                    type: 'column',
-                    yAxis: 1,
+                    name: 'Line <?=$child_filter?>',
                     data: <?php echo json_encode(${'data_line_'.$child_filter}); ?>,
                     point: {
                         events: {
@@ -1384,7 +978,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1393,24 +987,18 @@
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
                                                 total_breakdown += parseInt(data[i].menit_breakdown);
-                                        }
-                                        html += '<tr>' +
-                                                    '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
-                                                    '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
-                                                '</tr>';
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
                         }
                     }
-                },
-                {
-                    name: 'Qty',
-                    data: <?php echo json_encode(${'data_line_'.$child_filter.'_pcs'}); ?>,
-                    color: 'green',
-                    type: 'spline',
                 },
             <?php } ?>
 
@@ -1439,7 +1027,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1448,13 +1036,13 @@
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
                                                 total_breakdown += parseInt(data[i].menit_breakdown);
-                                        }
-                                        html += '<tr>' +
-                                                    '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
-                                                    '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
-                                                '</tr>';
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1485,7 +1073,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1494,13 +1082,13 @@
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
                                                 total_breakdown += parseInt(data[i].menit_breakdown);
-                                        }
-                                        html += '<tr>' +
-                                                    '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
-                                                    '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
-                                                '</tr>';
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1531,7 +1119,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1540,13 +1128,13 @@
                                                 '<td>' + data[i].menit_breakdown + '</td>' +
                                                 '</tr>';
                                                 total_breakdown += parseInt(data[i].menit_breakdown);
-                                        }
-                                        html += '<tr>' +
-                                                    '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
-                                                    '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
-                                                '</tr>';
+                                            }
+                                            html += '<tr>' +
+                                                        '<td colspan="6" style="text-align:center;"><h5><b>Total</b></h5></td>' +
+                                                        '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
+                                                    '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1581,7 +1169,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1596,7 +1184,7 @@
                                                         '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
                                                     '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1632,7 +1220,7 @@
                                         var total_breakdown = 0;
                                         for (i = 0; i < data.length; i++) {
                                             html += '<tr>' +
-                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + '-' + data[i].jam_end.substring(0, 5) + '</td>' +
+                                                '<td style="width:125px;">' + data[i].jam_start.substring(0, 5) + ' - ' + data[i].jam_end.substring(0, 5) + '</td>' +
                                                 '<td>' + data[i].no_wo + '</td>' +
                                                 '<td>' + data[i].type_battery + '</td>' +
                                                 '<td>' + data[i].jenis_breakdown + '</td>' +
@@ -1647,7 +1235,7 @@
                                                         '<td><h5><b>' + total_breakdown + '</b></h5></td>' +
                                                     '</tr>';
                                         $('#data_breakdown').html(html);
-                                        $('#modal_detail_ls').modal('show');
+                                        $('#modal_ls').modal('show');
                                     }
                                 });
                             }
@@ -1662,18 +1250,8 @@
                     dashStyle: 'Dash',
                     data: <?php echo json_encode($target_date); ?>,
                     color:'red',
-                    <?php if($baby_filter == 'average') { ?>
-                        yAxis: 1,
-                    <?php } ?>                    
-                    tooltip: {
-                        valueSuffix: ' %'
-                    }
                 }
         ],
-
-        tooltip: {
-            shared: true
-        },
 
         responsive: {
             rules: [{
@@ -1709,14 +1287,6 @@
                 fontSize: '20px'
             }
         },
-        subtitle: {
-            text: 'Source: Laporan Harian Produksi',
-            align: 'center',
-            style: {
-                color: '#ffffff',
-                fontSize: '15px'
-            }
-        },
         xAxis: {
             categories: [
                 '08.50', '09.50', '11.00', '12.00', '14.00', '15.00', '16.15', '16.30', '17.50', '19.35', '20.35', '21.35', '22.45', '23.45', '00.30', '01.50', '02.50', '03.50', '05.20', '06.20', '07.30'
@@ -1731,15 +1301,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: '%',
-                style: {
-                    color: '#ffffff'
-                }
-            },
-            labels: {
-                style: {
-                    color: '#ffffff'
-                }
+                text: '%'
             }
         },
         plotOptions: {

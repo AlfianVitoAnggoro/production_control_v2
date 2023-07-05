@@ -31,15 +31,15 @@
                             <div class="col-6" style="margin:auto">
                                 <div class="row">
                                     <div class="col-12 mb-15" style="display: grid;">
-                                        <a  class="btn btn-warning btn-lg btn-main-dashboard">WET</a >
+                                        <a href="<?=base_url()?>dashboard/wet_finishing" target="_blank" class="btn btn-warning btn-lg btn-main-dashboard">WET</a >
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6 mb-15" style="display: grid;">
-                                        <a  class="btn btn-secondary btn-sub-dashboard">WET A</a >
+                                        <a href="<?=base_url()?>dashboard/wet_finishing/wet_a" target="_blank" class="btn btn-secondary btn-sub-dashboard">WET A</a >
                                     </div>
                                     <div class="col-6 mb-15" style="display: grid;">
-                                        <a  class="btn btn-secondary btn-sub-dashboard">WET F</a >
+                                        <a href="<?=base_url()?>dashboard/wet_finishing/wet_f" target="_blank" class="btn btn-secondary btn-sub-dashboard">WET F</a >
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                             <div class="col-6" style="margin:auto">
                                 <div class="row">
                                     <div class="col-12 mb-0" style="display: grid;">
-                                        <a  class="btn btn-info btn-lg btn-main-dashboard">Assy MCB</a >
+                                        <a href="<?=base_url()?>dashboard/assy/mcb" target="_blank" class="btn btn-info btn-lg btn-main-dashboard">Assy MCB</a >
                                     </div>
                                 </div>
                             </div>
@@ -66,9 +66,11 @@
                                 </a>
                             </div>
                             <div class="col-6"  style="text-align:center">
-                                <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/henkaten_man_power.png" alt="" style="width: 30%;">
-                                <br>
-                                <h3>Henkaten Man Power</h3>
+                                <a href="<?=base_url()?>dashboard_man_power" target="_blank">
+                                    <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/henkaten_man_power.png" alt="" style="width: 30%;">
+                                    <br>
+                                    <h3>Henkaten Man Power</h3>
+                                </a>
                             </div>
                         </div>
                         <div class="row">

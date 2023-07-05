@@ -269,7 +269,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 														?>
 														
 														<td>
-															<input type="number" class="form-control menit_terpakai" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px" readonly>
+															<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$data_detail_lhp[$i]['menit_terpakai']?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px">
 														</td>
 														<td>
 															<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
@@ -277,11 +277,11 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																<?php
 																	$cek_wo = true;
 																	foreach ($data_wo as $dw) { 
-																		
-																			$selected = ($dw['PDNO'] == $data_detail_lhp[$i]['no_wo']) ? 'selected' : '' ;
-																			$cek_wo = ($dw['PDNO'] == $data_detail_lhp[$i]['no_wo']) ? false : true ; ?>
-																			<option value="<?=$dw['PDNO']?>" <?=$selected?>><?=$dw['PDNO']?></option>
-																		
+																		$selected = ($dw['PDNO'] == $data_detail_lhp[$i]['no_wo']) ? 'selected' : '' ;
+																		$cek_wo = ($dw['PDNO'] == $data_detail_lhp[$i]['no_wo']) ? false : true ;
+																		?>
+
+																		<option value="<?=$dw['PDNO']?>" <?=$selected?>><?=$dw['PDNO']?></option>
 																<?php
 																	}
 
@@ -351,7 +351,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 																</div>
 															</td>
 															<td>
-																<input type="number" class="form-control menit_terpakai" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$menit_aktual[$j]?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px" readonly>
+																<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" value="<?=$menit_aktual[$j]?>" onkeyup="update_plan(<?=$i?>)" style="width: 100px">
 															</td>
 															<td>
 																<select class="form-control select2" id="no_wo_<?=$i?>" name="no_wo[]" onchange="getPartNo(<?=$i?>)" style="width: 200px;">
@@ -695,24 +695,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 	});
 
 	function hitung_mh() {
-		// var total_menit = <?= array_sum($menit_aktual) ?>;
-
-		var inps = document.querySelectorAll('.menit_terpakai');
-		var totals = {};
-
-		//Sum calculation
-		for (var i = 0; i <inps.length; i++)
-		{
-		totals[inps[i].name] = (totals[inps[i].name] || 0) + Number(inps[i].value);
-		}
-
-		//Result display
-		for (var key in totals) {
-			if (totals.hasOwnProperty(key)) {
-				var total_menit = totals[key];
-			}
-		}
-
+		var total_menit = <?= array_sum($menit_aktual) ?>;
 		var mp = <?= $data_lhp[0]['mp'] ?>;
 		// var absen = <?= $data_lhp[0]['absen'] ?>;
 		// var cuti = <?= $data_lhp[0]['cuti'] ?>;
@@ -754,18 +737,6 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 				});
 			}
 		});
-
-		var menit_aktual = <?=json_encode($menit_aktual)?>;
-
-		if (no_wo == '-') {
-			$('#menit_terpakai_'+i).val(0);
-			$('#part_number_'+i).val('');
-			$('#plan_cap_'+i).val(0);
-			$('#total_menit_breakdown_'+i).val(0);
-			$('#ct_'+i).val(0);
-		} else {
-			$('#menit_terpakai_'+i).val(menit_aktual[i]);
-		}
 	}
 
 	function presentase_actual(i) {
@@ -791,7 +762,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 		var stop_breakdown = $('#stop_'+i).val();
 		var no_wo_breakdown = $('#no_wo_'+i).val();
 		var part_number_breakdown = $('#part_number_'+i).val();
-		// var menit_breakdown = $('#total_menit_breakdown_'+i).val();
+		var menit_breakdown = $('#total_menit_breakdown_'+i).val();
 
 
 		var tbody = document.getElementById('tbody_line_stop');
@@ -831,7 +802,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 					<textarea class="form-control" name="uraian_breakdown[]" id="uraian_breakdown_${j}" cols="20" rows="1" style="width: 200px;"></textarea>
 				</td>
 				<td>
-					<input type="text" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" style="width: 100px" required>
+					<input type="text" class="form-control" name="menit_breakdown[]" id="menit_breakdown_${j}" value="${menit_breakdown}" style="width: 100px" required>
 				</td>
 				<td>
 					<button type="button" class="btn btn-danger" onclick="delete_breakdown(${j})"><i class="fa fa-trash"></i></button>	
@@ -954,11 +925,10 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 	function get_data_andon(j) {
 		var tanggal_produksi = $('#tanggal_produksi').val();
 		var line = <?=$data_lhp[0]['line']?>;
-		var shift = <?=$data_lhp[0]['shift']?>;
 		$.ajax({
 			url: '<?=base_url()?>lhp/get_data_andon',
 			type: 'POST',
-			data: {tanggal_produksi: tanggal_produksi, line: line, shift: shift},
+			data: {tanggal_produksi: tanggal_produksi, line: line},
 			dataType: 'json',
 			success: function(data) {
 				$('#tbody_andon').html('');
@@ -988,7 +958,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 			dataType: 'json',
 			success: function(data) {
 				$('#proses_breakdown_'+i).html(`
-					${data.map((item) => `<option value="${item.id_ticket}-${item.tujuan}-${item.kategori_perbaikan}-${item.nama_mesin}" selected>${item.id_ticket}-${item.tujuan}-${item.kategori_perbaikan}-${item.nama_mesin}</option>`)}
+					${data.map((item) => `<option value="${item.id_ticket}-${item.tujuan}-${item.nama_mesin}" selected>${item.id_ticket}-${item.tujuan}-${item.nama_mesin}</option>`)}
 				`);
 
 				$('#uraian_breakdown_'+i).val(data[0].permasalahan);
@@ -1033,7 +1003,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 				
 				-->
 				<td>
-					<input type="number" class="form-control menit_terpakai" name="menit_terpakai[]" id="menit_terpakai_${k}" onkeyup="update_plan(${k})" value="" style="width: 100px" readonly>
+					<input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${k}" onkeyup="update_plan(${k})" value="" style="width: 100px">
 				</td>
 				<td>
 					<select class="form-control select2" id="no_wo_${k}" name="no_wo[]" onchange="getPartNo(${k})" style="width: 200px;">

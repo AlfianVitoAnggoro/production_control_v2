@@ -81,6 +81,23 @@ class RakManagement extends BaseController
         return view('pages/rak_management/reset_rak_casting_pasting');
     }
 
+    public function force_close($rak, $barc) {
+        $data_update_rak = [
+            'close_time' => date('Y-m-d H:i:s'),
+            'status' => 'force close'
+        ];
+
+        $this->M_RakManagement->update_data_detail_rak($data_update_rak, $barc);
+
+        return redirect()->to(base_url('rak_management/detail_rak_management/'.$rak));
+    }
+
+    public function monitoring_aging_view()
+    {
+        $data['data_rak_aging'] = $this->M_RakManagement->get_data_rak_aging();
+        return view('pages/monitoring_aging/monitoring_aging_view', $data);
+    }
+
     // public function update_rak()
     // {
     //     $data_rak = $this->M_RakManagement->get_data_rak_management_status(1);

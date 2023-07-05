@@ -36,9 +36,11 @@
                     </a>
                 </div>
                 <div class="col-4">
-                    <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/henkaten_man_power.png" alt="" style="width: 30%;">
-                    <br>
-                    <h3>Henkaten Man Power</h3>
+                    <a href="<?=base_url()?>dashboard_man_power">
+                        <img src="<?=base_url()?>assets/images/icon-dashboard-produksi2/henkaten_man_power.png" alt="" style="width: 30%;">
+                        <br>
+                        <h3>Henkaten Man Power</h3>
+                    </a>
                 </div>
 			</div>
 

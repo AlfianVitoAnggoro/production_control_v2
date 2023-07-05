@@ -41,6 +41,8 @@ $routes->get('/dashboard/assy/amb1', 'DashboardAmb1::dashboard_lhp_assy');
 $routes->post('/dashboard/assy/amb1', 'DashboardAmb1::dashboard_lhp_assy');
 $routes->get('/dashboard/assy/amb2', 'DashboardAmb2::dashboard_lhp_assy');
 $routes->post('/dashboard/assy/amb2', 'DashboardAmb2::dashboard_lhp_assy');
+$routes->get('/dashboard/assy/mcb', 'DashboardMCB::dashboard_lhp_assy');
+$routes->post('/dashboard/assy/mcb', 'DashboardMCB::dashboard_lhp_assy');
 $routes->get('/dashboard/assy/home', 'Dashboard::index2');
 
 //DASHBOARD EFF ASSY
@@ -51,6 +53,20 @@ $routes->post('/dashboard/assy/get_data_line_stop', 'Dashboard::get_data_line_st
 $routes->post('/dashboard/assy/get_data_line_stop_by_shift', 'Dashboard::get_data_line_stop_by_shift');
 $routes->post('/dashboard/assy/get_data_line_stop_by_grup', 'Dashboard::get_data_line_stop_by_grup');
 $routes->post('/dashboard/assy/get_data_line_stop_by_kss', 'Dashboard::get_data_line_stop_by_kss');
+
+//DASHBOARD EFF WET FINISHING
+$routes->get('/dashboard', 'Dashboard::index');
+$routes->get('/dashboard/wet_finishing', 'DashboardWetFinishing::dashboard_lhp_wet_finishing');
+$routes->post('/dashboard/wet_finishing', 'DashboardWetFinishing::dashboard_lhp_wet_finishing');
+$routes->post('/dashboard/wet_finishing/get_data_line_stop', 'DashboardWetFinishing::get_data_line_stop');
+$routes->post('/dashboard/wet_finishing/get_data_line_stop_by_shift', 'DashboardWetFinishing::get_data_line_stop_by_shift');
+$routes->post('/dashboard/wet_finishing/get_data_line_stop_by_grup', 'DashboardWetFinishing::get_data_line_stop_by_grup');
+$routes->post('/dashboard/wet_finishing/get_data_line_stop_by_kss', 'DashboardWetFinishing::get_data_line_stop_by_kss');
+
+$routes->get('/dashboard/wet_finishing/wet_a', 'DashboardWetFinishingA::dashboard_lhp_wet_finishing');
+$routes->post('/dashboard/wet_finishing/wet_a', 'DashboardWetFinishingA::dashboard_lhp_wet_finishing');
+$routes->get('/dashboard/wet_finishing/wet_f', 'DashboardWetFinishingF::dashboard_lhp_wet_finishing');
+$routes->post('/dashboard/wet_finishing/wet_f', 'DashboardWetFinishingF::dashboard_lhp_wet_finishing');
 
 //DASHBOARD EFF ASSY NPDT
 $routes->get('/dashboard_npdt', 'Dashboard_npdt::index');
@@ -344,6 +360,7 @@ $routes->group('saw_repair', ['filter' => 'auth'], function ($routes) {
 $routes->group('rak_management', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'RakManagement::index');
     $routes->get('detail_rak_management/(:segment)', 'RakManagement::detail_rak_management/$1');
+    $routes->get('detail_rak_management/force_close/(:any)/(:any)', 'RakManagement::force_close/$1/$2');
 });
 $routes->get('rak_management/reset_rak_casting_pasting', 'RakManagement::reset_rak_casting_to_pasting');
 $routes->get('rak_management/update_rak', 'RakManagement::update_rak');
@@ -388,11 +405,6 @@ $routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'WideStrip::index');
     $routes->post('add_lhp', 'WideStrip::add_lhp');
     $routes->get('detail_lhp/(:num)', 'WideStrip::detail_lhp/$1');
-});
-
-$routes->group('monitoring_curing_qc', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'MonitoringCuringQC::monitoring_curing_qc_view');
-    $routes->post('update_curing', 'MonitoringCuringQC::update_curing');
 });
 
 //Master Man Power
@@ -449,6 +461,17 @@ $routes->group('cuti', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Cuti::home');
     $routes->get('detail_cuti/(:num)', 'Cuti::detail_cuti/$1');
     $routes->post('get_data_mp', 'Cuti::get_data_mp');
+});
+
+// Monitoring Aging
+$routes->group('monitoring_aging', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'RakManagement::monitoring_aging_view');
+});
+
+// Monitoring Curing 
+$routes->group('monitoring_curing_qc', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'MonitoringCuringQC::monitoring_curing_qc_view');
+    $routes->post('update_curing', 'MonitoringCuringQC::update_curing');
 });
 
 $routes->group('monitoring_curing', function ($routes) {
