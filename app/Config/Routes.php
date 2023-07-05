@@ -491,6 +491,10 @@ $routes->post('interlock_aging/add_rak', 'InterlockAging::add_rak');
 $routes->get('interlock_aging/delete_rak_aging/(:any)/(:any)', 'InterlockAging::delete_rak_aging/$1/$2');
 $routes->get('interlock_aging/update_rak_aging/(:any)', 'InterlockAging::update_rak_aging/$1');
 
+// API
+$routes->get('api/get_detail_rak/', 'Api::get_detail_rak/');
+$routes->get('api/get_detail_rak/(:any)', 'Api::get_detail_rak/$1');
+
 // $routes->get('/lhp/test', 'Home::test');
 
 /*
