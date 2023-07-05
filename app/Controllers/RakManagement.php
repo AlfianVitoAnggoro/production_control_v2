@@ -92,6 +92,12 @@ class RakManagement extends BaseController
         return redirect()->to(base_url('rak_management/detail_rak_management/'.$rak));
     }
 
+    public function monitoring_aging_view()
+    {
+        $data['data_rak_aging'] = $this->M_RakManagement->get_data_rak_aging();
+        return view('pages/monitoring_aging/monitoring_aging_view', $data);
+    }
+
     // public function update_rak()
     // {
     //     $data_rak = $this->M_RakManagement->get_data_rak_management_status(1);

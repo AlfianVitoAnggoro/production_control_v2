@@ -135,4 +135,11 @@ class M_RakManagement extends Model
 
         return $query->getResultArray();
     }
+
+    public function get_data_rak_aging()
+    {
+        $query = $this->db5->query('SELECT * FROM data_rak_aging ORDER BY id DESC');
+
+        return $query->getResultArray();
+    }
 }

@@ -407,11 +407,6 @@ $routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
     $routes->get('detail_lhp/(:num)', 'WideStrip::detail_lhp/$1');
 });
 
-$routes->group('monitoring_curing_qc', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'MonitoringCuringQC::monitoring_curing_qc_view');
-    $routes->post('update_curing', 'MonitoringCuringQC::update_curing');
-});
-
 //Master Man Power
 $routes->group('master_man_power', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'MasterManPower::index');
@@ -464,6 +459,17 @@ $routes->group('daily_record_cuti', ['filter' => 'auth'], function ($routes) {
 //Daily Record Absen
 $routes->group('daily_record_absen', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'DailyRecordMP::index_absen');
+});
+
+// Monitoring Aging
+$routes->group('monitoring_aging', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'RakManagement::monitoring_aging_view');
+});
+
+// Monitoring Curing 
+$routes->group('monitoring_curing_qc', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'MonitoringCuringQC::monitoring_curing_qc_view');
+    $routes->post('update_curing', 'MonitoringCuringQC::update_curing');
 });
 
 $routes->group('monitoring_curing', function ($routes) {
