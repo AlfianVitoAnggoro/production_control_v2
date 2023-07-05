@@ -1,11 +1,11 @@
 <?= $this->extend('template/layout'); ?>
 <?= $this->section('style') ?>
-  <style>
-    :hover {
-      color: var(--hover-color);
-      background-color: var(--hover-background-color);
-    }
-  </style>
+<style>
+  :hover {
+    color: var(--hover-color);
+    background-color: var(--hover-background-color);
+  }
+</style>
 <?= $this->endSection() ?>
 <?= $this->section('content'); ?>
 <?php $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing']; ?>
@@ -132,7 +132,7 @@
                   <option value="8">WET A</option> // WET A = 8
                   <option value="9">WET F</option> // WET F = 9
                   <option value="10">MCB</option> // MCB = 10
-                  <option value="11">Non Line</option> // MCB = 10
+                  <option value="11">Non Line</option> // NON LINE = 11
                 </select>
                 <div class="table-responsive">
                   <table id="table_data_skill" class="table">
@@ -144,25 +144,27 @@
                       </tr>
                     </thead>
                     <tbody id="tbody_data_skill">
-                      <?php if(!empty($detail_data_man_power_line)) { $index_data_skill = 0;
-                      foreach ($detail_data_man_power_line as $d_dmp) { ?>
-                        <tr class="data_skill">
-                          <td style="font-size: 20px"><?= $d_dmp['line'] ?>
-                            <input type="hidden" class="form-control" name="line[]" value="<?= $d_dmp['line'] ?>">
-                            <input type="hidden" class="form-control" name="id_detail_man_power[]" value="<?= $d_dmp['id_detail_man_power'] ?>">
-                          </td>
-                          <td style="font-size: 20px"><?= $d_dmp['mesin'] ?><input type="hidden" class="form-control" name="mesin[]" value="<?= $d_dmp['mesin'] ?>"></td>
-                          <td>
-                            <input type="hidden" class="form-control" name="skill[]" id="skill_1_<?= $index_data_skill ?>" value="<?= $d_dmp['skill'] ?>">
-                            <button type="button" class="btn p-0" value="0" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_0" onclick="choose_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 0)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #000000; background-color: <?= $d_dmp['skill'] === 0 ? '#000000' : '' ?>; color: <?= $d_dmp['skill'] === 0 ? '#ffffff' : '' ?>; --hover-background-color: #000000; --hover-color: #ffffff">0%</button>
-                            <button type="button" class="btn p-0" value="1" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_1" onclick="choose_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 1)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #ff0000; background-color: <?= $d_dmp['skill'] === 1 ? '#ff0000' : '' ?>; color: <?= $d_dmp['skill'] === 1 ? '#ffffff' : '' ?>; --hover-background-color: #ff0000; --hover-color: #ffffff">25%</button>
-                            <button type="button" class="btn p-0" value="2" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_2" onclick="choose_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 2)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #ffff00; background-color: <?= $d_dmp['skill'] === 2 ? '#ffff00' : '' ?>; color: <?= $d_dmp['skill'] === 2 ? '#000000' : '' ?>; --hover-background-color: #ffff00; --hover-color: #000000">50%</button>
-                            <button type="button" class="btn p-0" value="3" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_3" onclick="choose_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 3)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #0000ff; background-color: <?= $d_dmp['skill'] === 3 ? '#0000ff' : '' ?>; color: <?= $d_dmp['skill'] === 3 ? '#ffffff' : '' ?>; --hover-background-color: #0000ff; --hover-color: #ffffff">75%</button>
-                            <button type="button" class="btn p-0" value="4" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_4" onclick="choose_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 4)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #00aa00; background-color: <?= $d_dmp['skill'] === 4 ? '#00aa00' : '' ?>; color: <?= $d_dmp['skill'] === 4 ? '#ffffff' : '' ?>; --hover-background-color: #00aa00; --hover-color: #ffffff">100%</button>
-                            <button type="button" class="btn btn-sm btn-danger ms-3 p-2" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_5" onclick="delete_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 5)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
-                          </td>
-                        </tr>
-                      <?php $index_data_skill++; }
+                      <?php if (!empty($detail_data_man_power_line)) {
+                        $index_data_skill = 0;
+                        foreach ($detail_data_man_power_line as $d_dmp) { ?>
+                          <tr class="data_skill">
+                            <td style="font-size: 20px"><?= $d_dmp['line'] ?>
+                              <input type="hidden" class="form-control" name="line[]" value="<?= $d_dmp['line'] ?>">
+                              <input type="hidden" class="form-control" name="id_detail_man_power[]" value="<?= $d_dmp['id_detail_man_power'] ?>">
+                            </td>
+                            <td style="font-size: 20px"><?= $d_dmp['mesin'] ?><input type="hidden" class="form-control" name="mesin[]" value="<?= $d_dmp['mesin'] ?>"></td>
+                            <td>
+                              <input type="hidden" class="form-control" name="skill[]" id="skill_1_<?= $index_data_skill ?>" value="<?= $d_dmp['skill'] ?>">
+                              <button type="button" class="btn p-0" value="0" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_0" onclick="choose_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 0)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #000000; background-color: <?= $d_dmp['skill'] === 0 ? '#000000' : '' ?>; color: <?= $d_dmp['skill'] === 0 ? '#ffffff' : '' ?>; --hover-background-color: #000000; --hover-color: #ffffff">0%</button>
+                              <button type="button" class="btn p-0" value="1" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_1" onclick="choose_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 1)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #ff0000; background-color: <?= $d_dmp['skill'] === 1 ? '#ff0000' : '' ?>; color: <?= $d_dmp['skill'] === 1 ? '#ffffff' : '' ?>; --hover-background-color: #ff0000; --hover-color: #ffffff">25%</button>
+                              <button type="button" class="btn p-0" value="2" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_2" onclick="choose_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 2)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #ffff00; background-color: <?= $d_dmp['skill'] === 2 ? '#ffff00' : '' ?>; color: <?= $d_dmp['skill'] === 2 ? '#000000' : '' ?>; --hover-background-color: #ffff00; --hover-color: #000000">50%</button>
+                              <button type="button" class="btn p-0" value="3" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_3" onclick="choose_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 3)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #0000ff; background-color: <?= $d_dmp['skill'] === 3 ? '#0000ff' : '' ?>; color: <?= $d_dmp['skill'] === 3 ? '#ffffff' : '' ?>; --hover-background-color: #0000ff; --hover-color: #ffffff">75%</button>
+                              <button type="button" class="btn p-0" value="4" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_4" onclick="choose_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 4)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #00aa00; background-color: <?= $d_dmp['skill'] === 4 ? '#00aa00' : '' ?>; color: <?= $d_dmp['skill'] === 4 ? '#ffffff' : '' ?>; --hover-background-color: #00aa00; --hover-color: #ffffff">100%</button>
+                              <button type="button" class="btn btn-sm btn-danger ms-3 p-2" id="skill_<?= $d_dmp['line'] ?>_<?= $index_data_skill ?>_5" onclick="delete_skill(<?= $d_dmp['line'] ?>, <?= $index_data_skill ?>, 5)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
+                            </td>
+                          </tr>
+                        <?php $index_data_skill++;
+                        }
                       } else { ?>
                         <?php for ($i = 0; $i < count($mesin); $i++) { ?>
                           <tr class="data_skill">
@@ -183,7 +185,7 @@
                           </tr>
                         <?php } ?>
                       <?php } ?>
-                        
+
                     </tbody>
                   </table>
                 </div>
@@ -209,7 +211,10 @@
     let skillValElement = document.querySelector('#skill_' + line + '_' + no);
     let skillELement = document.querySelector('#skill_' + line + '_' + no + '_' + i);
     let tempElement = '';
-    console.log({skillValElement, skillELement})
+    console.log({
+      skillValElement,
+      skillELement
+    })
     for (let j = 0; j <= 4; j++) {
       if (i !== j) {
         tempElement = document.querySelector('#skill_' + line + '_' + no + '_' + j);
@@ -217,7 +222,7 @@
         tempElement.style.color = '#000000';
         // tempElement.classList.remove('btn-' + classColor[j]);
       } else {
-        if(i === 2)
+        if (i === 2)
           skillELement.style.color = '#000000';
         else
           skillELement.style.color = '#ffffff';
@@ -253,13 +258,13 @@
         choose_lineVal: choose_lineVal
       },
       dataType: 'json',
-      success: function (data) {
+      success: function(data) {
         console.log(data);
         let newData = data.reduce((result, obj) => {
           let newObj = [];
           // newObj.push(obj);
           newObj[obj.mesin] = obj;
-          if(result[obj.line]) {
+          if (result[obj.line]) {
             result[obj.line][obj.mesin] = obj;
           } else {
             result[obj.line] = newObj;
@@ -274,18 +279,18 @@
         // let baris = document.querySelectorAll('.data_skill').length;
         let line = <?= json_encode($line) ?>;
         let mesin = [];
-        if(1 <= choose_lineVal && choose_lineVal <= 7)
+        if (1 <= choose_lineVal && choose_lineVal <= 7)
           mesin = <?= json_encode($mesin) ?>;
         // else if(4 <= choose_lineVal && choose_lineVal <= 7)
         //   mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
-        else if(choose_lineVal == 10)
+        else if (choose_lineVal == 10)
           mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
-        else if(choose_lineVal >= 8 && choose_lineVal <= 9)
+        else if (choose_lineVal >= 8 && choose_lineVal <= 9)
           mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
         else
-          mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply', 'Printing', 'Repair Battery', 'INFOR'];
+          mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
         tbody_data_skillElement.innerHTML = '';
-        if(data.length > 0) {
+        if (data.length > 0) {
           if (choose_lineVal !== '') {
             thead_data_skillElement.innerHTML = `
               <thead id="thead_data_skill">
@@ -306,7 +311,7 @@
                   </td>
                   <td style="font-size: 20px">${mesin[index]}<input type="hidden" class="form-control" name="mesin[]" value="${mesin[index]}"></td>
                   <td>
-                    <input type="hidden" class="form-control" name="skill[]" id="skill_${choose_lineVal}_${index}" value="${newData[choose_lineVal][mesin[index]].skill}">
+                    <input type="hidden" class="form-control" name="skill[]" id="skill_${choose_lineVal}_${index}" value="${newData?.[choose_lineVal]?.[mesin[index]]?.skill}">
                     <button type="button" class="btn p-0" value="0" id="skill_${choose_lineVal}_${index}_0" onclick="choose_skill(${choose_lineVal}, ${index}, 0)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #000000; background-color: ${(newData[choose_lineVal].hasOwnProperty(mesin[index])) ? ((newData[choose_lineVal][mesin[index]].skill === 0) ? '#000000' : '') : ''}; color: ${(newData[choose_lineVal].hasOwnProperty(mesin[index])) ? ((newData[choose_lineVal][mesin[index]].skill === 0) ? '#ffffff' : '') : ''}; --hover-background-color: #000000; --hover-color: #ffffff">0%</button>
                     <button type="button" class="btn p-0" value="1" id="skill_${choose_lineVal}_${index}_1" onclick="choose_skill(${choose_lineVal}, ${index}, 1)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #ff0000; background-color: ${(newData[choose_lineVal].hasOwnProperty(mesin[index])) ? ((newData[choose_lineVal][mesin[index]].skill === 1) ? '#ff0000' : '') : '#ff0000'}; color: ${(newData[choose_lineVal].hasOwnProperty(mesin[index])) ? ((newData[choose_lineVal][mesin[index]].skill === 1) ? '#ffffff' : '') : '#ffffff'}; --hover-background-color: #ff0000; --hover-color: #ffffff">25%</button>
                     <button type="button" class="btn p-0" value="2" id="skill_${choose_lineVal}_${index}_2" onclick="choose_skill(${choose_lineVal}, ${index}, 2)" style="width: 50px; height: 50px; border-radius: 25px; border-color: #ffff00; background-color: ${(newData[choose_lineVal].hasOwnProperty(mesin[index])) ? ((newData[choose_lineVal][mesin[index]].skill === 2) ? '#ffff00' : '') : ''}; color: ${(newData[choose_lineVal].hasOwnProperty(mesin[index])) ? ((newData[choose_lineVal][mesin[index]].skill === 2) ? '#000000' : '') : ''}; --hover-background-color: #ffff00; --hover-color: #000000">50%</button>
@@ -332,17 +337,17 @@
                 </tr>
               </thead>
               <tbody id="tbody_data_skill">
-              <?php for ($j = 0; $j < count($line); $j++) { 
-              if($j >= 0 && $j <= 6)
-                $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
-              // else if($j >= 3 && $j <= 6)
-              //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
-              else if($j === 9)
-                $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
-              else if($j >= 7 && $j <= 8)
-                $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
-              else
-                $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply', 'Printing', 'Repair Battery', 'INFOR'];
+              <?php for ($j = 0; $j < count($line); $j++) {
+                if ($j >= 0 && $j <= 6)
+                  $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
+                // else if($j >= 3 && $j <= 6)
+                //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
+                else if ($j === 9)
+                  $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+                else if ($j >= 7 && $j <= 8)
+                  $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+                else
+                  $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
               ?>
                 <?php for ($i = 0; $i < count($mesin); $i++) { ?>
                 <tr class="data_skill">
@@ -362,22 +367,22 @@
                     <button type="button" class="btn btn-sm btn-danger ms-3 p-2" id="skill_<?= $j ?>_<?= $i ?>_5" onclick="delete_skill(<?= $j ?>, <?= $i ?>, 5)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
                   </td>
                   <td class="border"></td>
-                  <?php if($j == 2 || $j == 6 || $j == 8 || $j == 9) {
+                  <?php if ($j == 2 || $j == 6 || $j == 8 || $j == 9) {
                     continue;
                   } else { ?>
                     <?php $j = $j + 1; ?>
                     <?php if ($j < count($line)) { ?>
                     <?php
-                      if($j >= 0 && $j <= 6)
+                      if ($j >= 0 && $j <= 6)
                         $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
                       // else if($j >= 3 && $j <= 6)
                       //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
-                      else if($j === 9)
+                      else if ($j === 9)
                         $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
-                      else if($j >= 7 && $j <= 8)
+                      else if ($j >= 7 && $j <= 8)
                         $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
                       else
-                        $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply', 'Printing', 'Repair Battery', 'INFOR'];
+                        $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
                     ?>
                     <td style="font-size: 20px" class="fw-bold">
                       <?= $line[$j] ?>
@@ -395,7 +400,7 @@
                       <button type="button" class="btn btn-sm btn-danger ms-3 p-2" id="skill_<?= $j ?>_<?= $i ?>_5" onclick="delete_skill(<?= $j ?>, <?= $i ?>, 5)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
                     </td>
                     <?php } ?>
-                    <?php }?>
+                    <?php } ?>
                     <?php $j = $j - 1; ?>
                   </tr>
                 <?php } ?>
@@ -404,11 +409,11 @@
                   <td class="border"></td>
                   <td colspan="3" style="border-bottom: solid 1px black"></td>
                 </tr>
-                <?php if($j == 2 || $j == 6 || $j == 8 || $j == 9) {
-                    continue;
-                  } else {
-                    $j = $j + 1;
-                  } ?>
+                <?php if ($j == 2 || $j == 6 || $j == 8 || $j == 9) {
+                  continue;
+                } else {
+                  $j = $j + 1;
+                } ?>
               <?php } ?>
               </tbody>
             `;
@@ -461,16 +466,16 @@
               </thead>
               <tbody id="tbody_data_skill">
               <?php for ($j = 0; $j < count($line); $j++) {
-                if($j >= 0 && $j <= 6)
+                if ($j >= 0 && $j <= 6)
                   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
                 // else if($j >= 3 && $j <= 6)
                 //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
-                else if($j === 9)
+                else if ($j === 9)
                   $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
-                else if($j >= 7 && $j <= 8)
+                else if ($j >= 7 && $j <= 8)
                   $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
                 else
-                  $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply', 'Printing', 'Repair Battery', 'INFOR'];
+                  $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
               ?>
                 <?php for ($i = 0; $i < count($mesin); $i++) { ?>
                 <tr class="data_skill">
@@ -490,22 +495,22 @@
                     <button type="button" class="btn btn-sm btn-danger ms-3 p-2" id="skill_<?= $j ?>_<?= $i ?>_5" onclick="delete_skill(<?= $j ?>, <?= $i ?>, 5)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
                   </td>
                   <td class="border"></td>
-                  <?php if($j == 2 || $j == 6 || $j == 8 || $j == 9) {
+                  <?php if ($j == 2 || $j == 6 || $j == 8 || $j == 9) {
                     continue;
                   } else { ?>
                   <?php $j = $j + 1; ?>
                   <?php if ($j < count($line)) { ?>
                   <?php
-                    if($j >= 0 && $j <= 6)
-                      $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
-                    // else if($j >= 3 && $j <= 6)
-                    //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
-                    else if($j === 9)
-                      $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
-                    else if($j >= 7 && $j <= 8)
-                      $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
-                    else
-                      $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply', 'Printing', 'Repair Battery', 'INFOR'];
+                      if ($j >= 0 && $j <= 6)
+                        $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
+                      // else if($j >= 3 && $j <= 6)
+                      //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
+                      else if ($j === 9)
+                        $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+                      else if ($j >= 7 && $j <= 8)
+                        $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+                      else
+                        $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
                   ?>
                   <td style="font-size: 20px" class="fw-bold">
                     <?= $line[$j] ?>
@@ -532,11 +537,11 @@
                   <td class="border"></td>
                   <td colspan="3" style="border-bottom: solid 1px black"></td>
                 </tr>
-                <?php if($j == 2 || $j == 6 || $j == 8 || $j == 9) {
-                    continue;
-                  } else {
-                    $j = $j + 1;
-                  } ?>
+                <?php if ($j == 2 || $j == 6 || $j == 8 || $j == 9) {
+                  continue;
+                } else {
+                  $j = $j + 1;
+                } ?>
               <?php } ?>
               </tbody>
             `;

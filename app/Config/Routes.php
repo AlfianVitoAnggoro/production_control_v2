@@ -427,7 +427,7 @@ $routes->group('master_group_man_power', ['filter' => 'auth'], function ($routes
 });
 
 //Dashboard Man Power
-$routes->group('dashboard_man_power', function ($routes) {
+$routes->group('dashboard_man_power', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'DashboardManPower::index');
     $routes->get('(:segment)', 'DashboardManPower::dashboard/$1');
     $routes->get('filter', 'DashboardManPower::index');
@@ -439,14 +439,16 @@ $routes->group('dashboard_man_power', function ($routes) {
     $routes->post('save_record_man_power', 'DashboardManPower::save_record_man_power');
 });
 
-//Daily Record Cuti
-$routes->group('daily_record_cuti', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'DailyRecordMP::index_cuti');
+// Absen Man Power
+$routes->group('form_cuti', function ($routes) {
+    $routes->get('/', 'Cuti::index');
+    $routes->post('save', 'Cuti::save_form_cuti');
 });
-
-//Daily Record Absen
-$routes->group('daily_record_absen', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'DailyRecordMP::index_absen');
+$routes->group('cuti', ['filter' => 'auth'], function ($routes) {
+    $routes->get('print', 'Cuti::print');
+    $routes->get('/', 'Cuti::home');
+    $routes->get('detail_cuti/(:num)', 'Cuti::detail_cuti/$1');
+    $routes->post('get_data_mp', 'Cuti::get_data_mp');
 });
 
 $routes->group('monitoring_curing', function ($routes) {

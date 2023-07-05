@@ -23,7 +23,7 @@ class MasterManPower extends BaseController
     $nama = $this->request->getPost('nama');
     $npk = $this->request->getPost('npk');
     $cek_npk_man_power = $this->M_MasterManPower->get_data_man_power($npk);
-    if(count($cek_npk_man_power) > 0)
+    if (count($cek_npk_man_power) > 0)
       return redirect()->to(base_url('master_man_power/detail_man_power/' . $cek_npk_man_power[0]['id_man_power']));
     else {
       $data_man_power = [
@@ -71,7 +71,7 @@ class MasterManPower extends BaseController
       ];
     }
     $model->update_data_man_power($id_man_power, $data_man_power);
-    for($i = 0; $i < count($line); $i++) {
+    for ($i = 0; $i < count($line); $i++) {
       $id_detail_man_power = $this->request->getPost('id_detail_man_power')[$i] ?? '';
       $data_detail_man_power = [
         'id_man_power' => $id_man_power,
@@ -86,14 +86,15 @@ class MasterManPower extends BaseController
     return redirect()->to(base_url('master_man_power/detail_man_power/' . $id_man_power));
   }
 
-  public function delete_data_man_power() {
+  public function delete_data_man_power()
+  {
     $checkedId = $this->request->getPost('checkedId');
     $model = new M_MasterManPower();
-    
+
     // if(count($checkedId) > 0) {
-      foreach ($checkedId as $id) {
-        $model->delete_data_master_man_power($id);
-      }
+    foreach ($checkedId as $id) {
+      $model->delete_data_master_man_power($id);
+    }
     // } else {
     //   $model->delete_data_master_man_power($checkedId);
     // }
@@ -101,7 +102,8 @@ class MasterManPower extends BaseController
     return json_encode('success');
   }
 
-  public function get_data_master_man_power() {
+  public function get_data_master_man_power()
+  {
     $id_man_power = $this->request->getPost('id_man_power');
     $choose_lineVal = $this->request->getPost('choose_lineVal');
     $model = new M_MasterManPower();
@@ -110,7 +112,8 @@ class MasterManPower extends BaseController
     return json_encode($data_detail_data_master_man_power);
   }
 
-  public function calendar() {
+  public function calendar()
+  {
     return view('pages/master_data_man_power/calendar');
   }
 }

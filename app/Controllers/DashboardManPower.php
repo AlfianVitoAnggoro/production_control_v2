@@ -60,6 +60,7 @@ class DashboardManPower extends BaseController
       }
     } else
       $data['detail_record_man_power_kasubsie'] = [];
+    $data['detail_record_man_power_indirect_all'] = $this->M_DashboardManPower->get_data_daily_record_man_power_indirect_all($sub_bagian, date('Y-m-d'), 1);
     $temp_detail_record_man_power_indirect = $this->M_DashboardManPower->get_data_daily_record_man_power_indirect($sub_bagian, date('Y-m-d'), 1);
     if (count($temp_detail_record_man_power_indirect) > 0) {
       foreach ($temp_detail_record_man_power_indirect as $tdrmpi) {
@@ -151,14 +152,14 @@ class DashboardManPower extends BaseController
     $temp_data_group_man_power_indirect = $this->M_DashboardManPower->get_data_group_man_power_indirect($sub_bagian);
     if (count($temp_data_group_man_power_indirect) > 0) {
       foreach ($temp_data_group_man_power_indirect as $tdgmpi) {
-        $data['data_group_man_power_indirect'][$tdgmpi['group_mp']][$tdgmpi['mesin']] = $tdgmpi;
+        $data['data_group_man_power_indirect'][$tdgmpi['mesin']][$tdgmpi['group_mp']] = $tdgmpi;
       }
     } else
       $data['data_group_man_power_indirect'] = [];
     $temp_data_group_man_power_kasubsie = $this->M_DashboardManPower->get_data_group_man_power_kasubsie($sub_bagian);
     if (count($temp_data_group_man_power_kasubsie) > 0) {
       foreach ($temp_data_group_man_power_kasubsie as $tdgmpk) {
-        $data['data_group_man_power_kasubsie'][$tdgmpk['group_mp']][$tdgmpk['mesin']] = $tdgmpk;
+        $data['data_group_man_power_kasubsie'][$tdgmpk['mesin']][$tdgmpk['group_mp']] = $tdgmpk;
       }
     } else
       $data['data_group_man_power_kasubsie'] = [];
@@ -225,10 +226,12 @@ class DashboardManPower extends BaseController
     $group_mp = $this->request->getPost('group_mp');
     $nama_mesin = $this->request->getPost('nama_mesin');
     $npk = $this->request->getPost('npk');
+    $status_mp = $this->request->getPost('status_mp');
     $line = $this->request->getPost('line');
     $group_mp_indirect = $this->request->getPost('group_mp_indirect');
     $nama_mesin_indirect = $this->request->getPost('nama_mesin_indirect');
     $npk_indirect = $this->request->getPost('npk_indirect');
+    $status_mp_indirect = $this->request->getPost('status_mp_indirect');
     $nama_mp_tidak_hadir_indirect = $this->request->getPost('nama_mp_tidak_hadir_indirect');
     $id_mp = [];
     $id_mp_exists = [];
@@ -247,7 +250,8 @@ class DashboardManPower extends BaseController
             'shift' => $shift,
             'group_mp' => $group_mp[$index_line],
             'mesin' => $nama_mesin[$ln][$i],
-            'nama' => $id_mp[0]['id_man_power']
+            'nama' => $id_mp[0]['id_man_power'],
+            'status' => $status_mp[$ln][$i]
           ];
         } else {
           $data_record_man_power = [
@@ -258,6 +262,7 @@ class DashboardManPower extends BaseController
             'group_mp' => $group_mp[$index_line],
             'mesin' => $nama_mesin[$ln][$i],
             'nama' => NULL,
+            'status' => $status_mp[$ln][$i]
           ];
         }
         $this->M_DashboardManPower->save_record_man_power($cek_record, $data_record_man_power);
@@ -305,6 +310,7 @@ class DashboardManPower extends BaseController
           'group_mp' => $group_mp_indirect[$k],
           'mesin' => $nama_mesin_indirect[$k],
           'nama' => $id_mp_indirect[0]['id_man_power'],
+          'status' => $status_mp_indirect[$k],
         ];
       } else {
         $data_record_man_power_indirect = [
@@ -313,7 +319,8 @@ class DashboardManPower extends BaseController
           'shift' => $shift,
           'group_mp' => $group_mp_indirect[$k],
           'mesin' => $nama_mesin_indirect[$k],
-          'nama' => NULL
+          'nama' => NULL,
+          'status' => $status_mp_indirect[$k],
         ];
       }
       $this->M_DashboardManPower->save_record_man_power_indirect($cek_record_indirect, $data_record_man_power_indirect);

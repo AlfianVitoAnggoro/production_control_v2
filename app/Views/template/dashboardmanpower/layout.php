@@ -30,13 +30,14 @@
 
 	<style>
 		@font-face {
-			font-family: azonix;
-			src: url("<?= base_url() ?>fonts/azonix.otf") format("opentype");
+			font-family: abseoluteempire;
+			src: url("<?= base_url() ?>fonts/aAbsoluteEmpire.otf") format("opentype");
+			/* src: url("<?= base_url() ?>fonts/Aesthetic Romance.ttf") format("opentype"); */
 		}
 
 		.judul_dashboard {
-			/* font-family: azonix; */
-			font-size: 35px;
+			font-family: abseoluteempire;
+			font-size: 60px;
 			color: #000;
 			font-weight: 600;
 		}
@@ -49,8 +50,8 @@
 		}
 
 		body {
-			/* background-image: url("<?= base_url() ?>assets/images/bg-dashboard-new.jpg"); */
-			/* background-image: url("<?= base_url() ?>assets/images/1.jpg"); */
+			/* background-image: url("<?= base_url() ?>assets/images/background_henkaten.jpg"); */
+			background-image: url("<?= base_url() ?>assets/images/1.jpg");
 			/* background-image: url("<?= base_url() ?>assets/images/dashboardhenkaten.jpg"); */
 			background-color: #0C134F;
 			background-size: cover;
@@ -60,6 +61,11 @@
 			// 	echo 'background-size: cover;';
 			// }
 			?>
+		}
+
+		@font-face {
+			font-family: azonix;
+			src: url("<?= base_url() ?>fonts/azonix.otf") format("opentype");
 		}
 	</style>
 </head>
