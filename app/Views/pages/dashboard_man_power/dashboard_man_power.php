@@ -23,7 +23,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
     </div> -->
     <div class="row m-0">
       <div class="col-2">
-        <div class="row m-0">
+        <div class="row m-0" style="height: 18vh;">
           <div class="col p-0">
             <div class="pe-1">
               <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
@@ -91,10 +91,10 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             </div>
           <?php } ?>
         </div>
-        <div class="row m-0">
+        <div class="row m-0" style="height: calc(100% - 18vh - 14px)">
           <div class="col p-0" style="height: 100%">
-            <figure class="highcharts-figure">
-              <div id="horizontal_bar" style="height: 591px"></div>
+            <figure class="highcharts-figure" style="height: 100%">
+              <div id="horizontal_bar" style="height: 100%"></div>
             </figure>
           </div>
         </div>
@@ -108,7 +108,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
 
           <!-- <div class="d-flex justify-content-between" style="margin-right: 23px">
         <div class="d-flex" style="margin-left: 20px"> -->
-          <div class="row m-0">
+          <div class="row m-0" style="height: 18vh;">
             <div class="col p-0">
               <div class="d-flex" style="width: 100%">
                 <div class="d-flex justify-content-center align-items-center flex-column mb-2 mx-1" style="background-color: #22A699; color: white; width: 100px">
@@ -237,7 +237,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           </div>
         <?php } ?>
         <?php $data_indirect = $model->get_data_indirect(str_replace('-', '_', $sub_bagian)) ?>
-        <div class="row m-0">
+        <div class="row m-0" style="height: 18vh;">
           <div class="col p-0">
             <!-- <div class="row">
           <div class="col"> -->
@@ -456,9 +456,9 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         </div>
       </div>
     </div>
-    <div class="row m-0">
+    <div class="row m-0" style="height: 18vh;">
       <div class="d-flex justify-content-center align-items-center flex-column mx-1 mb-2" style="width: 100px; background: red; color: white">
-        <?php $word_absen = str_split('ABSEN');
+        <?php $word_absen = str_split('ABSENTEISM');
         foreach ($word_absen as $wa) { ?>
           <h4 class="fw-bold m-0" style="font-size: 16px"><?= $wa ?></h4>
         <?php } ?>
@@ -666,9 +666,17 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         let status = '';
         console.log(data);
         if (Object.keys(data.detail_record_man_power).length > 0) {
-          let series = horizontal_barHighcharts.series[0];
-          series.setData([40, 50, 20]);
+          let series_tidak_hadir = horizontal_barHighcharts.series[0];
+          let series_hadir = horizontal_barHighcharts.series[1];
+          let mp_tidak_hadir = [];
+          let mp_hadir = [];
+          let temp_all_mp_tidak_hadir = [];
+          let temp_all_mp_hadir = [];
           line.forEach(ln => {
+            mp_tidak_hadir.push(parseFloat((((data?.data_mp_tidak_hadir?.[ln]?.length ?? 0) / (data?.data_mesin?.[ln]?.length ?? 0) * 100).toFixed(1))));
+            mp_hadir.push(parseFloat(((((data?.data_mesin?.[ln]?.length ?? 0) - (data?.data_mp_tidak_hadir?.[ln]?.length ?? 0)) / (data?.data_mesin?.[ln]?.length ?? 0) * 100).toFixed(1))));
+            temp_all_mp_tidak_hadir.push(data?.data_mp_tidak_hadir?.[ln]?.length ?? 0);
+            temp_all_mp_hadir.push((data?.data_mesin?.[ln]?.length ?? 0) - (data?.data_mp_tidak_hadir?.[ln]?.length ?? 0));
             let index_mesin = 0;
             data?.data_mesin?.[ln].forEach(msn => {
               // console.log(Object.keys(data.detail_record_man_power?.[ln])[0]);
@@ -743,6 +751,16 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               }
             }
           });
+          mp_tidak_hadir.push(parseFloat(((data?.data_mp_tidak_hadir_indirect?.length ?? 0) / (data?.data_indirect?.length ?? 0) * 100).toFixed(1)));
+          mp_hadir.push(parseFloat((((data?.data_indirect?.length ?? 0) - (data?.data_mp_tidak_hadir_indirect?.length ?? 0)) / (data?.data_indirect?.length ?? 0) * 100).toFixed(1)));
+          temp_all_mp_tidak_hadir.push(data?.data_mp_tidak_hadir_indirect?.length ?? 0);
+          temp_all_mp_hadir.push((data?.data_indirect?.length ?? 0) - (data?.data_mp_tidak_hadir_indirect?.length ?? 0));
+          console.log({
+            mp_tidak_hadir,
+            mp_hadir,
+            temp_all_mp_hadir,
+            temp_all_mp_tidak_hadir
+          });
           let index = 0;
           data?.data_indirect.forEach(di => {
             if (di.mesin.includes('Kasubsie')) {
@@ -768,6 +786,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               index++;
             }
           });
+          series_tidak_hadir.setData(mp_tidak_hadir);
+          series_hadir.setData(mp_hadir);
         } else {
           // console.log(data.data_group_man_power_indirect);
           line.forEach(ln => {
@@ -1206,34 +1226,34 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   let temp_all_mp_tidak_hadir = [];
   let temp_all_mp_hadir = [];
   <?php for ($i = 0; $i < count($line); $i++) { ?>
-    mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / (sum_mesin?.[<?= $line[$i] ?>] ?? 0)) * 100).toFixed(2)));
-    mp_hadir.push(parseFloat(((((sum_mesin?.[<?= $line[$i] ?>] ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / (sum_mesin?.[<?= $line[$i] ?>] ?? 0)) * 100).toFixed(2)));
+    mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / (sum_mesin?.[<?= $line[$i] ?>] ?? 0)) * 100).toFixed(1)));
+    mp_hadir.push(parseFloat(((((sum_mesin?.[<?= $line[$i] ?>] ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / (sum_mesin?.[<?= $line[$i] ?>] ?? 0)) * 100).toFixed(1)));
     temp_all_mp_tidak_hadir.push((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
     temp_all_mp_hadir.push((sum_mesin?.[<?= $line[$i] ?>] ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
   <?php } ?>
-  mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / sum_mesin_indirect) * 100).toFixed(2)));
-  mp_hadir.push(parseFloat((((sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / sum_mesin_indirect) * 100).toFixed(2)));
+  mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / sum_mesin_indirect) * 100).toFixed(1)));
+  mp_hadir.push(parseFloat((((sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / sum_mesin_indirect) * 100).toFixed(1)));
   temp_all_mp_tidak_hadir.push((sum_mp_tidak_hadir_indirect?.length ?? 0));
   temp_all_mp_hadir.push((sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)));
-  mp_tidak_hadir.push(parseFloat(((eval(temp_all_mp_tidak_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(2)));
-  mp_hadir.push(parseFloat(((eval(temp_all_mp_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(2)));
+  mp_tidak_hadir.push(parseFloat(((eval(temp_all_mp_tidak_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
+  mp_hadir.push(parseFloat(((eval(temp_all_mp_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
   // let all_mesin = total_mesin + sum_mesin_indirect;
   // let mp_tidak_hadir = [];
   // let mp_hadir = [];
   // let mp_tidak_hadir_all_mesin = [];
   // let mp_hadir_all_mesin = [];
   // <?php for ($i = 0; $i < count($line); $i++) { ?>
-  //   mp_tidak_hadir.push(parseFloat((((sum_mesin?.[<?= $line[$i] ?>] - Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length) / sum_mesin?.[<?= $line[$i] ?>]) * 100).toFixed(2)));
-  //   mp_hadir.push(parseFloat(((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length / sum_mesin?.[<?= $line[$i] ?>]) * 100).toFixed(2)));
+  //   mp_tidak_hadir.push(parseFloat((((sum_mesin?.[<?= $line[$i] ?>] - Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length) / sum_mesin?.[<?= $line[$i] ?>]) * 100).toFixed(1)));
+  //   mp_hadir.push(parseFloat(((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length / sum_mesin?.[<?= $line[$i] ?>]) * 100).toFixed(1)));
   //   mp_tidak_hadir_all_mesin.push(sum_mesin?.[<?= $line[$i] ?>] - Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length);
   //   mp_hadir_all_mesin.push(Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length);
   // <?php } ?>
-  // mp_tidak_hadir.push(parseFloat(((sum_mesin_indirect - Object.keys(sum_mp_indirect).length) / sum_mesin_indirect * 100).toFixed(2)));
-  // mp_hadir.push(parseFloat((Object.keys(sum_mp_indirect).length / sum_mesin_indirect * 100).toFixed(2)));
+  // mp_tidak_hadir.push(parseFloat(((sum_mesin_indirect - Object.keys(sum_mp_indirect).length) / sum_mesin_indirect * 100).toFixed(1)));
+  // mp_hadir.push(parseFloat((Object.keys(sum_mp_indirect).length / sum_mesin_indirect * 100).toFixed(1)));
   // mp_tidak_hadir_all_mesin.push(sum_mesin_indirect - Object.keys(sum_mp_indirect).length);
   // mp_hadir_all_mesin.push(Object.keys(sum_mp_indirect).length);
-  // mp_tidak_hadir.push(parseFloat(((eval(mp_tidak_hadir_all_mesin.join('+')) / all_mesin) * 100).toFixed(2)));
-  // mp_hadir.push(parseFloat(((eval(mp_hadir_all_mesin.join('+')) / all_mesin) * 100).toFixed(2)));
+  // mp_tidak_hadir.push(parseFloat(((eval(mp_tidak_hadir_all_mesin.join('+')) / all_mesin) * 100).toFixed(1)));
+  // mp_hadir.push(parseFloat(((eval(mp_hadir_all_mesin.join('+')) / all_mesin) * 100).toFixed(1)));
   // let sum_mp_tidak_hadir = <?= json_encode($data_mp_tidak_hadir) ?>;
   // let sum_mp_tidak_hadir_indirect = <?= json_encode($data_mp_tidak_hadir_indirect) ?>;
   // let mp_tidak_hadir = [];
@@ -1241,29 +1261,37 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   // let temp_mp_all_tidak_hadir = [];
   // let temp_mp_all_hadir = [];
   // <?php for ($i = 0; $i < count($line); $i++) { ?>
-  //   mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / (Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0)) * 100).toFixed(2)));
-  //   mp_hadir.push(parseFloat(((((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / (Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0)) * 100).toFixed(2)));
+  //   mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / (Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0)) * 100).toFixed(1)));
+  //   mp_hadir.push(parseFloat(((((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / (Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0)) * 100).toFixed(1)));
   //   temp_mp_all_tidak_hadir.push(sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0);
   //   temp_mp_all_hadir.push((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
   // <?php } ?>
-  // mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / (Object.keys(sum_mp_indirect)?.length ?? 0)) * 100).toFixed(2)));
-  // mp_hadir.push(parseFloat(((((Object.keys(sum_mp_indirect)?.length ?? 0) - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / (Object.keys(sum_mp_indirect)?.length ?? 0)) * 100).toFixed(2)));
+  // mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / (Object.keys(sum_mp_indirect)?.length ?? 0)) * 100).toFixed(1)));
+  // mp_hadir.push(parseFloat(((((Object.keys(sum_mp_indirect)?.length ?? 0) - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / (Object.keys(sum_mp_indirect)?.length ?? 0)) * 100).toFixed(1)));
   // temp_mp_all_tidak_hadir.push(sum_mp_tidak_hadir_indirect?.length ?? 0);
   // temp_mp_all_hadir.push((Object.keys(sum_mp_indirect)?.length ?? 0) - (sum_mp_tidak_hadir_indirect?.length ?? 0));
-  // mp_tidak_hadir.push(parseFloat(((eval(temp_mp_all_tidak_hadir.join('+')) / (eval(temp_mp_all_tidak_hadir.join('+')) + eval(temp_mp_all_hadir.join('+')))) * 100).toFixed(2)));
-  // mp_hadir.push(parseFloat(((eval(temp_mp_all_hadir.join('+')) / (eval(temp_mp_all_tidak_hadir.join('+')) + eval(temp_mp_all_hadir.join('+')))) * 100).toFixed(2)));
+  // mp_tidak_hadir.push(parseFloat(((eval(temp_mp_all_tidak_hadir.join('+')) / (eval(temp_mp_all_tidak_hadir.join('+')) + eval(temp_mp_all_hadir.join('+')))) * 100).toFixed(1)));
+  // mp_hadir.push(parseFloat(((eval(temp_mp_all_hadir.join('+')) / (eval(temp_mp_all_tidak_hadir.join('+')) + eval(temp_mp_all_hadir.join('+')))) * 100).toFixed(1)));
   let horizontal_barHighcharts = Highcharts.chart('horizontal_bar', {
     chart: {
-      type: 'bar'
+      type: 'bar',
+      backgroundColor: '#FFF9C9'
     },
     title: {
       text: 'Kehadiran'
     },
     xAxis: {
-      categories: ['Line 1', 'Line 2', 'Line 3', 'Indirect', 'AMB-1']
+      categories: ['Line 1', 'Line 2', 'Line 3', 'Indirect', 'AMB-1'],
+      labels: {
+        style: {
+          fontSize: '14px',
+          fontWeight: 'bold'
+        }
+      }
     },
     yAxis: {
       min: 0,
+      max: 100,
       title: {
         text: 'Percentage'
       }
@@ -1275,7 +1303,20 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
       series: {
         stacking: 'normal',
         dataLabels: {
-          enabled: true
+          enabled: true,
+          formatter: function() {
+            if (this.series.index === 1) {
+              return this.y + '%';
+            } else {
+              return null; // Mengembalikan null untuk menghilangkan datalabels pada series lainnya
+            }
+          },
+          style: {
+            textOutline: 'none',
+            color: '#FFFFFF',
+            fontSize: '14px',
+            fontWeight: 'bold'
+          }
         }
       }
     },
