@@ -19,7 +19,7 @@ class SawRepair extends BaseController
   {
     $this->saw_repairModel = new M_SawRepair();
     $this->saw_repair_sawModel = new M_SawRepairSawInput();
-    $this->saw_repair_potongModel = new M_SawRepairPotonginput();
+    $this->saw_repair_potongModel = new M_SawRepairPotongInput();
     $this->type_batteryModel = new M_TypeBattery();
     $this->plateModel = new M_Plate();
   }
