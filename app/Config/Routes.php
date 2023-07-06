@@ -29,6 +29,11 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+//Checking Data
+$routes->get('/check_data', 'checkData::index');
+$routes->post('/input_data_rack', 'checkData::inputDataRack');
+
 $routes->get('/', 'Login::index');
 
 //LOGIN
