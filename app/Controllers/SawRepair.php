@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\M_Plate;
 use App\Models\M_SawRepair;
 use App\Models\M_TypeBattery;
-use App\Models\M_SawRepairPotonginput;
+use App\Models\M_SawRepairPotongInput;
 use App\Models\M_SawRepairSawInput;
 
 class SawRepair extends BaseController
