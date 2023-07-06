@@ -299,7 +299,9 @@ if ($current_date != 12) {
 
 <?= $this->section('script'); ?>
 <script>
-  $(document).ready(function() {});
+  $(document).ready(function() {
+    setTimeout(function () { location.reload(1); }, 60*60*1000);
+  });
 
   // PIE CHART YEAR TO GET
   var year_to_date_chart = echarts.init(document.getElementById('year_to_date_chart'));
