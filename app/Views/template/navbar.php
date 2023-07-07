@@ -17,6 +17,7 @@
 							<ul class="treeview-menu">
 								<li><a href="<?=base_url()?>dashboardGrid"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Produksi 1</a></li>
 								<li><a href="<?=base_url()?>dashboard"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Produksi 2</a></li>
+								<li><a href="<?=base_url()?>check_data"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Check Data Rack</a></li>
 							</ul>
 						</li>
 					<?php } ?>
