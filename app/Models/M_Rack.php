@@ -6,6 +6,7 @@ use CodeIgniter\Model;
 
 class M_Rack extends Model
 {
+    protected $DBGroup = 'manajemen_rak';
     protected $table = 'TRack';
     protected $allowedFields = ['id', 'pn_qr', 'item', 'qty', 'barcode', 'entry_date'];
     protected $useTimestamps = true;
