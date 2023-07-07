@@ -18,4 +18,12 @@ class Api extends BaseController
 
     return $this->response->setJSON($data);
   }
+
+  public function get_detail_barcode($barc)
+  {
+
+    $data = $this->M_Api->get_detail_barcode($barc);
+
+    return $this->response->setJSON($data);
+  }
 }

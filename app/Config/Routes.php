@@ -518,6 +518,7 @@ $routes->get('interlock_aging/update_rak_aging/(:any)', 'InterlockAging::update_
 // API
 $routes->get('api/get_detail_rak/', 'Api::get_detail_rak/');
 $routes->get('api/get_detail_rak/(:any)', 'Api::get_detail_rak/$1');
+$routes->get('api/get_detail_barcode/(:any)', 'Api::get_detail_barcode/$1');
 
 // $routes->get('/lhp/test', 'Home::test');
 
