@@ -65,11 +65,11 @@ class M_DashboardManPower extends Model
   {
     if ($line <= 7)
       $query = $this->db->query('SELECT * FROM data_master_mesin WHERE line_' . $line . ' > 0 ORDER BY line_' . $line . ' ASC');
-    else if ($line === 8)
+    else if ($line == 8)
       $query = $this->db->query('SELECT * FROM data_master_mesin WHERE wet_a > 0 ORDER BY wet_a ASC');
-    else if ($line === 9)
+    else if ($line == 9)
       $query = $this->db->query('SELECT * FROM data_master_mesin WHERE wet_f > 0 ORDER BY wet_f ASC');
-    else if ($line === 10)
+    else if ($line == 10)
       $query = $this->db->query('SELECT * FROM data_master_mesin WHERE mcb > 0 ORDER BY mcb ASC');
 
     return $query->getResultArray();

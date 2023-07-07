@@ -14,10 +14,8 @@
   $line_val = [1, 2, 3];
 } else if (strcasecmp($data_group_man_power[0]['sub_bagian'], 'amb-2') === 0) {
   $line_val = [4, 5, 6, 7];
-} else if (strcasecmp($data_group_man_power[0]['sub_bagian'], 'wet-a') === 0) {
-  $line_val = [8];
-} else if (strcasecmp($data_group_man_power[0]['sub_bagian'], 'wet-f') === 0) {
-  $line_val = [9];
+} else if (strcasecmp($data_group_man_power[0]['sub_bagian'], 'wet') === 0) {
+  $line_val = [8, 9];
 } else if (strcasecmp($data_group_man_power[0]['sub_bagian'], 'mcb') === 0) {
   $line_val = [10];
 } ?>

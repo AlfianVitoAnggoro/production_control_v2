@@ -12,7 +12,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   $line = [10];
 ?>
 <?php $group = 'A' ?>
-<?php $lineAct = ['', 1, 2, 3, 4, 5, 6, 7, 'WET A', 'WET F', 'MCB'] ?>
+<?php $lineAct = ['', 1, 2, 3, 4, 5, 6, 7, 'A', 'F', 'MCB'] ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="container-full">
   <!-- Main content -->
@@ -22,8 +22,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
       <input type="date" name="tanggal" id="tanggal" class="form-control">
     </div> -->
     <div class="row m-0">
-      <div class="col-2">
-        <div class="row m-0" style="height: 18vh;">
+      <div class="col-3">
+        <div class="row m-0" style="height: 22.5vh">
           <div class="col p-0">
             <div class="pe-1">
               <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
@@ -33,8 +33,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                       <h4 class="box-title mb-0 text-center p-1 fw-bold" style="font-size: 10px">KADEPT</h4>
                     </div>
                   </div>
-                  <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                    <img src="<?= base_url() ?>uploads/1100.jpg" alt="" style="max-width: 100%; height: 125px" id="foto_kadept">
+                  <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 175px">
+                    <img src="<?= base_url() ?>uploads/1100.jpg" alt="" style="max-width: 100%; height: 175px" id="foto_kadept">
                   </div>
                   <div class="d-flex fx-card-footer px-1 py-1" style="height: 35px;">
                     <div class="d-flex justify-content-between align-items-center">
@@ -45,7 +45,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               </div>
             </div>
           </div>
-          <?php if (strtolower($sub_bagian) === 'amb-1') { ?>
+          <?php if (strtolower($sub_bagian) === 'amb-1' || strtolower($sub_bagian) === 'wet' || strtolower($sub_bagian) === 'mcb') { ?>
             <div class="col p-0">
               <div class="ps-1">
                 <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
@@ -55,8 +55,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                         <h4 class="box-title mb-0 text-center p-1 fw-bold" style="font-size: 10px">KASIE</h4>
                       </div>
                     </div>
-                    <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                      <img src="<?= base_url() ?>uploads/3012.jpg" alt="" style="max-width: 100%; height: 125px" id="foto_kasie">
+                    <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 175px">
+                      <img src="<?= base_url() ?>uploads/3012.jpg" alt="" style="max-width: 100%; height: 175px" id="foto_kasie">
                     </div>
                     <div class="d-flex fx-card-footer px-1 py-1" style="height: 35px;">
                       <div class="d-flex justify-content-between align-items-center">
@@ -77,8 +77,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                         <h4 class="box-title mb-0 text-center p-1 fw-bold" style="font-size: 10px">Kasie</h4>
                       </div>
                     </div>
-                    <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                      <img src="<?= base_url() ?>uploads/kadept.jpg" alt="" style="max-width: 100%; height: 125px" id="foto_kadept">
+                    <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 175px">
+                      <img src="<?= base_url() ?>uploads/kadept.jpg" alt="" style="max-width: 100%; height: 175px" id="foto_kadept">
                     </div>
                     <div class="d-flex fx-card-footer px-1 py-1" style="height: 35px;">
                       <div class="d-flex justify-content-between align-items-center">
@@ -91,7 +91,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             </div>
           <?php } ?>
         </div>
-        <div class="row m-0" style="height: calc(100% - 18vh - 14px)">
+        <div class="row m-0" style="height: calc(100% - 22.5vh - 14px)">
           <div class="col p-0" style="height: 100%">
             <figure class="highcharts-figure" style="height: 100%">
               <div id="horizontal_bar" style="height: 100%"></div>
@@ -99,7 +99,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           </div>
         </div>
       </div>
-      <div class="col-10">
+      <div class="col-9">
         <?php for ($i = 0; $i < count($line); $i++) { ?>
           <?php $model = new App\Models\M_DashboardManPower();
           $data_mesin = $model->get_data_mesin($line[$i]);
@@ -108,11 +108,11 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
 
           <!-- <div class="d-flex justify-content-between" style="margin-right: 23px">
         <div class="d-flex" style="margin-left: 20px"> -->
-          <div class="row m-0" style="height: 18vh;">
+          <div class="row m-0" style="height: 22.5vh">
             <div class="col p-0">
               <div class="d-flex" style="width: 100%">
                 <div class="d-flex justify-content-center align-items-center flex-column mb-2 mx-1" style="background-color: #22A699; color: white; width: 100px">
-                  <h4 class="fw-bold" style="font-size: 16px">Line</h4>
+                  <h4 class="fw-bold" style="font-size: 16px">WET</h4>
                   <?= "" //($line[$i] <= 7) ? 'Line ' . $lineAct[$line[$i]] : $lineAct[$line[$i]] 
                   ?>
                   <h1 class="m-2 fw-bold"><?= $lineAct[$line[$i]] ?></h1>
@@ -129,7 +129,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 <!-- <div class="col" style="width: 100px">
                 
               </div> -->
-                <div class="row row-cols-xl-10 m-0" style="width: calc(100% - 107px);">
+                <div class="row row-cols-xl-7 m-0" style="width: calc(100% - 107px);">
                   <?php $index_mesin = 0;
                   foreach ($data_mesin as $msn) { ?>
                     <?php if (count($detail_record_man_power) > 0) {
@@ -161,7 +161,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                                                                   ?></h5> -->
                               </div>
                               <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%">
-                                <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['foto']) : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                                <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['foto']) : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 175px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
                               </div>
                               <div class="fx-card-footer px-1 py-1">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -207,8 +207,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]])) ? ($data_group_man_power[$line[$i]][$msn['mesin']]['nama']) : 'NO MP') : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                                <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['foto']) : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 175px">
+                                <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['foto']) : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 175px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
                               </div>
                               <div class="fx-card-footer px-1 py-1">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -237,7 +237,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           </div>
         <?php } ?>
         <?php $data_indirect = $model->get_data_indirect(str_replace('-', '_', $sub_bagian)) ?>
-        <div class="row m-0" style="height: 18vh;">
+        <div class="row m-0" style="height: 22.5vh">
           <div class="col p-0">
             <!-- <div class="row">
           <div class="col"> -->
@@ -248,7 +248,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   <h4 class="fw-bold m-0" style="font-size: 16px"><?= $wi ?></h4>
                 <?php } ?>
               </div>
-              <div class="row row-cols-xl-10 m-0" style="width: calc(100% - 107px)">
+              <div class="row row-cols-xl-7 m-0" style="width: calc(100% - 107px)">
                 <!-- <div class="col" style="width: 100px">
                 
               </div> -->
@@ -281,8 +281,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ($detail_record_man_power_kasubsie[$di['mesin']]['nama']) : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                                <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_indirect_<?= $index_indirect ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 175px">
+                                <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 175px" id="foto_indirect_<?= $index_indirect ?>">
                               </div>
                               <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center">
                                 <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['npk']) : '') : '') : '') ?></h5>
@@ -319,8 +319,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie)) ? ($data_group_man_power_kasubsie[$di['mesin']]['nama']) : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                                <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_indirect_<?= $index_indirect ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 175px">
+                                <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 175px" id="foto_indirect_<?= $index_indirect ?>">
                               </div>
                               <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center">
                                 <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['npk']) : '') : '') : '') ?></h5>
@@ -365,8 +365,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ($detail_record_man_power_indirect[$di['mesin']]['nama']) : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                                <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_indirect_<?= $index_indirect ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 175px">
+                                <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 175px" id="foto_indirect_<?= $index_indirect ?>">
                               </div>
                               <div class="fx-card-footer px-1 py-1">
                                 <!-- <div class="d-flex justify-content-between align-items-center">
@@ -420,8 +420,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($data_group_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect)) ? ($data_group_man_power_indirect[$di['mesin']]['nama']) : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                                <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_indirect_<?= $index_indirect ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 175px">
+                                <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 175px" id="foto_indirect_<?= $index_indirect ?>">
                               </div>
                               <div class="fx-card-footer px-1 py-1">
                                 <!-- <div class="d-flex justify-content-between align-items-center">
@@ -456,7 +456,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         </div>
       </div>
     </div>
-    <div class="row m-0" style="height: 18vh;">
+    <div class="row m-0" style="height: 22.5vh">
       <div class="d-flex justify-content-center align-items-center flex-column mx-1 mb-2" style="width: 100px; background: red; color: white">
         <?php $word_absen = str_split('ABSENTEISM');
         foreach ($word_absen as $wa) { ?>
@@ -468,7 +468,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           <table class="table bg-white" style="height: 100%; border-radius: 5px">
             <thead>
               <tr>
-                <th style="font-size: 12px" class="py-1 px-0 text-center">Line <?= $line[$i] ?></th>
+                <th style="font-size: 12px" class="py-1 px-0 text-center">WET <?= $lineAct[$line[$i]] ?></th>
                 <th style="font-size: 12px" class="py-1 px-0 text-center">Nama</th>
                 <th style="font-size: 12px" class="py-1 px-0 text-center">NPK</th>
                 <th style="font-size: 12px" class="py-1 px-0 text-center">Keterangan</th>
@@ -1228,34 +1228,34 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   let temp_all_mp_tidak_hadir = [];
   let temp_all_mp_hadir = [];
   <?php for ($i = 0; $i < count($line); $i++) { ?>
-    mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / (sum_mesin?.[<?= $line[$i] ?>] ?? 0)) * 100).toFixed(1)));
-    mp_hadir.push(parseFloat(((((sum_mesin?.[<?= $line[$i] ?>] ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / (sum_mesin?.[<?= $line[$i] ?>] ?? 0)) * 100).toFixed(1)));
+    mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / (sum_mesin?.[<?= $line[$i] ?>] ?? 0)) * 100).toFixed(2)));
+    mp_hadir.push(parseFloat(((((sum_mesin?.[<?= $line[$i] ?>] ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / (sum_mesin?.[<?= $line[$i] ?>] ?? 0)) * 100).toFixed(2)));
     temp_all_mp_tidak_hadir.push((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
     temp_all_mp_hadir.push((sum_mesin?.[<?= $line[$i] ?>] ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
   <?php } ?>
-  mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / sum_mesin_indirect) * 100).toFixed(1)));
-  mp_hadir.push(parseFloat((((sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / sum_mesin_indirect) * 100).toFixed(1)));
+  mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / sum_mesin_indirect) * 100).toFixed(2)));
+  mp_hadir.push(parseFloat((((sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / sum_mesin_indirect) * 100).toFixed(2)));
   temp_all_mp_tidak_hadir.push((sum_mp_tidak_hadir_indirect?.length ?? 0));
   temp_all_mp_hadir.push((sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)));
-  mp_tidak_hadir.push(parseFloat(((eval(temp_all_mp_tidak_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
-  mp_hadir.push(parseFloat(((eval(temp_all_mp_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
+  mp_tidak_hadir.push(parseFloat(((eval(temp_all_mp_tidak_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(2)));
+  mp_hadir.push(parseFloat(((eval(temp_all_mp_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(2)));
   // let all_mesin = total_mesin + sum_mesin_indirect;
   // let mp_tidak_hadir = [];
   // let mp_hadir = [];
   // let mp_tidak_hadir_all_mesin = [];
   // let mp_hadir_all_mesin = [];
   // <?php for ($i = 0; $i < count($line); $i++) { ?>
-  //   mp_tidak_hadir.push(parseFloat((((sum_mesin?.[<?= $line[$i] ?>] - Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length) / sum_mesin?.[<?= $line[$i] ?>]) * 100).toFixed(1)));
-  //   mp_hadir.push(parseFloat(((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length / sum_mesin?.[<?= $line[$i] ?>]) * 100).toFixed(1)));
+  //   mp_tidak_hadir.push(parseFloat((((sum_mesin?.[<?= $line[$i] ?>] - Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length) / sum_mesin?.[<?= $line[$i] ?>]) * 100).toFixed(2)));
+  //   mp_hadir.push(parseFloat(((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length / sum_mesin?.[<?= $line[$i] ?>]) * 100).toFixed(2)));
   //   mp_tidak_hadir_all_mesin.push(sum_mesin?.[<?= $line[$i] ?>] - Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length);
   //   mp_hadir_all_mesin.push(Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length);
   // <?php } ?>
-  // mp_tidak_hadir.push(parseFloat(((sum_mesin_indirect - Object.keys(sum_mp_indirect).length) / sum_mesin_indirect * 100).toFixed(1)));
-  // mp_hadir.push(parseFloat((Object.keys(sum_mp_indirect).length / sum_mesin_indirect * 100).toFixed(1)));
+  // mp_tidak_hadir.push(parseFloat(((sum_mesin_indirect - Object.keys(sum_mp_indirect).length) / sum_mesin_indirect * 100).toFixed(2)));
+  // mp_hadir.push(parseFloat((Object.keys(sum_mp_indirect).length / sum_mesin_indirect * 100).toFixed(2)));
   // mp_tidak_hadir_all_mesin.push(sum_mesin_indirect - Object.keys(sum_mp_indirect).length);
   // mp_hadir_all_mesin.push(Object.keys(sum_mp_indirect).length);
-  // mp_tidak_hadir.push(parseFloat(((eval(mp_tidak_hadir_all_mesin.join('+')) / all_mesin) * 100).toFixed(1)));
-  // mp_hadir.push(parseFloat(((eval(mp_hadir_all_mesin.join('+')) / all_mesin) * 100).toFixed(1)));
+  // mp_tidak_hadir.push(parseFloat(((eval(mp_tidak_hadir_all_mesin.join('+')) / all_mesin) * 100).toFixed(2)));
+  // mp_hadir.push(parseFloat(((eval(mp_hadir_all_mesin.join('+')) / all_mesin) * 100).toFixed(2)));
   // let sum_mp_tidak_hadir = <?= json_encode($data_mp_tidak_hadir) ?>;
   // let sum_mp_tidak_hadir_indirect = <?= json_encode($data_mp_tidak_hadir_indirect) ?>;
   // let mp_tidak_hadir = [];
@@ -1263,17 +1263,17 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   // let temp_mp_all_tidak_hadir = [];
   // let temp_mp_all_hadir = [];
   // <?php for ($i = 0; $i < count($line); $i++) { ?>
-  //   mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / (Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0)) * 100).toFixed(1)));
-  //   mp_hadir.push(parseFloat(((((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / (Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0)) * 100).toFixed(1)));
+  //   mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / (Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0)) * 100).toFixed(2)));
+  //   mp_hadir.push(parseFloat(((((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / (Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0)) * 100).toFixed(2)));
   //   temp_mp_all_tidak_hadir.push(sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0);
   //   temp_mp_all_hadir.push((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
   // <?php } ?>
-  // mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / (Object.keys(sum_mp_indirect)?.length ?? 0)) * 100).toFixed(1)));
-  // mp_hadir.push(parseFloat(((((Object.keys(sum_mp_indirect)?.length ?? 0) - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / (Object.keys(sum_mp_indirect)?.length ?? 0)) * 100).toFixed(1)));
+  // mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / (Object.keys(sum_mp_indirect)?.length ?? 0)) * 100).toFixed(2)));
+  // mp_hadir.push(parseFloat(((((Object.keys(sum_mp_indirect)?.length ?? 0) - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / (Object.keys(sum_mp_indirect)?.length ?? 0)) * 100).toFixed(2)));
   // temp_mp_all_tidak_hadir.push(sum_mp_tidak_hadir_indirect?.length ?? 0);
   // temp_mp_all_hadir.push((Object.keys(sum_mp_indirect)?.length ?? 0) - (sum_mp_tidak_hadir_indirect?.length ?? 0));
-  // mp_tidak_hadir.push(parseFloat(((eval(temp_mp_all_tidak_hadir.join('+')) / (eval(temp_mp_all_tidak_hadir.join('+')) + eval(temp_mp_all_hadir.join('+')))) * 100).toFixed(1)));
-  // mp_hadir.push(parseFloat(((eval(temp_mp_all_hadir.join('+')) / (eval(temp_mp_all_tidak_hadir.join('+')) + eval(temp_mp_all_hadir.join('+')))) * 100).toFixed(1)));
+  // mp_tidak_hadir.push(parseFloat(((eval(temp_mp_all_tidak_hadir.join('+')) / (eval(temp_mp_all_tidak_hadir.join('+')) + eval(temp_mp_all_hadir.join('+')))) * 100).toFixed(2)));
+  // mp_hadir.push(parseFloat(((eval(temp_mp_all_hadir.join('+')) / (eval(temp_mp_all_tidak_hadir.join('+')) + eval(temp_mp_all_hadir.join('+')))) * 100).toFixed(2)));
   let horizontal_barHighcharts = Highcharts.chart('horizontal_bar', {
     chart: {
       type: 'bar',
@@ -1283,7 +1283,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
       text: 'Kehadiran'
     },
     xAxis: {
-      categories: ['Line 1', 'Line 2', 'Line 3', 'Indirect', 'AMB-1'],
+      categories: ['WET A', 'WET F', 'Indirect', 'WET'],
       labels: {
         style: {
           fontSize: '14px',

@@ -84,8 +84,12 @@ class DashboardManPower extends BaseController
       $data['data_mp_tidak_hadir_indirect'] = [];
     if (strtolower($sub_bagian) === 'amb-1')
       return view('pages/dashboard_man_power/dashboard_man_power', $data);
+    else if (strtolower($sub_bagian) === 'amb-2')
+      return view('pages/dashboard_man_power/dashboard_man_power_amb_2', $data);
     else if (strtolower($sub_bagian) === 'wet')
       return view('pages/dashboard_man_power/dashboard_man_power_wet', $data);
+    else if (strtolower($sub_bagian) === 'mcb')
+      return view('pages/dashboard_man_power/dashboard_man_power_mcb', $data);
   }
 
   public function detail_dashboard_man_power($id_group)

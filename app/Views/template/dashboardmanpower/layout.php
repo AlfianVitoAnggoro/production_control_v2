@@ -37,7 +37,7 @@
 
 		.judul_dashboard {
 			font-family: abseoluteempire;
-			font-size: 60px;
+			font-size: 58px;
 			color: #000;
 			font-weight: 600;
 		}
