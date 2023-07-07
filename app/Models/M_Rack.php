@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class M_Rack extends Model
 {
     protected $table = 'TRack';
-    protected $allowedFields = ['id', 'pn_qr', 'item', 'qty', 'entry_date'];
+    protected $allowedFields = ['id', 'pn_qr', 'item', 'qty', 'barcode', 'entry_date'];
     protected $useTimestamps = true;
 
     public function getData($id = false)
@@ -18,6 +18,19 @@ class M_Rack extends Model
 
         return $this->where(['id' => $id])->first();
     }
+
+    public function getDataByBarcode($barcode)
+    {
+        return $this->where('barcode', $barcode)->first();
+    }
+
+    public function getAllIds()
+    {
+        $results = $this->findAll();
+        $ids = array_map(function ($row) {
+            return $row['id'];
+        }, $results);
+
+        return $ids;
+    }
 }
-
-
