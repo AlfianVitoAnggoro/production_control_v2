@@ -451,7 +451,7 @@ $routes->group('dashboard_man_power', ['filter' => 'auth'], function ($routes) {
     $routes->post('save_record_man_power', 'DashboardManPower::save_record_man_power');
 });
 
-// Absen Man Power
+// Cuti Man Power
 $routes->group('form_cuti', function ($routes) {
     $routes->get('/', 'Cuti::index');
     $routes->post('save', 'Cuti::save_form_cuti');
@@ -461,6 +461,30 @@ $routes->group('cuti', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Cuti::home');
     $routes->get('detail_cuti/(:num)', 'Cuti::detail_cuti/$1');
     $routes->post('get_data_mp', 'Cuti::get_data_mp');
+});
+
+// IMP Man Power
+$routes->group('form_imp', function ($routes) {
+    $routes->get('/', 'Imp::index');
+    $routes->post('save', 'Imp::save_form_imp');
+});
+$routes->group('imp', ['filter' => 'auth'], function ($routes) {
+    $routes->get('print', 'Imp::print');
+    $routes->get('/', 'Imp::home');
+    $routes->get('detail_imp/(:num)', 'Imp::detail_imp/$1');
+    $routes->post('get_data_mp', 'Imp::get_data_mp');
+});
+
+// Cuti Besar Man Power
+$routes->group('form_cuti_besar', function ($routes) {
+    $routes->get('/', 'CutiBesar::index');
+    $routes->post('save', 'CutiBesar::save_form_cuti_besar');
+});
+$routes->group('cuti_besar', ['filter' => 'auth'], function ($routes) {
+    $routes->get('print', 'CutiBesar::print');
+    $routes->get('/', 'CutiBesar::home');
+    $routes->get('detail_cuti_besar/(:num)', 'CutiBesar::detail_cuti_besar/$1');
+    $routes->post('get_data_mp', 'CutiBesar::get_data_mp');
 });
 
 // Monitoring Aging
