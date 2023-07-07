@@ -2,7 +2,7 @@
 	<!-- <header class="main-header" style="background-color: transparent"> -->
 	<!-- &nbsp; -->
 	<!-- Header Navbar -->
-	<nav class="navbar navbar-static-top d-flex justify-content-between align-items-center p-0">
+	<nav class="navbar navbar-static-top d-flex justify-content-between align-items-center p-0" style="height: 10vh;">
 		<!-- Sidebar toggle button-->
 		<!-- <div class="app-menu">
 			<ul class="header-megamenu nav">
@@ -29,7 +29,7 @@
 			</ul>
 		</div> -->
 		<!-- <div style="margin-left:-250px; text-align:center; margin-top:-25px;"> -->
-		<div style="width: 70%; margin-top: 20px">
+		<div style="width: 70%;">
 			<h1 class="judul_dashboard text-center m-0" style="color: white">MAN POWER HENKATEN BOARD ASSY <?= strtoupper($sub_bagian) ?></h1>
 		</div>
 		<div style="width: 30%; color: white; padding-right: 20px" class="justify-content-end align-items-center d-flex">
