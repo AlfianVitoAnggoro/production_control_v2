@@ -2,47 +2,6 @@
 
 <?= $this->section('content'); ?>
 
-<!-- <form action="<?= base_url() ?>input_data_rack" method="post">
-  <div class="box">
-    <div class="box-body">
-      <div class="row">
-        <div class="col-3">
-          <div class="form-group">
-            <label class="form-label">pn_qr</label>
-            <input type="date" class="form-control" id="pn_qr" name="pn_qr" readonly>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="form-group">
-            <label class="form-label">item</label>
-            <input type="text" class="form-control" name="item" id="item" readonly>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="form-group">
-            <label class="form-label">barcode</label>
-            <input type="text" class="form-control" name="barcode" id="barcode" readonly>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="form-group">
-            <label class="form-label">qty</label>
-            <input type="text" class="form-control" id="qty" name="qty" readonly>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="form-group">
-            <label class="form-label">entry_date</label>
-            <input type="text" class="form-control" id="entry_date" name="entry_date" " readonly>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class=" box-footer" style="text-align: center;">
-            <input type="submit" class="btn btn-success" value="Save">
-          </div>
-</form> -->
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -320,7 +279,7 @@
   }
 
   // event listener untuk input
-  input.addEventListener('input', function(event) {
+  input.addEventListener('change', function(event) {
     const content = event.target.value;
     const url = "http://portal3.incoe.astra.co.id/production_control_v2/api/get_detail_rak/" + content;
     sendGetRequest(url);
