@@ -336,7 +336,7 @@
     barcodeInput.setAttribute('class', 'form-control');
     barcodeInput.setAttribute('name', 'barcode[]');
     barcodeInput.setAttribute('id', 'barcode');
-    barcodeInput.addEventListener('input', function(event) {
+    barcodeInput.addEventListener('change', function(event) {
       const content = event.target.value;
       const url = "http://portal3.incoe.astra.co.id/production_control_v2/api/get_detail_barcode/" + content;
       sendGetDataBarcode(url, barcodeInput);
