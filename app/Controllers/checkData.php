@@ -13,6 +13,7 @@ class CheckData extends BaseController
   public function __construct()
   {
     $this->m_rack = new M_Rack();
+    date_default_timezone_set("Asia/Jakarta");
   }
 
   public function index()

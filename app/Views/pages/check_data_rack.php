@@ -94,95 +94,113 @@
     tableBody.innerHTML = '';
 
     let check = false;
+    let check_empty = false;
 
-    dataRack.forEach(function(itemRack) {
-      data.forEach(function(itemData) {
-        if (itemRack.pn_qr === itemData.pn_qr) {
-          check = true;
-        }
+    if (data.length == 0) {
+      check = true;
+    } else {
+      dataRack.forEach(function(itemRack) {
+        data.forEach(function(itemData) {
+          if (itemRack.pn_qr === itemData.pn_qr) {
+            check = true;
+          } 
+        });
       });
-    });
+    }
 
     if (check == true) {
-      dataRack.forEach(function(row) {
-        if (input.value == row.pn_qr) {
-          const newRow = document.createElement('tr');
-
-          const rack = document.getElementById('rack');
-          rack.setAttribute('value', row.pn_qr)
-          rack.setAttribute('name', 'rack')
-          const pn_qrCell = document.createElement('td');
-          const pn_qrInput = document.createElement('input');
-          pn_qrInput.setAttribute('type', 'text');
-          pn_qrInput.setAttribute('class', 'form-control');
-          pn_qrInput.setAttribute('name', 'pn_qr[]');
-          pn_qrInput.setAttribute('value', row.pn_qr);
-          pn_qrCell.appendChild(pn_qrInput);
-          newRow.appendChild(pn_qrCell);
-
-          const barcodeCell = document.createElement('td');
-          const barcodeInput = document.createElement('input');
-          barcodeInput.setAttribute('type', 'text');
-          barcodeInput.setAttribute('class', 'form-control');
-          barcodeInput.setAttribute('name', 'barcode[]');
-          barcodeInput.setAttribute('id', 'barcode');
-          barcodeInput.setAttribute('value', row.barcode);
-          barcodeCell.appendChild(barcodeInput);
-          newRow.appendChild(barcodeCell);
-
-          const itemCell = document.createElement('td');
-          const itemInput = document.createElement('input');
-          itemInput.setAttribute('type', 'text');
-          itemInput.setAttribute('class', 'form-control');
-          itemInput.setAttribute('name', 'item[]');
-          itemInput.setAttribute('value', row.item);
-          itemCell.appendChild(itemInput);
-          newRow.appendChild(itemCell);
-
-          const qtyCell = document.createElement('td');
-          const qtyInput = document.createElement('input');
-          qtyInput.setAttribute('type', 'text');
-          qtyInput.setAttribute('class', 'form-control');
-          qtyInput.setAttribute('name', 'qty[]');
-          qtyInput.setAttribute('value', row.qty);
-          qtyCell.appendChild(qtyInput);
-          newRow.appendChild(qtyCell);
-
-          const entryDateCell = document.createElement('td');
-          const entryDateInput = document.createElement('input');
-          entryDateInput.setAttribute('type', 'text');
-          entryDateInput.setAttribute('class', 'form-control');
-          entryDateInput.setAttribute('name', 'entry_date[]');
-          entryDateInput.setAttribute('value', row.entry_date);
-          entryDateCell.appendChild(entryDateInput);
-          newRow.appendChild(entryDateCell);
-
-          // Tambahkan aksi yang sesuai di sini
-          const actionCell = document.createElement('td');
-          const deleteButton = document.createElement('button');
-          deleteButton.setAttribute('type', 'button');
-          deleteButton.setAttribute('class', 'btn btn-danger');
-          deleteButton.innerHTML = 'Delete';
-          deleteButton.addEventListener('click', function() {
-            // Hapus baris saat tombol "Delete" diklik
-            tableBody.removeChild(newRow);
-            rowData = rowData.filter(function(data) {
-              return data.pn_qr !== pn_qrInput.value;
-            });
-          });
-          actionCell.appendChild(deleteButton);
-          newRow.appendChild(actionCell);
-
-          tableBody.appendChild(newRow);
-
-          // Menambahkan data ke FormData
-          formData.append('pn_qr[]', row.pn_qr);
-          formData.append('item[]', row.item);
-          formData.append('barcode[]', row.barcode);
-          formData.append('qty[]', row.qty);
-          formData.append('entry_date[]', row.entry_date);
+        console.log(dataRack);
+        if (dataRack.length == 0) {
+          alert("Data Rak Tidak Ditemukan");
+          $('#table-body').empty();
         }
-      });
+
+        dataRack.forEach(function(row) {
+          if (input.value == row.pn_qr) {
+            const newRow = document.createElement('tr');
+
+            const rack = document.getElementById('rack');
+            rack.setAttribute('value', row.pn_qr)
+            rack.setAttribute('name', 'rack')
+            const pn_qrCell = document.createElement('td');
+            const pn_qrInput = document.createElement('input');
+            pn_qrInput.setAttribute('type', 'text');
+            pn_qrInput.setAttribute('class', 'form-control');
+            pn_qrInput.setAttribute('name', 'pn_qr[]');
+            pn_qrInput.setAttribute('value', row.pn_qr);
+            pn_qrCell.appendChild(pn_qrInput);
+            newRow.appendChild(pn_qrCell);
+
+            const barcodeCell = document.createElement('td');
+            const barcodeInput = document.createElement('input');
+            barcodeInput.setAttribute('type', 'text');
+            barcodeInput.setAttribute('class', 'form-control');
+            barcodeInput.setAttribute('name', 'barcode[]');
+            barcodeInput.setAttribute('id', 'barcode');
+            barcodeInput.setAttribute('value', row.barcode);
+            barcodeCell.appendChild(barcodeInput);
+            newRow.appendChild(barcodeCell);
+
+            const itemCell = document.createElement('td');
+            const itemInput = document.createElement('input');
+            itemInput.setAttribute('type', 'text');
+            itemInput.setAttribute('class', 'form-control');
+            itemInput.setAttribute('name', 'item[]');
+            itemInput.setAttribute('value', row.item);
+            itemCell.appendChild(itemInput);
+            newRow.appendChild(itemCell);
+
+            const qtyCell = document.createElement('td');
+            const qtyInput = document.createElement('input');
+            qtyInput.setAttribute('type', 'text');
+            qtyInput.setAttribute('class', 'form-control');
+            qtyInput.setAttribute('name', 'qty[]');
+            qtyInput.setAttribute('value', row.qty);
+            qtyCell.appendChild(qtyInput);
+            newRow.appendChild(qtyCell);
+
+            const entryDateCell = document.createElement('td');
+            const entryDateInput = document.createElement('input');
+            entryDateInput.setAttribute('type', 'text');
+            entryDateInput.setAttribute('class', 'form-control');
+            entryDateInput.setAttribute('name', 'entry_date[]');
+            entryDateInput.setAttribute('value', row.entry_date);
+            entryDateCell.appendChild(entryDateInput);
+            newRow.appendChild(entryDateCell);
+
+            // Tambahkan aksi yang sesuai di sini
+            const actionCell = document.createElement('td');
+            const deleteButton = document.createElement('button');
+            deleteButton.setAttribute('type', 'button');
+            deleteButton.setAttribute('class', 'btn btn-danger');
+            deleteButton.innerHTML = 'Delete';
+            deleteButton.addEventListener('click', function() {
+              // Hapus baris saat tombol "Delete" diklik
+              tableBody.removeChild(newRow);
+              rowData = rowData.filter(function(data) {
+                return data.pn_qr !== pn_qrInput.value;
+              });
+            });
+            actionCell.appendChild(deleteButton);
+            newRow.appendChild(actionCell);
+
+            tableBody.appendChild(newRow);
+
+            // Menambahkan data ke FormData
+            formData.append('pn_qr[]', row.pn_qr);
+            formData.append('item[]', row.item);
+            formData.append('barcode[]', row.barcode);
+            formData.append('qty[]', row.qty);
+            formData.append('entry_date[]', row.entry_date);
+          } else {
+            check_empty = true;
+          }
+
+          if (check_empty) {
+            alert("Data Rak Tidak Ditemukan");
+            $('#table-body').empty();
+          }
+        });
     } else {
       data.forEach(function(row) {
         const newRow = document.createElement('tr');
@@ -266,8 +284,11 @@
     if (this.readyState === 4 && this.status === 200) {
       const data = JSON.parse(this.responseText);
       if (data.length === 0) {
-        alert("Data kosong");
-        $('#table-body').html('');
+        // alert("Data kosong");
+        // $('#table-body').html('');
+        updateTableData(data);
+
+        
       } else {
 
         updateTableData(data);
