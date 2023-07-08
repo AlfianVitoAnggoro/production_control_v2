@@ -267,6 +267,7 @@
       const data = JSON.parse(this.responseText);
       if (data.length === 0) {
         alert("Data kosong");
+        $('#table-body').html('');
       } else {
 
         updateTableData(data);
