@@ -55,6 +55,8 @@ class CheckData extends BaseController
 
     // Simpan data ke database
     $currentIds = [];
+    $currentPn = '';
+    $currentBarc = [];
 
     for ($i = 0; $i < count($pn_qr); $i++) {
       $existingData = $this->m_rack->getDataByBarcode($barcode[$i]);
@@ -70,6 +72,7 @@ class CheckData extends BaseController
 
         $this->m_rack->update($existingData['id'], $data);
         $currentIds[] = $existingData['id'];
+        $currentPn = $existingData['pn_qr'];
       } else {
         // Data dengan barcode belum ada, simpan data baru
         $data = [
@@ -81,6 +84,7 @@ class CheckData extends BaseController
         ];
 
         $currentIds[] = $this->m_rack->save($data);
+        $currentPn = $pn_qr[$i];
       }
     }
 
@@ -90,7 +94,7 @@ class CheckData extends BaseController
     if (is_countable($existingIds) && count($existingIds) > 0) {
       foreach ($existingIds as $existingId) {
         if (!in_array($existingId, $currentIds)) {
-          $this->m_rack->delete($existingId);
+          $this->m_rack->where('id', $existingId)->where('pn_qr', $currentPn)->delete();
         }
       }
     }
