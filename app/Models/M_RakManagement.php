@@ -146,9 +146,9 @@ class M_RakManagement extends Model
 
     public function get_label_produksi_casting()
     {
-        $query = $this->db3->query('SELECT t$note, t$item, t$dsca, t$actq, t$endt
+        $query = $this->db3->query('SELECT t$note, t$item, t$dsca, t$actq, t$mach, to_char(t$endt + (7/24),\'dd-MM-yyyy HH:mm:ss\') AS TANGGAL
                                     FROM baan.tcbinh985777
-                                    WHERE to_date(to_char(t$endt + (7/24), \'ddMMyyyy\'), \'ddMMyyyy\') >= to_date(\'10072023\', \'ddMMyyyy\') AND t$cwar = \'K-CAS\'');
+                                    WHERE to_date(to_char(t$endt + (7/24), \'ddMMyyyy\'), \'ddMMyyyy\') >= to_date(\'10072023\', \'ddMMyyyy\') AND t$cwar = \'K-CAS\' ORDER BY TANGGAL ASC');
 
         return $query->getResultArray();
     }

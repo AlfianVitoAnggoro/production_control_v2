@@ -12,7 +12,7 @@
 						<div class="col-12 col-xl-12">
 							<div class="box">
 								<div class="box-header with-border">
-									<h4 class="box-title">Data Label Porduksi Casting Yang Belum Terintegrasi Dengan Rak</h4>
+									<h4 class="box-title">Data Label Produksi Casting Yang Belum Terintegrasi Dengan Rak</h4>
 								</div>
 								<div class="box-body">
 									<div class="table-responsive">
@@ -21,8 +21,9 @@
 												<tr>
 													<th>ID</th>
 													<th>Item</th>
-													<th>Desc</th>
 													<th>Qty</th>
+													<th>Mesin</th>
+													<th>Jam</th>
 													<th>Entry Date</th>
 												</tr>
 											</thead>
@@ -31,9 +32,10 @@
 												<tr>
 													<td><?=$item['T$NOTE']?></td>
 													<td><?=$item['T$ITEM']?></td>
-													<td><?=$item['T$DSCA']?></td>
 													<td><?=$item['T$ACTQ']?></td>
-													<td><?=$item['T$ENDT']?></td>
+													<td><?=$item['T$MACH']?></td>
+													<td><?=date('H:i',strtotime($item['TANGGAL']))?></td>
+													<td><?=date('d-m-Y', strtotime($item['TANGGAL']))?></td>
 												</tr>
 												<?php } ?>
 											</tbody>
