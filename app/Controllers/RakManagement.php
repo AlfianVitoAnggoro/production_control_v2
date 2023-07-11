@@ -121,4 +121,31 @@ class RakManagement extends BaseController
     //         }       
     //     }
     // }
+
+    public function monitoring_barcode_casting()
+    {
+        $data1 = $this->M_RakManagement->get_data_record_rak_open();
+        $data2 = $this->M_RakManagement->get_label_produksi_casting();
+        $data3 = [];
+
+        foreach ($data2 as $item) {
+            $note = $item['T$NOTE'];
+            $found = false;
+
+            foreach ($data1 as $data) {
+                if ($data['barcode'] === $note) {
+                    $found = true;
+                    break;
+                }
+            }
+
+            if (!$found) {
+                $data3[] = $item;
+            }
+        }
+
+        $data['data'] = $data3;
+
+        return view('pages/rak_management/monitoring_barcode_casting', $data);
+    }
 }

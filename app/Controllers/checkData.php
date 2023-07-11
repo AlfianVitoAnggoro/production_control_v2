@@ -22,7 +22,7 @@ class CheckData extends BaseController
       [
         'datas' => $this->m_rack->getData()
       ];
-    return view('pages/check_data_rack', $dataMRack);
+    return view('pages/rak_management/check_data_rack', $dataMRack);
   }
 
   public function inputDataRack()

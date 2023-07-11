@@ -94,7 +94,7 @@
     tableBody.innerHTML = '';
 
     let check = false;
-    let check_empty = false;
+    let check_empty = true;
 
     if (data.length == 0) {
       check = true;
@@ -109,14 +109,9 @@
     }
 
     if (check == true) {
-        console.log(dataRack);
-        if (dataRack.length == 0) {
-          alert("Data Rak Tidak Ditemukan");
-          $('#table-body').empty();
-        }
-
-        dataRack.forEach(function(row) {
+        dataRack.forEach(function(row) {          
           if (input.value == row.pn_qr) {
+            check_empty = false;
             const newRow = document.createElement('tr');
 
             const rack = document.getElementById('rack');
@@ -192,15 +187,13 @@
             formData.append('barcode[]', row.barcode);
             formData.append('qty[]', row.qty);
             formData.append('entry_date[]', row.entry_date);
-          } else {
-            check_empty = true;
-          }
+          } 
+        });
 
-          if (check_empty) {
+        if (check_empty) {
             alert("Data Rak Tidak Ditemukan");
             $('#table-body').empty();
           }
-        });
     } else {
       data.forEach(function(row) {
         const newRow = document.createElement('tr');
@@ -463,19 +456,5 @@
     xhr.send();
   }
 </script>
-
-<!-- <script>
-  function testFecth() {
-    // Memindahkan fokus ke elemen berikutnya
-    $.ajax({
-      url: "http://portal3.incoe.astra.co.id/production_control_v2/api/get_detail_rak/RPP001",
-      type: 'GET',
-      dataType: 'json',
-      success: function(data) {
-        console.log(data);
-      }
-    })
-  }
-</script> -->
 
 <?= $this->endSection(); ?>
