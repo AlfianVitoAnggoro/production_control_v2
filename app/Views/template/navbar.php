@@ -38,6 +38,7 @@
 								<li><a href="<?=base_url()?>punching"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid Punching</a></li>
 								<li><a href="<?=base_url()?>pasting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Pasting</a></li>
 								<li><a href="<?=base_url()?>interlock_aging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Aging</a></li>
+								<li><a href="<?=base_url()?>rak_management/monitoring_barcode_casting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Integrasi Rak dan Label Casting</a></li>
 								<li><a href="<?=base_url()?>monitoring_aging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Aging</a></li>
 								<li><a href="<?=base_url()?>monitoring_curing" target="_blank"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li>
 								<li><a href="<?=base_url()?>monitoring_curing_qc"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing QC</a></li>
@@ -135,6 +136,7 @@
 							</a>
 							<ul class="treeview-menu">
 								<li><a href="<?=base_url()?>rak_management"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Data Rak</a></li>
+								<li><a href="<?=base_url()?>check_data"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>STO Rack</a></li>
 							</ul>
 						</li>
 					<?php } ?>
@@ -164,6 +166,7 @@
 							<ul class="treeview-menu">
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Incoming</a></li>
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Rack FG</a></li>
+								<li><a href="<?=base_url()?>supply_charging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a></li>
 							</ul>
 						</li>
 

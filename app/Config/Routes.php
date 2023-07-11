@@ -29,6 +29,11 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+//Checking Data
+$routes->get('/check_data', 'checkData::index');
+$routes->post('/input_data_rack', 'checkData::inputDataRack');
+
 $routes->get('/', 'Login::index');
 
 //LOGIN
@@ -364,6 +369,7 @@ $routes->group('rak_management', ['filter' => 'auth'], function ($routes) {
 });
 $routes->get('rak_management/reset_rak_casting_pasting', 'RakManagement::reset_rak_casting_to_pasting');
 $routes->get('rak_management/update_rak', 'RakManagement::update_rak');
+$routes->get('rak_management/monitoring_barcode_casting', 'RakManagement::monitoring_barcode_casting');
 
 //COS
 $routes->group('cos', ['filter' => 'auth'], function ($routes) {
@@ -518,6 +524,7 @@ $routes->get('interlock_aging/update_rak_aging/(:any)', 'InterlockAging::update_
 // API
 $routes->get('api/get_detail_rak/', 'Api::get_detail_rak/');
 $routes->get('api/get_detail_rak/(:any)', 'Api::get_detail_rak/$1');
+$routes->get('api/get_detail_barcode/(:any)', 'Api::get_detail_barcode/$1');
 
 // $routes->get('/lhp/test', 'Home::test');
 

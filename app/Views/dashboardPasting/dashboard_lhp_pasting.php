@@ -274,7 +274,7 @@ if ($current_date != 12) {
   var target_chart = echarts.init(document.getElementById('target_chart'));
   target_chart.setOption({
     title: {
-      text: '85%',
+      text: '95%',
       subtext: 'Target 2023',
       x: 'center',
       y: 'center',
@@ -307,14 +307,14 @@ if ($current_date != 12) {
         }
       },
       data: [{
-          value: 85,
+          value: 95,
           name: 'Monday',
           itemStyle: {
             color: '#ff9920'
           }
         },
         {
-          value: 15,
+          value: 5,
           name: 'invisible',
           itemStyle: {
             color: 'grey'
@@ -785,7 +785,7 @@ if ($current_date != 12) {
       name: 'Target',
       type: 'line',
       data: [<?php for ($i = 0; $i < 12; $i++) {
-                echo '85,';
+                echo '95,';
               } ?>],
       color: 'red',
       tooltip: {
@@ -880,7 +880,7 @@ if ($current_date != 12) {
       name: 'Target',
       type: 'line',
       data: [<?php for ($i = 0; $i < count($data_current_month_group); $i++) {
-                echo '85,';
+                echo '95,';
               } ?>],
       color: 'red',
       tooltip: {
@@ -1005,7 +1005,7 @@ if ($current_date != 12) {
       name: 'Target',
       type: 'line',
       data: [<?php for ($i = 0; $i < count($dates); $i++) {
-                echo '85,';
+                echo '95,';
               } ?>],
       color: 'red',
       tooltip: {
@@ -1137,7 +1137,7 @@ if ($current_date != 12) {
     //   name: 'Target',
     //   type: 'line',
     //   data: [<?php //for ($i = 0; $i < count($dates); $i++) {
-    //             echo '85,';
+    //             echo '95,';
     //           } ?>],
     //   color: 'red',
     //   tooltip: {
