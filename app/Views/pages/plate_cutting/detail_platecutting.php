@@ -13,7 +13,7 @@
               <h4>Detail Plate Cutting</h4>
             </div>
             <div class="box-body">
-              <form action="<?=base_url()?>platecutting/detail_platecutting/edit" method="post">
+              <form action="<?= base_url() ?>platecutting/detail_platecutting/edit" method="post">
                 <div class="row">
                   <input type="hidden" name="id_platecutting" value="<?= trim($platecutting['id']); ?>">
                   <div class="col">
@@ -71,13 +71,13 @@
                   <table id="" class="table table-striped mb-0">
                     <thead>
                       <tr>
-                        <th colspan="3"></th>
+                        <th colspan="6"></th>
                         <th colspan="10" class="text-center">Jumlah NG (Kilogram)</th>
                         <th colspan="10" class="text-center">Jumlah NG (Panel)</th>
                         <th colspan="3"></th>
                       </tr>
                       <tr>
-                        <th colspan="3"></th>
+                        <th colspan="6"></th>
                         <th colspan="3" class="text-center bg-primary">Internal</th>
                         <th colspan="7" class="text-center bg-info">Eksternal</th>
                         <th colspan="3" class="text-center bg-primary">Internal</th>
@@ -87,6 +87,9 @@
                       <tr>
                         <th>No</th>
                         <th>Plate</th>
+                        <th>Qty Barcode</th>
+                        <th>Qty Actual</th>
+                        <th><i class="fa fa-caret-up fa-2x" aria-hidden="true"></i></th>
                         <th>Hasil Produksi</th>
                         <th>Terpotong</th>
                         <th>Tersangkut</th>
@@ -121,13 +124,13 @@
                   <table id="" class="table table-striped mb-0">
                     <thead>
                       <tr>
-                        <th colspan="3"></th>
+                        <th colspan="6"></th>
                         <th colspan="10" class="text-center">Jumlah NG (Kilogram)</th>
                         <th colspan="10" class="text-center">Jumlah NG (Panel)</th>
                         <th colspan="3"></th>
                       </tr>
                       <tr>
-                        <th colspan="3"></th>
+                        <th colspan="6"></th>
                         <th colspan="3" class="text-center bg-primary">Internal</th>
                         <th colspan="7" class="text-center bg-info">Eksternal</th>
                         <th colspan="3" class="text-center bg-primary">Internal</th>
@@ -137,6 +140,9 @@
                       <tr>
                         <th>No</th>
                         <th>Plate</th>
+                        <th>Qty Barcode</th>
+                        <th>Qty Actual</th>
+                        <th><i class="fa fa-caret-up fa-2x" aria-hidden="true"></i></th>
                         <th>Hasil Produksi</th>
                         <th>Terpotong</th>
                         <th>Tersangkut</th>
@@ -173,7 +179,7 @@
                     <button type="button" class="btn btn-warning" onclick="edit_button()">Edit</button>
                     <button type="button" class="btn btn-success" onclick="approve_button()">Approve</button>
                   <?php else : ?>
-                    <a href="<?=base_url()?>platecutting" class="btn btn-primary">Back</a>
+                    <a href="<?= base_url() ?>platecutting" class="btn btn-primary">Back</a>
                   <?php endif ?>
                 </div>
               </form>
@@ -329,6 +335,15 @@
               </select>
           </td>
           <td>
+              <input type="text" class="form-control" name="barcode_pos[]" id="barcode_${baris}_pos" onkeyup="deviasi(${baris}, 'pos')" value="<?= trim($pp['barcode']) ?>" style="width: 100px" readonly>
+          </td>
+          <td>
+              <input type="text" class="form-control" name="act_pos[]" id="act_${baris}_pos" onkeyup="deviasi(${baris}, 'pos')" value="<?= trim($pp['act']) ?>" style="width: 100px" readonly>
+          </td>
+          <td>
+              <input type="text" class="form-control" name="deviasi_pos[]" id="deviasi_${baris}_pos" value="<?= trim($pp['deviasi']) ?>" style="width: 100px" readonly>
+          </td>
+          <td>
               <input type="text" class="form-control" name="hasil_produksi_pos[]" id="hasil_produksi_${baris}_pos" onkeyup="panel_pos(${baris})" value="<?= trim($pp['hasil_produksi']) ?>" style="width: 100px" required readonly>
           </td>
           <td>
@@ -440,6 +455,15 @@
               </select>
           </td>
           <td>
+              <input type="text" class="form-control" name="barcode_neg[]" id="barcode_${baris}_neg" onkeyup="deviasi(${baris}, 'neg')" value="<?= trim($pn['barcode']) ?>" style="width: 100px" readonly>
+          </td>
+          <td>
+              <input type="text" class="form-control" name="act_neg[]" id="act_${baris}_neg" onkeyup="deviasi(${baris}, 'neg')" value="<?= trim($pn['act']) ?>" style="width: 100px" readonly>
+          </td>
+          <td>
+              <input type="text" class="form-control" name="deviasi_neg[]" id="deviasi_${baris}_neg" value="<?= trim($pn['deviasi']) ?>" style="width: 100px;" readonly>
+          </td>
+          <td>
               <input type="text" class="form-control" name="hasil_produksi_neg[]" id="hasil_produksi_${baris}_neg" onkeyup="panel_neg(${baris})" value="<?= trim($pn['hasil_produksi']) ?>" style="width: 100px" required readonly>
           </td>
           <td>
@@ -526,6 +550,8 @@
     $('#team_0').removeAttr('disabled');
     for (let i = 0; i < barispos; i++) {
       $('#plate_' + i + '_pos').removeAttr('disabled');
+      $('#barcode_' + i + '_pos').removeAttr('readonly');
+      $('#act_' + i + '_pos').removeAttr('readonly');
       $('#hasil_produksi_' + i + '_pos').removeAttr('readonly');
       $('#terpotong_kg_' + i + '_pos').removeAttr('readonly');
       $('#tersangkut_kg_' + i + '_pos').removeAttr('readonly');
@@ -541,6 +567,8 @@
     const barisneg = document.querySelectorAll('.form_neg').length;
     for (let i = 0; i < barisneg; i++) {
       $('#plate_' + i + '_neg').removeAttr('disabled');
+      $('#barcode_' + i + '_neg').removeAttr('readonly');
+      $('#act_' + i + '_neg').removeAttr('readonly');
       $('#hasil_produksi_' + i + '_neg').removeAttr('readonly');
       $('#terpotong_kg_' + i + '_neg').removeAttr('readonly');
       $('#tersangkut_kg_' + i + '_neg').removeAttr('readonly');
@@ -574,6 +602,14 @@
     buttonElement.innerHTML = `
             <button type="submit" class="btn btn-success" name="approved" value="approved">Konfirmasi</button>
         `;
+  }
+
+  function deviasi(baris, type) {
+    let barcode = document.querySelector('#barcode_' + baris + '_' + type);
+    let act = document.querySelector('#act_' + baris + '_' + type);
+    let deviasi = document.querySelector('#deviasi_' + baris + '_' + type);
+    let total = act.value - barcode.value;
+    deviasi.value = (total >= 0) ? '+ ' + total : '- ' + total * -1;
   }
 </script>
 <?= $this->endSection(); ?>

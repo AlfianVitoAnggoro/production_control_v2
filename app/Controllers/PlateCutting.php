@@ -131,7 +131,7 @@ class PlateCutting extends BaseController
         $barcode_neg = $this->request->getVar('barcode_neg');
         $act_neg = $this->request->getVar('act_neg');
         $deviasi_neg = $this->request->getVar('deviasi_neg');
-        
+
         $plateinputnew = [];
         $data_plate_new_pos = [];
         $data_plate_new_neg = [];
@@ -342,8 +342,10 @@ class PlateCutting extends BaseController
     public function edit()
     {
         $id_platecutting = $this->request->getVar('id_platecutting');
-        $id_plateinputDBPOS = $this->request->getVar('id_plateinput_pos');
-        $id_plateinputDBNEG = $this->request->getVar('id_plateinput_neg');
+        $id_plateinputDBPOS = $this->request->getVar('id_plateinputDBPOS');
+        $id_plateinputDBNEG = $this->request->getVar('id_plateinputDBNEG');
+        // $id_plateinputDBPOS = $this->request->getVar('id_plateinput_pos');
+        // $id_plateinputDBNEG = $this->request->getVar('id_plateinput_neg');
         $edit = $this->request->getVar('edit');
         $reject = $this->request->getVar('rejected');
         $approve = $this->request->getVar('approved');
@@ -401,6 +403,13 @@ class PlateCutting extends BaseController
         $persentase_reject_internal_neg = $this->request->getVar('persentase_reject_internal_neg');
         $persentase_reject_eksternal_neg = $this->request->getVar('persentase_reject_eksternal_neg');
         $persentase_reject_akumulatif_neg = $this->request->getVar('persentase_reject_akumulatif_neg');
+        $barcode_pos = $this->request->getVar('barcode_pos');
+        $act_pos = $this->request->getVar('act_pos');
+        $deviasi_pos = $this->request->getVar('deviasi_pos');
+        $barcode_neg = $this->request->getVar('barcode_neg');
+        $act_neg = $this->request->getVar('act_neg');
+        $deviasi_neg = $this->request->getVar('deviasi_neg');
+
         if ($edit !== NULL) {
             $data_platecutting[] = array(
                 'id' => $id_platecutting,
@@ -419,7 +428,7 @@ class PlateCutting extends BaseController
                         'barcode' => $barcode_pos[$i] !== NULL ? $barcode_pos[$i] : 0,
                         'act' => $act_pos[$i] !== NULL ? $act_pos[$i] : 0,
                         'deviasi' => $deviasi_pos[$i] !== NULL ? $deviasi_pos[$i] : '+ 0',
-                        'hasil_produksi' => $hasil_produksi_pos[$i],
+                        'hasil_produksi' => $hasil_produksi_pos[$i] !== NULL ? $hasil_produksi_pos[$i] : 0,
                         'terpotong_panel' => $terpotong_panel_pos[$i] !== NULL ? $terpotong_panel_pos[$i] : 0,
                         'tersangkut_panel' => $tersangkut_panel_pos[$i] !== NULL ? $tersangkut_panel_pos[$i] : 0,
                         'overbrush_panel' => $overbrush_panel_pos[$i] !== NULL ? $overbrush_panel_pos[$i] : 0,
@@ -455,7 +464,7 @@ class PlateCutting extends BaseController
                         'barcode' => $barcode_neg[$i] !== NULL ? $barcode_neg[$i] : 0,
                         'act' => $act_neg[$i] !== NULL ? $act_neg[$i] : 0,
                         'deviasi' => $deviasi_neg[$i] !== NULL ? $deviasi_neg[$i] : '+ 0',
-                        'hasil_produksi' => $hasil_produksi_neg[$i],
+                        'hasil_produksi' => $hasil_produksi_neg[$i] !== NULL ? $hasil_produksi_neg[$i] : 0,
                         'terpotong_panel' => $terpotong_panel_neg[$i] !== NULL ? $terpotong_panel_neg[$i] : 0,
                         'tersangkut_panel' => $tersangkut_panel_neg[$i] !== NULL ? $tersangkut_panel_neg[$i] : 0,
                         'overbrush_panel' => $overbrush_panel_neg[$i] !== NULL ? $overbrush_panel_neg[$i] : 0,
@@ -531,14 +540,14 @@ class PlateCutting extends BaseController
         $isExist = [];
         foreach ($platecutting as $pc) {
             // if ($pc['status'] === 'approved') {
-                if (!array_key_exists($pc['id'], $isExist)) {
-                    foreach ($plateinput as $pi) {
-                        if ($pc['id'] === $pi['id_platecutting']) {
-                            $isExist[$pc['id']] = $pc['id'];
-                            $data[] = array($pc['date'], $pc['line'], $pc['shift'], $pc['team'], $pi['plate'], $pi['barcode'], $pi['act'], $pi['deviasi'], $pi['hasil_produksi'], $pi['terpotong_panel'], $pi['tersangkut_panel'], $pi['overbrush_panel'], $pi['rontok_panel'], $pi['lug_patah_panel'], $pi['patah_kaki_panel'], $pi['patah_frame_panel'], $pi['bolong_panel'], $pi['bending_panel'], $pi['lengket_terpotong_panel'], $pi['terpotong_kg'], $pi['tersangkut_kg'], $pi['overbrush_kg'], $pi['rontok_kg'], $pi['lug_patah_kg'], $pi['patah_kaki_kg'], $pi['patah_frame_kg'], $pi['bolong_kg'], $pi['bending_kg'], $pi['lengket_terpotong_kg'], $pi['persentase_reject_internal'], $pi['persentase_reject_eksternal'], $pi['persentase_reject_akumulatif'], $pc['status']);
-                        }
+            if (!array_key_exists($pc['id'], $isExist)) {
+                foreach ($plateinput as $pi) {
+                    if ($pc['id'] === $pi['id_platecutting']) {
+                        $isExist[$pc['id']] = $pc['id'];
+                        $data[] = array($pc['date'], $pc['line'], $pc['shift'], $pc['team'], $pi['plate'], $pi['barcode'], $pi['act'], $pi['deviasi'], $pi['hasil_produksi'], $pi['terpotong_panel'], $pi['tersangkut_panel'], $pi['overbrush_panel'], $pi['rontok_panel'], $pi['lug_patah_panel'], $pi['patah_kaki_panel'], $pi['patah_frame_panel'], $pi['bolong_panel'], $pi['bending_panel'], $pi['lengket_terpotong_panel'], $pi['terpotong_kg'], $pi['tersangkut_kg'], $pi['overbrush_kg'], $pi['rontok_kg'], $pi['lug_patah_kg'], $pi['patah_kaki_kg'], $pi['patah_frame_kg'], $pi['bolong_kg'], $pi['bending_kg'], $pi['lengket_terpotong_kg'], $pi['persentase_reject_internal'], $pi['persentase_reject_eksternal'], $pi['persentase_reject_akumulatif'], $pc['status']);
                     }
                 }
+            }
             // }
         };
 
