@@ -32,6 +32,7 @@ class M_DashboardAssyLineStop extends Model
                                     FROM detail_breakdown 
                                     JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                     WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
+                                    AND lhp_produksi2.line <= 7
                                     GROUP BY detail_breakdown.jenis_breakdown
                                     ORDER BY SUM(detail_breakdown.menit_breakdown) DESC
                                 ');
@@ -79,6 +80,7 @@ class M_DashboardAssyLineStop extends Model
             $query = $this->db->query('SELECT MONTH(tanggal_produksi), SUM(loading_time) as loading_time
                                         FROM lhp_produksi2
                                         WHERE MONTH(tanggal_produksi) = '.$bulan.'
+                                        AND line <= 7
                                         GROUP BY MONTH(tanggal_produksi)
                                     ');
         } else {
@@ -101,6 +103,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN		lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE		lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
                                         AND         detail_breakdown.jenis_breakdown = \''.$jenis_breakdown.'\'
+                                        AND         lhp_produksi2.line <= 7
                                         GROUP BY	detail_breakdown.jenis_breakdown, lhp_produksi2.tanggal_produksi
                                     ');
         } else {
@@ -137,6 +140,7 @@ class M_DashboardAssyLineStop extends Model
             $query = $this->db->query('SELECT	DISTINCT(detail_breakdown.jenis_breakdown)
                                     FROM	detail_breakdown
                                     JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
+                                    AND lhp_produksi2.line <= 7
                                     WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
                                 ');
         } else {
@@ -172,7 +176,7 @@ class M_DashboardAssyLineStop extends Model
                                     FROM	detail_breakdown
                                     RIGHT JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                     WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.' 
-                                    AND lhp_produksi2.line != 10
+                                    AND lhp_produksi2.line <= 7
                                     GROUP BY lhp_produksi2.line
                                     ORDER BY ((SUM(lhp_produksi2.total_line_stop) / CAST(SUM(lhp_produksi2.loading_time) as float)) * 100) DESC
                                 ');
@@ -187,6 +191,7 @@ class M_DashboardAssyLineStop extends Model
                                         FROM	detail_breakdown
                                         RIGHT JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY MONTH(lhp_produksi2.tanggal_produksi)
                                     ');
         } else {
@@ -210,6 +215,7 @@ class M_DashboardAssyLineStop extends Model
             $query = $this->db->query('SELECT YEAR(tanggal_produksi) AS month,SUM(total_line_stop) AS total_line_stop, SUM(loading_time) AS loading_time
                                         FROM lhp_produksi2 
                                         WHERE YEAR(tanggal_produksi) = '.$tahun.'
+                                        AND line <= 7
                                         GROUP BY YEAR(tanggal_produksi)
                                         ORDER BY YEAR(tanggal_produksi)
                                     ');
@@ -233,6 +239,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_breakdown.jenis_breakdown = \''.$jenis_breakdown.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.proses_breakdown, detail_breakdown.jenis_breakdown, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -259,6 +266,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_breakdown.jenis_breakdown = \''.$jenis_breakdown.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.type_battery, detail_breakdown.proses_breakdown, detail_breakdown.jenis_breakdown, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -283,6 +291,7 @@ class M_DashboardAssyLineStop extends Model
             $query = $this->db->query('SELECT tanggal_produksi, SUM(total_line_stop) AS total_line_stop, SUM(loading_time) AS loading_time
                                     FROM		lhp_produksi2
                                     WHERE		tanggal_produksi = \''.$tanggal.'\'
+                                    AND         line <= 7
                                     GROUP BY	tanggal_produksi');
         } else {
             $query = $this->db->query('SELECT tanggal_produksi, SUM(total_line_stop) AS total_line_stop, SUM(loading_time) AS loading_time
@@ -300,6 +309,7 @@ class M_DashboardAssyLineStop extends Model
             $query = $this->db->query('SELECT MONTH(tanggal_produksi) AS month,SUM(total_line_stop) AS total_line_stop, SUM(loading_time) AS loading_time
                                         FROM lhp_produksi2 
                                         WHERE MONTH(tanggal_produksi) = '.$bulan.'
+                                        AND line <= 7
                                         GROUP BY MONTH(tanggal_produksi)
                                         ORDER BY MONTH(tanggal_produksi)
                                     ');
@@ -321,6 +331,7 @@ class M_DashboardAssyLineStop extends Model
             $query = $this->db->query('SELECT tanggal_produksi, line, SUM(total_line_stop) AS total_line_stop, SUM(loading_time) AS loading_time
                                     FROM		lhp_produksi2
                                     WHERE		tanggal_produksi = \''.$tanggal.'\'
+                                    AND         line <= 7
                                     GROUP BY	tanggal_produksi, line');
         } else {
             $query = $this->db->query('SELECT tanggal_produksi, line, SUM(total_line_stop) AS total_line_stop, SUM(loading_time) AS loading_time
@@ -339,6 +350,7 @@ class M_DashboardAssyLineStop extends Model
             $query = $this->db->query('SELECT MONTH(tanggal_produksi) AS month,SUM(total_line_stop) AS total_line_stop, SUM(loading_time) AS loading_time
                                         FROM lhp_produksi2 
                                         WHERE MONTH(tanggal_produksi) = '.$bulan.'
+                                        AND line <= 7
                                         GROUP BY MONTH(tanggal_produksi)
                                         ORDER BY MONTH(tanggal_produksi)
                                     ');
@@ -361,6 +373,7 @@ class M_DashboardAssyLineStop extends Model
                                         FROM detail_breakdown
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.jenis_breakdown, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -386,6 +399,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
                                         AND detail_breakdown.jenis_breakdown = \''.$jenis_breakdown.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.proses_breakdown, detail_breakdown.jenis_breakdown, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY  SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -412,6 +426,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
                                         AND detail_breakdown.jenis_breakdown = \''.$jenis_breakdown.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.type_battery, detail_breakdown.proses_breakdown, detail_breakdown.jenis_breakdown, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -437,6 +452,7 @@ class M_DashboardAssyLineStop extends Model
                                         FROM detail_breakdown
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.proses_breakdown, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -461,6 +477,7 @@ class M_DashboardAssyLineStop extends Model
                                         FROM detail_breakdown
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.type_battery, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -486,6 +503,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         JOIN master_pic_line on master_pic_line.id_pic = lhp_produksi2.grup
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -511,6 +529,7 @@ class M_DashboardAssyLineStop extends Model
                                         FROM detail_breakdown
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.proses_breakdown, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY  SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -535,6 +554,7 @@ class M_DashboardAssyLineStop extends Model
                                         FROM detail_breakdown
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.type_battery, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -560,6 +580,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         JOIN master_pic_line on master_pic_line.id_pic = lhp_produksi2.grup
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -587,6 +608,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN master_pic_line on master_pic_line.id_pic = lhp_produksi2.grup
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_breakdown.jenis_breakdown = \''.$jenis_breakdown.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, detail_breakdown.jenis_breakdown, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -613,6 +635,7 @@ class M_DashboardAssyLineStop extends Model
             $query = $this->db->query('SELECT tanggal_produksi, SUM(loading_time) as loading_time
                                         FROM lhp_produksi2
                                         WHERE tanggal_produksi = \''.$date.'\'
+                                        AND line <= 7
                                         GROUP BY tanggal_produksi
                                     ');
         } else {
@@ -635,6 +658,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_breakdown.type_battery = \''.$type_battery.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.type_battery, detail_breakdown.jenis_breakdown, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -661,6 +685,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_breakdown.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_breakdown.type_battery = \''.$type_battery.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.type_battery, detail_breakdown.proses_breakdown, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -688,6 +713,7 @@ class M_DashboardAssyLineStop extends Model
                                         JOIN master_pic_line on master_pic_line.id_pic = lhp_produksi2.grup
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_breakdown.type_battery = \''.$type_battery.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, detail_breakdown.type_battery, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -718,6 +744,7 @@ class M_DashboardAssyLineStop extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND master_pic_line.nama_pic = \''.$grup.'\'
                                         AND lhp_produksi2.shift = \''.$shift.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.jenis_breakdown, lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -749,6 +776,7 @@ class M_DashboardAssyLineStop extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND master_pic_line.nama_pic = \''.$grup.'\'
                                         AND lhp_produksi2.shift = \''.$shift.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.proses_breakdown, lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
@@ -780,6 +808,7 @@ class M_DashboardAssyLineStop extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND master_pic_line.nama_pic = \''.$grup.'\'
                                         AND lhp_produksi2.shift = \''.$shift.'\'
+                                        AND lhp_produksi2.line <= 7
                                         GROUP BY detail_breakdown.type_battery, lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_breakdown.menit_breakdown) DESC
                                     ');
