@@ -12,7 +12,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   $line = [10];
 ?>
 <?php $group = 'A' ?>
-<?php $lineAct = ['', 1, 2, 3, 4, 5, 6, 7, 'WET A', 'WET F', 'MCB'] ?>
+<?php $lineAct = ['', 1, 2, 3, 4, 5, 6, 7, 'A', 'F', 'MCB']; ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="container-full">
   <!-- Main content -->
@@ -22,19 +22,19 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
       <input type="date" name="tanggal" id="tanggal" class="form-control">
     </div> -->
     <div class="row m-0">
-      <div class="col-2">
+      <div class="col-2 px-1">
         <div class="row m-0" style="height: 18vh;">
           <div class="col p-0">
             <div class="pe-1">
               <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
                 <div class="fx-card-item">
-                  <div class="fx-card-content h-30">
+                  <div class="fx-card-content">
                     <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
                       <h4 class="box-title mb-0 text-center p-1 fw-bold" style="font-size: 10px">KADEPT</h4>
                     </div>
                   </div>
-                  <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                    <img src="<?= base_url() ?>uploads/1100.jpg" alt="" style="max-width: 100%; height: 125px" id="foto_kadept">
+                  <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 140px">
+                    <img src="<?= base_url() ?>uploads/1100.jpg" alt="" style="max-width: 100%; height: 140px" id="foto_kadept">
                   </div>
                   <div class="d-flex fx-card-footer px-1 py-1" style="height: 35px;">
                     <div class="d-flex justify-content-between align-items-center">
@@ -50,13 +50,13 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               <div class="ps-1">
                 <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
                   <div class="fx-card-item">
-                    <div class="fx-card-content h-30">
+                    <div class="fx-card-content">
                       <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
                         <h4 class="box-title mb-0 text-center p-1 fw-bold" style="font-size: 10px">KASIE</h4>
                       </div>
                     </div>
-                    <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                      <img src="<?= base_url() ?>uploads/3012.jpg" alt="" style="max-width: 100%; height: 125px" id="foto_kasie">
+                    <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 140px">
+                      <img src="<?= base_url() ?>uploads/3012.jpg" alt="" style="max-width: 100%; height: 140px" id="foto_kasie">
                     </div>
                     <div class="d-flex fx-card-footer px-1 py-1" style="height: 35px;">
                       <div class="d-flex justify-content-between align-items-center">
@@ -72,13 +72,13 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               <div class="ps-1">
                 <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
                   <div class="fx-card-item">
-                    <div class="fx-card-content h-30">
+                    <div class="fx-card-content">
                       <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
                         <h4 class="box-title mb-0 text-center p-1 fw-bold" style="font-size: 10px">Kasie</h4>
                       </div>
                     </div>
-                    <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                      <img src="<?= base_url() ?>uploads/kadept.jpg" alt="" style="max-width: 100%; height: 125px" id="foto_kadept">
+                    <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 140px">
+                      <img src="<?= base_url() ?>uploads/kadept.jpg" alt="" style="max-width: 100%; height: 140px" id="foto_kadept">
                     </div>
                     <div class="d-flex fx-card-footer px-1 py-1" style="height: 35px;">
                       <div class="d-flex justify-content-between align-items-center">
@@ -91,15 +91,15 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             </div>
           <?php } ?>
         </div>
-        <div class="row m-0" style="height: calc(100% - 18vh - 14px)">
+        <div class="row m-0" style="height: calc(100% - 18vh - 7px)">
           <div class="col p-0" style="height: 100%">
-            <figure class="highcharts-figure" style="height: 100%">
-              <div id="horizontal_bar" style="height: 100%"></div>
+            <figure class="highcharts-figure" style="height: 100%; border-radius: 5px;">
+              <div id="horizontal_bar" style="height: 100%; border-radius: 5px;"></div>
             </figure>
           </div>
         </div>
       </div>
-      <div class="col-10">
+      <div class="col-10 ps-0">
         <?php for ($i = 0; $i < count($line); $i++) { ?>
           <?php $model = new App\Models\M_DashboardManPower();
           $data_mesin = $model->get_data_mesin($line[$i]);
@@ -111,7 +111,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           <div class="row m-0" style="height: 18vh;">
             <div class="col p-0">
               <div class="d-flex" style="width: 100%">
-                <div class="d-flex justify-content-center align-items-center flex-column mb-2 mx-1" style="background-color: #22A699; color: white; width: 100px">
+                <div class="d-flex justify-content-center align-items-center flex-column mb-2 mx-1" style="border-radius: 5px; background-color: #22A699; color: white; width: 100px">
                   <h4 class="fw-bold" style="font-size: 16px">Line</h4>
                   <?= "" //($line[$i] <= 7) ? 'Line ' . $lineAct[$line[$i]] : $lineAct[$line[$i]] 
                   ?>
@@ -137,9 +137,9 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     ?>
                       <div class="col p-0 px-1">
                         <div class="mx-1">
-                          <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '') : '' ?>; background-color: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                          <div class="box mb-2 card_box" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '') : '' ?>; background-color: <?= ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin'] !== 'Non-Aktif') ? ((count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
                             <div class="fx-card-item">
-                              <div class="fx-card-content h-30">
+                              <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-start" style="border-radius: 5px 5px 0px 0px">
                                   <!-- <div class="d-flex justify-content-center align-items-center" style="background-color: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists($group, $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][$group])) ? ($color[$detail_record_man_power[$line[$i]][$group][$msn['mesin']]['skill']]) : '') : '') : '') : '' ?>; border-radius: 5px 5px 0px 0px"> -->
                                   <div style="width: 12%">
@@ -155,27 +155,49 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <input type="hidden" name="requirement_<?= $line[$i] ?>[]" id="requirement_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $msn['requirement'] ?>">
                                   <input type="hidden" name="min_skill_<?= $line[$i] ?>[]" id="min_skill_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $msn['min_skill'] ?>">
                                   <input type="hidden" name="status_mp_<?= $line[$i] ?>[]" id="status_mp_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['status']) : '') : '') : '') : '' ?>">
+                                  <input type="hidden" name="status_mesin_<?= $line[$i] ?>[]" id="status_mesin_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin'] ?>">
                                   <!-- <div class="bg-danger d-flex align-items-center justify-content-center p-0" style="border-radius: 50%; height: 30px; width: 30px">25%</div> -->
                                 </div>
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]])) ? ($detail_record_man_power[$line[$i]][$msn['mesin']]['nama']) : 'NO MP') : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%">
-                                <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['foto']) : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%" id="picture_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                                <?php if ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin'] !== 'Non-Aktif') { ?>
+                                  <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['foto']) : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 140px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                                <?php } else { ?>
+                                  <img class="d-none" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                <?php } ?>
                               </div>
-                              <div class="fx-card-footer px-1 py-1">
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= sprintf('%04d', (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['npk']) : '') : '') : '') : '') ?></h5>
-                                  <div style="border: 0.1px solid black; background-color: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($color[$detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill']]) : '') : '') : '') : '' ?>; border-radius: 50%; width: 10px; height: 10px" id="skill_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
-                                </div>
+                              <div class=" fx-card-footer px-1 py-1" id="footer_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                                <?php if ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin'] !== 'Non-Aktif') { ?>
+                                  <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= sprintf('%04d', (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['npk']) : '') : '') : '') : '') ?></h5>
+                                    <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['nama']) : '') : '') : '') : '' ?></h5>
+                                    <div style="border: 0.1px solid black; background-color: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($color[$detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill']]) : '') : '') : '') : '' ?>; border-radius: 50%; width: 10px; height: 10px" id="skill_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
+                                  </div>
+                                <?php } else { ?>
+                                  <div class="d-flex justify-content-between align-items-center" style="height: 12px">
+                                    <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"></h5>
+                                    <div style="border-radius: 50%; width: 10px; height: 10px" id="skill_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
+                                  </div>
+                                <?php } ?>
                                 <!-- <div class="d-flex justify-content-between align-items-center">
                             <h5 class="m-0" style="font-size: 10px">Min Skill</h5>
                           </div> -->
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
-                                  <h5 class="m-0" style="font-size: 10px; color: <?= ($msn['min_skill']  <= ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' ?>" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill'] ?? 0) ? ($msn['min_skill'] <= ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill']) ? 'OK' : 'Kontrol') : 'Kosong' ?></h5>
-                                  <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('<?= $line[$i] ?>', <?= $index_mesin ?>)">Edit</button>
-                                </div>
+                                <?php if ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin'] !== 'Non-Aktif') { ?>
+                                  <div class="d-flex justify-content-between align-items-center">
+                                    <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
+                                    <h5 class="m-0" style="font-size: 10px; color: <?= ($msn['min_skill']  <= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill'] : 0) : 0) : 0) : 0)  ? '#00aa00' : '#ff0000' ?>" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= ((count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill'] : 0) : 0) : 0) : 0) ? (($msn['min_skill']  <= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill'] : 0) : 0) : 0) : 0) ? 'OK' : 'Kontrol') : 'Kosong' ?></h5>
+                                    <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('<?= $line[$i] ?>', <?= $index_mesin ?>)">Edit</button>
+                                  </div>
+                                <?php } else { ?>
+                                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px">
+                                    <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
+                                    <h5 class="m-0" style="font-size: 10px;" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"></h5>
+                                    <!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('<?= $line[$i] ?>', <?= $index_mesin ?>)">Edit</button> -->
+                                  </div>
+                                <?php } ?>
                               </div>
                             </div>
                           </div>
@@ -184,9 +206,9 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     <?php } else { ?>
                       <div class="col p-0">
                         <div class="px-1">
-                          <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? (($data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '') : '') : '') : '' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                          <div class="box mb-2 card_box" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? (($data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
                             <div class="fx-card-item">
-                              <div class="fx-card-content h-30">
+                              <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
                                   <!-- <div class="d-flex justify-content-center align-items-center" style="background-color: <?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? ($color[$data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill']]) : '') : '') : '') : '' ?>; border-radius: 5px 5px 0px 0px"> -->
                                   <div style="width: 12%">
@@ -198,31 +220,53 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <div style="width: 12%;" class="d-flex justify-content-end p-1">
                                     <div style="background-color: <?= $color[$msn['min_skill']] ?>; width: auto; height: auto; flex-grow: 1; aspect-ratio: 1/1; border-radius: 50%; border: 0.1px solid black" id="min_skill_color_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
                                   </div>
-                                  <input type="hidden" name="nama_mp_<?= $line[$i] ?>[]" id="nama_mp_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama']) : '') : '') : '') : '' ?>">
+                                  <input type="hidden" name="nama_mp_<?= $line[$i] ?>[]" id="nama_mp_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] : '') : '') : '') : '' ?>">
                                   <input type="hidden" name="requirement_<?= $line[$i] ?>[]" id="requirement_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $msn['requirement'] ?>">
                                   <input type="hidden" name="min_skill_<?= $line[$i] ?>[]" id="min_skill_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $msn['min_skill'] ?>">
                                   <input type="hidden" name="status_mp_<?= $line[$i] ?>[]" id="status_mp_<?= $line[$i] ?>_<?= $index_mesin ?>" value="">
+                                  <input type="hidden" name="status_mesin_<?= $line[$i] ?>[]" id="status_mesin_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] ?>">
                                   <!-- <div class="bg-danger d-flex align-items-center justify-content-center p-0" style="border-radius: 50%; height: 30px; width: 30px">25%</div> -->
                                 </div>
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]])) ? ($data_group_man_power[$line[$i]][$msn['mesin']]['nama']) : 'NO MP') : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                                <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['foto']) : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%" id="picture_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                                <?php if ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                  <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['foto'] : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 140px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                                <?php } else { ?>
+                                  <img class="d-none" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                <?php } ?>
                               </div>
-                              <div class="fx-card-footer px-1 py-1">
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= sprintf('%04d', (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['npk']) : '') : '') : '') : '') ?></h5>
-                                  <div style="border: 0.1px solid black; background-color: <?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? ($color[$data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill']]) : '') : '') : '') : '' ?>; border-radius: 50%; width: 10px; height: 10px" id="skill_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
-                                </div>
+                              <div class="fx-card-footer px-1 py-1" id="footer_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                                <?php if ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                  <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= sprintf('%04d', (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['npk'] : '') : '') : '') : '') ?></h5>
+                                    <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] : '') : '') : '') : '' ?></h5>
+                                    <div style="border: 0.1px solid black; background-color: <?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? ($color[$data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill']]) : '') : '') : '') : '' ?>; border-radius: 50%; width: 10px; height: 10px" id="skill_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
+                                  </div>
+                                <?php } else { ?>
+                                  <div class="d-flex justify-content-between align-items-center" style="height: 12px">
+                                    <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"></h5>
+                                    <div style="border-radius: 50%; width: 10px; height: 10px" id="skill_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
+                                  </div>
+                                <?php } ?>
                                 <!-- <div class="d-flex justify-content-between align-items-center">
                             <h5 class="m-0" style="font-size: 10px">Min Skill</h5>
                           </div> -->
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
-                                  <h5 class="m-0" style="font-size: 10px; color: <?= ($msn['min_skill']  <= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' ?>" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0) ? (($msn['min_skill']  <= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong' ?></h5>
-                                  <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('<?= $line[$i] ?>', <?= $index_mesin ?>)">Edit</button>
-                                </div>
+                                <?php if ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                  <div class="d-flex justify-content-between align-items-center">
+                                    <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
+                                    <h5 class="m-0" style="font-size: 10px; color: <?= ($msn['min_skill']  <= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' ?>" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0) ? (($msn['min_skill']  <= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong' ?></h5>
+                                    <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('<?= $line[$i] ?>', <?= $index_mesin ?>)">Edit</button>
+                                  </div>
+                                <?php } else { ?>
+                                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px">
+                                    <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
+                                    <h5 class="m-0" style="font-size: 10px;" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"></h5>
+                                    <!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('<?= $line[$i] ?>', <?= $index_mesin ?>)">Edit</button> -->
+                                  </div>
+                                <?php } ?>
                               </div>
                             </div>
                           </div>
@@ -241,14 +285,14 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           <div class="col p-0">
             <!-- <div class="row">
           <div class="col"> -->
-            <div class="d-flex" style="width: 100%">
-              <div class="d-flex justify-content-center align-items-center flex-column mx-1 mb-2" style="width: 100px; background: #F86F03; color: white">
+            <div class="d-flex" style="width: 100%; height: calc(100% - 8px)">
+              <div class="d-flex justify-content-center align-items-center flex-column mx-1" style="width: 100px; border-radius: 5px; background: #F86F03; color: white">
                 <?php $word_indirect = str_split('INDIRECT');
                 foreach ($word_indirect as $wi) { ?>
                   <h4 class="fw-bold m-0" style="font-size: 16px"><?= $wi ?></h4>
                 <?php } ?>
               </div>
-              <div class="row row-cols-xl-10 m-0" style="width: calc(100% - 107px)">
+              <div class="row row-cols-xl-10 m-0" style="width: calc(100% - 107px); background-color: #3F2305; border-radius: 5px;">
                 <!-- <div class="col" style="width: 100px">
                 
               </div> -->
@@ -268,28 +312,44 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                           </select>
                         </div>
                         <div class="px-1">
-                          <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5' ?>;" id="card_indirect_<?= $index_indirect ?>">
+                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin'] !== 'Non-Aktif') ? ((count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>;" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
-                              <div class="fx-card-content h-30">
+                              <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="background-color: <?= "" //(count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ($color[$detail_record_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
                                                                                                                         ?>; border-radius: 5px 5px 0px 0px">
                                   <h4 class="box-title mb-0 text-center p-1 fw-bold" style="font-size: 10px" id="mesin_indirect_<?= $index_indirect ?>"><?= $di['mesin'] ?></h4>
                                   <input type="hidden" name="nama_mp_indirect[]" id="nama_mp_indirect_<?= $index_indirect ?>" value="<?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['nama']) : '') : '') : '' ?>">
                                   <input type="hidden" name="status_mp_indirect[]" id="status_mp_indirect_<?= $index_indirect ?>" value="<?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['status']) : '') : '') : '' ?>">
+                                  <input type="hidden" name="status_mesin_indirect[]" id="status_mesin_indirect_<?= $index_indirect ?>" value="<?= $detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin'] ?>">
                                   <!-- <div class="bg-danger d-flex align-items-center justify-content-center p-0" style="border-radius: 50%; height: 30px; width: 30px">25%</div> -->
                                 </div>
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ($detail_record_man_power_kasubsie[$di['mesin']]['nama']) : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                                <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_indirect_<?= $index_indirect ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%" id="picture_format_indirect_<?= $index_indirect ?>">
+                                <?php if ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin'] !== 'Non-Aktif') { ?>
+                                  <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_<?= $index_indirect ?>">
+                                <?php } else { ?>
+                                  <img class="d-none" id="foto_indirect_<?= $index_indirect ?>">
+                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                <?php } ?>
                               </div>
-                              <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center">
-                                <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['npk']) : '') : '') : '') ?></h5>
-                                <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
-                                <!-- <div style="background-color: <?= "" //(count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ($color[$detail_record_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
-                                                                    ?>; border-radius: 50%; width: 24px; height: 24px"></div> -->
-                              </div>
+                              <?php if ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin'] !== 'Non-Aktif') { ?>
+                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" id="footer_format_indirect_<?= $index_indirect ?>">
+                                  <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['npk']) : '') : '') : '') ?></h5>
+                                  <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['nama']) : '') : '') : '' ?></h5>
+                                  <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
+                                  <!-- <div style="background-color: <?= "" //(count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ($color[$detail_record_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
+                                                                      ?>; border-radius: 50%; width: 24px; height: 24px"></div> -->
+                                </div>
+                              <?php } else { ?>
+                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" style="height: 22.1px;" id="footer_format_indirect_<?= $index_indirect ?>">
+                                  <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"></h5>
+                                  <!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button> -->
+                                  <!-- <div style="background-color: <?= "" //(count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ($color[$detail_record_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
+                                                                      ?>; border-radius: 50%; width: 24px; height: 24px"></div> -->
+                                </div>
+                              <?php } ?>
                             </div>
                           </div>
                         </div>
@@ -306,28 +366,44 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                           </select>
                         </div>
                         <div class="px-1">
-                          <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?php (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? (($data_group_man_power_kasubsie[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5' ?>" id="card_indirect_<?= $index_indirect ?>">
+                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? (($data_group_man_power_kasubsie[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
-                              <div class="fx-card-content h-30">
+                              <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="background-color: <?= "" //(count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie)) ? ($color[$data_group_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
                                                                                                                         ?>; border-radius: 5px 5px 0px 0px">
                                   <h4 class="box-title mb-0 text-center p-1 fw-bold" style="font-size: 10px" id="mesin_indirect_<?= $index_indirect ?>"><?= $di['mesin'] ?></h4>
                                   <input type="hidden" name="nama_mp_indirect[]" id="nama_mp_indirect_<?= $index_indirect ?>" value="<?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['nama']) : '') : '') : '' ?>">
                                   <input type="hidden" name="status_mp_indirect[]" id="status_mp_indirect_<?= $index_indirect ?>" value="">
+                                  <input type="hidden" name="status_mesin_indirect[]" id="status_mesin_indirect_<?= $index_indirect ?>" value="<?= $data_group_mesin_indirect[$group][$di['mesin']]['status'] ?>">
                                   <!-- <div class="bg-danger d-flex align-items-center justify-content-center p-0" style="border-radius: 50%; height: 30px; width: 30px">25%</div> -->
                                 </div>
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie)) ? ($data_group_man_power_kasubsie[$di['mesin']]['nama']) : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                                <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_indirect_<?= $index_indirect ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%" id="picture_format_indirect_<?= $index_indirect ?>">
+                                <?php if ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                  <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_<?= $index_indirect ?>">
+                                <?php } else { ?>
+                                  <img class="d-none" id="foto_indirect_<?= $index_indirect ?>">
+                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                <?php } ?>
                               </div>
-                              <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center">
-                                <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['npk']) : '') : '') : '') ?></h5>
-                                <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
-                                <!-- <div style="background-color: <?= "" //(count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie)) ? ($color[$data_group_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
-                                                                    ?>; border-radius: 50%; width: 24px; height: 24px"></div> -->
-                              </div>
+                              <?php if ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" id="footer_format_indirect_<?= $index_indirect ?>">
+                                  <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['npk']) : '') : '') : '') ?></h5>
+                                  <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['npk']) : '') : '') : '' ?></h5>
+                                  <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
+                                  <!-- <div style="background-color: <?= "" //(count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie)) ? ($color[$data_group_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
+                                                                      ?>; border-radius: 50%; width: 24px; height: 24px"></div> -->
+                                </div>
+                              <?php } else { ?>
+                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" style="height: 22.1px" id="footer_format_indirect_<?= $index_indirect ?>">
+                                  <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"></h5>
+                                  <!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button> -->
+                                  <!-- <div style="background-color: <?= "" //(count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie)) ? ($color[$data_group_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
+                                                                      ?>; border-radius: 50%; width: 24px; height: 24px"></div> -->
+                                </div>
+                              <?php } ?>
                             </div>
                           </div>
                         </div>
@@ -346,9 +422,9 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                           </select>
                         </div>
                         <div class="px-1">
-                          <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5' ?>" id="card_indirect_<?= $index_indirect ?>">
+                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin'] !== 'Non-Aktif') ? ((count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
-                              <div class="fx-card-content h-30">
+                              <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
                                   <!-- <div class="d-flex justify-content-center align-items-center" style="background-color: <?= "" //(count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ($color[$detail_record_man_power_indirect[$di['mesin']]['skill']]) : '') : '' 
                                                                                                                               ?>; border-radius: 5px 5px 0px 0px"> -->
@@ -359,16 +435,22 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <input type="hidden" name="nama_mp_indirect[]" id="nama_mp_indirect_<?= $index_indirect ?>" value="<?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['nama']) : '') : '') : '' ?>">
                                   <input type="hidden" name="requirement_indirect[]" id="requirement_indirect_<?= $index_indirect ?>" value="<?= $di['requirement'] ?>">
                                   <input type="hidden" name="status_mp_indirect[]" id="status_mp_indirect_<?= $index_indirect ?>" value="<?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['status']) : '') : '') : '' ?>">
+                                  <input type="hidden" name="status_mesin_indirect[]" id="status_mesin_indirect_<?= $index_indirect ?>" value="<?= $detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin'] ?>">
 
                                   <!-- <div class="bg-danger d-flex align-items-center justify-content-center p-0" style="border-radius: 50%; height: 30px; width: 30px">25%</div> -->
                                 </div>
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ($detail_record_man_power_indirect[$di['mesin']]['nama']) : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                                <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_indirect_<?= $index_indirect ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%" id="picture_format_indirect_<?= $index_indirect ?>">
+                                <?php if ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin'] !== 'Non-Aktif') { ?>
+                                  <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_<?= $index_indirect ?>">
+                                <?php } else { ?>
+                                  <img class="d-none" id="foto_indirect_<?= $index_indirect ?>">
+                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                <?php } ?>
                               </div>
-                              <div class="fx-card-footer px-1 py-1">
+                              <div class="fx-card-footer px-1 py-1" id="footer_format_indirect_<?= $index_indirect ?>">
                                 <!-- <div class="d-flex justify-content-between align-items-center">
                             <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['npk']) : '') : '') : '') ?></h5>
                             <div style="background-color: <?= "" //(count($detail_record_man_power_indirect) > 0) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect), $detail_record_man_power_indirect)) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)])) ? ($color[$detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)][$di['mesin']]['skill']]) : '') : '') : '' 
@@ -377,13 +459,24 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <!-- <div class="d-flex justify-content-between align-items-center">
                             <h5 class="m-0" style="font-size: 10px">Min Skill</h5>
                           </div> -->
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['npk']) : '') : '') : '') ?></h5>
-                                  <!-- <h5 class="m-0" style="font-size: 10px; color: <?= "" //($di['min_skill']  <= ($detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)][$di['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' 
-                                                                                      ?>" id="status_indirect_<?= $index_indirect ?>"><?= "" //($di['min_skill']  <= ($detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)][$di['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol' 
-                                                                                                                                      ?></h5> -->
-                                  <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
-                                </div>
+                                <?php if ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin'] !== 'Non-Aktif') { ?>
+                                  <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['npk']) : '') : '') : '') ?></h5>
+                                    <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['nama']) : '') : '') : '' ?></h5>
+                                    <!-- <h5 class="m-0" style="font-size: 10px; color: <?= "" //($di['min_skill']  <= ($detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)][$di['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' 
+                                                                                        ?>" id="status_indirect_<?= $index_indirect ?>"><?= "" //($di['min_skill']  <= ($detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)][$di['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol' 
+                                                                                                                                        ?></h5> -->
+                                    <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
+                                  </div>
+                                <?php } else { ?>
+                                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px;">
+                                    <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"></h5>
+                                    <!-- <h5 class="m-0" style="font-size: 10px; color: <?= "" //($di['min_skill']  <= ($detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)][$di['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' 
+                                                                                        ?>" id="status_indirect_<?= $index_indirect ?>"><?= "" //($di['min_skill']  <= ($detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)][$di['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol' 
+                                                                                                                                        ?></h5> -->
+                                    <!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button> -->
+                                  </div>
+                                <?php } ?>
                               </div>
                             </div>
                           </div>
@@ -401,9 +494,9 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                           </select>
                         </div>
                         <div class="px-1">
-                          <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? (($data_group_man_power_indirect[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5' ?>" id="card_indirect_<?= $index_indirect ?>">
+                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? (($data_group_man_power_indirect[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
-                              <div class="fx-card-content h-30">
+                              <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
                                   <!-- <div class="d-flex justify-content-center align-items-center" style="background-color: <?= "" //(count($data_group_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect)) ? ($color[$data_group_man_power_indirect[$di['mesin']]['skill']]) : '') : '' 
                                                                                                                               ?>; border-radius: 5px 5px 0px 0px"> -->
@@ -414,16 +507,22 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <input type="hidden" name="nama_mp_indirect[]" id="nama_mp_indirect_<?= $index_indirect ?>" value="<?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['nama']) : '') : '') : '' ?>">
                                   <input type="hidden" name="requirement_indirect[]" id="requirement_indirect_<?= $index_indirect ?>" value="<?= $di['requirement'] ?>">
                                   <input type="hidden" name="status_mp_indirect[]" id="status_mp_indirect_<?= $index_indirect ?>" value="">
+                                  <input type="hidden" name="status_mesin_indirect[]" id="status_mesin_indirect_<?= $index_indirect ?>" value="<?= $data_group_mesin_indirect[$group][$di['mesin']]['status'] ?>">
 
                                   <!-- <div class="bg-danger d-flex align-items-center justify-content-center p-0" style="border-radius: 50%; height: 30px; width: 30px">25%</div> -->
                                 </div>
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($data_group_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect)) ? ($data_group_man_power_indirect[$di['mesin']]['nama']) : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
-                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 125px">
-                                <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 125px" id="foto_indirect_<?= $index_indirect ?>">
+                              <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%" id="picture_format_indirect_<?= $index_indirect ?>">
+                                <?php if ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                  <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_<?= $index_indirect ?>">
+                                <?php } else { ?>
+                                  <img class="d-none" id="foto_indirect_<?= $index_indirect ?>">
+                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                <?php } ?>
                               </div>
-                              <div class="fx-card-footer px-1 py-1">
+                              <div class="fx-card-footer px-1 py-1" id="footer_format_indirect_<?= $index_indirect ?>">
                                 <!-- <div class="d-flex justify-content-between align-items-center">
           <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['npk']) : '') : '') : '') ?></h5>
           <div style="background-color: <?= "" //(count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($color[$data_group_man_power_indirect[$group][$di['mesin']]['skill']]) : '') : '') : '' 
@@ -432,13 +531,24 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <!-- <div class="d-flex justify-content-between align-items-center">
           <h5 class="m-0" style="font-size: 10px">Min Skill</h5>
         </div> -->
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['npk']) : '') : '') : '') ?></h5>
-                                  <!-- <h5 class="m-0" style="font-size: 10px; color: <?= "" //($di['min_skill']  <= ($data_group_man_power_indirect[$group][$di['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' 
-                                                                                      ?>" id="status_indirect_<?= $index_indirect ?>"><?= "" //($di['min_skill']  <= ($data_group_man_power_indirect[$group][$di['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol' 
-                                                                                                                                      ?></h5> -->
-                                  <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
-                                </div>
+                                <?php if ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                  <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['npk']) : '') : '') : '') ?></h5>
+                                    <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['nama']) : '') : '') : '' ?></h5>
+                                    <!-- <h5 class="m-0" style="font-size: 10px; color: <?= "" //($di['min_skill']  <= ($data_group_man_power_indirect[$group][$di['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' 
+                                                                                        ?>" id="status_indirect_<?= $index_indirect ?>"><?= "" //($di['min_skill']  <= ($data_group_man_power_indirect[$group][$di['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol' 
+                                                                                                                                        ?></h5> -->
+                                    <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
+                                  </div>
+                                <?php } else { ?>
+                                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px">
+                                    <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"></h5>
+                                    <!-- <h5 class="m-0" style="font-size: 10px; color: <?= "" //($di['min_skill']  <= ($data_group_man_power_indirect[$group][$di['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' 
+                                                                                        ?>" id="status_indirect_<?= $index_indirect ?>"><?= "" //($di['min_skill']  <= ($data_group_man_power_indirect[$group][$di['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol' 
+                                                                                                                                        ?></h5> -->
+                                    <!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button> -->
+                                  </div>
+                                <?php } ?>
                               </div>
                             </div>
                           </div>
@@ -456,8 +566,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         </div>
       </div>
     </div>
-    <div class="row m-0" style="height: 18vh;">
-      <div class="d-flex justify-content-center align-items-center flex-column mx-1 mb-2" style="width: 100px; background: red; color: white">
+    <div class="row m-0" style="height: calc(18vh - 7px);">
+      <div class="d-flex justify-content-center align-items-center flex-column mx-1 mb-2" style="width: 100px; border-radius: 5px; background: red; color: white">
         <?php $word_absen = str_split('ABSENTEISM');
         foreach ($word_absen as $wa) { ?>
           <h4 class="fw-bold m-0" style="font-size: 16px"><?= $wa ?></h4>
@@ -478,7 +588,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               <?php if (array_key_exists($line[$i], $data_mp_tidak_hadir) ? count($data_mp_tidak_hadir[$line[$i]]) : 0) {
                 $temp_index_add = 0;
                 foreach ($data_mp_tidak_hadir[$line[$i]] as $dmth) { ?>
-                  <tr id="add_mp_tidak_masuk_<?= $line[$i] ?>_<?= $temp_index_add ?>" style="border-bottom: <?= $temp_index_add === 4 ? 'transparent' : '' ?>;" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('<?= $line[$i] ?>', <?= $temp_index_add ?>)">
+                  <tr id="add_mp_tidak_masuk_<?= $line[$i] ?>_<?= $temp_index_add ?>" style="border-bottom: <?= $temp_index_add === 2 ? 'transparent' : '' ?>;" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('<?= $line[$i] ?>', <?= $temp_index_add ?>)">
                     <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
                       <?= $dmth['nama'] ?>
                       <input type="hidden" name="nama_mp_tidak_hadir_<?= $line[$i] ?>[]" value="<?= $dmth['id_man_power'] ?>">
@@ -489,9 +599,9 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   </tr>
                   <?php $temp_index_add++;
                 }
-                if ($temp_index_add < 5) {
-                  for ($index_add = $temp_index_add; $index_add < 5; $index_add++) { ?>
-                    <tr id="add_mp_tidak_masuk_<?= $line[$i] ?>_<?= $index_add ?>" style="border-bottom: <?= $index_add === 4 ? 'transparent' : '' ?>;">
+                if ($temp_index_add < 3) {
+                  for ($index_add = $temp_index_add; $index_add < 3; $index_add++) { ?>
+                    <tr id="add_mp_tidak_masuk_<?= $line[$i] ?>_<?= $index_add ?>" style="border-bottom: <?= $index_add === 2 ? 'transparent' : '' ?>;">
                       <td colspan="4" class="text-center p-0">
                         <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_<?= $line[$i] ?>_<?= $index_add ?>" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('<?= $line[$i] ?>',<?= $index_add ?>)">Add</button>
                       </td>
@@ -499,8 +609,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 <?php }
                 } ?>
                 <?php } else {
-                for ($index_add = 0; $index_add < 5; $index_add++) { ?>
-                  <tr id="add_mp_tidak_masuk_<?= $line[$i] ?>_<?= $index_add ?>" style="border-bottom: <?= $index_add === 4 ? 'transparent' : '' ?>;">
+                for ($index_add = 0; $index_add < 3; $index_add++) { ?>
+                  <tr id="add_mp_tidak_masuk_<?= $line[$i] ?>_<?= $index_add ?>" style="border-bottom: <?= $index_add === 2 ? 'transparent' : '' ?>;">
                     <td colspan="4" class="text-center p-0">
                       <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_<?= $line[$i] ?>_<?= $index_add ?>" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('<?= $line[$i] ?>',<?= $index_add ?>)">Add</button>
                     </td>
@@ -525,7 +635,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             <?php if (count($data_mp_tidak_hadir_indirect) > 0) {
               $temp_index_add = 0;
               foreach ($data_mp_tidak_hadir_indirect as $dmth) { ?>
-                <tr id="add_mp_tidak_masuk_indirect_<?= $temp_index_add ?>" style="border-bottom: <?= $temp_index_add === 4 ? 'transparent' : '' ?>;" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', <?= $temp_index_add ?>)">
+                <tr id="add_mp_tidak_masuk_indirect_<?= $temp_index_add ?>" style="border-bottom: <?= $temp_index_add === 2 ? 'transparent' : '' ?>;" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', <?= $temp_index_add ?>)">
                   <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
                     <?= $dmth['nama'] ?>
                     <input type="hidden" name="nama_mp_tidak_hadir_indirect[]" value="<?= $dmth['id_man_power'] ?>">
@@ -536,9 +646,9 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 </tr>
                 <?php $temp_index_add++;
               }
-              if ($temp_index_add < 5) {
-                for ($index_add = $temp_index_add; $index_add < 5; $index_add++) { ?>
-                  <tr id="add_mp_tidak_masuk_indirect_<?= $index_add ?>" style="border-bottom: <?= $index_add === 4 ? 'transparent' : '' ?>;">
+              if ($temp_index_add < 3) {
+                for ($index_add = $temp_index_add; $index_add < 3; $index_add++) { ?>
+                  <tr id="add_mp_tidak_masuk_indirect_<?= $index_add ?>" style="border-bottom: <?= $index_add === 2 ? 'transparent' : '' ?>;">
                     <td colspan="4" class="text-center p-0">
                       <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_indirect_<?= $index_add ?>" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect',<?= $index_add ?>)">Add</button>
                     </td>
@@ -546,8 +656,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               <?php }
               } ?>
               <?php } else {
-              for ($index_add = 0; $index_add < 5; $index_add++) { ?>
-                <tr id="add_mp_tidak_masuk_indirect_<?= $index_add ?>" style="border-bottom: <?= $index_add === 4 ? 'transparent' : '' ?>;">
+              for ($index_add = 0; $index_add < 3; $index_add++) { ?>
+                <tr id="add_mp_tidak_masuk_indirect_<?= $index_add ?>" style="border-bottom: <?= $index_add === 2 ? 'transparent' : '' ?>;">
                   <td colspan="4" class="text-center p-0">
                     <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_indirect_<?= $index_add ?>" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect',<?= $index_add ?>)">Add</button>
                   </td>
@@ -645,6 +755,73 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
 
     $('.toast').toast('show');
   }
+  var blinkval;
+  var compareblinkval;
+
+  function blink(cardElement) {
+    let colors = ["#FFF9C9", "white"];
+    let currentColorIndex = 0;
+    blinkval = setInterval(function() {
+      cardElement.style.backgroundColor = colors[currentColorIndex];
+      currentColorIndex = (currentColorIndex + 1) % colors.length;
+    }, 1000);
+  }
+
+  function compareblink(cardCompareElement) {
+    let colors = ["green", "white"];
+    let currentColorIndex = 0;
+    compareblinkval = setInterval(function() {
+      cardCompareElement.style.backgroundColor = colors[currentColorIndex];
+      currentColorIndex = (currentColorIndex + 1) % colors.length;
+    }, 1000);
+  }
+
+  $(document).ready(() => {
+    let cardElement = '';
+    let status_mp_indirectElement = document.getElementsByName('status_mp_indirect[]');
+    let card_boxElement = document.querySelectorAll('.card_box');
+    let getIdElement = '';
+    let npkValue = '';
+    let getCompareIdElement = '';
+    let npkCompareValue = '';
+    let line = <?= json_encode($line) ?>;
+    let status_mp_lineElement = '';
+    line.forEach((ln) => {
+      status_mp_lineElement = document.getElementsByName(`status_mp_${ln}[]`);
+      status_mp_lineElement.forEach((smpl) => {
+        if (smpl.value.toLowerCase() === 'pengganti') {
+          cardElement = smpl.parentNode.parentNode.parentNode.parentNode;
+          getIdElement = smpl.id.split('_').slice(-2);
+          npkValue = document.querySelector(`#npk_${getIdElement[0]}_${getIdElement[1]}`).textContent;
+          card_boxElement.forEach((compare) => {
+            cardCompareElement = compare;
+            getCompareIdElement = compare.id.split('_').slice(-2);
+            npkCompareValue = document.querySelector(`#npk_${getCompareIdElement[0]}_${getCompareIdElement[1]}`).textContent;
+            if (npkValue == npkCompareValue) {
+              compareblink(cardCompareElement);
+            }
+          });
+          blink(cardElement);
+        }
+      });
+    });
+    status_mp_indirectElement.forEach((smpi) => {
+      if (smpi.value.toLowerCase() === 'pengganti') {
+        cardElement = smpi.parentNode.parentNode.parentNode.parentNode;
+        getIdElement = smpi.id.split('_').slice(-2);
+        npkValue = document.querySelector(`#npk_${getIdElement[0]}_${getIdElement[1]}`).textContent;
+        card_boxElement.forEach((compare) => {
+          cardCompareElement = compare;
+          getCompareIdElement = compare.id.split('_').slice(-2);
+          npkCompareValue = document.querySelector(`#npk_${getCompareIdElement[0]}_${getCompareIdElement[1]}`).textContent;
+          if (npkValue == npkCompareValue) {
+            compareblink(cardCompareElement);
+          }
+        });
+        blink(cardElement);
+      }
+    });
+  });
 
   function changeShift(sub_bagian) {
     let line = <?= json_encode($line) ?>;
@@ -662,6 +839,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
       },
       dataType: 'json',
       success: function(data) {
+        clearInterval(blinkval);
+        clearInterval(compareblinkval);
         let skill = '';
         let status = '';
         console.log(data);
@@ -672,25 +851,69 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           let mp_hadir = [];
           let temp_all_mp_tidak_hadir = [];
           let temp_all_mp_hadir = [];
+          let temp_sum_mesin = '';
+          let temp_sum_mesin_indirect = '';
           line.forEach(ln => {
-            mp_tidak_hadir.push(parseFloat((((data?.data_mp_tidak_hadir?.[ln]?.length ?? 0) / (data?.data_mesin?.[ln]?.length ?? 0) * 100).toFixed(1))));
-            mp_hadir.push(parseFloat(((((data?.data_mesin?.[ln]?.length ?? 0) - (data?.data_mp_tidak_hadir?.[ln]?.length ?? 0)) / (data?.data_mesin?.[ln]?.length ?? 0) * 100).toFixed(1))));
+            temp_sum_mesin = Object.entries(data?.detail_record_mesin?.[ln]?.[Object.keys(data?.detail_record_mesin?.[ln])[0]]).filter(element => {
+              return element[1].status_mesin !== 'Non-Aktif';
+            }).length;
+            mp_tidak_hadir.push(parseFloat(((((data?.data_mp_tidak_hadir?.[ln]?.length ?? 0) / temp_sum_mesin) * 100).toFixed(1))));
+            mp_hadir.push(parseFloat(((((temp_sum_mesin - (data?.data_mp_tidak_hadir?.[ln]?.length ?? 0)) / temp_sum_mesin) * 100).toFixed(1))));
             temp_all_mp_tidak_hadir.push(data?.data_mp_tidak_hadir?.[ln]?.length ?? 0);
-            temp_all_mp_hadir.push((data?.data_mesin?.[ln]?.length ?? 0) - (data?.data_mp_tidak_hadir?.[ln]?.length ?? 0));
+            temp_all_mp_hadir.push(temp_sum_mesin - (data?.data_mp_tidak_hadir?.[ln]?.length ?? 0));
             let index_mesin = 0;
             data?.data_mesin?.[ln].forEach(msn => {
-              // console.log(Object.keys(data.detail_record_man_power?.[ln])[0]);
-              document.querySelector(`#card_${ln}_${index_mesin}`).style.backgroundColor = (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['nama'] ?? 0) ? '' : '#9BA4B5';
+              document.querySelector(`#card_${ln}_${index_mesin}`).style.backgroundColor = (data?.detail_record_mesin?.[ln]?.[Object.keys(data?.detail_record_mesin?.[ln])[0]]?.[msn.mesin]?.['status_mesin'] !== 'Non-Aktif') ? ((data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
               document.querySelector(`#card_${ln}_${index_mesin}`).style.backgroundImage = (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['status'] ?? 0) ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '';
+
+              if ((data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['status'].toLowerCase() ?? '') === 'pengganti') {
+                // data?.detail_record_man_power.forEach((drmp) => {
+                //   console.log(drmp[Object.keys(drmp)[0]][Object.keys(drmp[Object.keys(drmp)[0]])[0]]);
+                //   if (String(drmp[Object.keys(drmp)[0]][Object.keys(drmp[Object.keys(drmp)[0]])[0]]['npk']).padStart(4, '0') === String(data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0')) {
+                //     compareblink(document.querySelector(`#card_${drmp[Object.keys(drmp)[0]]}_${drmp[Object.keys(drmp)[0]][Object.keys(drmp[Object.keys(drmp)[0]])[0]]}`));
+                //   }
+                // });
+                // blink();
+              }
               document.querySelector(`#group_${ln}`).value = Object.keys(data.detail_record_man_power?.[ln])[0];
               document.querySelector(`#nama_mp_${ln}_${index_mesin}`).value = data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['nama'] ?? '';
-              document.querySelector(`#foto_${ln}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['foto'] ?? '';
-              document.querySelector(`#npk_${ln}_${index_mesin}`).innerHTML = String(data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
-              skill = document.querySelector(`#skill_${ln}_${index_mesin}`);
-              skill.style.backgroundColor = (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']) ? colorSkill[data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']] : 'transparent';
-              status = document.querySelector(`#status_${ln}_${index_mesin}`);
-              status.innerHTML = (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong';
-              status.style.color = (msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
+              if (data?.detail_record_mesin?.[ln]?.[Object.keys(data?.detail_record_mesin?.[ln])[0]]?.[msn.mesin]?.status_mesin !== 'Non-Aktif') {
+                document.querySelector(`#picture_format_${ln}_${index_mesin}`).innerHTML = `
+                  <img src="${'<?= base_url() ?>uploads/' + data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_${ln}_${index_mesin}">
+                `;
+                document.querySelector(`#footer_format_${ln}_${index_mesin}`).innerHTML = `
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="m-0" style="font-size: 10px" id="npk_${ln}_${index_mesin}">${String(data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0')}</h5>
+                    <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['nama'] ?? ''}</h5>
+                    <div style="border: 0.1px solid black; background-color: ${data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ? colorSkill[data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']] : 'transparent'}; border-radius: 50%; width: 10px; height: 10px" id="skill_${ln}_${index_mesin}"></div>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="m-0" style="font-size: 10px; color: ${(msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000'}" id="status_${ln}_${index_mesin}">${(data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong'}</h5>
+                    <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${ln}', ${index_mesin})">Edit</button>
+                  </div>
+                `;
+              } else {
+                document.querySelector(`#picture_format_${ln}_${index_mesin}`).innerHTML = `
+                  <img class="d-none" id="foto_${ln}_${index_mesin}">
+                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                `;
+                document.querySelector(`#footer_format_${ln}_${index_mesin}`).innerHTML = `
+                  <div class="d-flex justify-content-between align-items-center" style="height: 12px">
+                    <h5 class="m-0" style="font-size: 10px" id="npk_${ln}_${index_mesin}"></h5>
+                    <div style="border-radius: 50%; width: 10px; height: 10px" id="skill_${ln}_${index_mesin}"></div>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px">
+                    <h5 class="m-0" style="font-size: 10px;" id="status_${ln}_${index_mesin}"></h5>
+                  </div>
+                `;
+              }
+              // document.querySelector(`#foto_${ln}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['foto'] ?? '';
+              // document.querySelector(`#npk_${ln}_${index_mesin}`).innerHTML = String(data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
+              // skill = document.querySelector(`#skill_${ln}_${index_mesin}`);
+              // skill.style.backgroundColor = (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']) ? colorSkill[data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']] : 'transparent';
+              // status = document.querySelector(`#status_${ln}_${index_mesin}`);
+              // status.innerHTML = (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong';
+              // status.style.color = (msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
               index_mesin++;
             });
             let temp_index_add = 0;
@@ -698,7 +921,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             if (data?.data_mp_tidak_hadir.hasOwnProperty(ln)) {
               data?.data_mp_tidak_hadir?.[ln].forEach(dmth => {
                 document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML += `
-                <tr id="add_mp_tidak_masuk_${ln}_${temp_index_add}" style="border-bottom: ${temp_index_add === 4 ? 'transparent' : ''};" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}', ${temp_index_add})">
+                <tr id="add_mp_tidak_masuk_${ln}_${temp_index_add}" style="border-bottom: ${temp_index_add === 2 ? 'transparent' : ''};" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}', ${temp_index_add})">
                   <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
                     ${dmth['nama']}
                     <input type="hidden" name="nama_mp_tidak_hadir_${ln}[]" value="${dmth['id_man_power']}">
@@ -711,10 +934,10 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 temp_index_add++;
               });
             }
-            if (temp_index_add < 5) {
-              for (let index_add = temp_index_add; index_add < 5; index_add++) {
+            if (temp_index_add < 3) {
+              for (let index_add = temp_index_add; index_add < 3; index_add++) {
                 document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML += `
-                  <tr id="add_mp_tidak_masuk_${ln}_${index_add}" style="border-bottom: ${index_add === 4 ? 'transparent' : ''};">
+                  <tr id="add_mp_tidak_masuk_${ln}_${index_add}" style="border-bottom: ${index_add === 2 ? 'transparent' : ''};">
                     <td colspan="4" class="text-center p-0">
                       <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${ln}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}',${index_add})">Add</button>
                     </td>
@@ -727,7 +950,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             if (data?.data_mp_tidak_hadir_indirect.length > 0) {
               data?.data_mp_tidak_hadir_indirect.forEach(dmthi => {
                 document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML += `
-                  <tr id="add_mp_tidak_masuk_indirect_${temp_index_add_indirect}" style="border-bottom: ${temp_index_add === 4 ? 'transparent' : ''};" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', ${temp_index_add_indirect})">
+                  <tr id="add_mp_tidak_masuk_indirect_${temp_index_add_indirect}" style="border-bottom: ${temp_index_add === 2 ? 'transparent' : ''};" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', ${temp_index_add_indirect})">
                     <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
                       ${dmthi['nama']}
                       <input type="hidden" name="nama_mp_tidak_hadir_indirect[]" value="${dmthi['id_man_power']}">
@@ -739,10 +962,10 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 `;
               });
             }
-            if (temp_index_add_indirect < 5) {
-              for (let index_add = temp_index_add_indirect; index_add < 5; index_add++) {
+            if (temp_index_add_indirect < 3) {
+              for (let index_add = temp_index_add_indirect; index_add < 3; index_add++) {
                 document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML += `
-                  <tr id="add_mp_tidak_masuk_indirect_${index_add}" style="border-bottom: ${index_add === 4 ? 'transparent' : ''};">
+                  <tr id="add_mp_tidak_masuk_indirect_${index_add}" style="border-bottom: ${index_add === 2 ? 'transparent' : ''};">
                     <td colspan="4" class="text-center p-0">
                       <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_indirect_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect',${index_add})">Add</button>
                     </td>
@@ -751,68 +974,140 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               }
             }
           });
-          mp_tidak_hadir.push(parseFloat(((data?.data_mp_tidak_hadir_indirect?.length ?? 0) / (data?.data_indirect?.length ?? 0) * 100).toFixed(1)));
-          mp_hadir.push(parseFloat((((data?.data_indirect?.length ?? 0) - (data?.data_mp_tidak_hadir_indirect?.length ?? 0)) / (data?.data_indirect?.length ?? 0) * 100).toFixed(1)));
+          temp_sum_mesin_indirect = Object.entries(data?.detail_record_mesin_indirect).filter(element => {
+            return element[1][Object.keys(element[1])]['status_mesin'] !== 'Non-Aktif';
+          }).length;
+          mp_tidak_hadir.push(parseFloat((((data?.data_mp_tidak_hadir_indirect?.length ?? 0) / temp_sum_mesin_indirect) * 100).toFixed(1)));
+          mp_hadir.push(parseFloat((((temp_sum_mesin_indirect - (data?.data_mp_tidak_hadir_indirect?.length ?? 0)) / temp_sum_mesin_indirect) * 100).toFixed(1)));
           temp_all_mp_tidak_hadir.push(data?.data_mp_tidak_hadir_indirect?.length ?? 0);
-          temp_all_mp_hadir.push((data?.data_indirect?.length ?? 0) - (data?.data_mp_tidak_hadir_indirect?.length ?? 0));
-          console.log({
-            mp_tidak_hadir,
-            mp_hadir,
-            temp_all_mp_hadir,
-            temp_all_mp_tidak_hadir
-          });
+          temp_all_mp_hadir.push(temp_sum_mesin_indirect - (data?.data_mp_tidak_hadir_indirect?.length ?? 0));
+          mp_tidak_hadir.push(parseFloat(((eval(temp_all_mp_tidak_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
+          mp_hadir.push(parseFloat(((eval(temp_all_mp_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
           let index = 0;
           data?.data_indirect.forEach(di => {
             if (di.mesin.includes('Kasubsie')) {
               document.querySelector(`#group_indirect_${index}`).value = Object.keys(data.detail_record_man_power_kasubsie?.[di.mesin] !== undefined ? data.detail_record_man_power_kasubsie?.[di.mesin] : {
                 'A': 'A'
               })[0];
-              document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['nama'] ?? 0) ? '' : '#9BA4B5';
+              document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.detail_record_mesin_indirect?.[di.mesin]?.[Object.keys(data.detail_record_mesin_indirect?.[di.mesin])[0]]?.['status_mesin'] !== 'Non-Aktif') ? ((data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
               document.querySelector(`#card_indirect_${index}`).style.backgroundImage = (data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['status'] ?? 0) ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '';
               document.querySelector(`#nama_mp_indirect_${index}`).value = data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['nama'] ?? '';
-              document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['foto'] ?? '';
-              document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0');
+              if (data?.detail_record_mesin_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_mesin_indirect?.[di.mesin])[0]]?.['status_mesin'] !== 'Non-Aktif') {
+                document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
+                  <img src="${'<?= base_url() ?>uploads/' + data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_${index}">
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
+                  <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}">${String(data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['foto'] ?? '').padStart(4, '0')}</h5>
+                  <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['nama'] ?? ''}</h5>
+                  <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', ${index})">Edit</button>
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).style.height = '';
+              } else {
+                document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
+                  <img class="d-none" id="foto_indirect_${index}">
+                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
+                  <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}"></h5>
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).style.height = '22.1px';
+              }
+              // document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['foto'] ?? '';
+              // document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0');
               index++;
             } else {
               console.log(Object.keys(data.detail_record_man_power_indirect?.[di.mesin] !== undefined ? data.detail_record_man_power_indirect?.[di.mesin] : [])[0]);
               document.querySelector(`#group_indirect_${index}`).value = Object.keys(data.detail_record_man_power_indirect?.[di.mesin] !== undefined ? data.detail_record_man_power_indirect?.[di.mesin] : {
                 'A': 'A'
               })[0];
-              document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data.detail_record_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? 0) ? '' : '#9BA4B5';
+              document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.detail_record_mesin_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_mesin_indirect?.[di.mesin])[0]]?.['status_mesin'] !== 'Non-Aktif') ? ((data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data.detail_record_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
               document.querySelector(`#card_indirect_${index}`).style.backgroundImage = (data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data.detail_record_man_power_indirect?.[di.mesin])[0]]?.['status'] ?? 0) ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '';
               document.querySelector(`#nama_mp_indirect_${index}`).value = data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? '';
-              document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['foto'] ?? '';
-              document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0');
+              if (data?.detail_record_mesin_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_mesin_indirect?.[di.mesin])[0]]?.['status_mesin'] !== 'Non-Aktif') {
+                document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
+                  <img src="${'<?= base_url() ?>uploads/' + data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_${index}">
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}">${String(data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0')}</h5>
+                    <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? ''}</h5>
+                    <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', ${index})">Edit</button>
+                  </div>
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).style.height = '';
+              } else {
+                document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
+                  <img class="d-none" id="foto_indirect_${index}">
+                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
+                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px;">
+                    <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"></h5>
+                  </div>
+                `;
+              }
+              // document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['foto'] ?? '';
+              // document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0');
               index++;
             }
           });
           series_tidak_hadir.setData(mp_tidak_hadir);
           series_hadir.setData(mp_hadir);
         } else {
-          series_tidak_hadir.setData([0, 0, 0, 0]);
-          series_hadir.setData([100, 100, 100, 100]);
+          series_tidak_hadir.setData([0, 0, 0, 0, 0]);
+          series_hadir.setData([100, 100, 100, 100, 100]);
           // console.log(data.data_group_man_power_indirect);
           line.forEach(ln => {
             let index_mesin = 0;
             data?.data_mesin?.[ln].forEach(msn => {
               // console.log('A');
               document.querySelector(`#card_${ln}_${index_mesin}`).style.backgroundImage = '';
-              document.querySelector(`#card_${ln}_${index_mesin}`).style.backgroundColor = (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['nama'] ?? 0) ? '' : '#9BA4B5';
+              document.querySelector(`#card_${ln}_${index_mesin}`).style.backgroundColor = (data?.data_group_mesin?.[ln]?.['A']?.[msn.mesin]?.['status'] !== 'Non-Aktif') ? ((data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
               document.querySelector(`#group_${ln}`).value = 'A';
               document.querySelector(`#nama_mp_${ln}_${index_mesin}`).value = data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['nama'] ?? '';
-              document.querySelector(`#foto_${ln}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['foto'] ?? '';
-              document.querySelector(`#npk_${ln}_${index_mesin}`).innerHTML = String(data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
-              skill = document.querySelector(`#skill_${ln}_${index_mesin}`);
-              skill.style.backgroundColor = (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill']) ? colorSkill[data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill']] : 'transparent';
-              status = document.querySelector(`#status_${ln}_${index_mesin}`);
-              status.innerHTML = (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong';
-              status.style.color = (msn.min_skill <= (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
+              if (data?.data_group_mesin?.[ln]?.['A']?.[msn.mesin]?.['status'] !== 'Non-Aktif') {
+                document.querySelector(`#picture_format_${ln}_${index_mesin}`).innerHTML = `
+                  <img src="${'<?= base_url() ?>uploads/' + data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_${ln}_${index_mesin}">
+                `;
+                document.querySelector(`#footer_format_${ln}_${index_mesin}`).innerHTML = `
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="m-0" style="font-size: 10px" id="npk_${ln}_${index_mesin}">${String(data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0')}</h5>
+                    <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['nama'] ?? ''}</h5>
+                    <div style="border: 0.1px solid black; background-color: ${data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ? colorSkill[data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill']] : 'transparent'}; border-radius: 50%; width: 10px; height: 10px" id="skill_${ln}_${index_mesin}"></div>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="m-0" style="font-size: 10px; color: ${(msn.min_skill <= (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000'}" id="status_${ln}_${index_mesin}">${(data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong'}</h5>
+                    <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${ln}', ${index_mesin})">Edit</button>
+                  </div>
+                `;
+              } else {
+                document.querySelector(`#picture_format_${ln}_${index_mesin}`).innerHTML = `
+                  <img class="d-none" id="foto_${ln}_${index_mesin}">
+                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                `;
+                document.querySelector(`#footer_format_${ln}_${index_mesin}`).innerHTML = `
+                  <div class="d-flex justify-content-between align-items-center" style="height: 12px">
+                    <h5 class="m-0" style="font-size: 10px" id="npk_${ln}_${index_mesin}"></h5>
+                    <div style="border-radius: 50%; width: 10px; height: 10px" id="skill_${ln}_${index_mesin}"></div>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px">
+                    <h5 class="m-0" style="font-size: 10px;" id="status_${ln}_${index_mesin}"></h5>
+                  </div>
+                `;
+              }
+              // document.querySelector(`#foto_${ln}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['foto'] ?? '';
+              // document.querySelector(`#npk_${ln}_${index_mesin}`).innerHTML = String(data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
+              // skill = document.querySelector(`#skill_${ln}_${index_mesin}`);
+              // skill.style.backgroundColor = (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill']) ? colorSkill[data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill']] : 'transparent';
+              // status = document.querySelector(`#status_${ln}_${index_mesin}`);
+              // status.innerHTML = (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong';
+              // status.style.color = (msn.min_skill <= (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
               index_mesin++;
             });
             document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML = ``;
-            for (let index_add = 0; index_add < 5; index_add++) {
+            for (let index_add = 0; index_add < 3; index_add++) {
               document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML += `
-                <tr id="add_mp_tidak_masuk_${ln}_${index_add}" style="border-bottom: ${index_add === 4 ? 'transparent' : ''};">
+                <tr id="add_mp_tidak_masuk_${ln}_${index_add}" style="border-bottom: ${index_add === 2 ? 'transparent' : ''};">
                   <td colspan="4" class="text-center p-0">
                     <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${ln}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}',${index_add})">Add</button>
                   </td>
@@ -825,25 +1120,70 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             if (di.mesin.includes('Kasubsie')) {
               document.querySelector(`#group_indirect_${index}`).value = 'A';
               document.querySelector(`#card_indirect_${index}`).style.backgroundImage = '';
-              document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['nama'] ?? 0) ? '' : '#9BA4B5';
+              document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.data_group_mesin_indirect?.[di.mesin]?.['A']?.['status'] !== 'Non-Aktif') ? ((data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
               document.querySelector(`#nama_mp_indirect_${index}`).value = data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['nama'] ?? '';
-              document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['foto'] ?? '';
-              document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0');
+              if (data?.data_group_mesin_indirect?.[di.mesin]?.['A']?.['status'] !== 'Non-Aktif') {
+                document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
+                  <img src="${'<?= base_url() ?>uploads/' + data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_${index}">
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
+                  <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}">${String(data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0')}</h5>
+                  <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['nama'] ?? ''}</h5>
+                  <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', ${index})">Edit</button>
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).style.height = '';
+              } else {
+                document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
+                  <img class="d-none" id="foto_indirect_${index}">
+                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
+                  <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}"></h5>
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).style.height = '22.1px';
+              }
+              // document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['foto'] ?? '';
+              // document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0');
               index++;
             } else {
               document.querySelector(`#group_indirect_${index}`).value = 'A';
               document.querySelector(`#card_indirect_${index}`).style.backgroundImage = '';
-              document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['nama'] ?? 0) ? '' : '#9BA4B5';
+              document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.data_group_mesin_indirect?.[di.mesin]?.['A']?.['status'] !== 'Non-Aktif') ? ((data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
               document.querySelector(`#nama_mp_indirect_${index}`).value = data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['nama'] ?? '';
-              document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['foto'] ?? '';
-              document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0');
+              if (data?.data_group_mesin_indirect?.[di.mesin]?.['A']?.['status'] !== 'Non-Aktif') {
+                document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
+                  <img src="${'<?= base_url() ?>uploads/' + data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_${index}">
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}">${String(data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0')}</h5>
+                    <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['nama'] ?? ''}</h5>
+                    <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', ${index})">Edit</button>
+                  </div>
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).style.height = '';
+              } else {
+                document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
+                  <img class="d-none" id="foto_indirect_${index}">
+                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                `;
+                document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}">${String(data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0')}</h5>
+                    <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['nama'] ?? ''}</h5>
+                    <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', ${index})">Edit</button>
+                  </div>
+                `;
+              }
+              // document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['foto'] ?? '';
+              // document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0');
               index++;
             }
           });
           document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML = ``;
-          for (let index_add = 0; index_add < 5; index_add++) {
+          for (let index_add = 0; index_add < 3; index_add++) {
             document.querySelector(`#data_mp_tidak_hadir_indirect`).innerHTML += `
-              <tr id="add_mp_tidak_masuk_indirect_${index_add}" style="border-bottom: ${index_add === 4 ? 'transparent' : ''};">
+              <tr id="add_mp_tidak_masuk_indirect_${index_add}" style="border-bottom: ${index_add === 2 ? 'transparent' : ''};">
                 <td colspan="4" class="text-center p-0">
                   <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_indirect_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect',${index_add})">Add</button>
                 </td>
@@ -873,13 +1213,27 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         let status = '';
         data.data_mesin.forEach(msn => {
           document.querySelector(`#nama_mp_${line}_${index_mesin}`).value = data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['nama'] ?? '';
-          document.querySelector(`#foto_${line}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['foto'] ?? '';
-          document.querySelector(`#npk_${line}_${index_mesin}`).innerHTML = String(data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
-          skill = document.querySelector(`#skill_${line}_${index_mesin}`);
-          skill.style.backgroundColor = (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill']) ? colorSkill[data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill']] : 'transparent';
-          status = document.querySelector(`#status_${line}_${index_mesin}`);
-          status.innerHTML = (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong';
-          status.style.color = (msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
+          // document.querySelector(`#foto_${line}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['foto'] ?? '';
+          // document.querySelector(`#npk_${line}_${index_mesin}`).innerHTML = String(data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
+          document.querySelector(`#picture_format_${line}_${index_mesin}`).innerHTML = `
+            <img src="${'<?= base_url() ?>uploads/' + data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_${line}_${index_mesin}">
+          `;
+          document.querySelector(`#footer_format_${line}_${index_mesin}`).innerHTML = `
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index_mesin}">${String(data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0')}</h5>
+              <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['nama'] ?? ''}</h5>
+              <div style="border: 0.1px solid black; background-color: ${data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ? colorSkill[data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill']] : 'transparent'}; border-radius: 50%; width: 10px; height: 10px" id="skill_${line}_${index_mesin}"></div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="m-0" style="font-size: 10px; color: ${(msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000'}" id="status_${line}_${index_mesin}">${(data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong'}</h5>
+              <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index_mesin})">Edit</button>
+            </div>
+          `;
+          // skill = document.querySelector(`#skill_${line}_${index_mesin}`);
+          // skill.style.backgroundColor = (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill']) ? colorSkill[data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill']] : 'transparent';
+          // status = document.querySelector(`#status_${line}_${index_mesin}`);
+          // status.innerHTML = (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong';
+          // status.style.color = (msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
           index_mesin++;
         });
       }
@@ -906,11 +1260,21 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         if (mesin.includes('Kasubsie')) {
           document.querySelector(`#nama_mp_${line}_${index}`).value = data?.data_group_man_power_kasubsie?.[mesin]?.[groupElement.value]?.['nama'] ?? '';
           document.querySelector(`#foto_${line}_${index}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power_kasubsie?.[mesin]?.[groupElement.value]?.['foto'] ?? '';
-          document.querySelector(`#npk_${line}_${index}`).innerHTML = String(data?.data_group_man_power_kasubsie?.[mesin]?.[groupElement.value]?.['npk'] ?? '').padStart(4, '0');
+          // document.querySelector(`#npk_${line}_${index}`).innerHTML = String(data?.data_group_man_power_kasubsie?.[mesin]?.[groupElement.value]?.['npk'] ?? '').padStart(4, '0');
+          document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
+            <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String(data?.data_group_man_power_kasubsie?.[mesin]?.[groupElement.value]?.['npk'] ?? '').padStart(4, '0')}</h5>
+            <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power_kasubsie?.[mesin]?.[groupElement.value]?.['nama'] ?? ''}</h5>
+            <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
+          `;
         } else {
           document.querySelector(`#nama_mp_${line}_${index}`).value = data?.data_group_man_power_indirect?.[mesin]?.[groupElement.value]?.['nama'] ?? '';
           document.querySelector(`#foto_${line}_${index}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power_indirect?.[mesin]?.[groupElement.value]?.['foto'] ?? '';
           document.querySelector(`#npk_${line}_${index}`).innerHTML = String(data?.data_group_man_power_indirect?.[mesin]?.[groupElement.value]?.['npk'] ?? '').padStart(4, '0');
+          document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
+            <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String(data?.data_group_man_power_indirect?.[mesin]?.[groupElement.value]?.['npk'] ?? '').padStart(4, '0')}</h5>
+            <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power_indirect?.[mesin]?.[groupElement.value]?.['nama'] ?? ''}</h5>
+            <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
+          `;
         }
       }
     });
@@ -990,13 +1354,40 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         document.querySelector(`#nama_mp_${line}_${index}`).value = data?.[0]?.['nama'] ?? '';
         document.querySelector(`#status_mp_${line}_${index}`).value = 'pengganti';
         document.querySelector(`#foto_${line}_${index}`).src = '<?= base_url() ?>uploads/' + data?.[0]?.['foto'] ?? '';
-        document.querySelector(`#npk_${line}_${index}`).innerHTML = String(data?.[0]?.['npk'] ?? '').padStart(4, '0');
+        // document.querySelector(`#npk_${line}_${index}`).innerHTML = String(data?.[0]?.['npk'] ?? '').padStart(4, '0');
         if (line !== 'indirect') {
-          let skill = document.querySelector(`#skill_${line}_${index}`);
-          skill.style.backgroundColor = (data?.[0]?.['skill']) ? colorSkill[data?.[0]?.['skill']] : 'transparent';
-          let status = document.querySelector(`#status_${line}_${index}`);
-          status.innerHTML = (data?.[0]?.['skill'] ?? 0) ? ((min_skill_form.value <= (data?.[0]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong';
-          status.style.color = (min_skill_form.value <= (data?.[0]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
+          document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String(data?.[0]?.['npk'] ?? '').padStart(4, '0')}</h5>
+              <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.[0]?.['nama'] ?? ''}</h5>
+              <div style="border: 0.1px solid black; background-color: ${data?.[0]?.['skill'] ? colorSkill[data?.[0]?.['skill']] : 'transparent'}; border-radius: 50%; width: 10px; height: 10px" id="skill_${line}_${index}"></div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="m-0" style="font-size: 10px; color: ${(min_skill_form.value <= (data?.[0]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000'}" id="status_${line}_${index}">${(data?.[0]?.['skill'] ?? 0) ? ((min_skill_form.value <= (data?.[0]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong'}</h5>
+              <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
+            </div>
+          `;
+          // let skill = document.querySelector(`#skill_${line}_${index}`);
+          // skill.style.backgroundColor = (data?.[0]?.['skill']) ? colorSkill[data?.[0]?.['skill']] : 'transparent';
+          // let status = document.querySelector(`#status_${line}_${index}`);
+          // status.innerHTML = (data?.[0]?.['skill'] ?? 0) ? ((min_skill_form.value <= (data?.[0]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong';
+          // status.style.color = (min_skill_form.value <= (data?.[0]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
+        } else {
+          if (data?.[0]?.['status'] == undefined) {
+            document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
+              <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String(data?.[0]?.['npk'] ?? '').padStart(4, '0')}</h5>
+              <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.[0]?.['nama'] ?? ''}</h5>
+              <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
+            `;
+          } else {
+            document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String(data?.[0]?.['npk'] ?? '').padStart(4, '0')}</h5>
+                <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.[0]?.['nama'] ?? ''}</h5>
+                <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
+              </div>
+            `;
+          }
         }
       }
     })
@@ -1091,7 +1482,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
 
   function save_record_man_power() {
     $('#loading-modal').modal('show');
-    let date = <?= json_encode(date('Y-m-d')) ?>;
+    let date = document.querySelector('#date').value;
     let sum_line = <?= json_encode($line) ?>;
     let sub_bagian = <?= json_encode($sub_bagian) ?>;
     let sum_mesin = 0;
@@ -1101,6 +1492,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
     let groupLineVal = [];
     let groupIndirectVal = [];
     let status_mpLineVal = [];
+    let status_mesinLineVal = [];
     let nama_mesinVal = [];
     let npkVal = [];
     let nama_mp_tidak_hadir = '';
@@ -1117,9 +1509,10 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
     let id_cuti_mp_tidak_hadir_indirectVal = [];
     let nama_mesin_indirect = '';
     let nama_mesinIndirectVal = [];
-    let npk_indirect = document.getElementsByName('npk_indirect[]');
+    // let npk_indirect = document.getElementsByName('npk_indirect[]');
     let npkIndirectVal = [];
     let status_mpIndirectVal = [];
+    let status_mesinIndirectVal = [];
 
     group_mp.forEach(group => {
       groupLineVal.push(group.value);
@@ -1130,6 +1523,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
       nama_mesinIndirectVal.push(document.getElementById(`mesin_indirect_${index_group_indirect_mp}`).textContent);
       npkIndirectVal.push(document.getElementById(`npk_indirect_${index_group_indirect_mp}`).textContent);
       status_mpIndirectVal.push(document.getElementById(`status_mp_indirect_${index_group_indirect_mp}`).value);
+      status_mesinIndirectVal.push(document.getElementById(`status_mesin_indirect_${index_group_indirect_mp}`).value);
       index_group_indirect_mp++;
     });
     sum_line.forEach(line_index => {
@@ -1149,6 +1543,11 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           status_mpLineVal[`${line_index}`].push(document.querySelector(`#status_mp_${line_index}_${mesin_index}`).value);
         } else {
           status_mpLineVal[`${line_index}`] = [document.querySelector(`#status_mp_${line_index}_${mesin_index}`).value];
+        }
+        if (status_mesinLineVal.hasOwnProperty(`${line_index}`)) {
+          status_mesinLineVal[`${line_index}`].push(document.querySelector(`#status_mesin_${line_index}_${mesin_index}`).value);
+        } else {
+          status_mesinLineVal[`${line_index}`] = [document.querySelector(`#status_mesin_${line_index}_${mesin_index}`).value];
         }
       }
       nama_mp_tidak_hadir = document.getElementsByName(`nama_mp_tidak_hadir_${line_index}[]`);
@@ -1187,6 +1586,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         nama_mesin: nama_mesinVal,
         npk: npkVal,
         status_mp: status_mpLineVal,
+        status_mesin: status_mesinLineVal,
         line: sum_line,
         nama_mp_tidak_hadir: nama_mp_tidak_hadirVal,
         keterangan_mp_tidak_hadir: keterangan_mp_tidak_hadirVal,
@@ -1195,6 +1595,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         nama_mesin_indirect: nama_mesinIndirectVal,
         npk_indirect: npkIndirectVal,
         status_mp_indirect: status_mpIndirectVal,
+        status_mesin_indirect: status_mesinIndirectVal,
         nama_mp_tidak_hadir_indirect: nama_mp_tidak_hadir_indirectVal,
         keterangan_mp_tidak_hadir_indirect: keterangan_mp_tidak_hadir_indirectVal,
         id_cuti_mp_tidak_hadir_indirect: id_cuti_mp_tidak_hadir_indirectVal,
@@ -1218,62 +1619,32 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
 <script>
   let sum_mp_tidak_hadir = <?= json_encode($data_mp_tidak_hadir) ?>;
   let sum_mp_tidak_hadir_indirect = <?= json_encode($data_mp_tidak_hadir_indirect) ?>;
-  // let sum_mp = <?= json_encode($detail_record_man_power) ?>;
-  let sum_mesin = <?= json_encode($sum_mesin) ?>;
-  // let total_mesin = <?= json_encode(array_sum($sum_mesin)) ?>;
-  // let sum_mp_indirect = <?= json_encode($detail_record_man_power_indirect) ?>;
-  let sum_mesin_indirect = <?= json_encode(count($data_indirect)) ?>;
+  let sum_mesin = <?= json_encode($data_group_mesin) ?>;
+  let sum_mesin_indirect = <?= json_encode($data_group_mesin_indirect) ?>;
   let mp_tidak_hadir = [];
   let mp_hadir = [];
   let temp_all_mp_tidak_hadir = [];
   let temp_all_mp_hadir = [];
+  let temp_sum_mesin = '';
+  let temp_sum_mesin_indirect = '';
   <?php for ($i = 0; $i < count($line); $i++) { ?>
-    mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / (sum_mesin?.[<?= $line[$i] ?>] ?? 0)) * 100).toFixed(1)));
-    mp_hadir.push(parseFloat(((((sum_mesin?.[<?= $line[$i] ?>] ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / (sum_mesin?.[<?= $line[$i] ?>] ?? 0)) * 100).toFixed(1)));
+    temp_sum_mesin = Object.entries(sum_mesin?.[<?= $line[$i] ?>]?.[Object.keys(sum_mesin?.[<?= $line[$i] ?>])[0]]).filter(element => {
+      return element[1].status !== 'Non-Aktif';
+    }).length;
+    mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / temp_sum_mesin) * 100).toFixed(1)));
+    mp_hadir.push(parseFloat((((temp_sum_mesin - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / temp_sum_mesin) * 100).toFixed(1)));
     temp_all_mp_tidak_hadir.push((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
-    temp_all_mp_hadir.push((sum_mesin?.[<?= $line[$i] ?>] ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
+    temp_all_mp_hadir.push(temp_sum_mesin - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
   <?php } ?>
-  mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / sum_mesin_indirect) * 100).toFixed(1)));
-  mp_hadir.push(parseFloat((((sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / sum_mesin_indirect) * 100).toFixed(1)));
+  temp_sum_mesin_indirect = Object.entries(sum_mesin_indirect?.[Object.keys(sum_mesin_indirect)[0]]).filter(element => {
+    return element[1].status !== 'Non-Aktif';
+  }).length;
+  mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / temp_sum_mesin_indirect) * 100).toFixed(1)));
+  mp_hadir.push(parseFloat((((temp_sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / temp_sum_mesin_indirect) * 100).toFixed(1)));
   temp_all_mp_tidak_hadir.push((sum_mp_tidak_hadir_indirect?.length ?? 0));
-  temp_all_mp_hadir.push((sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)));
+  temp_all_mp_hadir.push((temp_sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)));
   mp_tidak_hadir.push(parseFloat(((eval(temp_all_mp_tidak_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
   mp_hadir.push(parseFloat(((eval(temp_all_mp_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
-  // let all_mesin = total_mesin + sum_mesin_indirect;
-  // let mp_tidak_hadir = [];
-  // let mp_hadir = [];
-  // let mp_tidak_hadir_all_mesin = [];
-  // let mp_hadir_all_mesin = [];
-  // <?php for ($i = 0; $i < count($line); $i++) { ?>
-  //   mp_tidak_hadir.push(parseFloat((((sum_mesin?.[<?= $line[$i] ?>] - Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length) / sum_mesin?.[<?= $line[$i] ?>]) * 100).toFixed(1)));
-  //   mp_hadir.push(parseFloat(((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length / sum_mesin?.[<?= $line[$i] ?>]) * 100).toFixed(1)));
-  //   mp_tidak_hadir_all_mesin.push(sum_mesin?.[<?= $line[$i] ?>] - Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length);
-  //   mp_hadir_all_mesin.push(Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length);
-  // <?php } ?>
-  // mp_tidak_hadir.push(parseFloat(((sum_mesin_indirect - Object.keys(sum_mp_indirect).length) / sum_mesin_indirect * 100).toFixed(1)));
-  // mp_hadir.push(parseFloat((Object.keys(sum_mp_indirect).length / sum_mesin_indirect * 100).toFixed(1)));
-  // mp_tidak_hadir_all_mesin.push(sum_mesin_indirect - Object.keys(sum_mp_indirect).length);
-  // mp_hadir_all_mesin.push(Object.keys(sum_mp_indirect).length);
-  // mp_tidak_hadir.push(parseFloat(((eval(mp_tidak_hadir_all_mesin.join('+')) / all_mesin) * 100).toFixed(1)));
-  // mp_hadir.push(parseFloat(((eval(mp_hadir_all_mesin.join('+')) / all_mesin) * 100).toFixed(1)));
-  // let sum_mp_tidak_hadir = <?= json_encode($data_mp_tidak_hadir) ?>;
-  // let sum_mp_tidak_hadir_indirect = <?= json_encode($data_mp_tidak_hadir_indirect) ?>;
-  // let mp_tidak_hadir = [];
-  // let mp_hadir = [];
-  // let temp_mp_all_tidak_hadir = [];
-  // let temp_mp_all_hadir = [];
-  // <?php for ($i = 0; $i < count($line); $i++) { ?>
-  //   mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / (Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0)) * 100).toFixed(1)));
-  //   mp_hadir.push(parseFloat(((((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / (Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0)) * 100).toFixed(1)));
-  //   temp_mp_all_tidak_hadir.push(sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0);
-  //   temp_mp_all_hadir.push((Object.keys(sum_mp?.[<?= $line[$i] ?>]?.[Object.keys(sum_mp?.[<?= $line[$i] ?>])[0]]).length ?? 0) - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
-  // <?php } ?>
-  // mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / (Object.keys(sum_mp_indirect)?.length ?? 0)) * 100).toFixed(1)));
-  // mp_hadir.push(parseFloat(((((Object.keys(sum_mp_indirect)?.length ?? 0) - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / (Object.keys(sum_mp_indirect)?.length ?? 0)) * 100).toFixed(1)));
-  // temp_mp_all_tidak_hadir.push(sum_mp_tidak_hadir_indirect?.length ?? 0);
-  // temp_mp_all_hadir.push((Object.keys(sum_mp_indirect)?.length ?? 0) - (sum_mp_tidak_hadir_indirect?.length ?? 0));
-  // mp_tidak_hadir.push(parseFloat(((eval(temp_mp_all_tidak_hadir.join('+')) / (eval(temp_mp_all_tidak_hadir.join('+')) + eval(temp_mp_all_hadir.join('+')))) * 100).toFixed(1)));
-  // mp_hadir.push(parseFloat(((eval(temp_mp_all_hadir.join('+')) / (eval(temp_mp_all_tidak_hadir.join('+')) + eval(temp_mp_all_hadir.join('+')))) * 100).toFixed(1)));
   let horizontal_barHighcharts = Highcharts.chart('horizontal_bar', {
     chart: {
       type: 'bar',

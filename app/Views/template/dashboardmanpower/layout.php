@@ -244,7 +244,6 @@
 	<script src="<?= base_url() ?>assets/template/assets/vendor_components/echarts/dist/echarts-en.min.js"></script>
 	<!-- <script src="<?= base_url() ?>js/pages/echart-pie-doghnut.js"></script> -->
 
-
 	<?= $this->renderSection('script') ?>
 
 
