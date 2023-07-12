@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 
 
 
-class M_DashboardAssyRejection extends Model
+class M_DashboardAssyRejectionQC extends Model
 {
     public function __construct()
     {
@@ -33,7 +33,6 @@ class M_DashboardAssyRejection extends Model
                                     JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                     WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
                                     AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                    AND detail_reject.jenis_reject != \'SETTING\'
                                     GROUP BY detail_reject.jenis_reject
                                     ORDER BY SUM(detail_reject.qty_reject) DESC
                                 ');
@@ -43,7 +42,6 @@ class M_DashboardAssyRejection extends Model
                                     JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                     WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
                                     AND lhp_produksi2.line = '.$line.'
-                                    AND detail_reject.jenis_reject != \'SETTING\'
                                     GROUP BY detail_reject.jenis_reject
                                     ORDER BY SUM(detail_reject.qty_reject) DESC
                                 ');
@@ -106,7 +104,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE		lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
                                         AND         detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                         AND         lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND         detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY	detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                     ');
         } else {
@@ -116,7 +113,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE		lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
                                         AND         detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                         AND         lhp_produksi2.line = '.$line.'
-                                        AND         detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY	detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                     ');
         }
@@ -133,7 +129,6 @@ class M_DashboardAssyRejection extends Model
                                     AND         detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                     AND         detail_reject.kategori_reject = \''.$kategori_reject.'\'
                                     AND         lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                    AND         detail_reject.jenis_reject != \'SETTING\'
                                     GROUP BY	detail_reject.kategori_reject, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                 ');
         return $query->getResultArray();
@@ -148,7 +143,6 @@ class M_DashboardAssyRejection extends Model
                                     JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                     WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
                                     AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                    AND detail_reject.jenis_reject != \'SETTING\'
                                 ');
         } else {
             $query = $this->db->query('SELECT	DISTINCT(detail_reject.jenis_reject)
@@ -156,7 +150,6 @@ class M_DashboardAssyRejection extends Model
                                     JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                     WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
                                     AND lhp_produksi2.line = '.$line.'
-                                    AND detail_reject.jenis_reject != \'SETTING\'
                                 ');
         }
 
@@ -171,7 +164,6 @@ class M_DashboardAssyRejection extends Model
                                     JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                     WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$bulan.'
                                     AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
-                                    AND detail_reject.jenis_reject != \'SETTING\'
                                     AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
                                 ');
 
@@ -250,8 +242,6 @@ class M_DashboardAssyRejection extends Model
                                     ) AS subquery
                                     ORDER BY reject_percentage DESC
                                 ');
-
-        // $query = $this->db->query('');
 
         return $query->getResultArray();
     }
@@ -332,7 +322,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.kategori_reject, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -343,7 +332,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.kategori_reject, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -361,7 +349,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, detail_reject.kategori_reject, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -372,7 +359,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, detail_reject.kategori_reject, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -383,61 +369,17 @@ class M_DashboardAssyRejection extends Model
 
     public function get_data_reject_all_line_by_date($tanggal, $line)
     {
-        // if ($line == null || $line == 0) {
-        //     $query = $this->db->query('SELECT tanggal_produksi, SUM(total_reject) AS total_reject, SUM(total_aktual) AS total_aktual
-        //                             FROM		lhp_produksi2
-        //                             WHERE		tanggal_produksi = \''.$tanggal.'\'
-        //                             AND         line >= 1 AND line <= 7
-        //                             GROUP BY	tanggal_produksi');
-        // } else {
-        //     $query = $this->db->query('SELECT tanggal_produksi, SUM(total_reject) AS total_reject, SUM(total_aktual) AS total_aktual
-        //                             FROM		lhp_produksi2
-        //                             WHERE		tanggal_produksi = \''.$tanggal.'\' AND line = '.$line.'
-        //                             GROUP BY	tanggal_produksi');
-        // }
-
         if ($line == null || $line == 0) {
-            $query = $this->db->query('SELECT tanggal_produksi,
-                                            (
-                                                SELECT SUM(total_aktual) 
-                                                FROM lhp_produksi2
-                                                WHERE tanggal_produksi = \''.$tanggal.'\'
-                                                AND line >= 1 AND line <= 7
-                                                GROUP BY tanggal_produksi
-                                            ) AS total_aktual,
-                                            (
-                                                SELECT SUM(detail_reject.qty_reject)
-                                                FROM lhp_produksi2
-                                                JOIN detail_reject ON lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
-                                                WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
-                                                AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                                AND detail_reject.jenis_reject != \'SETTING\'
-                                                GROUP BY lhp_produksi2.tanggal_produksi
-                                            ) AS total_reject
-                                        FROM lhp_produksi2
-                                        WHERE tanggal_produksi = \''.$tanggal.'\'
-                                        GROUP BY tanggal_produksi');
+            $query = $this->db->query('SELECT tanggal_produksi, SUM(total_reject) AS total_reject, SUM(total_aktual) AS total_aktual
+                                    FROM		lhp_produksi2
+                                    WHERE		tanggal_produksi = \''.$tanggal.'\'
+                                    AND         line >= 1 AND line <= 7
+                                    GROUP BY	tanggal_produksi');
         } else {
-            $query = $this->db->query('SELECT tanggal_produksi,
-                                            (
-                                                SELECT SUM(total_aktual) 
-                                                FROM lhp_produksi2
-                                                WHERE tanggal_produksi = \''.$tanggal.'\'
-                                                AND line = '.$line.'
-                                                GROUP BY tanggal_produksi
-                                            ) AS total_aktual,
-                                            (
-                                                SELECT SUM(detail_reject.qty_reject)
-                                                FROM lhp_produksi2
-                                                JOIN detail_reject ON lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
-                                                WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
-                                                AND lhp_produksi2.line = '.$line.'
-                                                AND detail_reject.jenis_reject != \'SETTING\'
-                                                GROUP BY lhp_produksi2.tanggal_produksi
-                                            ) AS total_reject
-                                        FROM lhp_produksi2
-                                        WHERE tanggal_produksi = \''.$tanggal.'\'
-                                        GROUP BY tanggal_produksi');
+            $query = $this->db->query('SELECT tanggal_produksi, SUM(total_reject) AS total_reject, SUM(total_aktual) AS total_aktual
+                                    FROM		lhp_produksi2
+                                    WHERE		tanggal_produksi = \''.$tanggal.'\' AND line = '.$line.'
+                                    GROUP BY	tanggal_produksi');
         }
         
         return $query->getResultArray();
@@ -514,7 +456,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING\'
                                         GROUP BY detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -524,7 +465,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$tanggal.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING\'
                                         GROUP BY detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -595,7 +535,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING\'
                                         GROUP BY detail_reject.kategori_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -605,7 +544,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING\'
                                         GROUP BY detail_reject.kategori_reject, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -622,7 +560,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING\'
                                         GROUP BY detail_reject.type_battery, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -632,7 +569,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING\'
                                         GROUP BY detail_reject.type_battery, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -650,7 +586,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN master_pic_line on master_pic_line.id_pic = lhp_produksi2.grup
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING\'
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -661,7 +596,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN master_pic_line on master_pic_line.id_pic = lhp_produksi2.grup
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING\'
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -678,7 +612,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.kategori_reject, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -688,7 +621,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.kategori_reject, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -705,7 +637,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -715,7 +646,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN lhp_produksi2 on lhp_produksi2.id_lhp_2 = detail_reject.id_lhp
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -733,7 +663,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN master_pic_line on master_pic_line.id_pic = lhp_produksi2.grup
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -744,7 +673,6 @@ class M_DashboardAssyRejection extends Model
                                         JOIN master_pic_line on master_pic_line.id_pic = lhp_produksi2.grup
                                         WHERE MONTH(lhp_produksi2.tanggal_produksi) = '.$date.'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, MONTH(lhp_produksi2.tanggal_produksi)
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -763,7 +691,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -775,7 +702,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                         
@@ -815,7 +741,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.type_battery = \''.$type_battery.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -826,7 +751,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.type_battery = \''.$type_battery.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -844,7 +768,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.type_battery = \''.$type_battery.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, detail_reject.kategori_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -855,7 +778,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.type_battery = \''.$type_battery.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, detail_reject.kategori_reject, lhp_produksi2.tanggal_produksi
                                         ORDER BY  SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -874,7 +796,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.type_battery = \''.$type_battery.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, detail_reject.type_battery, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -886,7 +807,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.type_battery = \''.$type_battery.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, detail_reject.type_battery, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                         
@@ -907,7 +827,6 @@ class M_DashboardAssyRejection extends Model
                                         AND master_pic_line.nama_pic = \''.$grup.'\'
                                         AND lhp_produksi2.shift = \''.$shift.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.jenis_reject, lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -920,7 +839,6 @@ class M_DashboardAssyRejection extends Model
                                         AND master_pic_line.nama_pic = \''.$grup.'\'
                                         AND lhp_produksi2.shift = \''.$shift.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.jenis_reject, lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                         
@@ -941,7 +859,6 @@ class M_DashboardAssyRejection extends Model
                                         AND master_pic_line.nama_pic = \''.$grup.'\'
                                         AND lhp_produksi2.shift = \''.$shift.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.kategori_reject, lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -954,7 +871,6 @@ class M_DashboardAssyRejection extends Model
                                         AND master_pic_line.nama_pic = \''.$grup.'\'
                                         AND lhp_produksi2.shift = \''.$shift.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.kategori_reject, lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                         
@@ -975,7 +891,6 @@ class M_DashboardAssyRejection extends Model
                                         AND master_pic_line.nama_pic = \''.$grup.'\'
                                         AND lhp_produksi2.shift = \''.$shift.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -988,7 +903,6 @@ class M_DashboardAssyRejection extends Model
                                         AND master_pic_line.nama_pic = \''.$grup.'\'
                                         AND lhp_produksi2.shift = \''.$shift.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, lhp_produksi2.grup, master_pic_line.nama_pic, lhp_produksi2.shift, lhp_produksi2.tanggal_produksi
                                         ORDER BY SUM(detail_reject.qty_reject) DESC
                                         
@@ -1008,7 +922,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                         AND lhp_produksi2.line >= 1 AND lhp_produksi2.line <= 7
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, detail_reject.kategori_reject, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi,master_pic_line.nama_pic, lhp_produksi2.shift
                                         ORDER BY detail_reject.kategori_reject ASC, SUM(detail_reject.qty_reject) DESC
                                     ');
@@ -1020,7 +933,6 @@ class M_DashboardAssyRejection extends Model
                                         WHERE lhp_produksi2.tanggal_produksi = \''.$date.'\'
                                         AND detail_reject.jenis_reject = \''.$jenis_reject.'\'
                                         AND lhp_produksi2.line = '.$line.'
-                                        AND detail_reject.jenis_reject != \'SETTING \'
                                         GROUP BY detail_reject.type_battery, detail_reject.kategori_reject, detail_reject.jenis_reject, lhp_produksi2.tanggal_produksi,master_pic_line.nama_pic, lhp_produksi2.shift
                                         ORDER BY detail_reject.kategori_reject ASC, SUM(detail_reject.qty_reject) DESC
                                     ');

@@ -1195,7 +1195,7 @@
                                 // var date = $('#bulan').val() + '-' + e.point.category;
                                 var line = <?= $child_filter ?>;
                                 $.ajax({
-                                    url: '<?= base_url('dashboard/reject/get_detail_rejection') ?>',
+                                    url: '<?= base_url('dashboard/reject_qc/get_detail_rejection') ?>',
                                     type: 'POST',
                                     data: {
                                         date: date,
@@ -1272,7 +1272,7 @@
                                                                 var jenis_reject = event.point.category;
 
                                                                 $.ajax({
-                                                                    url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                                                    url: "<?= base_url('dashboard/reject_qc/get_detail_rejection'); ?>",
                                                                     type: "POST",
                                                                     data: {
                                                                         date: date,
@@ -1721,7 +1721,7 @@
                                                                 var type_battery = event.point.category;
 
                                                                 $.ajax({
-                                                                    url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                                                    url: "<?= base_url('dashboard/reject_qc/get_detail_rejection'); ?>",
                                                                     type: "POST",
                                                                     data: {
                                                                         date: date,
@@ -2097,7 +2097,7 @@
                                                                 }
 
                                                                 $.ajax({
-                                                                    url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                                                    url: "<?= base_url('dashboard/reject_qc/get_detail_rejection'); ?>",
                                                                     type: "POST",
                                                                     data: {
                                                                         date: date,
@@ -2534,7 +2534,7 @@
                                 var line = <?=$child_filter?>;
                                 // alert(date);
                                 $.ajax({
-                                    url: "<?= base_url('dashboard/reject/get_detail_rejection') ?>",
+                                    url: "<?= base_url('dashboard/reject_qc/get_detail_rejection') ?>",
                                     type: "post",
                                     data: {
                                         date: date,
@@ -2601,7 +2601,7 @@
                                                             click: function(event) {
                                                                 var jenis_reject = event.point.category;
                                                                 $.ajax({
-                                                                    url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                                                    url: "<?= base_url('dashboard/reject_qc/get_detail_rejection'); ?>",
                                                                     type: "POST",
                                                                     data: {
                                                                         date: date,
@@ -3444,7 +3444,7 @@
                             var jenis_reject = this.name;
 
                             $.ajax({
-                                url: "<?= base_url('dashboard/reject/get_detail_rejection'); ?>",
+                                url: "<?= base_url('dashboard/reject_qc/get_detail_rejection'); ?>",
                                 type: "POST",
                                 data: {
                                     date: date,
