@@ -191,6 +191,7 @@ class Pasting extends BaseController
 
   public function update_pasting()
   {
+    date_default_timezone_set("Asia/Jakarta");
     // var_dump($this->request->getPost('id_breakdown'));
     // var_dump($this->request->getPost('id_detail_lhp_pasting'));
 
@@ -205,7 +206,8 @@ class Pasting extends BaseController
       'grup' => $this->request->getPost('grup'),
       'mp' => $this->request->getPost('mp'),
       'absen' => $this->request->getPost('absen'),
-      'cuti' => $this->request->getPost('cuti')
+      'cuti' => $this->request->getPost('cuti'),
+      'updated_at' => date('Y-m-d H:i:s')
     ];
 
     // var_dump($data_pasting);
@@ -243,6 +245,7 @@ class Pasting extends BaseController
             'act_vs_jks' => $this->request->getPost('presentase')[$i],
             // 'efficiency_time' => $this->request->getPost('efficiency_time')[$i],
             // 'total_menit_breakdown' => $this->request->getPost('total_menit_breakdown')[$i]
+            'updated_at' => date('Y-m-d H:i:s')
           ];
 
           if ($this->request->getPost('jks')[$i] != null) {
@@ -273,6 +276,7 @@ class Pasting extends BaseController
             'act_vs_jks' => $this->request->getPost('presentase')[$i],
             // 'efficiency_time' => $this->request->getPost('efficiency_time')[$i],
             // 'total_menit_breakdown' => $this->request->getPost('total_menit_breakdown')[$i]
+            'updated_at' => date('Y-m-d H:i:s')
           ];
   
           if ($this->request->getPost('actual')[$i] != null) {
@@ -325,7 +329,8 @@ class Pasting extends BaseController
             'jenis_line_stop' => $this->request->getPost('jenis_line_stop')[$i],
             'uraian_line_stop' => $this->request->getPost('uraian_line_stop')[$i],
             'tiket_andon' => $ticket,
-            'menit_breakdown' => $this->request->getPost('menit_breakdown')[$i]
+            'menit_breakdown' => $this->request->getPost('menit_breakdown')[$i],
+            'updated_at' => date('Y-m-d H:i:s')
           ];
 
           $total_detail_line_stop += intval($this->request->getPost('menit_breakdown')[$i]);
@@ -357,7 +362,8 @@ class Pasting extends BaseController
             'qty_reject' => $this->request->getPost('qty_reject')[$i],
             'jenis_reject_pasting' => $this->request->getPost('jenis_reject_pasting')[$i],
             'kategori_reject_pasting' => $this->request->getPost('kategori_reject_pasting')[$i],
-            'remark_reject' => $this->request->getPost('remark_reject')[$i]
+            'remark_reject' => $this->request->getPost('remark_reject')[$i],
+            'updated_at' => date('Y-m-d H:i:s')
           ];
 
           $total_reject += $this->request->getPost('qty_reject')[$i];
@@ -386,6 +392,7 @@ class Pasting extends BaseController
           'permasalahan' => $this->request->getPost('permasalahan_andon')[$i],
           'tujuan' => $this->request->getPost('tujuan_andon')[$i],
           'total_menit' => $this->request->getPost('total_menit_andon')[$i],
+          'updated_at' => date('Y-m-d H:i:s')
         ];
 
         $save_data_andon = $this->M_Pasting->save_detail_andon($data_andon);
