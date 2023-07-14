@@ -3,12 +3,14 @@
 namespace App\Controllers;
 
 use App\Models\M_Pasting;
+use App\Models\M_Log;
 
 class Pasting extends BaseController
 {
   public function __construct()
   {
     $this->M_Pasting = new M_Pasting();
+    $this->M_Log = new M_Log();
     $this->session = \Config\Services::session();
 
     if ($this->session->get('is_login')) {
@@ -279,10 +281,18 @@ class Pasting extends BaseController
             'updated_at' => date('Y-m-d H:i:s')
           ];
   
-          if ($this->request->getPost('actual')[$i] != null) {
-            $total_jks += $this->request->getPost('jks')[$i];
-            $total_actual += $this->request->getPost('actual')[$i];
+          if ($this->request->getPost('jks')[$i] != null) {
+            $total_jks += (int) $this->request->getPost('jks')[$i];
           }
+  
+          if ($this->request->getPost('actual')[$i] != null) {
+            $total_actual += (int) $this->request->getPost('actual')[$i];
+          }
+
+          // if ($this->request->getPost('actual')[$i] != null) {
+          //   $total_jks += $this->request->getPost('jks')[$i];
+          //   $total_actual += $this->request->getPost('actual')[$i];
+          // }
   
           // if ($this->request->getPost('total_menit_breakdown')[$i] != null) {
           //   $total_line_stop += $this->request->getPost('total_menit_breakdown')[$i];
@@ -411,6 +421,15 @@ class Pasting extends BaseController
     ];
 
     $model->update_pasting($id_lhp_pasting, $data_detail);
+
+    $data_log = [
+      'id_lhp' => $id_lhp_pasting,
+      'jenis_lhp' => 'Pasting',
+      'nama_user' => $this->session->get('nama'),
+      'date_log' => date('Y-m-d H:i:s')
+    ];
+
+    $this->M_Log->save_log($data_log);
 
     // $barcode_in = $this->request->getPost('barcode_rak');
     // $qty_in = $this->request->getPost('qty_rak');
