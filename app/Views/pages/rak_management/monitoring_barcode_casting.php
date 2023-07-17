@@ -25,10 +25,14 @@
 													<th>Mesin</th>
 													<th>Jam</th>
 													<th>Entry Date</th>
+													<th>Status</th>
 												</tr>
 											</thead>
 											<tbody>
-												<?php foreach($data as $item) { ?>
+												<?php foreach($data as $item) { 
+													$this->M_RakManagement = new \App\Models\M_RakManagement();
+													$cek = $this->M_RakManagement->get_data_tr_casting($item['T$NOTE']);
+												?>
 												<tr>
 													<td><?=$item['T$NOTE']?></td>
 													<td><?=$item['T$ITEM']?></td>
@@ -36,6 +40,11 @@
 													<td><?=$item['T$MACH']?></td>
 													<td><?=date('H:i',strtotime($item['TANGGAL']))?></td>
 													<td><?=date('d-m-Y', strtotime($item['TANGGAL']))?></td>
+													<?php if(empty($cek)) { ?>
+														<td></td>
+													<?php } else { ?>
+														<td>WTA</td>
+													<?php } ?>
 												</tr>
 												<?php } ?>
 											</tbody>

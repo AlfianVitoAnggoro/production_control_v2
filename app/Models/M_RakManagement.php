@@ -152,4 +152,11 @@ class M_RakManagement extends Model
 
         return $query->getResultArray();
     }
+
+    public function get_data_tr_casting($note)
+    {
+        $query = $this->db3->query('SELECT t$note FROM baan.tcbinh008777 WHERE t$note = \'' . $note . '\' AND t$whto = \'K-PAS\'');
+
+        return $query->getResultArray();
+    }
 }
