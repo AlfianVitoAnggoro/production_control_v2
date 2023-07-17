@@ -30,14 +30,13 @@
 
 	<style>
 		@font-face {
-			font-family: abseoluteempire;
-			src: url("<?= base_url() ?>fonts/aAbsoluteEmpire.otf") format("opentype");
-			/* src: url("<?= base_url() ?>fonts/Aesthetic Romance.ttf") format("opentype"); */
+			font-family: azonix;
+			src: url("<?= base_url() ?>fonts/azonix.otf") format("opentype");
 		}
 
 		.judul_dashboard {
-			font-family: abseoluteempire;
-			font-size: 50px;
+			/* font-family: azonix; */
+			font-size: 35px;
 			color: #000;
 			font-weight: 600;
 		}
@@ -50,10 +49,10 @@
 		}
 
 		body {
-			/* background-image: url("<?= base_url() ?>assets/images/background_henkaten.jpg"); */
-			background-image: url("<?= base_url() ?>assets/images/1.jpg");
+			/* background-image: url("<?= base_url() ?>assets/images/bg-dashboard-new.jpg"); */
+			/* background-image: url("<?= base_url() ?>assets/images/1.jpg"); */
 			/* background-image: url("<?= base_url() ?>assets/images/dashboardhenkaten.jpg"); */
-			background-color: #0C134F;
+			/* background-color: #FFFFFF; */
 			background-size: cover;
 			<?php
 			// $uri = current_url(true);
@@ -62,18 +61,14 @@
 			// }
 			?>
 		}
-
-		@font-face {
-			font-family: azonix;
-			src: url("<?= base_url() ?>fonts/azonix.otf") format("opentype");
-		}
 	</style>
+	<?= $this->renderSection('style') ?>
 </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
 
 	<div class="wrapper">
-		<?= $this->include('template/dashboardmanpower/header') ?>
+		<?= $this->include('template/form_cuti/header') ?>
 		<?= $this->renderSection('content') ?>
 
 
@@ -243,6 +238,7 @@
 	<script src="<?= base_url() ?>assets/template/main/js/pages/advanced-form-element.js"></script>
 	<script src="<?= base_url() ?>assets/template/assets/vendor_components/echarts/dist/echarts-en.min.js"></script>
 	<!-- <script src="<?= base_url() ?>js/pages/echart-pie-doghnut.js"></script> -->
+
 
 	<?= $this->renderSection('script') ?>
 

@@ -40,6 +40,7 @@
                     <thead>
                       <tr>
                         <th class="text-center"></th>
+                        <th class="text-center"></th>
                         <th class="text-center">A</th>
                         <th class="text-center">B</th>
                         <th class="text-center">C</th>
@@ -55,6 +56,11 @@
                             <?= $ind['mesin'] ?>
                             <input type="hidden" class="form-control" name="mesin_indirect[]" value="<?= $ind['mesin'] ?>">
                           </th>
+                          <td>
+                            <button type="button" class="btn btn-danger btn-sm fw-bold" onclick="changeStatusAktif('indirect', <?= $index_mesin ?>)" id="status_non_aktif_indirect_<?= $index_mesin ?>" title="Non-Aktif" style="display: <?= (count($data_detail_group_man_power_indirect) > 0) ? ((array_key_exists('A', $data_detail_group_man_power_indirect)) ? ((array_key_exists($ind['mesin'], $data_detail_group_man_power_indirect['A'])) ? (($data_detail_group_man_power_indirect['A'][$ind['mesin']]['status'] == 'Non-Aktif') ? 'block' : 'none') : 'none') : 'none') : 'none' ?>;">X</button>
+                            <button type="button" class="btn btn-primary btn-sm fw-bold" onclick="changeStatusNonAktif('indirect', <?= $index_mesin ?>)" id="status_aktif_indirect_<?= $index_mesin ?>" title="Aktif" style="display: <?= (count($data_detail_group_man_power_indirect) > 0) ? ((array_key_exists('A', $data_detail_group_man_power_indirect)) ? ((array_key_exists($ind['mesin'], $data_detail_group_man_power_indirect['A'])) ? (($data_detail_group_man_power_indirect['A'][$ind['mesin']]['status'] == 'Aktif') ? 'block' : 'none') : 'block') : 'block') : 'block' ?>;">✔</button>
+                            <input type="hidden" name="status_pos_indirect[]" id="status_pos_indirect_<?= $index_mesin ?>" value="<?= (count($data_detail_group_man_power_indirect) > 0) ? ((array_key_exists('A', $data_detail_group_man_power_indirect)) ? ((array_key_exists($ind['mesin'], $data_detail_group_man_power_indirect['A'])) ? $data_detail_group_man_power_indirect['A'][$ind['mesin']]['status'] : '') : '') : '' ?>">
+                          </td>
                           <?php for ($i = 1; $i <= 3; $i++) { ?>
                             <td>
                               <div class="d-flex align-items-center justify-content-center">
@@ -185,6 +191,7 @@
                       <thead>
                         <tr>
                           <th></th>
+                          <th></th>
                           <th class="text-center">A</th>
                           <th class="text-center">B</th>
                           <th class="text-center">C</th>
@@ -217,6 +224,11 @@
                               <?= $msn['mesin'] ?>
                               <input type="hidden" class="form-control" name="mesin_<?= $index_lv ?>[]" value="<?= $msn['mesin'] ?>">
                             </th>
+                            <td>
+                              <button type="button" class="btn btn-danger btn-sm fw-bold" onclick="changeStatusAktif('<?= $index_lv ?>', <?= $index_mesin ?>)" id="status_non_aktif_<?= $index_lv ?>_<?= $index_mesin ?>" title="Non-Aktif" style="display: <?= (count($data_detail_group_man_power) > 0) ? ((array_key_exists($lv, $data_detail_group_man_power)) ? ((array_key_exists('A', $data_detail_group_man_power[$lv])) ? ((array_key_exists($msn['mesin'], $data_detail_group_man_power[$lv]['A'])) ? (($data_detail_group_man_power[$lv]['A'][$msn['mesin']]['status'] == 'Non-Aktif') ? 'block' : 'none') : 'none') : 'none') : 'none') : 'none' ?>;">X</button>
+                              <button type="button" class="btn btn-primary btn-sm fw-bold" onclick="changeStatusNonAktif('<?= $index_lv ?>', <?= $index_mesin ?>)" id="status_aktif_<?= $index_lv ?>_<?= $index_mesin ?>" title="Aktif" style="display: <?= (count($data_detail_group_man_power) > 0) ? ((array_key_exists($lv, $data_detail_group_man_power)) ? ((array_key_exists('A', $data_detail_group_man_power[$lv])) ? ((array_key_exists($msn['mesin'], $data_detail_group_man_power[$lv]['A'])) ? (($data_detail_group_man_power[$lv]['A'][$msn['mesin']]['status'] == 'Aktif') ? 'block' : 'none') : 'block') : 'block') : 'block') : 'block' ?>;">✔</button>
+                              <input type="hidden" name="status_pos_<?= $index_lv ?>[]" id="status_pos_<?= $index_lv ?>_<?= $index_mesin ?>" value="<?= (count($data_detail_group_man_power) > 0) ? ((array_key_exists($lv, $data_detail_group_man_power)) ? ((array_key_exists('A', $data_detail_group_man_power[$lv])) ? ((array_key_exists($msn['mesin'], $data_detail_group_man_power[$lv]['A'])) ? $data_detail_group_man_power[$lv]['A'][$msn['mesin']]['status'] : '') : '') : '') : '' ?>">
+                            </td>
                             <?php for ($i = 1; $i <= 3; $i++) { ?>
                               <td>
                                 <div class="d-flex align-items-center justify-content-center">
@@ -334,6 +346,26 @@
     } else {
       console.log('YAHH')
     }
+  }
+
+  function changeStatusAktif(line, index) {
+    let statusNonAktifElement = document.querySelector('#status_non_aktif_' + line + '_' + index);
+    let statusAktifElement = document.querySelector('#status_aktif_' + line + '_' + index);
+    let status_posElement = document.querySelector('#status_pos_' + line + '_' + index);
+    console.log(status_posElement);
+    statusNonAktifElement.style.display = 'none';
+    statusAktifElement.style.display = 'block';
+    status_posElement.value = 'Aktif';
+  }
+
+  function changeStatusNonAktif(line, index) {
+    let statusNonAktifElement = document.querySelector('#status_non_aktif_' + line + '_' + index);
+    let statusAktifElement = document.querySelector('#status_aktif_' + line + '_' + index);
+    let status_posElement = document.querySelector('#status_pos_' + line + '_' + index);
+    console.log(status_posElement);
+    statusNonAktifElement.style.display = 'block';
+    statusAktifElement.style.display = 'none';
+    status_posElement.value = 'Non-Aktif';
   }
 </script>
 <?= $this->endSection(); ?>

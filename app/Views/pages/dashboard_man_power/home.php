@@ -11,17 +11,17 @@
           <button type="button" class="btn fw-bold btn-info" style="width: 400px; height: 200px; font-size: 40px" id="amb_0" onclick="clickpart('amb')">AMB</button>
           <div id="amb" class="d-none">
             <div class="my-2">
-              <a href="<?= base_url() ?>dashboard_man_power/AMB-1" target="_blank" class="btn fw-bold btn-info d-flex justify-content-center align-items-center" style="width: 400px; height: 200px; font-size: 40px">AMB-1</a>
+              <a href="<?= base_url() ?>dashboard_man_power/AMB-1/<?= date('Y-m-d') ?>/1" target="_blank" class="btn fw-bold btn-info d-flex justify-content-center align-items-center" style="width: 400px; height: 200px; font-size: 40px">AMB-1</a>
               <!-- <button type="button" class="btn fw-bold btn-info" style="width: 400px; height: 200px; font-size: 40px">AMB-1</button> -->
             </div>
             <div class="my-2">
-              <a href="<?= base_url() ?>dashboard_man_power/AMB-2" target="_blank" class="btn fw-bold btn-info d-flex justify-content-center align-items-center" style="width: 400px; height: 200px; font-size: 40px">AMB-2</a>
+              <a href="<?= base_url() ?>dashboard_man_power/AMB-2/<?= date('Y-m-d') ?>/1" target="_blank" class="btn fw-bold btn-info d-flex justify-content-center align-items-center" style="width: 400px; height: 200px; font-size: 40px">AMB-2</a>
               <!-- <button type="button" class="btn fw-bold btn-info" style="width: 400px; height: 200px; font-size: 40px">AMB-2</button> -->
             </div>
           </div>
         </div>
         <div>
-          <a href="<?= base_url() ?>dashboard_man_power/WET" target="_blank" class="btn fw-bold btn-primary d-flex justify-content-center align-items-center" style="width: 400px; height: 200px; font-size: 40px">WET</a>
+          <a href="<?= base_url() ?>dashboard_man_power/WET/<?= date('Y-m-d') ?>/1" target="_blank" class="btn fw-bold btn-primary d-flex justify-content-center align-items-center" style="width: 400px; height: 200px; font-size: 40px">WET</a>
           <!-- <button type="button" class="btn fw-bold btn-primary" style="width: 400px; height: 200px; font-size: 40px" id="wet_0" onclick="clickpart('wet')">WET</button> -->
           <!-- <div id="wet" class="d-none">
             <div class="my-2">
@@ -35,7 +35,7 @@
           </div> -->
         </div>
         <div>
-          <a href="<?= base_url() ?>dashboard_man_power/MCB" target="_blank" class="btn fw-bold btn-danger d-flex justify-content-center align-items-center" style="width: 400px; height: 200px; font-size: 40px">MCB</a>
+          <a href="<?= base_url() ?>dashboard_man_power/MCB/<?= date('Y-m-d') ?>/1" target="_blank" class="btn fw-bold btn-danger d-flex justify-content-center align-items-center" style="width: 400px; height: 200px; font-size: 40px">MCB</a>
           <!-- <button type="button" class="btn fw-bold btn-danger" style="width: 400px; height: 200px; font-size: 40px" id="mcb_0" onclick="clickpart('mcb')">MCB</button> -->
         </div>
       </div>
@@ -49,6 +49,7 @@
 <?= $this->section('script'); ?>
 <script>
   let listPart = ['amb'];
+
   function clickpart(part) {
     let bagian = document.querySelector('#' + part);
     let button = document.querySelector('#' + part + '_0');

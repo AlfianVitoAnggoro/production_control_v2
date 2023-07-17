@@ -30,15 +30,23 @@
 		</div> -->
 		<!-- <div style="margin-left:-250px; text-align:center; margin-top:-25px;"> -->
 		<div style="width: 70%;">
-			<h1 class="judul_dashboard text-center m-0" style="color: white">MAN POWER HENKATEN BOARD ASSY <?= strtoupper($sub_bagian) ?></h1>
+			<h1 class="judul_dashboard text-center m-0" style="color: white">
+				<?php if (strtoupper($sub_bagian) === 'AMB-1' || strtoupper($sub_bagian) === 'AMB-2') { ?>
+					MAN POWER HENKATEN BOARD ASSY <?= strtoupper($sub_bagian) ?>
+				<?php } else if (strtoupper($sub_bagian) === 'WET') { ?>
+					MAN POWER HENKATEN BOARD <?= strtoupper($sub_bagian) ?> BATTERY
+				<?php } else if (strtoupper($sub_bagian) === 'MCB') { ?>
+					MAN POWER HENKATEN BOARD <?= strtoupper($sub_bagian) ?>
+				<?php } ?>
+			</h1>
 		</div>
 		<div style="width: 30%; color: white; padding-right: 20px" class="justify-content-end align-items-center d-flex">
-			<input type="date" name="date" id="date" class="form-control" value="<?= date('Y-m-d') ?>" style="width: 125px; margin-right: 10px" onchange="changeShift('<?= $sub_bagian ?>')">
+			<input type="date" name="date" id="date" class="form-control" value="<?= $date ?>" style="width: 125px; margin-right: 10px" onchange="changeShift('<?= $sub_bagian ?>')">
 			<h1 class="text-center m-0 pe-2" style="font-size: 26px">Shift</h1>
 			<select name="shift" id="shift" class="form-select p-0 ps-5 me-3" style="width: 50px; font-size: 16px" onchange="changeShift('<?= $sub_bagian ?>')">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
+				<option value="1" <?= $shift == 1 ? 'selected' : '' ?>>1</option>
+				<option value="2" <?= $shift == 2 ? 'selected' : '' ?>>2</option>
+				<option value="3" <?= $shift == 3 ? 'selected' : '' ?>>3</option>
 			</select>
 			<form action="<?= base_url() ?>dashboard_man_power/save_record_man_power" method="post">
 				<button type="button" class="btn btn-primary p-1" style="font-size: 24px" id="btn_save_record_man_power" onclick="save_record_man_power()">Save</button>

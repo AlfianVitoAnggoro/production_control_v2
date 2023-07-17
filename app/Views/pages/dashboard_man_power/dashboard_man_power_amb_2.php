@@ -111,7 +111,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
 
           <!-- <div class="d-flex justify-content-between" style="margin-right: 23px">
         <div class="d-flex" style="margin-left: 20px"> -->
-          <div class="row m-0" style="height: 18vh;">
+          <div class="row m-0" style="height: <?= ($i === 0 || $i === 3) ? '36vh' : '18vh' ?>;">
             <div class="col p-0">
               <div class="d-flex" style="width: 100%">
                 <div class="d-flex justify-content-center align-items-center flex-column mb-2 mx-1" style="border-radius: 5px; background-color: #22A699; color: white; width: 100px">
@@ -132,7 +132,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 <!-- <div class="col" style="width: 100px">
                 
               </div> -->
-                <div class="row row-cols-xl-10 m-0" style="width: calc(100% - 107px);">
+                <div class="row row-cols-xl-8 m-0" style="width: calc(100% - 107px);">
                   <?php $index_mesin = 0;
                   foreach ($data_mesin as $msn) { ?>
                     <?php if (count($detail_record_man_power) > 0) {
@@ -284,7 +284,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           </div>
         <?php } ?>
         <?php $data_indirect = $model->get_data_indirect(str_replace('-', '_', $sub_bagian)) ?>
-        <div class="row m-0" style="height: 18vh;">
+        <div class="row m-0" style="height: 36vh;">
           <div class="col p-0">
             <!-- <div class="row">
           <div class="col"> -->
@@ -295,7 +295,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   <h4 class="fw-bold m-0" style="font-size: 16px"><?= $wi ?></h4>
                 <?php } ?>
               </div>
-              <div class="row row-cols-xl-10 m-0" style="width: calc(100% - 107px); background-color: #3F2305; border-radius: 5px;">
+              <div class="row row-cols-xl-8 m-0" style="width: calc(100% - 107px); background-color: #3F2305; border-radius: 5px;">
                 <!-- <div class="col" style="width: 100px">
                 
               </div> -->
@@ -1663,7 +1663,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
       text: 'Kehadiran'
     },
     xAxis: {
-      categories: ['Line 1', 'Line 2', 'Line 3', 'Indirect', 'AMB-1'],
+      categories: ['Line 4', 'Line 5', 'Line 6', 'Line 7', 'Indirect', 'AMB-2'],
       labels: {
         style: {
           fontSize: '14px',
