@@ -22,9 +22,11 @@ class DashboardManPower extends BaseController
     return view('pages/dashboard_man_power/home');
   }
 
-  public function dashboard($sub_bagian)
+  public function dashboard($sub_bagian, $date, $shift)
   {
     $data['sub_bagian'] = $sub_bagian;
+    $data['date'] = $date;
+    $data['shift'] = $shift;
     $temp_data_group_mesin = $this->M_DashboardManPower->get_data_group_mesin($sub_bagian);
     if (count($temp_data_group_mesin) > 0) {
       foreach ($temp_data_group_mesin as $tdgmp) {
@@ -60,50 +62,50 @@ class DashboardManPower extends BaseController
       }
     } else
       $data['data_group_man_power_kasubsie'] = [];
-    $temp_detail_record_mesin = $this->M_DashboardManPower->get_data_daily_record_mesin($sub_bagian, date('Y-m-d'), 1);
+    $temp_detail_record_mesin = $this->M_DashboardManPower->get_data_daily_record_mesin($sub_bagian, $date, $shift);
     if (count($temp_detail_record_mesin) > 0) {
       foreach ($temp_detail_record_mesin as $tdrmp) {
         $data['detail_record_mesin'][$tdrmp['line']][$tdrmp['group_mp']][$tdrmp['mesin']] = $tdrmp;
       }
     } else
       $data['detail_record_mesin'] = [];
-    $temp_detail_record_man_power = $this->M_DashboardManPower->get_data_daily_record_man_power($sub_bagian, date('Y-m-d'), 1);
+    $temp_detail_record_man_power = $this->M_DashboardManPower->get_data_daily_record_man_power($sub_bagian, $date, $shift);
     if (count($temp_detail_record_man_power) > 0) {
       foreach ($temp_detail_record_man_power as $tdrmp) {
         $data['detail_record_man_power'][$tdrmp['line']][$tdrmp['group_mp']][$tdrmp['mesin']] = $tdrmp;
       }
     } else
       $data['detail_record_man_power'] = [];
-    $temp_detail_record_mesin_indirect = $this->M_DashboardManPower->get_data_daily_record_mesin_indirect($sub_bagian, date('Y-m-d'), 1);
+    $temp_detail_record_mesin_indirect = $this->M_DashboardManPower->get_data_daily_record_mesin_indirect($sub_bagian, $date, $shift);
     if (count($temp_detail_record_mesin_indirect) > 0) {
       foreach ($temp_detail_record_mesin_indirect as $tdrmpk) {
         $data['detail_record_mesin_indirect'][$tdrmpk['mesin']][$tdrmpk['group_mp']] = $tdrmpk;
       }
     } else
       $data['detail_record_mesin_indirect'] = [];
-    $temp_detail_record_man_power_kasubsie = $this->M_DashboardManPower->get_data_daily_record_man_power_kasubsie($sub_bagian, date('Y-m-d'), 1);
+    $temp_detail_record_man_power_kasubsie = $this->M_DashboardManPower->get_data_daily_record_man_power_kasubsie($sub_bagian, $date, $shift);
     if (count($temp_detail_record_man_power_kasubsie) > 0) {
       foreach ($temp_detail_record_man_power_kasubsie as $tdrmpk) {
         $data['detail_record_man_power_kasubsie'][$tdrmpk['mesin']][$tdrmpk['group_mp']] = $tdrmpk;
       }
     } else
       $data['detail_record_man_power_kasubsie'] = [];
-    $data['detail_record_man_power_indirect_all'] = $this->M_DashboardManPower->get_data_daily_record_man_power_indirect_all($sub_bagian, date('Y-m-d'), 1);
-    $temp_detail_record_man_power_indirect = $this->M_DashboardManPower->get_data_daily_record_man_power_indirect($sub_bagian, date('Y-m-d'), 1);
+    $data['detail_record_man_power_indirect_all'] = $this->M_DashboardManPower->get_data_daily_record_man_power_indirect_all($sub_bagian, $date, $shift);
+    $temp_detail_record_man_power_indirect = $this->M_DashboardManPower->get_data_daily_record_man_power_indirect($sub_bagian, $date, $shift);
     if (count($temp_detail_record_man_power_indirect) > 0) {
       foreach ($temp_detail_record_man_power_indirect as $tdrmpi) {
         $data['detail_record_man_power_indirect'][$tdrmpi['mesin']][$tdrmpi['group_mp']] = $tdrmpi;
       }
     } else
       $data['detail_record_man_power_indirect'] = [];
-    $temp_data_mp_tidak_hadir = $this->M_DashboardManPower->get_data_mp_tidak_hadir($sub_bagian, date('Y-m-d'), 1);
+    $temp_data_mp_tidak_hadir = $this->M_DashboardManPower->get_data_mp_tidak_hadir($sub_bagian, $date, $shift);
     if (count($temp_data_mp_tidak_hadir) > 0) {
       foreach ($temp_data_mp_tidak_hadir as $tdmth) {
         $data['data_mp_tidak_hadir'][$tdmth['line']][] = $tdmth;
       }
     } else
       $data['data_mp_tidak_hadir'] = [];
-    $temp_data_mp_tidak_hadir_indirect = $this->M_DashboardManPower->get_data_mp_tidak_hadir_indirect($sub_bagian, date('Y-m-d'), 1);
+    $temp_data_mp_tidak_hadir_indirect = $this->M_DashboardManPower->get_data_mp_tidak_hadir_indirect($sub_bagian, $date, $shift);
     if (count($temp_data_mp_tidak_hadir_indirect) > 0) {
       foreach ($temp_data_mp_tidak_hadir_indirect as $tdmth) {
         $data['data_mp_tidak_hadir_indirect'][] = $tdmth;
@@ -119,6 +121,103 @@ class DashboardManPower extends BaseController
     else if (strtolower($sub_bagian) === 'mcb')
       return view('pages/dashboard_man_power/dashboard_man_power_mcb', $data);
   }
+  // public function dashboard($sub_bagian)
+  // {
+  //   $data['sub_bagian'] = $sub_bagian;
+  //   $temp_data_group_mesin = $this->M_DashboardManPower->get_data_group_mesin($sub_bagian);
+  //   if (count($temp_data_group_mesin) > 0) {
+  //     foreach ($temp_data_group_mesin as $tdgmp) {
+  //       $data['data_group_mesin'][$tdgmp['line']][$tdgmp['group_mp']][$tdgmp['mesin']] = $tdgmp;
+  //     }
+  //   } else
+  //     $data['data_group_mesin'] = [];
+  //   $temp_data_group_man_power = $this->M_DashboardManPower->get_data_group_man_power($sub_bagian);
+  //   if (count($temp_data_group_man_power) > 0) {
+  //     foreach ($temp_data_group_man_power as $tdgmp) {
+  //       $data['data_group_man_power'][$tdgmp['line']][$tdgmp['group_mp']][$tdgmp['mesin']] = $tdgmp;
+  //     }
+  //   } else
+  //     $data['data_group_man_power'] = [];
+  //   $temp_data_group_mesin_indirect = $this->M_DashboardManPower->get_data_group_mesin_indirect($sub_bagian);
+  //   if (count($temp_data_group_mesin_indirect) > 0) {
+  //     foreach ($temp_data_group_mesin_indirect as $tdgmpi) {
+  //       $data['data_group_mesin_indirect'][$tdgmpi['group_mp']][$tdgmpi['mesin']] = $tdgmpi;
+  //     }
+  //   } else
+  //     $data['data_group_mesin_indirect'] = [];
+  //   $temp_data_group_man_power_indirect = $this->M_DashboardManPower->get_data_group_man_power_indirect($sub_bagian);
+  //   if (count($temp_data_group_man_power_indirect) > 0) {
+  //     foreach ($temp_data_group_man_power_indirect as $tdgmpi) {
+  //       $data['data_group_man_power_indirect'][$tdgmpi['group_mp']][$tdgmpi['mesin']] = $tdgmpi;
+  //     }
+  //   } else
+  //     $data['data_group_man_power_indirect'] = [];
+  //   $temp_data_group_man_power_kasubsie = $this->M_DashboardManPower->get_data_group_man_power_kasubsie($sub_bagian);
+  //   if (count($temp_data_group_man_power_kasubsie) > 0) {
+  //     foreach ($temp_data_group_man_power_kasubsie as $tdgmpk) {
+  //       $data['data_group_man_power_kasubsie'][$tdgmpk['group_mp']][$tdgmpk['mesin']] = $tdgmpk;
+  //     }
+  //   } else
+  //     $data['data_group_man_power_kasubsie'] = [];
+  //   $temp_detail_record_mesin = $this->M_DashboardManPower->get_data_daily_record_mesin($sub_bagian, date('Y-m-d'), 1);
+  //   if (count($temp_detail_record_mesin) > 0) {
+  //     foreach ($temp_detail_record_mesin as $tdrmp) {
+  //       $data['detail_record_mesin'][$tdrmp['line']][$tdrmp['group_mp']][$tdrmp['mesin']] = $tdrmp;
+  //     }
+  //   } else
+  //     $data['detail_record_mesin'] = [];
+  //   $temp_detail_record_man_power = $this->M_DashboardManPower->get_data_daily_record_man_power($sub_bagian, date('Y-m-d'), 1);
+  //   if (count($temp_detail_record_man_power) > 0) {
+  //     foreach ($temp_detail_record_man_power as $tdrmp) {
+  //       $data['detail_record_man_power'][$tdrmp['line']][$tdrmp['group_mp']][$tdrmp['mesin']] = $tdrmp;
+  //     }
+  //   } else
+  //     $data['detail_record_man_power'] = [];
+  //   $temp_detail_record_mesin_indirect = $this->M_DashboardManPower->get_data_daily_record_mesin_indirect($sub_bagian, date('Y-m-d'), 1);
+  //   if (count($temp_detail_record_mesin_indirect) > 0) {
+  //     foreach ($temp_detail_record_mesin_indirect as $tdrmpk) {
+  //       $data['detail_record_mesin_indirect'][$tdrmpk['mesin']][$tdrmpk['group_mp']] = $tdrmpk;
+  //     }
+  //   } else
+  //     $data['detail_record_mesin_indirect'] = [];
+  //   $temp_detail_record_man_power_kasubsie = $this->M_DashboardManPower->get_data_daily_record_man_power_kasubsie($sub_bagian, date('Y-m-d'), 1);
+  //   if (count($temp_detail_record_man_power_kasubsie) > 0) {
+  //     foreach ($temp_detail_record_man_power_kasubsie as $tdrmpk) {
+  //       $data['detail_record_man_power_kasubsie'][$tdrmpk['mesin']][$tdrmpk['group_mp']] = $tdrmpk;
+  //     }
+  //   } else
+  //     $data['detail_record_man_power_kasubsie'] = [];
+  //   $data['detail_record_man_power_indirect_all'] = $this->M_DashboardManPower->get_data_daily_record_man_power_indirect_all($sub_bagian, date('Y-m-d'), 1);
+  //   $temp_detail_record_man_power_indirect = $this->M_DashboardManPower->get_data_daily_record_man_power_indirect($sub_bagian, date('Y-m-d'), 1);
+  //   if (count($temp_detail_record_man_power_indirect) > 0) {
+  //     foreach ($temp_detail_record_man_power_indirect as $tdrmpi) {
+  //       $data['detail_record_man_power_indirect'][$tdrmpi['mesin']][$tdrmpi['group_mp']] = $tdrmpi;
+  //     }
+  //   } else
+  //     $data['detail_record_man_power_indirect'] = [];
+  //   $temp_data_mp_tidak_hadir = $this->M_DashboardManPower->get_data_mp_tidak_hadir($sub_bagian, date('Y-m-d'), 1);
+  //   if (count($temp_data_mp_tidak_hadir) > 0) {
+  //     foreach ($temp_data_mp_tidak_hadir as $tdmth) {
+  //       $data['data_mp_tidak_hadir'][$tdmth['line']][] = $tdmth;
+  //     }
+  //   } else
+  //     $data['data_mp_tidak_hadir'] = [];
+  //   $temp_data_mp_tidak_hadir_indirect = $this->M_DashboardManPower->get_data_mp_tidak_hadir_indirect($sub_bagian, date('Y-m-d'), 1);
+  //   if (count($temp_data_mp_tidak_hadir_indirect) > 0) {
+  //     foreach ($temp_data_mp_tidak_hadir_indirect as $tdmth) {
+  //       $data['data_mp_tidak_hadir_indirect'][] = $tdmth;
+  //     }
+  //   } else
+  //     $data['data_mp_tidak_hadir_indirect'] = [];
+  //   if (strtolower($sub_bagian) === 'amb-1')
+  //     return view('pages/dashboard_man_power/dashboard_man_power', $data);
+  //   else if (strtolower($sub_bagian) === 'amb-2')
+  //     return view('pages/dashboard_man_power/dashboard_man_power_amb_2', $data);
+  //   else if (strtolower($sub_bagian) === 'wet')
+  //     return view('pages/dashboard_man_power/dashboard_man_power_wet', $data);
+  //   else if (strtolower($sub_bagian) === 'mcb')
+  //     return view('pages/dashboard_man_power/dashboard_man_power_mcb', $data);
+  // }
 
   public function detail_dashboard_man_power($id_group)
   {
