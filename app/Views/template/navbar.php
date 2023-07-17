@@ -84,6 +84,10 @@
 								<li><a href="<?=base_url()?>wet_loading/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Loading</a></li>
 								<li><a href="<?=base_url()?>wet_finishing/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Finishing</a></li>
 							<?php } ?>
+							<?php if (session()->get('departemen') == 'isd' OR session()->get('departemen') == NULL) { ?>
+								<li><a href="<?=base_url()?>wet_loading_new/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Loading New</a></li>
+								<li><a href="<?=base_url()?>wet_charging/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Charging</a></li>
+							<?php } ?>
 						</ul>
 					</li>
 					<?php } ?>
@@ -166,7 +170,7 @@
 							<ul class="treeview-menu">
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Incoming</a></li>
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Rack FG</a></li>
-								<li><a href="<?=base_url()?>supply_charging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a></li>
+								<li><a href="<?=base_url()?>supply_charging/list_supply"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a></li>
 							</ul>
 						</li>
 
