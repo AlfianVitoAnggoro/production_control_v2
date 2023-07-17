@@ -203,11 +203,11 @@ $mh = [8, 7.5, 6.5];
           </div>
         </div>
 
-        <!-- <div class="row">
+        <div class="row">
           <div class="col-xl-12 col-12">
             <div class="box">
               <div class="box-header">
-                <button type="button" class="btn btn-primary" onclick="get_data_andon()">Refresh Andon</button>
+                <h4 style="font-size: 28px; margin-top:-15px; margin-bottom:-15px;">Detail Andon</h4>
               </div>
               <div class="box-body">
                 <div class="table-responsive">
@@ -222,64 +222,65 @@ $mh = [8, 7.5, 6.5];
                     </thead>
                     <tbody id="tbody_data_andon">
                       <?php
+                      $total_menit = 0;
                       foreach ($data_andon as $d_andon) {
+                        $total_menit += $d_andon['total_menit'];
                       ?>
                         <tr>
-                          <td>MC <?= $d_andon['no_machine'] ?></td>
-                          <td><?= $d_andon['permasalahan'] ?></td>
-                          <td><?= $d_andon['tujuan'] ?></td>
-                          <td><?= $d_andon['total_menit'] ?></td>
+                          <td class="py-0" style="font-size: 25px; white-space: nowrap">MC <?= $d_andon['no_machine'] ?></td>
+                          <td class="py-0" style="font-size: 25px; white-space: nowrap"><?= $d_andon['permasalahan'] ?></td>
+                          <td class="py-0" style="font-size: 25px; white-space: nowrap"><?= $d_andon['tujuan'] ?></td>
+                          <td class="py-0" style="text-align: right; font-size: 25px; white-space: nowrap"><?= $d_andon['total_menit'] ?></td>
                         </tr>
                       <?php
                       }
                       ?>
                     </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="3" class="py-0" style="font-size: 25px">
+                          <h3>Total</h3>
+                        </td>
+                        <td class="py-0" style="text-align: right; font-size: 25px; white-space: nowrap"><?= $total_menit ?></td>
+                      </tr>
+                    </tfoot>
                   </table>
                 </div>
 
               </div>
-              <div class="box-footer" style="text-align: center;">
-                <input type="submit" class="btn btn-success" value="Save">
-              </div>
             </div>
           </div>
-        </div> -->
+        </div>
 
         <!-- <div class="row">
           <div class="col-xl-12 col-12">
             <div class="box">
               <div class="box-header">
-                <button type="button" class="btn btn-primary" onclick="add_breakdown()">Add</button>
+                <h4 style="font-size: 28px">Detail Line Stop</h4>
               </div>
               <div class="box-body">
                 <div class="table-responsive">
                   <table id="data_line_stop" class="table table-striped mb-0">
                     <thead>
                       <tr>
-                        <th class="py-0" style="font-size: 25px">Nama Mesin</th>
-                        <th class="py-0" style="font-size: 25px">Jenis Line Stop</th>
-                        <th class="py-0" style="font-size: 25px">Kategori Line Stop</th>
+                        <th class="py-0" style="font-size: 25px">Mesin</th>
                         <th class="py-0" style="font-size: 25px">Uraian Line Stop</th>
                         <th class="py-0" style="font-size: 25px">Total Menit</th>
-                        <th class="py-0" style="font-size: 25px">Action</th>
                       </tr>
                     </thead>
                     <tbody id="tbody_data_line_stop">
                       <?php
                       foreach ($data_breakdown as $d_breakdown) { ?>
                         <tr>
-                          <td>
+                          <td class="py-0" style="font-size: 25px; white-space: nowrap">
                             <?= $d_breakdown['no_machine'] ?>
                             <input type="hidden" name="id_detail_lhp_grid_breakdown[]" value="<?= $d_breakdown['id_breakdown_grid'] ?>">
                           </td>
-                          <td>
+                          <td class="py-0" style="font-size: 25px; white-space: nowrap">
                             <?= $d_breakdown['uraian_breakdown'] ?>
                           </td>
-                          <td>
+                          <td class="py-0" style="font-size: 25px; white-space: nowrap">
                             <?= $d_breakdown['total_menit'] ?>
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-danger" onclick="delete_breakdown(this)">Delete</button>
                           </td>
                         </tr>
                       <?php
@@ -289,9 +290,6 @@ $mh = [8, 7.5, 6.5];
                   </table>
                 </div>
 
-              </div>
-              <div class="box-footer" style="text-align: center;">
-                <input type="submit" class="btn btn-success" value="Save">
               </div>
             </div>
           </div>
