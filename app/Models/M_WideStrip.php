@@ -88,7 +88,7 @@ class M_WideStrip extends Model
 
     public function get_data_coil_code()
     {
-        $query = $this->db->query('SELECT * FROM data_coil_wide_strip');
+        $query = $this->db5->query('SELECT * FROM data_coil_wide_strip');
 
         return $query->getResultArray();
     }
