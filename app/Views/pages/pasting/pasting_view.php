@@ -51,7 +51,11 @@
                             <!-- <td><?= $retVal = (!empty($pasting['total_aktual']) && !empty($pasting['total_plan'])) ? number_format((float) ($pasting['total_aktual'] / $pasting['total_plan']) * 100, 2, '.', '') : ''; ?></td> -->
                             <td>
                               <a href="<?= base_url() ?>pasting/detail_pasting/<?= $pasting['id_lhp_pasting'] ?>" class="btn btn-primary btn-sm">Detail</a>
-                              <a href="<?= base_url() ?>pasting/hapus_pasting/<?= $pasting['id_lhp_pasting'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
+                              <?php 
+                                $this->session = \Config\Services::session();
+                                if ($this->session->get('level') == 1) { ?>
+                                  <a href="<?= base_url() ?>pasting/hapus_pasting/<?= $pasting['id_lhp_pasting'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
+                              <?php } ?>
                             </td>
                           </tr>
                         <?php endforeach; ?>

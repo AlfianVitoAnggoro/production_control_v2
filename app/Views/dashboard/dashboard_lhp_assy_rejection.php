@@ -1246,9 +1246,11 @@
                                     var arr_qty_kategori_reject = [];
                                     var arr_qty_kategori_reject_pcs = [];
                                     for (i = 0; i < data_kategori_reject.length; i++) {
-                                        arr_kategori_reject.push(data_kategori_reject[i].kategori_reject);
-                                        arr_qty_kategori_reject.push(parseFloat(((data_kategori_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
-                                        arr_qty_kategori_reject_pcs.push(parseInt(((data_kategori_reject[i].qty))));
+                                        // if (data_kategori_reject[i].kategori_reject != 'Punch Hole Setting Container') {
+                                            arr_kategori_reject.push(data_kategori_reject[i].kategori_reject);
+                                            arr_qty_kategori_reject.push(parseFloat(((data_kategori_reject[i].qty / data['total_aktual_by_date'][0]['total_aktual']) * 100).toFixed(2)));
+                                            arr_qty_kategori_reject_pcs.push(parseInt(((data_kategori_reject[i].qty))));
+                                        // }
                                     }
                                     $('#detail_pareto_kategori_reject').html(`<figure class="highcharts-figure">
                                                                                     <div id="chart_pareto_kategori_reject"></div>
@@ -2718,6 +2720,10 @@
                 }
             },
             colors: ['yellow', 'red', 'cyan', 'azure', 'LawnGreen', 'orange', 'blue'],
+
+            tooltip: {
+                shared: true
+            },
             
             series: [
                 {

@@ -124,7 +124,7 @@ class RakManagement extends BaseController
 
     public function monitoring_barcode_casting()
     {
-        $data1 = $this->M_RakManagement->get_data_record_rak_open();
+        $data1 = $this->M_RakManagement->get_data_record_rak();
         $data2 = $this->M_RakManagement->get_label_produksi_casting();
         $data3 = [];
 

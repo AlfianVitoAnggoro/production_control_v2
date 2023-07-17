@@ -88,8 +88,10 @@ $routes->post('/dashboard/reject', 'DashboardAssyRejection::dashboard_reject_ass
 $routes->post('/dashboard/reject/get_detail_rejection', 'DashboardAssyRejection::get_detail_rejection');
 $routes->get('/dashboard/reject/get_detail_rejection', 'DashboardAssyRejection::get_detail_rejection');
 
-$routes->get('/dashboard/reject_qc', 'DashboardAssyRejection::dashboard_reject_assy_qc');
-$routes->post('/dashboard/reject_qc', 'DashboardAssyRejection::dashboard_reject_assy_qc');
+$routes->get('/dashboard/reject_qc', 'DashboardAssyRejectionQC::dashboard_reject_assy_qc');
+$routes->post('/dashboard/reject_qc', 'DashboardAssyRejectionQC::dashboard_reject_assy_qc');
+$routes->post('/dashboard/reject_qc/get_detail_rejection', 'DashboardAssyRejectionQC::get_detail_rejection');
+$routes->get('/dashboard/reject_qc/get_detail_rejection', 'DashboardAssyRejectionQC::get_detail_rejection');
 
 // DASHBOARD LINE STOP ASSY
 $routes->get('/dashboard/line_stop', 'DashboardAssyLineStop::dashboard_line_stop_assy');
