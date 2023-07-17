@@ -227,6 +227,43 @@ $routes->group('wet_loading', ['filter' => 'auth'], function ($routes) {
     $routes->get('delete_reject/(:num)/(:num)', 'WET_Loading::delete_reject/$1/$2');
 });
 
+//WET LOADING NEW
+$routes->group('wet_loading_new', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'WET_Loading_new::wet_view');
+    $routes->post('download', 'WET_Loading_new::download');
+    $routes->post('add_lhp', 'WET_Loading_new::add_lhp');
+    $routes->post('getSeries', 'WET_Loading_new::get_series');
+    $routes->post('getType', 'WET_Loading_new::get_type_battery');
+    $routes->post('getCT', 'WET_Loading_new::get_ct');
+    $routes->get('detail_lhp/(:num)', 'WET_Loading_new::detail_lhp/$1');
+    $routes->post('update_lhp', 'WET_Loading_new::update_lhp');
+    $routes->get('delete_line_stop/(:num)/(:num)', 'WET_Loading_new::delete_line_stop/$1/$2');
+    $routes->get('hapus_lhp/(:num)', 'WET_Loading_new::hapus_lhp/$1');
+    $routes->get('delete_reject/(:num)/(:num)', 'WET_Loading_new::delete_reject/$1/$2');
+
+    $routes->post('get_part_number', 'WET_Loading_new::get_part_number');
+    $routes->post('get_ct_part_number', 'WET_Loading_new::get_ct_part_number');
+
+    $routes->post('get_wo_charging', 'WET_Loading_new::get_wo_charging');
+    $routes->post('get_part_number_charging', 'WET_Loading_new::get_part_number_charging');
+    $routes->get('get_part_number_charging', 'WET_Loading_new::get_part_number_charging');
+
+    $routes->post('get_durasi_charging', 'WET_Loading_new::get_durasi_charging');
+    $routes->get('get_durasi_charging', 'WET_Loading_new::get_durasi_charging');
+});
+
+//WET CHARGING
+$routes->group('wet_charging', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'WET_Charging::wet_view');
+});
+
+// SUPPLY CHARGING
+$routes->group('supply_charging', ['filter' => 'auth'], function ($routes) {
+    $routes->get('list_supply/', 'SupplyCharging::list_supply');
+    $routes->get('list_supply/(:any)/(:any)', 'SupplyCharging::list_supply/$1/$2');
+    $routes->post('get_component_by_wo', 'SupplyCharging::get_component_by_wo');
+    $routes->post('add_detail_supply_charging', 'SupplyCharging::add_detail_supply_charging');
+});
 
 //GRID
 $routes->group('grid', ['filter' => 'auth'], function ($routes) {
@@ -412,7 +449,41 @@ $routes->group('saw', ['filter' => 'auth'], function ($routes) {
 $routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'WideStrip::index');
     $routes->post('add_lhp', 'WideStrip::add_lhp');
+    $routes->post('update_lhp', 'WideStrip::update_lhp');
+    $routes->post('delete_material_in', 'WideStrip::delete_material_in');
+    $routes->post('material_in', 'WideStrip::material_in');
+    $routes->post('qty_material_in', 'WideStrip::qty_material_in');
+    $routes->post('delete_material_in', 'WideStrip::delete_material_in');
     $routes->get('detail_lhp/(:num)', 'WideStrip::detail_lhp/$1');
+    $routes->post('get_jenis_line_stop', 'WideStrip::get_jenis_line_stop');
+    $routes->post('material_in_mlr', 'WideStrip::material_in_mlr');
+    $routes->post('delete_material_in_mlr', 'WideStrip::delete_material_in_mlr');
+});
+
+//Grid Punching
+$routes->group('punching', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Punching::index');
+    $routes->post('add_lhp', 'Punching::add_lhp');
+    $routes->post('update_lhp', 'Punching::update_lhp');
+    $routes->post('delete_material_in', 'Punching::delete_material_in');
+    $routes->post('material_in', 'Punching::material_in');
+    $routes->post('qty_material_in', 'Punching::qty_material_in');
+    $routes->post('delete_material_in', 'Punching::delete_material_in');
+    $routes->get('detail_lhp/(:num)', 'Punching::detail_lhp/$1');
+    $routes->post('get_jenis_line_stop', 'Punching::get_jenis_line_stop');
+    $routes->post('get_jks', 'Punching::get_jks');
+    $routes->post('get_qty_rak', 'Punching::get_qty_rak');
+    $routes->post('add_rak_in', 'Punching::add_rak_in');
+    $routes->post('add_rak_out', 'Punching::add_rak_out');
+    $routes->post('delete_rak', 'Punching::delete_rak');
+    $routes->post('delete_rak_out', 'Punching::delete_rak_out');
+    $routes->post('delete_rows', 'Punching::delete_rows');
+    $routes->post('add_note_punching', 'Punching::add_note_punching');
+    $routes->post('get_data_coil', 'Punching::get_data_coil');
+    $routes->post('get_data_coil_output_product', 'Punching::get_data_coil_output_product');
+    $routes->post('add_wide_strip', 'Punching::add_wide_strip');
+    $routes->post('add_wide_strip_sisa', 'Punching::add_wide_strip_sisa');
+    $routes->post('add_output_product', 'Punching::add_output_product');
 });
 
 //Master Man Power

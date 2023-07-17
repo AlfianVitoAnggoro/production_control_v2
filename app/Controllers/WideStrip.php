@@ -17,7 +17,8 @@ class WideStrip extends BaseController
     public function index()
     {
         $data['data_lhp_wide_strip'] = $this->M_WideStrip->get_data_lhp_wide_strip();
-        // $data['data_grup_wide_strip'] = $this->M_WideStrip->get_data_grup_grid();
+        $data['data_grup_wide_strip'] = $this->M_WideStrip->get_data_grup_wide_strip();
+        // $data['data_type_grid'] = $this->M_WideStrip->get_data_type_grid();
         return view('pages/wide_strip/home', $data);
     }
 
@@ -25,37 +26,38 @@ class WideStrip extends BaseController
     {
         $tanggal_produksi = $this->request->getPost('tanggal_produksi');
         $shift = $this->request->getPost('shift');
+        $kasubsie = $this->request->getPost('kasubsie');
         $grup = $this->request->getPost('grup');
+        $type_grid = $this->request->getPost('type_grid');
         $mp = $this->request->getPost('mp');
         $absen = $this->request->getPost('absen');
         $cuti = $this->request->getPost('cuti');
-        $kasubsie = $this->request->getPost('kasubsie');
 
         $data = [
             'tanggal_produksi' => $tanggal_produksi,
             'shift' => $shift,
+            'kasubsie' => $kasubsie,
             'grup' => $grup,
             'mp' => $mp,
             'absen' => $absen,
             'cuti' => $cuti,
-            'kasubsie' => $kasubsie
         ];
 
         $data_save = [
             'tanggal_produksi' => $tanggal_produksi,
             'shift' => $shift,
+            'kasubsie' => $kasubsie,
             'grup' => $grup,
             'mp' => $mp,
             'absen' => $absen,
             'cuti' => $cuti,
-            'kasubsie' => $kasubsie,
-            'status' => 'waiting'
+            // 'status' => 'waiting'
         ];
         
         $model = new M_WideStrip();
         $cek = $model->cek_lhp($tanggal_produksi, $shift, $kasubsie, $grup);
         if (count($cek) > 0) {
-            $id = $cek[0]['id'];
+            $id = $cek[0]['id_lhp_ws'];
             return redirect()->to(base_url('wide_strip/detail_lhp/' . $id));
         } else {
             $save_data = $this->M_WideStrip->add_lhp($data_save);
@@ -67,12 +69,19 @@ class WideStrip extends BaseController
     {
         $data['id_lhp'] = $id_lhp;
         $data['data_lhp'] = $this->M_WideStrip->get_data_lhp_wide_strip_by_id($id_lhp);
+        $data['data_detail_lhp'] = $this->M_WideStrip->get_detail_wide_strip_by_id($id_lhp);
+        $data['data_material_in'] = $this->M_WideStrip->get_data_material_in_by_id($id_lhp);
+        $data['data_material_in_mlr'] = $this->M_WideStrip->get_data_material_in_mlr_by_id($id_lhp);
+        $data['data_level_melting_pot'] = $this->M_WideStrip->get_data_level_melting_pot_by_id($id_lhp);
         $data['data_mesin'] = $this->M_WideStrip->get_data_mesin_grid();
         $data['data_operator'] = $this->M_WideStrip->get_data_operator_grid();
-        $data['data_type_grid'] = $this->M_WideStrip->get_data_type_grid();
+        $data['data_coil_code'] = $this->M_WideStrip->get_data_coil_code();
+        // $data['data_type_grid'] = $this->M_WideStrip->get_data_type_grid();
         $data['data_breakdown'] = $this->M_WideStrip->get_data_breakdown($id_lhp);
+        $data['data_line_stop_ws'] = $this->M_WideStrip->getListKategoriLineStopWS($id_lhp);
+        $data['output_product'] = $this->M_WideStrip->get_output_product($id_lhp);
         // $data['data_andon'] = $this->M_WideStrip->get_data_andon_by_id($id_lhp);
-        $data['data_record_rak'] = $this->M_WideStrip->get_id_data_detail_record_rak_by_id($id_lhp, 'K-CAS');
+        $data['data_record_rak'] = $this->M_WideStrip->get_id_data_detail_record_rak_by_id($id_lhp, 'K-PUN', 'K-PUN');
         // $data['data_all_rak'] = $this->M_WideStrip->get_data_rak_by_id($id_lhp);
         $session = \Config\Services::session();
         $data['session'] = $session->get('level');
@@ -87,107 +96,149 @@ class WideStrip extends BaseController
         $approved = $this->request->getPost('approved');
         $completed = $this->request->getPost('completed');
 
-        $total_data = $this->request->getPost('aktual');
+        $total_data = $this->request->getPost('no');
         for ($i = 0; $i < count($total_data); $i++) {
-            $id_detail_lhp_wide_strip = $this->request->getPost('id_detail_lhp_wide_strip')[$i];
+            $id_level_melting_pot = $this->request->getPost('id_level_melting_pot')[$i];
+            $data = [
+                'id_lhp_ws' => $id_lhp,
+                'no' => $this->request->getPost('no')[$i],
+                'melting_pot' => $this->request->getPost('melting_pot')[$i],
+                'awal_shift' => $this->request->getPost('awal_shift')[$i],
+                'akhir_shift' => $this->request->getPost('akhir_shift')[$i],
+            ];
 
-            if ($this->request->getPost('nama_operator')[$i] != null) {
-                $data = [
-                    'id_lhp_grid' => $id_lhp,
-                    'no_machine' => $this->request->getPost('no_machine')[$i],
-                    'operator_name' => $this->request->getPost('nama_operator')[$i],
-                    'type_grid' => $this->request->getPost('type_grid')[$i],
-                    'jks' => intval($this->request->getPost('jks')[$i]),
-                    'actual' => intval($this->request->getPost('aktual')[$i]),
-                    'mh' => floatval($this->request->getPost('mh')[$i]),
-                    'productivity' => floatval($this->request->getPost('productivity')[$i]),
-                    'persentase' => floatval($this->request->getPost('persentase')[$i]),
-                ];
-                $save_data = $this->M_WideStrip->update_lhp($id_detail_lhp_grid, $data);
-
-                if (!empty($this->request->getPost('jks')[$i])) {
-                    $total_jks += $this->request->getPost('jks')[$i];
-                }
-
-                if (!empty($this->request->getPost('aktual')[$i])) {
-                    $total_actual += $this->request->getPost('aktual')[$i];
-                    $total_mh += $this->request->getPost('mh')[$i];
-                    $total_productivity += floatval($this->request->getPost('productivity')[$i]);
-                }
-            }
+            $save_data_level_melting_pot = $this->M_WideStrip->update_level_melting_pot($id_level_melting_pot, $data);
         }
 
-        $total_data_breakdown = $this->request->getPost('nama_mesin_breakdown');
+        $total_plan = 0;
+        $total_actual = 0;
+        $total_total_stop = 0;
+        $total_data = $this->request->getPost('batch');
+        for ($i = 0; $i < count($total_data); $i++) {
+            $id_detail_lhp_wide_strip = $this->request->getPost('id_detail_lhp_wide_strip')[$i];
+            $data = [
+                'id_lhp_ws' => $id_lhp,
+                'batch' => $this->request->getPost('batch')[$i],
+                'jam_start' => $this->request->getPost('start')[$i],
+                'jam_end' => $this->request->getPost('stop')[$i],
+                'menit_terpakai' => $this->request->getPost('menit_terpakai')[$i],
+                'coil_code' => $this->request->getPost('coil_code')[$i],
+                'type_wist' => $this->request->getPost('type_wist')[$i],
+                'ct' => $this->request->getPost('ct')[$i],
+                'plan_ws' => $this->request->getPost('plan')[$i],
+                'actual' => $this->request->getPost('actual')[$i],
+                'total_stop' => $this->request->getPost('total_stop')[$i],
+            ];
+            
+            if ($this->request->getPost('actual')[$i] != null) {
+                $total_plan += (int) $this->request->getPost('plan')[$i];
+                $total_actual += (int) $this->request->getPost('actual')[$i];
+                $total_total_stop += (int) $this->request->getPost('total_stop')[$i];
+            }
+
+            $save_data = $this->M_WideStrip->update_lhp($id_detail_lhp_wide_strip, $data);
+        }
+
+        $total_data_line_stop = $this->request->getPost('coil_code_line_stop');
         $model = new M_WideStrip();
-        $data_detail_breakdown = $model->get_data_breakdown($id_lhp);
-        $id_detail_lhp_grid_breakdown_input = $this->request->getPost('id_detail_lhp_grid_breakdown');
-        $id_detail_lhp_grid_breakdown_exist = [];
-        if (!empty($total_data_breakdown)) {
-            for ($i = 0; $i < count($total_data_breakdown); $i++) {
-                $id_detail_lhp_grid_breakdown = $this->request->getPost('id_detail_lhp_grid_breakdown')[$i];
-                $id_detail_lhp_grid_breakdown_exist[$id_detail_lhp_grid_breakdown] = $id_detail_lhp_grid_breakdown;
-
-                if ($this->request->getPost('nama_mesin_breakdown')[$i] != null) {
-
+        $data_detail_line_stop = $model->get_data_breakdown($id_lhp);
+        $id_breakdown_exist = [];
+        $total_breakdown = 0;
+        if (!empty($total_data_line_stop)) {
+            for ($i = 0; $i < count($total_data_line_stop); $i++) {
+                if ($this->request->getPost('jenis_line_stop') !== NULL && array_key_exists($i, $this->request->getPost('jenis_line_stop'))) {
+                    $id_breakdown = $this->request->getPost('id_breakdown')[$i];
+                    if($id_breakdown !== "") {
+                        $id_breakdown_exist[$id_breakdown] = $id_breakdown;
+                    }
+                    $id_detail_lhp_breakdown = $this->request->getPost('id_detail_lhp_breakdown')[$i];
                     $data_breakdown = [
-                        'id_lhp_grid' => $id_lhp,
-                        'no_machine' => $this->request->getPost('nama_mesin_breakdown')[$i],
-                        'uraian_breakdown' => $this->request->getPost('uraian_breakdown_grid')[$i],
-                        'total_menit' => $this->request->getPost('total_menit_breakdown_grid')[$i],
+                        'id_lhp_ws' => $id_lhp,
+                        'id_detail_lhp_ws' => $id_detail_lhp_breakdown,
+                        'jam_start' => $this->request->getPost('start_breakdown')[$i],
+                        'jam_end' => $this->request->getPost('stop_breakdown')[$i],
+                        'coil_code' => $this->request->getPost('coil_code_line_stop')[$i],
+                        'kategori_line_stop' => $this->request->getPost('kategori_line_stop')[$i],
+                        'jenis_line_stop' => $this->request->getPost('jenis_line_stop')[$i],
+                        'uraian_line_stop' => $this->request->getPost('uraian_line_stop')[$i],
+                        'menit_breakdown' => $this->request->getPost('menit_breakdown')[$i],
                     ];
 
-                    $save_data_breakdown = $this->M_WideStrip->save_detail_breakdown($id_detail_lhp_grid_breakdown, $data_breakdown);
+                    $total_breakdown += $this->request->getPost('menit_breakdown')[$i];
 
-                    $total_breakdown += $this->request->getPost('total_menit_breakdown_grid')[$i];
+                    $save_data_breakdown = $this->M_WideStrip->save_detail_breakdown($id_breakdown, $data_breakdown);
                 }
             }
-            foreach ($data_detail_breakdown as $ddb) {
-                if (!array_key_exists($ddb['id_breakdown_grid'], $id_detail_lhp_grid_breakdown_exist)) {
-                    $this->M_WideStrip->delete_detail_breakdown_by_id_breakdown_grid($ddb['id_breakdown_grid']);
+            foreach ($data_detail_line_stop as $ddb) {
+                if (!array_key_exists($ddb['id_breakdown_ws'], $id_breakdown_exist)) {
+                    $this->M_WideStrip->delete_detail_breakdown_by_id_breakdown_ws($ddb['id_breakdown_ws']);
                 }
             }
         } else {
             $this->M_WideStrip->delete_detail_breakdown_by_id_lhp($id_lhp);
         }
 
-        $total_data_andon = $this->request->getPost('no_machine_andon');
-        if (!empty($total_data_andon)) {
-            $this->M_WideStrip->delete_detail_andon($id_lhp);
-            for ($i = 0; $i < count($total_data_andon); $i++) {
+        // $total_data_andon = $this->request->getPost('no_machine_andon');
+        // if (!empty($total_data_andon)) {
+        //     $this->M_WideStrip->delete_detail_andon($id_lhp);
+        //     for ($i = 0; $i < count($total_data_andon); $i++) {
 
-                $data_andon = [
-                    'id_lhp_grid' => $id_lhp,
-                    'no_machine' => $this->request->getPost('no_machine_andon')[$i],
-                    'tiket_andon' => $this->request->getPost('tiket_andon')[$i],
-                    'permasalahan' => $this->request->getPost('permasalahan_andon')[$i],
-                    'tujuan' => $this->request->getPost('tujuan_andon')[$i],
-                    'total_menit' => $this->request->getPost('total_menit_andon')[$i],
+        //         $data_andon = [
+        //             'id_lhp_grid' => $id_lhp,
+        //             'no_machine' => $this->request->getPost('no_machine_andon')[$i],
+        //             'tiket_andon' => $this->request->getPost('tiket_andon')[$i],
+        //             'permasalahan' => $this->request->getPost('permasalahan_andon')[$i],
+        //             'tujuan' => $this->request->getPost('tujuan_andon')[$i],
+        //             'total_menit' => $this->request->getPost('total_menit_andon')[$i],
+        //         ];
+
+        //         $save_data_andon = $this->M_WideStrip->save_detail_andon($data_andon);
+
+        //         $total_andon += $this->request->getPost('total_menit_andon')[$i];
+        //     }
+        // }
+
+        $total_output_product = $this->request->getPost('coil_code_output_product');
+        if(!empty($total_output_product)) {
+            for ($i = 0; $i < count($total_output_product); $i++) {
+                $id_output_product = $this->request->getPost('id_output_product')[$i];
+                $data_output_product = [
+                    'id_lhp_wh_start' => $id_lhp,
+                    'coil_code' => $this->request->getPost('coil_code_output_product')[$i],
+                    'type' => $this->request->getPost('type_wist_output_product')[$i],
+                    'winder' => $this->request->getPost('winder_output_product')[$i],
+                    'panjang' => $this->request->getPost('panjang_output_product')[$i],
+                    'tebal_r' => $this->request->getPost('tebal_r_output_product')[$i],
+                    'tebal_l' => $this->request->getPost('tebal_l_output_product')[$i],
+                    'bending' => $this->request->getPost('bending_output_product')[$i],
+                    'lebar' => $this->request->getPost('lebar_output_product')[$i],
+                    'hasil_timbangan' => $this->request->getPost('hasil_timbangan_output_product')[$i],
+                    'prod_time' => $this->request->getPost('tanggal_produksi'),
+                    'berat' => $this->request->getPost('berat_output_product')[$i],
+                    'wh_from' => 'K-WS',
+                    'wh_to' => 'K-PUN',
+                    'status' => 'open',
                 ];
-
-                $save_data_andon = $this->M_WideStrip->save_detail_andon($data_andon);
-
-                $total_andon += $this->request->getPost('total_menit_andon')[$i];
+    
+                $save_data_output_product = $this->M_WideStrip->update_output_product($id_output_product, $data_output_product);
             }
         }
 
-        if ($completed === NULL && $approved === NULL) {
-            $status = 'waiting';
-        } else if ($completed !== NULL) {
-            $status = 'completed';
-        } else if ($approved !== NULL) {
-            $status = 'approved';
-        }
+        // if ($completed === NULL && $approved === NULL) {
+        //     $status = 'waiting';
+        // } else if ($completed !== NULL) {
+        //     $status = 'completed';
+        // } else if ($approved !== NULL) {
+        //     $status = 'approved';
+        // }
         $data_summary_lhp = [
-            'total_jks' => $total_jks,
+            'total_plan' => $total_plan,
             'total_aktual' => $total_actual,
             'total_breakdown' => $total_breakdown,
-            'total_andon' => $total_andon,
-            'total_mh' => $total_mh,
-            'total_productivity' => $total_productivity,
-            'status' => $status
+            'total_stop' => $total_total_stop,
         ];
 
-        $this->M_WideStrip->update_lhp_grid($id_lhp, $data_summary_lhp);
+        $this->M_WideStrip->update_lhp_wide_strip($id_lhp, $data_summary_lhp);
 
         // $this->M_WideStrip->delete_data_rak_by_id($id_lhp);
 
@@ -359,13 +410,13 @@ class WideStrip extends BaseController
     public function download_pdf($id_lhp)
     {
         $data['id_lhp'] = $id_lhp;
-        $data['data_lhp'] = $this->M_WideStrip->get_data_lhp_grid_by_id($id_lhp);
+        $data['data_lhp'] = $this->M_WideStrip->get_data_lhp_wide_strip_by_id($id_lhp);
         $data['data_mesin'] = $this->M_WideStrip->get_data_mesin_grid();
         $data['data_operator'] = $this->M_WideStrip->get_data_operator_grid();
         $data['data_type_grid'] = $this->M_WideStrip->get_data_type_grid();
         $data['data_breakdown'] = $this->M_WideStrip->get_data_breakdown($id_lhp);
         $data['data_andon'] = $this->M_WideStrip->get_data_andon_by_id($id_lhp);
-        $data['data_record_rak'] = $this->M_WideStrip->get_id_data_detail_record_rak_by_id($id_lhp, 'K-CAS');
+        $data['data_record_rak'] = $this->M_WideStrip->get_id_data_detail_record_rak_by_id($id_lhp, 'K-PUN', 'K-PUN');
         // $data['data_all_rak'] = $this->M_WideStrip->get_data_rak_by_id($id_lhp);
         $session = \Config\Services::session();
         $data['session'] = $session->get('level');
@@ -383,14 +434,31 @@ class WideStrip extends BaseController
     {
         $id_lhp = $this->request->getPost('id_lhp');
         $material_in = $this->request->getPost('material_in');
-        $conveyor = $this->request->getPost('conveyor');
+        $qty_material_in = $this->request->getPost('qty_material_in');
+        $item_material_in = $this->request->getPost('item_material_in');
         $data = [
-            'id_lhp_grid' => $id_lhp,
+            'id_lhp_ws' => $id_lhp,
             'material_in' => $material_in,
-            'keterangan' => $conveyor,
+            'qty' => $qty_material_in,
+            'item_material_in' => $item_material_in,
         ];
         $id_material_in = $this->M_WideStrip->add_material_in($data);
         if($id_material_in !== NULL) return $id_material_in;
+        else return;
+    }
+
+    public function material_in_mlr()
+    {
+        $id_lhp = $this->request->getPost('id_lhp');
+        $material_in_mlr = $this->request->getPost('material_in_mlr');
+        $qty_material_in_mlr = $this->request->getPost('qty_material_in_mlr');
+        $data = [
+            'id_lhp_ws' => $id_lhp,
+            'type' => $material_in_mlr,
+            'qty' => $qty_material_in_mlr,
+        ];
+        $id_material_in_mlr = $this->M_WideStrip->add_material_in_mlr($data);
+        if($id_material_in_mlr !== NULL) return $id_material_in_mlr;
         else return;
     }
 
@@ -400,5 +468,20 @@ class WideStrip extends BaseController
         $delete_material_in = $this->M_WideStrip->delete_material_in($id_material_in);
 
         return $id_material_in;
+    }
+
+    public function delete_material_in_mlr()
+    {
+        $id_material_in = $this->request->getPost('id_material_in');
+        $delete_material_in_mlr = $this->M_WideStrip->delete_material_in_mlr($id_material_in);
+
+        return $id_material_in;
+    }
+
+    public function get_jenis_line_stop()
+    {
+        $kategori_line_stop = $this->request->getPost('kategori_line_stop');
+        $jenis_line_stop = $this->M_WideStrip->getListJenisLineStopWS($kategori_line_stop);
+        echo json_encode($jenis_line_stop);
     }
 }
