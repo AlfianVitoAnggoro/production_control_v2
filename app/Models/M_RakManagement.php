@@ -126,6 +126,7 @@ class M_RakManagement extends Model
 
     public function update_rak_aging()
     {
+        date_default_timezone_set("Asia/Jakarta");
         $date_now = date('Y-m-d H:i:s');
         $query = $this->db5->query('UPDATE data_rak_aging SET stop_aging = \'' . $date_now . '\' WHERE stop_aging IS NULL');
     }

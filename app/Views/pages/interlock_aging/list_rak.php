@@ -1,6 +1,32 @@
 <?= $this->extend('template/layout'); ?>
 
 <?= $this->section('content'); ?>
+    <?php
+        date_default_timezone_set("Asia/Jakarta");
+        $newestDate = null;
+        $bongkar = false;
+        foreach ($data_rak_at_aging as $item) {
+            $startAging = $item['created_at'];
+            
+            if ($startAging !== null) {
+                $startAgingDateTime = new DateTime($startAging);
+
+                if ($newestDate === null || $startAgingDateTime > $newestDate) {
+                    $newestDate = $startAgingDateTime;
+                }
+            }
+        }
+        
+        if ($newestDate !== null) {
+            $currentDateTime = new DateTime();
+            $diff = $currentDateTime->diff($newestDate);
+            $hoursDifference = $diff->h;
+        
+            if ($hoursDifference >= 4) {
+                $bongkar = true;
+            }
+        }
+    ?>
     <div class="content-wrapper">
 	    <div class="container-full">
             <section class="content">
@@ -141,9 +167,10 @@
                                         <div style="text-align:center;">
                                             <a href="<?=base_url()?>interlock_aging/" class="btn btn-secondary">Kembali</a>
                                             &nbsp;&nbsp;
-                                            <?php if (count($data_rak_at_aging) < 12) { ?>
+                                            <?php if (count($data_rak_at_aging) < 24) { ?>
                                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                            <?php } else { ?>
+                                            <?php } 
+                                            if ($bongkar) { ?>
                                                 <a href="<?=base_url()?>interlock_aging/update_rak_aging/<?=$mesin?>" class="btn btn-danger">Bongkar</a>
                                             <?php } ?>
                                         </div>
