@@ -179,14 +179,15 @@ class Pasting extends BaseController
     $data['summary_total_aktual_per_type'] = $model->get_summary_total_aktual_per_type($id);
     $data['summary_note'] = $model->get_summary_note($id);
     $data['summary_detail_note'] = [];
+    $i = 0;
     foreach ($data['summary_note'] as $note) {
       $data['summary_detail_note'][] = [
-          $note['type_grid'] => [
               'id_summary_note' => $note['id_detail_lhp_pasting_note'],
+              'type_grid' => $note['type_grid'],
               'note' => $note['note'],
               'loss_over' => $note['loss_over']
-          ]
       ];
+      $i++;
     }
 
     return view('pages/pasting/pasting_detail_view', $data);

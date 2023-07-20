@@ -3,8 +3,8 @@
 <?= $this->section('content'); ?>
 <!-- Content Wrapper. Contains page content -->
 <?php
-// var_dump($data_detail_breakdown);die;
-$shift
+// var_dump($summary_detail_note);die;
+// echo $summary_detail_note[0]['loss_over']; die;
 ?>
 <div class="content-wrapper">
   <div class="container-full">
@@ -410,16 +410,25 @@ $shift
                           <td><?= $d_summary_total_aktual_per_type['type_grid'] ?></td>
                           <td><?= $d_summary_total_aktual_per_type['actual'] ?></td>
                           <!-- <td> -->
-                            <?php foreach($summary_detail_note as $sdn){
-                              if(array_key_exists($d_summary_total_aktual_per_type['type_grid'], $sdn)) { ?>
+                            <?php 
+                            // foreach($summary_detail_note as $sdn){
+                              // $keys = array_keys($summary_detail_note);
+                              $cek_type = false;
+                              for ($i = 0; $i < count($summary_detail_note); $i++) {
+                                if ($summary_detail_note[$i]["type_grid"] == $d_summary_total_aktual_per_type['type_grid']) {
+                                  $cek_type = true;
+                                  break;
+                                }
+                              }
+                              if($cek_type) { ?>
                                 <td>
-                                  <?=$sdn[$d_summary_total_aktual_per_type['type_grid']]['loss_over']?>
-                                  <input type="hidden" class="form-control" name="loss_over_value" id="loss_over_<?= $index_summary_note ?>" value="<?= $sdn[$d_summary_total_aktual_per_type['type_grid']]['loss_over'] ?>">
+                                  <?= $summary_detail_note[$index_summary_note]['loss_over'] ?>
+                                  <input type="hidden" class="form-control" name="loss_over_value" id="loss_over_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['loss_over'] ?>">
                                 </td>
                                 <td>
-                                  <?=$sdn[$d_summary_total_aktual_per_type['type_grid']]['note']?>
-                                  <input type="hidden" class="form-control" name="note_value" id="note_<?= $index_summary_note ?>" value="<?= $sdn[$d_summary_total_aktual_per_type['type_grid']]['note'] ?>">
-                                  <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="<?= $sdn[$d_summary_total_aktual_per_type['type_grid']]['id_summary_note'] ?>">
+                                  <?= $summary_detail_note[$index_summary_note]['note']?>
+                                  <input type="hidden" class="form-control" name="note_value" id="note_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['note'] ?>">
+                                  <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['id_summary_note'] ?>">
                                 </td>
                             <?php } else {
                                 echo ''; ?>
@@ -429,7 +438,7 @@ $shift
                                   <input type="hidden" class="form-control" name="loss_over_value" id="loss_over_<?= $index_summary_note ?>" value="">
                                 </td>
                             <?php }
-                            }
+                            // }
                             if(count($summary_detail_note) == 0) {
                                 echo ''; ?>
                                 <td><input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value=""></td>
