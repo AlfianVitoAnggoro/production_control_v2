@@ -406,7 +406,7 @@
                     </thead>
                     <tbody >
                       <?php $index_summary_note = 0; foreach($summary_total_aktual_per_type as $d_summary_total_aktual_per_type){ ?>
-                        <tr class="<?= $d_summary_total_aktual_per_type['type_grid'] ?>">
+                        <tr class="<?= str_replace(" ","",$d_summary_total_aktual_per_type['type_grid']) ?>">
                           <td><?= $d_summary_total_aktual_per_type['type_grid'] ?></td>
                           <td><?= $d_summary_total_aktual_per_type['actual'] ?></td>
                           <!-- <td> -->
@@ -1592,7 +1592,7 @@
       dataType: 'json',
       success: function(data) {
         console.log(data)
-        document.querySelector('.' + type_grid_note).innerHTML = `
+        document.querySelector('.' + type_grid_note.replace(" ", "")).innerHTML = `
           <td>${type_grid_note}</td>
           <td>${actual_note}</td>
           <td>
