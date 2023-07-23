@@ -20,7 +20,7 @@
                                             <input type="date" class="form-control" name="filter_tanggal" id="filter_tanggal" style="width: 200px;" value="<?=$tanggal?>">
                                             &emsp;
                                             <select class="form-select" name="filter_sesi" id="filter_sesi" style="width: 250px;">
-                                                <option value="" disabled>Pilih Sesi</option>
+                                                <option value="all" <?=($sesi == 'all') ? 'selected':''?>>All</option>
                                                 <option value="2" <?=($sesi == '2') ? 'selected':''?>>08.00 - 09.00</option>
                                                 <option value="3" <?=($sesi == '3') ? 'selected':''?>>10.00 - 11.00</option>
                                                 <option value="4" <?=($sesi == '4') ? 'selected':''?>>13.00 - 14.00</option>
@@ -40,6 +40,8 @@
                                             </select>
                                             &emsp;
                                             <button class="btn btn-primary" onclick="filter()">Filter</button>
+                                            &nbsp;
+                                            <button class="btn btn-secondary" onclick="clear_filter()">Clear</button>
                                         </div>
                                     </div>
 								</div>
@@ -389,6 +391,11 @@
         console.log(line);
 
         window.location.href = `<?=base_url()?>supply_charging/list_supply/${date}/${sesi}/${line}`;
+    }
+
+    function clear_filter()
+    {
+        window.location.href = `<?=base_url()?>supply_charging/list_supply`;
     }
   </script>
   <?= $this->endSection(); ?>

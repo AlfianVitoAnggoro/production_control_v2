@@ -19,8 +19,12 @@ class M_SupplyCharging extends Model
     {
         $next_day = date('Y-m-d', strtotime("+1 day", strtotime($date)));
         // $query = $this->db->query(' SELECT * FROM supply_charging where estimasi_finish > \''.$date.' 06:00:00.000 \' AND estimasi_finish <= \''.$next_day.' 06:00:00.000 \' AND sesi = \''.$sesi.'\'');
-        if ($line == 'all') {
+        if ($line == 'all' AND $sesi == 'all') {
+            $query = $this->db->query(' SELECT * FROM supply_charging where estimasi_finish >= \''.$date.' 00:00:00.000 \' AND estimasi_finish <= \''.$date.' 23:59:59.000 \' ORDER BY id_supply_charging ASC');
+        } elseif ($line == 'all' AND $sesi != 'all') {
             $query = $this->db->query(' SELECT * FROM supply_charging where estimasi_finish >= \''.$date.' 00:00:00.000 \' AND estimasi_finish <= \''.$date.' 23:59:59.000 \' AND sesi = \''.$sesi.'\' ORDER BY id_supply_charging ASC');
+        } elseif ($line != 'all' AND $sesi == 'all') {
+            $query = $this->db->query(' SELECT * FROM supply_charging where estimasi_finish >= \''.$date.' 00:00:00.000 \' AND estimasi_finish <= \''.$date.' 23:59:59.000 \' AND tujuan = \''.$line.'\' ORDER BY id_supply_charging ASC');
         } else {
             $query = $this->db->query(' SELECT * FROM supply_charging where estimasi_finish >= \''.$date.' 00:00:00.000 \' AND estimasi_finish <= \''.$date.' 23:59:59.000 \' AND sesi = \''.$sesi.'\' AND tujuan = \''.$line.'\' ORDER BY id_supply_charging ASC');
         }
