@@ -213,12 +213,24 @@ class SupplyCharging extends BaseController
 
   public function update_status_supply()
   {
+    date_default_timezone_set("Asia/Jakarta");
+
     $no_wo = $this->request->getPost('no_wo');
     $status = $this->request->getPost('status');
 
-    $data = [
-      'status' => $status,
-    ];
+    if ($status == 'close') {
+      $data = [
+        'status' => $status,
+        'closed_order' => date('Y-m-d H:i:s')
+      ];
+    } else {
+      $data = [
+        'status' => $status,
+        'closed_order' => NULL
+      ];
+    }
+
+    
 
     $update_status_supply = $this->M_SupplyCharging->update_status_supply($no_wo,$data);
 
