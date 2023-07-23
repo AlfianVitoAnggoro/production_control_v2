@@ -28,7 +28,14 @@ class Cors implements FilterInterface
         header("Access-Control-Allow-Origin: *");
         // header("Access-Control-Allow-Headers: X-API-KEY, Origin,X-Requested-With, Content-Type, Accept, Access-Control-Requested-Method, Authorization");
         // header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PATCH, PUT, DELETE");
-        $method = $_SERVER['REQUEST_METHOD'];
+        
+        // Check if the REQUEST_METHOD is defined (only available via web server)
+        if (isset($_SERVER['REQUEST_METHOD'])) {
+            $method = $_SERVER['REQUEST_METHOD'];
+        } else {
+            // Set a default method for CLI mode
+            $method = 'GET'; // Change this to the desired default method
+        }
         if($method == "OPTIONS"){
             die();
         }

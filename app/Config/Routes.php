@@ -250,6 +250,13 @@ $routes->group('wet_loading_new', ['filter' => 'auth'], function ($routes) {
 
     $routes->post('get_durasi_charging', 'WET_Loading_new::get_durasi_charging');
     $routes->get('get_durasi_charging', 'WET_Loading_new::get_durasi_charging');
+
+    $routes->get('list_loading', 'WET_Loading_new::list_loading');
+    $routes->get('list_loading/(:any)', 'WET_Loading_new::list_loading/$1');
+    $routes->post('list_loading/add_list_wo', 'WET_Loading_new::add_list_wo');
+    $routes->get('list_loading/delete_list_wo/(:any)', 'WET_Loading_new::delete_list_wo/$1');
+
+    $routes->post('update_status_list_loading_wo', 'WET_Loading_new::update_status_list_loading_wo');
 });
 
 //WET CHARGING
@@ -260,9 +267,18 @@ $routes->group('wet_charging', ['filter' => 'auth'], function ($routes) {
 // SUPPLY CHARGING
 $routes->group('supply_charging', ['filter' => 'auth'], function ($routes) {
     $routes->get('list_supply/', 'SupplyCharging::list_supply');
-    $routes->get('list_supply/(:any)/(:any)', 'SupplyCharging::list_supply/$1/$2');
+    $routes->get('list_supply/(:any)/(:any)/(:any)', 'SupplyCharging::list_supply/$1/$2/$3');
     $routes->post('get_component_by_wo', 'SupplyCharging::get_component_by_wo');
     $routes->post('add_detail_supply_charging', 'SupplyCharging::add_detail_supply_charging');
+
+    $routes->post('add_data_supply_charging', 'SupplyCharging::add_data_supply_charging');
+
+    $routes->post('uncheck_prepare_item', 'SupplyCharging::uncheck_prepare_item');
+    $routes->post('check_prepare_item', 'SupplyCharging::check_prepare_item');
+
+    $routes->post('uncheck_supply_item', 'SupplyCharging::uncheck_supply_item');
+    $routes->post('check_supply_item', 'SupplyCharging::check_supply_item');
+    $routes->post('update_status_supply', 'SupplyCharging::update_status_supply');
 });
 
 //GRID
@@ -626,6 +642,9 @@ $routes->get('interlock_aging/update_rak_aging/(:any)', 'InterlockAging::update_
 $routes->get('api/get_detail_rak/', 'Api::get_detail_rak/');
 $routes->get('api/get_detail_rak/(:any)', 'Api::get_detail_rak/$1');
 $routes->get('api/get_detail_barcode/(:any)', 'Api::get_detail_barcode/$1');
+
+// CRON JOB
+$routes->cli('rak_management/reset_rak_casting_pasting', 'RakManagement::reset_rak_casting_to_pasting');
 
 // $routes->get('/lhp/test', 'Home::test');
 

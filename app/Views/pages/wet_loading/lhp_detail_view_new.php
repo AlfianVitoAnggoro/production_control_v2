@@ -136,7 +136,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 								</table>
 							</div>
 							<div class="col-2"></div>
-							<div class="col-2" style="text-align:center;display:flex; justify-content:space-evenly; flex-direction:column-reverse;"><input type="submit" class="btn btn-success" value="Save"></div>
+							<div class="col-2" style="text-align:center;display:flex; justify-content:space-evenly; flex-direction:column-reverse;"><input type="submit" class="btn btn-success" id="submit-btn" value="Save"></div>
 						</div>
 					</div>
 				</div>
@@ -162,7 +162,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 									</tr>
 								</table>
 
-								<table class="table" id="table_list_wo">
+								<table class="table" id="table_list_wo" style="display:none">
 									<thead>
 										<tr>
 											<th>WO Charging</th>
@@ -196,7 +196,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 												<th>CT</th>
 												<th>Plan Cap</th>
 												<th>Actual</th>
-												<th>Estimasi Finish</th>
+												<!-- <th>Estimasi Finish</th> -->
 												<th>Menit Line Stop</th>
 												<th>Pending</th>
 												<th>Line Stop</th>
@@ -207,18 +207,30 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 											<?php $i = 0; foreach($data_detail_lhp as $d_detail_lhp) { ?>
 												<tr class="item">
 													<td>
-														
+														<input type="time" class="form-control" name="start[]" id="start_<?=$i?>" class="form-control" value="<?=date('H:i', strtotime($d_detail_lhp['jam_start']))?>" style="width:100px;" readonly>
 													</td>
 													<td>
-														
+														<?php if(!empty($d_detail_lhp['jam_end'])) { ?> 
+															<input type="time" class="form-control" name="stop[]" id="stop_<?=$i?>" class="form-control" value="<?=date('H:i', strtotime($d_detail_lhp['jam_end']))?>" style="width:100px;" readonly>
+														<?php } else { ?>
+															<div id="stop_section_<?=$i?>">
+																<button class="btn btn-danger" onclick="time_stop(<?=$i?>)">Stop</button>
+															</div>
+														<?php } ?>
 													</td>
 													<td>
-														
+														<?php if(!empty($d_detail_lhp['menit_terpakai'])) { ?> 
+															<input type="text" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" class="form-control" value="<?=$d_detail_lhp['menit_terpakai']?>" style="width:100px;">
+														<?php } else { ?>
+															<div id="menit_terpakai_section_<?=$i?>">
+																<input type="text" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?=$i?>" class="form-control" value="" style="width:100px;">
+															</div>
+														<?php } ?>
 													</td>
 													<td>
 														<input type="text" class="form-control" name="no_wo[]" id="no_wo_<?=$i?>" class="form-control" value="<?=$d_detail_lhp['no_wo']?>" style="width:200px;" readonly>
 														<input type="hidden" name="batch[]" id="batch_<?=$i?>" value="">
-														<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp_<?=$i?>" value="">
+														<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp_<?=$i?>" value="<?=$d_detail_lhp['id_detail_lhp_wet_loading']?>">
 													</td>
 													<td>
 														<input type="text" class="form-control" name="type_battery[]" id="type_battery_<?=$i?>" class="form-control" value="<?=$d_detail_lhp['type_battery']?>" style="width:250px;" readonly>
@@ -227,13 +239,25 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 														<input type="text" class="form-control" name="ct[]" id="ct_<?=$i?>" class="form-control" value="<?=$d_detail_lhp['ct']?>" readonly>
 													</td>
 													<td>
-														
+														<?php if(!empty($d_detail_lhp['plan_cap'])) { ?> 
+															<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" class="form-control" value="<?=$d_detail_lhp['plan_cap']?>" readonly>
+														<?php } else { ?>
+															<div id="plan_cap_section_<?=$i?>">
+																<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_<?=$i?>" class="form-control" value="" readonly>
+															</div>
+														<?php } ?>
 													</td>
 													<td>
 														<input type="text" class="form-control" name="actual[]" id="actual_<?=$i?>" class="form-control" value="<?=$d_detail_lhp['actual']?>">
 													</td>
 													<td>
-														
+														<?php if(!empty($d_detail_lhp['total_menit_breakdown'])) { ?> 
+															<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" class="form-control" value="<?=$d_detail_lhp['total_menit_breakdown']?>" readonly>
+														<?php } else { ?>
+															<div id="total_menit_breakdown_section_<?=$i?>">
+																<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_<?=$i?>" class="form-control" value="" readonly>
+															</div>
+														<?php } ?>
 													</td>
 													<td>
 														<button type="button"class="btn btn-sm btn-primary" id="add_pending_<?=$i?>" onclick="add_pending(<?=$i?>)">Add</button>
@@ -249,7 +273,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 										</tbody>
 										<tfoot>
 											<tr>
-												<td colspan="8"></td>
+												<td colspan="6"></td>
 												<td><h3>Total</h3></td>
 												<td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?=$data_lhp[0]['total_aktual']?>" style="width: 75px" readonly></td>
 												<td></td>
@@ -333,7 +357,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 										</tbody>
 										<tfoot>
 											<tr>
-												<th colspan="2"></th>
+												<th colspan="3"></th>
 												<td><h3>Total</h3></td>
                         						<td style="text-align: right;"><input type="text" class="form-control" name="total_pending" id="total_pending" value="<?=$total_pending[0]['total_pending']?>" style="width: 100px" readonly></td>
 											</tr>
@@ -441,7 +465,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 										</tbody>
 										<tfoot>
 											<tr>
-												<th colspan="5"></th>
+												<th colspan="6"></th>
 												<td><h3>Total</h3></td>
                         						<td style="text-align: right;"><input type="text" class="form-control" name="total_menit_breakdown_aktual" id="total_menit_breakdown_aktual" value="<?=$total_menit_breakdown[0]['total_menit']?>" style="width: 100px" readonly></td>
 											</tr>
@@ -467,11 +491,12 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 									<table id="" class="table table-striped mb-0">
 										<thead>
 											<tr>
+												<th>No WO</th>
 												<th>Type Battery</th>
 												<th>Reject Jenis</th>
 												<th>Reject Kategori</th>
-												<th>Analisa Problem</th>
 												<th>Reject QTY</th>
+												<th>Analisa Problem</th>
 												<th>Reject Action</th>
 											</tr>
 										</thead>
@@ -544,7 +569,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 
 				<div class="row">
 					<div class="col-4"></div>
-					<div class="col-4" style="text-align:center;"><input type="submit" class="btn btn-success" value="Save"></div>
+					<div class="col-4" style="text-align:center;"><input type="submit" class="btn btn-success" id="submit-btn" value="Save"></div>
 					<div class="col-4"></div>
 				</div>
 			</form>
@@ -592,6 +617,20 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 </div>
 <!-- /.modal -->
 
+<!-- MODAL LOADING-->
+<div class="modal" id="loading-modal" data-bs-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content" style="background-color:rgba(0, 0, 0, 0.01);">
+			<div class="modal-body text-center">
+				<div class="spinner-border text-light" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+				<h5 class="mt-2 text-light">Loading...</h5>
+			</div>
+		</div>
+	</div>
+</div>
+
 <?= $this->endSection(); ?>
 
 <?= $this->section('script'); ?>
@@ -618,95 +657,106 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 			}
 		});
 
-		test();
+		$('#input_barcode').focus();
 	});
 
 
   	function getPartNo() {
 		var barcode = $('#input_barcode').val();
+		$('#loading-modal').modal('show');
 		$.ajax({
 			url: '<?=base_url()?>wet_loading_new/get_part_number',
 			type: 'POST',
 			data: {barcode: barcode},
 			dataType: 'json',
 			success: function(data) {
-				// console.log(data);
-				var part_number_assy = data[0].ITEM;
-				$('#input_wo').val(data[0].NO_WO);
-				$('#input_part').val(data[0].ITEM);
-				$('#input_actual').val(data[0].QTY);
+				if (data.length > 0 ) {
+					// console.log(data);
+					var part_number_assy = data[0].ITEM;
+					$('#input_wo').val(data[0].NO_WO);
+					$('#input_part').val(data[0].ITEM);
+					$('#input_actual').val(data[0].QTY);
 
-				$.ajax({
-					url: '<?=base_url()?>wet_loading_new/get_part_number_charging',
-					type: 'POST',
-					data: {
-						part_number: data[0].ITEM,
-					},
-					dataType: 'json',
-					success: function(data) {
-						console.log(data);
-
-						$.ajax({
-							url: '<?=base_url()?>wet_loading_new/get_wo_charging',
-							type: 'POST',
-							data: {
-								part_number: data[0].part_number,
-							},
-							dataType: 'json',
-							success: function(data) {
-								// console.log(data);
-								data.forEach(function(item, index) {
-									$('#data_list_wo').append(`
-										<tr>
-											<td>
-												${item.T$PDNO}
-												<input type="hidden" name="wo[]" id="wo_${index}" value="${item.T$PDNO}">
-											</td>
-											<td>
-												${item.T$MITM.trim()}
-												<input type="hidden" name="part_number[]" id="part_number_${index}" value="${item.T$MITM.trim()}">
-											</td>
-											<td>
-												${item.T$QNTL}
-												<input type="hidden" name="qty[]" id="qty_${index}" value="${item.T$QNTL}">
-											</td>
-											<td>
-												<button type="button" class="btn btn-success" onclick="add_item(${index})"><i class="fa fa-plus"></i></button>
-											</td>
-										</tr>
-									`);
-								});
+					$.ajax({
+						url: '<?=base_url()?>wet_loading_new/get_part_number_charging',
+						type: 'POST',
+						data: {
+							part_number: data[0].ITEM,
+						},
+						dataType: 'json',
+						success: function(data) {
+							console.log(data);
+							if (data.length > 0) {
 								$.ajax({
-									url: '<?=base_url()?>wet_loading_new/get_ct_part_number',
+									url: '<?=base_url()?>wet_loading_new/get_wo_charging',
 									type: 'POST',
 									data: {
-										part_number: data[0].T$MITM.trim(), 
-										line: $('#line').val()
+										part_number: data[0].part_number,
 									},
 									dataType: 'json',
 									success: function(data) {
-										console.log(data);
-										$('#input_ct').val(data[0].cycle_time);
-									}
-								});
+										if (data.length > 0) {
+											// console.log(data);
 
-								$.ajax({
-									url: '<?=base_url()?>wet_loading_new/get_durasi_charging',
-									type: 'POST',
-									data: {
-										part_number: part_number_assy, 
-										line: $('#line option:selected').text()
-									},
-									dataType: 'json',
-									success: function(data) {
-										console.log(data);
-										$('#input_durasi').val(data[0].duration);
+											$.ajax({
+												url: '<?=base_url()?>wet_loading_new/get_ct_part_number',
+												type: 'POST',
+												data: {
+													part_number: data[0].part_number, 
+													line: $('#line').val()
+												},
+												dataType: 'json',
+												success: function(data_ct) {
+													console.log(data_ct);
+													$('#input_ct').val(data_ct[0].cycle_time);
+
+													$.ajax({
+														url: '<?=base_url()?>wet_loading_new/get_durasi_charging',
+														type: 'POST',
+														data: {
+															part_number: part_number_assy, 
+															line: $('#line option:selected').text()
+														},
+														dataType: 'json',
+														success: function(data_durasi) {
+															if (data_durasi.length > 0) {
+																console.log(data_durasi);
+																$('#input_durasi').val(data_durasi[0].duration);
+
+																add_item(data[0].no_wo, data[0].part_number, data[0].qty);
+																$('#loading-modal').modal('hide');
+															} else {
+																$('#loading-modal').modal('hide');
+																$('#input_barcode').val('');
+																$('#input_barcode').focus();
+																alert('Durasi Charging tidak ditemukan, silahkan hubungi IT');
+															}
+														}
+													});
+												}
+											});
+										} else {
+											$('#loading-modal').modal('hide');
+											$('#input_barcode').val('');
+											$('#input_barcode').focus();
+											alert('WO tidak ditemukan');
+										}
 									}
 								});
-							}
-						});
-					}
-				});
+							} else {
+								$('#loading-modal').modal('hide');
+								$('#input_barcode').val('');
+								$('#input_barcode').focus();
+								alert('Part Number Charging tidak ditemukan');
+							}							
+						}
+					});
+				} else {
+					$('#loading-modal').modal('hide');
+					$('#input_barcode').val('');
+					$('#input_barcode').focus();
+					alert('Data label tidak ditemukan');
+				}
 			}
 		});
 	}
@@ -793,7 +843,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 	function add_reject(i) {
 		var data_reject = <?= json_encode($data_reject); ?>;
 
-		var no_wo_reject = $('#no_wo_reject_'+i).val();
+		var no_wo_reject = $('#no_wo_'+i).val();
 		var type_battery_reject = $('#type_battery_'+i).val();
 
 		var tbody = document.getElementById('tbody_reject');
@@ -823,7 +873,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 					</select>
 				</td>
 				<td>
-					<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_${j}" style="width: 100px">
+					<input type="number" class="form-control" name="qty_reject[]" id="qty_reject_${j}" style="width: 100px" required>
 				</td>
 				<td>
 					<textarea class="form-control" name="remark_reject[]" id="remark_reject_${j}" cols="20" rows="1" style="width: 250px;"></textarea>
@@ -973,13 +1023,13 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 		`);
 	}
 
-	function time_stop(i) {
-		var date = new Date();
-		var currentTime = date.toLocaleString().substring(11,16);
-		$('#stop_section_'+i).html(`
-			<input type="time" class="form-control" name="stop_${i}" id="stop_${i}" value="${currentTime}" style="width: 100px;">
-		`);
-	}
+	// function time_stop(i) {
+	// 	var date = new Date();
+	// 	var currentTime = date.toLocaleString().substring(11,16);
+	// 	$('#stop_section_'+i).html(`
+	// 		<input type="time" class="form-control" name="stop_${i}" id="stop_${i}" value="${currentTime}" style="width: 100px;">
+	// 	`);
+	// }
 
 	function add_pending(i) {
 		var data_pending = <?= json_encode($data_pending); ?>;
@@ -1168,12 +1218,119 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 	// 	}
 	// }
 
-	function add_item(index) {
-		let no_wo = $('#wo_'+index).val();
-		let type_battery = $('#part_number_'+index).val();
+	// function add_item(index) {
+	// 	let no_wo = $('#wo_'+index).val();
+	// 	let type_battery = $('#part_number_'+index).val();
+	// 	let ct = $('#input_ct').val();
+	// 	let durasi = $('#input_durasi').val();
+	// 	let qty = $('#qty_'+index).val();
+
+	// 	// Get the current datetime
+	// 	var now = new Date();
+
+	// 	// Define the number of hours to add (in this case, stored in a variable)
+	// 	var hoursToAdd = parseFloat(durasi) + 1;
+
+	// 	// Calculate the number of minutes to add based on the decimal hours
+	// 	var minutesToAdd = Math.floor((hoursToAdd % 1) * 60);
+
+	// 	// Add the whole hours to the current datetime
+	// 	now.setHours(now.getHours() + Math.floor(hoursToAdd));
+
+	// 	// Add the remaining minutes to the current datetime
+	// 	now.setMinutes(now.getMinutes() + minutesToAdd);
+
+	// 	// Format the datetime as "d-m-Y H:i:s"
+	// 	var formattedDatetime =
+	// 	('0' + now.getDate()).slice(-2) +
+	// 	'-' +
+	// 	('0' + (now.getMonth() + 1)).slice(-2) +
+	// 	'-' +
+	// 	now.getFullYear() +
+	// 	' ' +
+	// 	('0' + now.getHours()).slice(-2) +
+	// 	':' +
+	// 	('0' + now.getMinutes()).slice(-2);
+
+	// 	// Output the formatted datetime
+	// 	console.log(formattedDatetime);
+
+	// 	let baris = document.querySelectorAll('.item').length;
+
+	// 	$('#tbody_data_item').append(`
+	// 		<tr class="item">
+	// 			<td>
+					
+	// 			</td>
+	// 			<td>
+					
+	// 			</td>
+	// 			<td>
+					
+	// 			</td>
+	// 			<td>
+	// 				<input type="text" class="form-control" name="no_wo[]" id="no_wo_${baris}" class="form-control" value="${no_wo}" style="width:150px;" readonly>
+	// 				<input type="hidden" name="batch[]" id="batch_${baris}" value="">
+	// 				<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp_${baris}" value="">
+	// 			</td>
+	// 			<td>
+	// 				<input type="text" class="form-control" name="type_battery[]" id="type_battery_${baris}" class="form-control" value="${type_battery}" style="width:225px;" readonly>
+	// 			</td>
+	// 			<td>
+	// 				<input type="text" class="form-control" name="ct[]" id="ct_${baris}" class="form-control" value="${ct}" style="width:70px;"  readonly>
+	// 			</td>
+	// 			<td>
+					
+	// 			</td>
+	// 			<td>
+	// 				<input type="text" class="form-control" name="actual[]" id="actual_${baris}" class="form-control" style="width:70px;" value="${qty}">
+	// 			</td>
+	// 			<td>
+	// 				<input type="text" class="form-control" name="estimasi_finish[]" id="estimasi_finish_${baris}" class="form-control" value="${formattedDatetime}">
+	// 			</td>
+	// 			<td>
+					
+	// 			</td>
+	// 			<td>
+	// 				<button type="button"class="btn btn-sm btn-primary" id="add_pending_${baris}" onclick="add_pending(${baris})">Add</button>
+	// 			</td>
+	// 			<td>
+	// 				<button type="button"class="btn btn-sm btn-primary" id="add_breakdown_${baris}" onclick="add_breakdown(${baris})">Add</button>
+	// 			</td>
+	// 			<td>
+	// 				<button type="button"class="btn btn-sm btn-primary" id="add_reject_${baris}" onclick="add_reject(${baris})">Add</button>
+	// 			</td>
+	// 		</tr>
+	// 	`);
+
+	// 	// var tbody = document.getElementById('table_list_wo');
+	// 	// tbody.deleteRow(index+1);
+
+	// 	// $('#input_barcode').val('');
+	// 	// $('#input_wo').val('');
+	// 	// $('#input_part').val('');
+	// 	// $('#input_ct').val('');
+	// 	// $('#input_actual').val('');
+	// }
+
+	function add_item(no_wo, type_battery, qty) {
+		const id_lhp = window.location.href.split('/').pop();
+		const line = $('#line').val();
+
+		$.ajax({
+			url: '<?=base_url()?>wet_loading_new/update_status_list_loading_wo',
+			type: 'POST',
+			data: {
+				no_wo: no_wo
+			},
+			dataType: 'json',
+			success: function(data) {
+				console.log(data);
+			}
+		});
+
 		let ct = $('#input_ct').val();
 		let durasi = $('#input_durasi').val();
-		let qty = $('#qty_'+index).val();
 
 		// Get the current datetime
 		var now = new Date();
@@ -1207,21 +1364,76 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 
 		let baris = document.querySelectorAll('.item').length;
 
+		const d = new Date();
+		let time = (d.getHours()<10?'0':'') + d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes();
+
+		let time_stop = '';
+
+		let plan_cap = 0;
+		let total_menit_breakdown = 0;
+
+		var found = false;
+		var i = 0;
+		$('#data_item tbody tr').each(function() {
+			$(this).find('td').each(function() {
+			var cellText = $('#no_wo_'+i).val();
+			console.log(cellText);
+			if (cellText.includes(no_wo)) {
+				found = true;
+				return false; // Break out of inner loop
+			}
+			});
+
+			if (found) {
+				alert('Label Sudah Di Input !!!');
+				
+				return false; // Break out of outer loop
+			}
+			i++;
+		});
+
+		if (baris != 0) {
+			baris_temp = baris - 1;
+			$('#stop_section_'+baris_temp).html(`
+				<input type="time" class="form-control" name="stop[]" id="stop_${baris_temp}" value="${time}" readonly>
+			`)
+
+			const minutesDifference = getTimeDifferenceInMinutes($('#start_'+baris_temp).val(), $('#stop_'+baris_temp).val());
+			$('#menit_terpakai_section_'+baris_temp).html(`
+				<input type="text" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${baris_temp}" class="form-control" value="${minutesDifference}">
+			`);
+
+			plan_cap = Math.ceil((parseInt(minutesDifference) * 60) / parseFloat(ct));
+			$('#plan_cap_section_'+baris_temp).html(`
+				<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_${baris_temp}" class="form-control" value="${plan_cap}" readonly>
+			`);
+
+			total_menit_breakdown = parseInt(minutesDifference) - Math.ceil((parseInt(qty) * parseFloat(minutesDifference)) / 60);
+			$('#total_menit_breakdown_section_'+baris_temp).html(`
+				<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_${baris_temp}" class="form-control" value="${total_menit_breakdown}" readonly>
+			`);
+		}
+
 		$('#tbody_data_item').append(`
 			<tr class="item">
 				<td>
-					
+					<input type="time" class="form-control" name="start[]" id="start_${baris}" class="form-control" value="${time}" readonly>
 				</td>
 				<td>
-					
+					<div id="stop_section_${baris}">
+						<button class="btn btn-danger" onclick="time_stop(${baris})">Stop</button>
+					</div>
 				</td>
 				<td>
-					
+					<div id="menit_terpakai_section_${baris}">
+						<input type="text" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${baris}" class="form-control" value="">
+					</div>
 				</td>
 				<td>
 					<input type="text" class="form-control" name="no_wo[]" id="no_wo_${baris}" class="form-control" value="${no_wo}" style="width:150px;" readonly>
 					<input type="hidden" name="batch[]" id="batch_${baris}" value="">
 					<input type="hidden" name="id_detail_lhp[]" id="id_detail_lhp_${baris}" value="">
+					<input type="hidden" class="form-control" name="estimasi_finish[]" id="estimasi_finish_${baris}" class="form-control" value="${formattedDatetime}">
 				</td>
 				<td>
 					<input type="text" class="form-control" name="type_battery[]" id="type_battery_${baris}" class="form-control" value="${type_battery}" style="width:225px;" readonly>
@@ -1230,16 +1442,17 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 					<input type="text" class="form-control" name="ct[]" id="ct_${baris}" class="form-control" value="${ct}" style="width:70px;"  readonly>
 				</td>
 				<td>
-					
+					<div id="plan_cap_section_${baris}">
+						<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_${baris}" class="form-control" value="" readonly>
+					</div>
 				</td>
 				<td>
 					<input type="text" class="form-control" name="actual[]" id="actual_${baris}" class="form-control" style="width:70px;" value="${qty}">
 				</td>
 				<td>
-					<input type="text" class="form-control" name="estimasi_finish[]" id="estimasi_finish_${baris}" class="form-control" value="${formattedDatetime}">
-				</td>
-				<td>
-					
+					<div id="total_menit_breakdown_section_${baris}">
+						<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_${baris}" class="form-control" value="" readonly>
+					</div>
 				</td>
 				<td>
 					<button type="button"class="btn btn-sm btn-primary" id="add_pending_${baris}" onclick="add_pending(${baris})">Add</button>
@@ -1253,27 +1466,45 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 			</tr>
 		`);
 
+		$.ajax({
+			url: '<?=base_url()?>supply_charging/add_data_supply_charging',
+			type: 'POST',
+			data: {
+				id_lhp: id_lhp,
+				no_wo: no_wo,
+				part_number: type_battery,
+				estimasi_finish: formattedDatetime,
+				tujuan: line,
+				qty: qty
+			},
+			dataType: 'json',
+			success: function(data) {
+				console.log(data);
+				$('#submit-btn').click();
+			}
+		});
+
 		// var tbody = document.getElementById('table_list_wo');
 		// tbody.deleteRow(index+1);
 
-		// $('#input_barcode').val('');
-		// $('#input_wo').val('');
-		// $('#input_part').val('');
-		// $('#input_ct').val('');
-		// $('#input_actual').val('');
+		$('#input_barcode').val('');
+		$('#input_wo').val('');
+		$('#input_part').val('');
+		$('#input_ct').val('');
+		$('#input_actual').val('');
 	}
 
 	function time_stop(i) {
 		let d = new Date();
-		let time = d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes();
+		let time = (d.getHours()<10?'0':'') + d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes();
 
 		$('#stop_section_'+i).html(`
-			<input type="time" class="form-control" name="stop_${i}" id="stop_${i}" value="${time}" readonly>
+			<input type="time" class="form-control" name="stop[]" id="stop_${i}" value="${time}" readonly>
 		`)
 
 		const minutesDifference = getTimeDifferenceInMinutes($('#start_'+i).val(), $('#stop_'+i).val());
 		$('#menit_terpakai_section_'+i).html(`
-			<input type="text" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${i}" class="form-control" value="${minutesDifference}" readonly>
+			<input type="text" class="form-control" name="menit_terpakai[]" id="menit_terpakai_${i}" class="form-control" value="${minutesDifference}">
 		`);
 
 		let plan_cap = Math.ceil((parseInt(minutesDifference) * 60) / parseFloat($('#ct_'+i).val()));
@@ -1281,7 +1512,7 @@ if (session()->get('level') == 1 && (session()->get('departemen') == 'quality' |
 			<input type="text" class="form-control" name="plan_cap[]" id="plan_cap_${i}" class="form-control" value="${plan_cap}" readonly>
 		`);
 
-		let total_menit_breakdown = parseInt(minutesDifference) - Math.ceil((parseInt($('#actual_'+i).val()) * parseFloat(minutesDifference)) / 60);
+		let total_menit_breakdown = parseInt(minutesDifference) - Math.ceil((parseInt($('#actual_'+i).val()) * parseFloat($('#ct_'+i).val())) / 60);
 		$('#total_menit_breakdown_section_'+i).html(`
 			<input type="text" class="form-control" name="total_menit_breakdown[]" id="total_menit_breakdown_${i}" class="form-control" value="${total_menit_breakdown}" readonly>
 		`);

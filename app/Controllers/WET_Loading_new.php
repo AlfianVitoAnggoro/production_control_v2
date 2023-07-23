@@ -210,45 +210,45 @@ class WET_Loading_new extends BaseController
 
                         $update_detail = $this->M_WET_Loading_new->update_detail_lhp($id_detail_lhp, $data_detail_lhp);
 
-                        $waktu_estimasi_finish = date('H:i:s', strtotime($this->request->getPost('estimasi_finish')[$i]));
+                        // $waktu_estimasi_finish = date('H:i:s', strtotime($this->request->getPost('estimasi_finish')[$i]));
 
-                        if ($waktu_estimasi_finish > '06:00:00' && $waktu_estimasi_finish <= '09:00:00') {
-                            $sesi = 1;
-                        } elseif ($waktu_estimasi_finish > '09:00:00' && $waktu_estimasi_finish <= '11:00:00') {
-                            $sesi = 2;
-                        } elseif ($waktu_estimasi_finish > '11:00:00' && $waktu_estimasi_finish <= '14:00:00') {
-                            $sesi = 3;
-                        } elseif ($waktu_estimasi_finish > '14:00:00' && $waktu_estimasi_finish <= '16:00:00') {
-                            $sesi = 4;
-                        } elseif ($waktu_estimasi_finish > '16:00:00' && $waktu_estimasi_finish <= '18:00:00') {
-                            $sesi = 5;
-                        } elseif ($waktu_estimasi_finish > '18:00:00' && $waktu_estimasi_finish <= '21:00:00') {
-                            $sesi = 6;
-                        } elseif ($waktu_estimasi_finish > '21:00:00' && $waktu_estimasi_finish <= '23:00:00') {
-                            $sesi = 7;
-                        } elseif ($waktu_estimasi_finish > '23:00:00' && $waktu_estimasi_finish <= '23:59:59') {
-                            $sesi = 8;
-                        } elseif ($waktu_estimasi_finish > '00:00:00' && $waktu_estimasi_finish <= '02:00:00') {
-                            $sesi = 8;
-                        } elseif ($waktu_estimasi_finish > '02:00:00' && $waktu_estimasi_finish <= '05:00:00') {
-                            $sesi = 9;
-                        } elseif ($waktu_estimasi_finish > '05:00:00' && $waktu_estimasi_finish <= '06:00:00') {
-                            $sesi = 10;
-                        }
+                        // if ($waktu_estimasi_finish > '06:00:00' && $waktu_estimasi_finish <= '09:00:00') {
+                        //     $sesi = 1;
+                        // } elseif ($waktu_estimasi_finish > '09:00:00' && $waktu_estimasi_finish <= '11:00:00') {
+                        //     $sesi = 2;
+                        // } elseif ($waktu_estimasi_finish > '11:00:00' && $waktu_estimasi_finish <= '14:00:00') {
+                        //     $sesi = 3;
+                        // } elseif ($waktu_estimasi_finish > '14:00:00' && $waktu_estimasi_finish <= '16:00:00') {
+                        //     $sesi = 4;
+                        // } elseif ($waktu_estimasi_finish > '16:00:00' && $waktu_estimasi_finish <= '18:00:00') {
+                        //     $sesi = 5;
+                        // } elseif ($waktu_estimasi_finish > '18:00:00' && $waktu_estimasi_finish <= '21:00:00') {
+                        //     $sesi = 6;
+                        // } elseif ($waktu_estimasi_finish > '21:00:00' && $waktu_estimasi_finish <= '23:00:00') {
+                        //     $sesi = 7;
+                        // } elseif ($waktu_estimasi_finish > '23:00:00' && $waktu_estimasi_finish <= '23:59:59') {
+                        //     $sesi = 8;
+                        // } elseif ($waktu_estimasi_finish > '00:00:00' && $waktu_estimasi_finish <= '02:00:00') {
+                        //     $sesi = 8;
+                        // } elseif ($waktu_estimasi_finish > '02:00:00' && $waktu_estimasi_finish <= '05:00:00') {
+                        //     $sesi = 9;
+                        // } elseif ($waktu_estimasi_finish > '05:00:00' && $waktu_estimasi_finish <= '06:00:00') {
+                        //     $sesi = 10;
+                        // }
 
-                        $data_supply_charging = [
-                            'id_lhp ' => $id_lhp,
-                            'no_wo' => $this->request->getPost('no_wo')[$i],
-                            'part_number' => $this->request->getPost('type_battery')[$i],
-                            'start_charging' => date('Y-m-d H:i:s'),
-                            'estimasi_finish' => date('Y-m-d H:i:s', strtotime($this->request->getPost('estimasi_finish')[$i])),
-                            'sesi' => $sesi,
-                            'tujuan' => $this->request->getPost('line'),
-                            'qty' => $this->request->getPost('actual')[$i],
-                            'status' => 'open',
-                        ];
+                        // $data_supply_charging = [
+                        //     'id_lhp ' => $id_lhp,
+                        //     'no_wo' => $this->request->getPost('no_wo')[$i],
+                        //     'part_number' => $this->request->getPost('type_battery')[$i],
+                        //     'start_charging' => date('Y-m-d H:i:s'),
+                        //     'estimasi_finish' => date('Y-m-d H:i:s', strtotime($this->request->getPost('estimasi_finish')[$i])),
+                        //     'sesi' => $sesi,
+                        //     'tujuan' => $this->request->getPost('line'),
+                        //     'qty' => $this->request->getPost('actual')[$i],
+                        //     'status' => 'open',
+                        // ];
                         
-                        $add_data_supply_charging = $this->M_SupplyCharging->add_data_supply_charging($this->request->getPost('no_wo')[$i], $data_supply_charging);
+                        // $add_data_supply_charging = $this->M_SupplyCharging->add_data_supply_charging($this->request->getPost('no_wo')[$i], $data_supply_charging);
                     }
                 }
             }
@@ -305,9 +305,8 @@ class WET_Loading_new extends BaseController
 
                 $data_detail_reject = [
                     'id_lhp_wet_loading' => $id_lhp,
-                    'series_battery' => $this->request->getPost('series_reject')[$i],
+                    'no_wo' => $this->request->getPost('no_wo_reject')[$i],
                     'type_battery' => $this->request->getPost('type_battery_reject')[$i],
-                    'jenis_battery' => $this->request->getPost('jenis_battery_reject')[$i],
                     'qty_reject' => $this->request->getPost('qty_reject')[$i],
                     'jenis_reject' => $this->request->getPost('jenis_reject')[$i],
                     'kategori_reject' => $this->request->getPost('kategori_reject')[$i],
@@ -549,5 +548,64 @@ class WET_Loading_new extends BaseController
         $data = $this->M_WET_Loading_new->get_durasi_charging($part_number, $line);
 
         echo json_encode($data);
+    }
+
+    public function list_loading($tanggal_produksi=null)
+    {
+        $data['list_wo'] = $this->M_WET_Loading_new->get_list_wo();
+
+        if ($tanggal_produksi == null) {
+            $tanggal_produksi = date('Y-m-d');
+        }
+        $data['list_loading_wet_a'] = $this->M_WET_Loading_new->get_task_loading($tanggal_produksi, 8);
+        $data['list_loading_wet_f'] = $this->M_WET_Loading_new->get_task_loading($tanggal_produksi, 9);
+
+        $data['tanggal_produksi'] = $tanggal_produksi;
+
+        return view('pages/wet_loading/list_task_loading', $data);
+    }
+
+    public function add_list_wo()
+    {
+        $line = $this->request->getPost('line');
+        $shift = $this->request->getPost('shift');
+        $tanggal_produksi = $this->request->getPost('tanggal_produksi');
+
+        $wo = $this->request->getPost('wo');
+
+        if (!empty($wo)) {
+            for ($i=0; $i < count($wo); $i++) { 
+                $data = [
+                    'no_wo' => explode("|", $wo[$i])[0],
+                    'part_number' => explode("|", $wo[$i])[1],
+                    'qty' => explode("|", $wo[$i])[2],
+                    'shift' => $shift,
+                    'line' => $line,
+                    'tanggal_loading' => $tanggal_produksi,
+                ];
+                $this->M_WET_Loading_new->add_list_wo($data);
+            }
+        }
+
+        return redirect()->to(base_url('wet_loading_new/list_loading'));
+    }
+
+    public function update_status_list_loading_wo()
+    {
+        $no_wo = $this->request->getPost('no_wo');
+        $data = [
+            'status' => 'loading',
+        ];
+
+        $res = $this->M_WET_Loading_new->update_status_list_loading_wo($no_wo, $data);
+
+        echo json_encode($res);
+    }
+
+    public function delete_list_wo($id)
+    {
+        $this->M_WET_Loading_new->delete_list_wo($id);
+
+        return redirect()->to(base_url('wet_loading_new/list_loading'));
     }
 }

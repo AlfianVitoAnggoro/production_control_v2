@@ -77,14 +77,14 @@ class M_WET_Loading_new extends Model
 
     public function get_detail_breakdown_by_id($id_lhp)
     {
-        $query = $this->db->query('SELECT * FROM detail_breakdown_wet_loading WHERE id_lhp_wet_loading = '.$id_lhp);
+        $query = $this->db->query('SELECT * FROM detail_breakdown_wet_loading_new WHERE id_lhp_wet_loading = '.$id_lhp);
 
         return $query->getResultArray();
     }
 
     public function get_detail_reject_by_id($id_lhp)
     {
-        $query = $this->db->query('SELECT * FROM detail_reject_wet_loading WHERE id_lhp_wet_loading = '.$id_lhp);
+        $query = $this->db->query('SELECT * FROM detail_reject_wet_loading_new WHERE id_lhp_wet_loading = '.$id_lhp);
 
         return $query->getResultArray();
     }
@@ -132,7 +132,7 @@ class M_WET_Loading_new extends Model
     }
 
     public function get_total_menit_breakdown ($id_lhp) {
-        $query = $this->db->query('SELECT SUM(menit_breakdown) AS total_menit FROM detail_breakdown_wet_loading WHERE id_lhp_wet_loading = '.$id_lhp);
+        $query = $this->db->query('SELECT SUM(menit_breakdown) AS total_menit FROM detail_breakdown_wet_loading_new WHERE id_lhp_wet_loading = '.$id_lhp);
 
         return $query->getResultArray();
     }
@@ -160,7 +160,7 @@ class M_WET_Loading_new extends Model
 
     public function save_detail_pending($id, $data)
     {
-        $builder = $this->db->table('detail_pending_wet_loading');
+        $builder = $this->db->table('detail_pending_wet_loading_new');
 
         if ($id != '') {
             $builder->where('id_pending_wet_loading', $id);
@@ -181,7 +181,7 @@ class M_WET_Loading_new extends Model
 
     public function get_detail_pending_by_id($id_lhp)
     {
-        $query = $this->db->query('SELECT * FROM detail_pending_wet_loading WHERE id_lhp_wet_loading = '.$id_lhp);
+        $query = $this->db->query('SELECT * FROM detail_pending_wet_loading_new WHERE id_lhp_wet_loading = '.$id_lhp);
 
         return $query->getResultArray();
     }
@@ -261,7 +261,7 @@ class M_WET_Loading_new extends Model
 
     public function save_detail_breakdown($id, $data)
     {
-        $builder = $this->db->table('detail_breakdown_wet_loading');
+        $builder = $this->db->table('detail_breakdown_wet_loading_new');
 
         if ($id != '') {
             $builder->where('id_breakdown_wet_loading', $id);
@@ -274,7 +274,7 @@ class M_WET_Loading_new extends Model
     }
 
     public function get_total_pending ($id_lhp) {
-        $query = $this->db->query('SELECT SUM(qty_pending) AS total_pending FROM detail_pending_wet_loading WHERE id_lhp_wet_loading = '.$id_lhp);
+        $query = $this->db->query('SELECT SUM(qty_pending) AS total_pending FROM detail_pending_wet_loading_new WHERE id_lhp_wet_loading = '.$id_lhp);
 
         return $query->getResultArray();
     }
@@ -287,7 +287,7 @@ class M_WET_Loading_new extends Model
 
     public function save_detail_reject($id, $data)
     {
-        $builder = $this->db->table('detail_reject_wet_loading');
+        $builder = $this->db->table('detail_reject_wet_loading_new');
 
         if ($id != '') {
             $builder->where('id_reject_wet_loading', $id);
@@ -302,17 +302,17 @@ class M_WET_Loading_new extends Model
     public function hapus_lhp($id) {
         $this->db->query('DELETE FROM lhp_wet_loading WHERE id_lhp_wet_loading = '.$id);
         $this->db->query('DELETE FROM detail_lhp_wet_loading_new WHERE id_lhp_wet_loading = '.$id); 
-        $this->db->query('DELETE FROM detail_breakdown_wet_loading WHERE id_lhp_wet_loading = '.$id);
-        $this->db->query('DELETE FROM detail_reject_wet_loading WHERE id_lhp_wet_loading = '.$id);
-        $this->db->query('DELETE FROM detail_pending_wet_loading WHERE id_lhp_wet_loading = '.$id);
+        $this->db->query('DELETE FROM detail_breakdown_wet_loading_new WHERE id_lhp_wet_loading = '.$id);
+        $this->db->query('DELETE FROM detail_reject_wet_loading_new WHERE id_lhp_wet_loading = '.$id);
+        $this->db->query('DELETE FROM detail_pending_wet_loading_new WHERE id_lhp_wet_loading = '.$id);
     }
 
     public function delete_line_stop($id_line_stop) {
-        $this->db->query('DELETE FROM detail_breakdown_wet_loading WHERE id_breakdown_wet_loading = '.$id_line_stop);
+        $this->db->query('DELETE FROM detail_breakdown_wet_loading_new WHERE id_breakdown_wet_loading = '.$id_line_stop);
     }
 
     public function delete_reject($id_reject) {
-        $this->db->query('DELETE FROM detail_reject_wet_loading WHERE id_reject_wet_loading = '.$id_reject);
+        $this->db->query('DELETE FROM detail_reject_wet_loading_new WHERE id_reject_wet_loading = '.$id_reject);
     }
 
     public function get_part_number($barc)
@@ -350,7 +350,9 @@ class M_WET_Loading_new extends Model
 
     public function get_wo_charging($partno)
     {
-        $query = $this->db3->query('SELECT * FROM baan.ttisfc001777 where trim(t$mitm) = \''.$partno.'\' and (t$osta = 5 or t$osta = 7) order by t$pdno asc');
+        // $query = $this->db3->query('SELECT * FROM baan.ttisfc001777 where trim(t$mitm) = \''.$partno.'\' and (t$osta = 5 or t$osta = 7) order by t$pdno asc');
+
+        $query = $this->db->query('SELECT TOP(1) * FROM list_task_loading_wet where part_number = \''.$partno.'\' and status IS NULL order by no_wo asc');
 
         return $query->getResultArray();
     }
@@ -372,5 +374,53 @@ class M_WET_Loading_new extends Model
 
             return $query->getResultArray();
         }
+    }
+
+    public function get_list_wo()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $tanggal_produksi = date('Ymd');
+        $tanggal = date('Ymd', strtotime('-14 days', strtotime($tanggal_produksi)));
+
+        $kl = "'"."%KLC%"."'";
+
+        $query = $this->db3->query('
+                                SELECT t$pdno as pdno, trim(t$mitm) as item, t$qntl as qty
+                                FROM baan.ttisfc001777 
+                                WHERE (to_number(to_char(t$prdt + (7/24),\'YYYYMMDD\'))) >= '.$tanggal.'
+                                AND t$pdno LIKE '.$kl.' 
+                                AND (t$osta = 5 or t$osta = 7)
+                                ORDER BY t$pdno asc
+                            ');
+        return $query->getResultArray();
+    }
+
+    public function add_list_wo($data)
+    {
+        $builder = $this->db->table('list_task_loading_wet');
+        $builder->insert($data);
+        return $this->db->insertID();
+    }
+
+    public function get_task_loading($tanggal_produksi, $line) {
+        $query = $this->db->query('
+            SELECT * FROM list_task_loading_wet
+            WHERE tanggal_loading = \''.$tanggal_produksi.'\' AND line = \''.$line.'\'
+        ');
+
+        return $query->getResultArray();
+    }
+
+    public function update_status_list_loading_wo($no_wo, $data)
+    {
+        $builder = $this->db->table('list_task_loading_wet');
+        $builder->where('no_wo', $no_wo);
+        $builder->update($data);
+
+        return $this->db->affectedRows();
+    }
+
+    public function delete_list_wo($id) {
+        $this->db->query('DELETE FROM list_task_loading_wet WHERE id = '.$id);
     }
 }
