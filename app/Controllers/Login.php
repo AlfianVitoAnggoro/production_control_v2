@@ -58,6 +58,8 @@ class Login extends BaseController
                 return redirect()->to(base_url('envelope'));
             } elseif ($data['seksi'] == 'wet') {
                 return redirect()->to(base_url('wet_finishing'));
+            } elseif ($data['seksi'] == 'wh') {
+                return redirect()->to(base_url('supply_charging/list_supply'));
             }
             
         } else {

@@ -145,8 +145,8 @@
 							</ul>
 						</li>
 					<?php } ?>
-
-					<?php if (session()->get('username') == 'admin') { ?>
+					
+					<?php if (session()->get('departemen') == NULL) { ?>
 						<li class="treeview">
 							<a href="#">
 								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
@@ -159,7 +159,9 @@
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Planning</a></li>
 							</ul>
 						</li>
+					<?php } ?>
 
+					<?php if (session()->get('departemen') == NULL OR session()->get('departemen') == 'ppic' OR session()->get('departemen') == 'isd') { ?>
 						<li class="treeview">
 							<a href="#">
 								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
@@ -174,7 +176,9 @@
 								<li><a href="<?=base_url()?>supply_charging/list_supply"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a></li>
 							</ul>
 						</li>
+					<?php } ?>
 
+					<?php if (session()->get('departemen') == NULL) { ?>
 						<li class="treeview">
 							<a href="#">
 								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
