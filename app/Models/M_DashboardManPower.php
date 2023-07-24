@@ -541,4 +541,43 @@ class M_DashboardManPower extends Model
                             WHERE id_cuti = \'' . $id_cuti . '\'
                             ');
   }
+
+  public function getCutiByGroup($sub_bagian, $line, $group_mp, $date)
+  {
+    $query_cuti = $this->db->query('SELECT drac.kategori, mdmp.nama, mdmp.npk FROM data_record_all_cuti drac
+                            JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+                            JOIN detail_record_all_cuti d_rac ON d_rac.id_cuti = drac.id_cuti
+                            WHERE drac.sub_bagian = \'' . $sub_bagian . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.status = \'approved\' AND d_rac.tanggal_cuti = \'' . $date . '\'
+                            ORDER BY drac.nama ASC
+                            ');
+    $query_izin = $this->db->query('SELECT drac.kategori, mdmp.nama, mdmp.npk FROM data_record_all_izin drac
+                            JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+                            JOIN detail_record_all_izin d_rac ON d_rac.id_cuti = drac.id_cuti
+                            WHERE drac.sub_bagian = \'' . $sub_bagian . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.status = \'approved\' AND d_rac.tanggal_cuti = \'' . $date . '\'
+                            ORDER BY drac.nama ASC
+                            ');
+    $query_cuti_besar = $this->db->query('SELECT drac.kategori, mdmp.nama, mdmp.npk FROM data_record_all_cuti_besar drac
+                            JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+                            JOIN detail_record_all_cuti_besar d_rac ON d_rac.id_cuti = drac.id_cuti
+                            WHERE drac.sub_bagian = \'' . $sub_bagian . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.status = \'approved\' AND d_rac.tanggal_cuti = \'' . $date . '\'
+                            ORDER BY drac.nama ASC
+                            ');
+    $query_dispensasi = $this->db->query('SELECT drac.kategori, mdmp.nama, mdmp.npk FROM data_record_all_dispensasi drac
+                            JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+                            JOIN detail_record_all_dispensasi d_rac ON d_rac.id_cuti = drac.id_cuti
+                            WHERE drac.sub_bagian = \'' . $sub_bagian . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.status = \'approved\' AND d_rac.tanggal_cuti = \'' . $date . '\'
+                            ORDER BY drac.nama ASC
+                            ');
+    $query_skd = $this->db->query('SELECT drac.kategori, mdmp.nama, mdmp.npk FROM data_record_all_skd drac
+                            JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+                            JOIN detail_record_all_skd d_rac ON d_rac.id_cuti = drac.id_cuti
+                            WHERE drac.sub_bagian = \'' . $sub_bagian . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.status = \'approved\' AND d_rac.tanggal_cuti = \'' . $date . '\'
+                            ORDER BY drac.nama ASC
+                            ');
+
+    $data = array_merge($query_cuti->getResultArray(), $query_izin->getResultArray(), $query_cuti_besar->getResultArray(), $query_dispensasi->getResultArray(), $query_skd->getResultArray());
+    $nama = array_column($data, 'nama');
+    array_multisort($nama, SORT_DESC, $data);
+    return $data;
+  }
 }
