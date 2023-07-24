@@ -422,13 +422,17 @@
                               }
                               if($cek_type) { ?>
                                 <td>
-                                  <?= $summary_detail_note[$index_summary_note]['loss_over'] ?>
-                                  <input type="hidden" class="form-control" name="loss_over_value" id="loss_over_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['loss_over'] ?>">
+                                  <?php if (!empty($summary_detail_note[$index_summary_note]['loss_over'])) { ?>
+                                    <?= $summary_detail_note[$index_summary_note]['loss_over'] ?>
+                                    <input type="hidden" class="form-control" name="loss_over_value" id="loss_over_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['loss_over'] ?>">
+                                  <?php } ?>
                                 </td>
                                 <td>
+                                <?php if (!empty($summary_detail_note[$index_summary_note]['loss_over'])) { ?>
                                   <?= $summary_detail_note[$index_summary_note]['note']?>
                                   <input type="hidden" class="form-control" name="note_value" id="note_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['note'] ?>">
                                   <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['id_summary_note'] ?>">
+                                  <?php } ?>
                                 </td>
                             <?php } else {
                                 echo ''; ?>
@@ -837,10 +841,10 @@
       }
     });
 
-    function clickButton() {
-      $('#btn_submit').click();
-    }
-    setInterval(clickButton, 3600000); // SEJAM
+    // function clickButton() {
+    //   $('#btn_submit').click();
+    // }
+    // setInterval(clickButton, 3600000); // SEJAM
   });
 
   function get_data_andon() {
