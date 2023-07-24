@@ -92,6 +92,21 @@
         </table>
       </div>
       <div class="modal-footer" style="float: right;">
+        <div class="d-flex">
+          <div class="d-flex align-items-center me-2">
+            <div class="me-2" style="background-color: green; height: 10px; width: 10px; border-radius: 50%; border: 1px solid black"></div>
+            <div>Approved</div>
+          </div>
+          <div class="d-flex align-items-center me-2">
+            <div class="me-2" style="background-color: red; height: 10px; width: 10px; border-radius: 50%; border: 1px solid black"></div>
+            <div>Rejected</div>
+          </div>
+          <div class="d-flex align-items-center me-2">
+            <div class="me-2" style="height: 10px; width: 10px; border-radius: 50%; border: 1px solid black"></div>
+            <div>Pending</div>
+          </div>
+        </div>
+        <a href="<?= base_url() ?>cuti" class="btn btn-primary float-start">List Cuti</a>
         <input type="button" class="btn btn-secondary float-end" data-bs-dismiss="modal" aria-label="Close" value="Close">
       </div>
     </div>
@@ -278,6 +293,12 @@
     });
   }
 
+  function ucwords(str) {
+    return str.toLowerCase().replace(/(^|\s)\S/g, function(firstLetter) {
+      return firstLetter.toUpperCase();
+    });
+  }
+
   function showMPTidakHadir(year, month, day) {
     $.ajax({
       url: '<?= base_url() ?>dashboard_cuti/get_record_cuti_by_day',
@@ -326,7 +347,7 @@
               <td>${dc.line}</td>
               <td>${dc.group_mp}</td>
               <td>${dc.kategori}</td>
-              <td>${dc.jenis}</td>
+              <td>${ucwords(dc.jenis)}</td>
               <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kasubsie}">&nbsp;</div></div></td>
               <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kasie}">&nbsp;</div></div></td>
               <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kadept}">&nbsp;</div></div></td>

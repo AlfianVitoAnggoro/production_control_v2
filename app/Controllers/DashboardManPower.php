@@ -230,6 +230,24 @@ class DashboardManPower extends BaseController
     return view('pages/dashboard_man_power/detail_dashboard_master_man_power', $data);
   }
 
+  public function getCutiByGroup()
+  {
+    $group_mp = $this->request->getPost('group_mp');
+    $line = $this->request->getPost('line');
+    $sub_bagian = $this->request->getPost('sub_bagian');
+    $date = $this->request->getPost('date');
+    // if ($line !== 'indirect') {
+    $dataCutiByGroup = [];
+    foreach ($group_mp as $gm) {
+      $temp_dataCutiByGroup = $this->M_DashboardManPower->getCutiByGroup($sub_bagian, $line, $gm, $date);
+      foreach ($temp_dataCutiByGroup as $t_dcbg) {
+        array_push($dataCutiByGroup, $t_dcbg);
+      }
+    }
+    // }
+    return json_encode($dataCutiByGroup);
+  }
+
   public function changeGroup()
   {
     $group_mp = $this->request->getPost('group_mp');

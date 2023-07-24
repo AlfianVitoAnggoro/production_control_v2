@@ -830,6 +830,10 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         blink(cardElement);
       }
     });
+    line.forEach(ln => {
+      getCuti(ln, '<?= $sub_bagian ?>');
+    });
+    getCuti('indirect', '<?= $sub_bagian ?>');
   });
 
   function changeShift(sub_bagian) {
@@ -1211,6 +1215,97 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   //   });
   // }
 
+  function getCuti(line, sub_bagian) {
+    let date = <?= json_encode($date) ?>;
+    console.log(date);
+    let group_exist = [];
+    if (line == 'indirect') {
+      let data_indirect = <?= json_encode($data_indirect) ?>;
+      for (let index = 0; index < data_indirect.length; index++) {
+        groupElement = document.querySelector(`#group_${line}_${index}`).value;
+        if (!group_exist.includes(groupElement)) {
+          group_exist.push(groupElement);
+        }
+      }
+    } else {
+      group_exist.push(document.querySelector(`#group_${line}`).value);
+    }
+    $.ajax({
+      url: '<?= base_url() ?>dashboard_man_power/getCutiByGroup',
+      type: 'POST',
+      data: {
+        group_mp: group_exist,
+        line: line,
+        sub_bagian: sub_bagian,
+        date: date,
+      },
+      dataType: 'json',
+      success: function(data) {
+        let count = 0;
+        if (data.length > 0) {
+          if (data.length <= 3) {
+            for (let index_add = 0; index_add < 3; index_add++) {
+              let cutiElement = document.querySelector(`#id_cuti_mp_tidak_hadir_${line}_${index_add}`);
+              if (cutiElement == null) {
+                if (count < data.length) {
+                  console.log(document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`));
+                  document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
+                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[count].nama}</td>
+                    <td class="p-0 text-center">${String(data[count].npk).padStart(4, '0')}</td>
+                    <td class="p-0 text-center">${data[count].kategori}</td>
+                  `;
+                  count++;
+                } else {
+                  console.log(data.length);
+                  document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
+                    <td colspan="4" class="text-center p-0">
+                      <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${line}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${line}',${index_add})">Add</button>
+                    </td>
+                  `;
+                }
+              }
+            }
+          } else {
+            for (let index_add = 0; index_add < data.length; index_add++) {
+              let cutiElement = document.querySelector(`#id_cuti_mp_tidak_hadir_${line}_${index_add}`);
+              if (index_add < 3) {
+                if (cutiElement == null) {
+                  console.log(document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`));
+                  document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
+                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[index_add].nama}</td>
+                    <td class="p-0 text-center">${String(data[index_add].npk).padStart(4, '0')}</td>
+                    <td class="p-0 text-center">${data[index_add].kategori}</td>
+                  `;
+                }
+              } else {
+                cutiElement = document.querySelector(`#data_mp_tidak_hadir_${line}`);
+                console.log(cutiElement);
+                cutiElement.innerHTML += `
+                  <tr id="add_mp_tidak_masuk_${line}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', ${index_add})">
+                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[index_add].nama}</td>
+                    <td class="p-0 text-center">${String(data[index_add].npk).padStart(4, '0')}</td>
+                    <td class="p-0 text-center">${data[index_add].kategori}</td>
+                  </tr>
+                `;
+              }
+            }
+          }
+        } else {
+          for (let index_add = 0; index_add < 3; index_add++) {
+            let cutiElement = document.querySelector(`#id_cuti_mp_tidak_hadir_${line}_${index_add}`);
+            if (cutiElement == null) {
+              document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
+                <td colspan="4" class="text-center p-0">
+                  <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${line}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${line}',${index_add})">Add</button>
+                </td>
+              `;
+            }
+          }
+        }
+      }
+    });
+  }
+
   function changeGroup(line, sub_bagian) {
     let groupElement = document.querySelector('#group_' + line);
     $.ajax({
@@ -1251,6 +1346,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           // status.style.color = (msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
           index_mesin++;
         });
+        getCuti(line, '<?= $sub_bagian ?>');
       }
     });
   }
@@ -1291,6 +1387,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
           `;
         }
+        getCuti(line, '<?= $sub_bagian ?>');
       }
     });
   }

@@ -824,6 +824,10 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         blink(cardElement);
       }
     });
+    line.forEach(ln => {
+      getCuti(ln, '<?= $sub_bagian ?>');
+    });
+    getCuti('indirect', '<?= $sub_bagian ?>');
   });
 
   function changeShift(sub_bagian) {
@@ -832,378 +836,97 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
     $('#loading-modal').modal('show');
     window.location.href = `<?= base_url() . 'dashboard_man_power/' . $sub_bagian ?>/${date}/${shift}`
   }
-  // function changeShift(sub_bagian) {
-  //   let line = <?= json_encode($line) ?>;
-  //   let shift = document.querySelector('#shift');
-  //   let date = document.querySelector('#date');
-  //   $('#loading-modal').modal('show');
-  //   $.ajax({
-  //     url: '<?= base_url() ?>dashboard_man_power/changeShift',
-  //     type: 'POST',
-  //     data: {
-  //       sub_bagian: sub_bagian,
-  //       date: date.value,
-  //       shift: shift.value,
-  //       line: line,
-  //     },
-  //     dataType: 'json',
-  //     success: function(data) {
-  //       clearInterval(blinkval);
-  //       clearInterval(compareblinkval);
-  //       let skill = '';
-  //       let status = '';
-  //       console.log(data);
-  //       let series_tidak_hadir = horizontal_barHighcharts.series[0];
-  //       let series_hadir = horizontal_barHighcharts.series[1];
-  //       if (Object.keys(data.detail_record_man_power).length > 0) {
-  //         let mp_tidak_hadir = [];
-  //         let mp_hadir = [];
-  //         let temp_all_mp_tidak_hadir = [];
-  //         let temp_all_mp_hadir = [];
-  //         let temp_sum_mesin = '';
-  //         let temp_sum_mesin_indirect = '';
-  //         line.forEach(ln => {
-  //           temp_sum_mesin = Object.entries(data?.detail_record_mesin?.[ln]?.[Object.keys(data?.detail_record_mesin?.[ln])[0]]).filter(element => {
-  //             return element[1].status_mesin !== 'Non-Aktif';
-  //           }).length;
-  //           mp_tidak_hadir.push(parseFloat(((((data?.data_mp_tidak_hadir?.[ln]?.length ?? 0) / temp_sum_mesin) * 100).toFixed(1))));
-  //           mp_hadir.push(parseFloat(((((temp_sum_mesin - (data?.data_mp_tidak_hadir?.[ln]?.length ?? 0)) / temp_sum_mesin) * 100).toFixed(1))));
-  //           temp_all_mp_tidak_hadir.push(data?.data_mp_tidak_hadir?.[ln]?.length ?? 0);
-  //           temp_all_mp_hadir.push(temp_sum_mesin - (data?.data_mp_tidak_hadir?.[ln]?.length ?? 0));
-  //           let index_mesin = 0;
-  //           data?.data_mesin?.[ln].forEach(msn => {
-  //             document.querySelector(`#card_${ln}_${index_mesin}`).style.backgroundColor = (data?.detail_record_mesin?.[ln]?.[Object.keys(data?.detail_record_mesin?.[ln])[0]]?.[msn.mesin]?.['status_mesin'] !== 'Non-Aktif') ? ((data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
-  //             document.querySelector(`#card_${ln}_${index_mesin}`).style.backgroundImage = (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['status'] ?? 0) ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '';
 
-  //             if ((data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['status'].toLowerCase() ?? '') === 'pengganti') {
-  //               // data?.detail_record_man_power.forEach((drmp) => {
-  //               //   console.log(drmp[Object.keys(drmp)[0]][Object.keys(drmp[Object.keys(drmp)[0]])[0]]);
-  //               //   if (String(drmp[Object.keys(drmp)[0]][Object.keys(drmp[Object.keys(drmp)[0]])[0]]['npk']).padStart(4, '0') === String(data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0')) {
-  //               //     compareblink(document.querySelector(`#card_${drmp[Object.keys(drmp)[0]]}_${drmp[Object.keys(drmp)[0]][Object.keys(drmp[Object.keys(drmp)[0]])[0]]}`));
-  //               //   }
-  //               // });
-  //               // blink();
-  //             }
-  //             document.querySelector(`#group_${ln}`).value = Object.keys(data.detail_record_man_power?.[ln])[0];
-  //             document.querySelector(`#nama_mp_${ln}_${index_mesin}`).value = data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['nama'] ?? '';
-  //             if (data?.detail_record_mesin?.[ln]?.[Object.keys(data?.detail_record_mesin?.[ln])[0]]?.[msn.mesin]?.status_mesin !== 'Non-Aktif') {
-  //               document.querySelector(`#picture_format_${ln}_${index_mesin}`).innerHTML = `
-  //                 <img src="${'<?= base_url() ?>uploads/' + data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_${ln}_${index_mesin}">
-  //               `;
-  //               document.querySelector(`#footer_format_${ln}_${index_mesin}`).innerHTML = `
-  //                 <div class="d-flex justify-content-between align-items-center">
-  //                   <h5 class="m-0" style="font-size: 10px" id="npk_${ln}_${index_mesin}">${String(data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0')}</h5>
-  //                   <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['nama'] ?? ''}</h5>
-  //                   <div style="border: 0.1px solid black; background-color: ${data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ? colorSkill[data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']] : 'transparent'}; border-radius: 50%; width: 10px; height: 10px" id="skill_${ln}_${index_mesin}"></div>
-  //                 </div>
-  //                 <div class="d-flex justify-content-between align-items-center">
-  //                   <h5 class="m-0" style="font-size: 10px; color: ${(msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000'}" id="status_${ln}_${index_mesin}">${(data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong'}</h5>
-  //                   <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${ln}', ${index_mesin})">Edit</button>
-  //                 </div>
-  //               `;
-  //             } else {
-  //               document.querySelector(`#picture_format_${ln}_${index_mesin}`).innerHTML = `
-  //                 <img class="d-none" id="foto_${ln}_${index_mesin}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
-  //               `;
-  //               document.querySelector(`#footer_format_${ln}_${index_mesin}`).innerHTML = `
-  //                 <div class="d-flex justify-content-between align-items-center" style="height: 12px">
-  //                   <h5 class="m-0" style="font-size: 10px" id="npk_${ln}_${index_mesin}"></h5>
-  //                   <div style="border-radius: 50%; width: 10px; height: 10px" id="skill_${ln}_${index_mesin}"></div>
-  //                 </div>
-  //                 <div class="d-flex justify-content-between align-items-center" style="height: 15.1px">
-  //                   <h5 class="m-0" style="font-size: 10px;" id="status_${ln}_${index_mesin}"></h5>
-  //                 </div>
-  //               `;
-  //             }
-  //             // document.querySelector(`#foto_${ln}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['foto'] ?? '';
-  //             // document.querySelector(`#npk_${ln}_${index_mesin}`).innerHTML = String(data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
-  //             // skill = document.querySelector(`#skill_${ln}_${index_mesin}`);
-  //             // skill.style.backgroundColor = (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']) ? colorSkill[data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill']] : 'transparent';
-  //             // status = document.querySelector(`#status_${ln}_${index_mesin}`);
-  //             // status.innerHTML = (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong';
-  //             // status.style.color = (msn.min_skill <= (data?.detail_record_man_power?.[ln]?.[Object.keys(data.detail_record_man_power?.[ln])[0]]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
-  //             index_mesin++;
-  //           });
-  //           let temp_index_add = 0;
-  //           document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML = '';
-  //           if (data?.data_mp_tidak_hadir.hasOwnProperty(ln)) {
-  //             data?.data_mp_tidak_hadir?.[ln].forEach(dmth => {
-  //               document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML += `
-  //               <tr id="add_mp_tidak_masuk_${ln}_${temp_index_add}" style="border-bottom: ${temp_index_add === 2 ? 'transparent' : ''};" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}', ${temp_index_add})">
-  //                 <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
-  //                   ${dmth['nama']}
-  //                   <input type="hidden" name="nama_mp_tidak_hadir_${ln}[]" value="${dmth['id_man_power']}">
-  //                   <input type="hidden" name="id_cuti_mp_tidak_hadir_${ln}[]" id="id_cuti_mp_tidak_hadir_${ln}_${temp_index_add}" value="${dmth['id_cuti']}">
-  //                 </td>
-  //                 <td class="p-0 text-center">${String(dmth['npk']).padStart(4, '0')}</td>
-  //                 <td class="p-0 text-center" name="keterangan_mp_tidak_hadir_${ln}[]">${dmth['keterangan']}</td>
-  //               </tr>
-  //             `;
-  //               temp_index_add++;
-  //             });
-  //           }
-  //           if (temp_index_add < 3) {
-  //             for (let index_add = temp_index_add; index_add < 3; index_add++) {
-  //               document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML += `
-  //                 <tr id="add_mp_tidak_masuk_${ln}_${index_add}" style="border-bottom: ${index_add === 2 ? 'transparent' : ''};">
-  //                   <td colspan="4" class="text-center p-0">
-  //                     <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${ln}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}',${index_add})">Add</button>
-  //                   </td>
-  //                 </tr>
-  //               `;
-  //             }
-  //           }
-  //           let temp_index_add_indirect = 0;
-  //           document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML = ``;
-  //           if (data?.data_mp_tidak_hadir_indirect.length > 0) {
-  //             data?.data_mp_tidak_hadir_indirect.forEach(dmthi => {
-  //               document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML += `
-  //                 <tr id="add_mp_tidak_masuk_indirect_${temp_index_add_indirect}" style="border-bottom: ${temp_index_add === 2 ? 'transparent' : ''};" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', ${temp_index_add_indirect})">
-  //                   <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
-  //                     ${dmthi['nama']}
-  //                     <input type="hidden" name="nama_mp_tidak_hadir_indirect[]" value="${dmthi['id_man_power']}">
-  //                     <input type="hidden" name="id_cuti_mp_tidak_hadir_indirect[]" id="id_cuti_mp_tidak_hadir_indirect_${temp_index_add_indirect}" value="${dmthi['id_cuti']}">
-  //                   </td>
-  //                   <td class="p-0 text-center">${String(dmthi['npk']).padStart(4, '0')}</td>
-  //                   <td class="p-0 text-center" name="keterangan_mp_tidak_hadir_indirect[]">${dmthi['keterangan']}</td>
-  //                 </tr>
-  //               `;
-  //             });
-  //           }
-  //           if (temp_index_add_indirect < 3) {
-  //             for (let index_add = temp_index_add_indirect; index_add < 3; index_add++) {
-  //               document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML += `
-  //                 <tr id="add_mp_tidak_masuk_indirect_${index_add}" style="border-bottom: ${index_add === 2 ? 'transparent' : ''};">
-  //                   <td colspan="4" class="text-center p-0">
-  //                     <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_indirect_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect',${index_add})">Add</button>
-  //                   </td>
-  //                 </tr>
-  //               `;
-  //             }
-  //           }
-  //         });
-  //         temp_sum_mesin_indirect = Object.entries(data?.detail_record_mesin_indirect).filter(element => {
-  //           return element[1][Object.keys(element[1])]['status_mesin'] !== 'Non-Aktif';
-  //         }).length;
-  //         mp_tidak_hadir.push(parseFloat((((data?.data_mp_tidak_hadir_indirect?.length ?? 0) / temp_sum_mesin_indirect) * 100).toFixed(1)));
-  //         mp_hadir.push(parseFloat((((temp_sum_mesin_indirect - (data?.data_mp_tidak_hadir_indirect?.length ?? 0)) / temp_sum_mesin_indirect) * 100).toFixed(1)));
-  //         temp_all_mp_tidak_hadir.push(data?.data_mp_tidak_hadir_indirect?.length ?? 0);
-  //         temp_all_mp_hadir.push(temp_sum_mesin_indirect - (data?.data_mp_tidak_hadir_indirect?.length ?? 0));
-  //         mp_tidak_hadir.push(parseFloat(((eval(temp_all_mp_tidak_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
-  //         mp_hadir.push(parseFloat(((eval(temp_all_mp_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
-  //         let index = 0;
-  //         data?.data_indirect.forEach(di => {
-  //           if (di.mesin.includes('Kasubsie')) {
-  //             document.querySelector(`#group_indirect_${index}`).value = Object.keys(data.detail_record_man_power_kasubsie?.[di.mesin] !== undefined ? data.detail_record_man_power_kasubsie?.[di.mesin] : {
-  //               'A': 'A'
-  //             })[0];
-  //             document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.detail_record_mesin_indirect?.[di.mesin]?.[Object.keys(data.detail_record_mesin_indirect?.[di.mesin])[0]]?.['status_mesin'] !== 'Non-Aktif') ? ((data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
-  //             document.querySelector(`#card_indirect_${index}`).style.backgroundImage = (data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['status'] ?? 0) ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '';
-  //             document.querySelector(`#nama_mp_indirect_${index}`).value = data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['nama'] ?? '';
-  //             if (data?.detail_record_mesin_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_mesin_indirect?.[di.mesin])[0]]?.['status_mesin'] !== 'Non-Aktif') {
-  //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
-  //                 <img src="${'<?= base_url() ?>uploads/' + data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_${index}">
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
-  //                 <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}">${String(data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['foto'] ?? '').padStart(4, '0')}</h5>
-  //                 <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['nama'] ?? ''}</h5>
-  //                 <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', ${index})">Edit</button>
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).style.height = '';
-  //             } else {
-  //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
-  //                 <img class="d-none" id="foto_indirect_${index}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
-  //                 <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}"></h5>
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).style.height = '22.1px';
-  //             }
-  //             // document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['foto'] ?? '';
-  //             // document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.detail_record_man_power_kasubsie?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_kasubsie?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0');
-  //             index++;
-  //           } else {
-  //             console.log(Object.keys(data.detail_record_man_power_indirect?.[di.mesin] !== undefined ? data.detail_record_man_power_indirect?.[di.mesin] : [])[0]);
-  //             document.querySelector(`#group_indirect_${index}`).value = Object.keys(data.detail_record_man_power_indirect?.[di.mesin] !== undefined ? data.detail_record_man_power_indirect?.[di.mesin] : {
-  //               'A': 'A'
-  //             })[0];
-  //             document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.detail_record_mesin_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_mesin_indirect?.[di.mesin])[0]]?.['status_mesin'] !== 'Non-Aktif') ? ((data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data.detail_record_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
-  //             document.querySelector(`#card_indirect_${index}`).style.backgroundImage = (data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data.detail_record_man_power_indirect?.[di.mesin])[0]]?.['status'] ?? 0) ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '';
-  //             document.querySelector(`#nama_mp_indirect_${index}`).value = data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? '';
-  //             if (data?.detail_record_mesin_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_mesin_indirect?.[di.mesin])[0]]?.['status_mesin'] !== 'Non-Aktif') {
-  //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
-  //                 <img src="${'<?= base_url() ?>uploads/' + data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_${index}">
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
-  //                 <div class="d-flex justify-content-between align-items-center">
-  //                   <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}">${String(data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0')}</h5>
-  //                   <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['nama'] ?? ''}</h5>
-  //                   <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', ${index})">Edit</button>
-  //                 </div>
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).style.height = '';
-  //             } else {
-  //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
-  //                 <img class="d-none" id="foto_indirect_${index}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
-  //                 <div class="d-flex justify-content-between align-items-center" style="height: 15.1px;">
-  //                   <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"></h5>
-  //                 </div>
-  //               `;
-  //             }
-  //             // document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['foto'] ?? '';
-  //             // document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.detail_record_man_power_indirect?.[di.mesin]?.[Object.keys(data?.detail_record_man_power_indirect?.[di.mesin])[0]]?.['npk'] ?? '').padStart(4, '0');
-  //             index++;
-  //           }
-  //         });
-  //         series_tidak_hadir.setData(mp_tidak_hadir);
-  //         series_hadir.setData(mp_hadir);
-  //       } else {
-  //         series_tidak_hadir.setData([0, 0, 0, 0, 0]);
-  //         series_hadir.setData([100, 100, 100, 100, 100]);
-  //         // console.log(data.data_group_man_power_indirect);
-  //         line.forEach(ln => {
-  //           let index_mesin = 0;
-  //           data?.data_mesin?.[ln].forEach(msn => {
-  //             // console.log('A');
-  //             document.querySelector(`#card_${ln}_${index_mesin}`).style.backgroundImage = '';
-  //             document.querySelector(`#card_${ln}_${index_mesin}`).style.backgroundColor = (data?.data_group_mesin?.[ln]?.['A']?.[msn.mesin]?.['status'] !== 'Non-Aktif') ? ((data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
-  //             document.querySelector(`#group_${ln}`).value = 'A';
-  //             document.querySelector(`#nama_mp_${ln}_${index_mesin}`).value = data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['nama'] ?? '';
-  //             if (data?.data_group_mesin?.[ln]?.['A']?.[msn.mesin]?.['status'] !== 'Non-Aktif') {
-  //               document.querySelector(`#picture_format_${ln}_${index_mesin}`).innerHTML = `
-  //                 <img src="${'<?= base_url() ?>uploads/' + data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_${ln}_${index_mesin}">
-  //               `;
-  //               document.querySelector(`#footer_format_${ln}_${index_mesin}`).innerHTML = `
-  //                 <div class="d-flex justify-content-between align-items-center">
-  //                   <h5 class="m-0" style="font-size: 10px" id="npk_${ln}_${index_mesin}">${String(data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0')}</h5>
-  //                   <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['nama'] ?? ''}</h5>
-  //                   <div style="border: 0.1px solid black; background-color: ${data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ? colorSkill[data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill']] : 'transparent'}; border-radius: 50%; width: 10px; height: 10px" id="skill_${ln}_${index_mesin}"></div>
-  //                 </div>
-  //                 <div class="d-flex justify-content-between align-items-center">
-  //                   <h5 class="m-0" style="font-size: 10px; color: ${(msn.min_skill <= (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000'}" id="status_${ln}_${index_mesin}">${(data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong'}</h5>
-  //                   <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${ln}', ${index_mesin})">Edit</button>
-  //                 </div>
-  //               `;
-  //             } else {
-  //               document.querySelector(`#picture_format_${ln}_${index_mesin}`).innerHTML = `
-  //                 <img class="d-none" id="foto_${ln}_${index_mesin}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
-  //               `;
-  //               document.querySelector(`#footer_format_${ln}_${index_mesin}`).innerHTML = `
-  //                 <div class="d-flex justify-content-between align-items-center" style="height: 12px">
-  //                   <h5 class="m-0" style="font-size: 10px" id="npk_${ln}_${index_mesin}"></h5>
-  //                   <div style="border-radius: 50%; width: 10px; height: 10px" id="skill_${ln}_${index_mesin}"></div>
-  //                 </div>
-  //                 <div class="d-flex justify-content-between align-items-center" style="height: 15.1px">
-  //                   <h5 class="m-0" style="font-size: 10px;" id="status_${ln}_${index_mesin}"></h5>
-  //                 </div>
-  //               `;
-  //             }
-  //             // document.querySelector(`#foto_${ln}_${index_mesin}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['foto'] ?? '';
-  //             // document.querySelector(`#npk_${ln}_${index_mesin}`).innerHTML = String(data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0');
-  //             // skill = document.querySelector(`#skill_${ln}_${index_mesin}`);
-  //             // skill.style.backgroundColor = (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill']) ? colorSkill[data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill']] : 'transparent';
-  //             // status = document.querySelector(`#status_${ln}_${index_mesin}`);
-  //             // status.innerHTML = (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong';
-  //             // status.style.color = (msn.min_skill <= (data?.data_group_man_power?.[ln]?.['A']?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
-  //             index_mesin++;
-  //           });
-  //           document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML = ``;
-  //           for (let index_add = 0; index_add < 3; index_add++) {
-  //             document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML += `
-  //               <tr id="add_mp_tidak_masuk_${ln}_${index_add}" style="border-bottom: ${index_add === 2 ? 'transparent' : ''};">
-  //                 <td colspan="4" class="text-center p-0">
-  //                   <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${ln}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}',${index_add})">Add</button>
-  //                 </td>
-  //               </tr>
-  //             `;
-  //           }
-  //         });
-  //         let index = 0;
-  //         data?.data_indirect.forEach(di => {
-  //           if (di.mesin.includes('Kasubsie')) {
-  //             document.querySelector(`#group_indirect_${index}`).value = 'A';
-  //             document.querySelector(`#card_indirect_${index}`).style.backgroundImage = '';
-  //             document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.data_group_mesin_indirect?.[di.mesin]?.['A']?.['status'] !== 'Non-Aktif') ? ((data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
-  //             document.querySelector(`#nama_mp_indirect_${index}`).value = data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['nama'] ?? '';
-  //             if (data?.data_group_mesin_indirect?.[di.mesin]?.['A']?.['status'] !== 'Non-Aktif') {
-  //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
-  //                 <img src="${'<?= base_url() ?>uploads/' + data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_${index}">
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
-  //                 <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}">${String(data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0')}</h5>
-  //                 <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['nama'] ?? ''}</h5>
-  //                 <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', ${index})">Edit</button>
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).style.height = '';
-  //             } else {
-  //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
-  //                 <img class="d-none" id="foto_indirect_${index}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
-  //                 <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}"></h5>
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).style.height = '22.1px';
-  //             }
-  //             // document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['foto'] ?? '';
-  //             // document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.data_group_man_power_kasubsie?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0');
-  //             index++;
-  //           } else {
-  //             document.querySelector(`#group_indirect_${index}`).value = 'A';
-  //             document.querySelector(`#card_indirect_${index}`).style.backgroundImage = '';
-  //             document.querySelector(`#card_indirect_${index}`).style.backgroundColor = (data?.data_group_mesin_indirect?.[di.mesin]?.['A']?.['status'] !== 'Non-Aktif') ? ((data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['nama'] ?? 0) ? '' : '#9BA4B5') : '#89375F';
-  //             document.querySelector(`#nama_mp_indirect_${index}`).value = data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['nama'] ?? '';
-  //             if (data?.data_group_mesin_indirect?.[di.mesin]?.['A']?.['status'] !== 'Non-Aktif') {
-  //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
-  //                 <img src="${'<?= base_url() ?>uploads/' + data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_${index}">
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
-  //                 <div class="d-flex justify-content-between align-items-center">
-  //                   <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}">${String(data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0')}</h5>
-  //                   <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['nama'] ?? ''}</h5>
-  //                   <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', ${index})">Edit</button>
-  //                 </div>
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).style.height = '';
-  //             } else {
-  //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
-  //                 <img class="d-none" id="foto_indirect_${index}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
-  //               `;
-  //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
-  //                 <div class="d-flex justify-content-between align-items-center">
-  //                   <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}">${String(data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0')}</h5>
-  //                   <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['nama'] ?? ''}</h5>
-  //                   <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', ${index})">Edit</button>
-  //                 </div>
-  //               `;
-  //             }
-  //             // document.querySelector(`#foto_indirect_${index}`).src = '<?= base_url() ?>uploads/' + data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['foto'] ?? '';
-  //             // document.querySelector(`#npk_indirect_${index}`).innerHTML = String(data?.data_group_man_power_indirect?.[di.mesin]?.['A']?.['npk'] ?? '').padStart(4, '0');
-  //             index++;
-  //           }
-  //         });
-  //         document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML = ``;
-  //         for (let index_add = 0; index_add < 3; index_add++) {
-  //           document.querySelector(`#data_mp_tidak_hadir_indirect`).innerHTML += `
-  //             <tr id="add_mp_tidak_masuk_indirect_${index_add}" style="border-bottom: ${index_add === 2 ? 'transparent' : ''};">
-  //               <td colspan="4" class="text-center p-0">
-  //                 <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_indirect_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect',${index_add})">Add</button>
-  //               </td>
-  //             </tr>
-  //           `;
-  //         }
-  //       }
-  //       $('#loading-modal').modal('hide');
-  //     }
-  //   });
-  // }
+  function getCuti(line, sub_bagian) {
+    let date = <?= json_encode($date) ?>;
+    console.log(date);
+    let group_exist = [];
+    if (line == 'indirect') {
+      let data_indirect = <?= json_encode($data_indirect) ?>;
+      for (let index = 0; index < data_indirect.length; index++) {
+        groupElement = document.querySelector(`#group_${line}_${index}`).value;
+        if (!group_exist.includes(groupElement)) {
+          group_exist.push(groupElement);
+        }
+      }
+    } else {
+      group_exist.push(document.querySelector(`#group_${line}`).value);
+    }
+    $.ajax({
+      url: '<?= base_url() ?>dashboard_man_power/getCutiByGroup',
+      type: 'POST',
+      data: {
+        group_mp: group_exist,
+        line: line,
+        sub_bagian: sub_bagian,
+        date: date,
+      },
+      dataType: 'json',
+      success: function(data) {
+        let count = 0;
+        if (data.length > 0) {
+          if (data.length <= 3) {
+            for (let index_add = 0; index_add < 3; index_add++) {
+              let cutiElement = document.querySelector(`#id_cuti_mp_tidak_hadir_${line}_${index_add}`);
+              if (cutiElement == null) {
+                if (count < data.length) {
+                  console.log(document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`));
+                  document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
+                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[count].nama}</td>
+                    <td class="p-0 text-center">${String(data[count].npk).padStart(4, '0')}</td>
+                    <td class="p-0 text-center">${data[count].kategori}</td>
+                  `;
+                  count++;
+                } else {
+                  console.log(data.length);
+                  document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
+                    <td colspan="4" class="text-center p-0">
+                      <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${line}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${line}',${index_add})">Add</button>
+                    </td>
+                  `;
+                }
+              }
+            }
+          } else {
+            for (let index_add = 0; index_add < data.length; index_add++) {
+              let cutiElement = document.querySelector(`#id_cuti_mp_tidak_hadir_${line}_${index_add}`);
+              if (index_add < 3) {
+                if (cutiElement == null) {
+                  console.log(document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`));
+                  document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
+                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[index_add].nama}</td>
+                    <td class="p-0 text-center">${String(data[index_add].npk).padStart(4, '0')}</td>
+                    <td class="p-0 text-center">${data[index_add].kategori}</td>
+                  `;
+                }
+              } else {
+                cutiElement = document.querySelector(`#data_mp_tidak_hadir_${line}`);
+                console.log(cutiElement);
+                cutiElement.innerHTML += `
+                  <tr id="add_mp_tidak_masuk_${line}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', ${index_add})">
+                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[index_add].nama}</td>
+                    <td class="p-0 text-center">${String(data[index_add].npk).padStart(4, '0')}</td>
+                    <td class="p-0 text-center">${data[index_add].kategori}</td>
+                  </tr>
+                `;
+              }
+            }
+          }
+        } else {
+          for (let index_add = 0; index_add < 3; index_add++) {
+            let cutiElement = document.querySelector(`#id_cuti_mp_tidak_hadir_${line}_${index_add}`);
+            if (cutiElement == null) {
+              document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
+                <td colspan="4" class="text-center p-0">
+                  <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${line}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${line}',${index_add})">Add</button>
+                </td>
+              `;
+            }
+          }
+        }
+      }
+    });
+  }
 
   function changeGroup(line, sub_bagian) {
     let groupElement = document.querySelector('#group_' + line);
@@ -1245,6 +968,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           // status.style.color = (msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000';
           index_mesin++;
         });
+        getCuti(line, sub_bagian);
       }
     });
   }
@@ -1285,6 +1009,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
           `;
         }
+        getCuti(line, '<?= $sub_bagian ?>');
       }
     });
   }

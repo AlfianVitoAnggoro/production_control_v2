@@ -458,6 +458,7 @@ $routes->group('dashboard_man_power', ['filter' => 'auth'], function ($routes) {
     $routes->post('get_detail_man_power', 'DashboardManPower::get_detail_man_power');
     $routes->post('get_data_detail_man_power', 'DashboardManPower::get_data_detail_man_power');
     $routes->post('save_record_man_power', 'DashboardManPower::save_record_man_power');
+    $routes->post('getCutiByGroup', 'DashboardManPower::getCutiByGroup');
 });
 
 // Cuti Man Power
@@ -468,13 +469,20 @@ $routes->group('form_cuti', function ($routes) {
 });
 $routes->group('cuti', ['filter' => 'auth'], function ($routes) {
     // $routes->get('detail_cuti/(:num)/(:segment)/print', 'ResumeCuti::print/$1/$2');
-    $routes->get('detail_cuti/(:num)/print', 'ResumeCuti::print/$1');
     $routes->get('/', 'ResumeCuti::home');
     // $routes->get('detail_cuti/(:num)/(:segment)', 'ResumeCuti::detail_cuti/$1/$2');
     $routes->get('detail_cuti/(:num)', 'ResumeCuti::detail_cuti/$1');
-    $routes->get('detail_izin/(:num)', 'ResumeCuti::detail_izin/$1');
+    $routes->get('detail_cuti/(:num)/print', 'ResumeCuti::print/$1');
     $routes->post('approve_cuti', 'ResumeCuti::approve_cuti');
     $routes->post('reject_cuti', 'ResumeCuti::reject_cuti');
+    $routes->get('detail_izin/(:num)', 'ResumeCuti::detail_izin/$1');
+    $routes->get('detail_izin/(:num)/print', 'ResumeCuti::print_izin/$1');
+    $routes->post('approve_izin', 'ResumeCuti::approve_izin');
+    $routes->post('reject_izin', 'ResumeCuti::reject_izin');
+    $routes->get('detail_cuti_besar/(:num)', 'ResumeCuti::detail_cuti_besar/$1');
+    $routes->get('detail_cuti_besar/(:num)/print', 'ResumeCuti::print_cuti_besar/$1');
+    $routes->post('approve_cuti_besar', 'ResumeCuti::approve_cuti_besar');
+    $routes->post('reject_cuti_besar', 'ResumeCuti::reject_cuti_besar');
     $routes->post('get_data_mp', 'ResumeCuti::get_data_mp');
 });
 
@@ -482,45 +490,52 @@ $routes->group('cuti', ['filter' => 'auth'], function ($routes) {
 $routes->group('form_imp', function ($routes) {
     $routes->get('/', 'Imp::index');
     $routes->post('save', 'Imp::save_form_imp');
-});
-$routes->group('imp', ['filter' => 'auth'], function ($routes) {
-    $routes->get('print', 'Imp::print');
-    $routes->get('/', 'Imp::home');
-    $routes->get('detail_imp/(:num)', 'Imp::detail_imp/$1');
     $routes->post('get_data_mp', 'Imp::get_data_mp');
 });
+// $routes->group('imp', ['filter' => 'auth'], function ($routes) {
+//     $routes->get('print', 'Imp::print');
+//     $routes->get('/', 'Imp::home');
+//     $routes->get('detail_imp/(:num)', 'Imp::detail_imp/$1');
+//     $routes->post('get_data_mp', 'Imp::get_data_mp');
+// });
 
 // Cuti Besar Man Power
 $routes->group('form_cuti_besar', function ($routes) {
     $routes->get('/', 'CutiBesar::index');
     $routes->post('save', 'CutiBesar::save_form_cuti_besar');
-});
-$routes->group('cuti_besar', ['filter' => 'auth'], function ($routes) {
-    $routes->get('print', 'CutiBesar::print');
-    $routes->get('/', 'CutiBesar::home');
-    $routes->get('detail_cuti_besar/(:num)', 'CutiBesar::detail_cuti_besar/$1');
     $routes->post('get_data_mp', 'CutiBesar::get_data_mp');
 });
+// $routes->group('cuti_besar', ['filter' => 'auth'], function ($routes) {
+//     $routes->get('print', 'CutiBesar::print');
+//     $routes->get('/', 'CutiBesar::home');
+//     $routes->get('detail_cuti_besar/(:num)', 'CutiBesar::detail_cuti_besar/$1');
+//     $routes->post('get_data_mp', 'CutiBesar::get_data_mp');
+// });
 
-// Cuti Besar Man Power
+// Izin Man Power
 $routes->group('form_izin', function ($routes) {
     $routes->get('/', 'Izin::index');
     $routes->post('save', 'Izin::save_form_izin');
+    $routes->post('get_data_mp', 'Izin::get_data_mp');
 });
 
-//Dashboard Man Power
+// Izin Sakit Man Power
+$routes->group('form_izin_sakit', function ($routes) {
+    $routes->get('/', 'IzinSakit::index');
+    $routes->post('save', 'IzinSakit::save_form_izin_sakit');
+    $routes->post('get_data_mp', 'IzinSakit::get_data_mp');
+});
+
+//Dashboard Cuti
 $routes->group('dashboard_cuti', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'DashboardCuti::index');
     $routes->post('get_record_cuti_by_month', 'DashboardCuti::get_record_cuti_by_month');
     $routes->post('get_record_cuti_by_day', 'DashboardCuti::get_record_cuti_by_day');
-    // $routes->get('(:segment)', 'DashboardCuti::dashboard/$1');
-    // $routes->get('filter', 'DashboardCuti::index');
-    // $routes->get('detail_dashboard_cuti/(:num)', 'DashboardCuti::detail_dashboard_cuti/$1');
-    // $routes->post('changeGroup', 'DashboardCuti::changeGroup');
-    // $routes->post('changeShift', 'DashboardCuti::changeShift');
-    // $routes->post('get_detail_man_power', 'DashboardCuti::get_detail_man_power');
-    // $routes->post('get_data_detail_man_power', 'DashboardCuti::get_data_detail_man_power');
-    // $routes->post('save_record_man_power', 'DashboardCuti::save_record_man_power');
+});
+
+//Dashboard Cuti
+$routes->group('home_absen', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'DashboardCuti::home');
 });
 
 // Monitoring Aging
