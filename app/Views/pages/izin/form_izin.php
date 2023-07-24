@@ -2,14 +2,19 @@
 <?= $this->section('style'); ?>
 <?= $this->endSection() ?>
 <?= $this->section('content'); ?>
-<?php $jenis_cuti = ['Sakit', 'Keperluan Keluarga', 'Lain-lain'] ?>
+<?php $jenis_izin = ['Sakit', 'Keperluan Keluarga', 'Lain-lain'] ?>
 
 <div class="container">
   <section class="content">
+    <?php
+    // if (session()->has('failed')) {
+    //   echo '<div class="bg-danger text-center">' . session()->getFlashdata('failed') . '</div>';
+    // } 
+    ?>
     <h4 class="fw-bold">PT. Century Batteries Indonesia</h4>
     <h3 class="text-center text-decoration-underline fw-bold">PERMOHONAN IZIN</h3>
     <h5>Bersama ini saya,</h5>
-    <form action="<?= base_url() ?>form_cuti/save" method="POST" enctype="multipart/form-data">
+    <form action="<?= base_url() ?>form_izin/save" method="POST" enctype="multipart/form-data">
       <div class="row">
         <div class="form-group col-md-6">
           <label for="nama">Nama</label>
@@ -29,29 +34,26 @@
       </div>
       <div class="form-group">
         <label for="bagian">Bagian / Seksi</label>
-        <select class="form-select select2" name="bagian" id="bagian" style="width: 100%" onchange="data_mp()">
+        <input type="text" class="form-control" id="bagian" name="bagian" readonly>
+        <!-- <select class="form-select select2" name="bagian" id="bagian" style="width: 100%" onchange="data_mp()">
           <option value="">-- Pilih Bagian / Seksi --</option>
           <option value="AMB-1">AMB-1</option>
           <option value="AMB-2">AMB-2</option>
           <option value="WET-A">WET-A</option>
           <option value="WET-F">WET-F</option>
           <option value="MCB">MCB</option>
-        </select>
+        </select> -->
       </div>
       <div class="form-group">
         <label for="tanggal">Tanggal Pengajuan</label>
         <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= date('Y-m-d') ?>" readonly>
-      </div>
-      <div class="form-group">
-        <label for="lampiran">Lampiran</label>
-        <input type="file" class="form-control" id="lampiran" name="lampiran" readonly>
       </div>
       <div class="row">
         <div class="form-group col-md-6">
           <label for="jenis">Jenis</label>
           <select id="jenis" class="form-select select2" name="jenis" style="width: 100%;">
             <option value="" selected>-- Pilih Jenis --</option>
-            <?php foreach ($jenis_cuti as $jc) { ?>
+            <?php foreach ($jenis_izin as $jc) { ?>
               <option value="<?= $jc ?>"><?= $jc ?></option>
             <?php } ?>
           </select>
@@ -67,6 +69,14 @@
           <label for="keterangan">Keterangan</label>
           <input type="text" class="form-control" id="keterangan" name="keterangan">
         </div>
+      </div>
+      <div class="form-group">
+        <label for="lampiran">Lampiran</label>
+        <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]" multiple accept="image/*">
+        <!-- <div id="multiple_file" style="width: 100%">
+          <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]">
+        </div> -->
+        <!-- <button type="button" class="btn btn-sm btn-primary" id="btn_add_lampiran" onclick="add_lampiran()">+</button> -->
       </div>
       <button type="submit" class="btn btn-primary">Kirim</button>
     </form>
@@ -93,13 +103,16 @@
   $(document).ready(
     $('.select2').select2()
   );
+  $(document).ready(
+    <?php if (session()->has('empty')) { ?> window.alert('<?= session()->getFlashdata('empty') ?>') <?php } ?> <?php if (session()->has('failed')) { ?> window.alert('<?= session()->getFlashdata('failed') ?>') <?php } ?>
+  );
 
   function data_mp() {
     let nama = document.querySelector('#nama');
     $('#loading-modal').modal('show');
     if (nama.value !== '') {
       $.ajax({
-        url: '<?= base_url() ?>form_cuti/get_data_mp',
+        url: '<?= base_url() ?>form_izin/get_data_mp',
         type: 'POST',
         data: {
           nama: nama.value
@@ -109,6 +122,19 @@
           document.querySelector('#npk').value = String(data?.[0]?.npk).padStart(4, '0');
           document.querySelector('#line').value = data?.[0]?.line;
           document.querySelector('#group_mp').value = data?.[0]?.group_mp;
+          if (data?.[0]?.line !== undefined) {
+            console.log(data?.[0]?.line)
+            if (data?.[0]?.line <= 3)
+              document.querySelector('#bagian').value = 'AMB-1';
+            else if (data?.[0]?.line <= 7)
+              document.querySelector('#bagian').value = 'AMB-2';
+            else if (data?.[0]?.line <= 9)
+              document.querySelector('#bagian').value = 'WET';
+            else if (data?.[0]?.line <= 10)
+              document.querySelector('#bagian').value = 'MCB';
+          } else {
+            document.querySelector('#bagian').value = data?.[0]?.sub_bagian;
+          }
           $('#loading-modal').modal('hide');
         }
       })
@@ -120,7 +146,16 @@
 
   function add_waktu_rencana() {
     let multiple_dateElement = document.querySelector('#multiple_date');
-    multiple_dateElement.innerHTML += `<input type="date" class="form-control mb-2" id="waktu_rencana" name="waktu_rencana[]">`;
+    let newDateInput = document.createElement('input');
+    newDateInput.setAttribute('type', 'date');
+    newDateInput.setAttribute('class', 'form-control mb-2');
+    newDateInput.setAttribute('name', 'waktu_rencana[]');
+    multiple_dateElement.appendChild(newDateInput);
   }
+
+  // function add_lampiran() {
+  //   let multiple_fileElement = document.querySelector('#multiple_file');
+  //   multiple_fileElement.innerHTML += '<input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]">';
+  // }
 </script>
 <?= $this->endSection(); ?>

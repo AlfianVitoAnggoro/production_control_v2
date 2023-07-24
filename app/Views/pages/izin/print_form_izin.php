@@ -57,7 +57,7 @@
 </style>
 <?= $this->endSection() ?>
 <?= $this->section('content'); ?>
-<?php $jenis_cuti = ['Cuti Tahunan', 'Cuti Perkawinan', 'Cuti Melahirkan / Keguguran', 'Cuti Kematian', 'Cuti Haid', 'Cuti Lain-lain', 'Rawat Inap / Opname'] ?>
+<?php $jenis_izin = ['Sakit', 'Keperluan Keluarga', 'Lain-lain'] ?>
 <?php
 if ($data_mp_cuti[0]['level_account'] === 1)
   $level = 'Kadept';
@@ -69,11 +69,11 @@ else
   $level = '';
 ?>
 
-<div class="d-flex" style="width: 100%;">
+<div class="d-flex">
   <div class="container m-0" style="max-width: 50%;">
     <section class="content">
       <h4 class="fw-bold">PT. Century Batteries Indonesia</h4>
-      <h3 class="text-center text-decoration-underline fw-bold">PERMOHONAN CUTI</h3>
+      <h3 class="text-center text-decoration-underline fw-bold">PERMOHONAN IZIN</h3>
       <table class="table" style="border-color: transparent">
         <tbody>
           <tr>
@@ -113,7 +113,7 @@ else
           </tr>
         </tbody>
       </table>
-      <table class="table border border-dark m-0">
+      <table class="table border border-dark">
         <thead class="bg-white">
           <th class="py-1 br-1"></th>
           <th class="py-1 br-1 text-center" colspan="2">JENIS</th>
@@ -121,7 +121,7 @@ else
           <th class="py-1 br-1 text-center">KETERANGAN</th>
         </thead>
         <tbody>
-          <?php foreach ($jenis_cuti as $jc) { ?>
+          <?php foreach ($jenis_izin as $jc) { ?>
             <tr>
               <th class="py-1 br-1 text-center" style="width: 100px"><?= $data_mp_cuti[0]['jenis'] === $jc ? '<i class="fa fa-check"></i>' : '' ?></th>
               <th class="py-1 br-1" style="width: 200px;" colspan="2"><?= $jc ?></th>
@@ -133,8 +133,8 @@ else
             <td class="py-1 br-1" rowspan="4"></td>
           </tr>
           <tr>
-            <td class="py-1 br-1" style="height: 29px;" colspan="2"><?= in_array($data_mp_cuti[0]['jenis'], $jenis_cuti) ? '' : $data_mp_cuti[0]['keterangan'] ?></td>
-            <td class="py-1 br-1" style="height: 29px;" colspan="2"><?= in_array($data_mp_cuti[0]['jenis'], $jenis_cuti) ? '' : date('j F Y', strtotime($data_mp_cuti[0]['tanggal']))  ?></td>
+            <td class="py-1 br-1" style="height: 29px;" colspan="2"><?= in_array($data_mp_cuti[0]['jenis'], $jenis_izin) ? '' : $data_mp_cuti[0]['keterangan'] ?></td>
+            <td class="py-1 br-1" style="height: 29px;" colspan="2"><?= in_array($data_mp_cuti[0]['jenis'], $jenis_izin) ? '' : date('j F Y', strtotime($data_mp_cuti[0]['tanggal']))  ?></td>
             <td class="py-1 br-1" style="height: 29px;"></td>
           </tr>
           <?php for ($i = 0; $i < 2; $i++) { ?>
@@ -145,14 +145,14 @@ else
             </tr>
           <?php } ?>
           <tr>
-            <th class="py-1 bb-0" colspan="2">Cuti yang sudah digunakan</th>
-            <th class="py-1 br-1 bb-0">: </th>
+            <th class="py-1 br-1 bb-0"></th>
+            <th class="py-1 br-1 bb-0" colspan="2"></th>
             <th class="py-1 br-1 text-center" colspan="2">Personalia</th>
             <th class="py-1 text-center">Admin Seksi</th>
           </tr>
           <tr>
-            <th class="py-1 bb-0" colspan="2">Sisa Cuti</th>
-            <th class="py-1 br-1 bb-0">: </th>
+            <th class="py-1 br-1 bb-0"></th>
+            <th class="py-1 br-1 bb-0" colspan="2"></th>
             <th class="py-1 br-1 text-center" style="height: 58px;" rowspan="2" colspan="2">
               <div style="font-size: 8px; background-color: <?= $data_mp_cuti[0]['status_hrd'] == 'rejected' ? 'red' : ($data_mp_cuti[0]['status_hrd'] == 'approved' ? 'green' : 'yellow') ?>; color: <?= $data_mp_cuti[0]['status_hrd'] == 'pending' ? 'black' : 'white' ?>"><?= ucfirst($data_mp_cuti[0]['status_hrd']) ?></div>
               <div style="font-size: 8px;"><?= str_replace(' ', '', preg_replace('/\b(\w)\w*\b/', '$1', strtoupper($data_mp_cuti[0]['nama_hrd']))) ?></div>
@@ -161,8 +161,8 @@ else
             <th class="py-1 br-1 text-center" rowspan="2"></th>
           </tr>
           <tr>
-            <th class="py-1" colspan="2">Tanggal Cuti Terakhir</th>
-            <th class="py-1 br-1">: </th>
+            <th class="py-1 br-1"></th>
+            <th class="py-1 br-1" colspan="2"></th>
           </tr>
           <tr>
             <th class="py-1 br-1 text-center" style="width: 100px;">Personalia</th>
@@ -218,7 +218,7 @@ else
         <tfoot>
           <tr>
             <td class="py-1" colspan="3">Edisi ke : 1, Revisi: 1</td>
-            <td class="py-1 text-end" colspan="3">Form-HRD-PSN-39 (Permohonan cuti)</td>
+            <td class="py-1 text-end" colspan="3">Form-HRD-PSN-39 (Permohonan izin)</td>
           </tr>
         </tfoot>
       </table>

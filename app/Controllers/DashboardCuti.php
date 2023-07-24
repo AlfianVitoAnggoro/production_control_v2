@@ -18,6 +18,12 @@ class DashboardCuti extends BaseController
     return view('dashboardCuti/dashboard_cuti', $data);
   }
 
+  public function home()
+  {
+    $data['data_mp'] = '';
+    return view('dashboardCuti/home_cuti', $data);
+  }
+
   public function get_record_cuti_by_month()
   {
     $month = $this->request->getPost('month');
@@ -44,8 +50,7 @@ class DashboardCuti extends BaseController
     $day = $this->request->getPost('day');
     $month = $this->request->getPost('month');
     $year = $this->request->getPost('year');
-    $temp_data_cuti = $this->M_DashboardCuti->get_record_cuti_by_day($day, $month, $year);
-    $data['data_cuti'] = $temp_data_cuti;
+    $data['data_cuti'] = $this->M_DashboardCuti->get_record_cuti_by_day($day, $month, $year);
     return json_encode($data);
   }
 }
