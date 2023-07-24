@@ -233,7 +233,7 @@
 	function filter_date()
 	{
 		var filter_tanggal = $('#filter_tanggal').val();
-		window.location.href = "<?= base_url() ?>wet_loading_new/list_loading/"+filter_tanggal;
+		window.location.href = "<?= base_url() ?>wet_loading_new/list_loading/filter/"+filter_tanggal;
 	}
 </script>
 <?= $this->endSection(); ?>

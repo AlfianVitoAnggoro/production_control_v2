@@ -252,7 +252,7 @@ $routes->group('wet_loading_new', ['filter' => 'auth'], function ($routes) {
     $routes->get('get_durasi_charging', 'WET_Loading_new::get_durasi_charging');
 
     $routes->get('list_loading', 'WET_Loading_new::list_loading');
-    $routes->get('list_loading/(:any)', 'WET_Loading_new::list_loading/$1');
+    $routes->get('list_loading/filter/(:any)', 'WET_Loading_new::list_loading/$1');
     $routes->post('list_loading/add_list_wo', 'WET_Loading_new::add_list_wo');
     $routes->get('list_loading/delete_list_wo/(:any)', 'WET_Loading_new::delete_list_wo/$1');
 
@@ -637,6 +637,11 @@ $routes->post('interlock_aging/get_qty_rak', 'InterlockAging::get_qty_rak');
 $routes->post('interlock_aging/add_rak', 'InterlockAging::add_rak');
 $routes->get('interlock_aging/delete_rak_aging/(:any)/(:any)', 'InterlockAging::delete_rak_aging/$1/$2');
 $routes->get('interlock_aging/update_rak_aging/(:any)', 'InterlockAging::update_rak_aging/$1');
+
+// FORMATION LOADING
+$routes->group('formation_loading', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Formation_Loading::index');
+});
 
 // API
 $routes->get('api/get_detail_rak/', 'Api::get_detail_rak/');
