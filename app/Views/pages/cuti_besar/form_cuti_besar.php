@@ -43,18 +43,17 @@
         Sehubungan dengan masa kerja yang telah genap &nbsp;
         <div class="form-group m-0">
           <!-- <label for="tanggal"></label> -->
-          <input type="text" class="form-control" id="masa_kerja" name="masa_kerja">
+          <input type="text" class="form-control" id="masa_kerja" name="masa_kerja" style="width: 50px;">
         </div>
-        &nbsp;(
+        &nbsp;tahun
+        <!-- &nbsp;(
         <div class="form-group m-0">
-          <!-- <label for="tanggal"></label> -->
           <input type="text" class="form-control" id="masa_kerja_pelafalan" name="masa_kerja_pelafalan">
         </div>
         ) tahun, tepatnya Tanggal &nbsp;
         <div class="form-group m-0">
-          <!-- <label for="tanggal">Tanggal</label> -->
           <input type="date" class="form-control" id="tanggal_masa_kerja" name="tanggal_masa_kerja">
-        </div>
+        </div> -->
       </div>
       <div class="d-flex align-items-center flex-wrap my-2">
         maka dengan ini saya mengajukan : &nbsp;
