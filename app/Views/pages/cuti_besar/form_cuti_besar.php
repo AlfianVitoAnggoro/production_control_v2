@@ -10,7 +10,7 @@
     <h4 class="text-center fw-bold">DAN</h4>
     <h4 class="text-center fw-bold text-decoration-underline">PENGAMBILAN UANG CUTI BESAR</h4>
     <h5>Bersama ini saya,</h5>
-    <form action="<?= base_url() ?>form_cuti/save" method="POST">
+    <form action="<?= base_url() ?>form_cuti_besar/save" method="POST">
       <div class="form-group">
         <label for="nama">Nama</label>
         <select class="form-select select2" name="nama" id="nama" style="width: 100%" onchange="data_mp()">
@@ -19,46 +19,79 @@
             <option value="<?= $d_mp['id_man_power'] ?>"><?= $d_mp['nama'] ?></option>
           <?php } ?>
         </select>
-        <input type="hidden" name="npk" id="npk" class="form-control">
+        <input type="hidden" name="line" id="line" class="form-control">
+        <input type="hidden" name="group_mp" id="group_mp" class="form-control">
+        <!-- <input type="hidden" name="npk" id="npk" class="form-control"> -->
+      </div>
+      <div class="form-group">
+        <label for="npk">NPK</label>
+        <input type="text" class="form-control" id="npk" name="npk" readonly>
       </div>
       <div class="form-group">
         <label for="bagian">Bagian / Seksi</label>
-        <select class="form-select select2" name="bagian" id="bagian" style="width: 100%">
+        <input type="text" class="form-control" id="bagian" name="bagian" readonly>
+        <!-- <select class="form-select select2" name="bagian" id="bagian" style="width: 100%">
           <option value="">-- Pilih Bagian / Seksi --</option>
           <option value="AMB-1">AMB-1</option>
           <option value="AMB-2">AMB-2</option>
           <option value="WET-A">WET-A</option>
           <option value="WET-F">WET-F</option>
           <option value="MCB">MCB</option>
-        </select>
+        </select> -->
+      </div>
+      <div class="d-flex align-items-center">
+        Sehubungan dengan masa kerja yang telah genap &nbsp;
+        <div class="form-group m-0">
+          <!-- <label for="tanggal"></label> -->
+          <input type="text" class="form-control" id="masa_kerja" name="masa_kerja">
+        </div>
+        &nbsp;(
+        <div class="form-group m-0">
+          <!-- <label for="tanggal"></label> -->
+          <input type="text" class="form-control" id="masa_kerja_pelafalan" name="masa_kerja_pelafalan">
+        </div>
+        ) tahun, tepatnya Tanggal &nbsp;
+        <div class="form-group m-0">
+          <!-- <label for="tanggal">Tanggal</label> -->
+          <input type="date" class="form-control" id="tanggal_masa_kerja" name="tanggal_masa_kerja">
+        </div>
+      </div>
+      <div class="d-flex align-items-center flex-wrap my-2">
+        maka dengan ini saya mengajukan : &nbsp;
+        <div class="form-group m-0">
+          <!-- <label for="bagian">Bagian / Seksi</label> -->
+          <select class="form-select select2" name="jenis" id="jenis" style="width: 100%" onchange="changeOption()">
+            <option value="">-- Pilih Pengajuan --</option>
+            <option value="Pengambilan Cuti Besar">Pengambilan cuti besar</option>
+            <option value="Pengambilan Uang Cuti Besar">Pengambilan uang cuti besar</option>
+          </select>
+        </div>
+        <div class="d-flex align-items-center d-none" id="pengambilan_cuti">
+          &nbsp; selama &nbsp;
+          <div class="form-group m-0">
+            <!-- <label for="tanggal">Tanggal</label> -->
+            <input type="text" class="form-control" id="jumlah_hari" name="jumlah_hari">
+          </div>
+          &nbsp; hari terhitung tanggal &nbsp;
+          <div class="form-group m-0">
+            <input type="date" class="form-control" id="start_date" name="start_date">
+          </div>
+          &nbsp; s/d &nbsp;
+          <div class="form-group m-0">
+            <input type="date" class="form-control" id="end_date" name="end_date">
+          </div>
+        </div>
       </div>
       <div class="form-group">
-        <label for="tanggal">Tanggal</label>
-        <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= date('Y-m-d') ?>">
+        <label for="alamat">Alamat</label>
+        <textarea class="form-control" name="alamat" id="alamat" rows="3"></textarea>
+        <!-- <input type="text" class="form-control" id="alamat" name="alamat"> -->
       </div>
-      <div class="row">
-        <div class="form-group col-md-6">
-          <label for="berangkat_jam">Berangkat Jam</label>
-          <input type="time" class="form-control" id="berangkat_jam" name="berangkat_jam">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="rencana_kembali">Rencana Kembali</label>
-          <input type="time" class="form-control" id="rencana_kembali" name="rencana_kembali">
-        </div>
+      <div class="form-group">
+        <label for="telp">No. Telpon</label>
+        <input type="text" class="form-control" id="telp" name="telp">
       </div>
-      <div class="row">
-        <div class="form-group col">
-          <label for="keperluan">Keperluan*</label>
-          <select id="keperluan" class="form-select select2" name="keperluan" style="width: 100%;" onchange="changeKeperluan()">
-            <option value="" selected>-- Pilih Keperluan --</option>
-            <option value="Pribadi">Pribadi</option>
-            <option value="Ijin Tidak Bekerja">Ijin Tidak Bekerja</option>
-          </select>
-          <span>Ket: (*) Diisi oleh Foreman / Kasie</span>
-        </div>
-        <div class="form-group" id="keterangan"></div>
-        <div class="form-group" id="keterangan_lengkap"></div>
-      </div>
+
       <button type="submit" class="btn btn-primary">Kirim</button>
     </form>
   </section>
@@ -90,7 +123,7 @@
     $('#loading-modal').modal('show');
     if (nama.value !== '') {
       $.ajax({
-        url: '<?= base_url() ?>cuti/get_data_mp',
+        url: '<?= base_url() ?>form_cuti_besar/get_data_mp',
         type: 'POST',
         data: {
           nama: nama.value
@@ -98,6 +131,22 @@
         dataType: 'JSON',
         success: function(data) {
           document.querySelector('#npk').value = String(data?.[0]?.npk).padStart(4, '0');
+          document.querySelector('#line').value = data?.[0]?.line;
+          document.querySelector('#group_mp').value = data?.[0]?.group_mp;
+          document.querySelector('#bagian').value = data?.[0]?.sub_bagian;
+          if (data?.[0]?.line !== undefined) {
+            console.log(data?.[0]?.line)
+            if (data?.[0]?.line <= 3)
+              document.querySelector('#bagian').value = 'AMB-1';
+            else if (data?.[0]?.line <= 7)
+              document.querySelector('#bagian').value = 'AMB-2';
+            else if (data?.[0]?.line <= 9)
+              document.querySelector('#bagian').value = 'WET';
+            else if (data?.[0]?.line <= 10)
+              document.querySelector('#bagian').value = 'MCB';
+          } else {
+            document.querySelector('#bagian').value = data?.[0]?.sub_bagian;
+          }
           $('#loading-modal').modal('hide');
         }
       })
@@ -107,45 +156,12 @@
     }
   }
 
-  function changeKeperluan() {
-    let keperluan = document.querySelector('#keperluan');
-    let keterangan = document.querySelector('#keterangan');
-    if (keperluan.value === 'Pribadi') {
-      keterangan.innerHTML = `
-        <label for="keterangan_value">Keterangan</label>
-        <input type="text" name="keterangan_value" id="keterangan_value" class="form-control">
-      `;
-      keterangan.classList.add('col');
-    } else if (keperluan.value === 'Ijin Tidak Bekerja') {
-      keterangan.innerHTML = `
-        <label for="keterangan_value">Keterangan</label>
-        <select name="keterangan_value" id="keterangan_value" class="form-select" onchange="changeKeterangan()">
-          <option value="Keluarga Opname">Keluarga Opname</option>
-          <option value="Keluarga Meninggal Dunia">Keluarga Meninggal Dunia</option>
-          <option value="Istri pekerja melahirkan atau keguguran kandungan">Istri pekerja melahirkan atau keguguran kandungan</option>
-          <option value="Musibah / Bencana Alam">Musibah / Bencana Alam</option>
-          <option value="Sakit Menular">Sakit Menular</option>
-        </select>
-      `;
-      keterangan.classList.add('col');
+  function changeOption() {
+    let jenisElement = document.querySelector('#jenis');
+    if (jenisElement.value == 'Pengambilan Cuti Besar') {
+      document.querySelector('#pengambilan_cuti').classList.remove('d-none');
     } else {
-      keterangan.innerHTML = '';
-      keterangan.classList.remove('col');
-    }
-  }
-
-  function changeKeterangan() {
-    let keterangan = document.querySelector('#keterangan_value');
-    let keterangan_lengkap = document.querySelector('#keterangan_lengkap');
-    if (keterangan.value === 'Musibah / Bencana Alam' || keterangan.value === 'Sakit Menular') {
-      keterangan_lengkap.innerHTML = `
-        <label for="keterangan_lengkap_value">Keterangan</label>
-        <input type="text" name="keterangan_lengkap_value" id="keterangan_lengkap_value" class="form-control">
-      `;
-      keterangan_lengkap.classList.add('col');
-    } else {
-      keterangan_lengkap.innerHTML = '';
-      keterangan_lengkap.classList.remove('col');
+      document.querySelector('#pengambilan_cuti').classList.add('d-none');
     }
   }
 </script>

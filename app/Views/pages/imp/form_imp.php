@@ -8,7 +8,7 @@
     <h3 class="fw-bold text-center">PT. CENTURY BATTERIES INDONESIA</h3>
     <h4 class="text-center fw-bold">IJIN MENINGGALKAN PEKERJAAN</h4>
     <h5>Bersama ini saya,</h5>
-    <form action="<?= base_url() ?>form_cuti/save" method="POST">
+    <form action="<?= base_url() ?>form_imp/save" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label for="nama">Nama</label>
         <select class="form-select select2" name="nama" id="nama" style="width: 100%" onchange="data_mp()">
@@ -18,26 +18,28 @@
           <?php } ?>
         </select>
         <input type="hidden" name="npk" id="npk" class="form-control">
+        <input type="hidden" name="group_mp" id="group_mp" class="form-control">
       </div>
       <div class="form-group">
         <label for="bagian">Bagian / Seksi</label>
-        <select class="form-select select2" name="bagian" id="bagian" style="width: 100%">
+        <input type="text" name="bagian" id="bagian" class="form-control" readonly>
+        <!-- <select class="form-select select2" name="bagian" id="bagian" style="width: 100%">
           <option value="">-- Pilih Bagian / Seksi --</option>
           <option value="AMB-1">AMB-1</option>
           <option value="AMB-2">AMB-2</option>
           <option value="WET-A">WET-A</option>
           <option value="WET-F">WET-F</option>
           <option value="MCB">MCB</option>
-        </select>
+        </select> -->
       </div>
       <div class="form-group">
         <label for="tanggal">Tanggal</label>
-        <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= date('Y-m-d') ?>">
+        <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= date('Y-m-d') ?>" readonly>
       </div>
       <div class="row">
         <div class="form-group col-md-6">
-          <label for="berangkat_jam">Berangkat Jam</label>
-          <input type="time" class="form-control" id="berangkat_jam" name="berangkat_jam">
+          <label for="berangkat">Berangkat Jam</label>
+          <input type="time" class="form-control" id="berangkat" name="berangkat">
         </div>
         <div class="form-group col-md-6">
           <label for="rencana_kembali">Rencana Kembali</label>
@@ -54,8 +56,18 @@
           </select>
           <span>Ket: (*) Diisi oleh Foreman / Kasie</span>
         </div>
-        <div class="form-group" id="keterangan"></div>
-        <div class="form-group" id="keterangan_lengkap"></div>
+        <div class="form-group col" id="keterangan">
+          <label for="keterangan">Keterangan</label>
+          <input type="text" name="keterangan" id="keterangan" class="form-control">
+        </div>
+        <div class="form-group col" id="keterangan_lengkap">
+          <label for="keterangan_lengkap_value">Keterangan</label>
+          <input type="text" name="keterangan_lengkap_value" id="keterangan_lengkap_value" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lampiran">Lampiran</label>
+        <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]" multiple accept="image/*">
       </div>
       <button type="submit" class="btn btn-primary">Kirim</button>
     </form>
@@ -88,7 +100,7 @@
     $('#loading-modal').modal('show');
     if (nama.value !== '') {
       $.ajax({
-        url: '<?= base_url() ?>cuti/get_data_mp',
+        url: '<?= base_url() ?>form_imp/get_data_mp',
         type: 'POST',
         data: {
           nama: nama.value
@@ -96,28 +108,45 @@
         dataType: 'JSON',
         success: function(data) {
           document.querySelector('#npk').value = String(data?.[0]?.npk).padStart(4, '0');
+          document.querySelector('#bagian').value = data?.[0]?.sub_bagian;
+          document.querySelector('#group_mp').value = data?.[0]?.group_mp;
+          if (data?.[0]?.line !== undefined) {
+            console.log(data?.[0]?.line)
+            if (data?.[0]?.line <= 3)
+              document.querySelector('#bagian').value = 'AMB-1';
+            else if (data?.[0]?.line <= 7)
+              document.querySelector('#bagian').value = 'AMB-2';
+            else if (data?.[0]?.line <= 9)
+              document.querySelector('#bagian').value = 'WET';
+            else if (data?.[0]?.line <= 10)
+              document.querySelector('#bagian').value = 'MCB';
+          } else {
+            document.querySelector('#bagian').value = data?.[0]?.sub_bagian;
+          }
           $('#loading-modal').modal('hide');
         }
       })
-    } else {
-      document.querySelector('#npk').value = '';
-      $('#loading-modal').modal('hide');
     }
+    // else {
+    //   document.querySelector('#npk').value = '';
+    //   $('#loading-modal').modal('hide');
+    // }
   }
 
   function changeKeperluan() {
     let keperluan = document.querySelector('#keperluan');
     let keterangan = document.querySelector('#keterangan');
+    let keterangan_lengkap = document.querySelector('#keterangan_lengkap');
     if (keperluan.value === 'Pribadi') {
       keterangan.innerHTML = `
-        <label for="keterangan_value">Keterangan</label>
-        <input type="text" name="keterangan_value" id="keterangan_value" class="form-control">
+        <label for="keterangan">Keterangan</label>
+        <input type="text" name="keterangan" id="keterangan" class="form-control">
       `;
-      keterangan.classList.add('col');
+      // keterangan.classList.add('col');
     } else if (keperluan.value === 'Ijin Tidak Bekerja') {
       keterangan.innerHTML = `
-        <label for="keterangan_value">Keterangan</label>
-        <select name="keterangan_value" id="keterangan_value" class="form-select" onchange="changeKeterangan()">
+        <label for="keterangan">Keterangan</label>
+        <select name="keterangan" id="keterangan" class="form-select">
           <option value="Keluarga Opname">Keluarga Opname</option>
           <option value="Keluarga Meninggal Dunia">Keluarga Meninggal Dunia</option>
           <option value="Istri pekerja melahirkan atau keguguran kandungan">Istri pekerja melahirkan atau keguguran kandungan</option>
@@ -125,26 +154,33 @@
           <option value="Sakit Menular">Sakit Menular</option>
         </select>
       `;
-      keterangan.classList.add('col');
-    } else {
-      keterangan.innerHTML = '';
-      keterangan.classList.remove('col');
-    }
-  }
-
-  function changeKeterangan() {
-    let keterangan = document.querySelector('#keterangan_value');
-    let keterangan_lengkap = document.querySelector('#keterangan_lengkap');
-    if (keterangan.value === 'Musibah / Bencana Alam' || keterangan.value === 'Sakit Menular') {
+      // keterangan.classList.add('col');
       keterangan_lengkap.innerHTML = `
         <label for="keterangan_lengkap_value">Keterangan</label>
         <input type="text" name="keterangan_lengkap_value" id="keterangan_lengkap_value" class="form-control">
       `;
-      keterangan_lengkap.classList.add('col');
+      // keterangan_lengkap.classList.add('col');
     } else {
-      keterangan_lengkap.innerHTML = '';
-      keterangan_lengkap.classList.remove('col');
+      // keterangan.innerHTML = '';
+      // keterangan.classList.remove('col');
+      // keterangan_lengkap.innerHTML = '';
+      // keterangan_lengkap.classList.remove('col');
     }
   }
+
+  // function changeKeterangan() {
+  //   let keterangan = document.querySelector('#keterangan');
+  //   let keterangan_lengkap = document.querySelector('#keterangan_lengkap');
+  //   if (keterangan.value === 'Musibah / Bencana Alam' || keterangan.value === 'Sakit Menular') {
+  //     keterangan_lengkap.innerHTML = `
+  //       <label for="keterangan_lengkap_value">Keterangan</label>
+  //       <input type="text" name="keterangan_lengkap_value" id="keterangan_lengkap_value" class="form-control">
+  //     `;
+  //     keterangan_lengkap.classList.add('col');
+  //   } else {
+  //     keterangan_lengkap.innerHTML = '';
+  //     keterangan_lengkap.classList.remove('col');
+  //   }
+  // }
 </script>
 <?= $this->endSection(); ?>

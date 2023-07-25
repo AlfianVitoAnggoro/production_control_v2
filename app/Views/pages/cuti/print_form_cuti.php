@@ -65,6 +65,8 @@ else if ($data_mp_cuti[0]['level_account'] === 2)
   $level = 'Kasie';
 else if ($data_mp_cuti[0]['level_account'] === 3)
   $level = 'Kasubsie';
+else if ($data_mp_cuti[0]['level_account'] === 'hrd')
+  $level = 'HRD';
 else
   $level = '';
 ?>

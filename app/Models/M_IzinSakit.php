@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class M_Izin extends Model
+class M_IzinSakit extends Model
 {
   public function __construct()
   {
@@ -131,7 +131,7 @@ class M_Izin extends Model
   //   return $this->db->insertID();
   // }
 
-  public function save_form_izin($data)
+  public function save_form_izin_sakit($data)
   {
     $builder = $this->db->table('data_record_all_izin');
     $builder->insert($data);
@@ -139,7 +139,7 @@ class M_Izin extends Model
     return $this->db->insertID();
   }
 
-  public function save_detail_form_izin($data)
+  public function save_detail_form_izin_sakit($data)
   {
     $builder = $this->db->table('detail_record_all_izin');
     $builder->insert($data);

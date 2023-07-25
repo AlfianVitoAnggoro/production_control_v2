@@ -37,6 +37,7 @@ class InterlockAging extends BaseController
     {
       // var_dump($this->request->getPost('qr_rak_code'));
       // die();
+      date_default_timezone_set("Asia/Jakarta");
       $jumlah = count($this->request->getPost('qr_code_rak'));
       for ($i=0; $i < $jumlah; $i++) { 
         $id = $this->request->getPost('id')[$i];

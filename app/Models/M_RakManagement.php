@@ -126,6 +126,7 @@ class M_RakManagement extends Model
 
     public function update_rak_aging()
     {
+        date_default_timezone_set("Asia/Jakarta");
         $date_now = date('Y-m-d H:i:s');
         $query = $this->db5->query('UPDATE data_rak_aging SET stop_aging = \'' . $date_now . '\' WHERE stop_aging IS NULL');
     }
@@ -149,6 +150,13 @@ class M_RakManagement extends Model
         $query = $this->db3->query('SELECT t$note, t$item, t$dsca, t$actq, t$mach, to_char(t$endt + (7/24),\'dd-MM-yyyy HH:mm:ss\') AS TANGGAL
                                     FROM baan.tcbinh985777
                                     WHERE to_date(to_char(t$endt + (7/24), \'ddMMyyyy\'), \'ddMMyyyy\') >= to_date(\'10072023\', \'ddMMyyyy\') AND t$cwar = \'K-CAS\' ORDER BY TANGGAL ASC');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_tr_casting($note)
+    {
+        $query = $this->db3->query('SELECT t$note FROM baan.tcbinh008777 WHERE t$note = \'' . $note . '\' AND t$whto = \'K-PAS\'');
 
         return $query->getResultArray();
     }

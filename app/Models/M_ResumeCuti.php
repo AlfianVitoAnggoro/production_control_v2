@@ -37,33 +37,28 @@ class M_ResumeCuti extends Model
     //                         JOIN master_data_man_power mdmp ON drc.nama = mdmp.id_man_power
     //                         ORDER BY tanggal DESC
     //                         ');
-    $query_cuti = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp AS shift, mdmp.nama AS nama_mp, drc.keterangan FROM data_record_all_cuti drac
+    $query_cuti = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp, mdmp.nama AS nama_mp FROM data_record_all_cuti drac
                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                            JOIN detail_record_cuti drc ON drc.id_data_cuti = drac.id_cuti
                             -- WHERE drc.keterangan = \'Cuti\'
                             ORDER BY drac.tanggal_buat DESC
                             ');
-    $query_izin = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp AS shift, mdmp.nama AS nama_mp, drc.keterangan FROM data_record_all_izin drac
+    $query_izin = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp, mdmp.nama AS nama_mp FROM data_record_all_izin drac
                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                            JOIN detail_record_cuti drc ON drc.id_data_cuti = drac.id_cuti
                             -- WHERE drc.keterangan = \'Izin\'
                             ORDER BY drac.tanggal_buat DESC
                             ');
-    $query_cuti_besar = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp AS shift, mdmp.nama AS nama_mp, drc.keterangan FROM data_record_all_cuti_besar drac
+    $query_cuti_besar = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp, mdmp.nama AS nama_mp FROM data_record_all_cuti_besar drac
                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                            JOIN detail_record_cuti drc ON drc.id_data_cuti = drac.id_cuti
                             -- WHERE drc.keterangan = \'Cuti Besar\'
                             ORDER BY drac.tanggal_buat DESC
                             ');
-    $query_dispensasi = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp AS shift, mdmp.nama AS nama_mp, drc.keterangan FROM data_record_all_dispensasi drac
+    $query_dispensasi = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp, mdmp.nama AS nama_mp FROM data_record_all_dispensasi drac
                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                            JOIN detail_record_cuti drc ON drc.id_data_cuti = drac.id_cuti
                             -- WHERE drc.keterangan = \'Dispensasi\'
                             ORDER BY drac.tanggal_buat DESC
                             ');
-    $query_skd = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp AS shift, mdmp.nama AS nama_mp, drc.keterangan FROM data_record_all_skd drac
+    $query_skd = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp, mdmp.nama AS nama_mp FROM data_record_all_skd drac
                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                            JOIN detail_record_cuti drc ON drc.id_data_cuti = drac.id_cuti
                             -- WHERE drc.keterangan = \'SKD\'
                             ORDER BY drac.tanggal_buat DESC
                             ');
@@ -94,6 +89,26 @@ class M_ResumeCuti extends Model
                             ');
     return $query->getResultArray();
   }
+
+  public function get_detail_mp_izin($id_cuti)
+  {
+    $query = $this->db->query('SELECT dt_rac.*, dt_rac.created_at AS created, d_rac.*, mdmp.npk, mdmp.nama FROM data_record_all_izin dt_rac
+                            JOIN detail_record_all_izin d_rac ON dt_rac.id_cuti = d_rac.id_cuti
+							              JOIN master_data_man_power mdmp ON mdmp.id_man_power = dt_rac.nama
+                            WHERE dt_rac.id_cuti = \'' . $id_cuti . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
+  public function get_detail_mp_cuti_besar($id_cuti)
+  {
+    $query = $this->db->query('SELECT dt_rac.*, dt_rac.created_at AS created, d_rac.*, mdmp.npk, mdmp.nama FROM data_record_all_cuti_besar dt_rac
+                            JOIN detail_record_all_cuti_besar d_rac ON dt_rac.id_cuti = d_rac.id_cuti
+							              JOIN master_data_man_power mdmp ON mdmp.id_man_power = dt_rac.nama
+                            WHERE dt_rac.id_cuti = \'' . $id_cuti . '\'
+                            ');
+    return $query->getResultArray();
+  }
   // public function get_detail_mp_cuti($id_cuti, $keterangan)
   // {
   //   $query = $this->db->query('SELECT dt_rac.*, dt_rac.created_at AS created, d_rac.*, mdmp.npk, mdmp.nama FROM data_record_all_cuti dt_rac
@@ -104,17 +119,44 @@ class M_ResumeCuti extends Model
   //   return $query->getResultArray();
   // }
 
-  public function save_approval($data)
+  public function get_data_lampiran($id_cuti, $kategori)
   {
-    $builder = $this->db->table('data_approval_cuti');
-    $builder->insert($data);
-
-    return $this->db->insertID();
+    $query = $this->db->query('SELECT dt_lamp.lampiran FROM data_record_all_' . strtolower(str_replace(' ', '_', $kategori)) . ' dt_rac
+                              JOIN data_all_lampiran_absen dt_lamp ON dt_rac.id_cuti = dt_lamp.id_absen
+                              WHERE dt_lamp.id_absen = \'' . $id_cuti . '\' AND dt_lamp.kategori = \'' . $kategori . '\'
+                            ');
+    return $query->getResultArray();
   }
+
+  // public function save_approval($data)
+  // {
+  //   $builder = $this->db->table('data_approval_cuti');
+  //   $builder->insert($data);
+
+  //   return $this->db->insertID();
+  // }
 
   public function update_cuti($id, $data)
   {
     $builder = $this->db->table('data_record_all_cuti');
+    $builder->where('id_cuti', $id);
+    $builder->update($data);
+
+    return $id;
+  }
+
+  public function update_izin($id, $data)
+  {
+    $builder = $this->db->table('data_record_all_izin');
+    $builder->where('id_cuti', $id);
+    $builder->update($data);
+
+    return $id;
+  }
+
+  public function update_cuti_besar($id, $data)
+  {
+    $builder = $this->db->table('data_record_all_cuti_besar');
     $builder->where('id_cuti', $id);
     $builder->update($data);
 
@@ -134,4 +176,31 @@ class M_ResumeCuti extends Model
 
   //   return $builder->getResultArray();
   // }
+
+  public function checkStatusApprovedCuti($id_cuti)
+  {
+    $query = $this->db->query('SELECT * FROM data_record_all_cuti
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\')
+                            ');
+
+    return $query->getRowArray();
+  }
+
+  public function checkStatusApprovedIzin($id_cuti)
+  {
+    $query = $this->db->query('SELECT * FROM data_record_all_izin
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\')
+                            ');
+
+    return $query->getRowArray();
+  }
+
+  public function checkStatusApprovedCutiBesar($id_cuti)
+  {
+    $query = $this->db->query('SELECT * FROM data_record_all_cuti_besar
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\')
+                            ');
+
+    return $query->getRowArray();
+  }
 }

@@ -17,7 +17,7 @@
 						<div class="col-12 col-xl-12">
 							<div class="box">
 								<div class="box-header with-border">
-									<h4 class="box-title">Laporan Harian Wide Strip</h4>
+									<h4 class="box-title">Laporan Harian Punching</h4>
                                     &nbsp;
 									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".modal_tambah_lhp">
 										Tambah LHP
@@ -26,12 +26,13 @@
 								<div class="box-body">
 									<input type="month" name="month" id="month" class="form-control my-2" onchange="monthFilter()" value="<?= $current_month ?>" style="width: 200px">
 									<div class="table-responsive">
-										<table id="data_grid" class="table table-bordered table-striped" style="width:100%">
+										<table id="data_punching" class="table table-bordered table-striped" style="width:100%">
 											<thead>
 												<tr>
 													<!-- <th>No Doc</th> -->
 													<th>Tanggal</th>
 													<th>Shift</th>
+													<th>Line</th>
 													<th>Kasubsie</th>
 													<th>Grup</th>
 													<!-- <th>Status</th> -->
@@ -39,12 +40,12 @@
 												</tr>
 											</thead>
 											<tbody>
-												<?php foreach($data_lhp_wide_strip as $lhp) : 
-													if($current_month === substr(trim($lhp['tanggal_produksi']), 0, 7)) {
+												<?php foreach($data_lhp_punching as $lhp) : 
 												?>
 												<tr>
-													<td><?=$lhp['tanggal_produksi']?></td>
+													<td><?=$lhp['date_production']?></td>
 													<td><?=$lhp['shift']?></td>
+													<td><?=$lhp['line']?></td>
 													<td><?=$lhp['kasubsie']?></td>
 													<td><?=$lhp['grup']?></td>
 													<!-- <td>
@@ -57,12 +58,11 @@
 														<?php ""//endif ?>
 													</td> -->
 													<td>
-														<a href="<?=base_url()?>wide_strip/detail_lhp/<?=$lhp['id_lhp_ws']?>" class="btn btn-primary btn-sm">Detail</a>
-														<a href="<?=base_url()?>wide_strip/hapus_lhp/<?=$lhp['id_lhp_ws']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
+														<a href="<?=base_url()?>punching/detail_lhp/<?=$lhp['id']?>" class="btn btn-primary btn-sm">Detail</a>
+														<a href="<?=base_url()?>punching/hapus_lhp/<?=$lhp['id']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
 													</td>
 												</tr>
-												<?php }
-												endforeach; ?>
+												<?php endforeach; ?>
 											</tbody>
 										</table>
 									</div>
@@ -82,16 +82,26 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Wide Strip</h4>
+				<h4 class="modal-title" id="myLargeModalLabel">Tambah LHP Punching</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<form action="<?=base_url()?>wide_strip/add_lhp" method="post">
+			<form action="<?=base_url()?>punching/add_lhp" method="post">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-3">
 							<div class="form-group">
 								<label class="form-label">Tanggal Produksi</label>
 								<input type="date" class="form-control" id="tanggal_produksi" name="tanggal_produksi" min="<?=$previous_date ?>" required>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Line</label>
+								<select class="form-select" id="line" name="line" required>
+									<option disabled>-- Pilih Data --</option>
+									<option value="Casting">Grid Casting</option>
+									<option value="Punching" selected>Grid Punching</option>
+								</select>
 							</div>
 						</div>
 						<div class="col-3">
@@ -110,25 +120,25 @@
 								<label class="form-label">Kasubsie</label>
 								<select class="form-control select2" id="kasubsie" name="kasubsie" style="width: 100%;" required>
 									<option selected disabled>-- Pilih Data --</option>
-									<?php foreach($data_grup_wide_strip as $grup) : ?>
+									<?php foreach($data_grup_punching as $grup) : ?>
 										<option value="<?=$grup['kasubsie']?>"><?=$grup['kasubsie']?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-						</div>
-						<div class="col-3">
-							<div class="form-group">
-								<label class="form-label">Grup</label>
-								<select class="form-control select2" id="grup" name="grup" style="width: 100%;" required>
-									<option selected disabled>-- Pilih Data --</option>
-									<?php foreach($data_grup_wide_strip as $grup) : ?>
-										<option value="<?=$grup['nama_grup']?>"><?=$grup['nama_grup']?></option>
 									<?php endforeach; ?>
 								</select>
 							</div>
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-3">
+							<div class="form-group">
+								<label class="form-label">Grup</label>
+								<select class="form-control select2" id="grup" name="grup" style="width: 100%;" required>
+									<option selected disabled>-- Pilih Data --</option>
+									<?php foreach($data_grup_punching as $grup) : ?>
+										<option value="<?=$grup['nama_grup']?>"><?=$grup['nama_grup']?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+						</div>
 						<div class="col-3">
 							<div class="form-group">
 								<label class="form-label">MP</label>
@@ -167,7 +177,7 @@
   <?= $this->section('script'); ?>
   <script>
 	$(document).ready(function() {
-		$('#data_grid').DataTable({
+		$('#data_punching').DataTable({
 			"responsive": true,
 			"autoWidth": false,
 			"order": []
@@ -181,21 +191,20 @@
 		const monthElement = document.querySelector('#month');
 		const tbodyElement = document.querySelector('tbody');
 		tbodyElement.innerHTML = '';
-		<?php foreach($data_lhp_wide_strip as $lhp) : ?>
-			if(monthElement.value.substr(0, 7) === "<?= substr(trim($lhp['tanggal_produksi']), 0, 7)?>") {
+		<?php foreach($data_lhp_punching as $lhp) : ?>
 				tbodyElement.innerHTML += `
 					<tr>
-						<td><?=$lhp['tanggal_produksi']?></td>
+						<td><?=$lhp['date_production']?></td>
 						<td><?=$lhp['shift']?></td>
+						<td><?=$lhp['line']?></td>
 						<td><?=$lhp['kasubsie']?></td>
 						<td><?=$lhp['grup']?></td>
 						<td>
-							<a href="<?=base_url()?>wide_strip/detail_lhp/<?=$lhp['id_lhp_ws']?>" class="btn btn-primary btn-sm">Detail</a>
-							<a href="<?=base_url()?>wide_strip/hapus_lhp/<?=$lhp['id_lhp_ws']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
+							<a href="<?=base_url()?>punching/detail_lhp/<?=$lhp['id']?>" class="btn btn-primary btn-sm">Detail</a>
+							<a href="<?=base_url()?>punching/hapus_lhp/<?=$lhp['id']?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
 						</td>
 					</tr>
 				`;
-			}
 		<?php endforeach; ?>
 	}
   </script>

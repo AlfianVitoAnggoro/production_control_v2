@@ -3,8 +3,8 @@
 <?= $this->section('content'); ?>
 <!-- Content Wrapper. Contains page content -->
 <?php
-// var_dump($data_detail_breakdown);die;
-$shift
+// var_dump($summary_detail_note);die;
+// echo $summary_detail_note[0]['loss_over']; die;
 ?>
 <div class="content-wrapper">
   <div class="container-full">
@@ -399,31 +399,65 @@ $shift
                       <tr>
                         <th>Type</th>
                         <th>Total</th>
+                        <th>Loss / Over</th>
                         <th>Catatan</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody >
                       <?php $index_summary_note = 0; foreach($summary_total_aktual_per_type as $d_summary_total_aktual_per_type){ ?>
-                        <tr class="<?= $d_summary_total_aktual_per_type['type_grid'] ?>">
+                        <tr class="<?= str_replace(" ","",$d_summary_total_aktual_per_type['type_grid']) ?>">
                           <td><?= $d_summary_total_aktual_per_type['type_grid'] ?></td>
                           <td><?= $d_summary_total_aktual_per_type['actual'] ?></td>
-                          <td>
-                            <?php foreach($summary_detail_note as $sdn){
-                              if(array_key_exists($d_summary_total_aktual_per_type['type_grid'], $sdn)) {
-                                echo $sdn[$d_summary_total_aktual_per_type['type_grid']]['note']; ?>
-                                <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="<?= $sdn[$d_summary_total_aktual_per_type['type_grid']]['id_summary_note'] ?>">
+                          <!-- <td> -->
+                            <?php 
+                            // foreach($summary_detail_note as $sdn){
+                              // $keys = array_keys($summary_detail_note);
+                              $cek_type = false;
+                              for ($i = 0; $i < count($summary_detail_note); $i++) {
+                                if ($summary_detail_note[$i]["type_grid"] == $d_summary_total_aktual_per_type['type_grid']) {
+                                  $cek_type = true;
+                                  break;
+                                }
+                              }
+                              if($cek_type) { ?>
+                                <td>
+                                  <?php if (!empty($summary_detail_note[$index_summary_note]['loss_over'])) { ?>
+                                    <?= $summary_detail_note[$index_summary_note]['loss_over'] ?>
+                                    <input type="hidden" class="form-control" name="loss_over_value" id="loss_over_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['loss_over'] ?>">
+                                  <?php } else { ?>
+                                    <input type="hidden" class="form-control" name="loss_over_value" id="loss_over_<?= $index_summary_note ?>" value="">
+                                  <?php } ?>
+                                </td>
+                                <td>
+                                <?php if (!empty($summary_detail_note[$index_summary_note]['loss_over'])) { ?>
+                                  <?= $summary_detail_note[$index_summary_note]['note']?>
+                                  <input type="hidden" class="form-control" name="note_value" id="note_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['note'] ?>">
+                                  <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['id_summary_note'] ?>">
+                                  <?php } else { ?>
+                                    <input type="hidden" class="form-control" name="note_value" id="note_<?= $index_summary_note ?>" value="">
+                                  <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="<?= $summary_detail_note[$index_summary_note]['id_summary_note'] ?>">
+                                  <?php } ?>
+                                </td>
                             <?php } else {
                                 echo ''; ?>
-                                <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="">
+                                <td><input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value=""></td>
+                                <td>
+                                  <input type="hidden" class="form-control" name="note_value" id="note_<?= $index_summary_note ?>" value="">
+                                  <input type="hidden" class="form-control" name="loss_over_value" id="loss_over_<?= $index_summary_note ?>" value="">
+                                </td>
                             <?php }
-                            }
+                            // }
                             if(count($summary_detail_note) == 0) {
                                 echo ''; ?>
-                                <input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value="">
+                                <td><input type="hidden" class="form-control" name="id_summary" id="id_summary_<?= $index_summary_note ?>" value=""></td>
+                                <td>
+                                  <input type="hidden" class="form-control" name="note_value" id="note_<?= $index_summary_note ?>" value="">
+                                  <input type="hidden" class="form-control" name="loss_over_value" id="loss_over_<?= $index_summary_note ?>" value="">
+                                </td>
                             <?php }
                             ?>
-                          </td>
+                          <!-- </td> -->
                           <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".modal_tambah_note_pasting" onclick="add_note('<?= $d_summary_total_aktual_per_type['type_grid'] ?>', <?= $d_summary_total_aktual_per_type['actual'] ?>, <?= $id_lhp_pasting ?>, <?= $index_summary_note ?>)">
                             Add
                           </button></td>
@@ -777,7 +811,7 @@ $shift
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myLargeModalLabel">Tambah Note</h4>
+        <h4 class="modal-title" id="myLargeModalLabel">Tambah Catatan</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -812,10 +846,10 @@ $shift
       }
     });
 
-    function clickButton() {
-      $('#btn_submit').click();
-    }
-    setInterval(clickButton, 3600000); // SEJAM
+    // function clickButton() {
+    //   $('#btn_submit').click();
+    // }
+    // setInterval(clickButton, 3600000); // SEJAM
   });
 
   function get_data_andon() {
@@ -1522,6 +1556,8 @@ $shift
   function add_note(type_grid, actual, id_lhp_pasting, index) {
     let note_pastingElement = document.querySelector('#note_pasting');
     let id_summary_note = document.querySelector('#id_summary_' + index).value;
+    let loss_over_value = document.querySelector('#loss_over_' + index).value;
+    let note_value = document.querySelector('#note_' + index).value;
     note_pastingElement.innerHTML = `
       <input type="hidden" name="id_lhp_pasting_note" id="id_lhp_pasting_note" value="${id_lhp_pasting}">
       <input type="hidden" name="actual_note" id="actual_note" value="${actual}">
@@ -1529,8 +1565,12 @@ $shift
       <input type="hidden" name="id_summary_note" id="id_summary_note" value="${id_summary_note}">
       <input type="hidden" name="index" id="index" value="${index}">
       <div class="mb-3">
+        <label for="loss_over" class="form-label">Loss / Over</label>
+        <input type="number" class="form-control" id="loss_over" name="loss_over" value="${loss_over_value}">
+      </div>
+      <div class="mb-3">
         <label for="text_note" class="form-label">Note</label>
-        <textarea class="form-control" id="text_note" rows="3"></textarea>
+        <textarea class="form-control" id="text_note" rows="3">${note_value}</textarea>
       </div>
     `;
     let add_note_pastingElement = document.querySelector('#add_note_pasting');
@@ -1544,6 +1584,7 @@ $shift
     let actual_note = $('#actual_note').val();
     let type_grid_note = $('#type_grid_note').val();
     let text_note = $('#text_note').val();
+    let loss_over = $('#loss_over').val();
     let id_summary_note = $('#id_summary_note').val();
     let index = $('#index').val();
     console.log({id_lhp_pasting_note, actual_note, type_grid_note, text_note});
@@ -1554,14 +1595,18 @@ $shift
         id_lhp_pasting_note: id_lhp_pasting_note,
         type_grid_note: type_grid_note,
         text_note: text_note,
+        loss_over: loss_over,
         id_summary_note: id_summary_note,
       },
       dataType: 'json',
       success: function(data) {
         console.log(data)
-        document.querySelector('.' + type_grid_note).innerHTML = `
+        document.querySelector('.' + type_grid_note.replace(" ", "")).innerHTML = `
           <td>${type_grid_note}</td>
           <td>${actual_note}</td>
+          <td>
+            ${loss_over}
+          </td>
           <td>
             ${text_note}
             <input type="hidden" class="form-control" name="id_summary" id="id_summary_${index}" value="${data}">

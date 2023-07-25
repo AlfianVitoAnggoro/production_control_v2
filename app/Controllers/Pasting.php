@@ -179,13 +179,15 @@ class Pasting extends BaseController
     $data['summary_total_aktual_per_type'] = $model->get_summary_total_aktual_per_type($id);
     $data['summary_note'] = $model->get_summary_note($id);
     $data['summary_detail_note'] = [];
+    $i = 0;
     foreach ($data['summary_note'] as $note) {
       $data['summary_detail_note'][] = [
-          $note['type_grid'] => [
               'id_summary_note' => $note['id_detail_lhp_pasting_note'],
-              'note' => $note['note']
-          ]
+              'type_grid' => $note['type_grid'],
+              'note' => $note['note'],
+              'loss_over' => $note['loss_over']
       ];
+      $i++;
     }
 
     return view('pages/pasting/pasting_detail_view', $data);
@@ -700,11 +702,13 @@ class Pasting extends BaseController
     $id_lhp_pasting_note = $this->request->getPost('id_lhp_pasting_note');
     $type_grid_note = $this->request->getPost('type_grid_note');
     $text_note = $this->request->getPost('text_note');
+    $loss_over = $this->request->getPost('loss_over');
 
     $data = [
       'id_lhp_pasting' => $id_lhp_pasting_note,
       'type_grid' => $type_grid_note,
       'note' => $text_note,
+      'loss_over' => $loss_over
     ];
 
     $query = $this->M_Pasting->add_note_pasting($id_summary_note, $data);

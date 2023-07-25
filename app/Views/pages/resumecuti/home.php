@@ -9,6 +9,7 @@
 </style>
 <?= $this->endSection() ?>
 <?= $this->section('content'); ?>
+<?php $line = [0, 1, 2, 3, 4, 5, 6, 7, 'WET-A', 'WET-F', 'MCB']; ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <div class="container-full">
@@ -50,7 +51,7 @@
                           <tr>
                             <td><?= strtoupper($dmc['sub_bagian']) ?></td>
                             <td><?= $dmc['tanggal'] ?></td>
-                            <td><?= $dmc['line'] == '' ? 'Indirect' : $dmc['line'] ?></td>
+                            <td><?= ($dmc['line'] == 'indirect' || $dmc['line'] == '') ? 'Indirect' : $line[$dmc['line']] ?></td>
                             <td><?= $dmc['nama_mp'] ?></td>
                             <td><?= $dmc['kategori'] ?></td>
                             <td style="width: 100px; background-color: <?= $dmc['status_kasubsie'] === 'approved' ? 'limegreen' : ($dmc['status_kasubsie'] === 'rejected' ? 'red' : '') ?>">
@@ -249,7 +250,7 @@
     const status_kasie = document.querySelector('#status_kasie_' + index);
     const status_kasubsie = document.querySelector('#status_kasubsie_' + index);
     const status_hrd = document.querySelector('#status_hrd_' + index);
-    <?php if ($departement_account === 'HRD') { ?>
+    <?php if (strtolower($departement_account) === 'hrd') { ?>
       if (status_hrd.value === 'approved') {
         rejected_hrd.removeAttribute('disabled');
       } else if (status_hrd.value === 'pending') {
@@ -260,7 +261,7 @@
         approved_hrd.setAttribute('disabled', '');
       }
     <?php } ?>
-    <?php if ($departement_account !== 'HRD' && $level_account < 3) { ?>
+    <?php if ((strtolower($departement_account) === 'produksi2' || strtolower($departement_account) == '') && $level_account < 3) { ?>
       if (status_kadiv.value === 'approved') {
         rejected_kadiv.removeAttribute('disabled');
       } else if (status_kadiv.value === 'pending') {
@@ -275,7 +276,7 @@
         approved_kadiv.setAttribute('disabled', '');
       }
     <?php } ?>
-    <?php if ($departement_account !== 'HRD' && $level_account < 4) { ?>
+    <?php if ((strtolower($departement_account) === 'produksi2' || strtolower($departement_account) == '') && $level_account < 4) { ?>
       if (status_kadept.value === 'approved') {
         rejected_kadept.removeAttribute('disabled');
       } else if (status_kadept.value === 'pending') {
@@ -290,7 +291,7 @@
         approved_kadept.setAttribute('disabled', '');
       }
     <?php } ?>
-    <?php if ($departement_account !== 'HRD' && $level_account < 5) { ?>
+    <?php if ((strtolower($departement_account) === 'produksi2' || strtolower($departement_account) == '') && $level_account < 5) { ?>
       if (status_kasie.value === 'approved') {
         rejected_kasie.removeAttribute('disabled');
       } else if (status_kasie.value === 'pending') {
@@ -305,7 +306,7 @@
         approved_kasie.setAttribute('disabled', '');
       }
     <?php } ?>
-    <?php if ($departement_account !== 'HRD' && $level_account < 6) { ?>
+    <?php if ((strtolower($departement_account) === 'produksi2' || strtolower($departement_account) == '') && $level_account < 6) { ?>
       if (status_kasubsie.value === 'approved') {
         rejected_kasubsie.removeAttribute('disabled');
       } else if (status_kasubsie.value === 'pending') {

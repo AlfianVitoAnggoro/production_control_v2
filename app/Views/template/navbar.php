@@ -37,6 +37,19 @@
 								<li><a href="<?= base_url() ?>wide_strip"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Wide Strip</a></li>
 								<li><a href="<?= base_url() ?>punching"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Grid Punching</a></li>
 								<li><a href="<?= base_url() ?>pasting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Pasting</a></li>
+								<li class="treeview">
+									<a href="#">
+										<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Formation
+										<span class="pull-right-container">
+											<i class="fa fa-angle-right pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<li><a href="<?= base_url() ?>formation_loading/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Loading</a></li>
+										<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Unloading</a></li>
+										<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>IGO</a></li>
+									</ul>
+								</li>
 								<li><a href="<?= base_url() ?>interlock_aging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Aging</a></li>
 								<li><a href="<?= base_url() ?>rak_management/monitoring_barcode_casting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Integrasi Rak dan Label Casting</a></li>
 								<li><a href="<?= base_url() ?>monitoring_aging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Aging</a></li>
@@ -81,8 +94,13 @@
 									<li><a href="<?= base_url() ?>mcb"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>MCB</a></li>
 								<?php } ?>
 								<?php if (session()->get('seksi') == 'amb' or session()->get('seksi') == 'wet' or session()->get('seksi') == NULL) { ?>
-									<li><a href="<?= base_url() ?>wet_loading/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Loading</a></li>
+									<li><a href="<?= base_url() ?>wet_loading_new/list_loading/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>List Loading</a></li>
+									<li><a href="<?= base_url() ?>wet_loading_new/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Loading</a></li>
+									<!-- <li><a href="<?= base_url() ?>wet_loading/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Loading</a></li> -->
 									<li><a href="<?= base_url() ?>wet_finishing/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Finishing</a></li>
+								<?php } ?>
+								<?php if (session()->get('departemen') == 'isd' or session()->get('departemen') == NULL) { ?>
+									<li><a href="<?= base_url() ?>wet_charging/"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>WET Charging</a></li>
 								<?php } ?>
 							</ul>
 						</li>
@@ -155,7 +173,7 @@
 						</li>
 					<?php } ?>
 
-					<?php if (session()->get('username') == 'admin') { ?>
+					<?php if (session()->get('departemen') == NULL) { ?>
 						<li class="treeview">
 							<a href="#">
 								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
@@ -168,7 +186,9 @@
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Planning</a></li>
 							</ul>
 						</li>
+					<?php } ?>
 
+					<?php if (session()->get('departemen') == NULL or session()->get('departemen') == 'ppic' or session()->get('departemen') == 'isd') { ?>
 						<li class="treeview">
 							<a href="#">
 								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
@@ -180,74 +200,80 @@
 							<ul class="treeview-menu">
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Incoming</a></li>
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Rack FG</a></li>
-								<li><a href="<?= base_url() ?>supply_charging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a></li>
-							</ul>
+								<<<<<<< HEAD <li><a href="<?= base_url() ?>supply_charging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a>
 						</li>
-
-						<li class="treeview">
-							<a href="#">
-								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
-								<span>EHS</span>
-								<span class="pull-right-container">
-									<i class="fa fa-angle-right pull-right"></i>
-								</span>
-							</a>
-							<ul class="treeview-menu">
-								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>MLR</a></li>
-							</ul>
-						</li>
-
-						<li class="treeview">
-							<a href="#">
-								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
-								<span>QA</span>
-								<span class="pull-right-container">
-									<i class="fa fa-angle-right pull-right"></i>
-								</span>
-							</a>
-							<ul class="treeview-menu">
-								<li class="treeview">
-									<a href="#">
-										<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
-										<span>Produksi 1</span>
-										<span class="pull-right-container">
-											<i class="fa fa-angle-right pull-right"></i>
-										</span>
-									</a>
-									<ul class="treeview-menu">
-										<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li>
-									</ul>
-								</li>
-
-								<li class="treeview">
-									<a href="#">
-										<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
-										<span>Produksi 2</span>
-										<span class="pull-right-container">
-											<i class="fa fa-angle-right pull-right"></i>
-										</span>
-									</a>
-									<ul class="treeview-menu">
-										<!-- <li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li> -->
-									</ul>
-								</li>
-
-								<li class="treeview">
-									<a href="#">
-										<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
-										<span>Lab</span>
-										<span class="pull-right-container">
-											<i class="fa fa-angle-right pull-right"></i>
-										</span>
-									</a>
-									<ul class="treeview-menu">
-										<!-- <li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li> -->
-									</ul>
-								</li>
-							</ul>
-						</li>
-					<?php } ?>
+						=======
+						<li><a href="<?= base_url() ?>supply_charging/list_supply"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a></li>
+						>>>>>>> 1c19f7746bc4bf203e9850cf201cc620c2eb17fc
 				</ul>
+				</li>
+			<?php } ?>
+
+			<?php if (session()->get('departemen') == NULL) { ?>
+				<li class="treeview">
+					<a href="#">
+						<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+						<span>EHS</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-right pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>MLR</a></li>
+					</ul>
+				</li>
+
+				<li class="treeview">
+					<a href="#">
+						<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+						<span>QA</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-right pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="treeview">
+							<a href="#">
+								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+								<span>Produksi 1</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-right pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li>
+							</ul>
+						</li>
+
+						<li class="treeview">
+							<a href="#">
+								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+								<span>Produksi 2</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-right pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<!-- <li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li> -->
+							</ul>
+						</li>
+
+						<li class="treeview">
+							<a href="#">
+								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+								<span>Lab</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-right pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<!-- <li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li> -->
+							</ul>
+						</li>
+					</ul>
+				</li>
+			<?php } ?>
+			</ul>
 			</div>
 		</div>
 	</section>

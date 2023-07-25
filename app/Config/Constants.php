@@ -1,8 +1,11 @@
 <?php
-$host = $_SERVER['HTTP_HOST'];
-$http_https = isset($_SERVER['HTTPS']) ? "https://" : "http://";
-$baseURL = $http_https . $host;
-define('BASE_URL', $baseURL);
+if (php_sapi_name() !== 'cli') {
+    $host = $_SERVER['HTTP_HOST'];
+    $http_https = isset($_SERVER['HTTPS']) ? "https://" : "http://";
+    $baseURL = $http_https . $host;
+    define('BASE_URL', $baseURL);
+}
+
 /*
  | --------------------------------------------------------------------
  | App Namespace

@@ -144,18 +144,34 @@ class ResumeCuti extends BaseController
     $id_cuti = $this->request->getPost('id_cuti_modal');
     $nama = $this->session->get('nama');
     $level = $this->session->get('level');
+    $departemen = $this->session->get('departemen');
     $note = $this->request->getPost('note_reject');
-    $status = ['', 'kadiv', 'kadiv', 'kadept', 'kasie', 'kasubsie'];
+    if (strtolower($departemen) === 'produksi2') {
+      $status = ['', 'kadiv', 'kadiv', 'kadept', 'kasie', 'kasubsie'];
+    } else if (strtolower($departemen) === 'hrd') {
+      $status = 'hrd';
+    }
     // $id_data_cuti = $this->M_ResumeCuti->get_data_cuti_by_id($id_cuti);
     $created = date('Y-m-d H:i:s');
-    $data_rejected = [
-      'status_' . $status[$level] => 'rejected',
-      'nama_' . $status[$level] => $nama,
-      'created_' . $status[$level] => $created,
-      'level_account' => $level,
-      'note' => $note,
-      'status' => 'rejected',
-    ];
+    if (strtolower($departemen) == 'produksi2') {
+      $data_rejected = [
+        'status_' . $status[$level] => 'rejected',
+        'nama_' . $status[$level] => $nama,
+        'created_' . $status[$level] => $created,
+        'level_account' => $level,
+        'note' => $note,
+        'status' => 'rejected',
+      ];
+    } else if (strtolower($departemen) == 'hrd') {
+      $data_rejected = [
+        'status_' . $status => 'rejected',
+        'nama_' . $status => $nama,
+        'created_' . $status => $created,
+        'level_account' => $status,
+        'note' => $note,
+        'status' => 'rejected',
+      ];
+    }
     $this->M_ResumeCuti->update_cuti($id_cuti, $data_rejected);
     return redirect()->to(base_url('cuti'));
   }
@@ -207,18 +223,34 @@ class ResumeCuti extends BaseController
     $id_cuti = $this->request->getPost('id_cuti_modal');
     $nama = $this->session->get('nama');
     $level = $this->session->get('level');
+    $departemen = $this->session->get('departemen');
     $note = $this->request->getPost('note_reject');
-    $status = ['', 'kadiv', 'kadiv', 'kadept', 'kasie', 'kasubsie'];
+    if (strtolower($departemen) === 'produksi2') {
+      $status = ['', 'kadiv', 'kadiv', 'kadept', 'kasie', 'kasubsie'];
+    } else if (strtolower($departemen) === 'hrd') {
+      $status = 'hrd';
+    }
     // $id_data_cuti = $this->M_ResumeCuti->get_data_cuti_by_id($id_cuti);
     $created = date('Y-m-d H:i:s');
-    $data_rejected = [
-      'status_' . $status[$level] => 'rejected',
-      'nama_' . $status[$level] => $nama,
-      'created_' . $status[$level] => $created,
-      'level_account' => $level,
-      'note' => $note,
-      'status' => 'rejected',
-    ];
+    if (strtolower($departemen) == 'produksi2') {
+      $data_rejected = [
+        'status_' . $status[$level] => 'rejected',
+        'nama_' . $status[$level] => $nama,
+        'created_' . $status[$level] => $created,
+        'level_account' => $level,
+        'note' => $note,
+        'status' => 'rejected',
+      ];
+    } else if (strtolower($departemen) == 'hrd') {
+      $data_rejected = [
+        'status_' . $status => 'rejected',
+        'nama_' . $status => $nama,
+        'created_' . $status => $created,
+        'level_account' => $status,
+        'note' => $note,
+        'status' => 'rejected',
+      ];
+    }
     $this->M_ResumeCuti->update_izin($id_cuti, $data_rejected);
     return redirect()->to(base_url('cuti'));
   }
@@ -400,18 +432,34 @@ class ResumeCuti extends BaseController
     $id_cuti = $this->request->getPost('id_cuti_modal');
     $nama = $this->session->get('nama');
     $level = $this->session->get('level');
+    $departemen = $this->session->get('departemen');
     $note = $this->request->getPost('note_reject');
-    $status = ['', 'kadiv', 'kadiv', 'kadept', 'kasie', 'kasubsie'];
+    if (strtolower($departemen) === 'produksi2') {
+      $status = ['', 'kadiv', 'kadiv', 'kadept', 'kasie', 'kasubsie'];
+    } else if (strtolower($departemen) === 'hrd') {
+      $status = 'hrd';
+    }
     // $id_data_cuti = $this->M_ResumeCuti->get_data_cuti_by_id($id_cuti);
     $created = date('Y-m-d H:i:s');
-    $data_rejected = [
-      'status_' . $status[$level] => 'rejected',
-      'nama_' . $status[$level] => $nama,
-      'created_' . $status[$level] => $created,
-      'level_account' => $level,
-      'note' => $note,
-      'status' => 'rejected',
-    ];
+    if (strtolower($departemen) == 'produksi2') {
+      $data_rejected = [
+        'status_' . $status[$level] => 'rejected',
+        'nama_' . $status[$level] => $nama,
+        'created_' . $status[$level] => $created,
+        'level_account' => $level,
+        'note' => $note,
+        'status' => 'rejected',
+      ];
+    } else if (strtolower($departemen) == 'hrd') {
+      $data_rejected = [
+        'status_' . $status => 'rejected',
+        'nama_' . $status => $nama,
+        'created_' . $status => $created,
+        'level_account' => $status,
+        'note' => $note,
+        'status' => 'rejected',
+      ];
+    }
     $this->M_ResumeCuti->update_cuti_besar($id_cuti, $data_rejected);
     return redirect()->to(base_url('cuti'));
   }
