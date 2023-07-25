@@ -23,7 +23,7 @@ class MasterManPowerKasubsie extends BaseController
     $nama = $this->request->getPost('nama');
     $npk = $this->request->getPost('npk');
     $cek_npk_man_power = $this->M_MasterManPowerKasubsie->get_data_man_power_kasubsie($npk);
-    if(count($cek_npk_man_power) > 0)
+    if (count($cek_npk_man_power) > 0)
       return redirect()->to(base_url('master_man_power_kasubsie/detail_man_power/' . $cek_npk_man_power[0]['id_man_power']));
     else {
       $data_man_power = [
@@ -72,7 +72,8 @@ class MasterManPowerKasubsie extends BaseController
     return redirect()->to(base_url('master_man_power_kasubsie/detail_man_power/' . $id_man_power));
   }
 
-  public function delete_data_man_power() {
+  public function delete_data_man_power()
+  {
     $checkedId = $this->request->getPost('checkedId');
     $model = new M_MasterManPowerKasubsie();
     foreach ($checkedId as $id) {

@@ -23,9 +23,9 @@ class M_MasterManPowerKasubsie extends Model
     return $query->getResultArray();
   }
 
-  public function get_data_man_power_kasubsie()
+  public function get_data_man_power_kasubsie($npk)
   {
-    $query = $this->db2->query('SELECT id_man_power FROM master_data_man_power_kasubsie');
+    $query = $this->db2->query('SELECT id_man_power FROM master_data_man_power_kasubsie WHERE npk = \'' . $npk . '\'');
 
     return $query->getResultArray();
   }
@@ -36,10 +36,10 @@ class M_MasterManPowerKasubsie extends Model
 
     return $query->getResultArray();
   }
-  
+
   public function get_detail_data_master_man_power_kasubsie_by_id_and_line($id_man_power, $line)
   {
-    if($line !== '') {
+    if ($line !== '') {
       $query = $this->db2->query('SELECT * FROM detail_master_data_man_power WHERE id_man_power = \'' . $id_man_power . '\' AND line = \'' . $line . '\'');
     } else {
       $query = $this->db2->query('SELECT * FROM detail_master_data_man_power WHERE id_man_power = \'' . $id_man_power . '\'');
@@ -67,7 +67,7 @@ class M_MasterManPowerKasubsie extends Model
   public function update_detail_data_man_power($id_detail_man_power, $data)
   {
     $query = $this->db2->table('detail_master_data_man_power');
-    if($id_detail_man_power != '') {
+    if ($id_detail_man_power != '') {
       $query->where('id_detail_man_power', $id_detail_man_power);
       $query->update($data);
       return $id_detail_man_power;
