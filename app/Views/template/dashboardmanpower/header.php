@@ -1,3 +1,15 @@
+<?php
+// Array dengan nama hari dalam bahasa Indonesia
+$namaHariIndonesia = array(
+	'Sunday'    => 'Minggu',
+	'Monday'    => 'Senin',
+	'Tuesday'   => 'Selasa',
+	'Wednesday' => 'Rabu',
+	'Thursday'  => 'Kamis',
+	'Friday'    => 'Jumat',
+	'Saturday'  => 'Sabtu'
+);
+?>
 <header style="background-color: transparent">
 	<!-- <header class="main-header" style="background-color: transparent"> -->
 	<!-- &nbsp; -->
@@ -41,15 +53,16 @@
 			</h1>
 		</div>
 		<div style="width: 30%; color: white; padding-right: 20px" class="justify-content-end align-items-center d-flex">
-			<input type="date" name="date" id="date" class="form-control" value="<?= $date ?>" style="width: 125px; margin-right: 10px" onchange="changeShift('<?= $sub_bagian ?>')">
-			<h1 class="text-center m-0 pe-2" style="font-size: 26px">Shift</h1>
-			<select name="shift" id="shift" class="form-select p-0 ps-5 me-3" style="width: 50px; font-size: 16px" onchange="changeShift('<?= $sub_bagian ?>')">
+			<h1 class="text-center m-0 pe-2 fw-bold" style="font-size: 30px"><?= strtoupper($namaHariIndonesia[date('l', strtotime($date))]) ?></h1>
+			<input type="date" name="date" id="date" class="form-control" value="<?= $date ?>" style="width: 250px; margin-right: 10px; font-size: 24px" onchange="changeShift('<?= $sub_bagian ?>')">
+			<h1 class="text-center m-0 pe-2 fw-bold" style="font-size: 30px">SHIFT</h1>
+			<select name="shift" id="shift" class="form-select p-0 ps-5 me-3" style="width: 70px; font-size: 30px" onchange="changeShift('<?= $sub_bagian ?>')">
 				<option value="1" <?= $shift == 1 ? 'selected' : '' ?>>1</option>
 				<option value="2" <?= $shift == 2 ? 'selected' : '' ?>>2</option>
 				<option value="3" <?= $shift == 3 ? 'selected' : '' ?>>3</option>
 			</select>
 			<form action="<?= base_url() ?>dashboard_man_power/save_record_man_power" method="post">
-				<button type="button" class="btn btn-primary p-1" style="font-size: 24px" id="btn_save_record_man_power" onclick="save_record_man_power()">Save</button>
+				<button type="button" class="btn btn-success p-1" style="font-size: 30px" id="btn_save_record_man_power" onclick="save_record_man_power()" title="save"><i class="fa fa-2x fa-fw fa-save"></i></button>
 				<input type="hidden" name="sub_bagian" value="<?= $sub_bagian ?>">
 			</form>
 		</div>

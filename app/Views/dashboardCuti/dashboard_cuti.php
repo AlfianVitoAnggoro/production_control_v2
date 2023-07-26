@@ -50,6 +50,7 @@
 <div class="container-full">
   <!-- Main content -->
   <section class="content">
+    <button type="button" class="btn btn-primary" onclick="return window.history.back()">Back</button>
     <div class="row">
       <div class="col">
         <div class="d-flex justify-content-between">
@@ -85,7 +86,7 @@
               <th class="text-center">Kasubsie</th>
               <th class="text-center">Kasie</th>
               <th class="text-center">Kadept</th>
-              <th class="text-center">Kadiv</th>
+              <th class="text-center">HRD</th>
             </tr>
           </thead>
           <tbody id="mp_tidak_hadir"></tbody>
@@ -334,12 +335,12 @@
             status_kadept = 'green';
           else
             status_kadept = 'white';
-          if (dc.status_kadiv == 'rejected')
-            status_kadiv = 'red';
-          else if (dc.status_kadiv == 'approved')
-            status_kadiv = 'green';
+          if (dc.status_hrd == 'rejected')
+            status_hrd = 'red';
+          else if (dc.status_hrd == 'approved')
+            status_hrd = 'green';
           else
-            status_kadiv = 'white';
+            status_hrd = 'white';
           document.querySelector('#mp_tidak_hadir').innerHTML += `
             <tr>
               <td>${dc.nama}</td>
@@ -351,7 +352,7 @@
               <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kasubsie}">&nbsp;</div></div></td>
               <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kasie}">&nbsp;</div></div></td>
               <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kadept}">&nbsp;</div></div></td>
-              <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kadiv}">&nbsp;</div></div></td>
+              <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_hrd}">&nbsp;</div></div></td>
             </tr>
           `;
         });

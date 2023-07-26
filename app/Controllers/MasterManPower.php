@@ -107,9 +107,16 @@ class MasterManPower extends BaseController
     $id_man_power = $this->request->getPost('id_man_power');
     $choose_lineVal = $this->request->getPost('choose_lineVal');
     $model = new M_MasterManPower();
+    $data_mesin = [];
 
     $data_detail_data_master_man_power = $model->get_detail_data_master_man_power_by_id_and_line($id_man_power, $choose_lineVal);
-    return json_encode($data_detail_data_master_man_power);
+    $data_mesin = $model->get_data_skill_by_line($choose_lineVal);
+
+    $data = [
+      'data_detail_data_master_man_power' => $data_detail_data_master_man_power,
+      'data_mesin' => $data_mesin,
+    ];
+    return json_encode($data);
   }
 
   public function calendar()

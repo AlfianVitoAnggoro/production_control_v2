@@ -6,7 +6,7 @@
 				<!-- sidebar menu-->
 				<ul class="sidebar-menu" data-widget="tree">
 					<li class="header">Menu</li>
-					<?php if (session()->get('level') != 5) { ?>
+					<?php if (session()->get('departemen') == 'produksi2' or session()->get('departemen') == '' and session()->get('level') != 5) { ?>
 						<li class="treeview">
 							<a href="#">
 								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
@@ -105,7 +105,7 @@
 							</ul>
 						</li>
 					<?php } ?>
-					<?php if (session()->get('level') == 1) { ?>
+					<?php if (session()->get('departemen') == 'produksi2' or session()->get('departemen') == '' and session()->get('level') == 1) { ?>
 						<li class="treeview">
 							<a href="#">
 								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
@@ -126,7 +126,7 @@
 							</ul>
 						</li>
 					<?php } ?>
-					<?php if (session()->get('level') == 1) { ?>
+					<?php if (session()->get('departemen') == 'produksi2' or session()->get('departemen') == '' and session()->get('level') == 1) { ?>
 						<li class="treeview">
 							<a href="#">
 								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
@@ -142,7 +142,7 @@
 							</ul>
 						</li>
 					<?php } ?>
-					<?php if (session()->get('level') == 1) { ?>
+					<?php if (session()->get('departemen') == 'produksi2' or session()->get('departemen') == 'hrd' or session()->get('departemen') == '' and session()->get('level') == 1) { ?>
 						<li class="treeview">
 							<a href="#">
 								<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
