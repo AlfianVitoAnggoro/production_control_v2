@@ -8,14 +8,15 @@
 </style>
 <?= $this->endSection() ?>
 <?= $this->section('content'); ?>
-<?php $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing']; ?>
+<?php $model = new App\Models\M_MasterManPower;
+$mesin = $model->get_data_skill_by_line(1); ?>
 <?php $line = [1, 2, 3, 4, 5, 6, 7, 'WET A', 'WET F', 'MCB', 'Non Line']; ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <div class="container-full">
     <!-- Main content -->
     <section class="content">
-      <form action="<?= base_url() ?>master_man_power_gmt/detail_man_power/edit" method="post" enctype="multipart/form-data">
+      <form action="<?= base_url() ?>master_man_power/detail_man_power/edit" method="post" enctype="multipart/form-data">
         <div class="row">
           <div class="col-xl-12 col-12">
             <div class="box">
@@ -251,7 +252,7 @@
     let choose_lineVal = document.querySelector('#choose_line').value;
     let tempIndex = 0;
     $.ajax({
-      url: '<?= base_url() ?>master_man_power_gmt/get_data_master_man_power',
+      url: '<?= base_url() ?>master_man_power/get_data_master_man_power',
       type: 'POST',
       data: {
         id_man_power: id_man_power,
@@ -260,7 +261,7 @@
       dataType: 'json',
       success: function(data) {
         console.log(data);
-        let newData = data.reduce((result, obj) => {
+        let newData = data['data_detail_data_master_man_power'].reduce((result, obj) => {
           let newObj = [];
           // newObj.push(obj);
           newObj[obj.mesin] = obj;
@@ -279,18 +280,21 @@
         // let baris = document.querySelectorAll('.data_skill').length;
         let line = <?= json_encode($line) ?>;
         let mesin = [];
-        if (1 <= choose_lineVal && choose_lineVal <= 7)
-          mesin = <?= json_encode($mesin) ?>;
-        // else if(4 <= choose_lineVal && choose_lineVal <= 7)
-        //   mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
-        else if (choose_lineVal == 10)
-          mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
-        else if (choose_lineVal >= 8 && choose_lineVal <= 9)
-          mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
-        else
-          mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
+        if (choose_lineVal !== '') {
+          mesin = data['data_mesin'];
+        }
+        // if (1 <= choose_lineVal && choose_lineVal <= 7)
+        //   mesin = <?= json_encode($mesin) ?>;
+        // // else if(4 <= choose_lineVal && choose_lineVal <= 7)
+        // //   mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
+        // else if (choose_lineVal == 10)
+        //   mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+        // else if (choose_lineVal >= 8 && choose_lineVal <= 9)
+        //   mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+        // else
+        //   mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
         tbody_data_skillElement.innerHTML = '';
-        if (data.length > 0) {
+        if (data['data_detail_data_master_man_power'].length > 0) {
           if (choose_lineVal !== '') {
             thead_data_skillElement.innerHTML = `
               <thead id="thead_data_skill">
@@ -338,16 +342,17 @@
               </thead>
               <tbody id="tbody_data_skill">
               <?php for ($j = 0; $j < count($line); $j++) {
-                if ($j >= 0 && $j <= 6)
-                  $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
-                // else if($j >= 3 && $j <= 6)
-                //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
-                else if ($j === 9)
-                  $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
-                else if ($j >= 7 && $j <= 8)
-                  $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
-                else
-                  $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
+                $mesin = $model->get_data_skill_by_line($j + 1);
+                // if ($j >= 0 && $j <= 6)
+                //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
+                // // else if($j >= 3 && $j <= 6)
+                // //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
+                // else if ($j === 9)
+                //   $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+                // else if ($j >= 7 && $j <= 8)
+                //   $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+                // else
+                //   $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
               ?>
                 <?php for ($i = 0; $i < count($mesin); $i++) { ?>
                 <tr class="data_skill">
@@ -373,16 +378,17 @@
                     <?php $j = $j + 1; ?>
                     <?php if ($j < count($line)) { ?>
                     <?php
-                      if ($j >= 0 && $j <= 6)
-                        $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
-                      // else if($j >= 3 && $j <= 6)
-                      //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
-                      else if ($j === 9)
-                        $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
-                      else if ($j >= 7 && $j <= 8)
-                        $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
-                      else
-                        $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
+                      $mesin = $model->get_data_skill_by_line($j + 1);
+                      // if ($j >= 0 && $j <= 6)
+                      //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
+                      // // else if($j >= 3 && $j <= 6)
+                      // //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
+                      // else if ($j === 9)
+                      //   $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+                      // else if ($j >= 7 && $j <= 8)
+                      //   $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+                      // else
+                      //   $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
                     ?>
                     <td style="font-size: 20px" class="fw-bold">
                       <?= $line[$j] ?>
@@ -466,16 +472,17 @@
               </thead>
               <tbody id="tbody_data_skill">
               <?php for ($j = 0; $j < count($line); $j++) {
-                if ($j >= 0 && $j <= 6)
-                  $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
-                // else if($j >= 3 && $j <= 6)
-                //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
-                else if ($j === 9)
-                  $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
-                else if ($j >= 7 && $j <= 8)
-                  $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
-                else
-                  $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
+                $mesin = $model->get_data_skill_by_line($j + 1);
+                // if ($j >= 0 && $j <= 6)
+                //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
+                // // else if($j >= 3 && $j <= 6)
+                // //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
+                // else if ($j === 9)
+                //   $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+                // else if ($j >= 7 && $j <= 8)
+                //   $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+                // else
+                //   $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
               ?>
                 <?php for ($i = 0; $i < count($mesin); $i++) { ?>
                 <tr class="data_skill">
@@ -501,16 +508,17 @@
                   <?php $j = $j + 1; ?>
                   <?php if ($j < count($line)) { ?>
                   <?php
-                      if ($j >= 0 && $j <= 6)
-                        $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
-                      // else if($j >= 3 && $j <= 6)
-                      //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
-                      else if ($j === 9)
-                        $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
-                      else if ($j >= 7 && $j <= 8)
-                        $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
-                      else
-                        $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
+                      $mesin = $model->get_data_skill_by_line($j + 1);
+                      // if ($j >= 0 && $j <= 6)
+                      //   $mesin = ['PIC Line', 'Plate Cutting', 'Envelope', 'Mearing', 'COS', 'SAW', 'PW', 'HSM', 'Pole Burning', 'Packing'];
+                      // // else if($j >= 3 && $j <= 6)
+                      // //   $mesin = ['Plate Cutting', 'Envelope', 'Mearing', 'Burning', 'COS', 'PW & Supply Komponen', 'Inserting & Mearing', 'Auto Cover', 'HSM', 'Pole Burning', 'Finish & Packing', 'PIC Line', 'INFOR', 'Clamping', 'Alat Angkat Angkut', 'Plate Cutting Loading', 'Recycle', 'SAW Repair', 'Supply Komponen'];
+                      // else if ($j === 9)
+                      //   $mesin = ['PIC Line', 'Plate Cutting', 'AGM', 'COS', 'TERE', 'HSM', 'Packing', 'Acid Botol'];
+                      // else if ($j >= 7 && $j <= 8)
+                      //   $mesin = ['PIC Line', 'Acid Filling', 'Loading', 'Unloading', 'Levelling', 'HSM', 'Packing'];
+                      // else
+                      //   $mesin = ['Loading Cutting', 'Potong Battery', 'SAW Repair', 'Alat Angkat Angkut', 'Clamp Battery', 'Supply Komponen', 'Printing', 'Repair Battery', 'INFOR'];
                   ?>
                   <td style="font-size: 20px" class="fw-bold">
                     <?= $line[$j] ?>
