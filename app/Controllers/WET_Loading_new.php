@@ -608,4 +608,18 @@ class WET_Loading_new extends BaseController
 
         return redirect()->to(base_url('wet_loading_new/list_loading'));
     }
+
+    public function edit_qty()
+    {
+        $id = $this->request->getPost('edit_id');
+        $qty = $this->request->getPost('edit_qty');
+
+        $data = [
+            'qty' => $qty,
+        ];
+
+        $this->M_WET_Loading_new->edit_qty($id, $data);
+
+        return redirect()->to(base_url('wet_loading_new/list_loading'));
+    }
 }

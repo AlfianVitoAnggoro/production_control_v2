@@ -255,6 +255,7 @@ $routes->group('wet_loading_new', ['filter' => 'auth'], function ($routes) {
     $routes->get('list_loading/filter/(:any)', 'WET_Loading_new::list_loading/$1');
     $routes->post('list_loading/add_list_wo', 'WET_Loading_new::add_list_wo');
     $routes->get('list_loading/delete_list_wo/(:any)', 'WET_Loading_new::delete_list_wo/$1');
+    $routes->post('list_loading/edit_qty', 'WET_Loading_new::edit_qty');
 
     $routes->post('update_status_list_loading_wo', 'WET_Loading_new::update_status_list_loading_wo');
 });

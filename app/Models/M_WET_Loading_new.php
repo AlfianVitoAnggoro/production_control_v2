@@ -420,7 +420,15 @@ class M_WET_Loading_new extends Model
         return $this->db->affectedRows();
     }
 
-    public function delete_list_wo($id) {
+    public function delete_list_wo($data) {
         $this->db->query('DELETE FROM list_task_loading_wet WHERE id = '.$id);
+    }
+
+    public function edit_qty($id, $data)
+    {
+        $builder = $this->db->table('list_task_loading_wet');
+        $builder->where('id', $id);
+        $builder->update($data);
+        return $id;
     }
 }
