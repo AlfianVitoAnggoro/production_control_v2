@@ -131,7 +131,8 @@
 													<td><?= $list_a['qty'] ?></td>
 													<?php if ($action_delete) { ?>
 														<td>
-															<a href="<?= base_url() ?>wet_loading_new/list_loading/delete_list_wo/<?= $list_a['id'] ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+															<a href="#" class="btn btn-primary btn-sm" onclick="openEditModal(<?= $list_a['id'] ?>, <?= $list_a['qty'] ?>)">Edit QTY</a>
+															<a href="<?= base_url() ?>wet_loading_new/list_loading/delete_list_wo/<?= $list_a['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
 														</td>
 													<?php } ?>
 												</tr>
@@ -179,6 +180,7 @@
 													<td><?= $list_f['qty'] ?></td>
 													<?php if ($action_delete) { ?>
 														<td>
+															<a href="#" class="btn btn-primary btn-sm" onclick="openEditModal(<?= $list_f['id'] ?>, <?= $list_f['qty'] ?>)">Edit QTY</a>
 															<a href="<?= base_url() ?>wet_loading_new/list_loading/delete_list_wo/<?= $list_f['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><i class="fa fa-trash"></i></a>
 														</td>
 													<?php } ?>
@@ -194,9 +196,36 @@
 			</div>
 		</section>
 		<!-- /.content -->
-	  </div>
-  </div>
-  <!-- /.content-wrapper -->
+	</div>
+</div>
+<!-- /.content-wrapper -->
+
+<div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Edit Qty</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="<?=base_url()?>wet_loading_new/list_loading/edit_qty" method="post">
+						<input type="hidden" name="edit_id" id="edit_id">
+						<div class="form-group">
+							<label for="edit_qty">Qty</label>
+							<input type="number" name="edit_qty" id="edit_qty" class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer" style="display:flex; float:right;">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+						<button type="submit" class="btn btn-primary">Simpan</button>
+				</form>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 
@@ -234,6 +263,13 @@
 	{
 		var filter_tanggal = $('#filter_tanggal').val();
 		window.location.href = "<?= base_url() ?>wet_loading_new/list_loading/filter/"+filter_tanggal;
+	}
+	
+	// Function to open the edit modal and populate data
+	function openEditModal(id, qty) {
+			$('#edit_id').val(id);
+			$('#edit_qty').val(qty);
+			$('#editModal').modal('show');
 	}
 </script>
 <?= $this->endSection(); ?>
