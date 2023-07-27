@@ -78,7 +78,44 @@ class RakManagement extends BaseController
             }       
         }
 
+        $this-> reset_rak_pasting();
+
         return view('pages/rak_management/reset_rak_casting_pasting');
+    }
+
+    public function reset_rak_pasting()
+    {
+        $data_detail_rak_barcode = $this->M_RakManagement->get_data_record_rak_open();
+
+        foreach ($data_detail_rak_barcode as $d_detail_rak_barcode) {
+            $cek_data_wta = $this->M_RakManagement->get_data_wta_for_amb($d_detail_rak_barcode['barcode']);
+            if (!empty($cek_data_wta)) {
+                $data_update_rak = [
+                    'wh_to' => $cek_data_wta[0]['T$WHTO'],
+                    'close_time' => $cek_data_wta[0]['TANGGAL'],
+                    'status' => 'close'
+                ];
+
+                $this->M_RakManagement->update_data_detail_rak($data_update_rak, $d_detail_rak_barcode['barcode']);
+
+                $cek_status = $this->M_RakManagement->get_data_record_rak_by_id($d_detail_rak_barcode['pn_qr']);
+                if (!empty($cek_status)) {
+                    $data_update_rak = [
+                        'status' => 1,
+                        'current_position' => 'K-PAS'
+                    ];
+        
+                    $this->M_RakManagement->update_data_rak($data_update_rak, $d_detail_rak_barcode['pn_qr']);
+                } else {
+                    $data_update_rak = [
+                        'status' => 0,
+                        'current_position' => $cek_data_wta[0]['T$WHTO']
+                    ];
+        
+                    $this->M_RakManagement->update_data_rak($data_update_rak, $d_detail_rak_barcode['pn_qr']);
+                }
+            }
+        }
     }
 
     public function force_close($rak, $barc) {
@@ -132,8 +169,8 @@ class RakManagement extends BaseController
             $note = $item['T$NOTE'];
             $found = false;
 
-            foreach ($data1 as $data) {
-                if ($data['barcode'] === $note) {
+            foreach ($data1 as $a) {
+                if ($a['barcode'] === $note) {
                     $found = true;
                     break;
                 }
@@ -144,7 +181,28 @@ class RakManagement extends BaseController
             }
         }
 
-        $data['data'] = $data3;
+        $data['data_casting'] = $data3;
+
+        $data_pasting = $this->M_RakManagement->get_label_produksi_pasting();
+        $data_label_pasting = [];
+
+        foreach ($data_pasting as $item2) {
+            $note = $item2['T$NOTE'];
+            $found2 = false;
+
+            foreach ($data1 as $b) {
+                if ($b['barcode'] === $note) {
+                    $found2 = true;
+                    break;
+                }
+            }
+
+            if (!$found2) {
+                $data_label_pasting[] = $item2;
+            }
+        }
+
+        $data['data_pasting'] = $data_label_pasting;
 
         return view('pages/rak_management/monitoring_barcode_casting', $data);
     }

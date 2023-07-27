@@ -61,6 +61,13 @@ class M_RakManagement extends Model
         return $query->getResultArray();
     }
 
+    public function get_data_wta_for_amb($barcode)
+    {
+        $query = $this->db3->query('SELECT (to_char(t$odat + (7/24), \'YYYY-MM-DD HH24:MI\')) as tanggal, t$note as barcode, t$whto FROM baan.tcbinh008777 WHERE t$note = \'' . $barcode . '\' AND (t$whto = \'K-FOR\' OR t$whto = \'K-AMB\' OR t$whto = \'K-AMB2\')');
+
+        return $query->getResultArray();
+    }
+
     public function update_data_detail_rak($data, $barcode) {
         $query = $this->db5->table('detail_record_rak')->update($data, array('barcode' => $barcode));
         return $query;
@@ -154,9 +161,25 @@ class M_RakManagement extends Model
         return $query->getResultArray();
     }
 
+    public function get_label_produksi_pasting()
+    {
+        $query = $this->db3->query('SELECT t$note, t$item, t$dsca, t$actq, t$mach, to_char(t$endt + (7/24),\'dd-MM-yyyy HH:mm:ss\') AS TANGGAL
+                                    FROM baan.tcbinh985777
+                                    WHERE to_date(to_char(t$endt + (7/24), \'ddMMyyyy\'), \'ddMMyyyy\') >= to_date(\'27072023\', \'ddMMyyyy\') AND t$cwar = \'K-PAS\' ORDER BY TANGGAL ASC');
+
+        return $query->getResultArray();
+    }
+
     public function get_data_tr_casting($note)
     {
         $query = $this->db3->query('SELECT t$note FROM baan.tcbinh008777 WHERE t$note = \'' . $note . '\' AND t$whto = \'K-PAS\'');
+
+        return $query->getResultArray();
+    }
+
+    public function get_data_tr_pasting($note)
+    {
+        $query = $this->db3->query('SELECT t$note FROM baan.tcbinh008777 WHERE t$note = \'' . $note . '\' AND (t$whto = \'K-AMB\' OR t$whto = \'K-AMB2\' OR t$whto = \'K-FOR\')');
 
         return $query->getResultArray();
     }
