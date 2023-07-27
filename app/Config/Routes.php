@@ -426,6 +426,7 @@ $routes->group('rak_management', ['filter' => 'auth'], function ($routes) {
 $routes->get('rak_management/reset_rak_casting_pasting', 'RakManagement::reset_rak_casting_to_pasting');
 $routes->get('rak_management/update_rak', 'RakManagement::update_rak');
 $routes->get('rak_management/monitoring_barcode_casting', 'RakManagement::monitoring_barcode_casting');
+$routes->post('rak_management/cek_rak', 'RakManagement::cek_rak');
 
 //COS
 $routes->group('cos', ['filter' => 'auth'], function ($routes) {

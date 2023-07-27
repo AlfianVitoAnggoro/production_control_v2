@@ -701,7 +701,7 @@
               </div>
               <div class="box-body">
                 <div class="table-responsive">
-                  <table id="data_line_stop" class="table table-striped mb-0">
+                  <table id="data_rak_isi" class="table table-striped mb-0">
                     <thead>
                       <tr>
                         <th>Barcode</th>
@@ -1463,6 +1463,7 @@
   }
 
   function add_rak_out() {
+    $('#loading-modal').modal('show');
     let id_lhp_pasting = $('#id_lhp_pasting').val();
     let barcode = $('#start_barcode_out').val();
     let qty = $('#start_qty_out').val();
@@ -1474,59 +1475,189 @@
     let entry_date = $('#endt').val();
     let no_wo = $('#orno').val();
     let baris = document.querySelectorAll('.rak_out').length;
-    $('#loading-modal').modal('show');
+
+    let cek_rak = false;
+
     $.ajax({
-      url: '<?= base_url() ?>pasting/add_rak_out',
+      url: '<?= base_url() ?>rak_management/cek_rak',
       type: 'POST',
       data: {
-        id_lhp_pasting: id_lhp_pasting,
-        barcode: barcode,
-        qty: qty,
-        rak: rak,
-        item: item,
-        descrp: descrp,
-        satuan: satuan,
-        mesin: mesin,
-        entry_date: entry_date,
-        no_wo: no_wo,
+        rak: rak
       },
       dataType: 'json',
       success: function(data) {
-        if (data === 'Gagal') {
-          $('#loading-modal').modal('hide');
-          alert('Data Tidak Ditemukan');
-        } else if(data['id_log_detail_record_rak_out'] === "") {
-          $('#start_barcode_out').val('');
-          $('#start_qty_out').val('');
-          $('#start_rak_out').val('');
-          $('#loading-modal').modal('hide');
-        } else {
-          // window.location.reload();
-          $('#tbody_data_rak_out').append(`
-              <tr class="rak_out">
-                  <td>
-                      <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_${baris}" class="form-control" value="${barcode}" readonly>
-                      <input type="hidden" class="form-control" name="id_log_detail_record_rak_out[]" id="id_log_detail_record_rak_out_${baris}" class="form-control" value="${data['id_log_detail_record_rak_out']}">
-                  </td>
-                  <td>
-                      <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_${baris}" class="form-control" value="${qty}" readonly>
-                  </td>
-                  <td>
-                      <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_${baris}" class="form-control" value="${rak}" readonly>
-                  </td>
-                  <td>
-                      <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, ${baris})">Delete</button>
-                  </td>
-              </tr>
-          `);
+        if (data.length > 0) {
+          
+          var searchTerm = $('#start_barcode_out').val();
+          var found = false;
+          var i = 0;
+          
+          $('#data_rak_isi tbody tr').each(function() {
+              $(this).find('td').each(function() {
+              var cellText = $('#barcode_rak_out_'+i).val();
+              // console.log(cellText);
+              if (cellText.includes(searchTerm)) {
+                  found = true;
+                  return false; // Break out of inner loop
+              }
+              });
 
-          $('#start_barcode_out').val('');
-          $('#start_qty_out').val('');
+              if (found) {
+                  alert('Barcode Sudah Di Scan !!!');
+                  $('#start_barcode_out').val('');
+                  $('#start_qty_out').val('');
+                  $('#start_rak_out').val('');
+                  $('#start_barcode_out').focus();
+
+                  return false; // Break out of outer loop
+              }
+              i++;
+          });
+
+          if (!found) {
+              $.ajax({
+                url: '<?= base_url() ?>grid/cek_rak',
+                type: 'POST',
+                data: {
+                    barcode: barcode,
+                    rak: rak
+                },
+                dataType: 'json',
+                success: function(data) {
+                  if (data.length === 0) {
+                    $.ajax({
+                      url: '<?= base_url() ?>pasting/add_rak_out',
+                      type: 'POST',
+                      data: {
+                        id_lhp_pasting: id_lhp_pasting,
+                        barcode: barcode,
+                        qty: qty,
+                        rak: rak,
+                        item: item,
+                        descrp: descrp,
+                        satuan: satuan,
+                        mesin: mesin,
+                        entry_date: entry_date,
+                        no_wo: no_wo,
+                      },
+                      dataType: 'json',
+                      success: function(data) {
+                        if (data === 'Gagal') {
+                          $('#loading-modal').modal('hide');
+                          alert('Data Tidak Ditemukan');
+                        } else if(data['id_log_detail_record_rak_out'] === "") {
+                          $('#start_barcode_out').val('');
+                          $('#start_qty_out').val('');
+                          $('#start_rak_out').val('');
+                          $('#loading-modal').modal('hide');
+                        } else {
+                          // window.location.reload();
+                          $('#tbody_data_rak_out').append(`
+                              <tr class="rak_out">
+                                  <td>
+                                      <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_${baris}" class="form-control" value="${barcode}" readonly>
+                                      <input type="hidden" class="form-control" name="id_log_detail_record_rak_out[]" id="id_log_detail_record_rak_out_${baris}" class="form-control" value="${data['id_log_detail_record_rak_out']}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_${baris}" class="form-control" value="${qty}" readonly>
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_${baris}" class="form-control" value="${rak}" readonly>
+                                  </td>
+                                  <td>
+                                      <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, ${baris})">Delete</button>
+                                  </td>
+                              </tr>
+                          `);
+
+                          $('#start_barcode_out').val('');
+                          $('#start_qty_out').val('');
+                          $('#start_rak_out').val('');
+                          $('#loading-modal').modal('hide');
+                        }
+                      },
+                      error: function(jqXHR, textStatus, errorThrown) {
+                        alert('Barcode Sudah Di Scan !!!');
+                        $('#start_barcode_out').val('');
+                        $('#start_qty_out').val('');
+                        $('#start_rak_out').val('');
+                        $('#loading-modal').modal('hide');
+                        $('#start_barcode_out').focus();
+                      }
+                    });
+                  } else {
+                      alert('Barcode Sudah Di Scan !!!');
+                      $('#start_barcode_out').val('');
+                      $('#start_qty_out').val('');
+                      $('#start_rak_out').val('');
+                      $('#loading-modal').modal('hide');
+                      $('#start_barcode_out').focus();
+                  }
+                }
+              });
+          }
+        } else {
+          alert('Rak tidak ditemukan, Silahkan lakukan Scan Rak kembali');
           $('#start_rak_out').val('');
+          $('#start_rak_out').focus();
           $('#loading-modal').modal('hide');
         }
       }
     });
+
+    // $('#loading-modal').modal('show');
+    // $.ajax({
+    //   url: '<?= base_url() ?>pasting/add_rak_out',
+    //   type: 'POST',
+    //   data: {
+    //     id_lhp_pasting: id_lhp_pasting,
+    //     barcode: barcode,
+    //     qty: qty,
+    //     rak: rak,
+    //     item: item,
+    //     descrp: descrp,
+    //     satuan: satuan,
+    //     mesin: mesin,
+    //     entry_date: entry_date,
+    //     no_wo: no_wo,
+    //   },
+    //   dataType: 'json',
+    //   success: function(data) {
+    //     if (data === 'Gagal') {
+    //       $('#loading-modal').modal('hide');
+    //       alert('Data Tidak Ditemukan');
+    //     } else if(data['id_log_detail_record_rak_out'] === "") {
+    //       $('#start_barcode_out').val('');
+    //       $('#start_qty_out').val('');
+    //       $('#start_rak_out').val('');
+    //       $('#loading-modal').modal('hide');
+    //     } else {
+    //       // window.location.reload();
+    //       $('#tbody_data_rak_out').append(`
+    //           <tr class="rak_out">
+    //               <td>
+    //                   <input type="text" class="form-control" name="barcode_rak_out[]" id="barcode_rak_out_${baris}" class="form-control" value="${barcode}" readonly>
+    //                   <input type="hidden" class="form-control" name="id_log_detail_record_rak_out[]" id="id_log_detail_record_rak_out_${baris}" class="form-control" value="${data['id_log_detail_record_rak_out']}">
+    //               </td>
+    //               <td>
+    //                   <input type="text" class="form-control" name="qty_rak_out[]" id="qty_rak_out_${baris}" class="form-control" value="${qty}" readonly>
+    //               </td>
+    //               <td>
+    //                   <input type="text" class="form-control" name="id_rak_out[]" id="id_rak_out_${baris}" class="form-control" value="${rak}" readonly>
+    //               </td>
+    //               <td>
+    //                   <button type="button" class="btn btn-danger" onclick="delete_detail_rak_out(this, ${baris})">Delete</button>
+    //               </td>
+    //           </tr>
+    //       `);
+
+    //       $('#start_barcode_out').val('');
+    //       $('#start_qty_out').val('');
+    //       $('#start_rak_out').val('');
+    //       $('#loading-modal').modal('hide');
+    //     }
+    //   }
+    // });
   }
 
   function delete_detail_rak_out(e, baris) {
