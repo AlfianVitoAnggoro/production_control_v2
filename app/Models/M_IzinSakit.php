@@ -27,7 +27,7 @@ class M_IzinSakit extends Model
     //                         JOIN master_data_man_power mdmp ON drc.nama = mdmp.id_man_power
     //                         ORDER BY tanggal DESC
     //                         ');
-    if ($line != '') {
+    if ($line != 'indirect') {
       $query_cuti = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti drac
                               JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
                               JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama

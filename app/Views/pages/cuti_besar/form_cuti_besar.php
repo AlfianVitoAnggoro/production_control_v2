@@ -116,6 +116,9 @@
   $(document).ready(
     $('.select2').select2()
   );
+  $(document).ready(
+    <?php if (session()->has('empty')) { ?> window.alert('<?= session()->getFlashdata('empty') ?>') <?php } ?> <?php if (session()->has('failed')) { ?> window.alert('<?= session()->getFlashdata('failed') ?>') <?php } ?>
+  );
 
   function data_mp() {
     let nama = document.querySelector('#nama');

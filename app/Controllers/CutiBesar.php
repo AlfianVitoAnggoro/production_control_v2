@@ -29,25 +29,46 @@ class CutiBesar extends BaseController
     // }
     date_default_timezone_set('Asia/Jakarta');
     $bagian = $this->request->getPost('bagian');
-    $jenis = $this->request->getPost('jenis');
+    $jenis = $this->request->getPost('jenis') ?? '';
     $line = $this->request->getPost('line');
     $group_mp = $this->request->getPost('group_mp');
-    $nama = $this->request->getPost('nama');
-    $masa_kerja = $this->request->getPost('masa_kerja');
-    $masa_kerja_pelafalan = $this->request->getPost('masa_kerja_pelafalan');
-    $tanggal_masa_kerja = $this->request->getPost('tanggal_masa_kerja');
-    $jumlah_hari = $this->request->getPost('jumlah_hari');
     $start_date = $this->request->getPost('start_date');
     $end_date = $this->request->getPost('end_date');
-    $alamat = $this->request->getPost('alamat');
-    $telp = $this->request->getPost('telp');
-    $lampiran = $this->request->getFiles('lampiran');
     if ($start_date == '')
       $start_date = NULL;
     if ($end_date == '')
       $end_date = NULL;
     if ($line == 'undefined')
       $line = 'indirect';
+    if ($this->session->get('level') > 4 || $this->session->get('level') == NULL) {
+      if (strtolower($jenis) == 'pengambilan cuti besar') {
+        if ($start_date !== NULL && $end_date !== NULL) {
+          $start_date = strtotime($start_date ?? '');
+          $end_date = strtotime($end_date ?? '');
+          $temp_current_date = $start_date;
+          if ($start_date != NULL) {
+            while ($temp_current_date <= $end_date) {
+              $current_date = date('Y-m-d', $temp_current_date);
+              $temp_data_mp_absen_by_daily = $this->M_CutiBesar->get_data_mp_absen_by_daily($current_date, $line, $group_mp, $bagian);
+              if (count($temp_data_mp_absen_by_daily) >= 2) {
+                $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . $current_date . '\nSilakan menghubungi Kasie anda');
+                return redirect()->to(base_url('form_cuti_besar'));
+              }
+              // Tambahkan 1 hari ke tanggal saat ini
+              $temp_current_date = strtotime('+1 day', $temp_current_date);
+            }
+          }
+        }
+      }
+    }
+    $nama = $this->request->getPost('nama');
+    $masa_kerja = $this->request->getPost('masa_kerja');
+    $masa_kerja_pelafalan = $this->request->getPost('masa_kerja_pelafalan');
+    $tanggal_masa_kerja = $this->request->getPost('tanggal_masa_kerja');
+    $jumlah_hari = $this->request->getPost('jumlah_hari');
+    $alamat = $this->request->getPost('alamat');
+    $telp = $this->request->getPost('telp');
+    $lampiran = $this->request->getFiles('lampiran');
     if ($nama !== '') {
       $data_form_cuti_besar = [
         'sub_bagian' => $bagian,

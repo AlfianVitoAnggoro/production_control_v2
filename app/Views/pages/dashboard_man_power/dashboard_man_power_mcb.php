@@ -581,7 +581,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             <?php } ?>
           </a>
           <?php for ($i = 0; $i < count($line); $i++) { ?>
-            <div class="col p-0 mb-2">
+            <div class="col px-1 mb-2">
               <table class="table bg-white" style="height: 100%; border-radius: 5px">
                 <thead>
                   <tr>
@@ -628,7 +628,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               </table>
             </div>
           <?php } ?>
-          <div class="col p-0 mb-2">
+          <div class="col px-1 mb-2">
             <table class="table bg-white" style="height: 100%; border-radius: 5px">
               <thead>
                 <tr>
