@@ -148,4 +148,12 @@ class RakManagement extends BaseController
 
         return view('pages/rak_management/monitoring_barcode_casting', $data);
     }
+
+    public function cek_rak()
+    {
+        $rak = $this->request->getPost('rak');
+        $data = $this->M_RakManagement->cek_rak($rak);
+
+        echo json_encode($data);
+    }
 }

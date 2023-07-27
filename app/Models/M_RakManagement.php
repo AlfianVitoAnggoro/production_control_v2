@@ -160,4 +160,11 @@ class M_RakManagement extends Model
 
         return $query->getResultArray();
     }
+
+    public function cek_rak($id)
+    {
+        $query = $this->db5->query('SELECT * FROM data_master_rak WHERE pn_qr = \'' . $id . '\'');
+
+        return $query->getResultArray();
+    }
 }
