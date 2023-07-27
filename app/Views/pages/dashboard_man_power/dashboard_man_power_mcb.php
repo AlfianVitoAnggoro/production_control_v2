@@ -567,6 +567,26 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     }
                   } ?>
                 <?php } ?>
+                <!-- <div class="col px-1 bg-white" style="height: 100%; width: 50%; border-radius: 5px">
+                  <h1 class="text-center m-0" style="font-size: 30px">Skill Map</h1>
+                  <div class="row m-0 bg-white pb-2 d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-center align-items-center col p-0">
+                      <div class="d-flex justify-content-center align-items-center" style="background-color: #000000; width: 100px; height: 100px; border-radius: 50%; border: 0.1px solid black; font-size: 1vh; color: white">0%</div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center col p-0">
+                      <div class="d-flex justify-content-center align-items-center" style="background-color: #ff0000; width: 100px; height: 100px; border-radius: 50%; border: 0.1px solid black; font-size: 1vh; color: white">25%</div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center col p-0">
+                      <div class="d-flex justify-content-center align-items-center" style="background-color: #ffff00; width: 100px; height: 100px; border-radius: 50%; border: 0.1px solid black; font-size: 1vh; color: black">50%</div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center col p-0">
+                      <div class="d-flex justify-content-center align-items-center" style="background-color: #0000ff; width: 100px; height: 100px; border-radius: 50%; border: 0.1px solid black; font-size: 1vh; color: white">75%</div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center col p-0">
+                      <div class="d-flex justify-content-center align-items-center" style="background-color: #00aa00; width: 100px; height: 100px; border-radius: 50%; border: 0.1px solid black; font-size: 1vh; color: white">100%</div>
+                    </div>
+                  </div>
+                </div> -->
               </div>
             </div>
             <!-- </div>

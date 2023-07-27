@@ -175,7 +175,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['foto']) : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 195px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
                                 <?php } else { ?>
                                   <img class="d-none" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
-                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                  <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
                                 <?php } ?>
                               </div>
                               <div class=" fx-card-footer px-1 py-1" id="footer_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
@@ -244,7 +244,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['foto'] : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 195px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
                                 <?php } else { ?>
                                   <img class="d-none" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
-                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                  <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
                                 <?php } ?>
                               </div>
                               <div class="fx-card-footer px-1 py-1" id="footer_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
@@ -301,7 +301,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   <h4 class="fw-bold m-0" style="font-size: 16px"><?= $wi ?></h4>
                 <?php } ?>
               </div>
-              <div class="row row-cols-xl-7 m-0" style="width: calc(100% - 107px); background-color: #3F2305; border-radius: 5px;">
+              <div class="row row-cols-xl-7 m-0" style="width: calc(100% - 107px); background-color: #F86F03; border-radius: 5px;">
                 <!-- <div class="col" style="width: 100px">
                 
               </div> -->
@@ -340,7 +340,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 195px" id="foto_indirect_<?= $index_indirect ?>">
                                 <?php } else { ?>
                                   <img class="d-none" id="foto_indirect_<?= $index_indirect ?>">
-                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                  <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
                                 <?php } ?>
                               </div>
                               <?php if (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') { ?>
@@ -394,7 +394,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 195px" id="foto_indirect_<?= $index_indirect ?>">
                                 <?php } else { ?>
                                   <img class="d-none" id="foto_indirect_<?= $index_indirect ?>">
-                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                  <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
                                 <?php } ?>
                               </div>
                               <?php if ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') { ?>
@@ -456,7 +456,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <img src="<?= base_url() ?>uploads/<?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 195px" id="foto_indirect_<?= $index_indirect ?>">
                                 <?php } else { ?>
                                   <img class="d-none" id="foto_indirect_<?= $index_indirect ?>">
-                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                  <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
                                 <?php } ?>
                               </div>
                               <div class="fx-card-footer px-1 py-1" id="footer_format_indirect_<?= $index_indirect ?>">
@@ -528,7 +528,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 195px" id="foto_indirect_<?= $index_indirect ?>">
                                 <?php } else { ?>
                                   <img class="d-none" id="foto_indirect_<?= $index_indirect ?>">
-                                  <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+                                  <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
                                 <?php } ?>
                               </div>
                               <div class="fx-card-footer px-1 py-1" id="footer_format_indirect_<?= $index_indirect ?>">
@@ -914,7 +914,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   //             } else {
   //               document.querySelector(`#picture_format_${ln}_${index_mesin}`).innerHTML = `
   //                 <img class="d-none" id="foto_${ln}_${index_mesin}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+  //                 <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
   //               `;
   //               document.querySelector(`#footer_format_${ln}_${index_mesin}`).innerHTML = `
   //                 <div class="d-flex justify-content-between align-items-center" style="height: 12px">
@@ -1024,7 +1024,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   //             } else {
   //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
   //                 <img class="d-none" id="foto_indirect_${index}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+  //                 <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
   //               `;
   //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
   //                 <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}"></h5>
@@ -1057,7 +1057,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   //             } else {
   //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
   //                 <img class="d-none" id="foto_indirect_${index}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+  //                 <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
   //               `;
   //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
   //                 <div class="d-flex justify-content-between align-items-center" style="height: 15.1px;">
@@ -1102,7 +1102,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   //             } else {
   //               document.querySelector(`#picture_format_${ln}_${index_mesin}`).innerHTML = `
   //                 <img class="d-none" id="foto_${ln}_${index_mesin}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+  //                 <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
   //               `;
   //               document.querySelector(`#footer_format_${ln}_${index_mesin}`).innerHTML = `
   //                 <div class="d-flex justify-content-between align-items-center" style="height: 12px">
@@ -1154,7 +1154,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   //             } else {
   //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
   //                 <img class="d-none" id="foto_indirect_${index}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+  //                 <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
   //               `;
   //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
   //                 <h5 class="m-0" style="font-size: 10px" id="npk_indirect_${index}"></h5>
@@ -1184,7 +1184,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   //             } else {
   //               document.querySelector(`#picture_format_indirect_${index}`).innerHTML = `
   //                 <img class="d-none" id="foto_indirect_${index}">
-  //                 <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
+  //                 <div class="m-0" style="font-size: 130px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
   //               `;
   //               document.querySelector(`#footer_format_indirect_${index}`).innerHTML = `
   //                 <div class="d-flex justify-content-between align-items-center">
@@ -1763,7 +1763,11 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
       backgroundColor: '#FFF9C9'
     },
     title: {
-      text: 'Kehadiran'
+      text: 'Kehadiran',
+      style: {
+        fontSize: '20px',
+        fontWeight: 'bold'
+      }
     },
     xAxis: {
       categories: ['WET A', 'WET F', 'Indirect', 'WET'],
@@ -1778,11 +1782,20 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
       min: 0,
       max: 100,
       title: {
-        text: 'Percentage'
+        text: 'Percentage',
+        style: {
+          fontSize: '14px',
+          fontWeight: 'bold',
+          color: 'black'
+        }
       }
     },
     legend: {
-      reversed: true
+      reversed: true,
+      itemStyle: {
+        fontSize: '14px', // Ubah ukuran font legenda menjadi 14px
+        color: '#333333' // Ubah warna font legenda menjadi #333333 (hitam)
+      }
     },
     plotOptions: {
       series: {
