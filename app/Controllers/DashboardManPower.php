@@ -541,4 +541,135 @@ class DashboardManPower extends BaseController
 
     return json_encode('SUCCESS');
   }
+
+  public function auto_save_record_man_power()
+  {
+    date_default_timezone_set("Asia/Jakarta");
+    $bagian = ['AMB-1', 'AMB-2', 'WET', 'MCB'];
+    $group = 'A';
+    if (date('Y-m-d H:i:s') < date('Y-m-d 07:30:00')) {
+      foreach ($bagian as $bag) {
+        $data_group_mesin = $this->M_DashboardManPower->get_data_group_mesin_by_bagian_by_group_mp($bag, $group);
+        $cek_record = $this->M_DashboardManPower->check_record_man_power($bag, date('Y-m-d'), 3);
+        if (empty($cek_record)) {
+          foreach ($data_group_mesin as $dgm) {
+            if ($dgm['nama'] == 0)
+              $dgm['nama'] = NULL;
+            $data_record_man_power = [
+              'sub_bagian' => $bag,
+              'tanggal' => date('Y-m-d'),
+              'line' => $dgm['line'],
+              'shift' => 3,
+              'group_mp' => $dgm['group_mp'],
+              'mesin' => $dgm['mesin'],
+              'nama' => $dgm['nama'],
+              'status_mesin' => $dgm['status'],
+            ];
+            $this->M_DashboardManPower->save_record_man_power([], $data_record_man_power);
+          }
+        }
+        $data_group_mesin_indirect = $this->M_DashboardManPower->get_data_group_mesin_by_bagian_by_group_mp_indirect($bag, $group);
+        $cek_record_indirect = $this->M_DashboardManPower->check_record_man_power_indirect($bag, date('Y-m-d'), 3);
+        if (empty($cek_record_indirect)) {
+          foreach ($data_group_mesin_indirect as $dgm) {
+            if ($dgm['nama'] == 0)
+              $dgm['nama'] = NULL;
+            $data_record_man_power_indirect = [
+              'sub_bagian' => $bag,
+              'tanggal' => date('Y-m-d'),
+              'shift' => 3,
+              'group_mp' => $dgm['group_mp'],
+              'mesin' => $dgm['mesin'],
+              'nama' => $dgm['nama'],
+              'status_mesin' => $dgm['status'],
+            ];
+            $this->M_DashboardManPower->save_record_man_power_indirect([], $data_record_man_power_indirect);
+          }
+        }
+      }
+      return json_encode('SAVE SUCCESSFULLY');
+    } else if (date('Y-m-d H:i:s') < date('Y-m-d 16:30:00')) {
+      foreach ($bagian as $bag) {
+        $data_group_mesin = $this->M_DashboardManPower->get_data_group_mesin_by_bagian_by_group_mp($bag, $group);
+        $cek_record = $this->M_DashboardManPower->check_record_man_power($bag, date('Y-m-d'), 1);
+        if (empty($cek_record)) {
+          foreach ($data_group_mesin as $dgm) {
+            if ($dgm['nama'] == 0)
+              $dgm['nama'] = NULL;
+            $data_record_man_power = [
+              'sub_bagian' => $bag,
+              'tanggal' => date('Y-m-d'),
+              'line' => $dgm['line'],
+              'shift' => 1,
+              'group_mp' => $dgm['group_mp'],
+              'mesin' => $dgm['mesin'],
+              'nama' => $dgm['nama'],
+              'status_mesin' => $dgm['status'],
+            ];
+            $this->M_DashboardManPower->save_record_man_power([], $data_record_man_power);
+          }
+        }
+        $data_group_mesin_indirect = $this->M_DashboardManPower->get_data_group_mesin_by_bagian_by_group_mp_indirect($bag, $group);
+        $cek_record_indirect = $this->M_DashboardManPower->check_record_man_power_indirect($bag, date('Y-m-d'), 1);
+        if (empty($cek_record_indirect)) {
+          foreach ($data_group_mesin_indirect as $dgm) {
+            if ($dgm['nama'] == 0)
+              $dgm['nama'] = NULL;
+            $data_record_man_power_indirect = [
+              'sub_bagian' => $bag,
+              'tanggal' => date('Y-m-d'),
+              'shift' => 1,
+              'group_mp' => $dgm['group_mp'],
+              'mesin' => $dgm['mesin'],
+              'nama' => $dgm['nama'],
+              'status_mesin' => $dgm['status'],
+            ];
+            $this->M_DashboardManPower->save_record_man_power_indirect([], $data_record_man_power_indirect);
+          }
+        }
+      }
+      return json_encode('SAVE SUCCESSFULLY');
+    } else if (date('Y-m-d H:i:s') < date('Y-m-d 00:30:00')) {
+      foreach ($bagian as $bag) {
+        $data_group_mesin = $this->M_DashboardManPower->get_data_group_mesin_by_bagian_by_group_mp($bag, $group);
+        $cek_record = $this->M_DashboardManPower->check_record_man_power($bag, date('Y-m-d'), 2);
+        if (empty($cek_record)) {
+          foreach ($data_group_mesin as $dgm) {
+            if ($dgm['nama'] == 0)
+              $dgm['nama'] = NULL;
+            $data_record_man_power = [
+              'sub_bagian' => $bag,
+              'tanggal' => date('Y-m-d'),
+              'line' => $dgm['line'],
+              'shift' => 2,
+              'group_mp' => $dgm['group_mp'],
+              'mesin' => $dgm['mesin'],
+              'nama' => $dgm['nama'],
+              'status_mesin' => $dgm['status'],
+            ];
+            $this->M_DashboardManPower->save_record_man_power([], $data_record_man_power);
+          }
+        }
+        $data_group_mesin_indirect = $this->M_DashboardManPower->get_data_group_mesin_by_bagian_by_group_mp_indirect($bag, $group);
+        $cek_record_indirect = $this->M_DashboardManPower->check_record_man_power_indirect($bag, date('Y-m-d'), 2);
+        if (empty($cek_record_indirect)) {
+          foreach ($data_group_mesin_indirect as $dgm) {
+            if ($dgm['nama'] == 0)
+              $dgm['nama'] = NULL;
+            $data_record_man_power_indirect = [
+              'sub_bagian' => $bag,
+              'tanggal' => date('Y-m-d'),
+              'shift' => 2,
+              'group_mp' => $dgm['group_mp'],
+              'mesin' => $dgm['mesin'],
+              'nama' => $dgm['nama'],
+              'status_mesin' => $dgm['status'],
+            ];
+            $this->M_DashboardManPower->save_record_man_power_indirect([], $data_record_man_power_indirect);
+          }
+        }
+      }
+      return json_encode('SAVE SUCCESSFULLY');
+    }
+  }
 }

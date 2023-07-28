@@ -559,6 +559,7 @@ $routes->group('dashboard_man_power', ['filter' => 'auth'], function ($routes) {
     $routes->post('save_record_man_power', 'DashboardManPower::save_record_man_power');
     $routes->post('getCutiByGroup', 'DashboardManPower::getCutiByGroup');
 });
+$routes->add('DashboardManPower/auto_save_record_man_power', 'DashboardManPower::auto_save_record_man_power');
 
 // Cuti Man Power
 $routes->group('form_cuti', function ($routes) {

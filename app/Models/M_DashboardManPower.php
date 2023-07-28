@@ -94,6 +94,18 @@ class M_DashboardManPower extends Model
     return $query->getResultArray();
   }
 
+  public function get_data_group_mesin_by_bagian_by_group_mp($sub_bagian, $group_mp)
+  {
+    $query = $this->db->query('SELECT dmdgmp.nama, dmdgmp.mesin, dmdgmp.line, dmdgmp.group_mp, dmdgmp.status
+                            FROM detail_master_data_group_man_power dmdgmp
+                            JOIN master_data_group_man_power mdgmp ON mdgmp.id_group = dmdgmp.id_group
+                            WHERE mdgmp.sub_bagian = \'' . $sub_bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+                            ');
+
+
+    return $query->getResultArray();
+  }
+
   public function get_data_group_man_power($sub_bagian)
   {
     // if(strcasecmp($sub_bagian, 'amb-1') === 0) {
@@ -183,6 +195,17 @@ class M_DashboardManPower extends Model
 							              WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\'
                             ');
     return array_merge($query->getResultArray());
+  }
+
+  public function get_data_group_mesin_by_bagian_by_group_mp_indirect($sub_bagian, $group_mp)
+  {
+    $query = $this->db->query('SELECT dmdgmpi.nama, dmdgmpi.mesin, dmdgmpi.group_mp, dmdgmpi.status
+                            FROM detail_master_data_group_man_power_indirect dmdgmpi
+                            WHERE dmdgmpi.sub_bagian = \'' . $sub_bagian . '\' AND dmdgmpi.group_mp = \'' . $group_mp . '\'
+                            ');
+
+
+    return $query->getResultArray();
   }
 
   public function get_data_group_man_power_indirect($sub_bagian)
@@ -579,5 +602,21 @@ class M_DashboardManPower extends Model
     $nama = array_column($data, 'nama');
     array_multisort($nama, SORT_DESC, $data);
     return $data;
+  }
+
+  public function check_record_man_power($sub_bagian, $date, $shift)
+  {
+    $query = $this->db->query('SELECT id_record FROM detail_record_master_group_man_power
+                            WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $date . '\' AND shift = \'' . $shift . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
+  public function check_record_man_power_indirect($sub_bagian, $date, $shift)
+  {
+    $query = $this->db->query('SELECT id_record FROM detail_record_master_group_man_power_indirect
+                            WHERE sub_bagian = \'' . $sub_bagian . '\' AND tanggal = \'' . $date . '\' AND shift = \'' . $shift . '\'
+                            ');
+    return $query->getResultArray();
   }
 }
