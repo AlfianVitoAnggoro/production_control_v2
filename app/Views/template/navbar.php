@@ -51,7 +51,7 @@
 									</ul>
 								</li>
 								<li><a href="<?= base_url() ?>interlock_aging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Aging</a></li>
-								<li><a href="<?= base_url() ?>rak_management/monitoring_barcode_casting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Integrasi Rak dan Label Casting</a></li>
+								<li><a href="<?= base_url() ?>rak_management/monitoring_barcode_casting"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Integrasi Rak dan Label</a></li>
 								<li><a href="<?= base_url() ?>monitoring_aging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Aging</a></li>
 								<li><a href="<?= base_url() ?>monitoring_curing" target="_blank"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing</a></li>
 								<li><a href="<?= base_url() ?>monitoring_curing_qc"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Monitoring Curing QC</a></li>
