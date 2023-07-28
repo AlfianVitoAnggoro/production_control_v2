@@ -563,6 +563,7 @@ class DashboardManPower extends BaseController
               'group_mp' => $dgm['group_mp'],
               'mesin' => $dgm['mesin'],
               'nama' => $dgm['nama'],
+              'status' => '',
               'status_mesin' => $dgm['status'],
             ];
             $this->M_DashboardManPower->save_record_man_power([], $data_record_man_power);
@@ -581,6 +582,7 @@ class DashboardManPower extends BaseController
               'group_mp' => $dgm['group_mp'],
               'mesin' => $dgm['mesin'],
               'nama' => $dgm['nama'],
+              'status' => '',
               'status_mesin' => $dgm['status'],
             ];
             $this->M_DashboardManPower->save_record_man_power_indirect([], $data_record_man_power_indirect);
@@ -604,6 +606,7 @@ class DashboardManPower extends BaseController
               'group_mp' => $dgm['group_mp'],
               'mesin' => $dgm['mesin'],
               'nama' => $dgm['nama'],
+              'status' => '',
               'status_mesin' => $dgm['status'],
             ];
             $this->M_DashboardManPower->save_record_man_power([], $data_record_man_power);
@@ -622,6 +625,7 @@ class DashboardManPower extends BaseController
               'group_mp' => $dgm['group_mp'],
               'mesin' => $dgm['mesin'],
               'nama' => $dgm['nama'],
+              'status' => '',
               'status_mesin' => $dgm['status'],
             ];
             $this->M_DashboardManPower->save_record_man_power_indirect([], $data_record_man_power_indirect);
@@ -645,6 +649,7 @@ class DashboardManPower extends BaseController
               'group_mp' => $dgm['group_mp'],
               'mesin' => $dgm['mesin'],
               'nama' => $dgm['nama'],
+              'status' => '',
               'status_mesin' => $dgm['status'],
             ];
             $this->M_DashboardManPower->save_record_man_power([], $data_record_man_power);
@@ -663,6 +668,7 @@ class DashboardManPower extends BaseController
               'group_mp' => $dgm['group_mp'],
               'mesin' => $dgm['mesin'],
               'nama' => $dgm['nama'],
+              'status' => '',
               'status_mesin' => $dgm['status'],
             ];
             $this->M_DashboardManPower->save_record_man_power_indirect([], $data_record_man_power_indirect);
