@@ -301,7 +301,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   <h4 class="fw-bold m-0" style="font-size: 16px"><?= $wi ?></h4>
                 <?php } ?>
               </div>
-              <div class="row row-cols-xl-7 m-0" style="width: calc(100% - 107px); background-color: #F86F03; border-radius: 5px;">
+              <div class="row row-cols-xl-7 m-0" style="width: calc(100% - 107px); border-radius: 5px;">
                 <!-- <div class="col" style="width: 100px">
                 
               </div> -->
@@ -312,7 +312,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   <?php if (strpos($di['mesin'], 'Kasubsie') === 0) { ?>
                     <?php if (count($detail_record_man_power_indirect_all) > 0) { ?>
                       <div class="col p-0">
-                        <div class="d-flex justify-content-center align-items-top">
+                        <div class="d-flex justify-content-center align-items-top mx-1" style="background-color: #F86F03">
                           <h4 style="font-size: 16px; color: white" class="m-0">Group</h4>
                           <select name="group_indirect[]" id="group_indirect_<?= $index_indirect ?>" class="form-select p-0 ps-5 ms-1" style="height: 20px; font-size: 12px; width: 50px" onchange="changeGroupIndirect('indirect', '<?= $sub_bagian ?>', <?= $index_indirect ?>)">
                             <option value="A" <?= count($detail_record_man_power_kasubsie) > 0 ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_first($detail_record_man_power_kasubsie[$di['mesin']]) === 'A') ? 'selected' : '') : '') : '' ?>>A</option>
@@ -366,7 +366,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     <?php $index_indirect++;
                     } else { ?>
                       <div class="col p-0">
-                        <div class="d-flex justify-content-center align-items-top">
+                        <div class="d-flex justify-content-center align-items-top mx-1" style="background-color: #F86F03">
                           <h4 style="font-size: 16px; color: white" class="m-0">Group</h4>
                           <select name="group_indirect[]" id="group_indirect_<?= $index_indirect ?>" class="form-select p-0 ps-5 ms-1" style="height: 20px; font-size: 12px; width: 50px" onchange="changeGroupIndirect('indirect', '<?= $sub_bagian ?>', <?= $index_indirect ?>)">
                             <option value="A">A</option>
@@ -422,7 +422,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   } else { ?>
                     <?php if (count($detail_record_man_power_indirect_all) > 0) { ?>
                       <div class="col p-0">
-                        <div class="d-flex justify-content-center align-items-top">
+                        <div class="d-flex justify-content-center align-items-top mx-1" style="background-color: #F86F03">
                           <h4 style="font-size: 16px; color: white" class="m-0">Group</h4>
                           <select name="group_indirect[]" id="group_indirect_<?= $index_indirect ?>" class="form-select p-0 ps-5 ms-1" style="height: 20px; font-size: 12px; width: 50px" onchange="changeGroupIndirect('indirect', '<?= $sub_bagian ?>', <?= $index_indirect ?>)">
                             <option value="A" <?= count($detail_record_man_power_indirect) > 0 ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_first($detail_record_man_power_indirect[$di['mesin']]) === 'A') ? 'selected' : '') : '') : '' ?>>A</option>
@@ -494,7 +494,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     <?php $index_indirect++;
                     } else { ?>
                       <div class="col p-0">
-                        <div class="d-flex justify-content-center align-items-top">
+                        <div class="d-flex justify-content-center align-items-top mx-1" style="background-color: #F86F03">
                           <h4 style="font-size: 16px; color: white" class="m-0">Group</h4>
                           <select name="group_indirect[]" id="group_indirect_<?= $index_indirect ?>" class="form-select p-0 ps-5 ms-1" style="height: 20px; font-size: 12px; width: 50px" onchange="changeGroupIndirect('indirect', '<?= $sub_bagian ?>', <?= $index_indirect ?>)">
                             <option value="A">A</option>
@@ -567,6 +567,29 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     }
                   } ?>
                 <?php } ?>
+                <div class="col px-1 bg-white" style="height: 100%; width: calc((2/7) * 100%); border-radius: 5px;">
+                  <div class="d-flex justify-content-center align-items-center flex-column" style="height: 100%;">
+                    <h1 class="text-center m-0" style="font-size: 24px">Skill Map</h1>
+                    <br>
+                    <div class="row m-0 bg-white pb-2 d-flex justify-content-center align-items-center">
+                      <div class="d-flex justify-content-center align-items-center col px-2">
+                        <div class="d-flex justify-content-center align-items-center" style="background-color: #000000; width: 50px; height: 50px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">0%</div>
+                      </div>
+                      <div class="d-flex justify-content-center align-items-center col px-2">
+                        <div class="d-flex justify-content-center align-items-center" style="background-color: #ff0000; width: 50px; height: 50px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">25%</div>
+                      </div>
+                      <div class="d-flex justify-content-center align-items-center col px-2">
+                        <div class="d-flex justify-content-center align-items-center" style="background-color: #ffff00; width: 50px; height: 50px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: black">50%</div>
+                      </div>
+                      <div class="d-flex justify-content-center align-items-center col px-2">
+                        <div class="d-flex justify-content-center align-items-center" style="background-color: #0000ff; width: 50px; height: 50px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">75%</div>
+                      </div>
+                      <div class="d-flex justify-content-center align-items-center col px-2">
+                        <div class="d-flex justify-content-center align-items-center" style="background-color: #00aa00; width: 50px; height: 50px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">100%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <!-- </div>
@@ -768,7 +791,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   var compareblinkval;
 
   function blink(cardElement) {
-    let colors = ["#FFF9C9", "white"];
+    let colors = ["#FFEA20", "white"];
     let currentColorIndex = 0;
     blinkval = setInterval(function() {
       cardElement.style.backgroundColor = colors[currentColorIndex];
@@ -1254,6 +1277,14 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     <td class="p-0 text-center">${String(data[count].npk).padStart(4, '0')}</td>
                     <td class="p-0 text-center">${data[count].kategori}</td>
                   `;
+                  let status_mp_by_line = document.getElementsByName(`status_mp_${line}[]`);
+                  status_mp_by_line.forEach(smbl => {
+                    let getIdElement = smbl.id.split('_').slice(-2);
+                    let npkElementValue = document.querySelector(`#npk_${getIdElement[0]}_${getIdElement[1]}`).textContent;
+                    if (npkElementValue == String(data[count].npk).padStart(4, '0')) {
+                      man_power_cuti(getIdElement[0], getIdElement[1]);
+                    }
+                  });
                   count++;
                 } else {
                   console.log(data.length);
@@ -1288,6 +1319,14 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   </tr>
                 `;
               }
+              let status_mp_by_line = document.getElementsByName(`status_mp_${line}[]`);
+              status_mp_by_line.forEach(smbl => {
+                let getIdElement = smbl.id.split('_').slice(-2);
+                let npkElementValue = document.querySelector(`#npk_${getIdElement[0]}_${getIdElement[1]}`).textContent;
+                if (npkElementValue == String(data[index_add].npk).padStart(4, '0')) {
+                  man_power_cuti(getIdElement[0], getIdElement[1]);
+                }
+              });
             }
           }
         } else {
@@ -1503,6 +1542,43 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         }
       }
     })
+  }
+
+  function man_power_cuti(line, index) {
+    document.querySelector(`#card_${line}_${index}`).style.backgroundImage = '';
+    document.querySelector(`#card_${line}_${index}`).style.backgroundColor = '#9BA4B5';
+    document.querySelector(`#nama_mp_${line}_${index}`).value = ''
+    document.querySelector(`#status_mp_${line}_${index}`).value = '';
+    document.querySelector(`#foto_${line}_${index}`).src = '';
+    if (line !== 'indirect') {
+      document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String('').padStart(4, '0')}</h5>
+              <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"></h5>
+              <div style="border: 0.1px solid black; background-color: transparent; border-radius: 50%; width: 10px; height: 10px" id="skill_${line}_${index}"></div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="m-0" style="font-size: 10px; color: #ff0000" id="status_${line}_${index}">Kosong</h5>
+              <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
+            </div>
+          `;
+    } else {
+      if (document.querySelector(`#status_mp_${line}_${index}`) == undefined) {
+        document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
+              <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String('').padStart(4, '0')}</h5>
+              <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"></h5>
+              <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
+            `;
+      } else {
+        document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String('').padStart(4, '0')}</h5>
+                <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"></h5>
+                <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
+              </div>
+            `;
+      }
+    }
   }
 
   function btn_add_mp_tidak_hadir(line, index) {

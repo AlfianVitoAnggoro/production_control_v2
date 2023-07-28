@@ -762,7 +762,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   var compareblinkval;
 
   function blink(cardElement) {
-    let colors = ["#FFF9C9", "white"];
+    let colors = ["#FFEA20", "white"];
     let currentColorIndex = 0;
     blinkval = setInterval(function() {
       cardElement.style.backgroundColor = colors[currentColorIndex];
