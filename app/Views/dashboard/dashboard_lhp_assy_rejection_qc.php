@@ -267,7 +267,23 @@
     }
     $result_daily_reject_persentase = array_values($merged_daily_persentase);
 
-    $adj_reject = array(0.52, 0.51, 0.48, 0.44);
+    if ($child_filter == 1) {
+        $adj_reject = array(0.27, 0.14, 0.12, 0.22);
+    } else if ($child_filter == 2) {
+        $adj_reject = array(0.37, 0.50, 0.35, 0.17);
+    } else if ($child_filter == 3) {
+        $adj_reject = array(0.32, 0.27, 0.35, 0.39);
+    } else if ($child_filter == 4) {
+        $adj_reject = array(1.20, 0.95, 0.53, 0.91);
+    } else if ($child_filter == 5) {
+        $adj_reject = array(0.41, 0.49, 0.64, 0.39);
+    } else if ($child_filter == 6) {
+        $adj_reject = array(0.79, 0.95, 0.69, 0.37);
+    } else if ($child_filter == 7) {
+        $adj_reject = array(0.98, 0.96, 0.63, 0.88);
+    } else {
+        $adj_reject = array(0.52, 0.51, 0.48, 0.44);
+    }
 
     for ($i = 0; $i < 4; $i++) {
         $data_average_reject_by_month[$i] = $adj_reject[$i];
