@@ -66,7 +66,7 @@ class M_ResumeCuti extends Model
     $data = array_merge($query_cuti->getResultArray(), $query_izin->getResultArray(), $query_cuti_besar->getResultArray(), $query_dispensasi->getResultArray(), $query_skd->getResultArray());
     $tanggal = array_column($data, 'tanggal');
     $created_at = array_column($data, 'created_at');
-    array_multisort($tanggal, SORT_DESC, $created_at, SORT_ASC, $data);
+    array_multisort($tanggal, SORT_DESC, $created_at, SORT_DESC, $data);
     return $data;
   }
 
@@ -107,7 +107,15 @@ class M_ResumeCuti extends Model
 							              JOIN master_data_man_power mdmp ON mdmp.id_man_power = dt_rac.nama
                             WHERE dt_rac.id_cuti = \'' . $id_cuti . '\'
                             ');
-    return $query->getResultArray();
+    $data = $query->getResultArray();
+    if (count($data) == 0) {
+      $query = $this->db->query('SELECT dt_rac.*, dt_rac.created_at AS created, mdmp.npk, mdmp.nama FROM data_record_all_cuti_besar dt_rac
+							              JOIN master_data_man_power mdmp ON mdmp.id_man_power = dt_rac.nama
+                            WHERE dt_rac.id_cuti = \'' . $id_cuti . '\'
+                            ');
+      $data = $query->getResultArray();
+    }
+    return $data;
   }
   // public function get_detail_mp_cuti($id_cuti, $keterangan)
   // {
@@ -202,5 +210,16 @@ class M_ResumeCuti extends Model
                             ');
 
     return $query->getRowArray();
+  }
+
+  public function delete_cuti($cuti, $id_cuti)
+  {
+    if (strpos($cuti, 'izin') !== false)
+      $cuti = 'izin';
+    $query = $this->db->query('DELETE FROM data_record_all_' . $cuti . ' WHERE id_cuti = \'' . $id_cuti . '\'');
+    $query = $this->db->query('DELETE FROM detail_record_all_' . $cuti . ' WHERE id_cuti = \'' . $id_cuti . '\'');
+    $query = $this->db->query('DELETE FROM data_all_lampiran_absen WHERE id_absen = \'' . $id_cuti . '\' AND kategori = \'' . ucwords(str_replace('_', ' ', $cuti)) . '\'');
+
+    return $id_cuti;
   }
 }
