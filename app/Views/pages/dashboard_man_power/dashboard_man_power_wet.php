@@ -100,11 +100,35 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             </div>
           <?php } ?>
         </div>
-        <div class="row m-0" style="height: calc(100% - 23vh - 7px)">
+        <div class="row m-0" style="height: calc(100% - 31vh - 7px)">
           <div class="col p-0" style="height: 100%">
             <figure class="highcharts-figure" style="height: 100%; border-radius: 5px;">
               <div id="horizontal_bar" style="height: 100%; border-radius: 5px;"></div>
             </figure>
+          </div>
+        </div>
+        <div class="row m-0" style="height: calc(8vh - 4px);">
+          <div class="col bg-white" style="height: 100%;">
+            <div class="d-flex justify-content-center align-items-center flex-column" style="height: 100%;">
+              <h1 class="text-center m-0" style="font-size: 16px">Skill Map</h1>
+              <div class="row m-0 bg-white pb-2 d-flex justify-content-center align-items-center">
+                <div class="d-flex justify-content-center align-items-center col px-2">
+                  <div class="d-flex justify-content-center align-items-center" style="background-color: #000000; width: 40px; height: 40px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">0%</div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center col px-2">
+                  <div class="d-flex justify-content-center align-items-center" style="background-color: #ff0000; width: 40px; height: 40px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">25%</div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center col px-2">
+                  <div class="d-flex justify-content-center align-items-center" style="background-color: #ffff00; width: 40px; height: 40px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: black">50%</div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center col px-2">
+                  <div class="d-flex justify-content-center align-items-center" style="background-color: #0000ff; width: 40px; height: 40px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">75%</div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center col px-2">
+                  <div class="d-flex justify-content-center align-items-center" style="background-color: #00aa00; width: 40px; height: 40px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">100%</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -121,7 +145,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             <div class="col p-0">
               <div class="d-flex" style="width: 100%">
                 <div class="d-flex justify-content-center align-items-center flex-column mb-2 mx-1" style="border-radius: 5px; background-color: #22A699; color: white; width: 100px">
-                  <h4 class="fw-bold" style="font-size: 16px">Line</h4>
+                  <h4 class="fw-bold" style="font-size: 16px">WET</h4>
                   <?= "" //($line[$i] <= 7) ? 'Line ' . $lineAct[$line[$i]] : $lineAct[$line[$i]] 
                   ?>
                   <h1 class="m-2 fw-bold"><?= $lineAct[$line[$i]] ?></h1>
@@ -301,7 +325,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   <h4 class="fw-bold m-0" style="font-size: 16px"><?= $wi ?></h4>
                 <?php } ?>
               </div>
-              <div class="row row-cols-xl-7 m-0" style="width: calc(100% - 107px); border-radius: 5px;">
+              <div class="row row-cols-xl-7 m-0" style="width: calc(100% - 107px); background-color: #F86F03; border-radius: 5px;">
                 <!-- <div class="col" style="width: 100px">
                 
               </div> -->
@@ -567,29 +591,6 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     }
                   } ?>
                 <?php } ?>
-                <div class="col px-1 bg-white" style="height: 100%; width: calc((2/7) * 100%); border-radius: 5px;">
-                  <div class="d-flex justify-content-center align-items-center flex-column" style="height: 100%;">
-                    <h1 class="text-center m-0" style="font-size: 24px">Skill Map</h1>
-                    <br>
-                    <div class="row m-0 bg-white pb-2 d-flex justify-content-center align-items-center">
-                      <div class="d-flex justify-content-center align-items-center col px-2">
-                        <div class="d-flex justify-content-center align-items-center" style="background-color: #000000; width: 50px; height: 50px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">0%</div>
-                      </div>
-                      <div class="d-flex justify-content-center align-items-center col px-2">
-                        <div class="d-flex justify-content-center align-items-center" style="background-color: #ff0000; width: 50px; height: 50px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">25%</div>
-                      </div>
-                      <div class="d-flex justify-content-center align-items-center col px-2">
-                        <div class="d-flex justify-content-center align-items-center" style="background-color: #ffff00; width: 50px; height: 50px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: black">50%</div>
-                      </div>
-                      <div class="d-flex justify-content-center align-items-center col px-2">
-                        <div class="d-flex justify-content-center align-items-center" style="background-color: #0000ff; width: 50px; height: 50px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">75%</div>
-                      </div>
-                      <div class="d-flex justify-content-center align-items-center col px-2">
-                        <div class="d-flex justify-content-center align-items-center" style="background-color: #00aa00; width: 50px; height: 50px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">100%</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <!-- </div>
@@ -610,7 +611,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           <table class="table bg-white" style="height: 100%; border-radius: 5px">
             <thead>
               <tr>
-                <th style="font-size: 12px" class="py-1 px-0 text-center">Line <?= $line[$i] ?></th>
+                <th style="font-size: 12px" class="py-1 px-0 text-center">WET-<?= $lineAct[$line[$i]] ?></th>
                 <th style="font-size: 12px" class="py-1 px-0 text-center">Nama</th>
                 <th style="font-size: 12px" class="py-1 px-0 text-center">NPK</th>
                 <th style="font-size: 12px" class="py-1 px-0 text-center">Keterangan</th>

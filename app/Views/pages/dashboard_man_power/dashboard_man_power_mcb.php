@@ -17,7 +17,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
 <div class="container-full">
   <!-- Main content -->
   <section class="content p-0">
-    <!-- <div class="">
+    <!-- <div class="px-1">
       <label for="tanggal" class="form-label">Tanggal</label>
       <input type="date" name="tanggal" id="tanggal" class="form-control">
     </div> -->
@@ -27,8 +27,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           <div class="col p-0">
             <div class="row m-0">
               <div class="col p-0">
-                <div class="d-flex justify-content-center" style="width: 100%;">
-                  <div class="box mb-2" style="width: 250px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
+                <div style="width: 100%;">
+                  <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
                     <div class="fx-card-item">
                       <div class="fx-card-content">
                         <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -52,8 +52,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             <div class="row m-0">
               <?php if (strtolower($sub_bagian) === 'amb-1' || strtolower($sub_bagian) === 'wet' || strtolower($sub_bagian) === 'mcb') { ?>
                 <div class="col p-0">
-                  <div class="d-flex justify-content-center" style="height: calc(100% - 2px); width: 100%;">
-                    <div class="box mb-2" style="width: 250px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
+                  <div style="height: calc(100% - 2px); width: 100%;">
+                    <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
                       <div class="fx-card-item">
                         <div class="fx-card-content">
                           <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -75,8 +75,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 </div>
               <?php } else if (strtolower($sub_bagian) === 'amb-2') { ?>
                 <div class="col p-0">
-                  <div class="d-flex justify-content-center" style="height: calc(100% - 2px); width: 100%;">
-                    <div class="box mb-2" style="width: 250px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
+                  <div style="height: calc(100% - 2px); width: 100%;">
+                    <div class="box mb-2" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; height: 100%">
                       <div class="fx-card-item">
                         <div class="fx-card-content">
                           <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -100,11 +100,35 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             </div>
           </div>
         </div>
-        <div class="row m-0" style="height: calc(100% - 45vh - 7px)">
+        <div class="row m-0" style="height: calc(100% - 53vh - 7px)">
           <div class="col p-0" style="height: 100%">
             <figure class="highcharts-figure" style="height: 100%; border-radius: 5px;">
               <div id="horizontal_bar" style="height: 100%; border-radius: 5px;"></div>
             </figure>
+          </div>
+        </div>
+        <div class="row m-0" style="height: calc(8vh - 4px);">
+          <div class="col px-1 bg-white" style="height: 100%;">
+            <div class="d-flex justify-content-center align-items-center flex-column" style="height: 100%;">
+              <h1 class="text-center m-0" style="font-size: 20px">Skill Map</h1>
+              <div class="row m-0 bg-white pb-2 d-flex justify-content-center align-items-center">
+                <div class="d-flex justify-content-center align-items-center col">
+                  <div class="d-flex justify-content-center align-items-center" style="background-color: #000000; width: 40px; height: 40px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">0%</div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center col">
+                  <div class="d-flex justify-content-center align-items-center" style="background-color: #ff0000; width: 40px; height: 40px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">25%</div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center col">
+                  <div class="d-flex justify-content-center align-items-center" style="background-color: #ffff00; width: 40px; height: 40px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: black">50%</div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center col">
+                  <div class="d-flex justify-content-center align-items-center" style="background-color: #0000ff; width: 40px; height: 40px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">75%</div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center col">
+                  <div class="d-flex justify-content-center align-items-center" style="background-color: #00aa00; width: 40px; height: 40px; border-radius: 50%; border: 0.1px solid black; font-size: 12px; color: white">100%</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -144,9 +168,9 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     <?php if (count($detail_record_man_power) > 0) {
                       // dd($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])]['Unloading COS']['nama']) 
                     ?>
-                      <div class="col p-0 px-1" style="margin-left: 42px; width: 250px">
-                        <div class="">
-                          <div class="box mb-2 card_box" style="width: 250px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin) > 0) ? ((array_key_exists($line[$i], $detail_record_mesin)) ? ((array_key_exists(array_key_first($detail_record_mesin[$line[$i]]), $detail_record_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])])) ? ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin']) : '') : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                      <div class="col p-0 px-1">
+                        <div class="mx-1">
+                          <div class="box mb-2 card_box" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin) > 0) ? ((array_key_exists($line[$i], $detail_record_mesin)) ? ((array_key_exists(array_key_first($detail_record_mesin[$line[$i]]), $detail_record_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])])) ? ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin']) : '') : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-start" style="border-radius: 5px 5px 0px 0px">
@@ -213,9 +237,9 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                         </div>
                       </div>
                     <?php } else { ?>
-                      <div class="col p-0" style="margin-left: 42px; width: 250px">
-                        <div class="">
-                          <div class="box mb-2 card_box" style="width: 250px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? (($data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                      <div class="col p-0">
+                        <div class="mx-1">
+                          <div class="box mb-2 card_box" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? (($data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -301,7 +325,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   <h4 class="fw-bold m-0" style="font-size: 20px"><?= $wi ?></h4>
                 <?php } ?>
               </div>
-              <div class="row row-cols-xl-4 m-0" style="width: calc(100% - 157px); border-radius: 5px;">
+              <div class="row row-cols-xl-4 m-0" style="width: calc(100% - 157px); background-color: #F86F03; border-radius: 5px;">
                 <!-- <div class="col" style="width: 150px">
                 
               </div> -->
@@ -311,8 +335,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                   ?>
                   <?php if (strpos($di['mesin'], 'Kasubsie') === 0) { ?>
                     <?php if (count($detail_record_man_power_indirect_all) > 0) { ?>
-                      <div class="col p-0" style="margin-left: 42px; width: 250px">
-                        <div class="d-flex justify-content-center align-items-top" style="background-color: #F86F03">
+                      <div class="col p-0">
+                        <div class="d-flex justify-content-center align-items-top mx-1" style="background-color: #F86F03">
                           <h4 style="font-size: 20px; color: white" class="m-0">Group</h4>
                           <select name="group_indirect[]" id="group_indirect_<?= $index_indirect ?>" class="form-select p-0 ps-5 ms-1" style="height: 20px; font-size: 12px; width: 50px" onchange="changeGroupIndirect('indirect', '<?= $sub_bagian ?>', <?= $index_indirect ?>)">
                             <option value="A" <?= count($detail_record_man_power_kasubsie) > 0 ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_first($detail_record_man_power_kasubsie[$di['mesin']]) === 'A') ? 'selected' : '') : '') : '' ?>>A</option>
@@ -320,8 +344,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                             <option value="C" <?= count($detail_record_man_power_kasubsie) > 0 ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_first($detail_record_man_power_kasubsie[$di['mesin']]) === 'C') ? 'selected' : '') : '') : '' ?>>C</option>
                           </select>
                         </div>
-                        <div class="">
-                          <div class="box card_box" style="margin-bottom: 8px; width: 250px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>;" id="card_indirect_<?= $index_indirect ?>">
+                        <div class="px-1">
+                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>;" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="background-color: <?= "" //(count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ($color[$detail_record_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
@@ -365,8 +389,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                       </div>
                     <?php $index_indirect++;
                     } else { ?>
-                      <div class="col p-0" style="margin-left: 42px; width: 250px;">
-                        <div class="d-flex justify-content-center align-items-top" style="background-color: #F86F03">
+                      <div class="col p-0">
+                        <div class="d-flex justify-content-center align-items-top mx-1" style="background-color: #F86F03">
                           <h4 style="font-size: 20px; color: white" class="m-0">Group</h4>
                           <select name="group_indirect[]" id="group_indirect_<?= $index_indirect ?>" class="form-select p-0 ps-5 ms-1" style="height: 20px; font-size: 12px; width: 50px" onchange="changeGroupIndirect('indirect', '<?= $sub_bagian ?>', <?= $index_indirect ?>)">
                             <option value="A">A</option>
@@ -374,8 +398,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                             <option value="C">C</option>
                           </select>
                         </div>
-                        <div class="">
-                          <div class="box card_box" style="margin-bottom: 8px; width: 250px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? (($data_group_man_power_kasubsie[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
+                        <div class="px-1">
+                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? (($data_group_man_power_kasubsie[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="background-color: <?= "" //(count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie)) ? ($color[$data_group_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
@@ -421,8 +445,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     }
                   } else { ?>
                     <?php if (count($detail_record_man_power_indirect_all) > 0) { ?>
-                      <div class="col p-0" style="margin-left: 42px; width: 250px">
-                        <div class="d-flex justify-content-center align-items-top" style="background-color: #F86F03">
+                      <div class="col p-0">
+                        <div class="d-flex justify-content-center align-items-top mx-1" style="background-color: #F86F03">
                           <h4 style="font-size: 20px; color: white" class="m-0">Group</h4>
                           <select name="group_indirect[]" id="group_indirect_<?= $index_indirect ?>" class="form-select p-0 ps-5 ms-1" style="height: 20px; font-size: 12px; width: 50px" onchange="changeGroupIndirect('indirect', '<?= $sub_bagian ?>', <?= $index_indirect ?>)">
                             <option value="A" <?= count($detail_record_man_power_indirect) > 0 ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_first($detail_record_man_power_indirect[$di['mesin']]) === 'A') ? 'selected' : '') : '') : '' ?>>A</option>
@@ -430,8 +454,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                             <option value="C" <?= count($detail_record_man_power_indirect) > 0 ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_first($detail_record_man_power_indirect[$di['mesin']]) === 'C') ? 'selected' : '') : '') : '' ?>>C</option>
                           </select>
                         </div>
-                        <div class="">
-                          <div class="box card_box" style="margin-bottom: 8px; width: 250px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
+                        <div class="px-1">
+                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -493,8 +517,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                       </div>
                     <?php $index_indirect++;
                     } else { ?>
-                      <div class="col p-0" style="margin-left: 42px; width: 250px">
-                        <div class="d-flex justify-content-center align-items-top" style="background-color: #F86F03">
+                      <div class="col p-0">
+                        <div class="d-flex justify-content-center align-items-top mx-1" style="background-color: #F86F03">
                           <h4 style="font-size: 20px; color: white" class="m-0">Group</h4>
                           <select name="group_indirect[]" id="group_indirect_<?= $index_indirect ?>" class="form-select p-0 ps-5 ms-1" style="height: 20px; font-size: 12px; width: 50px" onchange="changeGroupIndirect('indirect', '<?= $sub_bagian ?>', <?= $index_indirect ?>)">
                             <option value="A">A</option>
@@ -502,8 +526,8 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                             <option value="C">C</option>
                           </select>
                         </div>
-                        <div class="">
-                          <div class="box card_box" style="margin-bottom: 8px; width: 250px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? (($data_group_man_power_indirect[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
+                        <div class="px-1">
+                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? (($data_group_man_power_indirect[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -567,29 +591,6 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     }
                   } ?>
                 <?php } ?>
-                <div class="col px-1 bg-white" style="height: 100%; width: calc(100% - 629.5px); border-radius: 5px; margin-left: 42px">
-                  <div class="d-flex justify-content-center align-items-center flex-column" style="height: 100%;">
-                    <h1 class="text-center m-0" style="font-size: 30px">Skill Map</h1>
-                    <br>
-                    <div class="row m-0 bg-white pb-2 d-flex justify-content-center align-items-center">
-                      <div class="d-flex justify-content-center align-items-center col px-4">
-                        <div class="d-flex justify-content-center align-items-center" style="background-color: #000000; width: 100px; height: 100px; border-radius: 50%; border: 0.1px solid black; font-size: 20px; color: white">0%</div>
-                      </div>
-                      <div class="d-flex justify-content-center align-items-center col px-4">
-                        <div class="d-flex justify-content-center align-items-center" style="background-color: #ff0000; width: 100px; height: 100px; border-radius: 50%; border: 0.1px solid black; font-size: 20px; color: white">25%</div>
-                      </div>
-                      <div class="d-flex justify-content-center align-items-center col px-4">
-                        <div class="d-flex justify-content-center align-items-center" style="background-color: #ffff00; width: 100px; height: 100px; border-radius: 50%; border: 0.1px solid black; font-size: 20px; color: black">50%</div>
-                      </div>
-                      <div class="d-flex justify-content-center align-items-center col px-4">
-                        <div class="d-flex justify-content-center align-items-center" style="background-color: #0000ff; width: 100px; height: 100px; border-radius: 50%; border: 0.1px solid black; font-size: 20px; color: white">75%</div>
-                      </div>
-                      <div class="d-flex justify-content-center align-items-center col px-4">
-                        <div class="d-flex justify-content-center align-items-center" style="background-color: #00aa00; width: 100px; height: 100px; border-radius: 50%; border: 0.1px solid black; font-size: 20px; color: white">100%</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <!-- </div>
@@ -608,7 +609,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               <table class="table bg-white" style="height: 100%; border-radius: 5px">
                 <thead>
                   <tr>
-                    <th style="font-size: 20px" class="py-1 px-0 text-center">Line <?= $line[$i] ?></th>
+                    <th style="font-size: 20px" class="py-1 px-0 text-center"><?= $lineAct[$line[$i]] ?></th>
                     <th style="font-size: 20px" class="py-1 px-0 text-center">Nama</th>
                     <th style="font-size: 20px" class="py-1 px-0 text-center">NPK</th>
                     <th style="font-size: 20px" class="py-1 px-0 text-center">Keterangan</th>

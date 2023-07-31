@@ -107,7 +107,7 @@
             <div>Pending</div>
           </div>
         </div>
-        <a href="<?= base_url() ?>cuti" class="btn btn-primary float-start">List Cuti</a>
+        <a href="<?= base_url() ?>cuti" class="btn btn-primary float-start d-none" id="list_cuti">List Cuti</a>
         <input type="button" class="btn btn-secondary float-end" data-bs-dismiss="modal" aria-label="Close" value="Close">
       </div>
     </div>
@@ -120,6 +120,11 @@
 <?= $this->endSection() ?>
 <?= $this->section('script') ?>
 <script>
+  let line = ['', 1, 2, 3, 4, 5, 6, 7, 'WET-A', 'WET-F', 'MCB'];
+  <?php if (session()->get('level') < 6) { ?>
+    document.querySelector('#list_cuti').classList.remove('d-none');
+  <?php } ?>
+
   function createCalendar(year, month) {
     var calendarElement = document.getElementById('calendarElement');
     calendarElement.innerHTML = '';
@@ -288,7 +293,6 @@
             //     `;
             // }
           });
-          console.log(dateElement);
         });
       }
     });
@@ -311,7 +315,6 @@
       },
       dataType: 'json',
       success: function(data) {
-        console.log(data);
         let date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         let status_kasubsie = '';
         document.querySelector('#mp_tidak_hadir').innerHTML = '';
@@ -345,7 +348,7 @@
             <tr>
               <td>${dc.nama}</td>
               <td>${dc.sub_bagian}</td>
-              <td>${dc.line}</td>
+              <td>${dc.line != 'indirect' ? line[dc.line] : dc.line.toUpperCase()}</td>
               <td>${dc.group_mp}</td>
               <td>${dc.kategori}</td>
               <td>${ucwords(dc.jenis)}</td>

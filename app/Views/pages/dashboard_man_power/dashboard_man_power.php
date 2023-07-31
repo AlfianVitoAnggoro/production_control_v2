@@ -94,14 +94,14 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             </div>
           <?php } ?>
         </div>
-        <div class="row m-0 mb-2" style="height: calc(100% - 27vh)">
+        <div class="row m-0 mb-2" style="height: calc(100% - 26vh - 7px)">
           <div class="col p-0" style="height: 100%">
             <figure class="highcharts-figure" style="height: 100%; border-radius: 5px;">
               <div id="horizontal_bar" style="height: 100%; border-radius: 5px;"></div>
             </figure>
           </div>
         </div>
-        <div class="row m-0 pb-2" style="height: 6vh">
+        <div class="row m-0 pb-2" style="height: calc(8vh - 5px)">
           <div class="col p-0 bg-white" style="height: 100%">
             <h1 class="text-center m-0" style="font-size: 2vh">Skill Map</h1>
             <div class="row m-0 bg-white pb-2 d-flex justify-content-center align-items-center">
