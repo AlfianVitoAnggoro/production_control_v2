@@ -154,26 +154,59 @@ class M_DashboardCuttingRejection extends Model
     public function get_data_reject_all_line_by_date($tanggal, $line)
     {
         if ($line == null || $line == 0) {
-            $query = $this->db->query('SELECT subquery.date, SUM(total_reject_internal) / SUM(total_produksi) AS persentase_reject_internal, SUM(total_reject_eksternal) / SUM(total_produksi) AS persentase_reject_eksternal
-                                      FROM (
-                                          SELECT p.date, SUM(pi.hasil_produksi) AS total_produksi, SUM(pi.terpotong_panel) + SUM(pi.tersangkut_panel) + SUM(pi.overbrush_panel) AS total_reject_internal, SUM(pi.rontok_panel) + SUM(pi.lug_patah_panel) + SUM(pi.patah_kaki_panel) + SUM(pi.patah_frame_panel) + SUM(pi.bolong_panel) + SUM(pi.bending_panel) + SUM(pi.lengket_terpotong_panel) AS total_reject_eksternal
-                                          FROM plateinput pi
-                                          JOIN platecutting p ON pi.id_platecutting = p.id
-                                          WHERE p.date = \'' . $tanggal . '\'
-                                          AND p.line != 10
-                                          GROUP BY p.date
-                                      ) AS subquery
-									  GROUP BY subquery.date');
+            // $query = $this->db->query('SELECT subquery.date, SUM(total_reject_internal) / SUM(total_produksi) AS persentase_reject_internal, SUM(total_reject_eksternal) / SUM(total_produksi) AS persentase_reject_eksternal
+            //                           FROM (
+            //                               SELECT p.date, SUM(pi.hasil_produksi) AS total_produksi, SUM(pi.terpotong_panel) + SUM(pi.tersangkut_panel) + SUM(pi.overbrush_panel) AS total_reject_internal, SUM(pi.rontok_panel) + SUM(pi.lug_patah_panel) + SUM(pi.patah_kaki_panel) + SUM(pi.patah_frame_panel) + SUM(pi.bolong_panel) + SUM(pi.bending_panel) + SUM(pi.lengket_terpotong_panel) AS total_reject_eksternal
+            //                               FROM plateinput pi
+            //                               JOIN platecutting p ON pi.id_platecutting = p.id
+            //                               WHERE p.date = \'' . $tanggal . '\'
+            //                               AND p.line != 10
+            //                               GROUP BY p.date
+            //                           ) AS subquery
+			// 						  GROUP BY subquery.date');
+            $query = $this->db->query('SELECT subquery.date,
+                                        COALESCE(SUM(total_reject_internal) / NULLIF(SUM(total_produksi), 0), 0) AS persentase_reject_internal,
+                                        COALESCE(SUM(total_reject_eksternal) / NULLIF(SUM(total_produksi), 0), 0) AS persentase_reject_eksternal
+                                        FROM (
+                                            SELECT
+                                                p.date,
+                                                SUM(pi.hasil_produksi) AS total_produksi,
+                                                SUM(pi.terpotong_panel) + SUM(pi.tersangkut_panel) + SUM(pi.overbrush_panel) AS total_reject_internal,
+                                                SUM(pi.rontok_panel) + SUM(pi.lug_patah_panel) + SUM(pi.patah_kaki_panel) + SUM(pi.patah_frame_panel) + SUM(pi.bolong_panel) + SUM(pi.bending_panel) + SUM(pi.lengket_terpotong_panel) AS total_reject_eksternal
+                                            FROM plateinput pi
+                                            JOIN platecutting p ON pi.id_platecutting = p.id
+                                            WHERE p.date = \'' . $tanggal . '\'
+                                            AND p.line != 10
+                                            GROUP BY p.date
+                                        ) AS subquery
+                                        GROUP BY subquery.date');
+                                      
         } else {
-            $query = $this->db->query('SELECT subquery.date, SUM(total_reject_internal) / SUM(total_produksi) AS persentase_reject_internal, SUM(total_reject_eksternal) / SUM(total_produksi) AS persentase_reject_eksternal
-                                      FROM (
-                                          SELECT p.date, SUM(pi.hasil_produksi) AS total_produksi, SUM(pi.terpotong_panel) + SUM(pi.tersangkut_panel) + SUM(pi.overbrush_panel) AS total_reject_internal, SUM(pi.rontok_panel) + SUM(pi.lug_patah_panel) + SUM(pi.patah_kaki_panel) + SUM(pi.patah_frame_panel) + SUM(pi.bolong_panel) + SUM(pi.bending_panel) + SUM(pi.lengket_terpotong_panel) AS total_reject_eksternal
-                                          FROM plateinput pi
-                                          JOIN platecutting p ON pi.id_platecutting = p.id
-                                          WHERE p.date = \'' . $tanggal . '\' AND p.line = \'' . $line . '\'
-                                          GROUP BY p.date
-                                      ) AS subquery
-									  GROUP BY subquery.date');
+            // $query = $this->db->query('SELECT subquery.date, SUM(total_reject_internal) / SUM(total_produksi) AS persentase_reject_internal, SUM(total_reject_eksternal) / SUM(total_produksi) AS persentase_reject_eksternal
+            //                           FROM (
+            //                               SELECT p.date, SUM(pi.hasil_produksi) AS total_produksi, SUM(pi.terpotong_panel) + SUM(pi.tersangkut_panel) + SUM(pi.overbrush_panel) AS total_reject_internal, SUM(pi.rontok_panel) + SUM(pi.lug_patah_panel) + SUM(pi.patah_kaki_panel) + SUM(pi.patah_frame_panel) + SUM(pi.bolong_panel) + SUM(pi.bending_panel) + SUM(pi.lengket_terpotong_panel) AS total_reject_eksternal
+            //                               FROM plateinput pi
+            //                               JOIN platecutting p ON pi.id_platecutting = p.id
+            //                               WHERE p.date = \'' . $tanggal . '\' AND p.line = \'' . $line . '\'
+            //                               GROUP BY p.date
+            //                           ) AS subquery
+			// 						  GROUP BY subquery.date');
+            $query = $this->db->query('SELECT subquery.date,
+                                        COALESCE(SUM(total_reject_internal) / NULLIF(SUM(total_produksi), 0), 0) AS persentase_reject_internal,
+                                        COALESCE(SUM(total_reject_eksternal) / NULLIF(SUM(total_produksi), 0), 0) AS persentase_reject_eksternal
+                                        FROM (
+                                            SELECT
+                                                p.date,
+                                                SUM(pi.hasil_produksi) AS total_produksi,
+                                                SUM(pi.terpotong_panel) + SUM(pi.tersangkut_panel) + SUM(pi.overbrush_panel) AS total_reject_internal,
+                                                SUM(pi.rontok_panel) + SUM(pi.lug_patah_panel) + SUM(pi.patah_kaki_panel) + SUM(pi.patah_frame_panel) + SUM(pi.bolong_panel) + SUM(pi.bending_panel) + SUM(pi.lengket_terpotong_panel) AS total_reject_eksternal
+                                            FROM plateinput pi
+                                            JOIN platecutting p ON pi.id_platecutting = p.id
+                                            WHERE p.date = \'' . $tanggal . '\' AND p.line = \'' . $line . '\'
+                                            AND p.line != 10
+                                            GROUP BY p.date
+                                        ) AS subquery
+                                        GROUP BY subquery.date');
         }
         
         return $query->getResultArray();
