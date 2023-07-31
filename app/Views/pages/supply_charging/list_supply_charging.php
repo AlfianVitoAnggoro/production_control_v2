@@ -1,6 +1,9 @@
 <?= $this->extend('template/layout'); ?>
 
 <?= $this->section('content'); ?>
+<?php
+    $this->session = \Config\Services::session();
+?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	  <div class="container-full">
@@ -50,7 +53,7 @@
                                         <table class="table table-bordered" id="table_supply">
                                             <thead>
                                                 <tr>
-                                                    <th>Estimated Finishing</th>
+                                                    <th>Jam Supply</th>
                                                     <th>No WO</th>
                                                     <th>Part Number</th>
                                                     <th>Lokasi</th>
@@ -68,10 +71,32 @@
                                                         $detail_component = $this->M_SupplyCharging->get_component_by_wo($item['no_wo']);
                                                         $array_component = array_values(array_filter($detail_component, function ($value) {
                                                             return !(strpos($value["PART_COMPONENT"], "PF") !== false || strpos($value["PART_COMPONENT"], "PALLET") !== false || strpos($value["PART_COMPONENT"], "ASSU") !== false || strpos($value["PART_COMPONENT"], "VECA") !== false);
-                                                        }));                                                        
+                                                        }));
+                                                        
+                                                        if ($item['sesi'] == '1') {
+                                                            $sesi = '05.00 - 06.00';
+                                                        } elseif ($item['sesi'] == '2') {
+                                                            $sesi = '08.00 - 09.00';
+                                                        } elseif ($item['sesi'] == '3') {
+                                                            $sesi = '10.00 - 11.00';
+                                                        } elseif ($item['sesi'] == '4') {
+                                                            $sesi = '13.00 - 14.00';
+                                                        } elseif ($item['sesi'] == '5') {
+                                                            $sesi = '15.00 - 16.00';
+                                                        } elseif ($item['sesi'] == '6') {
+                                                            $sesi = '17.00 - 18.00';
+                                                        } elseif ($item['sesi'] == '7') {
+                                                            $sesi = '20.00 - 21.00';
+                                                        } elseif ($item['sesi'] == '8') {
+                                                            $sesi = '22.00 - 23.00';
+                                                        } elseif ($item['sesi'] == '9') {
+                                                            $sesi = '01.00 - 02.00';
+                                                        } elseif ($item['sesi'] == '10') {
+                                                            $sesi = '03.00 - 04.00';
+                                                        }
                                                     ?>
                                                     <tr>
-                                                        <td rowspan="<?=count($array_component)?>"><?=date('d-m-Y H:i', strtotime($item['estimasi_finish']))?></td>
+                                                        <td rowspan="<?=count($array_component)?>"><?=$sesi?></td>
                                                         <td rowspan="<?=count($array_component)?>"><?=$item['no_wo']?></td>
                                                         <td rowspan="<?=count($array_component)?>"><?=$item['part_number']?></td>
                                                         <td rowspan="<?=count($array_component)?>"><?=($item['tujuan'] == '8') ? 'WET A' : 'WET F'?></td>
@@ -88,7 +113,7 @@
                                                             <input type="checkbox" id="status_supply_<?=$item['no_wo']?>_<?=$array_component[0]['PART_COMPONENT']?>" name="status_supply[]" value="1" <?=(!empty($status_supply[0]['supply_at'])) ? 'checked':''?> onclick="supply_item('<?=$item['no_wo']?>', '<?=$array_component[0]['PART_COMPONENT']?>', <?=$array_component[0]['QTY']?>)"><label for="status_supply_<?=$item['no_wo']?>_<?=$array_component[0]['PART_COMPONENT']?>"></label>
                                                             <div id="section_supply_<?=$item['no_wo']?>_<?=$array_component[0]['PART_COMPONENT']?>" style="display:contents">
                                                                 <?php if (!empty($status_supply[0]['supply_at'])) { 
-                                                                    echo date('H:i', strtotime($status_supply[0]['supply_at']));
+                                                                    echo date('H:i', strtotime($status_supply[0]['supply_at'])) . ' (' . $status_supply[0]['user_supply'] . ')';
                                                                     } ?>
                                                             </div>
                                                             <!-- <button class="btn btn-primary">Scan</button> -->
@@ -129,7 +154,7 @@
                                                                     <input type="checkbox" id="status_supply_<?=$item['no_wo']?>_<?=$array_component[$i]['PART_COMPONENT']?>" name="status_supply[]" value="1" <?=(!empty($status_supply[0]['supply_at'])) ? 'checked':''?> onclick="supply_item('<?=$item['no_wo']?>', '<?=$array_component[$i]['PART_COMPONENT']?>', <?=$array_component[$i]['QTY']?>)"><label for="status_supply_<?=$item['no_wo']?>_<?=$array_component[$i]['PART_COMPONENT']?>"></label>
                                                                     <div id="section_supply_<?=$item['no_wo']?>_<?=$array_component[$i]['PART_COMPONENT']?>" style="display:contents">
                                                                         <?php if (!empty($status_supply[0]['supply_at'])) { 
-                                                                            echo date('H:i', strtotime($status_supply[0]['supply_at']));
+                                                                            echo date('H:i', strtotime($status_supply[0]['supply_at'])) . ' (' . $status_supply[0]['user_supply'] . ')';
                                                                          } ?>
                                                                     </div>
                                                                     <!-- <button class="btn btn-primary">Scan</button> -->
@@ -326,7 +351,7 @@
                     console.log(data);
                     $('#loading-modal').modal('hide');
                     $(`#section_supply_${no_wo}_${item}`).html(`
-                        ${timeNow}
+                        ${timeNow} (<?=$this->session->get('nama')?>)
                     `);
                     $(`#jumlah_supply_${no_wo}`).val(parseInt(jumlah_supply) + 1);
 
