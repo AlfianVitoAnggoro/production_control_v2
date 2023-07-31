@@ -29,25 +29,32 @@
 
 		<?php
 		$uri = current_url(true);
-		if ($uri->getSegment(3) == 'assy') {
+		if ($uri->getSegment(5) == 'assy') {
 			$judul = 'PERFORMANCE';
-		} else if ($uri->getSegment(3) == 'reject') {
+			$judul_a = 'ASSEMBLING';
+		} else if ($uri->getSegment(5) == 'reject') {
 			$judul = 'REJECTION';
-		} else if ($uri->getSegment(3) == 'line_stop') {
+			$judul_a = 'ASSEMBLING';
+		} else if ($uri->getSegment(5) == 'line_stop') {
 			$judul = 'LINE STOP';
-		} else if ($uri->getSegment(3) == 'rejectCutting') {
+			$judul_a = 'ASSEMBLING';
+		} else if ($uri->getSegment(5) == 'rejectCutting') {
 			$judul = 'CUTTING REJECTION';
-		} else if ($uri->getSegment(3) == 'rejectMCB') {
+			$judul_a = 'ASSEMBLING';
+		} else if ($uri->getSegment(5) == 'rejectMCB') {
 			$judul = 'CUTTING REJECTION';
-		} else if ($uri->getSegment(3) == 'wet_finishing') {
+			$judul_a = 'ASSEMBLING';
+		} else if ($uri->getSegment(5) == 'wet_finishing') {
 			$judul = 'PERFORMANCE';
+			$judul_a = 'CHARGING';
 		} else {
 			$judul = 'REPORT';
+			$judul_a = '';
 		}
 
-		if ($uri->getSegment(4) == '') {
+		if ($uri->getSegment(6) == '') {
 			if ($child_filter == 0) {
-				if ($uri->getSegment(3) == 'rejectMCB') {
+				if ($uri->getSegment(5) == 'rejectMCB') {
 					$sub_judul = '(MCB)';
 				} else {
 					$sub_judul = '';
@@ -55,24 +62,35 @@
 			} else {
 				$sub_judul = '(LINE '.$child_filter.')';
 			}
-		} else if ($uri->getSegment(4) == 'amb1') {
+		} else if ($uri->getSegment(6) == 'amb1') {
 			if ($child_filter == 0) {
 				$sub_judul = '(AMB 1)';
 			} else {
 				$sub_judul = '(LINE '.$child_filter.')';
 			}
-		} else if ($uri->getSegment(4) == 'amb2') {
+		} else if ($uri->getSegment(6) == 'amb2') {
 			if ($child_filter == 0) {
 				$sub_judul = '(AMB 2)';
 			} else {
-				$sub_judul = '(LINE '.$child_filter.')';
+				if ($child_filter == '8') {
+					$sub_judul = '(WET A)';
+				} else if ($child_filter == '9') {
+					$sub_judul = '(WET F)';
+				} else if ($child_filter == '10') {
+					$sub_judul = '(MCB)';
+				} else {
+					$sub_judul = '(LINE '.$child_filter.')';
+				}
 			}
-		} else if ($uri->getSegment(4) == 'mcb') {
+		} else if ($uri->getSegment(6) == 'mcb') {
 			$sub_judul = '(MCB)';
-		} else if ($uri->getSegment(4) == 'wet_a') {
+		} else if ($uri->getSegment(6) == 'wet_a') {
 			$sub_judul = '(WET A)';
-		} else if ($uri->getSegment(4) == 'wet_f') {
+		} else if ($uri->getSegment(6) == 'wet_f') {
 			$sub_judul = '(WET F)';
+		} else if ($uri->getSegment(6) == 'home') {
+			$judul_a = '';
+			$sub_judul = '';
 		} else {
 			$sub_judul = '';
 		} 
@@ -81,7 +99,7 @@
 		<div style="margin-left:-250px; text-align:center; margin-top:-5px;">
 			<h1 class="judul_dashboard"><?=$judul?> DASHBOARD</h1>
 			<!-- <br> -->
-			<span class="sub_judul_dashboard">PRODUCTION 2 <?=$sub_judul?></span>
+			<span class="sub_judul_dashboard"><?=$judul_a?>  <?=$sub_judul?></span>
 		</div>
 
 		<div class="navbar-custom-menu r-side">
