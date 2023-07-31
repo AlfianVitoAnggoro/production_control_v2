@@ -20,7 +20,7 @@
                         Tambah Data
                       </button>
                       <?php if (session()->get('level') < 6) { ?>
-                        <a href="<?= base_url() ?>master_man_power/save_all_mp" class="btn btn-danger ms-2">Save All Skill</a>
+                        <a href="<?= base_url() ?>master_man_power/save_all_mp" class="btn btn-danger ms-2">Update All Skill</a>
                       <?php } ?>
                     </div>
                     <div>

@@ -535,6 +535,7 @@ $routes->group('master_man_power_gmt', ['filter' => 'auth'], function ($routes) 
     $routes->post('detail_man_power/edit', 'MasterManPowerGMT::update_data_man_power');
     $routes->post('detail_man_power/delete', 'MasterManPowerGMT::delete_data_man_power');
     $routes->post('get_data_master_man_power', 'MasterManPowerGMT::get_data_master_man_power');
+    $routes->get('save_all_mp', 'MasterManPowerGMT::save_all_mp');
 });
 
 //Master Group Man Power

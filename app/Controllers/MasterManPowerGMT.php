@@ -136,4 +136,34 @@ class MasterManPowerGMT extends BaseController
     ];
     return json_encode($data);
   }
+
+  public function save_all_mp()
+  {
+    if (session()->get('level') < 6) {
+      $data_mp = $this->M_MasterManPowerGMT->get_data_master_man_power_gmt();
+      foreach ($data_mp as $d_mp) {
+        for ($i = 1; $i <= 11; $i++) {
+          $cek_npk_man_power = $this->M_MasterManPowerGMT->get_detail_data_master_man_power_gmt_by_id_and_line($d_mp['id_man_power'], $i);
+          if (!count($cek_npk_man_power) > 0) {
+            $data_mesin = $this->M_MasterManPowerGMT->get_data_skill_by_line($i);
+            foreach ($data_mesin as $d_msn) {
+              $save_data_detail = [
+                'id_man_power' => $d_mp['id_man_power'],
+                'npk' => sprintf('%04d', $d_mp['npk']),
+                'line' => $i,
+                'mesin' => $d_msn,
+                'skill' => 2
+              ];
+              $this->M_MasterManPowerGMT->update_detail_data_man_power('', $save_data_detail);
+            }
+          }
+        }
+      }
+      $this->session->setFlashdata('success', 'Semua Man Power Telah Memiliki Skill');
+      return redirect()->to(base_url('master_man_power_gmt'));
+    } else {
+      $this->session->setFlashdata('failed', 'Gagal');
+      return redirect()->to(base_url('master_man_power_gmt'));
+    }
+  }
 }
