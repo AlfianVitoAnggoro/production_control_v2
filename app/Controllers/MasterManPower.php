@@ -140,4 +140,28 @@ class MasterManPower extends BaseController
   {
     return view('pages/master_data_man_power/calendar');
   }
+
+  public function save_all_mp()
+  {
+    $data_mp = $this->M_MasterManPower->get_data_master_man_power();
+    foreach ($data_mp as $d_mp) {
+      for ($i = 1; $i <= 11; $i++) {
+        $cek_npk_man_power = $this->M_MasterManPower->get_detail_data_master_man_power_by_id_and_line($d_mp['id_man_power'], $i);
+        if (!count($cek_npk_man_power) > 0) {
+          $data_mesin = $this->M_MasterManPower->get_data_skill_by_line($i);
+          foreach ($data_mesin as $d_msn) {
+            $save_data_detail = [
+              'id_man_power' => $d_mp['id_man_power'],
+              'npk' => sprintf('%04d', $d_mp['npk']),
+              'line' => $i,
+              'mesin' => $d_msn,
+              'skill' => 2
+            ];
+            $this->M_MasterManPower->update_detail_data_man_power('', $save_data_detail);
+          }
+        }
+      }
+    }
+    return 'SUCCESS';
+  }
 }

@@ -30,6 +30,13 @@ class M_MasterManPower extends Model
     return $query->getResultArray();
   }
 
+  public function get_data_skill_man_power($npk)
+  {
+    $query = $this->db2->query('SELECT id_man_power FROM detail_master_data_man_power WHERE npk = \'' . $npk . '\'');
+
+    return $query->getResultArray();
+  }
+
   // public function get_data_man_power()
   // {
   //   $query = $this->db2->query('SELECT id_man_power FROM master_data_man_power');

@@ -513,6 +513,7 @@ $routes->group('master_man_power', ['filter' => 'auth'], function ($routes) {
     $routes->post('detail_man_power/delete', 'MasterManPower::delete_data_man_power');
     $routes->get('calendar', 'MasterManPower::calendar');
     $routes->post('get_data_master_man_power', 'MasterManPower::get_data_master_man_power');
+    $routes->get('save_all_mp', 'MasterManPower::save_all_mp');
 });
 
 //Master Man Power Kasubsie
