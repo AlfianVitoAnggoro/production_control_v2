@@ -107,7 +107,9 @@
             <div>Pending</div>
           </div>
         </div>
-        <a href="<?= base_url() ?>cuti" class="btn btn-primary float-start d-none" id="list_cuti">List Cuti</a>
+        <?php if (session()->get('level') < 6) { ?>
+          <a href="<?= base_url() ?>cuti" class="btn btn-primary float-start" id="list_cuti">List Cuti</a>
+        <?php } ?>
         <input type="button" class="btn btn-secondary float-end" data-bs-dismiss="modal" aria-label="Close" value="Close">
       </div>
     </div>
@@ -120,10 +122,10 @@
 <?= $this->endSection() ?>
 <?= $this->section('script') ?>
 <script>
+  $(document).ready(
+    <?php if (session()->has('success')) { ?> window.alert('<?= session()->getFlashdata('success') ?>') <?php } ?> <?php if (session()->has('failed')) { ?> window.alert('<?= session()->getFlashdata('failed') ?>') <?php } ?>
+  );
   let line = ['', 1, 2, 3, 4, 5, 6, 7, 'WET-A', 'WET-F', 'MCB'];
-  <?php if (session()->get('level') < 6) { ?>
-    document.querySelector('#list_cuti').classList.remove('d-none');
-  <?php } ?>
 
   function createCalendar(year, month) {
     var calendarElement = document.getElementById('calendarElement');

@@ -112,6 +112,7 @@ class Izin extends BaseController
       return redirect()->to(base_url('form_izin'));
     }
 
+    $this->session->setFlashdata('success', 'Data Telah Terkirim');
     $data['success'] = 'Data Berhasil Disimpan';
     return redirect()->to(base_url('dashboard_cuti'));
   }

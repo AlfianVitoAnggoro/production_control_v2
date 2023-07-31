@@ -19,6 +19,9 @@
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".modal_tambah_man_power">
                         Tambah Data
                       </button>
+                      <?php if (session()->get('level') < 6) { ?>
+                        <a href="<?= base_url() ?>master_man_power/save_all_mp" class="btn btn-danger ms-2">Save All Skill</a>
+                      <?php } ?>
                     </div>
                     <div>
                       <div class="d-flex">
@@ -133,6 +136,9 @@
 <?= $this->endSection(); ?>
 <?= $this->section('script'); ?>
 <script>
+  $(document).ready(
+    <?php if (session()->has('success')) { ?> window.alert('<?= session()->getFlashdata('success') ?>') <?php } ?> <?php if (session()->has('failed')) { ?> window.alert('<?= session()->getFlashdata('failed') ?>') <?php } ?>
+  );
   $(document).ready(function() {
     $('#data_man_power').DataTable({
       "order": []

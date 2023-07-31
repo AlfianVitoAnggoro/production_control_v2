@@ -159,6 +159,7 @@ class CutiBesar extends BaseController
       return redirect()->to(base_url('form_cuti_besar'));
     }
 
+    $this->session->setFlashdata('success', 'Data Telah Terkirim');
     $data['success'] = 'Data Berhasil Disimpan';
     return redirect()->to(base_url('dashboard_cuti'));
   }
