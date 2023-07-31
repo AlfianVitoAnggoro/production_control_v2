@@ -363,12 +363,14 @@ class ResumeCuti extends BaseController
     $month = [];
     $year = '';
     foreach ($data['data_mp_cuti'] as $dmc) {
-      if (isset($month[date('F', strtotime($dmc['tanggal_cuti']))])) {
-        $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] = $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] . ', ' . date('d', strtotime($dmc['tanggal_cuti']));
-      } else {
-        $month[date('F', strtotime($dmc['tanggal_cuti']))] = date('F', strtotime($dmc['tanggal_cuti']));
-        $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] = date('d', strtotime($dmc['tanggal_cuti']));
-        $year = date('Y', strtotime($dmc['tanggal_cuti']));
+      if (($dmc['tanggal_cuti'] ?? '') !== '') {
+        if (isset($month[date('F', strtotime($dmc['tanggal_cuti']))])) {
+          $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] = $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] . ', ' . date('d', strtotime($dmc['tanggal_cuti']));
+        } else {
+          $month[date('F', strtotime($dmc['tanggal_cuti']))] = date('F', strtotime($dmc['tanggal_cuti']));
+          $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] = date('d', strtotime($dmc['tanggal_cuti']));
+          $year = date('Y', strtotime($dmc['tanggal_cuti']));
+        }
       }
     }
     if (count($month) > 0) {
@@ -475,12 +477,14 @@ class ResumeCuti extends BaseController
     $month = [];
     $year = '';
     foreach ($data['data_mp_cuti'] as $dmc) {
-      if (isset($month[date('F', strtotime($dmc['tanggal_cuti']))])) {
-        $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] = $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] . ', ' . date('d', strtotime($dmc['tanggal_cuti']));
-      } else {
-        $month[date('F', strtotime($dmc['tanggal_cuti']))] = date('F', strtotime($dmc['tanggal_cuti']));
-        $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] = date('d', strtotime($dmc['tanggal_cuti']));
-        $year = date('Y', strtotime($dmc['tanggal_cuti']));
+      if (($dmc['tanggal_cuti'] ?? '') !== '') {
+        if (isset($month[date('F', strtotime($dmc['tanggal_cuti']))])) {
+          $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] = $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] . ', ' . date('d', strtotime($dmc['tanggal_cuti']));
+        } else {
+          $month[date('F', strtotime($dmc['tanggal_cuti']))] = date('F', strtotime($dmc['tanggal_cuti']));
+          $format_tanggal[date('F', strtotime($dmc['tanggal_cuti']))] = date('d', strtotime($dmc['tanggal_cuti']));
+          $year = date('Y', strtotime($dmc['tanggal_cuti']));
+        }
       }
     }
     if (count($month) > 0) {
@@ -494,5 +498,12 @@ class ResumeCuti extends BaseController
       }
     }
     return view('pages/cuti_besar/print_form_cuti_besar', $data);
+  }
+
+  public function delete_cuti($cuti, $id_cuti)
+  {
+    $this->M_ResumeCuti->delete_cuti($cuti, $id_cuti);
+
+    return redirect()->to(base_url('cuti'));
   }
 }
