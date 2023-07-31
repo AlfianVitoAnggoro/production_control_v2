@@ -242,7 +242,7 @@ $mh = [8, 7.5, 6.5];
                                                         </td>
                                                         <td>
                                                             Negatif (CH4)
-                                                            <input type="hidden" class="form-control" name="melting_pot[]" id="keterangan_1" value="<?= $data_level_melting_pot[1]['keterangan']  ?? 'Negatif (CH5)' ?>"
+                                                            <input type="hidden" class="form-control" name="melting_pot[]" id="keterangan_1" value="<?= $data_level_melting_pot[1]['keterangan']  ?? 'Negatif (CH5)' ?>">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control" name="awal_shift[]" id="awal_shift_1" value="<?= $data_level_melting_pot[1]['awal_shift']  ?? ''?>">
@@ -259,7 +259,7 @@ $mh = [8, 7.5, 6.5];
                                                         </td>
                                                         <td>
                                                             Scrap Positif
-                                                            <input type="hidden" class="form-control" name="melting_pot[]" id="keterangan_0" value="<?= $data_level_melting_pot[0]['keterangan']  ?? 'Scrap Positif' ?>"
+                                                            <input type="hidden" class="form-control" name="melting_pot[]" id="keterangan_0" value="<?= $data_level_melting_pot[0]['keterangan']  ?? 'Scrap Positif' ?>">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control" name="awal_shift[]" id="awal_shift_2" value="<?= $data_level_melting_pot[2]['awal_shift']  ?? ''?>">
@@ -276,7 +276,7 @@ $mh = [8, 7.5, 6.5];
                                                         </td>
                                                         <td>
                                                             Scrap Negatif
-                                                            <input type="hidden" class="form-control" name="melting_pot[]" id="keterangan_3" value="<?= $data_level_melting_pot[3]['keterangan']  ?? 'Scrap Negatif' ?>"
+                                                            <input type="hidden" class="form-control" name="melting_pot[]" id="keterangan_3" value="<?= $data_level_melting_pot[3]['keterangan']  ?? 'Scrap Negatif' ?>">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control" name="awal_shift[]" id="awal_shift_3" value="<?= $data_level_melting_pot[3]['awal_shift']  ?? ''?>">
@@ -305,7 +305,7 @@ $mh = [8, 7.5, 6.5];
                                     <table id="hourly_report" class="table table-striped mb-0">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
+                                                <!-- <th>#</th> -->
                                                 <th>Jam Start</th>
                                                 <th>Jam End</th>
                                                 <th>Menit Terpakai</th>
@@ -347,10 +347,10 @@ $mh = [8, 7.5, 6.5];
                                                     }
                                                     if ($data_detail_lhp[$i]['batch'] !== NULL) {
                                                         if ($data_detail_lhp[$i]['batch'] != $temp_batch) {
-                                                            $number = 0;
-                                            ?>
+                                                            $number = 0; 
+                                                            ?>
                                                             <tr class="row_<?= $data_detail_lhp[$i]['batch'] ?>">
-                                                                <td>
+                                                                <td style="display:none">
                                                                     <button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?= $data_detail_lhp[$i]['batch'] ?>)">
                                                                         Add
                                                                     </button>
@@ -367,7 +367,7 @@ $mh = [8, 7.5, 6.5];
                                                                 </td>
                                             <?php } else { $number++ ?>
                                                             <tr class="row_<?= $data_detail_lhp[$i]['batch'] ?>">
-                                                                <td>
+                                                                <td style="display:none">
                                                                     <button type="button" class="btn btn-sm btn-danger" onclick="delete_rows_db(this, <?= $i ?>, <?= $data_detail_lhp[$i]['batch'] ?>)">Remove</button>
                                                                 </td>
                                                                 <td>
@@ -382,7 +382,7 @@ $mh = [8, 7.5, 6.5];
                                                                 </td>
                                             <?php } } else { ?>
                                                             <tr class="row_<?= $i ?>">
-                                                                <td>
+                                                                <td style="display:none">
                                                                     <button type="button" class="btn btn-sm btn-primary" onclick="add_rows_batch(<?= $i ?>)">
                                                                         Add
                                                                     </button>
@@ -402,7 +402,7 @@ $mh = [8, 7.5, 6.5];
                                                                     <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" value="<?= $data_detail_lhp[$i]['menit_terpakai'] ?>" onkeyup="update_plan(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>, <?= $number ?>)" style="width: 100px">
                                                                 </td>
                                                                 <td>
-                                                                    <select name="coil_code[]" id="coil_code_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" class="form-select select2 coil_code" onchange="get_plan(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>, <?= $number ?>)" style="width: 300px">
+                                                                    <select name="coil_code[]" id="coil_code_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" class="form-select select2 coil_code" style="width: 300px">
                                                                         <option value="">-- Pilih Coil --</option>
                                                                         <?php
                                                                         foreach ($data_coil_code as $d_coil_code) {
@@ -412,11 +412,12 @@ $mh = [8, 7.5, 6.5];
                                                                         }
                                                                         ?>
                                                                     </select>
-                                                                    <input type="hidden" name="batch[]" id="batch_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>" value="<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>">
+                                                                    <!-- <input type="hidden" name="batch[]" id="batch_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>" value="<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>"> -->
+                                                                    <input type="hidden" name="batch[]" id="batch_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>" value="">
                                                                     <input type="hidden" name="id_detail_lhp_wide_strip[]" id="id_detail_lhp_wide_strip_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" value="<?= $data_detail_lhp[$i]['id_detail_lhp_wide_strip'] ?>">
                                                                 </td>
                                                                 <td>
-                                                                    <select name="type_wist[]" id="type_wist_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" class="form-select select2" style="width: 300px">
+                                                                    <select name="type_wist[]" id="type_wist_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" onchange="get_ct(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>,<?= $number ?>)" class="form-select select2" style="width: 300px">
                                                                         <option value="">-- Pilih Type Wist --</option>
                                                                         <option value="WIST NEG" <?= 'WIST NEG' == $data_detail_lhp[$i]['type_wist'] ? 'selected' : '' ?>>WIST NEG</option>
                                                                         <option value="WIST POS" <?= 'WIST POS' == $data_detail_lhp[$i]['type_wist'] ? 'selected' : '' ?>>WIST POS</option>
@@ -432,7 +433,7 @@ $mh = [8, 7.5, 6.5];
                                                                     <input type="number" class="form-control" name="actual[]" id="actual_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" onkeyup="update_total_stop(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>, <?= $number ?>)" value="<?= $data_detail_lhp[$i]['actual'] ?>" style="width: 100px">
                                                                 </td>
                                                                 <td>
-                                                                    <input type="number" class="form-control" name="total_stop[]" id="total_stop_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" value="<?= number_format($data_detail_lhp[$i]['total_stop'], 3) ?>" style="width: 75px" readonly>
+                                                                    <input type="number" class="form-control" name="total_stop[]" id="total_stop_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" value="<?= $data_detail_lhp[$i]['total_stop'] ?>" style="width: 75px" readonly>
                                                                 </td>
                                                                 <td>
                                                                     <button type="button" class="btn btn-sm btn-primary" id="add_breakdown_<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>_<?= $number ?>" onclick="add_breakdown(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>, <?= $number ?>, <?= $data_detail_lhp[$i]['id_detail_lhp_wide_strip'] !== NULL ? $data_detail_lhp[$i]['id_detail_lhp_wide_strip'] : '' ?>)">Add</button>
@@ -462,17 +463,18 @@ $mh = [8, 7.5, 6.5];
                                                             <input type="number" class="form-control" name="menit_terpakai[]" id="menit_terpakai_<?= $i ?>_0" value="<?= $menit_aktual[$i] ?>" onkeyup="update_plan(<?= $i ?>, 0)" style="width: 100px">
                                                         </td>
                                                         <td>
-                                                            <select name="coil_code[]" id="coil_code_<?= $i ?>_0" class="form-select select2" onchange="get_plan(<?= $i ?>, 0)" style="width: 300px">
+                                                            <select name="coil_code[]" id="coil_code_<?= $i ?>_0" class="form-select select2" style="width: 300px">
                                                                 <option value="">-- Pilih Coil --</option>
                                                                 <?php foreach ($data_coil_code as $d_coil_code) { ?>
                                                                     <option value="<?= str_replace(' ', '', $d_coil_code['coil_code']) ?>"><?= $d_coil_code['coil_code'] ?></option>
                                                                 <?php } ?>
                                                             </select>
-                                                            <input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$i?>">
+                                                            <!-- <input type="hidden" name="batch[]" id="batch_<?=$i?>" value="<?=$i?>"> -->
+                                                            <input type="hidden" name="batch[]" id="batch_<?=$i?>" value="">
                                                             <input type="hidden" name="id_detail_lhp_wide_strip[]" id="id_detail_lhp_wide_strip_<?= $i ?>_0" value="">
                                                         </td>
                                                         <td>
-                                                            <select name="type_wist[]" id="type_wist_<?= $i ?>_0" class="form-select select2" style="width: 300px">
+                                                            <select name="type_wist[]" id="type_wist_<?= $i ?>_0" onchange="get_ct(<?= $data_detail_lhp[$i]['batch'] !== NULL ? $data_detail_lhp[$i]['batch'] : $i ?>,0)" class="form-select select2" style="width: 300px">
                                                                 <option value="">-- Pilih Type Wist --</option>
                                                                 <option value="WIST NEG">WIST NEG</option>
                                                                 <option value="WIST POS">WIST POS</option>
@@ -507,12 +509,12 @@ $mh = [8, 7.5, 6.5];
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colspan="7" class="text-end">
+                                                <td colspan="6" class="text-end">
                                                     <h3>Total</h3>
                                                 </td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_plan" id="" value="<?= $data_lhp[0]['total_plan'] ?>" style="width: 100px" readonly></td>
                                                 <td style="text-align: right;"><input type="text" class="form-control" name="total_actual" id="" value="<?= $data_lhp[0]['total_aktual'] ?>" style="width: 100px" readonly></td>
-                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_total_stop" id="" value="<?= number_format($data_lhp[0]['total_stop'], 3) ?>" style="width: 75px" readonly></td>
+                                                <td style="text-align: right;"><input type="text" class="form-control" name="total_total_stop" id="" value="<?= $data_lhp[0]['total_stop'] ?>" style="width: 75px" readonly></td>
                                                 <td></td>
                                             </tr>
                                         </tfoot>
@@ -644,6 +646,7 @@ $mh = [8, 7.5, 6.5];
                                                 <th>Jam Start</th>
                                                 <th>Jam Stop</th>
                                                 <th>Coil Code</th>
+                                                <th>Type</th>
                                                 <th>Kategori Line Stop</th>
                                                 <th>Jenis Line Stop</th>
                                                 <th>Uraian Line Stop</th>
@@ -664,7 +667,10 @@ $mh = [8, 7.5, 6.5];
                                                     <td>
                                                         <input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_<?= $index_breakdown ?>" value="<?= $d_breakdown['id_breakdown_ws'] ?>">
                                                         <input type="hidden" class="form-control" name="id_detail_lhp_breakdown[]" id="id_detail_lhp_breakdown_<?= $index_breakdown ?>" value="<?= $d_breakdown['id_detail_lhp_ws'] ?>">
-                                                        <input type="text" class="form-control" name="coil_code_line_stop[]" id="coil_code_line_stop_<?= $index_breakdown ?>" value="<?= $d_breakdown['coil_code'] ?>" style="width: 225px" readonly>
+                                                        <input type="text" class="form-control" name="coil_code_line_stop[]" id="coil_code_line_stop_<?= $index_breakdown ?>" value="<?= $d_breakdown['coil_code'] ?>" style="width: 150px" readonly>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="type_line_stop[]" id="type_line_stop_<?= $index_breakdown ?>" value="<?= $d_breakdown['type'] ?>" style="width: 150px" readonly>
                                                     </td>
                                                     <td>
                                                         <select class="form-control select2" name="kategori_line_stop[]" id="kategori_line_stop_<?= $index_breakdown ?>" onchange="get_jenis_line_stop(<?= $index_breakdown ?>)" style="width: 200px">
@@ -1612,11 +1618,11 @@ $mh = [8, 7.5, 6.5];
                 <option value="">-- Pilih Coil --</option>
                 ${data_coil_code.map((item) => `<option value="${item.coil_code}">${item.coil_code}</option>`)}
             </select>
-            <input type="hidden" name="batch[]" id="batch_${i}" value="${i}">
+            <input type="hidden" name="batch[]" id="batch_${i}" value="">
             <input type="hidden" name="id_detail_lhp_wide_strip[]" id="id_detail_lhp_wide_strip_${i}" value="">
         </td>
         <td>
-            <select name="type_wist[]" id="type_wist_${i}_${batchNumber}" class="form-select select2" style="width: 300px">
+            <select name="type_wist[]" id="type_wist_${i}_${batchNumber}" onchange="get_ct(${i},${batchNumber})" class="form-select select2" style="width: 300px">
                 <option selected value="">-- Pilih Type Wist --</option>
                 <option value="WIST NEG">WIST NEG</option>
                 <option value="WIST POS">WIST POS</option>
@@ -1690,7 +1696,7 @@ $mh = [8, 7.5, 6.5];
         let plan = Math.floor(menit_terpakai / ct);
         $('#plan_' + i + '_' + j).val(plan);
 
-        update_total_stop(i, j);
+        // update_total_stop(i, j);
     }
 
     function update_total_stop(i, j) {
@@ -1698,7 +1704,8 @@ $mh = [8, 7.5, 6.5];
         let ct = $('#ct_' + i + '_' + j).val();
         let actual = $('#actual_' + i + '_' + j).val();
         let plan = Math.floor(menit_terpakai / ct);
-        console.log({menit_terpakai, ct, actual, plan})
+        // console.log({menit_terpakai, ct, actual, plan})
+        get_total_line_stop(i, j);
     }
 
     function add_breakdown(i, j, id_detail_lhp) {
@@ -1708,6 +1715,7 @@ $mh = [8, 7.5, 6.5];
         var start_breakdown = $('#start_' + i + '_' + j).val();
         var stop_breakdown = $('#stop_' + i + '_' + j).val();
         var coil_code = $('#coil_code_' + i + '_' + j).val();
+        var type = $('#type_wist_' + i + '_' + j).val();
         // var no_wo_breakdown = $('#no_wo_' + i).val();
 
 
@@ -1727,7 +1735,10 @@ $mh = [8, 7.5, 6.5];
                     <td>
                         <input type="hidden" class="form-control" name="id_breakdown[]" id="id_breakdown_${row}" value="">
                         <input type="hidden" class="form-control" name="id_detail_lhp_breakdown[]" id="id_detail_lhp_breakdown_${row}" value="${id_detail_lhp}">
-                        <input type="text" class="form-control" name="coil_code_line_stop[]" id="coil_code_line_stop_${row}" value="${coil_code}" style="width: 225px" readonly>
+                        <input type="text" class="form-control" name="coil_code_line_stop[]" id="coil_code_line_stop_${row}" value="${coil_code}" style="width: 150px" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="type_line_stop[]" id="type_line_stop_${row}" value="${type}" style="width: 150px" readonly>
                     </td>
                     <td>
                         <select class="form-control select2" name="kategori_line_stop[]" id="kategori_line_stop_${row}" onchange="get_jenis_line_stop(${row})" style="width: 200px">
@@ -1785,6 +1796,31 @@ $mh = [8, 7.5, 6.5];
     function delete_rows(e, i) {
         deletedRow(i);
         $(e).parent().parent().remove();
+    }
+
+    function get_ct(i,j)
+    {
+        var type_wist = $('#type_wist_'+i+'_'+j).val();
+        var plan;
+        if (type_wist == 'WIST NEG') {
+            $('#ct_'+i+'_'+j).val('0.53');
+            plan = parseFloat(parseInt($('#menit_terpakai_'+i+'_'+j).val()) * 60) * parseFloat(0.53);
+        } else if (type_wist == 'WIST POS') {
+            $('#ct_'+i+'_'+j).val('0.42');
+            plan = parseFloat(parseInt($('#menit_terpakai_'+i+'_'+j).val()) * 60) * parseFloat(0.42);
+        }
+
+        $('#plan_'+i+'_'+j).val(plan);
+        $('#total_stop_'+i+'_'+j).val($('#menit_terpakai_'+i+'_'+j).val());
+    }
+
+    function get_total_line_stop(i,j)
+    {
+        var actual = $('#actual_'+i+'_'+j).val();
+        var ct = $('#ct_'+i+'_'+j).val();
+
+        var total_stop = parseInt($('#menit_terpakai_'+i+'_'+j).val()) - parseInt(parseInt(parseInt(actual) / parseFloat(ct)) / 60);
+        $('#total_stop_'+i+'_'+j).val(total_stop);
     }
 </script>
 <?= $this->endSection(); ?>

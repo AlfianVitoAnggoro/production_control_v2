@@ -158,6 +158,7 @@ class WideStrip extends BaseController
                         'jam_start' => $this->request->getPost('start_breakdown')[$i],
                         'jam_end' => $this->request->getPost('stop_breakdown')[$i],
                         'coil_code' => $this->request->getPost('coil_code_line_stop')[$i],
+                        'type' => $this->request->getPost('type_line_stop')[$i],
                         'kategori_line_stop' => $this->request->getPost('kategori_line_stop')[$i],
                         'jenis_line_stop' => $this->request->getPost('jenis_line_stop')[$i],
                         'uraian_line_stop' => $this->request->getPost('uraian_line_stop')[$i],
