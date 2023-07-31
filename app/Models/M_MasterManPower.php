@@ -18,14 +18,14 @@ class M_MasterManPower extends Model
 
   public function get_data_master_man_power()
   {
-    $query = $this->db2->query('SELECT * FROM master_data_man_power WHERE status != \'gmt\'');
+    $query = $this->db2->query('SELECT * FROM master_data_man_power WHERE status != \'gmt\' OR status IS NULL');
 
     return $query->getResultArray();
   }
 
   public function get_data_man_power($npk)
   {
-    $query = $this->db2->query('SELECT id_man_power FROM master_data_man_power WHERE npk = \'' . $npk . '\' AND status != \'gmt\'');
+    $query = $this->db2->query('SELECT id_man_power FROM master_data_man_power WHERE npk = \'' . $npk . '\' AND (status != \'gmt\' OR status IS NULL)');
 
     return $query->getResultArray();
   }
@@ -46,7 +46,7 @@ class M_MasterManPower extends Model
 
   public function get_data_master_man_power_by_id($id_man_power)
   {
-    $query = $this->db2->query('SELECT * FROM master_data_man_power WHERE id_man_power = \'' . $id_man_power . '\' AND status != \'gmt\'');
+    $query = $this->db2->query('SELECT * FROM master_data_man_power WHERE id_man_power = \'' . $id_man_power . '\' AND (status != \'gmt\' OR status IS NULL)');
 
     return $query->getResultArray();
   }
@@ -114,7 +114,7 @@ class M_MasterManPower extends Model
 
   public function delete_data_master_man_power($id_man_power)
   {
-    $query = $this->db2->query('DELETE FROM master_data_man_power WHERE id_man_power =\'' . $id_man_power . '\' AND status != \'gmt\'');
-    $query = $this->db2->query('DELETE FROM detail_master_data_man_power WHERE id_man_power =\'' . $id_man_power . '\' AND status != \'gmt\'');
+    $query = $this->db2->query('DELETE FROM master_data_man_power WHERE id_man_power =\'' . $id_man_power . '\' AND (status != \'gmt\' OR status IS NULL)');
+    $query = $this->db2->query('DELETE FROM detail_master_data_man_power WHERE id_man_power =\'' . $id_man_power . '\'');
   }
 }
