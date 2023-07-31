@@ -10,7 +10,7 @@
     <h4 class="text-center fw-bold">DAN</h4>
     <h4 class="text-center fw-bold text-decoration-underline">PENGAMBILAN UANG CUTI BESAR</h4>
     <h5>Bersama ini saya,</h5>
-    <form action="<?= base_url() ?>form_cuti_besar/save" method="POST">
+    <form action="<?= base_url() ?>form_cuti_besar/save" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label for="nama">Nama</label>
         <select class="form-select select2" name="nama" id="nama" style="width: 100%" onchange="data_mp()">
@@ -69,15 +69,15 @@
           &nbsp; selama &nbsp;
           <div class="form-group m-0">
             <!-- <label for="tanggal">Tanggal</label> -->
-            <input type="text" class="form-control" id="jumlah_hari" name="jumlah_hari">
+            <input type="number" class="form-control" id="jumlah_hari" name="jumlah_hari" style="width: 75px;">
           </div>
           &nbsp; hari terhitung tanggal &nbsp;
           <div class="form-group m-0">
-            <input type="date" class="form-control" id="start_date" name="start_date">
+            <input type="date" class="form-control" id="start_date" name="start_date" onchange="add_min_date()">
           </div>
           &nbsp; s/d &nbsp;
           <div class="form-group m-0">
-            <input type="date" class="form-control" id="end_date" name="end_date">
+            <input type="date" class="form-control" id="end_date" name="end_date" disabled>
           </div>
         </div>
       </div>
@@ -90,7 +90,14 @@
         <label for="telp">No. Telpon</label>
         <input type="text" class="form-control" id="telp" name="telp">
       </div>
-
+      <div class="form-group">
+        <label for="lampiran">Lampiran</label>
+        <!-- <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]" multiple accept="image/*"> -->
+        <div id="multiple_file" style="width: 100%">
+          <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]">
+        </div>
+        <button type="button" class="btn btn-sm btn-primary" id="btn_add_lampiran" onclick="add_lampiran()">+</button>
+      </div>
       <button type="submit" class="btn btn-primary">Kirim</button>
     </form>
   </section>
@@ -165,6 +172,29 @@
     } else {
       document.querySelector('#pengambilan_cuti').classList.add('d-none');
     }
+  }
+
+  function add_lampiran() {
+    let multiple_fileElement = document.querySelector('#multiple_file');
+    let newMultiple_fileElementInput = document.createElement('input');
+    newMultiple_fileElementInput.setAttribute('type', 'file');
+    newMultiple_fileElementInput.setAttribute('class', 'form-control mb-2');
+    newMultiple_fileElementInput.setAttribute('name', 'lampiran[]');
+    multiple_fileElement.appendChild(newMultiple_fileElementInput);
+    // multiple_fileElement.innerHTML += '<input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]">';
+  }
+
+  function add_min_date() {
+    let start_dateElement = document.querySelector('#start_date');
+    let end_dateElement = document.querySelector('#end_date');
+    end_dateElement.setAttribute('min', start_dateElement.value);
+    end_dateElement.removeAttribute('disabled');
+    // let newMultiple_fileElementInput = document.createElement('input');
+    // newMultiple_fileElementInput.setAttribute('type', 'file');
+    // newMultiple_fileElementInput.setAttribute('class', 'form-control mb-2');
+    // newMultiple_fileElementInput.setAttribute('name', 'lampiran[]');
+    // multiple_fileElement.appendChild(newMultiple_fileElementInput);
+    // multiple_fileElement.innerHTML += '<input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]">';
   }
 </script>
 <?= $this->endSection(); ?>

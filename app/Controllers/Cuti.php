@@ -27,11 +27,15 @@ class Cuti extends BaseController
     $bagian = $this->request->getPost('bagian');
     $group_mp = $this->request->getPost('group_mp');
     if ($waktu_rencana[0] !== '') {
-      foreach ($waktu_rencana as $wr) {
-        $temp_data_mp_absen_by_daily = $this->M_Cuti->get_data_mp_absen_by_daily($wr, $line, $group_mp, $bagian);
-        if (count($temp_data_mp_absen_by_daily) >= 2) {
-          $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . $wr . '\nSilakan menghubungi Kasie anda');
-          return redirect()->to(base_url('form_cuti'));
+      if ($this->session->get('level') > 4 || $this->session->get('level') == NULL) {
+        foreach ($waktu_rencana as $wr) {
+          if ($wr != '') {
+            $temp_data_mp_absen_by_daily = $this->M_Cuti->get_data_mp_absen_by_daily($wr, $line, $group_mp, $bagian);
+            if (count($temp_data_mp_absen_by_daily) >= 2) {
+              $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . $wr . '\nSilakan menghubungi Kasie anda');
+              return redirect()->to(base_url('form_cuti'));
+            }
+          }
         }
       }
       date_default_timezone_set('Asia/Jakarta');
@@ -71,18 +75,19 @@ class Cuti extends BaseController
         // $save_resume_cuti = $this->M_Cuti->save_resume_cuti($data_resume_cuti);
 
         foreach ($waktu_rencana as $wr) {
-          if ($wr !== NULL) {
+          if ($wr != '') {
             $detail_form_cuti = [
               'id_cuti' => $save,
               'tanggal_cuti' => $wr,
             ];
+            $save_detail = $this->M_Cuti->save_detail_form_cuti($detail_form_cuti);
           }
-          $save_detail = $this->M_Cuti->save_detail_form_cuti($detail_form_cuti);
         }
         if (count($lampiran) > 0) {
           foreach ($lampiran['lampiran'] as $lamp) {
             if ($lamp && $lamp->isValid()) {
               $namaFile = $lamp->getName();
+              $namaFile = substr($namaFile, -24);
               $fileName = sprintf('%04d', $npk) . '_' . $tanggal . '_' . $namaFile;
               $file_path = FCPATH . 'uploads\\lampiran_cuti\\' . $fileName; // Ganti "file_name.txt" dengan nama file yang ingin dihapus
               $count = 1;
@@ -110,7 +115,7 @@ class Cuti extends BaseController
     }
 
     $data['success'] = 'Data Berhasil Disimpan';
-    return redirect()->to(base_url('form_cuti'));
+    return redirect()->to(base_url('dashboard_cuti'));
   }
 
   public function get_data_mp()

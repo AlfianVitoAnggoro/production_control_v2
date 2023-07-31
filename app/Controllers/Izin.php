@@ -27,11 +27,13 @@ class Izin extends BaseController
     $group_mp = $this->request->getPost('group_mp');
     $bagian = $this->request->getPost('bagian');
     if ($waktu_rencana[0] !== '') {
-      foreach ($waktu_rencana as $wr) {
-        $temp_data_mp_absen_by_daily = $this->M_Izin->get_data_mp_absen_by_daily($wr, $line, $group_mp, $bagian);
-        if (count($temp_data_mp_absen_by_daily) >= 2) {
-          $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . $wr . '\nSilakan menghubungi Kasie anda');
-          return redirect()->to(base_url('form_izin'));
+      if ($this->session->get('level') > 4 || $this->session->get('level') == NULL) {
+        foreach ($waktu_rencana as $wr) {
+          $temp_data_mp_absen_by_daily = $this->M_Izin->get_data_mp_absen_by_daily($wr, $line, $group_mp, $bagian);
+          if (count($temp_data_mp_absen_by_daily) >= 2) {
+            $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . $wr . '\nSilakan menghubungi Kasie anda');
+            return redirect()->to(base_url('form_izin'));
+          }
         }
       }
       date_default_timezone_set('Asia/Jakarta');
@@ -76,13 +78,14 @@ class Izin extends BaseController
               'id_cuti' => $save,
               'tanggal_cuti' => $wr,
             ];
+            $save_detail = $this->M_Izin->save_detail_form_izin($detail_form_izin);
           }
-          $save_detail = $this->M_Izin->save_detail_form_izin($detail_form_izin);
         }
         if (count($lampiran) > 0) {
           foreach ($lampiran['lampiran'] as $lamp) {
             if ($lamp && $lamp->isValid()) {
               $namaFile = $lamp->getName();
+              $namaFile = substr($namaFile, -24);
               $fileName = sprintf('%04d', $npk) . '_' . $tanggal . '_' . $namaFile;
               $file_path = FCPATH . 'uploads\\lampiran_cuti\\' . $fileName; // Ganti "file_name.txt" dengan nama file yang ingin dihapus
               $count = 1;
@@ -110,7 +113,7 @@ class Izin extends BaseController
     }
 
     $data['success'] = 'Data Berhasil Disimpan';
-    return redirect()->to(base_url('form_izin'));
+    return redirect()->to(base_url('dashboard_cuti'));
   }
 
   public function get_data_mp()

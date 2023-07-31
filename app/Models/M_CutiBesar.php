@@ -46,81 +46,81 @@ class M_CutiBesar extends Model
     //                         JOIN master_data_man_power mdmp ON drc.nama = mdmp.id_man_power
     //                         ORDER BY tanggal DESC
     //                         ');
-    if ($line != 'indirect') {
-      $query_cuti = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti drac
-                              JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                              JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama
+    // if ($line != 'indirect') {
+    $query_cuti = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti drac
+                              -- JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+                              -- JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama
                               JOIN detail_record_all_cuti drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.line = \'' . $line . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\'
                               ');
-      $query_izin = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_izin drac
-                              JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                              JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama
+    $query_izin = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_izin drac
+                              -- JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+                              -- JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama
                               JOIN detail_record_all_izin drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.line = \'' . $line . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\'
                               ');
-      $query_cuti_besar = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti_besar drac
-                              JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                              JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama
+    $query_cuti_besar = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti_besar drac
+                              -- JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+                              -- JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama
                               JOIN detail_record_all_cuti_besar drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.line = \'' . $line . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\'
                               ');
-      $query_dispensasi = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_dispensasi drac
-                              JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                              JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama
+    $query_dispensasi = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_dispensasi drac
+                              -- JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+                              -- JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama
                               JOIN detail_record_all_dispensasi drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.line = \'' . $line . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\'
                               ');
-      $query_skd = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_skd drac
-                              JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                              JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama
+    $query_skd = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_skd drac
+                              -- JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+                              -- JOIN detail_master_data_group_man_power dmdgmp ON mdmp.id_man_power = dmdgmp.nama
                               JOIN detail_record_all_skd drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.line = \'' . $line . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\'
                               ');
 
-      $data = array_merge($query_cuti->getResultArray(), $query_izin->getResultArray(), $query_cuti_besar->getResultArray(), $query_dispensasi->getResultArray(), $query_skd->getResultArray());
-      // $tanggal = array_column($data, 'tanggal');
-      // $created_at = array_column($data, 'created_at');
-      // array_multisort($tanggal, SORT_DESC, $created_at, SORT_ASC, $data);
-      return $data;
-    } else {
-      $query_cuti = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti drac
-                                JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                                JOIN detail_master_data_group_man_power_indirect dmdgmp ON mdmp.id_man_power = dmdgmp.nama
-                                JOIN detail_record_all_cuti drc ON drc.id_cuti = drac.id_cuti
-                                WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.sub_bagian = \'' . $bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
-                                ');
-      $query_izin = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_izin drac
-                                JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                                JOIN detail_master_data_group_man_power_indirect dmdgmp ON mdmp.id_man_power = dmdgmp.nama
-                                JOIN detail_record_all_izin drc ON drc.id_cuti = drac.id_cuti
-                                WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.sub_bagian = \'' . $bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
-                                ');
-      $query_cuti_besar = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti_besar drac
-                                JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                                JOIN detail_master_data_group_man_power_indirect dmdgmp ON mdmp.id_man_power = dmdgmp.nama
-                                JOIN detail_record_all_cuti_besar drc ON drc.id_cuti = drac.id_cuti
-                                WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.sub_bagian = \'' . $bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
-                                ');
-      $query_dispensasi = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_dispensasi drac
-                                JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                                JOIN detail_master_data_group_man_power_indirect dmdgmp ON mdmp.id_man_power = dmdgmp.nama
-                                JOIN detail_record_all_dispensasi drc ON drc.id_cuti = drac.id_cuti
-                                WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.sub_bagian = \'' . $bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
-                                ');
-      $query_skd = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_skd drac
-                                JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
-                                JOIN detail_master_data_group_man_power_indirect dmdgmp ON mdmp.id_man_power = dmdgmp.nama
-                                JOIN detail_record_all_skd drc ON drc.id_cuti = drac.id_cuti
-                                WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.sub_bagian = \'' . $bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
-                                ');
+    $data = array_merge($query_cuti->getResultArray(), $query_izin->getResultArray(), $query_cuti_besar->getResultArray(), $query_dispensasi->getResultArray(), $query_skd->getResultArray());
+    // $tanggal = array_column($data, 'tanggal');
+    // $created_at = array_column($data, 'created_at');
+    // array_multisort($tanggal, SORT_DESC, $created_at, SORT_ASC, $data);
+    return $data;
+    // } else {
+    //   $query_cuti = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti drac
+    //                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+    //                             JOIN detail_master_data_group_man_power_indirect dmdgmp ON mdmp.id_man_power = dmdgmp.nama
+    //                             JOIN detail_record_all_cuti drc ON drc.id_cuti = drac.id_cuti
+    //                             WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.sub_bagian = \'' . $bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+    //                             ');
+    //   $query_izin = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_izin drac
+    //                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+    //                             JOIN detail_master_data_group_man_power_indirect dmdgmp ON mdmp.id_man_power = dmdgmp.nama
+    //                             JOIN detail_record_all_izin drc ON drc.id_cuti = drac.id_cuti
+    //                             WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.sub_bagian = \'' . $bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+    //                             ');
+    //   $query_cuti_besar = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti_besar drac
+    //                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+    //                             JOIN detail_master_data_group_man_power_indirect dmdgmp ON mdmp.id_man_power = dmdgmp.nama
+    //                             JOIN detail_record_all_cuti_besar drc ON drc.id_cuti = drac.id_cuti
+    //                             WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.sub_bagian = \'' . $bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+    //                             ');
+    //   $query_dispensasi = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_dispensasi drac
+    //                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+    //                             JOIN detail_master_data_group_man_power_indirect dmdgmp ON mdmp.id_man_power = dmdgmp.nama
+    //                             JOIN detail_record_all_dispensasi drc ON drc.id_cuti = drac.id_cuti
+    //                             WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.sub_bagian = \'' . $bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+    //                             ');
+    //   $query_skd = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_skd drac
+    //                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
+    //                             JOIN detail_master_data_group_man_power_indirect dmdgmp ON mdmp.id_man_power = dmdgmp.nama
+    //                             JOIN detail_record_all_skd drc ON drc.id_cuti = drac.id_cuti
+    //                             WHERE drc.tanggal_cuti = \'' . $date . '\' AND dmdgmp.sub_bagian = \'' . $bagian . '\' AND dmdgmp.group_mp = \'' . $group_mp . '\'
+    //                             ');
 
-      $data = array_merge($query_cuti->getResultArray(), $query_izin->getResultArray(), $query_cuti_besar->getResultArray(), $query_dispensasi->getResultArray(), $query_skd->getResultArray());
-      // $tanggal = array_column($data, 'tanggal');
-      // $created_at = array_column($data, 'created_at');
-      // array_multisort($tanggal, SORT_DESC, $created_at, SORT_ASC, $data);
-      return $data;
-    }
+    //   $data = array_merge($query_cuti->getResultArray(), $query_izin->getResultArray(), $query_cuti_besar->getResultArray(), $query_dispensasi->getResultArray(), $query_skd->getResultArray());
+    //   // $tanggal = array_column($data, 'tanggal');
+    //   // $created_at = array_column($data, 'created_at');
+    //   // array_multisort($tanggal, SORT_DESC, $created_at, SORT_ASC, $data);
+    //   return $data;
+    // }
   }
 
   // public function get_data_mp_cuti()

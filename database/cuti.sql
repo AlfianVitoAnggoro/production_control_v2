@@ -1,21 +1,30 @@
-/****** Object:  Table [dbo].[data_all_lampiran_absen]    Script Date: 25/07/2023 10:56:22 ******/
+/****** Object:  Table [dbo].[data_master_skill]    Script Date: 31/07/2023 08:54:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[data_all_lampiran_absen](
-	[id_lampiran] [int] IDENTITY(1,1) NOT NULL,
-	[id_absen] [int] NULL,
-	[lampiran] [varchar](50) NULL,
-	[kategori] [varchar](50) NULL,
+CREATE TABLE [dbo].[data_master_skill](
+	[id_skill] [int] IDENTITY(1,1) NOT NULL,
+	[mesin] [varchar](50) NULL,
+	[line_1] [int] NULL,
+	[line_2] [int] NULL,
+	[line_3] [int] NULL,
+	[line_4] [int] NULL,
+	[line_5] [int] NULL,
+	[line_6] [int] NULL,
+	[line_7] [int] NULL,
+	[wet_a] [int] NULL,
+	[wet_f] [int] NULL,
+	[mcb] [int] NULL,
+	[non_line] [int] NULL,
 	[created_at] [datetime] NULL,
- CONSTRAINT [PK_data_all_lampiran_absen] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_data_master_skill] PRIMARY KEY CLUSTERED 
 (
-	[id_lampiran] ASC
+	[id_skill] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[data_record_all_cuti]    Script Date: 25/07/2023 10:56:23 ******/
+/****** Object:  Table [dbo].[data_record_all_cuti]    Script Date: 31/07/2023 08:54:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -55,7 +64,7 @@ CREATE TABLE [dbo].[data_record_all_cuti](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[data_record_all_cuti_besar]    Script Date: 25/07/2023 10:56:23 ******/
+/****** Object:  Table [dbo].[data_record_all_cuti_besar]    Script Date: 31/07/2023 08:54:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -102,7 +111,7 @@ CREATE TABLE [dbo].[data_record_all_cuti_besar](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[data_record_all_izin]    Script Date: 25/07/2023 10:56:23 ******/
+/****** Object:  Table [dbo].[data_record_all_izin]    Script Date: 31/07/2023 08:54:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -142,7 +151,7 @@ CREATE TABLE [dbo].[data_record_all_izin](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[detail_record_all_cuti]    Script Date: 25/07/2023 10:56:23 ******/
+/****** Object:  Table [dbo].[detail_record_all_cuti]    Script Date: 31/07/2023 08:54:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -158,7 +167,7 @@ CREATE TABLE [dbo].[detail_record_all_cuti](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[detail_record_all_cuti_besar]    Script Date: 25/07/2023 10:56:23 ******/
+/****** Object:  Table [dbo].[detail_record_all_cuti_besar]    Script Date: 31/07/2023 08:54:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -174,7 +183,7 @@ CREATE TABLE [dbo].[detail_record_all_cuti_besar](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[detail_record_all_izin]    Script Date: 25/07/2023 10:56:23 ******/
+/****** Object:  Table [dbo].[detail_record_all_izin]    Script Date: 31/07/2023 08:54:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

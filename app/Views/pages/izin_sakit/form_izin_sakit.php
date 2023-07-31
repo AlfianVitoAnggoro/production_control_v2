@@ -61,7 +61,7 @@
         <div class="form-group col-md-3">
           <label for="waktu_rencana">Waktu Direncanakan</label>
           <div id="multiple_date" style="width: 100%;">
-            <input type="date" class="form-control mb-2" id="waktu_rencana" name="waktu_rencana[]">
+            <input type="date" class="form-control mb-2" id="waktu_rencana_0" name="waktu_rencana[]" onchange="update_min_date(0)">
           </div>
           <button type="button" class="btn btn-sm btn-primary" id="btn_add_waktu_rencana" onclick="add_waktu_rencana()">+</button>
         </div>
@@ -72,11 +72,11 @@
       </div>
       <div class="form-group">
         <label for="lampiran">Lampiran</label>
-        <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]" multiple accept="image/*">
-        <!-- <div id="multiple_file" style="width: 100%">
+        <!-- <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]" multiple accept="image/*"> -->
+        <div id="multiple_file" style="width: 100%">
           <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]">
-        </div> -->
-        <!-- <button type="button" class="btn btn-sm btn-primary" id="btn_add_lampiran" onclick="add_lampiran()">+</button> -->
+        </div>
+        <button type="button" class="btn btn-sm btn-primary" id="btn_add_lampiran" onclick="add_lampiran()">+</button>
       </div>
       <button type="submit" class="btn btn-primary">Kirim</button>
     </form>
@@ -146,16 +146,48 @@
 
   function add_waktu_rencana() {
     let multiple_dateElement = document.querySelector('#multiple_date');
+    let waktu_rencanaElement = document.getElementsByName('waktu_rencana[]');
+    let last_waktu_rencana_value = waktu_rencanaElement[waktu_rencanaElement.length - 1].value;
+    if (last_waktu_rencana_value == '')
+      return window.alert('Isi tanggal terlebih dahulu');
+    let formatted_date = new Date(last_waktu_rencana_value);
+    formatted_date.setDate(formatted_date.getDate() + 1);
     let newDateInput = document.createElement('input');
     newDateInput.setAttribute('type', 'date');
     newDateInput.setAttribute('class', 'form-control mb-2');
     newDateInput.setAttribute('name', 'waktu_rencana[]');
+    newDateInput.setAttribute('id', `waktu_rencana_${waktu_rencanaElement.length}`);
+    newDateInput.setAttribute('onchange', `update_min_date(${waktu_rencanaElement.length})`);
+    newDateInput.setAttribute('min', formatted_date.toISOString().slice(0, 10));
     multiple_dateElement.appendChild(newDateInput);
   }
 
-  // function add_lampiran() {
-  //   let multiple_fileElement = document.querySelector('#multiple_file');
-  //   multiple_fileElement.innerHTML += '<input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]">';
-  // }
+  function update_min_date(index) {
+    let waktu_rencanaElement = document.querySelector('#waktu_rencana_' + index);
+    let countWaktu_rencanaAfterElement = document.getElementsByName('waktu_rencana[]').length;
+    console.log(countWaktu_rencanaAfterElement);
+    for (let i = index; i < countWaktu_rencanaAfterElement - 1; i++) {
+      let waktu_rencanaAfterElement = document.querySelector('#waktu_rencana_' + (i + 1));
+      if (waktu_rencanaAfterElement != null) {
+        if (i == index) {
+          let formatted_date = new Date(waktu_rencanaElement.value);
+          formatted_date.setDate(formatted_date.getDate() + 1);
+          waktu_rencanaAfterElement.setAttribute('min', formatted_date.toISOString().slice(0, 10));
+        }
+        if (waktu_rencanaElement.value >= waktu_rencanaAfterElement.value)
+          waktu_rencanaAfterElement.value = '';
+      }
+    }
+  }
+
+  function add_lampiran() {
+    let multiple_fileElement = document.querySelector('#multiple_file');
+    let newMultiple_fileElementInput = document.createElement('input');
+    newMultiple_fileElementInput.setAttribute('type', 'file');
+    newMultiple_fileElementInput.setAttribute('class', 'form-control mb-2');
+    newMultiple_fileElementInput.setAttribute('name', 'lampiran[]');
+    multiple_fileElement.appendChild(newMultiple_fileElementInput);
+    // multiple_fileElement.innerHTML += '<input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]">';
+  }
 </script>
 <?= $this->endSection(); ?>

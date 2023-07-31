@@ -116,13 +116,14 @@ else
           </tbody>
         </table>
         <div>
-          Sehubungan dengan masa kerja yang telah genap <span class="fw-bold"><?= $data_mp_cuti[0]['masa_kerja'] ?> (<?= $data_mp_cuti[0]['masa_kerja_pelafalan'] ?>)</span> tahun, tepatnya<br>
-          Tanggal <span class="fw-bold"><?= date('j F Y', strtotime($data_mp_cuti[0]['tanggal_masa_kerja'])) ?></span> <br>
-          maka dengan ini sata mengajukan :
+          Sehubungan dengan masa kerja yang telah genap <span class="fw-bold"><?= $data_mp_cuti[0]['masa_kerja'] ?></span> tahun,
+          <!-- tepatnya<br>
+          Tanggal <span class="fw-bold"><?= date('j F Y', strtotime($data_mp_cuti[0]['tanggal_masa_kerja'])) ?></span> <br> -->
+          maka dengan ini saya mengajukan :
           <div class="d-flex">
             <div class="d-flex justify-content-center align-items-center" style="border: 1px solid black; width: 20px; height: 20px"><?= $data_mp_cuti[0]['jenis'] == 'Pengambilan Cuti Besar' ? '<i class="fa fa-check"></i>' : '' ?></div>
             &nbsp;
-            Pengambilan cuti besar selama&nbsp;<span class="fw-bold"><?= $data_mp_cuti[0]['jumlah_hari'] ?></span>&nbsp;hari terhitung tanggal&nbsp;<span class="fw-bold"><?= date('j F Y', strtotime($data_mp_cuti[0]['start_date'])) ?></span>&nbsp;s/d&nbsp;<span class="fw-bold"><?= date('j F Y', strtotime($data_mp_cuti[0]['end_date'])) ?></span>
+            Pengambilan cuti besar selama&nbsp;<span class="fw-bold"><?= ($data_mp_cuti[0]['jumlah_hari'] != 0) ? $data_mp_cuti[0]['jumlah_hari'] : '...' ?></span>&nbsp;hari terhitung tanggal&nbsp;<span class="fw-bold"><?= ($data_mp_cuti[0]['start_date'] ?? '') != '' ? date('j F Y', strtotime($data_mp_cuti[0]['start_date'])) : '...' ?></span>&nbsp;s/d&nbsp;<span class="fw-bold"><?= ($data_mp_cuti[0]['end_date'] ?? '') != '' ? date('j F Y', strtotime($data_mp_cuti[0]['end_date'])) : '...' ?></span>
           </div>
           <div class="d-flex">
             <div class="d-flex justify-content-center align-items-center" style="border: 1px solid black; width: 20px; height: 20px"><?= $data_mp_cuti[0]['jenis'] == 'Pengambilan Uang Cuti Besar' ? '<i class="fa fa-check"></i>' : '' ?></div>

@@ -90,7 +90,7 @@ class Imp extends BaseController
         }
       }
     }
-    return redirect()->to(base_url('form_imp'));
+    return redirect()->to(base_url('dashboard_cuti'));
   }
 
   // public function home()
