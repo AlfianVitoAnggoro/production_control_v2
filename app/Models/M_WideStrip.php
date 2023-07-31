@@ -56,7 +56,7 @@ class M_WideStrip extends Model
     {
         $builder = $this->db->table('detail_level_melting_pot_wide_strip');
         if ($id_lhp != '') {
-            $builder->where('id_lhp_ws', $id_lhp);
+            $builder->where('id', $id_lhp);
             $builder->update($data);
             return $id_lhp;
         } else {
@@ -200,10 +200,10 @@ class M_WideStrip extends Model
 
     function hapus_lhp($id_lhp)
     {
-        $this->db->query('DELETE FROM lhp_wide_strip WHERE id = ' . $id_lhp);
-        $this->db->query('DELETE FROM detail_lhp_wide_strip WHERE id_lhp_wide_strip = ' . $id_lhp);
-        $this->db->query('DELETE FROM detail_breakdown_andon_wide_strip WHERE id_lhp_wide_strip = ' . $id_lhp);
-        $this->db->query('DELETE FROM detail_breakdown_wide_strip WHERE id_lhp_wide_strip = ' . $id_lhp);
+        $this->db->query('DELETE FROM lhp_wide_strip WHERE id_lhp_ws = ' . $id_lhp);
+        $this->db->query('DELETE FROM detail_lhp_wide_strip WHERE id_lhp_ws = ' . $id_lhp);
+        $this->db->query('DELETE FROM detail_breakdown_andon_wide_strip WHERE id_lhp_ws = ' . $id_lhp);
+        $this->db->query('DELETE FROM detail_breakdown_wide_strip WHERE id_lhp_ws = ' . $id_lhp);
     }
 
     function get_pic_grup_mesin($type_mesin, $grup)

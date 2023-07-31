@@ -476,6 +476,7 @@ $routes->group('wide_strip', ['filter' => 'auth'], function ($routes) {
     $routes->post('get_jenis_line_stop', 'WideStrip::get_jenis_line_stop');
     $routes->post('material_in_mlr', 'WideStrip::material_in_mlr');
     $routes->post('delete_material_in_mlr', 'WideStrip::delete_material_in_mlr');
+    $routes->get('hapus_lhp/(:num)', 'WideStrip::hapus_lhp/$1');
 });
 
 //Grid Punching
@@ -643,6 +644,8 @@ $routes->get('interlock_aging/update_rak_aging/(:any)', 'InterlockAging::update_
 // FORMATION LOADING
 $routes->group('formation_loading', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Formation_Loading::index');
+    $routes->post('add_data/', 'Formation_Loading::add_data');
+    $routes->get('detail_lhp/(:num)', 'Formation_Loading::detail_lhp/$1');
 });
 
 // API
