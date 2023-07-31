@@ -58,6 +58,15 @@ class MasterManPower extends BaseController
       $namaFile = $foto->getName();
       $ukuran = $foto->getSize();
       $tipe = $foto->getExtension();
+      $namaFile = $npk . '.' . $tipe;
+      $files = glob(FCPATH . 'uploads\\' . $npk . '.*'); // Ganti "file_name.txt" dengan nama file yang ingin dihapus
+      if (count($files) > 0) {
+        foreach ($files as $file_path) {
+          if (is_file($file_path)) {
+            unlink($file_path);
+          }
+        }
+      }
       $foto->move(ROOTPATH . 'public/uploads', $namaFile);
       $data_man_power = [
         'nama' => $nama,
@@ -89,11 +98,19 @@ class MasterManPower extends BaseController
   public function delete_data_man_power()
   {
     $checkedId = $this->request->getPost('checkedId');
+    $checkedNpk = $this->request->getPost('checkedNpk');
     $model = new M_MasterManPower();
-
     // if(count($checkedId) > 0) {
-    foreach ($checkedId as $id) {
-      $model->delete_data_master_man_power($id);
+    for ($i = 0; $i < count($checkedId); $i++) {
+      $files = glob(FCPATH . 'uploads\\' . $checkedNpk[$i] . '.*'); // Ganti "file_name.txt" dengan nama file yang ingin dihapus
+      if (count($files) > 0) {
+        foreach ($files as $file_path) {
+          if (is_file($file_path)) {
+            unlink($file_path);
+          }
+        }
+      }
+      $model->delete_data_master_man_power($checkedId[$i]);
     }
     // } else {
     //   $model->delete_data_master_man_power($checkedId);
@@ -107,15 +124,16 @@ class MasterManPower extends BaseController
     $id_man_power = $this->request->getPost('id_man_power');
     $choose_lineVal = $this->request->getPost('choose_lineVal');
     $model = new M_MasterManPower();
+    $data_mesin = [];
 
     $data_detail_data_master_man_power = $model->get_detail_data_master_man_power_by_id_and_line($id_man_power, $choose_lineVal);
-    // if ($choose_lineVal !== '')
-    //   $data_mesin = $model->get_data_skill_by_line($choose_lineVal);
-    // $data = [
-    //   'data_detail_data_master_man_power' => $data_detail_data_master_man_power,
-    //   'data_mesin' => $data_mesin,
-    // ];
-    return json_encode($data_detail_data_master_man_power);
+    if ($choose_lineVal !== '')
+      $data_mesin = $model->get_data_skill_by_line($choose_lineVal);
+    $data = [
+      'data_detail_data_master_man_power' => $data_detail_data_master_man_power,
+      'data_mesin' => $data_mesin,
+    ];
+    return json_encode($data);
   }
 
   public function calendar()

@@ -46,10 +46,11 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <?php $index_data_man_power = 0; foreach ($data_man_power as $d_mp) : ?>
+                        <?php $index_data_man_power = 0;
+                        foreach ($data_man_power as $d_mp) : ?>
                           <tr>
                             <td class="fs-5 text-center"><?= $d_mp['nama'] ?></td>
-                            <td class="fs-5 text-center"><?= sprintf('%04d', $d_mp['npk']) ?></td>
+                            <td class="fs-5 text-center" id="npk_<?= $index_data_man_power ?>"><?= sprintf('%04d', $d_mp['npk']) ?></td>
                             <!-- <td></td>
                             <td></td>
                             <td></td> -->
@@ -66,7 +67,8 @@
                               </div>
                             </td>
                           </tr>
-                        <?php $index_data_man_power++; endforeach; ?>
+                        <?php $index_data_man_power++;
+                        endforeach; ?>
                     </table>
                   </div>
                 </div>
@@ -138,26 +140,32 @@
   });
 
   let checkedId = [];
-  
+  let checkedNpk = [];
+
   function checkedManPower(id_man_power, index) {
     let editManPowerElement = document.querySelector('#edit_man_power');
     let hapusManPowerElement = document.querySelector('#hapus_man_power');
     let checked_man_powerELement = document.querySelector('#checked_man_power_' + index);
+    let npkElement = document.querySelector('#npk_' + index);
 
-    console.log({editManPowerElement, hapusManPowerElement, checked_man_powerELement})
+    console.log({
+      editManPowerElement,
+      hapusManPowerElement,
+      checked_man_powerELement
+    })
 
-    if(checkedId.length > 0) {
+    if (checkedId.length > 0) {
       editManPowerElement.classList.add('d-none');
       editManPowerElement.setAttribute('href', '#');
-    }
-    else {
+    } else {
       editManPowerElement.classList.remove('d-none');
       hapusManPowerElement.classList.remove('d-none');
     }
 
     checkedId.push(id_man_power);
-    
-    if(checkedId.length === 1) {
+    checkedNpk.push(npkElement.textContent);
+
+    if (checkedId.length === 1) {
       editManPowerElement.setAttribute('href', `<?= base_url() ?>master_man_power_kasubsie/detail_man_power/${checkedId[0]}`);
     }
 
@@ -165,19 +173,25 @@
     checked_man_powerELement.style.backgroundColor = '#212529';
     checked_man_powerELement.style.color = '#FFFFFF';
   }
+
   function uncheckedManPower(id_man_power, index) {
     let editManPowerElement = document.querySelector('#edit_man_power');
     let hapusManPowerElement = document.querySelector('#hapus_man_power');
     let checked_man_powerELement = document.querySelector('#checked_man_power_' + index);
+    let npkELement = document.querySelector('#npk_' + index);
     checkedId = checkedId.filter(function(checked) {
       return checked !== id_man_power;
     });
-    
-    if(checkedId.length > 1) {
+
+    checkedNpk = checkedNpk.filter(function(checked) {
+      return checked !== npkELement.textContent;
+    });
+
+    if (checkedId.length > 1) {
       editManPowerElement.classList.add('d-none');
       // checkedId.push(id_man_power);
-      
-    } else if(checkedId.length === 1) {
+
+    } else if (checkedId.length === 1) {
       editManPowerElement.classList.remove('d-none');
       editManPowerElement.setAttribute('href', `<?= base_url() ?>master_man_power_kasubsie/detail_man_power/${checkedId[0]}`);
     } else {
@@ -196,11 +210,13 @@
       url: '<?= base_url() ?>master_man_power_kasubsie/detail_man_power/delete',
       type: 'POST',
       data: {
-        checkedId: checkedId
+        checkedId: checkedId,
+        checkedNpk: checkedNpk,
       },
       dataType: 'json',
       success: function(data) {
         checkedId = [];
+        checkedNpk = [];
         console.log(data);
         window.location.href = "<?= base_url() ?>master_man_power_kasubsie";
         $('#loading-modal').modal('hide');

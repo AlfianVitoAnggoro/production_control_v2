@@ -50,7 +50,7 @@
                         foreach ($data_man_power as $d_mp) : ?>
                           <tr>
                             <td class="fs-5 text-center"><?= $d_mp['nama'] ?></td>
-                            <td class="fs-5 text-center"><?= sprintf('%04d', $d_mp['npk']) ?></td>
+                            <td class="fs-5 text-center" id="npk_<?= $index_data_man_power ?>"><?= sprintf('%04d', $d_mp['npk']) ?></td>
                             <!-- <td></td>
                             <td></td>
                             <td></td> -->
@@ -140,11 +140,13 @@
   });
 
   let checkedId = [];
+  let checkedNpk = [];
 
   function checkedManPower(id_man_power, index) {
     let editManPowerElement = document.querySelector('#edit_man_power');
     let hapusManPowerElement = document.querySelector('#hapus_man_power');
     let checked_man_powerELement = document.querySelector('#checked_man_power_' + index);
+    let npkElement = document.querySelector('#npk_' + index);
 
     console.log({
       editManPowerElement,
@@ -161,6 +163,7 @@
     }
 
     checkedId.push(id_man_power);
+    checkedNpk.push(npkElement.textContent);
 
     if (checkedId.length === 1) {
       editManPowerElement.setAttribute('href', `<?= base_url() ?>master_man_power_gmt/detail_man_power/${checkedId[0]}`);
@@ -175,8 +178,13 @@
     let editManPowerElement = document.querySelector('#edit_man_power');
     let hapusManPowerElement = document.querySelector('#hapus_man_power');
     let checked_man_powerELement = document.querySelector('#checked_man_power_' + index);
+    let npkElement = document.querySelector('#npk_' + index);
     checkedId = checkedId.filter(function(checked) {
       return checked !== id_man_power;
+    });
+
+    checkedNpk = checkedNpk.filter(function(checked) {
+      return checked !== npkElement.textContent;
     });
 
     if (checkedId.length > 1) {
@@ -202,11 +210,13 @@
       url: '<?= base_url() ?>master_man_power_gmt/detail_man_power/delete',
       type: 'POST',
       data: {
-        checkedId: checkedId
+        checkedId: checkedId,
+        checkedNpk: checkedNpk,
       },
       dataType: 'json',
       success: function(data) {
         checkedId = [];
+        checkedNpk = [];
         console.log(data);
         window.location.href = "<?= base_url() ?>master_man_power_gmt";
         $('#loading-modal').modal('hide');

@@ -562,7 +562,7 @@ $routes->group('dashboard_man_power', ['filter' => 'auth'], function ($routes) {
 $routes->add('DashboardManPower/auto_save_record_man_power', 'DashboardManPower::auto_save_record_man_power');
 
 // Cuti Man Power
-$routes->group('form_cuti', function ($routes) {
+$routes->group('form_cuti', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Cuti::index');
     $routes->post('save', 'Cuti::save_form_cuti');
     $routes->post('get_data_mp', 'Cuti::get_data_mp');
@@ -583,11 +583,12 @@ $routes->group('cuti', ['filter' => 'auth'], function ($routes) {
     $routes->get('detail_cuti_besar/(:num)/print', 'ResumeCuti::print_cuti_besar/$1');
     $routes->post('approve_cuti_besar', 'ResumeCuti::approve_cuti_besar');
     $routes->post('reject_cuti_besar', 'ResumeCuti::reject_cuti_besar');
+    $routes->get('detail_(:segment)/(:num)/delete', 'ResumeCuti::delete_cuti/$1/$2');
     $routes->post('get_data_mp', 'ResumeCuti::get_data_mp');
 });
 
 // IMP Man Power
-$routes->group('form_imp', function ($routes) {
+$routes->group('form_imp', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Imp::index');
     $routes->post('save', 'Imp::save_form_imp');
     $routes->post('get_data_mp', 'Imp::get_data_mp');
@@ -600,7 +601,7 @@ $routes->group('form_imp', function ($routes) {
 // });
 
 // Cuti Besar Man Power
-$routes->group('form_cuti_besar', function ($routes) {
+$routes->group('form_cuti_besar', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'CutiBesar::index');
     $routes->post('save', 'CutiBesar::save_form_cuti_besar');
     $routes->post('get_data_mp', 'CutiBesar::get_data_mp');
@@ -613,14 +614,14 @@ $routes->group('form_cuti_besar', function ($routes) {
 // });
 
 // Izin Man Power
-$routes->group('form_izin', function ($routes) {
+$routes->group('form_izin', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Izin::index');
     $routes->post('save', 'Izin::save_form_izin');
     $routes->post('get_data_mp', 'Izin::get_data_mp');
 });
 
 // Izin Sakit Man Power
-$routes->group('form_izin_sakit', function ($routes) {
+$routes->group('form_izin_sakit', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'IzinSakit::index');
     $routes->post('save', 'IzinSakit::save_form_izin_sakit');
     $routes->post('get_data_mp', 'IzinSakit::get_data_mp');

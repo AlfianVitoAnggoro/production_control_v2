@@ -29,6 +29,7 @@ class MasterManPowerKasubsie extends BaseController
       $data_man_power = [
         'nama' => $nama,
         'npk' => $npk,
+        'status' => 'kasubsie'
       ];
       $save_data = $this->M_MasterManPowerKasubsie->save_data_man_power($data_man_power);
       return redirect()->to(base_url('master_man_power_kasubsie/detail_man_power/' . $save_data));
@@ -55,6 +56,15 @@ class MasterManPowerKasubsie extends BaseController
       $namaFile = $foto->getName();
       $ukuran = $foto->getSize();
       $tipe = $foto->getExtension();
+      $namaFile = $npk . '.' . $tipe;
+      $files = glob(FCPATH . 'uploads\\' . $npk . '.*'); // Ganti "file_name.txt" dengan nama file yang ingin dihapus
+      if (count($files) > 0) {
+        foreach ($files as $file_path) {
+          if (is_file($file_path)) {
+            unlink($file_path);
+          }
+        }
+      }
       $foto->move(ROOTPATH . 'public/uploads', $namaFile);
       $data_man_power = [
         'nama' => $nama,
@@ -75,10 +85,22 @@ class MasterManPowerKasubsie extends BaseController
   public function delete_data_man_power()
   {
     $checkedId = $this->request->getPost('checkedId');
+    $checkedNpk = $this->request->getPost('checkedNpk');
     $model = new M_MasterManPowerKasubsie();
-    foreach ($checkedId as $id) {
-      $model->delete_data_master_man_power_kasubsie($id);
+    for ($i = 0; $i < count($checkedId); $i++) {
+      $files = glob(FCPATH . 'uploads\\' . $checkedNpk[$i] . '.*'); // Ganti "file_name.txt" dengan nama file yang ingin dihapus
+      if (count($files) > 0) {
+        foreach ($files as $file_path) {
+          if (is_file($file_path)) {
+            unlink($file_path);
+          }
+        }
+      }
+      $model->delete_data_master_man_power_kasubsie($checkedId[$i]);
     }
+    // foreach ($checkedId as $id) {
+    //   $model->delete_data_master_man_power_kasubsie($id);
+    // }
 
     return json_encode('success');
   }

@@ -45,9 +45,16 @@ class M_MasterGroupManPower extends Model
   //   return $query->getResultArray();
   // }
 
+  // public function get_data_master_man_power_kasubsie()
+  // {
+  //   $query = $this->db->query('SELECT * FROM master_data_man_power_kasubsie');
+
+  //   return $query->getResultArray();
+  // }
+
   public function get_data_master_man_power_kasubsie()
   {
-    $query = $this->db->query('SELECT * FROM master_data_man_power_kasubsie');
+    $query = $this->db->query('SELECT * FROM master_data_man_power WHERE status= \'kasubsie\'');
 
     return $query->getResultArray();
   }
@@ -92,7 +99,7 @@ class M_MasterGroupManPower extends Model
   public function update_detail_data_group_man_power($id_detail_group, $data)
   {
     $query = $this->db->table('detail_master_data_group_man_power');
-    if($id_detail_group !== '') {
+    if ($id_detail_group !== '') {
       $query->where('id_detail_group', $id_detail_group);
       $query->update($data);
       return $id_detail_group;
@@ -105,7 +112,7 @@ class M_MasterGroupManPower extends Model
   public function update_detail_data_group_man_power_indirect($id_detail_group, $data)
   {
     $query = $this->db->table('detail_master_data_group_man_power_indirect');
-    if($id_detail_group !== '') {
+    if ($id_detail_group !== '') {
       $query->where('id_detail_group', $id_detail_group);
       $query->update($data);
       return $id_detail_group;
@@ -123,20 +130,20 @@ class M_MasterGroupManPower extends Model
 
   public function get_data_master_mesin($line)
   {
-    if($line <= 7)
+    if ($line <= 7)
       $query = $this->db->query('SELECT mesin, requirement FROM data_master_mesin WHERE line_' . $line . ' > 0 ORDER BY line_' . $line . ' ASC');
-    else if($line === 8)
+    else if ($line === 8)
       $query = $this->db->query('SELECT mesin, requirement FROM data_master_mesin WHERE wet_a > 0 ORDER BY wet_a ASC');
-    else if($line === 9)
+    else if ($line === 9)
       $query = $this->db->query('SELECT mesin, requirement FROM data_master_mesin WHERE wet_f > 0 ORDER BY wet_f ASC');
-    else if($line === 10)
+    else if ($line === 10)
       $query = $this->db->query('SELECT mesin, requirement FROM data_master_mesin WHERE mcb > 0 ORDER BY mcb ASC');
     return $query->getResultArray();
   }
 
   public function get_data_master_mesin_indirect_sub_bagian($sub_bagian)
   {
-    if(strpos($sub_bagian, 'wet') === 0)
+    if (strpos($sub_bagian, 'wet') === 0)
       $query = $this->db->query('SELECT mesin, requirement FROM data_master_mesin WHERE bag_wet > 0 ORDER BY bag_wet ASC');
     else
       $query = $this->db->query('SELECT mesin, requirement FROM data_master_mesin WHERE bag_' . $sub_bagian . ' > 0 ORDER BY bag_' . $sub_bagian . ' ASC');

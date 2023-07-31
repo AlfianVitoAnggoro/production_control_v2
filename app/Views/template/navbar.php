@@ -138,6 +138,7 @@
 							<ul class="treeview-menu">
 								<li><a href="<?= base_url() ?>master_man_power"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Man Power</a></li>
 								<li><a href="<?= base_url() ?>master_man_power_kasubsie"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Kasubsie</a></li>
+								<li><a href="<?= base_url() ?>master_man_power_gmt"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master GMT</a></li>
 								<li><a href="<?= base_url() ?>master_group_man_power"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Group Man Power</a></li>
 							</ul>
 						</li>
