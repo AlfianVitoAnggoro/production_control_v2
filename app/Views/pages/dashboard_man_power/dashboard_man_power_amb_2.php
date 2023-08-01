@@ -80,12 +80,12 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                       </div>
                     </div>
                     <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 140px">
-                      <img src="<?= base_url() ?>uploads/kadept.jpg" alt="" style="max-width: 100%; height: 140px" id="foto_kadept">
+                      <img src="<?= base_url() ?>uploads/1815.jpg" alt="" style="max-width: 100%; height: 140px" id="foto_kadept">
                     </div>
                     <div class="d-flex fx-card-footer px-1 py-1" style="height: 35px;">
                       <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
-                        <h5 class="m-0" style="font-size: 10px" id="npk_kasie">1100</h5>
-                        <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">Novian Andika</h5>
+                        <h5 class="m-0" style="font-size: 10px" id="npk_kasie">1815</h5>
+                        <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">Novian Andrika</h5>
                       </div>
                     </div>
                   </div>
