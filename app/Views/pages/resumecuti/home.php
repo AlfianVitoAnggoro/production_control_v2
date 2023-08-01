@@ -32,7 +32,7 @@
                       <thead>
                         <tr>
                           <th>Sub Bagian</th>
-                          <th>Tanggal</th>
+                          <th>Tanggal Pembuatan</th>
                           <th>Line</th>
                           <!-- <th>Shift</th> -->
                           <th>Nama</th>
@@ -122,7 +122,7 @@
                       <tfoot>
                         <tr>
                           <th>Sub Bagian</th>
-                          <th>Tanggal</th>
+                          <th>Tanggal Pembuatan</th>
                           <th>Line</th>
                           <!-- <th>Shift</th> -->
                           <th>Nama</th>
