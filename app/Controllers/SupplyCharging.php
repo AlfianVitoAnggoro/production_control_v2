@@ -190,6 +190,7 @@ class SupplyCharging extends BaseController
       'PART_COMPONENT' => $part_component,
       'QTY' => $qty,
       'supply_at' => date('Y-m-d H:i:s'),
+      'user_supply' => $this->session->get('nama')
     ];
 
     $check_supply_item = $this->M_SupplyCharging->add_detail_supply_charging($no_wo,$part_component,$data);
@@ -204,6 +205,7 @@ class SupplyCharging extends BaseController
 
     $data = [
       'supply_at' => NULL,
+      'user_supply' => $this->session->get('nama')
     ];
 
     $uncheck_supply_item = $this->M_SupplyCharging->update_prepare_item($no_wo,$part_component,$data);
