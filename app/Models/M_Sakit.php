@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class M_CutiBesar extends Model
+class M_Sakit extends Model
 {
   public function __construct()
   {
@@ -18,6 +18,29 @@ class M_CutiBesar extends Model
     $query = $this->db->query('SELECT id_man_power, nama FROM master_data_man_power ORDER BY nama ASC');
 
     return $query->getResultArray();
+  }
+
+  public function get_data_mp_absen_by_daily($date, $line, $group_mp, $bagian)
+  {
+    $query_cuti = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti drac
+                              JOIN detail_record_all_cuti drc ON drc.id_cuti = drac.id_cuti
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\'
+                              ');
+    $query_izin = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_izin drac
+                              JOIN detail_record_all_izin drc ON drc.id_cuti = drac.id_cuti
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
+                              ');
+    $query_cuti_besar = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti_besar drac
+                              JOIN detail_record_all_cuti_besar drc ON drc.id_cuti = drac.id_cuti
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
+                              ');
+    $query_sakit = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_sakit drac
+                              JOIN detail_record_all_sakit drc ON drc.id_cuti = drac.id_cuti
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
+                              ');
+
+    $data = array_merge($query_cuti->getResultArray(), $query_izin->getResultArray(), $query_cuti_besar->getResultArray(), $query_sakit->getResultArray());
+    return $data;
   }
 
   public function get_data_mp($id_man_power)
@@ -39,40 +62,17 @@ class M_CutiBesar extends Model
     return $results;
   }
 
-  public function get_data_mp_absen_by_daily($date, $line, $group_mp, $bagian)
+  public function save_form_sakit($data)
   {
-    $query_cuti = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti drac
-                              JOIN detail_record_all_cuti drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
-                              ');
-    $query_izin = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_izin drac
-                              JOIN detail_record_all_izin drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
-                              ');
-    $query_cuti_besar = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti_besar drac
-                              JOIN detail_record_all_cuti_besar drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
-                              ');
-    $query_sakit = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_sakit drac
-                              JOIN detail_record_all_sakit drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
-                              ');
-
-    $data = array_merge($query_cuti->getResultArray(), $query_izin->getResultArray(), $query_cuti_besar->getResultArray(), $query_sakit->getResultArray());
-    return $data;
-  }
-
-  public function save_form_cuti_besar($data)
-  {
-    $builder = $this->db->table('data_record_all_cuti_besar');
+    $builder = $this->db->table('data_record_all_sakit');
     $builder->insert($data);
 
     return $this->db->insertID();
   }
 
-  public function save_detail_form_cuti_besar($data)
+  public function save_detail_form_sakit($data)
   {
-    $builder = $this->db->table('detail_record_all_cuti_besar');
+    $builder = $this->db->table('detail_record_all_sakit');
     $builder->insert($data);
 
     return $this->db->insertID();

@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 
 
-class M_MasterManPowerKasubsie extends Model
+class M_MasterManPowerManagement extends Model
 {
   public function __construct()
   {
@@ -16,49 +16,49 @@ class M_MasterManPowerKasubsie extends Model
     $this->session = \Config\Services::session();
   }
 
-  // public function get_data_master_man_power_kasubsie()
+  // public function get_data_master_man_power_management()
   // {
-  //   $query = $this->db2->query('SELECT * FROM master_data_man_power_kasubsie');
+  //   $query = $this->db2->query('SELECT * FROM master_data_man_power_management');
 
   //   return $query->getResultArray();
   // }
 
-  public function get_data_master_man_power_kasubsie()
+  public function get_data_master_man_power_management()
   {
-    $query = $this->db2->query('SELECT * FROM master_data_man_power WHERE status = \'kasubsie\'');
+    $query = $this->db2->query('SELECT * FROM master_data_man_power WHERE (status != \'kasubsie\' AND status != \'gmt\' AND status IS NOT NULL)');
 
     return $query->getResultArray();
   }
 
-  // public function get_data_man_power_kasubsie($npk)
+  // public function get_data_man_power_management($npk)
   // {
-  //   $query = $this->db2->query('SELECT id_man_power FROM master_data_man_power_kasubsie WHERE npk = \'' . $npk . '\'');
+  //   $query = $this->db2->query('SELECT id_man_power FROM master_data_man_power_management WHERE npk = \'' . $npk . '\'');
 
   //   return $query->getResultArray();
   // }
 
-  public function get_data_man_power_kasubsie($npk)
+  public function get_data_man_power_management($npk)
   {
-    $query = $this->db2->query('SELECT id_man_power FROM master_data_man_power WHERE npk = \'' . $npk . '\' AND status =  \'kasubsie\'');
+    $query = $this->db2->query('SELECT id_man_power FROM master_data_man_power WHERE npk = \'' . $npk . '\' AND (status != \'kasubsie\' AND status != \'gmt\' AND status IS NOT NULL)');
 
     return $query->getResultArray();
   }
 
-  // public function get_data_master_man_power_kasubsie_by_id($id_man_power)
+  // public function get_data_master_man_power_management_by_id($id_man_power)
   // {
-  //   $query = $this->db2->query('SELECT * FROM master_data_man_power_kasubsie WHERE id_man_power = \'' . $id_man_power . '\'');
+  //   $query = $this->db2->query('SELECT * FROM master_data_man_power_management WHERE id_man_power = \'' . $id_man_power . '\'');
 
   //   return $query->getResultArray();
   // }
 
-  public function get_data_master_man_power_kasubsie_by_id($id_man_power)
+  public function get_data_master_man_power_management_by_id($id_man_power)
   {
-    $query = $this->db2->query('SELECT * FROM master_data_man_power WHERE id_man_power = \'' . $id_man_power . '\' AND status = \'kasubsie\'');
+    $query = $this->db2->query('SELECT * FROM master_data_man_power WHERE id_man_power = \'' . $id_man_power . '\' AND (status != \'kasubsie\' AND status != \'gmt\' AND status IS NOT NULL)');
 
     return $query->getResultArray();
   }
 
-  public function get_detail_data_master_man_power_kasubsie_by_id_and_line($id_man_power, $line)
+  public function get_detail_data_master_man_power_management_by_id_and_line($id_man_power, $line)
   {
     if ($line !== '') {
       $query = $this->db2->query('SELECT * FROM detail_master_data_man_power WHERE id_man_power = \'' . $id_man_power . '\' AND line = \'' . $line . '\'');
@@ -71,7 +71,7 @@ class M_MasterManPowerKasubsie extends Model
 
   // public function save_data_man_power($data)
   // {
-  //   $query = $this->db2->table('master_data_man_power_kasubsie')->insert($data);
+  //   $query = $this->db2->table('master_data_man_power_management')->insert($data);
 
   //   return $this->db2->insertID();
   // }
@@ -79,7 +79,7 @@ class M_MasterManPowerKasubsie extends Model
   public function save_data_man_power($data)
   {
     $query = $this->db2->table('master_data_man_power');
-    $query->where('status', 'kasubsie');
+    // $query->where('status', 'management');
     $query->insert($data);
 
     return $this->db2->insertID();
@@ -87,7 +87,7 @@ class M_MasterManPowerKasubsie extends Model
 
   // public function update_data_man_power($id_man_power, $data)
   // {
-  //   $query = $this->db2->table('master_data_man_power_kasubsie');
+  //   $query = $this->db2->table('master_data_man_power_management');
   //   $query->where('id_man_power', $id_man_power);
   //   $query->update($data);
 
@@ -98,7 +98,7 @@ class M_MasterManPowerKasubsie extends Model
   {
     $query = $this->db2->table('master_data_man_power');
     $query->where('id_man_power', $id_man_power);
-    $query->where('status', 'kasubsie');
+    // $query->where('status', 'management');
     $query->update($data);
 
     return $id_man_power;
@@ -117,14 +117,14 @@ class M_MasterManPowerKasubsie extends Model
     }
   }
 
-  // public function delete_data_master_man_power_kasubsie($id_man_power)
+  // public function delete_data_master_man_power_management($id_man_power)
   // {
-  //   $query = $this->db2->query('DELETE FROM master_data_man_power_kasubsie WHERE id_man_power =\'' . $id_man_power . '\'');
+  //   $query = $this->db2->query('DELETE FROM master_data_man_power_management WHERE id_man_power =\'' . $id_man_power . '\'');
   // }
 
-  public function delete_data_master_man_power_kasubsie($id_man_power)
+  public function delete_data_master_man_power_management($id_man_power)
   {
-    $query = $this->db2->query('DELETE FROM master_data_man_power WHERE id_man_power =\'' . $id_man_power . '\' AND status = \'kasubsie\'');
+    $query = $this->db2->query('DELETE FROM master_data_man_power WHERE id_man_power =\'' . $id_man_power . '\' AND (status != \'kasubsie\' AND status != \'gmt\' AND status IS NOT NULL)');
     $query = $this->db2->query('DELETE FROM detail_master_data_man_power WHERE id_man_power =\'' . $id_man_power . '\'');
   }
 }

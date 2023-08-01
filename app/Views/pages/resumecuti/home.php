@@ -40,7 +40,7 @@
                           <th>Kasubsie</th>
                           <th>Kasie</th>
                           <th>Kadept</th>
-                          <!-- <th>Kadiv</th> -->
+                          <th>Kadiv</th>
                           <th>HRD</th>
                           <th>Detail</th>
                         </tr>
@@ -87,7 +87,7 @@
                                 <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('kadept', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_kadept_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
                               </div>
                             </td>
-                            <!-- <td style="width: 100px; background-color: <?= $dmc['status_kadiv'] === 'approved' ? 'limegreen' : ($dmc['status_kadiv'] === 'rejected' ? 'red' : '') ?>">
+                            <td style="width: 100px; background-color: <?= $dmc['status_kadiv'] === 'approved' ? 'limegreen' : ($dmc['status_kadiv'] === 'rejected' ? 'red' : '') ?>">
                               <div class="d-flex justify-content-center align-items-center">
                                 <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
                                   <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
@@ -97,7 +97,7 @@
                                 </form>
                                 <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('kadiv', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_kadiv_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
                               </div>
-                            </td> -->
+                            </td>
                             <td style="width: 100px; background-color: <?= $dmc['status_hrd'] === 'approved' ? 'limegreen' : ($dmc['status_hrd'] === 'rejected' ? 'red' : '') ?>">
                               <div class="d-flex justify-content-center align-items-center">
                                 <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
@@ -130,7 +130,7 @@
                           <th>Kasubsie</th>
                           <th>Kasie</th>
                           <th>Kadept</th>
-                          <!-- <th>Kadiv</th> -->
+                          <th>Kadiv</th>
                           <th>HRD</th>
                           <th>Detail</th>
                         </tr>
@@ -240,17 +240,17 @@
 </script>
 <script>
   for (let index = 0; index < <?= count($data_mp_cuti) ?>; index++) {
-    // const approved_kadiv = document.querySelector('#approved_kadiv_' + index);
+    const approved_kadiv = document.querySelector('#approved_kadiv_' + index);
     const approved_kadept = document.querySelector('#approved_kadept_' + index);
     const approved_kasie = document.querySelector('#approved_kasie_' + index);
     const approved_kasubsie = document.querySelector('#approved_kasubsie_' + index);
     const approved_hrd = document.querySelector('#approved_hrd_' + index);
-    // const rejected_kadiv = document.querySelector('#rejected_kadiv_' + index);
+    const rejected_kadiv = document.querySelector('#rejected_kadiv_' + index);
     const rejected_kadept = document.querySelector('#rejected_kadept_' + index);
     const rejected_kasie = document.querySelector('#rejected_kasie_' + index);
     const rejected_kasubsie = document.querySelector('#rejected_kasubsie_' + index);
     const rejected_hrd = document.querySelector('#rejected_hrd_' + index);
-    // const status_kadiv = document.querySelector('#status_kadiv_' + index);
+    const status_kadiv = document.querySelector('#status_kadiv_' + index);
     const status_kadept = document.querySelector('#status_kadept_' + index);
     const status_kasie = document.querySelector('#status_kasie_' + index);
     const status_kasubsie = document.querySelector('#status_kasubsie_' + index);
@@ -267,19 +267,19 @@
       }
     <?php } ?>
     <?php if ((strtolower($departement_account) === 'produksi2' || strtolower($departement_account) == '') && $level_account < 3) { ?>
-      // if (status_kadiv.value === 'approved') {
-      //   rejected_kadiv.removeAttribute('disabled');
-      // } else if (status_kadiv.value === 'pending') {
-      //   approved_kadiv.removeAttribute('disabled');
-      //   rejected_kadiv.removeAttribute('disabled');
-      // }
-      // if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
-      //   approved_kadiv.removeAttribute('disabled');
-      //   rejected_kadiv.setAttribute('disabled', '');
-      // }
-      // if (status_kadiv.value === 'approved') {
-      //   approved_kadiv.setAttribute('disabled', '');
-      // }
+      if (status_kadiv.value === 'approved') {
+        rejected_kadiv.removeAttribute('disabled');
+      } else if (status_kadiv.value === 'pending') {
+        approved_kadiv.removeAttribute('disabled');
+        rejected_kadiv.removeAttribute('disabled');
+      }
+      if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
+        approved_kadiv.removeAttribute('disabled');
+        rejected_kadiv.setAttribute('disabled', '');
+      }
+      if (status_kadiv.value === 'approved') {
+        approved_kadiv.setAttribute('disabled', '');
+      }
     <?php } ?>
     <?php if ((strtolower($departement_account) === 'produksi2' || strtolower($departement_account) == '') && $level_account < 4) { ?>
       if (status_kadept.value === 'approved') {
@@ -288,7 +288,7 @@
         rejected_kadept.removeAttribute('disabled');
         approved_kadept.removeAttribute('disabled');
       }
-      if (status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
+      if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
         approved_kadept.removeAttribute('disabled');
         rejected_kadept.setAttribute('disabled', '');
       }
@@ -303,7 +303,7 @@
         approved_kasie.removeAttribute('disabled');
         rejected_kasie.removeAttribute('disabled');
       }
-      if (status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
+      if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
         approved_kasie.removeAttribute('disabled');
         rejected_kasie.setAttribute('disabled', '');
       }
@@ -318,7 +318,7 @@
         approved_kasubsie.removeAttribute('disabled');
         rejected_kasubsie.removeAttribute('disabled');
       }
-      if (status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
+      if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
         approved_kasubsie.removeAttribute('disabled');
         rejected_kasubsie.setAttribute('disabled', '');
       }

@@ -9,7 +9,6 @@
     border: 1px solid #ccc;
     height: 140px;
     font-size: 50px;
-    /* padding: 10px; */
   }
 
   .day_exists {
@@ -24,10 +23,6 @@
     justify-content: center;
     align-items: center;
   }
-
-  /* .day:hover {
-    background-color: #f8f9fa;
-  } */
 
   .today {
     background-color: orange;
@@ -86,6 +81,7 @@
               <th class="text-center">Kasubsie</th>
               <th class="text-center">Kasie</th>
               <th class="text-center">Kadept</th>
+              <th class="text-center">Kadiv</th>
               <th class="text-center">HRD</th>
             </tr>
           </thead>
@@ -271,7 +267,6 @@
           dateTodayElement = document.querySelector(`.today .date-<?= date('Y-m-d') ?>`);
           dateElement = document.querySelector(`.date-${dc_tgl}`);
           Object.keys(data?.detail_cuti[dc_tgl]).forEach(dc_jenis => {
-            // if (dc_jenis === 'Cuti') {
             if (dc_tgl === '<?= date('Y-m-d') ?>') {
               dateTodayElement.innerHTML += `
                   <div class="p-1 flex-item" style="color: white; border-radius: 5px; font-size: 24px; height: fit-content">${dc_jenis} : ${Object.keys(data?.detail_cuti[dc_tgl][dc_jenis]).length}</div>
@@ -281,19 +276,6 @@
                 <div class="p-1 flex-item" style="color: red; border-radius: 5px; font-size: 24px; height: fit-content">${dc_jenis} : ${Object.keys(data?.detail_cuti[dc_tgl][dc_jenis]).length}</div>
               `;
             }
-            // } else if (dc_jenis === 'Izin') {
-            //   dateElement.innerHTML += `
-            //       <div class="p-1 flex-item" style="color: red; border-radius: 5px; font-size: 24px; height: fit-content">${dc_jenis} : ${Object.keys(data?.detail_cuti[dc_tgl][dc_jenis]).length}</div>
-            //     `;
-            // } else if (dc_jenis === 'Disp') {
-            //   dateElement.innerHTML += `
-            //       <div class="p-1 flex-item" style="color: red; border-radius: 5px; font-size: 24px; height: fit-content">${dc_jenis} : ${Object.keys(data?.detail_cuti[dc_tgl][dc_jenis]).length}</div>
-            //     `;
-            // } else {
-            //   dateElement.innerHTML += `
-            //       <div class="p-1 flex-item" style="color: red; border-radius: 5px; font-size: 24px; height: fit-content">${dc_jenis} : ${Object.keys(data?.detail_cuti[dc_tgl][dc_jenis]).length}</div>
-            //     `;
-            // }
           });
         });
       }
@@ -340,6 +322,12 @@
             status_kadept = 'green';
           else
             status_kadept = 'white';
+          if (dc.status_kadiv == 'rejected')
+            status_kadiv = 'red';
+          else if (dc.status_kadiv == 'approved')
+            status_kadiv = 'green';
+          else
+            status_kadiv = 'white';
           if (dc.status_hrd == 'rejected')
             status_hrd = 'red';
           else if (dc.status_hrd == 'approved')
@@ -357,6 +345,7 @@
               <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kasubsie}">&nbsp;</div></div></td>
               <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kasie}">&nbsp;</div></div></td>
               <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kadept}">&nbsp;</div></div></td>
+              <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_kadiv}">&nbsp;</div></div></td>
               <td><div class="d-flex justify-content-center"><div style="border: 1px solid black; border-radius: 50%; height: 23px; width: 23px; background-color: ${status_hrd}">&nbsp;</div></div></td>
             </tr>
           `;

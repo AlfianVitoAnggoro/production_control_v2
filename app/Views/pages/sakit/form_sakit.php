@@ -2,7 +2,6 @@
 <?= $this->section('style'); ?>
 <?= $this->endSection() ?>
 <?= $this->section('content'); ?>
-<?php $jenis_izin = ['Sakit', 'Keperluan Keluarga', 'Lain-lain'] ?>
 
 <div class="container">
   <section class="content">
@@ -14,7 +13,7 @@
     <h4 class="fw-bold">PT. Century Batteries Indonesia</h4>
     <h3 class="text-center text-decoration-underline fw-bold">PERMOHONAN IZIN SAKIT</h3>
     <h5>Bersama ini saya,</h5>
-    <form action="<?= base_url() ?>form_izin_sakit/save" method="POST" enctype="multipart/form-data">
+    <form action="<?= base_url() ?>form_sakit/save" method="POST" enctype="multipart/form-data">
       <div class="row">
         <div class="form-group col-md-6">
           <label for="nama">Nama</label>
@@ -51,12 +50,11 @@
       <div class="row">
         <div class="form-group col-md-6">
           <label for="jenis">Jenis</label>
-          <select id="jenis" class="form-select select2" name="jenis" style="width: 100%;">
+          <input type="text" class="form-control" name="jenis" id="jenis" value="Sakit" readonly>
+          <!-- <select id="jenis" class="form-select select2" name="jenis" style="width: 100%;">
             <option value="" selected>-- Pilih Jenis --</option>
-            <?php foreach ($jenis_izin as $jc) { ?>
-              <option value="<?= $jc ?>"><?= $jc ?></option>
-            <?php } ?>
-          </select>
+            <option value="Sakit" selected>Sakit</option>
+          </select> -->
         </div>
         <div class="form-group col-md-3">
           <label for="waktu_rencana">Waktu Direncanakan</label>
@@ -112,7 +110,7 @@
     $('#loading-modal').modal('show');
     if (nama.value !== '') {
       $.ajax({
-        url: '<?= base_url() ?>form_izin_sakit/get_data_mp',
+        url: '<?= base_url() ?>form_sakit/get_data_mp',
         type: 'POST',
         data: {
           nama: nama.value

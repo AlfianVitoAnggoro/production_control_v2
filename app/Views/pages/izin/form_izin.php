@@ -2,7 +2,7 @@
 <?= $this->section('style'); ?>
 <?= $this->endSection() ?>
 <?= $this->section('content'); ?>
-<?php $jenis_izin = ['Sakit', 'Keperluan Keluarga', 'Dispensasi', 'Lain-lain'] ?>
+<?php $jenis_izin = ['Keperluan Keluarga', 'Dispensasi', 'Lain-lain'] ?>
 
 <div class="container">
   <section class="content">

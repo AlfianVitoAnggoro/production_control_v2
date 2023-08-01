@@ -10,10 +10,14 @@
 <?php $jenis_izin = ['Sakit', 'Keperluan Keluarga', 'Lain-lain'] ?>
 <?php
 if ($data_mp_cuti[0]['level_account'] === 1)
-  $level = 'Kadept';
+  $level = 'Kadiv';
 else if ($data_mp_cuti[0]['level_account'] === 2)
-  $level = 'Kasie';
+  $level = 'Kadiv';
 else if ($data_mp_cuti[0]['level_account'] === 3)
+  $level = 'Kadept';
+else if ($data_mp_cuti[0]['level_account'] === 4)
+  $level = 'Kasie';
+else if ($data_mp_cuti[0]['level_account'] === 5)
   $level = 'Kasubsie';
 else if ($data_mp_cuti[0]['level_account'] === 'hrd')
   $level = 'HRD';
@@ -132,9 +136,11 @@ else
               <div style="font-size: 10px;"><?= $data_mp_cuti[0]['created_hrd'] !== NULL ? date('Y-m-d H:i', strtotime($data_mp_cuti[0]['created_hrd'])) : '' ?></div>
             </th>
             <th class="py-1 br-1 text-center" style="height: 58px;" rowspan="2">
-              <div style="font-size: 10px; background-color: <?= $data_mp_cuti[0]['status_kadiv'] == 'rejected' ? 'red' : ($data_mp_cuti[0]['status_kadiv'] == 'approved' ? 'green' : 'yellow') ?>; color: <?= $data_mp_cuti[0]['status_kadiv'] == 'pending' ? 'black' : 'white' ?>"><?= ucfirst($data_mp_cuti[0]['status_kadiv']) ?></div>
-              <div style="font-size: 10px;"><?= str_replace(' ', '', preg_replace('/\b(\w)\w*\b/', '$1', strtoupper($data_mp_cuti[0]['nama_kadiv']))) ?></div>
-              <div style="font-size: 10px;"><?= $data_mp_cuti[0]['created_kadiv'] !== NULL ? date('Y-m-d H:i', strtotime($data_mp_cuti[0]['created_kadiv'])) : '' ?></div>
+              <?php if ($data_mp_cuti[0]['status_kadiv'] != 'pending') { ?>
+                <div style="font-size: 10px; background-color: <?= $data_mp_cuti[0]['status_kadiv'] == 'rejected' ? 'red' : ($data_mp_cuti[0]['status_kadiv'] == 'approved' ? 'green' : 'yellow') ?>; color: <?= $data_mp_cuti[0]['status_kadiv'] == 'pending' ? 'black' : 'white' ?>"><?= ucfirst($data_mp_cuti[0]['status_kadiv']) ?></div>
+                <div style="font-size: 10px;"><?= str_replace(' ', '', preg_replace('/\b(\w)\w*\b/', '$1', strtoupper($data_mp_cuti[0]['nama_kadiv']))) ?></div>
+                <div style="font-size: 10px;"><?= $data_mp_cuti[0]['created_kadiv'] !== NULL ? date('Y-m-d H:i', strtotime($data_mp_cuti[0]['created_kadiv'])) : '' ?></div>
+              <?php } ?>
             </th>
             <th class="py-1 br-1 text-center" style="height: 58px;" rowspan="2">
               <div style="font-size: 10px; background-color: <?= $data_mp_cuti[0]['status_kadept'] == 'rejected' ? 'red' : ($data_mp_cuti[0]['status_kadept'] == 'approved' ? 'green' : 'yellow') ?>; color: <?= $data_mp_cuti[0]['status_kadept'] == 'pending' ? 'black' : 'white' ?>"><?= ucfirst($data_mp_cuti[0]['status_kadept']) ?></div>
@@ -203,79 +209,79 @@ else
 <?= $this->endSection(); ?>
 <?= $this->section('script'); ?>
 <script>
-  const approved_kadiv = document.querySelector('#approved_kadiv');
-  const approved_kadept = document.querySelector('#approved_kadept');
-  const approved_kasie = document.querySelector('#approved_kasie');
-  const approved_kasubsie = document.querySelector('#approved_kasubsie');
-  const rejected_kadiv = document.querySelector('#rejected_kadiv');
-  const rejected_kadept = document.querySelector('#rejected_kadept');
-  const rejected_kasie = document.querySelector('#rejected_kasie');
-  const rejected_kasubsie = document.querySelector('#rejected_kasubsie');
-  const status_kadiv = document.querySelector('#status_kadiv');
-  const status_kadept = document.querySelector('#status_kadept');
-  const status_kasie = document.querySelector('#status_kasie');
-  const status_kasubsie = document.querySelector('#status_kasubsie');
-  const id_cuti = <?= json_encode($id_cuti) ?>;
-  <?php if ($level_account < 3) { ?>
-    if (status_kadiv.value === 'approved') {
-      rejected_kadiv.removeAttribute('disabled');
-    } else if (status_kadiv.value === 'pending') {
-      approved_kadiv.removeAttribute('disabled');
-      rejected_kadiv.removeAttribute('disabled');
-    }
-    if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
-      approved_kadiv.removeAttribute('disabled');
-      rejected_kadiv.setAttribute('disabled', '');
-    }
-    if (status_kadiv.value === 'approved') {
-      approved_kadiv.setAttribute('disabled', '');
-    }
-  <?php } ?>
-  <?php if ($level_account < 4) { ?>
-    if (status_kadept.value === 'approved') {
-      rejected_kadept.removeAttribute('disabled');
-    } else if (status_kadept.value === 'pending') {
-      rejected_kadept.removeAttribute('disabled');
-      approved_kadept.removeAttribute('disabled');
-    }
-    if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
-      approved_kadept.removeAttribute('disabled');
-      rejected_kadept.setAttribute('disabled', '');
-    }
-    if (status_kadept.value === 'approved') {
-      approved_kadept.setAttribute('disabled', '');
-    }
-  <?php } ?>
-  <?php if ($level_account < 5) { ?>
-    if (status_kasie.value === 'approved') {
-      rejected_kasie.removeAttribute('disabled');
-    } else if (status_kasie.value === 'pending') {
-      approved_kasie.removeAttribute('disabled');
-      rejected_kasie.removeAttribute('disabled');
-    }
-    if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
-      approved_kasie.removeAttribute('disabled');
-      rejected_kasie.setAttribute('disabled', '');
-    }
-    if (status_kasie.value === 'approved') {
-      approved_kasie.setAttribute('disabled', '');
-    }
-  <?php } ?>
-  <?php if ($level_account < 6) { ?>
-    if (status_kasubsie.value === 'approved') {
-      rejected_kasubsie.removeAttribute('disabled');
-    } else if (status_kasubsie.value === 'pending') {
-      approved_kasubsie.removeAttribute('disabled');
-      rejected_kasubsie.removeAttribute('disabled');
-    }
-    if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
-      approved_kasubsie.removeAttribute('disabled');
-      rejected_kasubsie.setAttribute('disabled', '');
-    }
-    if (status_kasubsie.value === 'approved') {
-      approved_kasubsie.setAttribute('disabled', '');
-    }
-  <?php } ?>
+  // const approved_kadiv = document.querySelector('#approved_kadiv');
+  // const approved_kadept = document.querySelector('#approved_kadept');
+  // const approved_kasie = document.querySelector('#approved_kasie');
+  // const approved_kasubsie = document.querySelector('#approved_kasubsie');
+  // const rejected_kadiv = document.querySelector('#rejected_kadiv');
+  // const rejected_kadept = document.querySelector('#rejected_kadept');
+  // const rejected_kasie = document.querySelector('#rejected_kasie');
+  // const rejected_kasubsie = document.querySelector('#rejected_kasubsie');
+  // const status_kadiv = document.querySelector('#status_kadiv');
+  // const status_kadept = document.querySelector('#status_kadept');
+  // const status_kasie = document.querySelector('#status_kasie');
+  // const status_kasubsie = document.querySelector('#status_kasubsie');
+  // const id_cuti = <?= json_encode($id_cuti) ?>;
+  // <?php if ($level_account < 3) { ?>
+  //   if (status_kadiv.value === 'approved') {
+  //     rejected_kadiv.removeAttribute('disabled');
+  //   } else if (status_kadiv.value === 'pending') {
+  //     approved_kadiv.removeAttribute('disabled');
+  //     rejected_kadiv.removeAttribute('disabled');
+  //   }
+  //   if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
+  //     approved_kadiv.removeAttribute('disabled');
+  //     rejected_kadiv.setAttribute('disabled', '');
+  //   }
+  //   if (status_kadiv.value === 'approved') {
+  //     approved_kadiv.setAttribute('disabled', '');
+  //   }
+  // <?php } ?>
+  // <?php if ($level_account < 4) { ?>
+  //   if (status_kadept.value === 'approved') {
+  //     rejected_kadept.removeAttribute('disabled');
+  //   } else if (status_kadept.value === 'pending') {
+  //     rejected_kadept.removeAttribute('disabled');
+  //     approved_kadept.removeAttribute('disabled');
+  //   }
+  //   if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
+  //     approved_kadept.removeAttribute('disabled');
+  //     rejected_kadept.setAttribute('disabled', '');
+  //   }
+  //   if (status_kadept.value === 'approved') {
+  //     approved_kadept.setAttribute('disabled', '');
+  //   }
+  // <?php } ?>
+  // <?php if ($level_account < 5) { ?>
+  //   if (status_kasie.value === 'approved') {
+  //     rejected_kasie.removeAttribute('disabled');
+  //   } else if (status_kasie.value === 'pending') {
+  //     approved_kasie.removeAttribute('disabled');
+  //     rejected_kasie.removeAttribute('disabled');
+  //   }
+  //   if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
+  //     approved_kasie.removeAttribute('disabled');
+  //     rejected_kasie.setAttribute('disabled', '');
+  //   }
+  //   if (status_kasie.value === 'approved') {
+  //     approved_kasie.setAttribute('disabled', '');
+  //   }
+  // <?php } ?>
+  // <?php if ($level_account < 6) { ?>
+  //   if (status_kasubsie.value === 'approved') {
+  //     rejected_kasubsie.removeAttribute('disabled');
+  //   } else if (status_kasubsie.value === 'pending') {
+  //     approved_kasubsie.removeAttribute('disabled');
+  //     rejected_kasubsie.removeAttribute('disabled');
+  //   }
+  //   if (status_kadiv.value === 'rejected' || status_kadept.value === 'rejected' || status_kasie.value === 'rejected' || status_kasubsie.value === 'rejected') {
+  //     approved_kasubsie.removeAttribute('disabled');
+  //     rejected_kasubsie.setAttribute('disabled', '');
+  //   }
+  //   if (status_kasubsie.value === 'approved') {
+  //     approved_kasubsie.setAttribute('disabled', '');
+  //   }
+  // <?php } ?>
 
   function sendLevel(level) {
     document.querySelector('#level_modal').value = level;

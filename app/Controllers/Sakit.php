@@ -2,23 +2,23 @@
 
 namespace App\Controllers;
 
-use App\Models\M_IzinSakit;
+use App\Models\M_Sakit;
 
-class IzinSakit extends BaseController
+class Sakit extends BaseController
 {
   public function __construct()
   {
-    $this->M_IzinSakit = new M_IzinSakit();
+    $this->M_Sakit = new M_Sakit();
     $this->session = \Config\Services::session();
   }
 
   public function index()
   {
-    $data['data_mp'] = $this->M_IzinSakit->get_data_master_man_power();
-    return view('pages/izin_sakit/form_izin_sakit', $data);
+    $data['data_mp'] = $this->M_Sakit->get_data_master_man_power();
+    return view('pages/sakit/form_sakit', $data);
   }
 
-  public function save_form_izin_sakit()
+  public function save_form_sakit()
   {
     $waktu_rencana = $this->request->getPost('waktu_rencana');
     $line = $this->request->getPost('line');
@@ -29,10 +29,10 @@ class IzinSakit extends BaseController
     if ($waktu_rencana[0] !== '') {
       if ($this->session->get('level') > 4 || $this->session->get('level') == NULL) {
         foreach ($waktu_rencana as $wr) {
-          $temp_data_mp_absen_by_daily = $this->M_IzinSakit->get_data_mp_absen_by_daily($wr, $line, $group_mp, $bagian);
+          $temp_data_mp_absen_by_daily = $this->M_Sakit->get_data_mp_absen_by_daily($wr, $line, $group_mp, $bagian);
           if (count($temp_data_mp_absen_by_daily) >= 2) {
             $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . $wr . '\nSilakan menghubungi Kasie anda');
-            return redirect()->to(base_url('form_izin_sakit'));
+            return redirect()->to(base_url('form_sakit'));
           }
         }
       }
@@ -45,7 +45,7 @@ class IzinSakit extends BaseController
       $lampiran = $this->request->getFiles('lampiran');
 
       if ($nama !== '') {
-        $data_form_izin_sakit = [
+        $data_form_sakit = [
           'sub_bagian' => $bagian,
           'tanggal_buat' => $tanggal,
           'jenis' => $jenis,
@@ -58,27 +58,27 @@ class IzinSakit extends BaseController
           'status_kadept' => 'pending',
           'status_kasie' => 'pending',
           'status_kasubsie' => 'pending',
-          'kategori' => 'Izin Sakit'
+          'kategori' => 'Sakit'
         ];
 
-        $save = $this->M_IzinSakit->save_form_izin_sakit($data_form_izin_sakit);
+        $save = $this->M_Sakit->save_form_sakit($data_form_sakit);
 
-        // $data_resume_izin_sakit = [
-        //   'id_data_izin_sakit' => $save,
+        // $data_resume_sakit = [
+        //   'id_data_sakit' => $save,
         //   'tanggal' => $tanggal,
         //   'nama' => $nama,
         //   'keterangan' => 'Izin'
         // ];
 
-        // $save_resume_izin_sakit = $this->M_IzinSakit->save_resume_izin_sakit($data_resume_izin_sakit);
+        // $save_resume_sakit = $this->M_Sakit->save_resume_sakit($data_resume_sakit);
 
         foreach ($waktu_rencana as $wr) {
           if ($wr !== NULL) {
-            $detail_form_izin_sakit = [
+            $detail_form_sakit = [
               'id_cuti' => $save,
               'tanggal_cuti' => $wr,
             ];
-            $save_detail = $this->M_IzinSakit->save_detail_form_izin_sakit($detail_form_izin_sakit);
+            $save_detail = $this->M_Sakit->save_detail_form_sakit($detail_form_sakit);
           }
         }
         if (count($lampiran) > 0) {
@@ -99,17 +99,17 @@ class IzinSakit extends BaseController
               $data_lampiran = [
                 'id_absen' => $save,
                 'lampiran' => $fileName,
-                'kategori' => 'Izin Sakit'
+                'kategori' => 'Sakit'
               ];
 
-              $save_lampiran = $this->M_IzinSakit->save_lampiran($data_lampiran);
+              $save_lampiran = $this->M_Sakit->save_lampiran($data_lampiran);
             }
           }
         }
       }
     } else {
       $this->session->setFlashdata('empty', 'Tidak Ada Data Yang Terkirim');
-      return redirect()->to(base_url('form_izin_sakit'));
+      return redirect()->to(base_url('form_sakit'));
     }
 
     $this->session->setFlashdata('success', 'Data Telah Terkirim');
@@ -121,7 +121,7 @@ class IzinSakit extends BaseController
   {
     $nama = $this->request->getPost('nama');
 
-    $data = $this->M_IzinSakit->get_data_mp($nama);
+    $data = $this->M_Sakit->get_data_mp($nama);
 
     return json_encode($data);
   }
