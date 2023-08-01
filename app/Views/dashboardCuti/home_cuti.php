@@ -5,19 +5,28 @@
 <!-- <div class="content-wrapper"> -->
 <div class="container-full">
   <!-- Main content -->
-  <section class="content d-flex justify-content-center">
-    <div class="row row-cols-1">
-      <div class="col mb-2">
-        <a href="<?= base_url() ?>form_cuti" target="_blank" class="btn fw-bold btn-info d-flex justify-content-center align-items-center" style="max-width: 600px; height: 18vh; font-size: 40px">Cuti</a>
+  <h1 class="text-center fw-bold" style="font-size: 6vw; color: black">CUTI ONLINE</h1>
+  <section class="content">
+    <div class="row row-cols-2">
+      <div class="col mb-2 p-0 mx-auto" style="max-width: 60vw;">
+        <div class="px-2">
+          <a href="<?= base_url() ?>form_cuti" class="btn fw-bold d-flex justify-content-center align-items-center" style="background-image: url(<?= base_url() ?>assets/images/background_cuti.jpg); background-size: cover; background-position: center; color: black; max-width: 60vw; height: 30vh; font-size: 6vw">Cuti</a>
+        </div>
       </div>
-      <div class="col mb-2">
-        <a href="<?= base_url() ?>form_cuti_besar" target="_blank" class="btn fw-bold btn-primary d-flex justify-content-center align-items-center" style="max-width: 600px; height: 18vh; font-size: 40px">Cuti Besar</a>
+      <div class="col mb-2 p-0 mx-auto" style="max-width: 60vw;">
+        <div class="px-2">
+          <a href="<?= base_url() ?>form_cuti_besar" class="btn fw-bold d-flex justify-content-center align-items-center" style="background-image: url(<?= base_url() ?>assets/images/background_cuti_besar.jpg); background-size: cover; background-position: center; color: black; max-width: 60vw; height: 30vh; font-size: 6vw">Cuti Besar</a>
+        </div>
       </div>
-      <div class="col mb-2">
-        <a href="<?= base_url() ?>form_izin" target="_blank" class="btn fw-bold d-flex justify-content-center align-items-center" style="max-width: 600px; height: 18vh; font-size: 40px; background-color: orange; color: white">Izin</a>
+      <div class="col mb-2 p-0 mx-auto" style="max-width: 60vw;">
+        <div class="px-2">
+          <a href="<?= base_url() ?>form_izin" class="btn fw-bold d-flex justify-content-center align-items-center" style="background-image: url(<?= base_url() ?>assets/images/background_izin.png); background-size: cover; background-position: center; color: black; max-width: 60vw; height: 30vh; font-size: 6vw;">Izin</a>
+        </div>
       </div>
-      <div class="col mb-2">
-        <a href="<?= base_url() ?>form_sakit" target="_blank" class="btn fw-bold btn-danger d-flex justify-content-center align-items-center" style="max-width: 600px; height: 18vh; font-size: 40px">Sakit</a>
+      <div class="col mb-2 p-0 mx-auto" style="max-width: 60vw;">
+        <div class="px-2">
+          <a href="<?= base_url() ?>form_sakit" class="btn fw-bold d-flex justify-content-center align-items-center" style="background-image: url(<?= base_url() ?>assets/images/background_sakit.png); background-size: cover; background-position: center; color: black; max-width: 60vw; height: 30vh; font-size: 6vw">Sakit</a>
+        </div>
       </div>
     </div>
   </section>
