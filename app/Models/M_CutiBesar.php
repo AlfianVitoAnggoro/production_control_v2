@@ -34,6 +34,12 @@ class M_CutiBesar extends Model
                             WHERE id_man_power =\'' . $id_man_power . '\'
                           ');
       $results = $query->getResultArray();
+      if (count($results) == 0) {
+        $query = $this->db->query('SELECT * FROM master_data_man_power mdmp
+                            WHERE id_man_power =\'' . $id_man_power . '\'
+                          ');
+        $results = $query->getResultArray();
+      }
     }
 
     return $results;

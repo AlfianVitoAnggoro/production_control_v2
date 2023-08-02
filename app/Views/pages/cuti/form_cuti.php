@@ -137,16 +137,18 @@
               else if (data[0].line <= 10)
                 document.querySelector('#bagian').value = 'MCB';
             } else {
-              if (data[0].group_mp != undefined)
+              if (data[0].group_mp != undefined) {
                 document.querySelector('#bagian').value = data[0].sub_bagian;
-              else {
+                document.querySelector('#line').value = data[0].line;
+                document.querySelector('#group_mp').value = data[0].group_mp;
+              } else {
                 document.querySelector('#bagian').value = 'Produksi 2';
                 document.querySelector('#line').value = '0';
                 document.querySelector('#group_mp').value = ''
               }
             }
-            $('#loading-modal').modal('hide');
           }
+          $('#loading-modal').modal('hide');
         }
       })
     } else {

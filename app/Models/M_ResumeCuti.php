@@ -47,7 +47,7 @@ class M_ResumeCuti extends Model
                             ORDER BY drac.tanggal_buat DESC
                             ');
     $query_sakit = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp, mdmp.nama AS nama_mp FROM data_record_all_sakit drac
-                              JOIN master_data_man_power mdmp ON mdmp.id_man_power = drac.id_cuti
+                              JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
                               ORDER BY drac.tanggal_buat DESC
                               ');
 
@@ -154,7 +154,7 @@ class M_ResumeCuti extends Model
   public function checkStatusApprovedCuti($id_cuti)
   {
     $query = $this->db->query('SELECT * FROM data_record_all_cuti
-                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\' OR status_hrd = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
                             ');
 
     return $query->getRowArray();
@@ -163,7 +163,7 @@ class M_ResumeCuti extends Model
   public function checkStatusApprovedIzin($id_cuti)
   {
     $query = $this->db->query('SELECT * FROM data_record_all_izin
-                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\' OR status_hrd = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
                             ');
 
     return $query->getRowArray();
@@ -172,7 +172,7 @@ class M_ResumeCuti extends Model
   public function checkStatusApprovedCutiBesar($id_cuti)
   {
     $query = $this->db->query('SELECT * FROM data_record_all_cuti_besar
-                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\' OR status_hrd = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
                             ');
 
     return $query->getRowArray();
@@ -181,7 +181,7 @@ class M_ResumeCuti extends Model
   public function checkStatusApprovedSakit($id_cuti)
   {
     $query = $this->db->query('SELECT * FROM data_record_all_sakit
-                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\' OR status_hrd = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
                             ');
 
     return $query->getRowArray();
