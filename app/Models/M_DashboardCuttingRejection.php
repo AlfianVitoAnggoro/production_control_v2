@@ -81,6 +81,7 @@ class M_DashboardCuttingRejection extends Model
                                     GROUP BY p.line
                                 ) AS subquery
                                 GROUP BY subquery.line
+                                HAVING SUM(total_produksi) > 0
                                 ORDER BY ((SUM(total_reject) / SUM(total_produksi)) * 100) DESC
                                 ');
 
