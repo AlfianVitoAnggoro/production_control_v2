@@ -83,11 +83,31 @@ class Database extends Config
         'port'     => 1433,
     ];
 
+    public array $henkaten = [
+        'DSN'      => '',
+        'hostname' => 'localhost',
+        'username' => 'user',
+        'password' => '12345',
+        'database' => 'henkaten',
+        'DBDriver' => 'sqlsrv',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port'     => 1433,
+    ];
+
     // public array $henkaten = [
     //     'DSN'      => '',
-    //     'hostname' => 'localhost',
-    //     'username' => 'user',
-    //     'password' => '12345',
+    //     'hostname' => '10.19.16.27',
+    //     'username' => 'sa',
+    //     'password' => 'User@new1',
     //     'database' => 'henkaten',
     //     'DBDriver' => 'sqlsrv',
     //     'DBPrefix' => '',
@@ -102,26 +122,6 @@ class Database extends Config
     //     'failover' => [],
     //     'port'     => 1433,
     // ];
-
-    public array $henkaten = [
-        'DSN'      => '',
-        'hostname' => '10.19.16.27',
-        'username' => 'sa',
-        'password' => 'User@new1',
-        'database' => 'henkaten_assy',
-        'DBDriver' => 'sqlsrv',
-        'DBPrefix' => '',
-        'pConnect' => false,
-        'DBDebug'  => true,
-        'charset'  => 'utf8',
-        'DBCollat' => 'utf8_general_ci',
-        'swapPre'  => '',
-        'encrypt'  => false,
-        'compress' => false,
-        'strictOn' => false,
-        'failover' => [],
-        'port'     => 1433,
-    ];
 
     public array $timah = [
         'DSN'      => '',
