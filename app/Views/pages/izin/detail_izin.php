@@ -7,19 +7,19 @@
 </style>
 <?= $this->endSection() ?>
 <?= $this->section('content'); ?>
-<?php $jenis_izin = ['Sakit', 'Keperluan Keluarga', 'Lain-lain'] ?>
+<?php $jenis_izin = ['Keperluan Keluarga', 'Dispensasi', 'Lain-lain'] ?>
 <?php
-if ($data_mp_cuti[0]['level_account'] === 1)
+if ($data_mp_cuti[0]['level_account'] == 1)
   $level = 'Kadiv';
-else if ($data_mp_cuti[0]['level_account'] === 2)
+else if ($data_mp_cuti[0]['level_account'] == 2)
   $level = 'Kadiv';
-else if ($data_mp_cuti[0]['level_account'] === 3)
+else if ($data_mp_cuti[0]['level_account'] == 3)
   $level = 'Kadept';
-else if ($data_mp_cuti[0]['level_account'] === 4)
+else if ($data_mp_cuti[0]['level_account'] == 4)
   $level = 'Kasie';
-else if ($data_mp_cuti[0]['level_account'] === 5)
+else if ($data_mp_cuti[0]['level_account'] == 5)
   $level = 'Kasubsie';
-else if ($data_mp_cuti[0]['level_account'] === 'hrd')
+else if ($data_mp_cuti[0]['level_account'] == 'hrd')
   $level = 'HRD';
 else
   $level = '';

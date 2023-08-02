@@ -21,7 +21,7 @@
             <div class="col-12 col-xl-12">
               <div class="box">
                 <div class="box-header with-border">
-                  <h4 class="box-title">Laporan Cuti Prouksi 2</h4>
+                  <h4 class="box-title">List Cuti Produksi 2</h4>
                 </div>
                 <div class="box-body">
                   <!-- <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target=".modal_print_cuti">
@@ -42,6 +42,7 @@
                           <th>Kadept</th>
                           <th>Kadiv</th>
                           <th>HRD</th>
+                          <th>Back Date</th>
                           <th>Detail</th>
                         </tr>
                       </thead>
@@ -53,62 +54,88 @@
                             <td><?= $dmc['tanggal'] ?></td>
                             <td><?= ($dmc['line'] == 'indirect' || $dmc['line'] == '') ? 'Indirect' : $line[$dmc['line']] ?></td>
                             <td><?= $dmc['nama_mp'] ?></td>
-                            <td><?= $dmc['kategori'] ?></td>
+                            <td><?= (strtolower($dmc['kategori']) == 'cuti') ? $dmc['jenis'] : $dmc['kategori'] ?></td>
                             <td style="width: 100px; background-color: <?= $dmc['status_kasubsie'] === 'approved' ? 'limegreen' : ($dmc['status_kasubsie'] === 'rejected' ? 'red' : '') ?>">
                               <div class="d-flex justify-content-center align-items-center">
-                                <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
-                                  <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
-                                  <input type="hidden" name="level" value="kasubsie">
-                                  <input type="hidden" name="status_old" id="status_kasubsie_<?= $index ?>" value="<?= $dmc['status_kasubsie'] ?>">
-                                  <button type="submit" class="btn btn-sm" id="approved_kasubsie_<?= $index ?>" style="background-color: blue; color: white" disabled><i class="fa fa-check"></i></button>
-                                </form>
-                                <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('kasubsie', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_kasubsie_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
+                                <input type="hidden" id="status_kasubsie_<?= $index ?>" value="<?= $dmc['status_kasubsie'] ?>">
+                                <?php if ($dmc['status_kasubsie'] == 'rejected' || $dmc['status_kasubsie'] == 'pending') { ?>
+                                  <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
+                                    <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
+                                    <input type="hidden" name="level" value="kasubsie">
+                                    <input type="hidden" name="status_old" value="<?= $dmc['status_kasubsie'] ?>">
+                                    <button type="submit" class="btn btn-sm" id="approved_kasubsie_<?= $index ?>" style="background-color: blue; color: white" disabled><i class="fa fa-check"></i></button>
+                                  </form>
+                                <?php }
+                                if (($dmc['status_kasubsie'] == 'approved' || $dmc['status_kasubsie'] == 'pending')) { ?>
+                                  <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('kasubsie', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_kasubsie_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
+                                <?php } ?>
                               </div>
                             </td>
                             <td style="width: 100px; background-color: <?= $dmc['status_kasie'] === 'approved' ? 'limegreen' : ($dmc['status_kasie'] === 'rejected' ? 'red' : '') ?>">
                               <div class="d-flex justify-content-center align-items-center">
-                                <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
-                                  <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
-                                  <input type="hidden" name="level" value="kasie">
-                                  <input type="hidden" name="status_old" id="status_kasie_<?= $index ?>" value="<?= $dmc['status_kasie'] ?>">
-                                  <button type="submit" class="btn btn-sm" id="approved_kasie_<?= $index ?>" style="background-color: blue; color: white" disabled><i class="fa fa-check"></i></button>
-                                </form>
-                                <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('kasie', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_kasie_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
+                                <input type="hidden" id="status_kasie_<?= $index ?>" value="<?= $dmc['status_kasie'] ?>">
+                                <?php if ($dmc['status_kasie'] == 'rejected' || $dmc['status_kasie'] == 'pending') { ?>
+                                  <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
+                                    <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
+                                    <input type="hidden" name="level" value="kasie">
+                                    <input type="hidden" name="status_old" value="<?= $dmc['status_kasie'] ?>">
+                                    <button type="submit" class="btn btn-sm" id="approved_kasie_<?= $index ?>" style="background-color: blue; color: white" disabled><i class="fa fa-check"></i></button>
+                                  </form>
+                                <?php }
+                                if (($dmc['status_kasie'] == 'approved' || $dmc['status_kasie'] == 'pending')) { ?>
+                                  <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('kasie', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_kasie_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
+                                <?php } ?>
                               </div>
                             </td>
                             <td style="width: 100px; background-color: <?= $dmc['status_kadept'] === 'approved' ? 'limegreen' : ($dmc['status_kadept'] === 'rejected' ? 'red' : '') ?>">
                               <div class="d-flex justify-content-center align-items-center">
-                                <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
-                                  <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
-                                  <input type="hidden" name="level" value="kadept">
-                                  <input type="hidden" name="status_old" id="status_kadept_<?= $index ?>" value="<?= $dmc['status_kadept'] ?>">
-                                  <button type="submit" class="btn btn-sm <?= $dmc['status_kadept'] === 'approved' ? '' : 'btn-primary' ?>" id="approved_kadept_<?= $index ?>" style="background-color: blue; color: white" disabled><i class="fa fa-check"></i></button>
-                                </form>
-                                <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('kadept', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_kadept_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
+                                <input type="hidden" id="status_kadept_<?= $index ?>" value="<?= $dmc['status_kadept'] ?>">
+                                <?php if ($dmc['status_kadept'] == 'rejected' || $dmc['status_kadept'] == 'pending') { ?>
+                                  <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
+                                    <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
+                                    <input type="hidden" name="level" value="kadept">
+                                    <input type="hidden" name="status_old" value="<?= $dmc['status_kadept'] ?>">
+                                    <button type="submit" class="btn btn-sm <?= $dmc['status_kadept'] === 'approved' ? '' : 'btn-primary' ?>" id="approved_kadept_<?= $index ?>" style="background-color: blue; color: white" disabled><i class="fa fa-check"></i></button>
+                                  </form>
+                                <?php }
+                                if (($dmc['status_kadept'] == 'approved' || $dmc['status_kadept'] == 'pending')) { ?>
+                                  <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('kadept', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_kadept_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
+                                <?php } ?>
                               </div>
                             </td>
                             <td style="width: 100px; background-color: <?= $dmc['status_kadiv'] === 'approved' ? 'limegreen' : ($dmc['status_kadiv'] === 'rejected' ? 'red' : '') ?>">
                               <div class="d-flex justify-content-center align-items-center">
-                                <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
-                                  <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
-                                  <input type="hidden" name="level" value="kadiv">
-                                  <input type="hidden" name="status_old" id="status_kadiv_<?= $index ?>" value="<?= $dmc['status_kadiv'] ?>">
-                                  <button type="submit" class="btn btn-sm" id="approved_kadiv_<?= $index ?>" style="background-color: blue; color: white" disabled><i class="fa fa-check"></i></button>
-                                </form>
-                                <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('kadiv', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_kadiv_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
+                                <input type="hidden" id="status_kadiv_<?= $index ?>" value="<?= $dmc['status_kadiv'] ?>">
+                                <?php if ($dmc['status_kadiv'] == 'rejected' || $dmc['status_kadiv'] == 'pending') { ?>
+                                  <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
+                                    <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
+                                    <input type="hidden" name="level" value="kadiv">
+                                    <input type="hidden" name="status_old" value="<?= $dmc['status_kadiv'] ?>">
+                                    <button type="submit" class="btn btn-sm" id="approved_kadiv_<?= $index ?>" style="background-color: blue; color: white" disabled><i class="fa fa-check"></i></button>
+                                  </form>
+                                <?php }
+                                if (($dmc['status_kadiv'] == 'approved' || $dmc['status_kadiv'] == 'pending')) { ?>
+                                  <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('kadiv', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_kadiv_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
+                                <?php } ?>
                               </div>
                             </td>
                             <td style="width: 100px; background-color: <?= $dmc['status_hrd'] === 'approved' ? 'limegreen' : ($dmc['status_hrd'] === 'rejected' ? 'red' : '') ?>">
                               <div class="d-flex justify-content-center align-items-center">
-                                <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
-                                  <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
-                                  <input type="hidden" name="level" value="hrd">
-                                  <input type="hidden" name="status_old" id="status_hrd_<?= $index ?>" value="<?= $dmc['status_hrd'] ?>">
-                                  <button type="submit" class="btn btn-sm" id="approved_hrd_<?= $index ?>" style="background-color: blue; color: white" disabled><i class="fa fa-check"></i></button>
-                                </form>
-                                <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('hrd', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_hrd_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
+                                <input type="hidden" id="status_hrd_<?= $index ?>" value="<?= $dmc['status_hrd'] ?>">
+                                <?php if ($dmc['status_hrd'] == 'rejected' || $dmc['status_hrd'] == 'pending') { ?>
+                                  <form action="<?= base_url() ?>cuti/approve_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>" method="post">
+                                    <input type="hidden" name="id_cuti" value="<?= $dmc['id_cuti'] ?>">
+                                    <input type="hidden" name="level" value="hrd">
+                                    <input type="hidden" name="status_old" value="<?= $dmc['status_hrd'] ?>">
+                                    <button type="submit" class="btn btn-sm" id="approved_hrd_<?= $index ?>" style="background-color: blue; color: white" disabled><i class="fa fa-check"></i></button>
+                                  </form>
+                                <?php }
+                                if (($dmc['status_hrd'] == 'approved' || $dmc['status_hrd'] == 'pending')) { ?>
+                                  <button type="button" class="btn btn-sm me-1" data-bs-toggle="modal" data-bs-target=".modal_reject" onclick="sendLevel('hrd', <?= $dmc['id_cuti'] ?>, '<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>')" id="rejected_hrd_<?= $index ?>" style="background-color: orange; color: white" disabled><i class="fa fa-times"></i></button>
+                                <?php } ?>
                               </div>
                             </td>
+                            <td class="text-center"><?= ($dmc['back_date'] == 'true') ? '✔' : '-' ?></td>
                             <td>
                               <a href="<?= base_url() ?>cuti/detail_<?= strtolower(str_replace(' ', '_', $dmc['kategori'])) ?>/<?= $dmc['id_cuti'] ?>" class="btn btn-sm btn-primary">Detail</a>
                               <?php if (session()->get('level') < 5) { ?>
@@ -132,6 +159,7 @@
                           <th>Kadept</th>
                           <th>Kadiv</th>
                           <th>HRD</th>
+                          <th>Back Date</th>
                           <th>Detail</th>
                         </tr>
                       </tfoot>
@@ -262,9 +290,9 @@
         approved_hrd.removeAttribute('disabled');
         rejected_hrd.removeAttribute('disabled');
       }
-      if (status_hrd.value === 'approved') {
-        approved_hrd.setAttribute('disabled', '');
-      }
+      // if (status_hrd.value === 'approved') {
+      //   approved_hrd.setAttribute('disabled', '');
+      // }
     <?php } ?>
     <?php if ((strtolower($departement_account) === 'produksi2' || strtolower($departement_account) == '') && $level_account < 3) { ?>
       if (status_kadiv.value === 'approved') {
@@ -277,9 +305,9 @@
         approved_kadiv.removeAttribute('disabled');
         rejected_kadiv.setAttribute('disabled', '');
       }
-      if (status_kadiv.value === 'approved') {
-        approved_kadiv.setAttribute('disabled', '');
-      }
+      // if (status_kadiv.value === 'approved') {
+      //   approved_kadiv.setAttribute('disabled', '');
+      // }
     <?php } ?>
     <?php if ((strtolower($departement_account) === 'produksi2' || strtolower($departement_account) == '') && $level_account < 4) { ?>
       if (status_kadept.value === 'approved') {
@@ -292,9 +320,9 @@
         approved_kadept.removeAttribute('disabled');
         rejected_kadept.setAttribute('disabled', '');
       }
-      if (status_kadept.value === 'approved') {
-        approved_kadept.setAttribute('disabled', '');
-      }
+      // if (status_kadept.value === 'approved') {
+      //   approved_kadept.setAttribute('disabled', '');
+      // }
     <?php } ?>
     <?php if ((strtolower($departement_account) === 'produksi2' || strtolower($departement_account) == '') && $level_account < 5) { ?>
       if (status_kasie.value === 'approved') {
@@ -307,9 +335,9 @@
         approved_kasie.removeAttribute('disabled');
         rejected_kasie.setAttribute('disabled', '');
       }
-      if (status_kasie.value === 'approved') {
-        approved_kasie.setAttribute('disabled', '');
-      }
+      // if (status_kasie.value === 'approved') {
+      //   approved_kasie.setAttribute('disabled', '');
+      // }
     <?php } ?>
     <?php if ((strtolower($departement_account) === 'produksi2' || strtolower($departement_account) == '') && $level_account < 6) { ?>
       if (status_kasubsie.value === 'approved') {
@@ -322,9 +350,9 @@
         approved_kasubsie.removeAttribute('disabled');
         rejected_kasubsie.setAttribute('disabled', '');
       }
-      if (status_kasubsie.value === 'approved') {
-        approved_kasubsie.setAttribute('disabled', '');
-      }
+      // if (status_kasubsie.value === 'approved') {
+      //   approved_kasubsie.setAttribute('disabled', '');
+      // }
     <?php } ?>
   }
 

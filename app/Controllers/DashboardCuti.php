@@ -32,12 +32,12 @@ class DashboardCuti extends BaseController
     $data['data_cuti'] = $temp_data_cuti;
     if (count($temp_data_cuti) > 0) {
       foreach ($temp_data_cuti as $tdc) {
-        if ($tdc['kategori'] === 'Cuti' || $tdc['kategori'] === 'Cuti Besar')
-          $data['detail_cuti'][$tdc['tanggal_cuti']]['Cuti'][$tdc['nama']] = $tdc;
-        else if ($tdc['kategori'] === 'Dispensasi')
-          $data['detail_cuti'][$tdc['tanggal_cuti']]['Disp'][$tdc['nama']] = $tdc;
-        else
-          $data['detail_cuti'][$tdc['tanggal_cuti']][$tdc['kategori']][$tdc['nama']] = $tdc;
+        // if ($tdc['kategori'] === 'Cuti' || $tdc['kategori'] === 'Cuti Besar')
+        //   $data['detail_cuti'][$tdc['tanggal_cuti']]['Cuti'][$tdc['nama']] = $tdc;
+        // else if ($tdc['kategori'] === 'Dispensasi')
+        //   $data['detail_cuti'][$tdc['tanggal_cuti']]['Disp'][$tdc['nama']] = $tdc;
+        // else
+        $data['detail_cuti'][$tdc['tanggal_cuti']][$tdc['kategori']][$tdc['nama']] = $tdc;
       }
     } else {
       $data['detail_cuti'] = [];

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+use function PHPUnit\Framework\fileExists;
+
 class M_ResumeCuti extends Model
 {
   public function __construct()
@@ -44,8 +46,8 @@ class M_ResumeCuti extends Model
                             JOIN master_data_man_power mdmp ON drac.nama = mdmp.id_man_power
                             ORDER BY drac.tanggal_buat DESC
                             ');
-    $query_sakit = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_sakit drac
-                              JOIN detail_record_all_sakit drc ON drc.id_cuti = drac.id_cuti
+    $query_sakit = $this->db->query('SELECT drac.*, drac.tanggal_buat AS tanggal, drac.group_mp, mdmp.nama AS nama_mp FROM data_record_all_sakit drac
+                              JOIN master_data_man_power mdmp ON mdmp.id_man_power = drac.id_cuti
                               ORDER BY drac.tanggal_buat DESC
                               ');
 
@@ -94,6 +96,16 @@ class M_ResumeCuti extends Model
     return $data;
   }
 
+  public function get_detail_mp_sakit($id_cuti)
+  {
+    $query = $this->db->query('SELECT dt_rac.*, dt_rac.created_at AS created, d_rac.*, mdmp.npk, mdmp.nama FROM data_record_all_sakit dt_rac
+                            JOIN detail_record_all_sakit d_rac ON dt_rac.id_cuti = d_rac.id_cuti
+							              JOIN master_data_man_power mdmp ON mdmp.id_man_power = dt_rac.nama
+                            WHERE dt_rac.id_cuti = \'' . $id_cuti . '\'
+                            ');
+    return $query->getResultArray();
+  }
+
   public function get_data_lampiran($id_cuti, $kategori)
   {
     $query = $this->db->query('SELECT dt_lamp.lampiran FROM data_record_all_' . strtolower(str_replace(' ', '_', $kategori)) . ' dt_rac
@@ -130,10 +142,19 @@ class M_ResumeCuti extends Model
     return $id;
   }
 
+  public function update_sakit($id, $data)
+  {
+    $builder = $this->db->table('data_record_all_sakit');
+    $builder->where('id_cuti', $id);
+    $builder->update($data);
+
+    return $id;
+  }
+
   public function checkStatusApprovedCuti($id_cuti)
   {
     $query = $this->db->query('SELECT * FROM data_record_all_cuti
-                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\')
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
                             ');
 
     return $query->getRowArray();
@@ -142,7 +163,7 @@ class M_ResumeCuti extends Model
   public function checkStatusApprovedIzin($id_cuti)
   {
     $query = $this->db->query('SELECT * FROM data_record_all_izin
-                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\')
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
                             ');
 
     return $query->getRowArray();
@@ -151,7 +172,16 @@ class M_ResumeCuti extends Model
   public function checkStatusApprovedCutiBesar($id_cuti)
   {
     $query = $this->db->query('SELECT * FROM data_record_all_cuti_besar
-                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\')
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
+                            ');
+
+    return $query->getRowArray();
+  }
+
+  public function checkStatusApprovedSakit($id_cuti)
+  {
+    $query = $this->db->query('SELECT * FROM data_record_all_sakit
+                            WHERE id_cuti = \'' . $id_cuti . '\' AND (status_kadiv = \'approved\' OR status_kadept = \'approved\') AND (status_kadiv != \'rejected\' AND status_kadept != \'rejected\' AND status_kasie != \'rejected\' AND status_kasubsie != \'rejected\' AND status_hrd != \'rejected\')
                             ');
 
     return $query->getRowArray();
@@ -159,12 +189,44 @@ class M_ResumeCuti extends Model
 
   public function delete_cuti($cuti, $id_cuti)
   {
-    if (strpos($cuti, 'izin') !== false)
-      $cuti = 'izin';
+    $lampiran = $this->db->query('SELECT * FROM data_all_lampiran_absen WHERE id_absen = \'' . $id_cuti . '\' AND kategori = \'' . ucwords(str_replace('_', ' ', $cuti)) . '\'');
+    $lampiran = $lampiran->getResultArray();
+    foreach ($lampiran as $qry) {
+      $file_path = FCPATH . 'uploads\\lampiran_cuti\\' . $qry['lampiran']; // Ganti "file_name.txt" dengan nama file yang ingin dihapus
+      if (is_file($file_path)) {
+        unlink($file_path);
+      }
+    }
     $query = $this->db->query('DELETE FROM data_record_all_' . $cuti . ' WHERE id_cuti = \'' . $id_cuti . '\'');
     $query = $this->db->query('DELETE FROM detail_record_all_' . $cuti . ' WHERE id_cuti = \'' . $id_cuti . '\'');
     $query = $this->db->query('DELETE FROM data_all_lampiran_absen WHERE id_absen = \'' . $id_cuti . '\' AND kategori = \'' . ucwords(str_replace('_', ' ', $cuti)) . '\'');
 
     return $id_cuti;
+  }
+
+  public function generateInitials($name)
+  {
+    if (strlen($name) > 0) {
+      $words = explode(' ', $name);
+      $initials = '';
+
+      foreach ($words as $word) {
+        $initials .= substr($word, 0, 1);
+      }
+
+      // Jika inisial kurang dari 3 huruf, tambahkan huruf selanjutnya dari kata terakhir
+      if (strlen($initials) < 3) {
+        while (strlen($initials) < 3) {
+          if (count($words) == 2)
+            $initials .= substr(end($words), 1, 1);
+          else
+            $initials .= substr(end($words), strlen($initials), 1);
+        }
+      }
+
+      return strtoupper($initials);
+    } else {
+      return $name;
+    }
   }
 }

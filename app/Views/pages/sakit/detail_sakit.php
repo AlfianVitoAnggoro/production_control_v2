@@ -7,19 +7,19 @@
 </style>
 <?= $this->endSection() ?>
 <?= $this->section('content'); ?>
-<?php $jenis_izin = ['Sakit', 'Keperluan Keluarga', 'Lain-lain'] ?>
+<?php $jenis_sakit = ['Sakit'] ?>
 <?php
-if ($data_mp_cuti[0]['level_account'] === 1)
+if ($data_mp_cuti[0]['level_account'] == 1)
   $level = 'Kadiv';
-else if ($data_mp_cuti[0]['level_account'] === 2)
+else if ($data_mp_cuti[0]['level_account'] == 2)
   $level = 'Kadiv';
-else if ($data_mp_cuti[0]['level_account'] === 3)
+else if ($data_mp_cuti[0]['level_account'] == 3)
   $level = 'Kadept';
-else if ($data_mp_cuti[0]['level_account'] === 4)
+else if ($data_mp_cuti[0]['level_account'] == 4)
   $level = 'Kasie';
-else if ($data_mp_cuti[0]['level_account'] === 5)
+else if ($data_mp_cuti[0]['level_account'] == 5)
   $level = 'Kasubsie';
-else if ($data_mp_cuti[0]['level_account'] === 'hrd')
+else if ($data_mp_cuti[0]['level_account'] == 'hrd')
   $level = 'HRD';
 else
   $level = '';
@@ -28,9 +28,9 @@ else
 <div class="content-wrapper">
   <div class="container">
     <section class="content">
-      <a href="<?= base_url() ?>cuti/detail_izin/<?= $id_cuti ?>/print" class="btn btn-sm btn-danger float-end">Print</a>
+      <a href="<?= base_url() ?>cuti/detail_sakit/<?= $id_cuti ?>/print" class="btn btn-sm btn-danger float-end">Print</a>
       <h4 class="fw-bold">PT. Century Batteries Indonesia</h4>
-      <h3 class="text-center text-decoration-underline fw-bold">PERMOHONAN IZIN</h3>
+      <h3 class="text-center text-decoration-underline fw-bold">PERMOHONAN IZIN SAKIT</h3>
       <table class="table" style="border-color: transparent">
         <tbody>
           <tr>
@@ -78,7 +78,7 @@ else
           <th class="py-1 br-1 text-center">KETERANGAN</th>
         </thead>
         <tbody>
-          <?php foreach ($jenis_izin as $ji) { ?>
+          <?php foreach ($jenis_sakit as $ji) { ?>
             <tr>
               <th class="py-1 br-1 text-center" style="width: 100px"><?= $data_mp_cuti[0]['jenis'] === $ji ? '<i class="fa fa-check"></i>' : '' ?></th>
               <th class="py-1 br-1" style="width: 200px;" colspan="2"><?= $ji ?></th>
@@ -90,8 +90,8 @@ else
             <td class="py-1 br-1" rowspan="4"></td>
           </tr>
           <tr>
-            <td class="py-1 br-1" style="height: 29px;" colspan="2"><?= in_array($data_mp_cuti[0]['jenis'], $jenis_izin) ? '' : $data_mp_cuti[0]['keterangan'] ?></td>
-            <td class="py-1 br-1" style="height: 29px;" colspan="2"><?= in_array($data_mp_cuti[0]['jenis'], $jenis_izin) ? '' : date('j F Y', strtotime($data_mp_cuti[0]['tanggal']))  ?></td>
+            <td class="py-1 br-1" style="height: 29px;" colspan="2"><?= in_array($data_mp_cuti[0]['jenis'], $jenis_sakit) ? '' : $data_mp_cuti[0]['keterangan'] ?></td>
+            <td class="py-1 br-1" style="height: 29px;" colspan="2"><?= in_array($data_mp_cuti[0]['jenis'], $jenis_sakit) ? '' : date('j F Y', strtotime($data_mp_cuti[0]['tanggal']))  ?></td>
             <td class="py-1 br-1" style="height: 29px;"></td>
           </tr>
           <?php for ($i = 0; $i < 2; $i++) { ?>

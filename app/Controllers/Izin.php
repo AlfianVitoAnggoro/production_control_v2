@@ -26,12 +26,15 @@ class Izin extends BaseController
       $line = 'indirect';
     $group_mp = $this->request->getPost('group_mp');
     $bagian = $this->request->getPost('bagian');
+    $back_date = '';
     if ($waktu_rencana[0] !== '') {
+      if (strtotime($waktu_rencana[0]) < strtotime(date('Y-m-d')))
+        $back_date = 'true';
       if ($this->session->get('level') > 4 || $this->session->get('level') == NULL) {
         foreach ($waktu_rencana as $wr) {
           $temp_data_mp_absen_by_daily = $this->M_Izin->get_data_mp_absen_by_daily($wr, $line, $group_mp, $bagian);
           if (count($temp_data_mp_absen_by_daily) >= 2) {
-            $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . $wr . '\nSilakan menghubungi Kasie anda');
+            $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . date('j F Y', strtotime($wr)) . '\nSilakan menghubungi Kasie anda');
             return redirect()->to(base_url('form_izin'));
           }
         }
@@ -58,19 +61,11 @@ class Izin extends BaseController
           'status_kadept' => 'pending',
           'status_kasie' => 'pending',
           'status_kasubsie' => 'pending',
+          'back_date' => $back_date,
           'kategori' => 'Izin'
         ];
 
         $save = $this->M_Izin->save_form_izin($data_form_izin);
-
-        // $data_resume_izin = [
-        //   'id_data_izin' => $save,
-        //   'tanggal' => $tanggal,
-        //   'nama' => $nama,
-        //   'keterangan' => 'Izin'
-        // ];
-
-        // $save_resume_izin = $this->M_Izin->save_resume_izin($data_resume_izin);
 
         foreach ($waktu_rencana as $wr) {
           if ($wr !== NULL) {

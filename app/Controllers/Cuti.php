@@ -20,6 +20,7 @@ class Cuti extends BaseController
 
   public function save_form_cuti()
   {
+    $back_date = '';
     $waktu_rencana = $this->request->getPost('waktu_rencana');
     $line = $this->request->getPost('line');
     if ($line == 'undefined')
@@ -27,12 +28,14 @@ class Cuti extends BaseController
     $bagian = $this->request->getPost('bagian');
     $group_mp = $this->request->getPost('group_mp');
     if ($waktu_rencana[0] !== '') {
+      if (strtotime($waktu_rencana[0]) < strtotime(date('Y-m-d')))
+        $back_date = 'true';
       if ($this->session->get('level') > 4 || $this->session->get('level') == NULL) {
         foreach ($waktu_rencana as $wr) {
           if ($wr != '') {
             $temp_data_mp_absen_by_daily = $this->M_Cuti->get_data_mp_absen_by_daily($wr, $line, $group_mp, $bagian);
             if (count($temp_data_mp_absen_by_daily) >= 2) {
-              $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . $wr . '\nSilakan menghubungi Kasie anda');
+              $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . date('j F Y', strtotime($wr)) . '\nSilakan menghubungi Kasie anda');
               return redirect()->to(base_url('form_cuti'));
             }
           }
@@ -60,6 +63,7 @@ class Cuti extends BaseController
           'status_kadept' => 'pending',
           'status_kasie' => 'pending',
           'status_kasubsie' => 'pending',
+          'back_date' => $back_date,
           'kategori' => 'Cuti'
         ];
 

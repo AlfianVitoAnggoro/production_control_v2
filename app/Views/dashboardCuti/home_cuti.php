@@ -10,22 +10,22 @@
     <div class="row row-cols-2">
       <div class="col mb-2 p-0 mx-auto" style="max-width: 60vw;">
         <div class="px-2">
-          <a href="<?= base_url() ?>form_cuti" class="btn fw-bold d-flex justify-content-center align-items-center" style="background-image: url(<?= base_url() ?>assets/images/background_cuti.jpg); background-size: cover; background-position: center; color: black; max-width: 60vw; height: 30vh; font-size: 6vw">Cuti</a>
+          <a href="<?= base_url() ?>form_cuti" class="btn fw-bold d-flex justify-content-center align-items-center" style="background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(<?= base_url() ?>assets/images/background_cuti.jpg) center / cover no-repeat; color: black; max-width: 60vw; height: 30vh; font-size: 6vw; border: 1px solid black">Cuti</a>
         </div>
       </div>
       <div class="col mb-2 p-0 mx-auto" style="max-width: 60vw;">
         <div class="px-2">
-          <a href="<?= base_url() ?>form_cuti_besar" class="btn fw-bold d-flex justify-content-center align-items-center" style="background-image: url(<?= base_url() ?>assets/images/background_cuti_besar.jpg); background-size: cover; background-position: center; color: black; max-width: 60vw; height: 30vh; font-size: 6vw">Cuti Besar</a>
+          <a href="<?= base_url() ?>form_cuti_besar" class="btn fw-bold d-flex justify-content-center align-items-center" style="background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(<?= base_url() ?>assets/images/background_cuti_besar.jpg) center / cover no-repeat; color: black; max-width: 60vw; height: 30vh; font-size: 6vw; border: 1px solid black">Cuti Besar</a>
         </div>
       </div>
       <div class="col mb-2 p-0 mx-auto" style="max-width: 60vw;">
         <div class="px-2">
-          <a href="<?= base_url() ?>form_izin" class="btn fw-bold d-flex justify-content-center align-items-center" style="background-image: url(<?= base_url() ?>assets/images/background_izin.png); background-size: cover; background-position: center; color: black; max-width: 60vw; height: 30vh; font-size: 6vw;">Izin</a>
+          <a href="<?= base_url() ?>form_izin" class="btn fw-bold d-flex justify-content-center align-items-center" style="background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(<?= base_url() ?>assets/images/background_izin.png) center / cover no-repeat; color: black; max-width: 60vw; height: 30vh; font-size: 6vw; border: 1px solid black;">Izin</a>
         </div>
       </div>
       <div class="col mb-2 p-0 mx-auto" style="max-width: 60vw;">
         <div class="px-2">
-          <a href="<?= base_url() ?>form_sakit" class="btn fw-bold d-flex justify-content-center align-items-center" style="background-image: url(<?= base_url() ?>assets/images/background_sakit.png); background-size: cover; background-position: center; color: black; max-width: 60vw; height: 30vh; font-size: 6vw">Sakit</a>
+          <a href="<?= base_url() ?>form_sakit" class="btn fw-bold d-flex justify-content-center align-items-center" style="background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(<?= base_url() ?>assets/images/background_sakit.png) center / cover no-repeat; color: black; max-width: 60vw; height: 30vh; font-size: 6vw; border: 1px solid black">Sakit</a>
         </div>
       </div>
     </div>

@@ -614,7 +614,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 $temp_index_add = 0;
                 foreach ($data_mp_tidak_hadir[$line[$i]] as $dmth) { ?>
                   <tr id="add_mp_tidak_masuk_<?= $line[$i] ?>_<?= $temp_index_add ?>" style="border-bottom: <?= $temp_index_add === 2 ? 'transparent' : '' ?>;" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('<?= $line[$i] ?>', <?= $temp_index_add ?>)">
-                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
+                    <td class="p-0 mp_cuti_<?= $line[$i] ?>" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
                       <?= $dmth['nama'] ?>
                       <input type="hidden" name="nama_mp_tidak_hadir_<?= $line[$i] ?>[]" value="<?= $dmth['id_man_power'] ?>">
                       <input type="hidden" name="id_cuti_mp_tidak_hadir_<?= $line[$i] ?>[]" id="id_cuti_mp_tidak_hadir_<?= $line[$i] ?>_<?= $temp_index_add ?>" value="<?= $dmth['id_cuti'] ?>">
@@ -661,7 +661,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               $temp_index_add = 0;
               foreach ($data_mp_tidak_hadir_indirect as $dmth) { ?>
                 <tr id="add_mp_tidak_masuk_indirect_<?= $temp_index_add ?>" style="border-bottom: <?= $temp_index_add === 2 ? 'transparent' : '' ?>;" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', <?= $temp_index_add ?>)">
-                  <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
+                  <td class="p-0 mp_cuti_indirect" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
                     <?= $dmth['nama'] ?>
                     <input type="hidden" name="nama_mp_tidak_hadir_indirect[]" value="<?= $dmth['id_man_power'] ?>">
                     <input type="hidden" name="id_cuti_mp_tidak_hadir_indirect[]" id="id_cuti_mp_tidak_hadir_indirect_<?= $temp_index_add ?>" value="<?= $dmth['id_cuti'] ?>">
@@ -894,7 +894,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 if (count < data.length) {
                   console.log(document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`));
                   document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
-                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[count].nama}</td>
+                    <td class="p-0 mp_cuti_${line}" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[count].nama}</td>
                     <td class="p-0 text-center">${String(data[count].npk).padStart(4, '0')}</td>
                     <td class="p-0 text-center">${data[count].kategori}</td>
                   `;
@@ -924,7 +924,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 if (cutiElement == null) {
                   console.log(document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`));
                   document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
-                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[index_add].nama}</td>
+                    <td class="p-0 mp_cuti_${line}" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[index_add].nama}</td>
                     <td class="p-0 text-center">${String(data[index_add].npk).padStart(4, '0')}</td>
                     <td class="p-0 text-center">${data[index_add].kategori}</td>
                   `;
@@ -1412,21 +1412,19 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
       dataType: 'json',
       success: function(data) {
         console.log(data);
-        // window.location.href = '<?= base_url() ?>dashboard_man_power/' + sub_bagian;
         showToast('Data berhasil disimpan.', '#38E54D', 'black');
-        // if(data === 'SUCESS') {
-        //   window.alert('Save Henkaten Man Power Success');
-        // }
-        $('#loading-modal').modal('hide');
+        window.location.href = '<?= base_url() ?>dashboard_man_power/' + sub_bagian + '/' + date + '/' + shift;
       },
       error: function(xhr, status, error) {
         showToast('Data gagal disimpan', 'red', 'white');
+        $('#loading-modal').modal('hide');
       }
     });
   }
 </script>
 <script>
-  let sum_mp_tidak_hadir = <?= json_encode($data_mp_tidak_hadir) ?>;
+  // let sum_mp_tidak_hadir = <?= json_encode($data_mp_tidak_hadir) ?>;
+  let sum_mp_tidak_hadir = 0;
   let sum_mp_tidak_hadir_indirect = <?= json_encode($data_mp_tidak_hadir_indirect) ?>;
   let sum_mesin = <?= json_encode($data_group_mesin) ?>;
   let sum_mesin_indirect = <?= json_encode($data_group_mesin_indirect) ?>;
@@ -1436,22 +1434,33 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   let temp_all_mp_hadir = [];
   let temp_sum_mesin = '';
   let temp_sum_mesin_indirect = '';
+  let mp_cuti = '';
   <?php for ($i = 0; $i < count($line); $i++) { ?>
+    mp_cuti = document.querySelectorAll('.mp_cuti_<?= $i + 1 ?>');
+    temp_mp_cuti = '';
+    if (mp_cuti != undefined) {
+      temp_mp_cuti = mp_cuti.length;
+    }
+    console.log(temp_mp_cuti);
     temp_sum_mesin = Object.entries(sum_mesin?.[<?= $line[$i] ?>]?.[Object.keys(sum_mesin?.[<?= $line[$i] ?>])[0]]).filter(element => {
       return element[1].status !== 'Non-Aktif';
     }).length;
-    mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / temp_sum_mesin) * 100).toFixed(1)));
-    mp_hadir.push(parseFloat((((temp_sum_mesin - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / temp_sum_mesin) * 100).toFixed(1)));
-    temp_all_mp_tidak_hadir.push((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
-    temp_all_mp_hadir.push(temp_sum_mesin - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
+    mp_tidak_hadir.push(parseFloat((((temp_mp_cuti) / temp_sum_mesin) * 100).toFixed(1)));
+    mp_hadir.push(parseFloat((((temp_sum_mesin - (temp_mp_cuti)) / temp_sum_mesin) * 100).toFixed(1)));
+    temp_all_mp_tidak_hadir.push((temp_mp_cuti));
+    temp_all_mp_hadir.push(temp_sum_mesin - (temp_mp_cuti));
   <?php } ?>
   temp_sum_mesin_indirect = Object.entries(sum_mesin_indirect?.[Object.keys(sum_mesin_indirect)[0]]).filter(element => {
     return element[1].status !== 'Non-Aktif';
   }).length;
-  mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / temp_sum_mesin_indirect) * 100).toFixed(1)));
-  mp_hadir.push(parseFloat((((temp_sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / temp_sum_mesin_indirect) * 100).toFixed(1)));
-  temp_all_mp_tidak_hadir.push((sum_mp_tidak_hadir_indirect?.length ?? 0));
-  temp_all_mp_hadir.push((temp_sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)));
+  mp_cuti = document.querySelectorAll('.mp_cuti_indirect');
+  temp_mp_cuti_indirect = '';
+  if (mp_cuti != undefined)
+    temp_mp_cuti_indirect = mp_cuti.length;
+  mp_tidak_hadir.push(parseFloat((((temp_mp_cuti_indirect) / temp_sum_mesin_indirect) * 100).toFixed(1)));
+  mp_hadir.push(parseFloat((((temp_sum_mesin_indirect - (temp_mp_cuti_indirect)) / temp_sum_mesin_indirect) * 100).toFixed(1)));
+  temp_all_mp_tidak_hadir.push((temp_mp_cuti_indirect));
+  temp_all_mp_hadir.push((temp_sum_mesin_indirect - (temp_mp_cuti_indirect)));
   mp_tidak_hadir.push(parseFloat(((eval(temp_all_mp_tidak_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
   mp_hadir.push(parseFloat(((eval(temp_all_mp_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
   let horizontal_barHighcharts = Highcharts.chart('horizontal_bar', {

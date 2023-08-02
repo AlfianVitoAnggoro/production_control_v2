@@ -26,7 +26,10 @@ class Sakit extends BaseController
       $line = 'indirect';
     $group_mp = $this->request->getPost('group_mp');
     $bagian = $this->request->getPost('bagian');
+    $back_date = '';
     if ($waktu_rencana[0] !== '') {
+      if (strtotime($waktu_rencana[0]) < strtotime(date('Y-m-d')))
+        $back_date = 'true';
       if ($this->session->get('level') > 4 || $this->session->get('level') == NULL) {
         foreach ($waktu_rencana as $wr) {
           $temp_data_mp_absen_by_daily = $this->M_Sakit->get_data_mp_absen_by_daily($wr, $line, $group_mp, $bagian);
@@ -58,19 +61,11 @@ class Sakit extends BaseController
           'status_kadept' => 'pending',
           'status_kasie' => 'pending',
           'status_kasubsie' => 'pending',
+          'back_date' => $back_date,
           'kategori' => 'Sakit'
         ];
 
         $save = $this->M_Sakit->save_form_sakit($data_form_sakit);
-
-        // $data_resume_sakit = [
-        //   'id_data_sakit' => $save,
-        //   'tanggal' => $tanggal,
-        //   'nama' => $nama,
-        //   'keterangan' => 'Izin'
-        // ];
-
-        // $save_resume_sakit = $this->M_Sakit->save_resume_sakit($data_resume_sakit);
 
         foreach ($waktu_rencana as $wr) {
           if ($wr !== NULL) {

@@ -1,6 +1,6 @@
 UPDATE [master_data_man_power]
 SET status = 'kasubsie'
-WHERE npk = '461' OR npk = '698' OR npk = '639' OR npk = '524' OR npk = '510';
+WHERE npk = '461' OR npk = '698' OR npk = '639' OR npk = '524' OR npk = '510' OR npk = '2535';
 
 UPDATE [master_data_man_power]
 SET status = 'gmt'

@@ -75,9 +75,9 @@
       </div>
       <div class="form-group">
         <label for="lampiran">Lampiran</label>
-        <!-- <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]" multiple accept="image/*"> -->
         <div id="multiple_file" style="width: 100%">
-          <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]">
+          <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]" multiple accept="image/*">
+          <!-- <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]"> -->
         </div>
         <button type="button" class="btn btn-sm btn-primary" id="btn_add_lampiran" onclick="add_lampiran()">+</button>
       </div>
@@ -122,23 +122,31 @@
         },
         dataType: 'JSON',
         success: function(data) {
-          document.querySelector('#npk').value = String(data?.[0]?.npk).padStart(4, '0');
-          document.querySelector('#line').value = data?.[0]?.line;
-          document.querySelector('#group_mp').value = data?.[0]?.group_mp;
-          if (data?.[0]?.line !== undefined) {
-            console.log(data?.[0]?.line)
-            if (data?.[0]?.line <= 3)
-              document.querySelector('#bagian').value = 'AMB-1';
-            else if (data?.[0]?.line <= 7)
-              document.querySelector('#bagian').value = 'AMB-2';
-            else if (data?.[0]?.line <= 9)
-              document.querySelector('#bagian').value = 'WET';
-            else if (data?.[0]?.line <= 10)
-              document.querySelector('#bagian').value = 'MCB';
-          } else {
-            document.querySelector('#bagian').value = data?.[0]?.sub_bagian;
+          if (data.length > 0) {
+            document.querySelector('#npk').value = String(data[0].npk).padStart(4, '0');
+            if (data[0].line !== undefined) {
+              document.querySelector('#line').value = data[0].line;
+              document.querySelector('#group_mp').value = data[0].group_mp;
+              console.log(data[0].line)
+              if (data[0].line <= 3)
+                document.querySelector('#bagian').value = 'AMB-1';
+              else if (data[0].line <= 7)
+                document.querySelector('#bagian').value = 'AMB-2';
+              else if (data[0].line <= 9)
+                document.querySelector('#bagian').value = 'WET';
+              else if (data[0].line <= 10)
+                document.querySelector('#bagian').value = 'MCB';
+            } else {
+              if (data[0].group_mp != undefined)
+                document.querySelector('#bagian').value = data[0].sub_bagian;
+              else {
+                document.querySelector('#bagian').value = 'Produksi 2';
+                document.querySelector('#line').value = '0';
+                document.querySelector('#group_mp').value = ''
+              }
+            }
+            $('#loading-modal').modal('hide');
           }
-          $('#loading-modal').modal('hide');
         }
       })
     } else {

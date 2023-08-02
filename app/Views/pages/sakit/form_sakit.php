@@ -70,9 +70,9 @@
       </div>
       <div class="form-group">
         <label for="lampiran">Lampiran</label>
-        <!-- <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]" multiple accept="image/*"> -->
         <div id="multiple_file" style="width: 100%">
-          <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]">
+          <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]" multiple accept="image/*">
+          <!-- <input type="file" class="form-control mb-2" id="lampiran" name="lampiran[]"> -->
         </div>
         <button type="button" class="btn btn-sm btn-primary" id="btn_add_lampiran" onclick="add_lampiran()">+</button>
       </div>
