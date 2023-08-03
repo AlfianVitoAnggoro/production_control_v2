@@ -38,6 +38,96 @@
     background-color: #ff0000;
     color: #fff;
   }
+
+  .number {
+    padding: 10px;
+    width: 80px;
+    border-right: 1px solid black;
+  }
+
+  @media screen and (max-width: 768px) {
+    .month {
+      font-size: 4vw;
+    }
+
+    .day {
+      border: 1px solid #ccc;
+      height: calc(90vh * (1/7));
+      font-size: 4vw;
+    }
+
+    .p-0.col {
+      display: none;
+    }
+
+    #judul {
+      font-size: 6vw;
+    }
+
+    .number {
+      padding: 10px;
+      width: 100%;
+      border-right: 0px;
+    }
+
+    .dayOfWeek {
+      border: 1px solid #ccc;
+      font-size: 4vw;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #prevMonthBtn,
+    #nextMonthBtn,
+    #backBtn {
+      font-size: 2vw;
+      padding: 10px;
+    }
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1676px) {
+    .month {
+      font-size: 4vh;
+    }
+
+    .day {
+      border: 1px solid #ccc;
+      height: calc(90vh * (1/7));
+      font-size: 4vh;
+    }
+
+    .p-0.col {
+      display: none;
+    }
+
+    #judul {
+      font-size: 4vh;
+    }
+
+    .number {
+      padding: 10px;
+      width: 100%;
+      border-right: 0px;
+    }
+
+    .dayOfWeek {
+      border: 1px solid #ccc;
+      font-size: 4vh;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #prevMonthBtn,
+    #nextMonthBtn,
+    #backBtn {
+      font-size: 2vh;
+      padding: 10px;
+    }
+  }
 </style>
 <?= $this->endSection() ?>
 
@@ -45,17 +135,17 @@
 <div class="container-full">
   <!-- Main content -->
   <section class="content">
-    <button type="button" class="btn btn-primary" onclick="return window.history.back()">Back</button>
+    <button type="button" class="btn btn-primary" onclick="return window.history.back()" id="backBtn">Back</button>
     <div class="row">
       <div class="col">
-        <div class="d-flex justify-content-between">
-          <h2 class="text-center mt-4 mb-2">Calendar</h2>
+        <div class="d-flex justify-content-between align-items-center">
+          <h2 class="text-center" id="judul">Calendar</h2>
           <div class="text-center">
             <button id="prevMonthBtn" class="btn btn-primary mr-2">Sebelumnya</button>
             <button id="nextMonthBtn" class="btn btn-primary">Berikutnya</button>
           </div>
         </div>
-        <div id="calendarElement" class="row"></div>
+        <div id="calendarElement" class="row" style="overflow: auto"></div>
       </div>
     </div>
   </section>
@@ -69,24 +159,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="text-center">Nama</th>
-              <th class="text-center">Bagian</th>
-              <th class="text-center">Line</th>
-              <th class="text-center">Group</th>
-              <th class="text-center">Kategori</th>
-              <th class="text-center">Jenis</th>
-              <th class="text-center">Kasubsie</th>
-              <th class="text-center">Kasie</th>
-              <th class="text-center">Kadept</th>
-              <th class="text-center">Kadiv</th>
-              <th class="text-center">HRD</th>
-            </tr>
-          </thead>
-          <tbody id="mp_tidak_hadir"></tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-center">Nama</th>
+                <th class="text-center">Bagian</th>
+                <th class="text-center">Line</th>
+                <th class="text-center">Group</th>
+                <th class="text-center">Kategori</th>
+                <th class="text-center">Jenis</th>
+                <th class="text-center">Kasubsie</th>
+                <th class="text-center">Kasie</th>
+                <th class="text-center">Kadept</th>
+                <th class="text-center">Kadiv</th>
+                <th class="text-center">HRD</th>
+              </tr>
+            </thead>
+            <tbody id="mp_tidak_hadir"></tbody>
+          </table>
+        </div>
       </div>
       <div class="modal-footer" style="float: right;">
         <div class="d-flex">
@@ -170,43 +262,98 @@
     }
 
     for (var k = 1; k <= daysInMonth; k++) {
-      var dayCell = document.createElement('div');
-      dayCell.classList.add('day', 'day_exists', 'd-flex', 'fw-bold');
-      dayCell.setAttribute('data-bs-toggle', 'modal');
-      dayCell.setAttribute('data-bs-target', '.modal_mp_tidak_hadir');
-      dayCell.setAttribute('onclick', `showMPTidakHadir(${year}, ${month + 1}, ${k})`);
-      var dateCell = document.createElement('div');
-      dateCell.textContent = k;
-      dateCell.style.padding = '10px';
-      dateCell.style.width = '80px';
-      dateCell.style.borderRight = '1px solid black';
-      var mpcutiCell = document.createElement('div');
-      mpcutiCell.classList.add('m-1', 'd-flex', 'flex-wrap', `date-${year}-${String(month + 1).padStart(2, '0')}-${String(k).padStart(2, '0')}`);
-      dayCell.appendChild(dateCell);
-      dayCell.appendChild(mpcutiCell);
-      if (year === currentDate.getFullYear() && month === currentDate.getMonth() && k === currentDate.getDate()) {
-        dayCell.classList.add('today');
-      }
-      if (date.getDay() === 0 || date.getDay() === 6) {
-        dayCell.classList.add('weekend');
-      }
-      currentRow.appendChild(dayCell);
-
-      if (currentRow.children.length === 7) {
-        calendarElement.appendChild(currentRow);
-        currentRow = document.createElement('div');
-        currentRow.classList.add('week');
-      }
-      date.setDate(date.getDate() + 1);
-      if (k === daysInMonth && currentRow.children.length < 7 && currentRow.children.length > 0) {
-        do {
+      if (date.getDay() === 0 && k == 1) {
+        for (var j = 0; j < 6; j++) {
           var emptyCell = document.createElement('div');
           emptyCell.classList.add('day');
-          if (currentRow.children.length === 6 || currentRow.children.length === 5) {
+          if (j === 5) {
             emptyCell.classList.add('weekend');
           }
           currentRow.appendChild(emptyCell);
-        } while (currentRow.children.length < 7);
+        }
+        var dayCell = document.createElement('div');
+        dayCell.classList.add('day', 'day_exists', 'd-flex', 'fw-bold');
+        dayCell.setAttribute('data-bs-toggle', 'modal');
+        dayCell.setAttribute('data-bs-target', '.modal_mp_tidak_hadir');
+        dayCell.setAttribute('onclick', `showMPTidakHadir(${year}, ${month + 1}, ${k})`);
+        var dateCell = document.createElement('div');
+        dateCell.textContent = k;
+        dateCell.classList.add('number');
+        // dateCell.style.padding = '10px';
+        // dateCell.style.width = '80px';
+        // dateCell.style.borderRight = '1px solid black';
+        var mpcutiCell = document.createElement('div');
+        mpcutiCell.classList.add('m-0', 'p-1', 'row', 'row-cols-1', `date-${year}-${String(month + 1).padStart(2, '0')}-${String(k).padStart(2, '0')}`);
+        // mpcutiCell.style.height = 'fit-content';
+        mpcutiCell.style.width = 'calc(100% - 80px)';
+        dayCell.appendChild(dateCell);
+        dayCell.appendChild(mpcutiCell);
+        if (year === currentDate.getFullYear() && month === currentDate.getMonth() && k === currentDate.getDate()) {
+          dayCell.classList.add('today');
+        }
+        if (date.getDay() === 0 || date.getDay() === 6) {
+          dayCell.classList.add('weekend');
+        }
+        currentRow.appendChild(dayCell);
+
+        if (currentRow.children.length === 7) {
+          calendarElement.appendChild(currentRow);
+          currentRow = document.createElement('div');
+          currentRow.classList.add('week');
+        }
+        date.setDate(date.getDate() + 1);
+        if (k === daysInMonth && currentRow.children.length < 7 && currentRow.children.length > 0) {
+          do {
+            var emptyCell = document.createElement('div');
+            emptyCell.classList.add('day');
+            if (currentRow.children.length === 6 || currentRow.children.length === 5) {
+              emptyCell.classList.add('weekend');
+            }
+            currentRow.appendChild(emptyCell);
+          } while (currentRow.children.length < 7);
+        }
+      } else {
+        var dayCell = document.createElement('div');
+        dayCell.classList.add('day', 'day_exists', 'd-flex', 'fw-bold');
+        dayCell.setAttribute('data-bs-toggle', 'modal');
+        dayCell.setAttribute('data-bs-target', '.modal_mp_tidak_hadir');
+        dayCell.setAttribute('onclick', `showMPTidakHadir(${year}, ${month + 1}, ${k})`);
+        var dateCell = document.createElement('div');
+        dateCell.textContent = k;
+        dateCell.classList.add('number');
+        // dateCell.style.padding = '10px';
+        // dateCell.style.width = '80px';
+        // dateCell.style.borderRight = '1px solid black';
+        var mpcutiCell = document.createElement('div');
+        mpcutiCell.classList.add('m-0', 'p-1', 'row', 'row-cols-1', `date-${year}-${String(month + 1).padStart(2, '0')}-${String(k).padStart(2, '0')}`);
+        // mpcutiCell.style.height = 'fit-content';
+        mpcutiCell.style.width = 'calc(100% - 80px)';
+        dayCell.appendChild(dateCell);
+        dayCell.appendChild(mpcutiCell);
+        if (year === currentDate.getFullYear() && month === currentDate.getMonth() && k === currentDate.getDate()) {
+          dayCell.classList.add('today');
+        }
+        if (date.getDay() === 0 || date.getDay() === 6) {
+          dayCell.classList.add('weekend');
+        }
+        currentRow.appendChild(dayCell);
+
+        if (currentRow.children.length === 7) {
+          calendarElement.appendChild(currentRow);
+          currentRow = document.createElement('div');
+          currentRow.classList.add('week');
+        }
+        date.setDate(date.getDate() + 1);
+        if (k === daysInMonth && currentRow.children.length < 7 && currentRow.children.length > 0) {
+          do {
+            var emptyCell = document.createElement('div');
+            emptyCell.classList.add('day');
+            if (currentRow.children.length === 6 || currentRow.children.length === 5) {
+              emptyCell.classList.add('weekend');
+            }
+            currentRow.appendChild(emptyCell);
+          } while (currentRow.children.length < 7);
+        }
       }
     }
 
@@ -269,11 +416,11 @@
           Object.keys(data?.detail_cuti[dc_tgl]).forEach(dc_jenis => {
             if (dc_tgl === '<?= date('Y-m-d') ?>') {
               dateTodayElement.innerHTML += `
-                  <div class="p-1 flex-item" style="color: white; border-radius: 5px; font-size: 24px; height: fit-content">${dc_jenis} : ${Object.keys(data?.detail_cuti[dc_tgl][dc_jenis]).length}</div>
-                `;
+                <div class="p-0 col" style="color: white; font-size: 20px; height: fit-content">${dc_jenis} : ${Object.keys(data?.detail_cuti[dc_tgl][dc_jenis]).length}</div>
+              `;
             } else {
               dateElement.innerHTML += `
-                <div class="p-1 flex-item" style="color: red; border-radius: 5px; font-size: 24px; height: fit-content">${dc_jenis} : ${Object.keys(data?.detail_cuti[dc_tgl][dc_jenis]).length}</div>
+                <div class="p-0 col" style="color: red; font-size: 20px; height: fit-content">${dc_jenis} : ${Object.keys(data?.detail_cuti[dc_tgl][dc_jenis]).length}</div>
               `;
             }
           });

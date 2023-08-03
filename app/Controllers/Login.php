@@ -19,7 +19,7 @@ class Login extends BaseController
         return view('login');
     }
 
-    public function proses_login() 
+    public function proses_login()
     {
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
@@ -43,6 +43,8 @@ class Login extends BaseController
             if ($data['seksi'] == NULL) {
                 if ($data['departemen'] == 'produksi1') {
                     return redirect()->to(base_url('dashboardGrid'));
+                } else if ($data['departemen'] == 'hrd') {
+                    return redirect()->to(base_url('cuti'));
                 } else {
                     return redirect()->to(base_url('dashboard'));
                 }
@@ -61,12 +63,10 @@ class Login extends BaseController
             } elseif ($data['seksi'] == 'wh') {
                 return redirect()->to(base_url('supply_charging/list_supply'));
             }
-            
         } else {
             $this->session->setFlashdata('error', 'Username atau Password Salah');
             return redirect()->to(base_url('login'));
         }
-
     }
 
     public function logout()

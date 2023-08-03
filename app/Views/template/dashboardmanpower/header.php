@@ -53,6 +53,7 @@ $namaHariIndonesia = array(
 			</h1>
 		</div>
 		<div style="width: 30%; color: white; padding-right: 20px" class="justify-content-end align-items-center d-flex">
+			<a href="<?= base_url() ?>dashboard_man_power/<?= $sub_bagian ?>/<?= $date ?>/<?= $shift ?>/reset" class="btn btn-danger me-2" style="font-size: 30px">Reset</a>
 			<h1 class="text-center m-0 pe-2 fw-bold" style="font-size: 30px"><?= strtoupper($namaHariIndonesia[date('l', strtotime($date))]) ?></h1>
 			<input type="date" name="date" id="date" class="form-control" value="<?= $date ?>" style="width: 250px; margin-right: 10px; font-size: 24px" onchange="changeShift('<?= $sub_bagian ?>')">
 			<h1 class="text-center m-0 pe-2 fw-bold" style="font-size: 30px">SHIFT</h1>

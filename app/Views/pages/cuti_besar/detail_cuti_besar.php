@@ -9,17 +9,17 @@
 <?= $this->section('content'); ?>
 <?php $jenis_cuti = ['Cuti Besar', 'Cuti Perkawinan', 'Cuti Melahirkan / Keguguran', 'Cuti Kematian', 'Cuti Haid', 'Cuti Lain-lain', 'Rawat Inap / Opname'] ?>
 <?php
-if ($data_mp_cuti[0]['level_account'] === 1)
+if ($data_mp_cuti[0]['level_account'] == 1)
   $level = 'Kadiv';
-else if ($data_mp_cuti[0]['level_account'] === 2)
+else if ($data_mp_cuti[0]['level_account'] == 2)
   $level = 'Kadiv';
-else if ($data_mp_cuti[0]['level_account'] === 3)
+else if ($data_mp_cuti[0]['level_account'] == 3)
   $level = 'Kadept';
-else if ($data_mp_cuti[0]['level_account'] === 4)
+else if ($data_mp_cuti[0]['level_account'] == 4)
   $level = 'Kasie';
-else if ($data_mp_cuti[0]['level_account'] === 5)
+else if ($data_mp_cuti[0]['level_account'] == 5)
   $level = 'Kasubsie';
-else if ($data_mp_cuti[0]['level_account'] === 'hrd')
+else if ($data_mp_cuti[0]['level_account'] == 'hrd')
   $level = 'HRD';
 else
   $level = '';
@@ -134,11 +134,9 @@ else
                   <div style="font-size: 10px;"><?= $data_mp_cuti[0]['created'] !== NULL ? date('Y-m-d H:i', strtotime($data_mp_cuti[0]['created'])) : '' ?></div>
                 </th>
               </tr>
+              <tr></tr>
               <tr>
-                <td></td>
-              </tr>
-              <tr>
-                <td class="p-0" style="font-size: 12px;" colspan="2"><?= $data_mp_cuti[0]['nama'] ?></td>
+                <td class="p-0 text-center" style="font-size: 12px;" colspan="2"><?= $data_mp_cuti[0]['nama'] ?></td>
               </tr>
             </tbody>
           </table>
@@ -161,29 +159,29 @@ else
             <tr>
               <th class="py-1 br-1 text-center" style="height: 58px;" rowspan="2">
                 <div style="font-size: 10px; background-color: <?= $data_mp_cuti[0]['status_hrd'] == 'rejected' ? 'red' : ($data_mp_cuti[0]['status_hrd'] == 'approved' ? 'green' : 'yellow') ?>; color: <?= $data_mp_cuti[0]['status_hrd'] == 'pending' ? 'black' : 'white' ?>"><?= ucfirst($data_mp_cuti[0]['status_hrd']) ?></div>
-                <div style="font-size: 10px;"><?= str_replace(' ', '', preg_replace('/\b(\w)\w*\b/', '$1', strtoupper($data_mp_cuti[0]['nama_hrd']))) ?></div>
+                <div style="font-size: 10px;"><?= $nama_hrd ?></div>
                 <div style="font-size: 10px;"><?= $data_mp_cuti[0]['created_hrd'] !== NULL ? date('Y-m-d H:i', strtotime($data_mp_cuti[0]['created_hrd'])) : '' ?></div>
               </th>
               <th class="py-1 br-1 text-center" style="height: 58px;" rowspan="2">
                 <?php if ($data_mp_cuti[0]['status_kadiv'] != 'pending') { ?>
                   <div style="font-size: 10px; background-color: <?= $data_mp_cuti[0]['status_kadiv'] == 'rejected' ? 'red' : ($data_mp_cuti[0]['status_kadiv'] == 'approved' ? 'green' : 'yellow') ?>; color: <?= $data_mp_cuti[0]['status_kadiv'] == 'pending' ? 'black' : 'white' ?>"><?= ucfirst($data_mp_cuti[0]['status_kadiv']) ?></div>
-                  <div style="font-size: 10px;"><?= str_replace(' ', '', preg_replace('/\b(\w)\w*\b/', '$1', strtoupper($data_mp_cuti[0]['nama_kadiv']))) ?></div>
+                  <div style="font-size: 10px;"><?= $nama_kadiv ?></div>
                   <div style="font-size: 10px;"><?= $data_mp_cuti[0]['created_kadiv'] !== NULL ? date('Y-m-d H:i', strtotime($data_mp_cuti[0]['created_kadiv'])) : '' ?></div>
                 <?php } ?>
               </th>
               <th class="py-1 br-1 text-center" style="height: 58px;" rowspan="2">
                 <div style="font-size: 10px; background-color: <?= $data_mp_cuti[0]['status_kadept'] == 'rejected' ? 'red' : ($data_mp_cuti[0]['status_kadept'] == 'approved' ? 'green' : 'yellow') ?>; color: <?= $data_mp_cuti[0]['status_kadept'] == 'pending' ? 'black' : 'white' ?>"><?= ucfirst($data_mp_cuti[0]['status_kadept']) ?></div>
-                <div style="font-size: 10px;"><?= str_replace(' ', '', preg_replace('/\b(\w)\w*\b/', '$1', strtoupper($data_mp_cuti[0]['nama_kadept']))) ?></div>
+                <div style="font-size: 10px;"><?= $nama_kadept ?></div>
                 <div style="font-size: 10px;"><?= $data_mp_cuti[0]['created_kadept'] !== NULL ? date('Y-m-d H:i', strtotime($data_mp_cuti[0]['created_kadept'])) : '' ?></div>
               </th>
               <th class="py-1 br-1 text-center" style="height: 58px;" rowspan="2">
                 <div style="font-size: 10px; background-color: <?= $data_mp_cuti[0]['status_kasie'] == 'rejected' ? 'red' : ($data_mp_cuti[0]['status_kasie'] == 'approved' ? 'green' : 'yellow') ?>; color: <?= $data_mp_cuti[0]['status_kasie'] == 'pending' ? 'black' : 'white' ?>"><?= ucfirst($data_mp_cuti[0]['status_kasie']) ?></div>
-                <div style="font-size: 10px;"><?= str_replace(' ', '', preg_replace('/\b(\w)\w*\b/', '$1', strtoupper($data_mp_cuti[0]['nama_kasie']))) ?></div>
+                <div style="font-size: 10px;"><?= $nama_kasie ?></div>
                 <div style="font-size: 10px;"><?= $data_mp_cuti[0]['created_kasie'] !== NULL ? date('Y-m-d H:i', strtotime($data_mp_cuti[0]['created_kasie'])) : '' ?></div>
               </th>
               <th class="py-1 br-1 text-center" style="height: 58px;" rowspan="2">
                 <div style="font-size: 10px; background-color: <?= $data_mp_cuti[0]['status_kasubsie'] == 'rejected' ? 'red' : ($data_mp_cuti[0]['status_kasubsie'] == 'approved' ? 'green' : 'yellow') ?>; color: <?= $data_mp_cuti[0]['status_kasubsie'] == 'pending' ? 'black' : 'white' ?>"><?= ucfirst($data_mp_cuti[0]['status_kasubsie']) ?></div>
-                <div style="font-size: 10px;"><?= str_replace(' ', '', preg_replace('/\b(\w)\w*\b/', '$1', strtoupper($data_mp_cuti[0]['nama_kasubsie']))) ?></div>
+                <div style="font-size: 10px;"><?= $nama_kasubsie ?></div>
                 <div style="font-size: 10px;"><?= $data_mp_cuti[0]['created_kasubsie'] !== NULL ? date('Y-m-d H:i', strtotime($data_mp_cuti[0]['created_kasubsie'])) : '' ?></div>
               </th>
             </tr>

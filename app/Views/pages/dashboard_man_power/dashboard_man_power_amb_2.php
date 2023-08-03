@@ -162,7 +162,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     ?>
                       <div class="col p-0 px-1">
                         <div class="mx-1">
-                          <div class="box mb-2 card_box" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin) > 0) ? ((array_key_exists($line[$i], $detail_record_mesin)) ? ((array_key_exists(array_key_first($detail_record_mesin[$line[$i]]), $detail_record_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])])) ? ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin']) : '') : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                          <div class="box mb-2 card_box <?= (((count($detail_record_mesin) > 0) ? ((array_key_exists($line[$i], $detail_record_mesin)) ? ((array_key_exists(array_key_first($detail_record_mesin[$line[$i]]), $detail_record_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])])) ? ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin']) : '') : '') : '') : '') !== 'Non-Aktif') ? 'card_aktif_' . $line[$i] : 'card_non_aktif_' . $line[$i] ?>" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin) > 0) ? ((array_key_exists($line[$i], $detail_record_mesin)) ? ((array_key_exists(array_key_first($detail_record_mesin[$line[$i]]), $detail_record_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])])) ? ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin']) : '') : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? (($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-start" style="border-radius: 5px 5px 0px 0px">
@@ -231,7 +231,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     <?php } else { ?>
                       <div class="col p-0">
                         <div class="px-1">
-                          <div class="box mb-2 card_box" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? (($data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                          <div class="box mb-2 card_box <?= (((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') !== 'Non-Aktif') ? 'card_aktif_' . $line[$i] : 'card_non_aktif_' . $line[$i] ?>" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= (((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') !== 'Non-Aktif') ? ((count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? (($data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -249,14 +249,14 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <input type="hidden" name="requirement_<?= $line[$i] ?>[]" id="requirement_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $msn['requirement'] ?>">
                                   <input type="hidden" name="min_skill_<?= $line[$i] ?>[]" id="min_skill_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $msn['min_skill'] ?>">
                                   <input type="hidden" name="status_mp_<?= $line[$i] ?>[]" id="status_mp_<?= $line[$i] ?>_<?= $index_mesin ?>" value="">
-                                  <input type="hidden" name="status_mesin_<?= $line[$i] ?>[]" id="status_mesin_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] ?>">
+                                  <input type="hidden" name="status_mesin_<?= $line[$i] ?>[]" id="status_mesin_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= ((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') ?>">
                                   <!-- <div class="bg-danger d-flex align-items-center justify-content-center p-0" style="border-radius: 50%; height: 30px; width: 30px">25%</div> -->
                                 </div>
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]])) ? ($data_group_man_power[$line[$i]][$msn['mesin']]['nama']) : 'NO MP') : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
                               <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%" id="picture_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
-                                <?php if ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                <?php if (((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') !== 'Non-Aktif') { ?>
                                   <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['foto'] : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 140px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
                                 <?php } else { ?>
                                   <img class="d-none" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
@@ -264,7 +264,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <?php } ?>
                               </div>
                               <div class="fx-card-footer px-1 py-1" id="footer_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
-                                <?php if ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                <?php if (((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') !== 'Non-Aktif') { ?>
                                   <div class="d-flex justify-content-between align-items-center">
                                     <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= sprintf('%04d', (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['npk'] : '') : '') : '') : '') ?></h5>
                                     <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] : '') : '') : '') : '' ?></h5>
@@ -279,7 +279,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <!-- <div class="d-flex justify-content-between align-items-center">
                             <h5 class="m-0" style="font-size: 10px">Min Skill</h5>
                           </div> -->
-                                <?php if ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                <?php if (((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') !== 'Non-Aktif') { ?>
                                   <div class="d-flex justify-content-between align-items-center">
                                     <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
                                     <h5 class="m-0" style="font-size: 10px; color: <?= ($msn['min_skill']  <= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' ?>" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0) ? (($msn['min_skill']  <= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong' ?></h5>
@@ -337,7 +337,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                           </select>
                         </div>
                         <div class="px-1">
-                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>;" id="card_indirect_<?= $index_indirect ?>">
+                          <div class="box card_box <?= (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') ? 'card_aktif_indirect' : 'card_non_aktif_indirect' ?>" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? (($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>;" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="background-color: <?= "" //(count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ($color[$detail_record_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
@@ -391,7 +391,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                           </select>
                         </div>
                         <div class="px-1">
-                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? (($data_group_man_power_kasubsie[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
+                          <div class="box card_box <?= (((count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? ($data_group_mesin_indirect[$group][$di['mesin']]['status']) : '') : '') : '') !== 'Non-Aktif') ? 'card_aktif_indirect' : 'card_non_aktif_indirect' ?>" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= (((count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? ($data_group_mesin_indirect[$group][$di['mesin']]['status']) : '') : '') : '') !== 'Non-Aktif') ? ((count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? (($data_group_man_power_kasubsie[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="background-color: <?= "" //(count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie)) ? ($color[$data_group_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
@@ -399,21 +399,21 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <h4 class="box-title mb-0 text-center p-1 fw-bold" style="font-size: 10px" id="mesin_indirect_<?= $index_indirect ?>"><?= $di['mesin'] ?></h4>
                                   <input type="hidden" name="nama_mp_indirect[]" id="nama_mp_indirect_<?= $index_indirect ?>" value="<?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['nama']) : '') : '') : '' ?>">
                                   <input type="hidden" name="status_mp_indirect[]" id="status_mp_indirect_<?= $index_indirect ?>" value="">
-                                  <input type="hidden" name="status_mesin_indirect[]" id="status_mesin_indirect_<?= $index_indirect ?>" value="<?= $data_group_mesin_indirect[$group][$di['mesin']]['status'] ?>">
+                                  <input type="hidden" name="status_mesin_indirect[]" id="status_mesin_indirect_<?= $index_indirect ?>" value="<?= (count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? ($data_group_mesin_indirect[$group][$di['mesin']]['status']) : '') : '') : '' ?>">
                                   <!-- <div class="bg-danger d-flex align-items-center justify-content-center p-0" style="border-radius: 50%; height: 30px; width: 30px">25%</div> -->
                                 </div>
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie)) ? ($data_group_man_power_kasubsie[$di['mesin']]['nama']) : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
                               <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%" id="picture_format_indirect_<?= $index_indirect ?>">
-                                <?php if ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                <?php if (((count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? ($data_group_mesin_indirect[$group][$di['mesin']]['status']) : '') : '') : '') !== 'Non-Aktif') { ?>
                                   <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_<?= $index_indirect ?>">
                                 <?php } else { ?>
                                   <img class="d-none" id="foto_indirect_<?= $index_indirect ?>">
                                   <div class="m-0" style="font-size: 93.335px; color: white; repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)">&nbsp;</div>
                                 <?php } ?>
                               </div>
-                              <?php if ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') { ?>
+                              <?php if (((count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? ($data_group_mesin_indirect[$group][$di['mesin']]['status']) : '') : '') : '') !== 'Non-Aktif') { ?>
                                 <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" id="footer_format_indirect_<?= $index_indirect ?>">
                                   <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['npk']) : '') : '') : '') ?></h5>
                                   <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['nama']) : '') : '') : '' ?></h5>
@@ -447,7 +447,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                           </select>
                         </div>
                         <div class="px-1">
-                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
+                          <div class="box card_box <?= (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') ? 'card_aktif_indirect' : 'card_non_aktif_indirect' ?>" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-image: <?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['status'] !== '') ? 'repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 10px)' : '') : '') : '') : '' ?>; background-color: <?= (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') ? ((count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? (($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -519,7 +519,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                           </select>
                         </div>
                         <div class="px-1">
-                          <div class="box card_box" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? (($data_group_man_power_indirect[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
+                          <div class="box card_box <?= (((count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? ($data_group_mesin_indirect[$group][$di['mesin']]['status']) : '') : '') : '') !== 'Non-Aktif') ? 'card_aktif_indirect' : 'card_non_aktif_indirect' ?>" style="margin-bottom: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= (((count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? ($data_group_mesin_indirect[$group][$di['mesin']]['status']) : '') : '') : '') !== 'Non-Aktif') ? ((count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? (($data_group_man_power_indirect[$group][$di['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_indirect_<?= $index_indirect ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -540,7 +540,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                                                                   ?></h5> -->
                               </div>
                               <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%" id="picture_format_indirect_<?= $index_indirect ?>">
-                                <?php if ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                <?php if (((count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? ($data_group_mesin_indirect[$group][$di['mesin']]['status']) : '') : '') : '') !== 'Non-Aktif') { ?>
                                   <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['foto']) : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 140px" id="foto_indirect_<?= $index_indirect ?>">
                                 <?php } else { ?>
                                   <img class="d-none" id="foto_indirect_<?= $index_indirect ?>">
@@ -556,7 +556,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <!-- <div class="d-flex justify-content-between align-items-center">
           <h5 class="m-0" style="font-size: 10px">Min Skill</h5>
         </div> -->
-                                <?php if ($data_group_mesin_indirect[$group][$di['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                <?php if (((count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? ($data_group_mesin_indirect[$group][$di['mesin']]['status']) : '') : '') : '') !== 'Non-Aktif') { ?>
                                   <div class="d-flex justify-content-between align-items-center">
                                     <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['npk']) : '') : '') : '') ?></h5>
                                     <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['nama']) : '') : '') : '' ?></h5>
@@ -614,7 +614,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 $temp_index_add = 0;
                 foreach ($data_mp_tidak_hadir[$line[$i]] as $dmth) { ?>
                   <tr id="add_mp_tidak_masuk_<?= $line[$i] ?>_<?= $temp_index_add ?>" style="border-bottom: <?= $temp_index_add === 2 ? 'transparent' : '' ?>;" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('<?= $line[$i] ?>', <?= $temp_index_add ?>)">
-                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
+                    <td class="p-0 mp_cuti_<?= $line[$i] ?>" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
                       <?= $dmth['nama'] ?>
                       <input type="hidden" name="nama_mp_tidak_hadir_<?= $line[$i] ?>[]" value="<?= $dmth['id_man_power'] ?>">
                       <input type="hidden" name="id_cuti_mp_tidak_hadir_<?= $line[$i] ?>[]" id="id_cuti_mp_tidak_hadir_<?= $line[$i] ?>_<?= $temp_index_add ?>" value="<?= $dmth['id_cuti'] ?>">
@@ -661,7 +661,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
               $temp_index_add = 0;
               foreach ($data_mp_tidak_hadir_indirect as $dmth) { ?>
                 <tr id="add_mp_tidak_masuk_indirect_<?= $temp_index_add ?>" style="border-bottom: <?= $temp_index_add === 2 ? 'transparent' : '' ?>;" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', <?= $temp_index_add ?>)">
-                  <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
+                  <td class="p-0 mp_cuti_indirect" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
                     <?= $dmth['nama'] ?>
                     <input type="hidden" name="nama_mp_tidak_hadir_indirect[]" value="<?= $dmth['id_man_power'] ?>">
                     <input type="hidden" name="id_cuti_mp_tidak_hadir_indirect[]" id="id_cuti_mp_tidak_hadir_indirect_<?= $temp_index_add ?>" value="<?= $dmth['id_cuti'] ?>">
@@ -852,6 +852,45 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
     getCuti('indirect', '<?= $sub_bagian ?>');
   });
 
+  function updateChart() {
+    let mp_tidak_hadir = [];
+    let mp_hadir = [];
+    let temp_all_mp_tidak_hadir = [];
+    let temp_all_mp_hadir = [];
+    let temp_sum_mesin = '';
+    let temp_sum_mesin_indirect = '';
+    let mp_cuti = '';
+    let line = <?= json_encode($line) ?>;
+    line.forEach(ln => {
+      temp_sum_mesin = document.querySelectorAll('.card_aktif_' + ln).length;
+      mp_cuti = document.querySelectorAll('.mp_cuti_' + ln);
+      temp_mp_cuti = '';
+      if (mp_cuti != undefined) {
+        temp_mp_cuti = mp_cuti.length;
+      }
+      mp_tidak_hadir.push(parseFloat((((temp_mp_cuti) / temp_sum_mesin) * 100).toFixed(1)));
+      mp_hadir.push(parseFloat((((temp_sum_mesin - (temp_mp_cuti)) / temp_sum_mesin) * 100).toFixed(1)));
+      temp_all_mp_tidak_hadir.push((temp_mp_cuti));
+      temp_all_mp_hadir.push(temp_sum_mesin - (temp_mp_cuti));
+    });
+    temp_sum_mesin_indirect = document.querySelectorAll('.card_aktif_indirect').length;
+    mp_cuti = document.querySelectorAll('.mp_cuti_indirect');
+    temp_mp_cuti_indirect = '';
+    if (mp_cuti != undefined)
+      temp_mp_cuti_indirect = mp_cuti.length;
+    mp_tidak_hadir.push(parseFloat((((temp_mp_cuti_indirect) / temp_sum_mesin_indirect) * 100).toFixed(1)));
+    mp_hadir.push(parseFloat((((temp_sum_mesin_indirect - (temp_mp_cuti_indirect)) / temp_sum_mesin_indirect) * 100).toFixed(1)));
+    temp_all_mp_tidak_hadir.push((temp_mp_cuti_indirect));
+    temp_all_mp_hadir.push((temp_sum_mesin_indirect - (temp_mp_cuti_indirect)));
+    mp_tidak_hadir.push(parseFloat(((eval(temp_all_mp_tidak_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
+    mp_hadir.push(parseFloat(((eval(temp_all_mp_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
+    console.log([mp_hadir, mp_tidak_hadir]);
+    const series_mp_tidak_hadir = horizontal_barHighcharts.series[0];
+    const series_mp_hadir = horizontal_barHighcharts.series[1];
+    series_mp_tidak_hadir.setData(mp_tidak_hadir);
+    series_mp_hadir.setData(mp_hadir);
+  }
+
   function changeShift(sub_bagian) {
     let shift = document.querySelector('#shift').value;
     let date = document.querySelector('#date').value;
@@ -957,7 +996,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   //             data?.data_mp_tidak_hadir?.[ln].forEach(dmth => {
   //               document.querySelector(`#data_mp_tidak_hadir_${ln}`).innerHTML += `
   //               <tr id="add_mp_tidak_masuk_${ln}_${temp_index_add}" style="border-bottom: ${temp_index_add === 2 ? 'transparent' : ''};" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('${ln}', ${temp_index_add})">
-  //                 <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
+  //                 <td class="p-0 mp_cuti_" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
   //                   ${dmth['nama']}
   //                   <input type="hidden" name="nama_mp_tidak_hadir_${ln}[]" value="${dmth['id_man_power']}">
   //                   <input type="hidden" name="id_cuti_mp_tidak_hadir_${ln}[]" id="id_cuti_mp_tidak_hadir_${ln}_${temp_index_add}" value="${dmth['id_cuti']}">
@@ -986,7 +1025,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   //             data?.data_mp_tidak_hadir_indirect.forEach(dmthi => {
   //               document.querySelector('#data_mp_tidak_hadir_indirect').innerHTML += `
   //                 <tr id="add_mp_tidak_masuk_indirect_${temp_index_add_indirect}" style="border-bottom: ${temp_index_add === 2 ? 'transparent' : ''};" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', ${temp_index_add_indirect})">
-  //                   <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
+  //                   <td class="p-0 mp_cuti_" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
   //                     ${dmthi['nama']}
   //                     <input type="hidden" name="nama_mp_tidak_hadir_indirect[]" value="${dmthi['id_man_power']}">
   //                     <input type="hidden" name="id_cuti_mp_tidak_hadir_indirect[]" id="id_cuti_mp_tidak_hadir_indirect_${temp_index_add_indirect}" value="${dmthi['id_cuti']}">
@@ -1266,7 +1305,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 if (count < data.length) {
                   console.log(document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`));
                   document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
-                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[count].nama}</td>
+                    <td class="p-0 mp_cuti_${line}" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[count].nama}</td>
                     <td class="p-0 text-center">${String(data[count].npk).padStart(4, '0')}</td>
                     <td class="p-0 text-center">${data[count].kategori}</td>
                   `;
@@ -1288,7 +1327,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 if (cutiElement == null) {
                   console.log(document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`));
                   document.querySelector(`#add_mp_tidak_masuk_${line}_${index_add}`).innerHTML = `
-                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[index_add].nama}</td>
+                    <td class="p-0 mp_cuti_${line}" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[index_add].nama}</td>
                     <td class="p-0 text-center">${String(data[index_add].npk).padStart(4, '0')}</td>
                     <td class="p-0 text-center">${data[index_add].kategori}</td>
                   `;
@@ -1298,7 +1337,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                 console.log(cutiElement);
                 cutiElement.innerHTML += `
                   <tr id="add_mp_tidak_masuk_${line}_${index_add}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir('indirect', ${index_add})">
-                    <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[index_add].nama}</td>
+                    <td class="p-0 mp_cuti_${line}" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">${data[index_add].nama}</td>
                     <td class="p-0 text-center">${String(data[index_add].npk).padStart(4, '0')}</td>
                     <td class="p-0 text-center">${data[index_add].kategori}</td>
                   </tr>
@@ -1318,6 +1357,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             }
           }
         }
+        updateChart();
       }
     });
   }
@@ -1583,7 +1623,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         success: function(data) {
           console.log(data);
           add_mp_tidak_masukElement.innerHTML = `
-            <td class="p-0" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
+            <td class="p-0 mp_cuti_${line}" colspan="2" style="white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;">
               ${data?.[0]?.nama}
               <input type="hidden" name="nama_mp_tidak_hadir_${line}[]" value="${data?.[0]?.id_man_power}">
               <input type="hidden" name="id_cuti_mp_tidak_hadir_${line}[]" value="${id_cuti_mp_tidak_hadir?.value ?? ''}">
@@ -1594,6 +1634,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           add_mp_tidak_masukElement.setAttribute('data-bs-toggle', 'modal');
           add_mp_tidak_masukElement.setAttribute('data-bs-target', '.modal_add_mp_tidak_hadir');
           add_mp_tidak_masukElement.setAttribute('onclick', `btn_add_mp_tidak_hadir('${line}', ${index})`);
+          updateChart();
         }
       });
     } else {
@@ -1605,6 +1646,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           <button type="button" class="btn btn-sm p-1 btn-primary" style="font-size: 8px" id="add_${line}_${index}" data-bs-toggle="modal" data-bs-target=".modal_add_mp_tidak_hadir" onclick="btn_add_mp_tidak_hadir(${line},${index})">Add</button>
         </td>
       `;
+      updateChart();
     }
   }
 
@@ -1745,32 +1787,39 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
   }
 </script>
 <script>
-  let sum_mp_tidak_hadir = <?= json_encode($data_mp_tidak_hadir) ?>;
+  // let sum_mp_tidak_hadir = <?= json_encode($data_mp_tidak_hadir) ?>;
+  let sum_mp_tidak_hadir = 0;
   let sum_mp_tidak_hadir_indirect = <?= json_encode($data_mp_tidak_hadir_indirect) ?>;
-  let sum_mesin = <?= json_encode($data_group_mesin) ?>;
-  let sum_mesin_indirect = <?= json_encode($data_group_mesin_indirect) ?>;
+  // let sum_mesin = <?= json_encode($data_group_mesin) ?>;
+  // let sum_mesin_indirect = <?= json_encode($data_group_mesin_indirect) ?>;
   let mp_tidak_hadir = [];
   let mp_hadir = [];
   let temp_all_mp_tidak_hadir = [];
   let temp_all_mp_hadir = [];
   let temp_sum_mesin = '';
   let temp_sum_mesin_indirect = '';
+  let mp_cuti = '';
   <?php for ($i = 0; $i < count($line); $i++) { ?>
-    temp_sum_mesin = Object.entries(sum_mesin?.[<?= $line[$i] ?>]?.[Object.keys(sum_mesin?.[<?= $line[$i] ?>])[0]]).filter(element => {
-      return element[1].status !== 'Non-Aktif';
-    }).length;
-    mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0) / temp_sum_mesin) * 100).toFixed(1)));
-    mp_hadir.push(parseFloat((((temp_sum_mesin - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0)) / temp_sum_mesin) * 100).toFixed(1)));
-    temp_all_mp_tidak_hadir.push((sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
-    temp_all_mp_hadir.push(temp_sum_mesin - (sum_mp_tidak_hadir?.[<?= $line[$i] ?>]?.length ?? 0));
+    mp_cuti = document.querySelectorAll('.mp_cuti_<?= $i + 1 ?>');
+    temp_mp_cuti = '';
+    if (mp_cuti != undefined) {
+      temp_mp_cuti = mp_cuti.length;
+    }
+    temp_sum_mesin = document.querySelectorAll('.card_aktif_<?= $line[$i] ?>').length;
+    mp_tidak_hadir.push(parseFloat((((temp_mp_cuti) / temp_sum_mesin) * 100).toFixed(1)));
+    mp_hadir.push(parseFloat((((temp_sum_mesin - (temp_mp_cuti)) / temp_sum_mesin) * 100).toFixed(1)));
+    temp_all_mp_tidak_hadir.push((temp_mp_cuti));
+    temp_all_mp_hadir.push(temp_sum_mesin - (temp_mp_cuti));
   <?php } ?>
-  temp_sum_mesin_indirect = Object.entries(sum_mesin_indirect?.[Object.keys(sum_mesin_indirect)[0]]).filter(element => {
-    return element[1].status !== 'Non-Aktif';
-  }).length;
-  mp_tidak_hadir.push(parseFloat((((sum_mp_tidak_hadir_indirect?.length ?? 0) / temp_sum_mesin_indirect) * 100).toFixed(1)));
-  mp_hadir.push(parseFloat((((temp_sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)) / temp_sum_mesin_indirect) * 100).toFixed(1)));
-  temp_all_mp_tidak_hadir.push((sum_mp_tidak_hadir_indirect?.length ?? 0));
-  temp_all_mp_hadir.push((temp_sum_mesin_indirect - (sum_mp_tidak_hadir_indirect?.length ?? 0)));
+  temp_sum_mesin_indirect = document.querySelectorAll('.card_aktif_indirect').length;
+  mp_cuti = document.querySelectorAll('.mp_cuti_indirect');
+  temp_mp_cuti_indirect = '';
+  if (mp_cuti != undefined)
+    temp_mp_cuti_indirect = mp_cuti.length;
+  mp_tidak_hadir.push(parseFloat((((temp_mp_cuti_indirect) / temp_sum_mesin_indirect) * 100).toFixed(1)));
+  mp_hadir.push(parseFloat((((temp_sum_mesin_indirect - (temp_mp_cuti_indirect)) / temp_sum_mesin_indirect) * 100).toFixed(1)));
+  temp_all_mp_tidak_hadir.push((temp_mp_cuti_indirect));
+  temp_all_mp_hadir.push((temp_sum_mesin_indirect - (temp_mp_cuti_indirect)));
   mp_tidak_hadir.push(parseFloat(((eval(temp_all_mp_tidak_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
   mp_hadir.push(parseFloat(((eval(temp_all_mp_hadir.join('+')) / (eval(temp_all_mp_tidak_hadir.join('+')) + eval(temp_all_mp_hadir.join('+')))) * 100).toFixed(1)));
   let horizontal_barHighcharts = Highcharts.chart('horizontal_bar', {

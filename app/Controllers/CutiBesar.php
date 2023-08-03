@@ -32,7 +32,7 @@ class CutiBesar extends BaseController
     $jenis = $this->request->getPost('jenis') ?? '';
     $line = $this->request->getPost('line');
     $group_mp = $this->request->getPost('group_mp');
-    $start_date = $this->request->getPost('start_date');
+    $start_date = $this->request->getPost('start_date') ?? '';
     $end_date = $this->request->getPost('end_date');
     if ($start_date == '')
       $start_date = NULL;
@@ -40,9 +40,12 @@ class CutiBesar extends BaseController
       $end_date = $start_date;
     if ($line == 'undefined')
       $line = 'indirect';
+    $back_date = '';
     if ($this->session->get('level') > 4 || $this->session->get('level') == NULL) {
       if (strtolower($jenis) == 'pengambilan cuti besar') {
         if ($start_date !== NULL) {
+          if (strtotime($start_date) < strtotime(date('Y-m-d')))
+            $back_date = 'true';
           $temp_start_date = strtotime($start_date ?? '');
           $temp_end_date = strtotime($end_date ?? '');
           $temp_current_date = $temp_start_date;
@@ -51,7 +54,7 @@ class CutiBesar extends BaseController
               $current_date = date('Y-m-d', $temp_current_date);
               $temp_data_mp_absen_by_daily = $this->M_CutiBesar->get_data_mp_absen_by_daily($current_date, $line, $group_mp, $bagian);
               if (count($temp_data_mp_absen_by_daily) >= 2) {
-                $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . $current_date . '\nSilakan menghubungi Kasie anda');
+                $this->session->setFlashdata('failed', 'Sudah terdapat ' . count($temp_data_mp_absen_by_daily) . ' orang yang mengajukan cuti pada tanggal ' . date('j F Y', strtotime($current_date)) . '\nSilakan menghubungi Kasie anda');
                 return redirect()->to(base_url('form_cuti_besar'));
               }
               // Tambahkan 1 hari ke tanggal saat ini
@@ -91,19 +94,11 @@ class CutiBesar extends BaseController
         'status_kadept' => 'pending',
         'status_kasie' => 'pending',
         'status_kasubsie' => 'pending',
+        'back_date' => $back_date,
         'kategori' => 'Cuti Besar'
       ];
 
       $save = $this->M_CutiBesar->save_form_cuti_besar($data_form_cuti_besar);
-
-      // $data_resume_cuti_besar = [
-      //   'id_data_cuti_besar' => $save,
-      //   'tanggal' => $tanggal,
-      //   'nama' => $nama,
-      //   'keterangan' => 'CutiBesar'
-      // ];
-
-      // $save_resume_cuti_besar = $this->M_CutiBesar->save_resume_cuti_besar($data_resume_cuti_besar);
       if ($start_date !== NULL && $end_date !== NULL) {
         $start_date = strtotime($start_date ?? '');
         $end_date = strtotime($end_date ?? '');
@@ -120,15 +115,6 @@ class CutiBesar extends BaseController
           }
         }
       }
-      // foreach ($waktu_rencana as $wr) {
-      //   if ($wr !== NULL) {
-      //     $detail_form_cuti_besar = [
-      //       'id_cuti' => $save,
-      //       'tanggal_cuti' => $wr,
-      //     ];
-      //   }
-      //   $save_detail = $this->M_CutiBesar->save_detail_form_cuti_besar($detail_form_cuti_besar);
-      // }
       if (count($lampiran) > 0) {
         foreach ($lampiran['lampiran'] as $lamp) {
           if ($lamp && $lamp->isValid()) {
