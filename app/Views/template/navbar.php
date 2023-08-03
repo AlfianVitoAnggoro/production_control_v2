@@ -80,6 +80,7 @@
 								<?php } ?>
 								<?php if (session()->get('seksi') == 'saw_repair' or session()->get('seksi') == NULL) { ?>
 									<li><a href="<?= base_url() ?>saw_repair"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>SAW Repair</a></li>
+									<li><a href="<?= base_url() ?>potong_battery"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Potong Battery</a></li>
 								<?php } ?>
 								<?php if (session()->get('seksi') == 'amb' or session()->get('seksi') == NULL) { ?>
 									<li><a href="<?= base_url() ?>cos"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>COS</a></li>
@@ -205,11 +206,8 @@
 							<ul class="treeview-menu">
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Incoming</a></li>
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Rack FG</a></li>
-								<<<<<<< HEAD <li><a href="<?= base_url() ?>supply_charging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a>
+								<li><a href="<?= base_url() ?>supply_charging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a>
 						</li>
-						=======
-						<li><a href="<?= base_url() ?>supply_charging/list_supply"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a></li>
-						>>>>>>> 1c19f7746bc4bf203e9850cf201cc620c2eb17fc
 				</ul>
 				</li>
 			<?php } ?>
