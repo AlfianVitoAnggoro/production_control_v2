@@ -206,7 +206,8 @@
 							<ul class="treeview-menu">
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Incoming</a></li>
 								<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Rack FG</a></li>
-								<li><a href="<?= base_url() ?>supply_charging"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a>
+								<li><a href="<?= base_url() ?>supply_charging/list_supply"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Supply Charging</a>
+							</ul>
 						</li>
 				</ul>
 				</li>
