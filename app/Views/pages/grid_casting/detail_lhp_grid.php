@@ -82,7 +82,7 @@ $mh = [8, 7.5, 6.5];
                                         <h4>Material In</h4>
                                         &emsp;
                                         &emsp;
-                                        <a href="http://10.19.16.30/#/views/CompareReceiptvsPortal/Dashboard3?:iid=2" class="btn btn-info"> Control Qr Code Timah</a>
+                                        <a href="http://10.19.16.30/#/views/CompareReceiptvsPortal/Dashboard3?:iid=2" class="btn btn-info" target="_blank"> Control Qr Code Timah</a>
                                     </div>
                                     <br>
                                     <div class="col">
