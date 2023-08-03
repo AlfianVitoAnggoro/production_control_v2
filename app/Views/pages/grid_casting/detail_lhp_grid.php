@@ -78,7 +78,12 @@ $mh = [8, 7.5, 6.5];
                         <div class="box">
                             <div class="box-header">
                                 <div class="row">
-                                    <h4>Material In</h4>
+                                    <div style="display:flex">
+                                        <h4>Material In</h4>
+                                        &emsp;
+                                        &emsp;
+                                        <a href="http://10.19.16.30/#/views/CompareReceiptvsPortal/Dashboard3?:iid=2" class="btn btn-info" target="_blank"> Control Qr Code Timah</a>
+                                    </div>
                                     <br>
                                     <div class="col">
                                         <table class="table">
