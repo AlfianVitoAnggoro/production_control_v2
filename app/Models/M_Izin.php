@@ -24,19 +24,19 @@ class M_Izin extends Model
   {
     $query_cuti = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti drac
                               JOIN detail_record_all_cuti drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\' AND drac.status !=\'rejected\'
                               ');
     $query_izin = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_izin drac
                               JOIN detail_record_all_izin drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\' AND drac.status !=\'rejected\'
                               ');
     $query_cuti_besar = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_cuti_besar drac
                               JOIN detail_record_all_cuti_besar drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\' AND drac.status !=\'rejected\'
                               ');
     $query_sakit = $this->db->query('SELECT drc.tanggal_cuti FROM data_record_all_sakit drac
                               JOIN detail_record_all_sakit drc ON drc.id_cuti = drac.id_cuti
-                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\'
+                              WHERE drc.tanggal_cuti = \'' . $date . '\' AND drac.line = \'' . $line . '\' AND drac.group_mp = \'' . $group_mp . '\' AND drac.sub_bagian = \'' . $bagian . '\' AND drac.status !=\'rejected\'
                               ');
 
     $data = array_merge($query_cuti->getResultArray(), $query_izin->getResultArray(), $query_cuti_besar->getResultArray(), $query_sakit->getResultArray());
