@@ -563,6 +563,7 @@ $routes->group('master_group_man_power', ['filter' => 'auth'], function ($routes
 $routes->group('dashboard_man_power', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'DashboardManPower::index');
     $routes->get('(:segment)/(:segment)/(:num)', 'DashboardManPower::dashboard/$1/$2/$3');
+    $routes->get('(:segment)/(:segment)/(:num)/reset', 'DashboardManPower::reset/$1/$2/$3');
     $routes->get('filter', 'DashboardManPower::index');
     $routes->get('detail_dashboard_man_power/(:num)', 'DashboardManPower::detail_dashboard_man_power/$1');
     $routes->post('changeGroup', 'DashboardManPower::changeGroup');

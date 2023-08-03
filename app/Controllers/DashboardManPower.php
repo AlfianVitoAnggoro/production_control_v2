@@ -678,4 +678,53 @@ class DashboardManPower extends BaseController
       return json_encode('SAVE SUCCESSFULLY');
     }
   }
+
+  public function reset($bagian, $date, $shift)
+  {
+    date_default_timezone_set("Asia/Jakarta");
+    $group = 'A';
+    $data_group_mesin = $this->M_DashboardManPower->get_data_group_mesin_by_bagian_by_group_mp($bagian, $group);
+    $cek_record = $this->M_DashboardManPower->check_record_man_power($bagian, $date, $shift);
+    if (!empty($cek_record)) {
+      $delete_cek_record = $this->M_DashboardManPower->delete_record_man_power($bagian, $date, $shift);
+    }
+    foreach ($data_group_mesin as $dgm) {
+      if ($dgm['nama'] == 0)
+        $dgm['nama'] = NULL;
+      $data_record_man_power = [
+        'sub_bagian' => $bagian,
+        'tanggal' => $date,
+        'line' => $dgm['line'],
+        'shift' => $shift,
+        'group_mp' => $dgm['group_mp'],
+        'mesin' => $dgm['mesin'],
+        'nama' => $dgm['nama'],
+        'status' => '',
+        'status_mesin' => $dgm['status'],
+      ];
+      $this->M_DashboardManPower->save_record_man_power([], $data_record_man_power);
+    }
+    $data_group_mesin_indirect = $this->M_DashboardManPower->get_data_group_mesin_by_bagian_by_group_mp_indirect($bagian, $group);
+    $cek_record_indirect = $this->M_DashboardManPower->check_record_man_power_indirect($bagian, $date, $shift);
+    if (!empty($cek_record_indirect)) {
+      $delete_cek_record_indirect = $this->M_DashboardManPower->delete_record_man_power_indirect($bagian, $date, $shift);
+    }
+    foreach ($data_group_mesin_indirect as $dgm) {
+      if ($dgm['nama'] == 0)
+        $dgm['nama'] = NULL;
+      $data_record_man_power_indirect = [
+        'sub_bagian' => $bagian,
+        'tanggal' => $date,
+        'shift' => $shift,
+        'group_mp' => $dgm['group_mp'],
+        'mesin' => $dgm['mesin'],
+        'nama' => $dgm['nama'],
+        'status' => '',
+        'status_mesin' => $dgm['status'],
+      ];
+      $this->M_DashboardManPower->save_record_man_power_indirect([], $data_record_man_power_indirect);
+    }
+
+    return redirect()->to(base_url('dashboard_man_power/' . $bagian . '/' . $date . '/' . $shift));
+  }
 }

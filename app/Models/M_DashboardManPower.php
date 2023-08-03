@@ -693,4 +693,18 @@ class M_DashboardManPower extends Model
                             ');
     return $query->getResultArray();
   }
+
+  public function delete_record_man_power($bagian, $date, $shift)
+  {
+    $query = $this->db->query('DELETE FROM detail_record_master_group_man_power WHERE sub_bagian = \'' . $bagian . '\' AND tanggal = \'' . $date . '\' AND shift = \'' . $shift . '\'');
+
+    return $date;
+  }
+
+  public function delete_record_man_power_indirect($bagian, $date, $shift)
+  {
+    $query = $this->db->query('DELETE FROM detail_record_master_group_man_power_indirect WHERE sub_bagian = \'' . $bagian . '\' AND tanggal = \'' . $date . '\' AND shift = \'' . $shift . '\'');
+
+    return $date;
+  }
 }

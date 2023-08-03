@@ -196,13 +196,13 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                               </div>
                               <div class=" fx-card-footer px-1 py-1" id="footer_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
                                 <?php if (((count($detail_record_mesin) > 0) ? ((array_key_exists($line[$i], $detail_record_mesin)) ? ((array_key_exists(array_key_first($detail_record_mesin[$line[$i]]), $detail_record_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])])) ? ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin']) : '') : '') : '') : '') !== 'Non-Aktif') { ?>
-                                  <div class="d-flex justify-content-between align-items-center">
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                     <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= sprintf('%04d', (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['npk']) : '') : '') : '') : '') ?></h5>
                                     <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['nama']) : '') : '') : '') : '' ?></h5>
                                     <div style="border: 0.1px solid black; background-color: <?= (count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? ($color[$detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill']]) : '') : '') : '') : '' ?>; border-radius: 50%; width: 10px; height: 10px" id="skill_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
                                   </div>
                                 <?php } else { ?>
-                                  <div class="d-flex justify-content-between align-items-center" style="height: 12px">
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%; height: 12px">
                                     <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"></h5>
                                     <div style="border-radius: 50%; width: 10px; height: 10px" id="skill_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
                                   </div>
@@ -211,13 +211,13 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                             <h5 class="m-0" style="font-size: 10px">Min Skill</h5>
                           </div> -->
                                 <?php if (((count($detail_record_mesin) > 0) ? ((array_key_exists($line[$i], $detail_record_mesin)) ? ((array_key_exists(array_key_first($detail_record_mesin[$line[$i]]), $detail_record_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])])) ? ($detail_record_mesin[$line[$i]][array_key_first($detail_record_mesin[$line[$i]])][$msn['mesin']]['status_mesin']) : '') : '') : '') : '') !== 'Non-Aktif') { ?>
-                                  <div class="d-flex justify-content-between align-items-center">
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                     <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
                                     <h5 class="m-0" style="font-size: 10px; color: <?= ($msn['min_skill']  <= ((count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill'] : 0) : 0) : 0) : 0))  ? '#00aa00' : '#ff0000' ?>" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= ((count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill'] : 0) : 0) : 0) : 0) ? (($msn['min_skill']  <= ((count($detail_record_man_power) > 0) ? ((array_key_exists($line[$i], $detail_record_man_power)) ? ((array_key_exists(array_key_first($detail_record_man_power[$line[$i]]), $detail_record_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])])) ? $detail_record_man_power[$line[$i]][array_key_first($detail_record_man_power[$line[$i]])][$msn['mesin']]['skill'] : 0) : 0) : 0) : 0)) ? 'OK' : 'Kontrol') : 'Kosong' ?></h5>
                                     <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('<?= $line[$i] ?>', <?= $index_mesin ?>)">Edit</button>
                                   </div>
                                 <?php } else { ?>
-                                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px">
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%; height: 15.1px">
                                     <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
                                     <h5 class="m-0" style="font-size: 10px;" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"></h5>
                                     <!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('<?= $line[$i] ?>', <?= $index_mesin ?>)">Edit</button> -->
@@ -231,7 +231,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                     <?php } else { ?>
                       <div class="col p-0">
                         <div class="px-1">
-                          <div class="box mb-2 card_box <?= ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') ? 'card_aktif_' . $line[$i] : 'card_non_aktif_' . $line[$i] ?>" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') ? ((count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? (($data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
+                          <div class="box mb-2 card_box <?= (((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') !== 'Non-Aktif') ? 'card_aktif_' . $line[$i] : 'card_non_aktif_' . $line[$i] ?>" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.2); border-radius: 5px; background-color: <?= (((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') !== 'Non-Aktif') ? ((count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? (($data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] === '') ? '#9BA4B5' : '') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#9BA4B5') : '#89375F' ?>" id="card_<?= $line[$i] ?>_<?= $index_mesin ?>">
                             <div class="fx-card-item">
                               <div class="fx-card-content">
                                 <div class="d-flex justify-content-center align-items-center" style="border-radius: 5px 5px 0px 0px">
@@ -249,14 +249,14 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                   <input type="hidden" name="requirement_<?= $line[$i] ?>[]" id="requirement_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $msn['requirement'] ?>">
                                   <input type="hidden" name="min_skill_<?= $line[$i] ?>[]" id="min_skill_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $msn['min_skill'] ?>">
                                   <input type="hidden" name="status_mp_<?= $line[$i] ?>[]" id="status_mp_<?= $line[$i] ?>_<?= $index_mesin ?>" value="">
-                                  <input type="hidden" name="status_mesin_<?= $line[$i] ?>[]" id="status_mesin_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] ?>">
+                                  <input type="hidden" name="status_mesin_<?= $line[$i] ?>[]" id="status_mesin_<?= $line[$i] ?>_<?= $index_mesin ?>" value="<?= (count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '' ?>">
                                   <!-- <div class="bg-danger d-flex align-items-center justify-content-center p-0" style="border-radius: 50%; height: 30px; width: 30px">25%</div> -->
                                 </div>
                                 <!-- <h5 class="box-title mb-0 text-center py-2"><?= "" //(count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]])) ? ($data_group_man_power[$line[$i]][$msn['mesin']]['nama']) : 'NO MP') : 'NO MP') : 'NO MP' 
                                                                                   ?></h5> -->
                               </div>
                               <div class="fx-card-avatar d-flex justify-content-center align-items-center" style="height: 100%" id="picture_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
-                                <?php if ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') { ?>
+                                <?php if (((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') !== 'Non-Aktif') { ?>
                                   <img src="<?= base_url() ?>uploads/<?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['foto'] : '') : '') : '') : '' ?>" alt="" style="max-width: 100%; height: 140px" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
                                 <?php } else { ?>
                                   <img class="d-none" id="foto_<?= $line[$i] ?>_<?= $index_mesin ?>">
@@ -264,14 +264,14 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <?php } ?>
                               </div>
                               <div class="fx-card-footer px-1 py-1" id="footer_format_<?= $line[$i] ?>_<?= $index_mesin ?>">
-                                <?php if ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') { ?>
-                                  <div class="d-flex justify-content-between align-items-center">
+                                <?php if (((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') !== 'Non-Aktif') { ?>
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                     <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= sprintf('%04d', (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['npk'] : '') : '') : '') : '') ?></h5>
                                     <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? $data_group_man_power[$line[$i]][$group][$msn['mesin']]['nama'] : '') : '') : '') : '' ?></h5>
                                     <div style="border: 0.1px solid black; background-color: <?= (count($data_group_man_power) > 0) ? ((array_key_exists($line[$i], $data_group_man_power)) ? ((array_key_exists($group, $data_group_man_power[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_man_power[$line[$i]][$group])) ? ($color[$data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill']]) : '') : '') : '') : '' ?>; border-radius: 50%; width: 10px; height: 10px" id="skill_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
                                   </div>
                                 <?php } else { ?>
-                                  <div class="d-flex justify-content-between align-items-center" style="height: 12px">
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%; height: 12px">
                                     <h5 class="m-0" style="font-size: 10px" id="npk_<?= $line[$i] ?>_<?= $index_mesin ?>"></h5>
                                     <div style="border-radius: 50%; width: 10px; height: 10px" id="skill_<?= $line[$i] ?>_<?= $index_mesin ?>"></div>
                                   </div>
@@ -279,14 +279,14 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <!-- <div class="d-flex justify-content-between align-items-center">
                             <h5 class="m-0" style="font-size: 10px">Min Skill</h5>
                           </div> -->
-                                <?php if ($data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] !== 'Non-Aktif') { ?>
-                                  <div class="d-flex justify-content-between align-items-center">
+                                <?php if (((count($data_group_mesin) > 0) ? ((array_key_exists($line[$i], $data_group_mesin)) ? ((array_key_exists($group, $data_group_mesin[$line[$i]])) ? ((array_key_exists($msn['mesin'], $data_group_mesin[$line[$i]][$group])) ? $data_group_mesin[$line[$i]][$group][$msn['mesin']]['status'] : '') : '') : '') : '') !== 'Non-Aktif') { ?>
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                     <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
                                     <h5 class="m-0" style="font-size: 10px; color: <?= ($msn['min_skill']  <= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' ?>" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"><?= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0) ? (($msn['min_skill']  <= ($data_group_man_power[$line[$i]][$group][$msn['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong' ?></h5>
                                     <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('<?= $line[$i] ?>', <?= $index_mesin ?>)">Edit</button>
                                   </div>
                                 <?php } else { ?>
-                                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px">
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%; height: 15.1px">
                                     <!-- <h5 class="m-0" style="font-size: 10px">Status</h5> -->
                                     <h5 class="m-0" style="font-size: 10px;" id="status_<?= $line[$i] ?>_<?= $index_mesin ?>"></h5>
                                     <!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('<?= $line[$i] ?>', <?= $index_mesin ?>)">Edit</button> -->
@@ -360,7 +360,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <?php } ?>
                               </div>
                               <?php if (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') { ?>
-                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" id="footer_format_indirect_<?= $index_indirect ?>">
+                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" style="width: 100%;" id="footer_format_indirect_<?= $index_indirect ?>">
                                   <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['npk']) : '') : '') : '') ?></h5>
                                   <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ((array_key_exists(array_key_first($detail_record_man_power_kasubsie[$di['mesin']]), $detail_record_man_power_kasubsie[$di['mesin']])) ? ($detail_record_man_power_kasubsie[$di['mesin']][array_key_first($detail_record_man_power_kasubsie[$di['mesin']])]['nama']) : '') : '') : '' ?></h5>
                                   <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
@@ -368,7 +368,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                                                       ?>; border-radius: 50%; width: 24px; height: 24px"></div> -->
                                 </div>
                               <?php } else { ?>
-                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" style="height: 22.1px;" id="footer_format_indirect_<?= $index_indirect ?>">
+                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" style="width: 100%; height: 22.1px;" id="footer_format_indirect_<?= $index_indirect ?>">
                                   <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"></h5>
                                   <!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button> -->
                                   <!-- <div style="background-color: <?= "" //(count($detail_record_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_kasubsie)) ? ($color[$detail_record_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
@@ -414,7 +414,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                 <?php } ?>
                               </div>
                               <?php if (((count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? $data_group_mesin_indirect[$group][$di['mesin']]['status'] : '') : '') : '') !== 'Non-Aktif') { ?>
-                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" id="footer_format_indirect_<?= $index_indirect ?>">
+                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" style="width: 100%;" id="footer_format_indirect_<?= $index_indirect ?>">
                                   <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['npk']) : '') : '') : '') ?></h5>
                                   <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($group, $data_group_man_power_kasubsie)) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie[$group])) ? ($data_group_man_power_kasubsie[$group][$di['mesin']]['nama']) : '') : '') : '' ?></h5>
                                   <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
@@ -422,7 +422,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                                                       ?>; border-radius: 50%; width: 24px; height: 24px"></div> -->
                                 </div>
                               <?php } else { ?>
-                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" style="height: 22.1px" id="footer_format_indirect_<?= $index_indirect ?>">
+                                <div class="fx-card-footer px-1 py-1 d-flex justify-content-between align-items-center" style="width: 100%; height: 22.1px" id="footer_format_indirect_<?= $index_indirect ?>">
                                   <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"></h5>
                                   <!-- <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button> -->
                                   <!-- <div style="background-color: <?= "" //(count($data_group_man_power_kasubsie) > 0) ? ((array_key_exists($di['mesin'], $data_group_man_power_kasubsie)) ? ($color[$data_group_man_power_kasubsie[$di['mesin']]['skill']]) : '') : '' 
@@ -485,7 +485,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                             <h5 class="m-0" style="font-size: 10px">Min Skill</h5>
                           </div> -->
                                 <?php if (((count($detail_record_mesin_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_mesin_indirect)) ? ((array_key_exists(array_key_first($detail_record_mesin_indirect[$di['mesin']]), $detail_record_mesin_indirect[$di['mesin']])) ? ($detail_record_mesin_indirect[$di['mesin']][array_key_first($detail_record_mesin_indirect[$di['mesin']])]['status_mesin']) : '') : '') : '') !== 'Non-Aktif') { ?>
-                                  <div class="d-flex justify-content-between align-items-center">
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                     <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['npk']) : '') : '') : '') ?></h5>
                                     <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($detail_record_man_power_indirect) > 0) ? ((array_key_exists($di['mesin'], $detail_record_man_power_indirect)) ? ((array_key_exists(array_key_first($detail_record_man_power_indirect[$di['mesin']]), $detail_record_man_power_indirect[$di['mesin']])) ? ($detail_record_man_power_indirect[$di['mesin']][array_key_first($detail_record_man_power_indirect[$di['mesin']])]['nama']) : '') : '') : '' ?></h5>
                                     <!-- <h5 class="m-0" style="font-size: 10px; color: <?= "" //($di['min_skill']  <= ($detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)][$di['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' 
@@ -494,7 +494,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                     <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
                                   </div>
                                 <?php } else { ?>
-                                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px;">
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%; height: 15.1px;">
                                     <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"></h5>
                                     <!-- <h5 class="m-0" style="font-size: 10px; color: <?= "" //($di['min_skill']  <= ($detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)][$di['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' 
                                                                                         ?>" id="status_indirect_<?= $index_indirect ?>"><?= "" //($di['min_skill']  <= ($detail_record_man_power_indirect[array_key_first($detail_record_man_power_indirect)][$di['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol' 
@@ -557,7 +557,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
           <h5 class="m-0" style="font-size: 10px">Min Skill</h5>
         </div> -->
                                 <?php if (((count($data_group_mesin_indirect) > 0) ? ((array_key_exists($group, $data_group_mesin_indirect)) ? ((array_key_exists($di['mesin'], $data_group_mesin_indirect[$group])) ? $data_group_mesin_indirect[$group][$di['mesin']]['status'] : '') : '') : '') !== 'Non-Aktif') { ?>
-                                  <div class="d-flex justify-content-between align-items-center">
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                     <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"><?= sprintf('%04d', (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['npk']) : '') : '') : '') ?></h5>
                                     <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"><?= (count($data_group_man_power_indirect) > 0) ? ((array_key_exists($group, $data_group_man_power_indirect)) ? ((array_key_exists($di['mesin'], $data_group_man_power_indirect[$group])) ? ($data_group_man_power_indirect[$group][$di['mesin']]['nama']) : '') : '') : '' ?></h5>
                                     <!-- <h5 class="m-0" style="font-size: 10px; color: <?= "" //($di['min_skill']  <= ($data_group_man_power_indirect[$group][$di['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' 
@@ -566,7 +566,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
                                     <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('indirect', <?= $index_indirect ?>)">Edit</button>
                                   </div>
                                 <?php } else { ?>
-                                  <div class="d-flex justify-content-between align-items-center" style="height: 15.1px">
+                                  <div class="d-flex justify-content-between align-items-center" style="width: 100%; height: 15.1px">
                                     <h5 class="m-0" style="font-size: 10px" id="npk_indirect_<?= $index_indirect ?>"></h5>
                                     <!-- <h5 class="m-0" style="font-size: 10px; color: <?= "" //($di['min_skill']  <= ($data_group_man_power_indirect[$group][$di['mesin']]['skill'] ?? 0)) ? '#00aa00' : '#ff0000' 
                                                                                         ?>" id="status_indirect_<?= $index_indirect ?>"><?= "" //($di['min_skill']  <= ($data_group_man_power_indirect[$group][$di['mesin']]['skill'] ?? 0)) ? 'OK' : 'Kontrol' 
@@ -1001,7 +1001,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             }
           }
         }
-        updateChart()
+        updateChart();
       }
     });
   }
@@ -1029,12 +1029,12 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             <img src="${'<?= base_url() ?>uploads/' + data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['foto'] ?? ''}" alt="" style="max-width: 100%; height: 140px" id="foto_${line}_${index_mesin}">
           `;
           document.querySelector(`#footer_format_${line}_${index_mesin}`).innerHTML = `
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" style="width: 100%">
               <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index_mesin}">${String(data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['npk'] ?? '').padStart(4, '0')}</h5>
               <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['nama'] ?? ''}</h5>
               <div style="border: 0.1px solid black; background-color: ${data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ? colorSkill[data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill']] : 'transparent'}; border-radius: 50%; width: 10px; height: 10px" id="skill_${line}_${index_mesin}"></div>
             </div>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" style="width: 100%">
               <h5 class="m-0" style="font-size: 10px; color: ${(msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000'}" id="status_${line}_${index_mesin}">${(data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0) ? ((msn.min_skill <= (data?.data_group_man_power?.[line]?.[groupElement.value]?.[msn.mesin]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong'}</h5>
               <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index_mesin})">Edit</button>
             </div>
@@ -1169,12 +1169,12 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
         // document.querySelector(`#npk_${line}_${index}`).innerHTML = String(data?.[0]?.['npk'] ?? '').padStart(4, '0');
         if (line !== 'indirect') {
           document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
               <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String(data?.[0]?.['npk'] ?? '').padStart(4, '0')}</h5>
               <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.[0]?.['nama'] ?? ''}</h5>
               <div style="border: 0.1px solid black; background-color: ${data?.[0]?.['skill'] ? colorSkill[data?.[0]?.['skill']] : 'transparent'}; border-radius: 50%; width: 10px; height: 10px" id="skill_${line}_${index}"></div>
             </div>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
               <h5 class="m-0" style="font-size: 10px; color: ${(min_skill_form.value <= (data?.[0]?.['skill'] ?? 0)) ? '#00aa00' : '#ff0000'}" id="status_${line}_${index}">${(data?.[0]?.['skill'] ?? 0) ? ((min_skill_form.value <= (data?.[0]?.['skill'] ?? 0)) ? 'OK' : 'Kontrol') : 'Kosong'}</h5>
               <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
             </div>
@@ -1188,7 +1188,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             `;
           } else {
             document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
-              <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center" style="width: 100%">
                 <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String(data?.[0]?.['npk'] ?? '').padStart(4, '0')}</h5>
                 <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">${data?.[0]?.['nama'] ?? ''}</h5>
                 <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
@@ -1208,12 +1208,12 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
     document.querySelector(`#foto_${line}_${index}`).src = '';
     if (line !== 'indirect') {
       document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
               <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String('').padStart(4, '0')}</h5>
               <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"></h5>
               <div style="border: 0.1px solid black; background-color: transparent; border-radius: 50%; width: 10px; height: 10px" id="skill_${line}_${index}"></div>
             </div>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
               <h5 class="m-0" style="font-size: 10px; color: #ff0000" id="status_${line}_${index}">Kosong</h5>
               <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
             </div>
@@ -1227,7 +1227,7 @@ else if (strcasecmp($sub_bagian, 'mcb') === 0)
             `;
       } else {
         document.querySelector(`#footer_format_${line}_${index}`).innerHTML = `
-              <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                 <h5 class="m-0" style="font-size: 10px" id="npk_${line}_${index}">${String('').padStart(4, '0')}</h5>
                 <h5 class="m-0" style="font-size: 10px; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;"></h5>
                 <button type="button" class="btn btn-sm btn-warning p-0 px-1" style="font-size: 10px" data-bs-toggle="modal" data-bs-target=".modal_edit_group_man_power" onclick="editGroupManPower('${line}', ${index})">Edit</button>
